@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <filter id="ar-shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="#F5F0EB"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
+  <!-- Camera feed — room scene -->
+  <!-- Wall -->
+  <rect x="24" y="32" width="232" height="260" fill="#F5F0EB"/>
+  <!-- Floor -->
+  <rect x="24" y="292" width="232" height="156" fill="#E8DDD0"/>
+  <!-- Wood grain lines -->
+  <line x1="24" y1="315" x2="256" y2="315" stroke="#DDD0C0" stroke-width="0.5"/>
+  <line x1="24" y1="345" x2="256" y2="345" stroke="#DDD0C0" stroke-width="0.5"/>
+  <line x1="24" y1="375" x2="256" y2="375" stroke="#DDD0C0" stroke-width="0.5"/>
+  <line x1="24" y1="405" x2="256" y2="405" stroke="#DDD0C0" stroke-width="0.5"/>
+  <!-- Baseboard -->
+  <rect x="24" y="284" width="232" height="8" fill="#E0D5C8"/>
+  <!-- Window -->
+  <rect x="150" y="60" width="90" height="120" rx="3" fill="#E0F2FE" stroke="#D5C8B8" stroke-width="1.5"/>
+  <line x1="195" y1="60" x2="195" y2="180" stroke="#D5C8B8" stroke-width="1"/>
+  <line x1="150" y1="120" x2="240" y2="120" stroke="#D5C8B8" stroke-width="1"/>
+  <!-- Curtain rod -->
+  <rect x="142" y="54" width="106" height="6" rx="2" fill="#D5C8B8"/>
+  <!-- Art on wall -->
+  <rect x="50" y="80" width="60" height="80" rx="4" fill="#FEF3C7" stroke="#D5C8B8" stroke-width="1"/>
+  <rect x="55" y="85" width="50" height="50" rx="2" fill="#FDE68A" opacity="0.5"/>
+  <!-- AR-placed robot model (cute toy) -->
+  <g transform="translate(90, 310)">
+    <!-- Shadow -->
+    <ellipse cx="50" cy="90" rx="40" ry="6" fill="rgba(0,0,0,0.08)"/>
+    <!-- Body -->
+    <rect x="20" y="40" width="60" height="45" rx="8" fill="#7B61FF"/>
+    <rect x="22" y="42" width="56" height="41" rx="6" fill="#8B5CF6"/>
+    <!-- Chest panel -->
+    <rect x="32" y="50" width="36" height="24" rx="6" fill="#EDE9FE" opacity="0.4"/>
+    <circle cx="42" cy="62" r="3" fill="#FDE68A"/>
+    <circle cx="58" cy="62" r="3" fill="#22D3EE"/>
+    <!-- Head -->
+    <rect x="25" y="10" width="50" height="34" rx="10" fill="#A78BFA"/>
+    <rect x="27" y="12" width="46" height="30" rx="8" fill="#C4B5FD"/>
+    <!-- Eyes -->
+    <circle cx="40" cy="28" r="6" fill="white"/>
+    <circle cx="60" cy="28" r="6" fill="white"/>
+    <circle cx="41" cy="29" r="3" fill="#1A1A1A"/>
+    <circle cx="61" cy="29" r="3" fill="#1A1A1A"/>
+    <circle cx="42" cy="28" r="1" fill="white"/>
+    <circle cx="62" cy="28" r="1" fill="white"/>
+    <!-- Antenna -->
+    <line x1="50" y1="10" x2="50" y2="-2" stroke="#A78BFA" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="50" cy="-5" r="4" fill="#FDE68A"/>
+    <!-- Arms -->
+    <rect x="8" y="48" width="14" height="8" rx="4" fill="#7B61FF"/>
+    <rect x="78" y="48" width="14" height="8" rx="4" fill="#7B61FF"/>
+    <!-- Legs -->
+    <rect x="28" y="82" width="12" height="10" rx="4" fill="#7B61FF"/>
+    <rect x="58" y="82" width="12" height="10" rx="4" fill="#7B61FF"/>
+  </g>
+  <!-- AR plane indicator -->
+  <ellipse cx="140" cy="395" rx="80" ry="12" fill="none" stroke="#7B61FF" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.5"/>
+  <!-- AR grid dots -->
+  <g opacity="0.25">
+    <circle cx="80" cy="350" r="2" fill="#7B61FF"/><circle cx="110" cy="350" r="2" fill="#7B61FF"/>
+    <circle cx="140" cy="350" r="2" fill="#7B61FF"/><circle cx="170" cy="350" r="2" fill="#7B61FF"/>
+    <circle cx="200" cy="350" r="2" fill="#7B61FF"/>
+    <circle cx="80" cy="375" r="2" fill="#7B61FF"/><circle cx="110" cy="375" r="2" fill="#7B61FF"/>
+    <circle cx="140" cy="375" r="2" fill="#7B61FF"/><circle cx="170" cy="375" r="2" fill="#7B61FF"/>
+    <circle cx="200" cy="375" r="2" fill="#7B61FF"/>
+  </g>
+  <!-- Top status bar -->
+  <rect x="34" y="42" width="212" height="28" rx="14" fill="rgba(0,0,0,0.45)"/>
+  <circle cx="52" cy="56" r="6" fill="#22C55E" opacity="0.8"/>
+  <text x="66" y="60" font-family="system-ui" font-size="9" fill="white" font-weight="600">AR Active</text>
+  <text x="232" y="60" font-family="system-ui" font-size="8" fill="white" text-anchor="end" opacity="0.7">Plane found</text>
+  <!-- Gesture instruction -->
+  <rect x="55" y="230" width="170" height="36" rx="18" fill="rgba(255,255,255,0.92)" filter="url(#ar-shadow)"/>
+  <text x="140" y="250" font-family="system-ui" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Pinch to scale · Two-finger rotate</text>
+  <text x="140" y="262" font-family="system-ui" font-size="7" fill="#94A3B8" text-anchor="middle">Tap floor to place</text>
+  <!-- Bottom toolbar -->
+  <g transform="translate(40, 420)">
+    <rect x="0" y="0" width="200" height="28" rx="14" fill="rgba(0,0,0,0.5)"/>
+    <rect x="4" y="4" width="55" height="20" rx="10" fill="#7B61FF"/>
+    <text x="31" y="18" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="600">Robot</text>
+    <text x="86" y="18" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" opacity="0.7">Sofa</text>
+    <text x="124" y="18" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" opacity="0.7">Lamp</text>
+    <text x="164" y="18" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" opacity="0.7">Chair</text>
+  </g>
+</svg>

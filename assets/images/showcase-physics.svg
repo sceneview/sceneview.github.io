@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <linearGradient id="ph-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <filter id="ph-glow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="ph-ball1"><stop offset="20%" stop-color="#F472B6"/><stop offset="100%" stop-color="#BE185D"/></radialGradient>
+    <radialGradient id="ph-ball2"><stop offset="20%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#6D28D9"/></radialGradient>
+    <radialGradient id="ph-ball3"><stop offset="20%" stop-color="#67E8F9"/><stop offset="100%" stop-color="#0891B2"/></radialGradient>
+    <radialGradient id="ph-ball4"><stop offset="20%" stop-color="#FCD34D"/><stop offset="100%" stop-color="#D97706"/></radialGradient>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#ph-bg)"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
+  <!-- Status bar -->
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="#94A3B8" font-weight="600">9:41</text>
+  <!-- Title -->
+  <text x="140" y="76" font-family="system-ui" font-size="14" fill="white" text-anchor="middle" font-weight="700">Physics Demo</text>
+  <text x="140" y="92" font-family="system-ui" font-size="9" fill="#94A3B8" text-anchor="middle">Tap to throw · Watch them bounce</text>
+  <!-- 3D viewport -->
+  <rect x="34" y="104" width="212" height="260" rx="20" fill="#020617" stroke="#334155" stroke-width="0.5"/>
+  <!-- Grid floor -->
+  <g opacity="0.2">
+    <line x1="60" y1="340" x2="90" y2="280" stroke="#64748B"/><line x1="100" y1="340" x2="110" y2="280" stroke="#64748B"/>
+    <line x1="140" y1="340" x2="140" y2="280" stroke="#64748B"/><line x1="180" y1="340" x2="170" y2="280" stroke="#64748B"/>
+    <line x1="220" y1="340" x2="190" y2="280" stroke="#64748B"/>
+    <line x1="40" y1="310" x2="240" y2="310" stroke="#64748B"/><line x1="50" y1="330" x2="230" y2="330" stroke="#64748B"/>
+  </g>
+  <!-- Bouncing spheres with motion trails -->
+  <g filter="url(#ph-glow)">
+    <circle cx="100" cy="200" r="18" fill="url(#ph-ball1)" opacity="0.3"/>
+    <circle cx="100" cy="180" r="18" fill="url(#ph-ball1)" opacity="0.5"/>
+    <circle cx="100" cy="155" r="18" fill="url(#ph-ball1)"/>
+    <circle cx="98" cy="150" r="5" fill="white" opacity="0.4"/>
+  </g>
+  <g filter="url(#ph-glow)">
+    <circle cx="175" cy="280" r="14" fill="url(#ph-ball2)" opacity="0.3"/>
+    <circle cx="175" cy="260" r="14" fill="url(#ph-ball2)" opacity="0.5"/>
+    <circle cx="175" cy="235" r="14" fill="url(#ph-ball2)"/>
+    <circle cx="173" cy="231" r="4" fill="white" opacity="0.4"/>
+  </g>
+  <g filter="url(#ph-glow)">
+    <circle cx="200" cy="170" r="12" fill="url(#ph-ball3)"/>
+    <circle cx="198" cy="167" r="3.5" fill="white" opacity="0.4"/>
+  </g>
+  <g filter="url(#ph-glow)">
+    <circle cx="80" cy="290" r="16" fill="url(#ph-ball4)"/>
+    <circle cx="77" cy="286" r="4.5" fill="white" opacity="0.4"/>
+  </g>
+  <!-- Small resting balls -->
+  <circle cx="150" cy="330" r="10" fill="url(#ph-ball1)" opacity="0.7"/>
+  <circle cx="120" cy="335" r="8" fill="url(#ph-ball3)" opacity="0.7"/>
+  <!-- Controls -->
+  <g transform="translate(44, 380)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">GRAVITY</text>
+    <rect x="0" y="8" width="192" height="4" rx="2" fill="#334155"/>
+    <rect x="0" y="8" width="130" height="4" rx="2" fill="#7B61FF"/>
+    <circle cx="130" cy="10" r="7" fill="white" stroke="#7B61FF" stroke-width="2"/>
+    <text x="165" y="14" font-family="system-ui" font-size="9" fill="white" font-weight="600">9.8</text>
+  </g>
+  <g transform="translate(44, 410)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">BOUNCE</text>
+    <rect x="0" y="8" width="192" height="4" rx="2" fill="#334155"/>
+    <rect x="0" y="8" width="90" height="4" rx="2" fill="#F472B6"/>
+    <circle cx="90" cy="10" r="7" fill="white" stroke="#F472B6" stroke-width="2"/>
+    <text x="165" y="14" font-family="system-ui" font-size="9" fill="white" font-weight="600">0.7</text>
+  </g>
+  <!-- Home indicator -->
+  <rect x="100" y="440" width="80" height="4" rx="2" fill="#666"/>
+</svg>

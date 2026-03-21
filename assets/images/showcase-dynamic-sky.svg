@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <linearGradient id="sky-sunset" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E1B4B"/>
+      <stop offset="30%" stop-color="#7C3AED"/>
+      <stop offset="60%" stop-color="#F472B6"/>
+      <stop offset="80%" stop-color="#FB923C"/>
+      <stop offset="100%" stop-color="#FDE68A"/>
+    </linearGradient>
+    <linearGradient id="sky-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#292524"/>
+      <stop offset="100%" stop-color="#1C1917"/>
+    </linearGradient>
+    <radialGradient id="sky-sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="60%" stop-color="#FB923C" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#F472B6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sky-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8"/></filter>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="#1E1B4B"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
+  <!-- Sky gradient -->
+  <rect x="24" y="32" width="232" height="300" rx="6" fill="url(#sky-sunset)"/>
+  <!-- Sun -->
+  <circle cx="140" cy="260" r="40" fill="url(#sky-sun)" filter="url(#sky-glow)"/>
+  <circle cx="140" cy="260" r="16" fill="#FDE68A"/>
+  <circle cx="140" cy="260" r="12" fill="#FEF3C7"/>
+  <!-- Clouds -->
+  <g opacity="0.4">
+    <ellipse cx="80" cy="120" rx="35" ry="10" fill="#C4B5FD"/>
+    <ellipse cx="70" cy="115" rx="20" ry="8" fill="#DDD6FE"/>
+    <ellipse cx="200" cy="150" rx="28" ry="8" fill="#F9A8D4"/>
+    <ellipse cx="190" cy="146" rx="18" ry="6" fill="#FBCFE8"/>
+  </g>
+  <!-- Stars in dark part -->
+  <g opacity="0.6">
+    <circle cx="60" cy="60" r="1" fill="white"/><circle cx="120" cy="45" r="1.2" fill="white"/>
+    <circle cx="200" cy="55" r="0.8" fill="white"/><circle cx="170" cy="70" r="1" fill="white"/>
+    <circle cx="50" cy="90" r="0.8" fill="white"/><circle cx="230" cy="80" r="1" fill="white"/>
+  </g>
+  <!-- Ground silhouette -->
+  <rect x="24" y="290" width="232" height="158" fill="url(#sky-ground)"/>
+  <!-- Tree silhouettes -->
+  <g fill="#1C1917">
+    <path d="M50,290 L60,240 L70,290 Z"/>
+    <path d="M55,260 L60,230 L65,260 Z"/>
+    <rect x="58" y="270" width="4" height="20"/>
+    <path d="M190,290 L205,220 L220,290 Z"/>
+    <path d="M195,250 L205,210 L215,250 Z"/>
+    <rect x="203" y="260" width="4" height="30"/>
+    <path d="M230,290 L238,260 L246,290 Z"/>
+    <rect x="236" y="275" width="4" height="15"/>
+  </g>
+  <!-- Fog layer -->
+  <rect x="24" y="280" width="232" height="20" fill="white" opacity="0.06"/>
+  <!-- Status bar -->
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="white" font-weight="600" opacity="0.7">9:41</text>
+  <!-- Title overlay -->
+  <rect x="44" y="60" width="192" height="32" rx="16" fill="rgba(0,0,0,0.4)"/>
+  <text x="140" y="81" font-family="system-ui" font-size="11" fill="white" text-anchor="middle" font-weight="700">Dynamic Sky</text>
+  <!-- Controls -->
+  <g transform="translate(44, 320)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#FDE68A" font-weight="700">TIME OF DAY</text>
+    <rect x="0" y="12" width="192" height="6" rx="3" fill="#44403C"/>
+    <rect x="0" y="12" width="140" height="6" rx="3" fill="linear-gradient(90deg, #FDE68A, #FB923C, #7C3AED)"/>
+    <!-- Gradient manual -->
+    <rect x="0" y="12" width="40" height="6" rx="3" fill="#FDE68A"/>
+    <rect x="40" y="12" width="40" height="6" fill="#FB923C"/>
+    <rect x="80" y="12" width="60" height="6" rx="0 3 3 0" fill="#F472B6"/>
+    <circle cx="140" cy="15" r="9" fill="white" stroke="#FB923C" stroke-width="2"/>
+    <text x="172" y="20" font-family="system-ui" font-size="10" fill="white" font-weight="600">18:30</text>
+  </g>
+  <g transform="translate(44, 358)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#94A3B8" font-weight="700">TURBIDITY</text>
+    <rect x="0" y="12" width="192" height="6" rx="3" fill="#44403C"/>
+    <rect x="0" y="12" width="80" height="6" rx="3" fill="#06B6D4"/>
+    <circle cx="80" cy="15" r="9" fill="white" stroke="#06B6D4" stroke-width="2"/>
+    <text x="172" y="20" font-family="system-ui" font-size="10" fill="white" font-weight="600">4.2</text>
+  </g>
+  <g transform="translate(44, 396)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#94A3B8" font-weight="700">FOG DENSITY</text>
+    <rect x="0" y="12" width="192" height="6" rx="3" fill="#44403C"/>
+    <rect x="0" y="12" width="50" height="6" rx="3" fill="#A78BFA"/>
+    <circle cx="50" cy="15" r="9" fill="white" stroke="#A78BFA" stroke-width="2"/>
+    <text x="172" y="20" font-family="system-ui" font-size="10" fill="white" font-weight="600">0.3</text>
+  </g>
+  <rect x="100" y="440" width="80" height="4" rx="2" fill="#666"/>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <linearGradient id="pp-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E1B4B"/><stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <filter id="pp-bloom" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pp-vignette">
+      <feFlood flood-color="black" flood-opacity="0.4"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
+      <feGaussianBlur stdDeviation="30"/>
+      <feComposite in2="SourceGraphic" operator="over"/>
+    </filter>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#pp-bg)"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
+  <!-- Status -->
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="white" font-weight="600" opacity="0.6">9:41</text>
+  <!-- Title -->
+  <rect x="44" y="56" width="192" height="28" rx="14" fill="rgba(255,255,255,0.08)"/>
+  <text x="140" y="75" font-family="system-ui" font-size="10" fill="white" text-anchor="middle" font-weight="700">Post-Processing</text>
+  <!-- 3D Scene with effects -->
+  <rect x="34" y="94" width="212" height="200" rx="18" fill="#020617" stroke="#334155" stroke-width="0.5"/>
+  <!-- Vignette corners -->
+  <rect x="34" y="94" width="212" height="200" rx="18" fill="black" opacity="0.15"/>
+  <rect x="60" y="120" width="160" height="148" rx="10" fill="#020617"/>
+  <!-- Glowing sphere with bloom -->
+  <g filter="url(#pp-bloom)">
+    <circle cx="140" cy="180" r="30" fill="#7B61FF" opacity="0.4"/>
+    <circle cx="140" cy="180" r="18" fill="#A78BFA"/>
+  </g>
+  <circle cx="135" cy="174" r="5" fill="white" opacity="0.4"/>
+  <!-- Smaller glowing objects -->
+  <g filter="url(#pp-bloom)">
+    <circle cx="85" cy="210" r="10" fill="#F472B6" opacity="0.5"/>
+    <circle cx="85" cy="210" r="6" fill="#F9A8D4"/>
+  </g>
+  <g filter="url(#pp-bloom)">
+    <circle cx="195" cy="160" r="8" fill="#06B6D4" opacity="0.5"/>
+    <circle cx="195" cy="160" r="5" fill="#67E8F9"/>
+  </g>
+  <g filter="url(#pp-bloom)">
+    <circle cx="160" cy="240" r="7" fill="#FCD34D" opacity="0.5"/>
+    <circle cx="160" cy="240" r="4" fill="#FDE68A"/>
+  </g>
+  <!-- Grid floor -->
+  <g opacity="0.15">
+    <line x1="60" y1="270" x2="90" y2="240" stroke="#64748B"/>
+    <line x1="100" y1="270" x2="120" y2="240" stroke="#64748B"/>
+    <line x1="140" y1="270" x2="140" y2="240" stroke="#64748B"/>
+    <line x1="180" y1="270" x2="160" y2="240" stroke="#64748B"/>
+    <line x1="220" y1="270" x2="190" y2="240" stroke="#64748B"/>
+  </g>
+  <!-- Film grain overlay (subtle dots) -->
+  <g opacity="0.06">
+    <circle cx="60" cy="120" r="0.5" fill="white"/><circle cx="90" cy="140" r="0.5" fill="white"/>
+    <circle cx="130" cy="110" r="0.5" fill="white"/><circle cx="180" cy="150" r="0.5" fill="white"/>
+    <circle cx="70" cy="200" r="0.5" fill="white"/><circle cx="200" cy="230" r="0.5" fill="white"/>
+    <circle cx="110" cy="260" r="0.5" fill="white"/><circle cx="170" cy="120" r="0.5" fill="white"/>
+  </g>
+  <!-- Effect toggles -->
+  <g transform="translate(34, 310)">
+    <!-- Bloom -->
+    <rect x="0" y="0" width="102" height="36" rx="18" fill="rgba(123,97,255,0.15)" stroke="#7B61FF" stroke-width="1"/>
+    <circle cx="18" cy="18" r="8" fill="#7B61FF"/>
+    <text x="18" y="22" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="700">&#x2713;</text>
+    <text x="36" y="22" font-family="system-ui" font-size="9" fill="white" font-weight="600">Bloom</text>
+    <!-- Vignette -->
+    <rect x="110" y="0" width="102" height="36" rx="18" fill="rgba(244,114,182,0.15)" stroke="#F472B6" stroke-width="1"/>
+    <circle cx="128" cy="18" r="8" fill="#F472B6"/>
+    <text x="128" y="22" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="700">&#x2713;</text>
+    <text x="146" y="22" font-family="system-ui" font-size="9" fill="white" font-weight="600">Vignette</text>
+  </g>
+  <g transform="translate(34, 354)">
+    <!-- Tone mapping -->
+    <rect x="0" y="0" width="102" height="36" rx="18" fill="rgba(6,182,212,0.15)" stroke="#06B6D4" stroke-width="1"/>
+    <circle cx="18" cy="18" r="8" fill="#06B6D4"/>
+    <text x="18" y="22" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="700">&#x2713;</text>
+    <text x="36" y="22" font-family="system-ui" font-size="9" fill="white" font-weight="600">ACES</text>
+    <!-- FXAA -->
+    <rect x="110" y="0" width="102" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="#64748B" stroke-width="1"/>
+    <circle cx="128" cy="18" r="8" fill="#334155"/>
+    <text x="146" y="22" font-family="system-ui" font-size="9" fill="#94A3B8" font-weight="600">FXAA</text>
+  </g>
+  <!-- Bloom intensity -->
+  <g transform="translate(34, 400)">
+    <text x="0" y="10" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">BLOOM INTENSITY</text>
+    <rect x="0" y="18" width="212" height="4" rx="2" fill="#334155"/>
+    <rect x="0" y="18" width="150" height="4" rx="2" fill="#7B61FF"/>
+    <circle cx="150" cy="20" r="7" fill="white" stroke="#7B61FF" stroke-width="2"/>
+    <text x="190" y="24" font-family="system-ui" font-size="9" fill="white" font-weight="600">0.7</text>
+  </g>
+  <rect x="100" y="440" width="80" height="4" rx="2" fill="#666"/>
+</svg>
