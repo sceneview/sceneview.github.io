@@ -1,0 +1,781 @@
+/* ============================================================
+   SceneView docs — Material 3 Expressive theme
+   Light, vibrant, young — not cold or dark.
+   ============================================================ */
+
+/* --- M3 Expressive Design Tokens --- */
+:root {
+  /* Primary — vibrant violet, lighter and warmer than old deep purple */
+  --md-primary-fg-color: #7B61FF;
+  --md-primary-fg-color--light: #A78BFA;
+  --md-primary-fg-color--dark: #6D28D9;
+  --md-accent-fg-color: #F472B6;
+
+  /* M3 Expressive extended palette */
+  --sv-primary: #7B61FF;
+  --sv-on-primary: #FFFFFF;
+  --sv-primary-container: #EDE9FE;
+  --sv-secondary: #F472B6;
+  --sv-secondary-container: #FFF1F2;
+  --sv-tertiary: #06B6D4;
+  --sv-tertiary-container: #ECFEFF;
+  --sv-surface: #FEFBFF;
+  --sv-surface-container: #F4F0FA;
+  --sv-surface-container-high: #ECE6F5;
+  --sv-on-surface: #1C1B1F;
+  --sv-on-surface-variant: #49454F;
+  --sv-outline: #CAC4D0;
+  --sv-outline-variant: #E7E0EC;
+
+  /* M3 Expressive shape scale */
+  --sv-shape-xs: 8px;
+  --sv-shape-sm: 12px;
+  --sv-shape-md: 16px;
+  --sv-shape-lg: 24px;
+  --sv-shape-xl: 28px;
+  --sv-shape-full: 9999px;
+
+  /* Gradients */
+  --sv-gradient-hero: linear-gradient(135deg, #F5F3FF 0%, #FFF1F2 50%, #ECFEFF 100%);
+  --sv-gradient-primary: linear-gradient(135deg, #7B61FF 0%, #A78BFA 100%);
+  --sv-gradient-warm: linear-gradient(135deg, #F472B6 0%, #FB923C 100%);
+  --sv-gradient-cool: linear-gradient(135deg, #06B6D4 0%, #7B61FF 100%);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  --sv-primary: #A78BFA;
+  --sv-primary-container: #2E1065;
+  --sv-secondary: #F9A8D4;
+  --sv-secondary-container: #831843;
+  --sv-tertiary: #67E8F9;
+  --sv-tertiary-container: #164E63;
+  --sv-surface: #1C1B1F;
+  --sv-surface-container: #211F26;
+  --sv-surface-container-high: #2B2930;
+  --sv-on-surface: #E6E1E5;
+  --sv-on-surface-variant: #CAC4D0;
+  --sv-outline: #49454F;
+  --sv-outline-variant: #332D41;
+  --sv-gradient-hero: linear-gradient(135deg, #1C1B2E 0%, #2D1B2E 50%, #1B2D2E 100%);
+}
+
+/* ---- Typography — M3 Expressive uses bolder, more playful type ---- */
+
+.md-typeset h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.md-typeset h2 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---- Hero section ---- */
+
+.hero-tagline {
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--sv-on-surface-variant);
+  margin-top: -0.25rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Platform badges row */
+.platform-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+  justify-content: center;
+}
+
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--sv-shape-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: none;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.platform-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.platform-badge--android { background: var(--sv-gradient-primary); }
+.platform-badge--xr { background: var(--sv-gradient-cool); }
+.platform-badge--ios { background: var(--sv-gradient-warm); }
+.platform-badge--desktop { background: linear-gradient(135deg, #10B981 0%, #06B6D4 100%); }
+
+/* "Made with SceneView" callout */
+.made-with-sv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 1rem;
+  border-radius: var(--sv-shape-full);
+  margin-top: 0.5rem;
+  letter-spacing: 0.02em;
+}
+
+[data-md-color-scheme="slate"] .made-with-sv {
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+}
+
+/* ---- Interactive demo container ---- */
+
+.demo-container {
+  background: var(--sv-gradient-hero);
+  border-radius: var(--sv-shape-xl);
+  padding: 2rem;
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-md-color-scheme="slate"] .demo-container {
+  background: var(--sv-gradient-hero);
+}
+
+.demo-container model-viewer {
+  border-radius: var(--sv-shape-lg) !important;
+  background: transparent !important;
+}
+
+/* ---- LLM Prompt Showcase ---- */
+
+.prompt-showcase {
+  background: var(--sv-surface-container);
+  border-radius: var(--sv-shape-xl);
+  padding: 2rem;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.prompt-showcase__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--sv-primary);
+}
+
+.prompt-showcase__prompt {
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-lg);
+  padding: 1rem 1.25rem;
+  font-size: 0.92rem;
+  color: var(--sv-on-surface);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.prompt-showcase__arrow {
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--sv-primary);
+  margin: 0.5rem 0;
+}
+
+.prompt-showcase__result {
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-lg);
+  padding: 0;
+  overflow: hidden;
+}
+
+.prompt-showcase__result pre {
+  margin: 0 !important;
+  border-radius: var(--sv-shape-lg) !important;
+}
+
+/* ---- Grid cards — M3 Expressive with larger radius, warmer surfaces ---- */
+
+.grid.cards > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.grid.cards > ul > li {
+  background: var(--sv-surface-container);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-lg);
+  padding: 1.75rem;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.grid.cards > ul > li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(123, 97, 255, 0.12);
+}
+
+[data-md-color-scheme="slate"] .grid.cards > ul > li:hover {
+  box-shadow: 0 8px 30px rgba(167, 139, 250, 0.15);
+}
+
+/* Card icons — colorful, not monochrome */
+.grid.cards .twemoji svg {
+  fill: var(--sv-primary);
+  width: 2rem;
+  height: 2rem;
+}
+
+/* ---- Buttons — M3 Expressive with pill shape ---- */
+
+.md-typeset .md-button {
+  border-radius: var(--sv-shape-full) !important;
+  padding: 0.6rem 1.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.md-typeset .md-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(123, 97, 255, 0.2);
+}
+
+.md-typeset .md-button--primary {
+  background: var(--sv-gradient-primary) !important;
+  border-color: transparent !important;
+  color: white !important;
+}
+
+.md-typeset .md-button--primary:hover {
+  box-shadow: 0 6px 24px rgba(123, 97, 255, 0.3);
+}
+
+/* ---- Feature highlight chips ---- */
+
+.feature-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--sv-shape-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin: 0.2rem;
+}
+
+.feature-chip--primary {
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+}
+
+.feature-chip--secondary {
+  background: var(--sv-secondary-container);
+  color: var(--sv-secondary);
+}
+
+.feature-chip--tertiary {
+  background: var(--sv-tertiary-container);
+  color: var(--sv-tertiary);
+}
+
+/* ---- "What you see" banner ---- */
+
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--sv-shape-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+}
+
+/* ---- Section dividers — softer ---- */
+
+.md-typeset hr {
+  border-color: var(--sv-outline-variant);
+}
+
+/* ---- Force all inline emoji/icons to monochrome tinted with theme color ---- */
+.md-typeset .twemoji svg,
+.md-typeset .gemoji img,
+.md-typeset .emojione svg,
+.md-content .twemoji svg {
+  fill: currentColor;
+  filter: none;
+}
+
+/* Buttons — icon inherits button text color */
+.md-button .twemoji svg {
+  fill: currentColor;
+}
+
+/* ---- Footer note ---- */
+.footer-note {
+  font-size: 0.85rem;
+  color: var(--sv-on-surface-variant);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ---- Codelab step counters ---- */
+.md-content h2 {
+  counter-increment: step;
+}
+
+.md-content[data-page="codelabs"] h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.md-content[data-page="codelabs"] h2::before {
+  content: counter(step);
+  background: var(--sv-gradient-primary);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.md-content {
+  counter-reset: step;
+}
+
+/* ---- Code blocks — Catppuccin-inspired soft modern theme ---- */
+.highlight code {
+  font-size: 0.85rem;
+}
+
+.md-typeset pre > code {
+  border-radius: var(--sv-shape-md) !important;
+}
+
+/* Light mode: Catppuccin Latte-inspired — warm, soft, readable */
+:root {
+  --sv-code-bg: #F8F6F2;
+  --sv-code-fg: #4C4F69;
+  --sv-code-comment: #9CA0B0;
+  --sv-code-keyword: #8839EF;
+  --sv-code-string: #40A02B;
+  --sv-code-function: #1E66F5;
+  --sv-code-type: #D20F39;
+  --sv-code-number: #FE640B;
+  --sv-code-operator: #04A5E5;
+  --sv-code-property: #DF8E1D;
+  --sv-code-annotation: #EA76CB;
+}
+
+/* Dark mode: Catppuccin Mocha-inspired */
+[data-md-color-scheme="slate"] {
+  --sv-code-bg: #1E1E2E;
+  --sv-code-fg: #CDD6F4;
+  --sv-code-comment: #6C7086;
+  --sv-code-keyword: #CBA6F7;
+  --sv-code-string: #A6E3A1;
+  --sv-code-function: #89B4FA;
+  --sv-code-type: #F38BA8;
+  --sv-code-number: #FAB387;
+  --sv-code-operator: #89DCEB;
+  --sv-code-property: #F9E2AF;
+  --sv-code-annotation: #F5C2E7;
+}
+
+/* Apply the code theme */
+.highlight pre,
+.highlight code,
+.md-typeset pre {
+  background: var(--sv-code-bg) !important;
+  color: var(--sv-code-fg) !important;
+}
+
+/* Code block container with subtle border */
+.md-typeset .highlight {
+  border-radius: var(--sv-shape-md);
+  overflow: hidden;
+  border: 1px solid var(--sv-outline-variant);
+}
+
+/* Pygments token overrides for Catppuccin palette */
+.highlight .k, .highlight .kd, .highlight .kn,
+.highlight .kp, .highlight .kr, .highlight .kt,
+.highlight .kc { color: var(--sv-code-keyword) !important; }
+
+.highlight .s, .highlight .s1, .highlight .s2,
+.highlight .sb, .highlight .sc, .highlight .sd,
+.highlight .sh, .highlight .sx { color: var(--sv-code-string) !important; }
+
+.highlight .nf, .highlight .fm, .highlight .nb { color: var(--sv-code-function) !important; }
+
+.highlight .nc, .highlight .nn, .highlight .no { color: var(--sv-code-type) !important; }
+
+.highlight .mi, .highlight .mf, .highlight .mh,
+.highlight .mo, .highlight .il { color: var(--sv-code-number) !important; }
+
+.highlight .o, .highlight .ow { color: var(--sv-code-operator) !important; }
+
+.highlight .c, .highlight .c1, .highlight .cm,
+.highlight .cs, .highlight .cp, .highlight .ch { color: var(--sv-code-comment) !important; font-style: italic; }
+
+.highlight .na, .highlight .py { color: var(--sv-code-property) !important; }
+
+.highlight .nd, .highlight .ni { color: var(--sv-code-annotation) !important; }
+
+.highlight .p { color: var(--sv-code-fg) !important; }
+
+/* Line numbers — subtle */
+.highlight .linenos {
+  color: var(--sv-code-comment) !important;
+  opacity: 0.6;
+}
+
+/* ---- Hero image centering ---- */
+.md-content img[width] {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+/* ---- Feature matrix — highlight SceneView column ---- */
+table th:nth-child(2),
+table td:nth-child(2) {
+  font-weight: 500;
+}
+
+/* ---- Admonition question style for FAQ ---- */
+.md-typeset .admonition.question {
+  border-color: var(--sv-primary);
+}
+
+/* Admonitions — rounder, softer */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--sv-shape-md) !important;
+}
+
+/* ---- Cheatsheet — compact tables ---- */
+.md-typeset table:not([class]) {
+  font-size: 0.88rem;
+}
+
+/* ---- Tabs — M3 Expressive style ---- */
+.md-typeset .tabbed-labels > label {
+  border-radius: var(--sv-shape-full) var(--sv-shape-full) 0 0;
+  font-weight: 600;
+}
+
+/* ---- Navigation tab active indicator ---- */
+.md-tabs__link--active {
+  border-bottom: 3px solid var(--sv-primary);
+}
+
+/* ---- Mobile responsive ---- */
+@media screen and (max-width: 76.1875em) {
+  .md-content .highlight pre {
+    margin-left: -0.8rem;
+    margin-right: -0.8rem;
+    border-radius: 0;
+  }
+
+  .grid.cards > ul {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-badges {
+    justify-content: center;
+  }
+
+  .demo-container {
+    padding: 1rem;
+    border-radius: var(--sv-shape-lg);
+  }
+}
+
+/* ---- Smooth scrolling ---- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---- Better inline code readability ---- */
+.md-typeset code:not(.highlight code) {
+  padding: 0.15em 0.4em;
+  border-radius: var(--sv-shape-xs);
+  background: var(--sv-surface-container);
+}
+
+/* ---- Platform grid — larger, more visual ---- */
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.platform-card {
+  background: var(--sv-surface-container);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-xl);
+  padding: 1.75rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.platform-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(123, 97, 255, 0.15);
+}
+
+.platform-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.platform-card__title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+  color: var(--sv-on-surface);
+}
+
+.platform-card__status {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--sv-shape-full);
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+.platform-card__status--ready {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.platform-card__status--coming {
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+}
+
+[data-md-color-scheme="slate"] .platform-card__status--ready {
+  background: #052E16;
+  color: #86EFAC;
+}
+
+[data-md-color-scheme="slate"] .platform-card__status--coming {
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+}
+
+.platform-card__desc {
+  font-size: 0.88rem;
+  color: var(--sv-on-surface-variant);
+  line-height: 1.5;
+}
+
+/* ---- Stat pills row ---- */
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--sv-surface-container);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-full);
+  padding: 0.5rem 1.2rem;
+  font-size: 0.85rem;
+  color: var(--sv-on-surface);
+}
+
+.stat-pill strong {
+  color: var(--sv-primary);
+}
+
+/* ---- Tech ecosystem logo bar ---- */
+
+.tech-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 0.5rem;
+  padding: 1rem 0;
+}
+
+.tech-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--sv-on-surface-variant);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--sv-shape-full);
+  background: var(--sv-surface-container);
+  border: 1px solid var(--sv-outline-variant);
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tech-logo:hover {
+  color: var(--sv-primary);
+  border-color: var(--sv-primary);
+}
+
+/* ---- Industry cards — visual-first, marketing-grade ---- */
+
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.industry-card {
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-xl);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.industry-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 48px rgba(123, 97, 255, 0.12);
+}
+
+[data-md-color-scheme="slate"] .industry-card:hover {
+  box-shadow: 0 16px 48px rgba(167, 139, 250, 0.15);
+}
+
+.industry-card__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.industry-card__content {
+  padding: 1.25rem 1.5rem 1.5rem;
+}
+
+.industry-card__content h3 {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem;
+  color: var(--sv-on-surface);
+}
+
+.industry-card__content p {
+  font-size: 0.9rem;
+  color: var(--sv-on-surface-variant);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.industry-card__content code {
+  font-size: 0.82rem;
+  background: var(--sv-surface-container);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+/* ---- Bottom CTA — strong, visually distinct ---- */
+
+.bottom-cta {
+  background: var(--sv-gradient-hero);
+  border-radius: var(--sv-shape-xl);
+  padding: 3rem 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  border: 1px solid var(--sv-outline-variant);
+}
+
+[data-md-color-scheme="slate"] .bottom-cta {
+  background: var(--sv-gradient-hero);
+  border-color: var(--sv-outline);
+}
+
+.bottom-cta h2 {
+  margin-top: 0 !important;
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.bottom-cta p {
+  color: var(--sv-on-surface-variant);
+  font-size: 1.05rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---- Mobile responsive additions ---- */
+
+@media screen and (max-width: 76.1875em) {
+  .industry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .platform-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .bottom-cta {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media screen and (max-width: 36em) {
+  .platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-row {
+    gap: 0.5rem;
+  }
+
+  .stat-pill {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
+  }
+}

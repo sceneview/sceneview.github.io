@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="bg-med" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFF1F2"/>
+      <stop offset="100%" stop-color="#F0FDF4"/>
+    </linearGradient>
+    <linearGradient id="pink-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+    <filter id="shadow-med">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#F472B6" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="300" rx="24" fill="url(#bg-med)"/>
+
+  <!-- Tablet frame -->
+  <g filter="url(#shadow-med)" transform="translate(40, 25)">
+    <rect width="320" height="230" rx="20" fill="white" stroke="#E7E0EC" stroke-width="1.5"/>
+    <!-- Camera -->
+    <circle cx="8" cy="115" r="3" fill="#E7E0EC"/>
+    <!-- Screen -->
+    <rect x="18" y="14" width="284" height="202" rx="8" fill="#FAFAF8"/>
+
+    <!-- 3D anatomy model area -->
+    <rect x="18" y="14" width="180" height="202" rx="8" fill="#FFF1F2"/>
+    <!-- Stylized heart -->
+    <g transform="translate(108, 90)">
+      <path d="M0 10 Q0 -10 15 -10 Q30 -10 30 10 Q30 20 15 35 Q0 20 0 10Z" fill="#F472B6" opacity="0.7"/>
+      <path d="M30 10 Q30 -10 45 -10 Q60 -10 60 10 Q60 20 45 35 Q30 20 30 10Z" fill="#F472B6" opacity="0.5"/>
+      <!-- Arteries -->
+      <line x1="15" y1="35" x2="5" y2="55" stroke="#F472B6" stroke-width="2" opacity="0.4"/>
+      <line x1="15" y1="35" x2="25" y2="60" stroke="#F472B6" stroke-width="1.5" opacity="0.3"/>
+      <line x1="45" y1="35" x2="55" y2="55" stroke="#F472B6" stroke-width="2" opacity="0.4"/>
+      <!-- Rotate ring -->
+      <circle cx="30" cy="25" r="40" fill="none" stroke="#F472B6" stroke-width="1" stroke-dasharray="6 4" opacity="0.3">
+        <animateTransform attributeName="transform" type="rotate" from="0 30 25" to="360 30 25" dur="10s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <!-- Label callouts -->
+    <line x1="145" y1="85" x2="210" y2="60" stroke="#F472B6" stroke-width="0.8" opacity="0.5"/>
+    <rect x="210" y="50" width="80" height="24" rx="12" fill="#FFF1F2" stroke="#F472B6" stroke-width="0.8"/>
+    <text x="250" y="66" font-family="sans-serif" font-size="8" fill="#F472B6" text-anchor="middle" font-weight="600">Left Ventricle</text>
+
+    <line x1="160" y1="110" x2="210" y2="100" stroke="#F472B6" stroke-width="0.8" opacity="0.5"/>
+    <rect x="210" y="90" width="80" height="24" rx="12" fill="#FFF1F2" stroke="#F472B6" stroke-width="0.8"/>
+    <text x="250" y="106" font-family="sans-serif" font-size="8" fill="#F472B6" text-anchor="middle" font-weight="600">Aorta</text>
+
+    <!-- Controls panel -->
+    <rect x="210" y="134" width="84" height="70" rx="8" fill="white" stroke="#E7E0EC" stroke-width="0.8"/>
+    <text x="220" y="150" font-family="sans-serif" font-size="8" fill="#1C1B1F" font-weight="600">View</text>
+    <!-- Toggle buttons -->
+    <rect x="220" y="156" width="30" height="16" rx="8" fill="url(#pink-grad)"/>
+    <text x="235" y="168" font-family="sans-serif" font-size="7" fill="white" text-anchor="middle" font-weight="600">3D</text>
+    <rect x="254" y="156" width="30" height="16" rx="8" fill="#E7E0EC"/>
+    <text x="269" y="168" font-family="sans-serif" font-size="7" fill="#49454F" text-anchor="middle">X-ray</text>
+    <!-- Slider -->
+    <text x="220" y="188" font-family="sans-serif" font-size="7" fill="#49454F">Transparency</text>
+    <rect x="220" y="192" width="60" height="4" rx="2" fill="#E7E0EC"/>
+    <rect x="220" y="192" width="35" height="4" rx="2" fill="url(#pink-grad)"/>
+    <circle cx="255" cy="194" r="5" fill="white" stroke="#F472B6" stroke-width="1"/>
+  </g>
+
+  <text x="200" y="290" font-family="sans-serif" font-size="11" fill="#49454F" text-anchor="middle" font-weight="600" opacity="0.7">MEDICAL TRAINING</text>
+</svg>

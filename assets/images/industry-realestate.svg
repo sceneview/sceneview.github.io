@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="bg-re" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0FDF4"/>
+      <stop offset="100%" stop-color="#ECFEFF"/>
+    </linearGradient>
+    <linearGradient id="green-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="shadow-re">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#10B981" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+
+  <rect width="400" height="300" rx="24" fill="url(#bg-re)"/>
+
+  <!-- Phone with AR view -->
+  <g filter="url(#shadow-re)" transform="translate(100, 15)">
+    <rect width="200" height="260" rx="28" fill="white" stroke="#E7E0EC" stroke-width="1.5"/>
+    <rect x="70" y="8" width="60" height="6" rx="3" fill="#E7E0EC"/>
+    <!-- Camera view (the room) -->
+    <rect x="16" y="24" width="168" height="200" rx="8" fill="#F0FDF4"/>
+    <!-- Room walls perspective -->
+    <polygon points="16,24 80,60 80,180 16,224" fill="#E7E0EC" opacity="0.3"/>
+    <polygon points="184,24 120,60 120,180 184,224" fill="#E7E0EC" opacity="0.2"/>
+    <rect x="80" y="60" width="40" height="120" rx="0" fill="#ECFEFF" opacity="0.3"/>
+    <!-- Floor -->
+    <polygon points="16,224 80,180 120,180 184,224" fill="#F5F3FF" opacity="0.4"/>
+    <!-- AR sofa overlay -->
+    <g transform="translate(55, 130)">
+      <!-- Shadow -->
+      <ellipse cx="45" cy="48" rx="40" ry="8" fill="#10B981" opacity="0.1"/>
+      <!-- Sofa -->
+      <rect x="5" y="15" width="80" height="30" rx="6" fill="#10B981" opacity="0.6"/>
+      <rect x="0" y="10" width="12" height="38" rx="4" fill="#10B981" opacity="0.5"/>
+      <rect x="78" y="10" width="12" height="38" rx="4" fill="#10B981" opacity="0.5"/>
+      <rect x="10" y="5" width="70" height="15" rx="4" fill="#10B981" opacity="0.4"/>
+      <!-- Cushions -->
+      <rect x="14" y="20" width="30" height="18" rx="4" fill="#34D399" opacity="0.5"/>
+      <rect x="48" y="20" width="30" height="18" rx="4" fill="#34D399" opacity="0.5"/>
+    </g>
+    <!-- AR grid dots on floor -->
+    <circle cx="60" cy="200" r="2" fill="#10B981" opacity="0.3"/>
+    <circle cx="80" cy="195" r="2" fill="#10B981" opacity="0.3"/>
+    <circle cx="100" cy="200" r="2" fill="#10B981" opacity="0.3"/>
+    <circle cx="120" cy="195" r="2" fill="#10B981" opacity="0.3"/>
+    <circle cx="140" cy="200" r="2" fill="#10B981" opacity="0.3"/>
+    <!-- AR UI overlay -->
+    <rect x="24" y="32" width="60" height="20" rx="10" fill="url(#green-grad)" opacity="0.9"/>
+    <text x="54" y="46" font-family="sans-serif" font-size="9" fill="white" text-anchor="middle" font-weight="600">AR Mode</text>
+    <!-- Dimension line -->
+    <line x1="58" y1="175" x2="142" y2="175" stroke="#06B6D4" stroke-width="1" stroke-dasharray="3 2"/>
+    <text x="100" y="170" font-family="sans-serif" font-size="8" fill="#06B6D4" text-anchor="middle" font-weight="600">2.1m</text>
+    <!-- Scale/rotate hint -->
+    <g transform="translate(140, 32)">
+      <rect width="36" height="20" rx="10" fill="white" stroke="#E7E0EC" stroke-width="1"/>
+      <text x="18" y="14" font-family="sans-serif" font-size="8" fill="#49454F" text-anchor="middle">↻ ⤡</text>
+    </g>
+    <!-- Home bar -->
+    <rect x="76" y="232" width="48" height="4" rx="2" fill="#CAC4D0"/>
+  </g>
+
+  <text x="200" y="290" font-family="sans-serif" font-size="11" fill="#49454F" text-anchor="middle" font-weight="600" opacity="0.7">REAL ESTATE AR</text>
+</svg>
