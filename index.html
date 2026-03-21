@@ -119,19 +119,20 @@
       Powered by ARCore &amp; Google Filament
     </div>
     <h1 class="hero__title">
-      3D &amp; AR for<br/>
-      <span class="text-gradient">Android · Flutter<br/>React Native</span>
+      3D &amp; AR in<br/>
+      <span class="text-gradient">Jetpack Compose</span>
     </h1>
     <p class="hero__desc">
-      Open source rendering library bringing real-time 3D and augmented reality
-      to any platform. High performance, production ready, completely free.
+      Open source Android library for real-time 3D and augmented reality.
+      Powered by ARCore &amp; Filament. Compose-native API — just declare nodes,
+      Compose handles everything else.
     </p>
     <div class="hero__ctas">
-      <a class="btn btn--primary" href="features.html">
-        Explore Features
+      <a class="btn btn--primary" href="https://github.com/SceneView/sceneview-android#quick-start" target="_blank" rel="noopener">
+        Get Started
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </a>
-      <a class="btn btn--outline" href="https://github.com/SceneView" target="_blank" rel="noopener">
+      <a class="btn btn--outline" href="https://github.com/SceneView/sceneview-android" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
         View on GitHub
       </a>
@@ -167,15 +168,16 @@
     <div class="grid-3">
       <a class="repo-card reveal" href="https://github.com/SceneView/sceneview-android" target="_blank" rel="noopener">
         <img class="repo-card__logo" src="images/repos/sceneview_android_logo.png" alt="SceneView Android logo"/>
-        <div class="repo-card__name">SceneView Android</div>
+        <div class="repo-card__name">SceneView Android <span class="tag tag--green" style="margin-left:6px;font-size:0.6rem">v3.2.0</span></div>
         <div class="repo-card__desc">
-          Native Android library for 3D scenes and AR powered by ARCore and Google Filament.
-          Compose and View support included.
+          Compose-native 3D &amp; AR library powered by ARCore and Google Filament.
+          Declare nodes like UI components — no boilerplate, no lifecycle management.
         </div>
         <div class="repo-card__tags">
           <span class="tag">Android</span>
           <span class="tag">Kotlin</span>
           <span class="tag tag--accent">ARCore</span>
+          <span class="tag tag--cyan">Jetpack Compose</span>
         </div>
         <span class="card__link">
           View on GitHub
@@ -221,50 +223,124 @@
     </div>
   </section>
 
+  <!-- Quick Start -->
+  <section class="section" style="padding-top:0">
+    <div class="section__header">
+      <div class="section__label">Quick Start</div>
+      <h2 class="section__title">3D in 5 lines of Compose</h2>
+      <p class="section__subtitle">Add the dependency, drop a <code>Scene { }</code> composable, declare your nodes. Done.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start">
+      <div>
+        <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem">build.gradle.kts</p>
+        <pre style="background:var(--bg-muted);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.25rem;font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:0"><code>implementation("io.github.sceneview:sceneview:3.2.0")
+// or for AR:
+implementation("io.github.sceneview:arsceneview:3.2.0")</code></pre>
+      </div>
+      <div>
+        <p style="font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem">YourScreen.kt</p>
+        <pre style="background:var(--bg-muted);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.25rem;font-size:0.8125rem;line-height:1.6;overflow-x:auto;margin:0"><code>Scene(engine = rememberEngine()) {
+  ModelNode(
+    modelInstance = rememberModelInstance(
+      loader, "models/car.glb"
+    ),
+    scaleToUnits = 1.0f
+  )
+}</code></pre>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:1.25rem">
+      <a class="btn btn--outline btn--sm" href="https://github.com/SceneView/sceneview-android/blob/main/llms.txt" target="_blank" rel="noopener">
+        Full API Reference (llms.txt) →
+      </a>
+    </p>
+  </section>
+
+  <!-- Demo App -->
+  <section class="section" style="padding-top:0">
+    <div class="section__header">
+      <div class="section__label">Demo App</div>
+      <h2 class="section__title">See every node type live</h2>
+      <p class="section__subtitle">The SceneView Demo app showcases all 19+ node types with live 3D previews, code snippets, and real-time effects.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
+      <div style="border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow)">
+        <img src="images/apps/demo_explore.png" alt="SceneView Demo — Explore tab with 3D model viewer" style="width:100%;height:auto;display:block"/>
+        <div style="padding:0.875rem 1rem;background:var(--surface)">
+          <div style="font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.25rem">Explore</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary)">8 models × 6 HDR environments, orbit camera</div>
+        </div>
+      </div>
+      <div style="border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow)">
+        <img src="images/apps/demo_showcase.png" alt="SceneView Demo — Showcase tab with 17 node types" style="width:100%;height:auto;display:block"/>
+        <div style="padding:0.875rem 1rem;background:var(--surface)">
+          <div style="font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.25rem">Showcase</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary)">17 node types, live 3D preview, copy code</div>
+        </div>
+      </div>
+      <div style="border-radius:var(--radius-xl);overflow:hidden;border:1px solid var(--border-light);box-shadow:var(--shadow)">
+        <img src="images/apps/demo_effects.png" alt="SceneView Demo — Effects tab with DynamicSkyNode and FogNode" style="width:100%;height:auto;display:block"/>
+        <div style="padding:0.875rem 1rem;background:var(--surface)">
+          <div style="font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.25rem">Effects</div>
+          <div style="font-size:0.8rem;color:var(--text-secondary)">DynamicSkyNode, FogNode, SSAO controls</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.28.16.6.24.93.24.37 0 .74-.1 1.07-.3l13.08-7.56-3.12-3.12-11.96 10.74zm-1.18-21v20.48l11.22-10.08L2 2.76zM19.34 9.1L16.2 7.26 12.9 10.56l3.3 3.3 3.16-1.82a1.75 1.75 0 0 0 0-2.94zM4.1.54L16.2 7.26 13.08 10.38 2 .3C2.5.06 3.06.1 3.54.3z"/></svg>
+        Get it on Google Play
+      </a>
+      <a class="btn btn--outline" href="https://github.com/SceneView/sceneview-android/tree/main/samples/sceneview-demo" target="_blank" rel="noopener">
+        View Source →
+      </a>
+    </div>
+  </section>
+
   <!-- Features teaser -->
   <section class="section" style="padding-top:0">
     <div class="section__header">
       <div class="section__label">Features</div>
-      <h2 class="section__title">Everything you need for AR</h2>
-      <p class="section__subtitle">From basic 3D model rendering to full augmented reality — SceneView exposes ARCore's full feature set with a clean, modern API.</p>
+      <h2 class="section__title">19+ node types. Zero boilerplate.</h2>
+      <p class="section__subtitle">From basic geometry to physics simulation and AR anchoring — every feature is a composable node.</p>
     </div>
 
     <div class="grid-3">
       <div class="card reveal">
         <div class="card__icon">🎯</div>
-        <div class="card__title">3D Model Viewer</div>
-        <div class="card__body">Load, display and animate glTF / glb 3D models with PBR materials, environment lighting and full gesture control.</div>
-        <a class="card__link" href="features.html">See demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <div class="card__title">ModelNode</div>
+        <div class="card__body">Load, display and animate glTF / GLB models with PBR materials, HDR environment lighting, and full gesture control.</div>
+        <a class="card__link" href="https://sceneview.github.io/api/sceneview-android/sceneview/io.github.sceneview.node/-model-node/index.html" target="_blank" rel="noopener">API reference <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">🖼️</div>
-        <div class="card__title">Augmented Images</div>
-        <div class="card__body">Detect real-world 2D images and anchor persistent 3D content on top of them in real time using the device camera.</div>
-        <a class="card__link" href="features.html">See demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <div class="card__icon">🔤</div>
+        <div class="card__title">TextNode &amp; BillboardNode</div>
+        <div class="card__body">Camera-facing 3D text labels and sprites. Reactive to Compose state — change text, the 3D world updates instantly.</div>
+        <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/text-labels" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">😊</div>
-        <div class="card__title">Augmented Faces</div>
-        <div class="card__body">Track and map 468 facial landmarks in real time to apply AR masks, accessories and expressions to a user's face.</div>
-        <a class="card__link" href="features.html">See demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <div class="card__icon">⚡</div>
+        <div class="card__title">PhysicsNode</div>
+        <div class="card__body">Rigid body simulation with gravity, floor collision and sleep detection — powered by Bullet physics, configured in one line.</div>
+        <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/physics-demo" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">☁️</div>
-        <div class="card__title">Cloud Anchors</div>
-        <div class="card__body">Share AR experiences across devices with persistent cloud-hosted anchors powered by Google ARCore Cloud.</div>
-        <a class="card__link" href="features.html">See demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <div class="card__icon">🌤️</div>
+        <div class="card__title">DynamicSkyNode &amp; FogNode</div>
+        <div class="card__body">Time-of-day sun lighting with turbidity control. Volumetric fog with height falloff. Real-time atmosphere in Compose.</div>
+        <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/post-processing" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">📏</div>
-        <div class="card__title">Depth API</div>
-        <div class="card__body">Access per-pixel depth data to enable realistic occlusion, surface detection and accurate placement of virtual objects.</div>
-        <a class="card__link" href="features.html">See demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <div class="card__icon">🔲</div>
+        <div class="card__title">AR Anchoring</div>
+        <div class="card__body">AnchorNode, AugmentedImageNode, CloudAnchorNode — tap-to-place AR in a single composable. No ARCore boilerplate.</div>
+        <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/ar-model-viewer" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">💡</div>
-        <div class="card__title">Environment Lights</div>
-        <div class="card__body">Automatically estimate real-world lighting from the camera feed and apply it to 3D objects for photorealistic rendering.</div>
-        <a class="card__link" href="features.html">See demo <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <div class="card__icon">🤖</div>
+        <div class="card__title">AI-First Design</div>
+        <div class="card__body">Ships with <code>llms.txt</code> — machine-readable API reference. AI coding assistants generate correct 3D/AR code on the first try.</div>
+        <a class="card__link" href="https://github.com/SceneView/sceneview-android/blob/main/llms.txt" target="_blank" rel="noopener">View llms.txt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
     </div>
   </section>
@@ -275,11 +351,14 @@
     <div class="cta-band reveal">
       <h2 class="cta-band__title">Ready to build with SceneView?</h2>
       <p class="cta-band__desc">
-        Join hundreds of developers shipping 3D &amp; AR experiences across Android, Flutter and React Native.
+        Try the interactive demo app, explore the samples, or dive straight into the API — all free and open source.
       </p>
       <div class="cta-band__actions">
-        <a class="btn btn--primary" href="https://github.com/SceneView/sceneview-android" target="_blank" rel="noopener">
-          Get Started on Android
+        <a class="btn btn--primary" href="https://github.com/SceneView/sceneview-android#quick-start" target="_blank" rel="noopener">
+          Get Started
+        </a>
+        <a class="btn btn--outline" href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener">
+          Try the Demo App
         </a>
         <a class="btn btn--outline" href="https://discord.gg/UbNDDBTNqb" target="_blank" rel="noopener">
           Join Discord
