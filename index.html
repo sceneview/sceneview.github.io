@@ -627,17 +627,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#production-rendering-google-filament" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Production rendering — Google Filament
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1764,17 +1753,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#production-rendering-google-filament" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Production rendering — Google Filament
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2126,6 +2104,13 @@ Interactive 3D worlds without a game engine.</p>
 <code>StreetscapeGeometryNode</code>. Plane detection, geospatial, environmental HDR.</p>
 <p><a href="codelabs/codelab-ar-compose/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> AR codelab</a></p>
 </li>
+<li>
+<p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.75 8h6.5a.75.75 0 0 1 .75.75v6.5a.75.75 0 0 1-.75.75h-6.5a.75.75 0 0 1-.75-.75v-6.5A.75.75 0 0 1 8.75 8m.75 6.5h5v-5h-5Z"/><path d="M15.25 1a.75.75 0 0 1 .75.75V4h2.25c.966 0 1.75.784 1.75 1.75V8h2.25a.75.75 0 0 1 0 1.5H20v5h2.25a.75.75 0 0 1 0 1.5H20v2.25A1.75 1.75 0 0 1 18.25 20H16v2.25a.75.75 0 0 1-1.5 0V20h-5v2.25a.75.75 0 0 1-1.5 0V20H5.75A1.75 1.75 0 0 1 4 18.25V16H1.75a.75.75 0 0 1 0-1.5H4v-5H1.75a.75.75 0 0 1 0-1.5H4V5.75C4 4.784 4.784 4 5.75 4H8V1.75a.75.75 0 0 1 1.5 0V4h5V1.75a.75.75 0 0 1 .75-.75m3 17.5a.25.25 0 0 0 .25-.25V5.75a.25.25 0 0 0-.25-.25H5.75a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25Z"/></svg></span> <strong>Production rendering — Filament</strong></p>
+<hr />
+<p>Built on <a href="https://github.com/google/filament">Google Filament</a> — PBR, HDR environment lighting,
+bloom, depth-of-field, SSAO. 60fps on mid-range devices.</p>
+<p><a href="performance/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Performance guide</a></p>
+</li>
 </ul>
 </div>
 <p><a href="showcase/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Full feature showcase</a></p>
@@ -2310,16 +2295,6 @@ Interactive 3D worlds without a game engine.</p>
 </div>
 
 <hr />
-<h3 id="production-rendering-google-filament">Production rendering — Google Filament<a class="headerlink" href="#production-rendering-google-filament" title="Permanent link">&para;</a></h3>
-<p>Built on <a href="https://github.com/google/filament">Google Filament</a> — the same physically-based
-rendering engine used inside Google Search and Google Play Store.</p>
-<ul>
-<li><strong>PBR</strong> with metallic/roughness workflow</li>
-<li><strong>HDR environment lighting</strong> from <code>.hdr</code> and <code>.ktx</code> files</li>
-<li><strong>Post-processing</strong>: bloom, depth-of-field, SSAO, fog</li>
-<li><strong>60fps</strong> on mid-range devices</li>
-</ul>
-<hr />
 <h2 id="get-started">Get started<a class="headerlink" href="#get-started" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
 <ul>
@@ -2383,8 +2358,32 @@ rendering engine used inside Google Search and Google Play Store.</p>
 <td>Persistent cross-device anchors</td>
 </tr>
 <tr>
+<td><code>ar-point-cloud</code></td>
+<td>ARCore feature point visualisation</td>
+</tr>
+<tr>
 <td><code>autopilot-demo</code></td>
 <td>Autonomous driving HUD</td>
+</tr>
+<tr>
+<td><code>gltf-camera</code></td>
+<td>Cameras imported from a glTF file</td>
+</tr>
+<tr>
+<td><code>line-path</code></td>
+<td>Animated sine/Lissajous curves with PathNode</td>
+</tr>
+<tr>
+<td><code>text-labels</code></td>
+<td>Camera-facing 3D text labels (TextNode)</td>
+</tr>
+<tr>
+<td><code>reflection-probe</code></td>
+<td>Zone-based IBL overrides + material picker</td>
+</tr>
+<tr>
+<td><code>sceneview-demo</code></td>
+<td>Full showcase: Explore, Showcase, Gallery tabs</td>
 </tr>
 </tbody>
 </table>
