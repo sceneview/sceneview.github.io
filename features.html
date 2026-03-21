@@ -256,7 +256,7 @@
     <!-- ── Labels & UI ─────────────────────────── -->
     <div class="feature-section">
       <div class="feature-section__header">
-        <span class="feature-section__label tag--cyan">3.4.0</span>
+        <span class="feature-section__label tag--accent">3.2.0</span>
         <h2 class="feature-section__title">Labels &amp; UI in 3D</h2>
       </div>
 
@@ -264,7 +264,7 @@
         <div class="node-card">
           <div class="node-card__head">
             <span class="node-card__name">TextNode</span>
-            <span class="tag tag--cyan">New</span>
+            <span class="tag tag--accent">3.2.0</span>
           </div>
           <p class="node-card__desc">
             SDF-rendered 3D text anchored in world space. Supports font size, color, alignment,
@@ -281,7 +281,7 @@
         <div class="node-card">
           <div class="node-card__head">
             <span class="node-card__name">BillboardNode</span>
-            <span class="tag tag--cyan">New</span>
+            <span class="tag tag--accent">3.2.0</span>
           </div>
           <p class="node-card__desc">
             Always-facing-camera quad. Load any texture or icon and it stays visible regardless
@@ -335,7 +335,7 @@
     <!-- ── Atmosphere & Effects ────────────────── -->
     <div class="feature-section">
       <div class="feature-section__header">
-        <span class="feature-section__label tag--purple">3.3.0</span>
+        <span class="feature-section__label tag--accent">3.2.0</span>
         <h2 class="feature-section__title">Atmosphere &amp; Post-Processing</h2>
       </div>
 
@@ -563,16 +563,16 @@
           <tr><td>LightNode</td><td>Directional, point, or spot light</td><td>3.0.0</td></tr>
           <tr><td>CameraNode</td><td>Custom camera position and projection</td><td>3.0.0</td></tr>
           <tr><td>AnchorNode</td><td>AR world-locked anchor (ARCore)</td><td>3.0.0</td></tr>
-          <tr><td>PhysicsNode</td><td>Rigid body simulation via Bullet Physics</td><td>3.2.0</td></tr>
-          <tr><td>DynamicSkyNode</td><td>Time-of-day sky + atmospheric sun lighting</td><td>3.3.0</td></tr>
-          <tr><td>FogNode</td><td>Distance / height volumetric fog</td><td>3.3.0</td></tr>
-          <tr><td>ReflectionProbeNode</td><td>Baked cubemap reflections per zone</td><td>3.3.0</td></tr>
-          <tr><td>TextNode</td><td>SDF-rendered 3D text with billboard support</td><td>3.4.0</td></tr>
-          <tr><td>BillboardNode</td><td>Always-facing-camera sprite / icon quad</td><td>3.4.0</td></tr>
-          <tr><td>LineNode</td><td>Polyline rendering (Filament lines API)</td><td>3.4.0</td></tr>
-          <tr><td>PathNode</td><td>Spline path rendering</td><td>3.4.0</td></tr>
-          <tr><td>VideoNode</td><td>Video texture on a 3D surface (green-screen support)</td><td>3.4.0</td></tr>
+          <tr><td>VideoNode</td><td>Video texture on a 3D surface (green-screen support)</td><td>3.1.0</td></tr>
           <tr><td>ViewNode</td><td>Embed any Compose UI as a 3D billboard panel</td><td>3.1.0</td></tr>
+          <tr><td>PhysicsNode</td><td>Rigid body simulation via Bullet Physics</td><td>3.2.0</td></tr>
+          <tr><td>DynamicSkyNode</td><td>Time-of-day sky + atmospheric sun lighting</td><td>3.2.0</td></tr>
+          <tr><td>FogNode</td><td>Distance / height volumetric fog</td><td>3.2.0</td></tr>
+          <tr><td>ReflectionProbeNode</td><td>Baked cubemap reflections per zone</td><td>3.2.0</td></tr>
+          <tr><td>LineNode</td><td>Polyline rendering (Filament lines API)</td><td>3.2.0</td></tr>
+          <tr><td>PathNode</td><td>Spline path rendering</td><td>3.2.0</td></tr>
+          <tr><td>TextNode</td><td>SDF-rendered 3D text with billboard support</td><td>3.2.0</td></tr>
+          <tr><td>BillboardNode</td><td>Always-facing-camera sprite / icon quad</td><td>3.2.0</td></tr>
         </tbody>
       </table>
 
@@ -582,6 +582,66 @@
         — a machine-readable API reference for AI coding assistants (Claude, Copilot, Gemini).
         Ask your AI to "build an AR app with SceneView" and it will generate correct, working Compose code on the first try.
         <a href="api.html" style="margin-left:0.5rem">Full API docs →</a>
+      </div>
+    </div>
+
+    <!-- ── Coming Next ────────────────────────── -->
+    <div class="feature-section" id="roadmap">
+      <div class="feature-section__header">
+        <span class="feature-section__label" style="background:#f3e8ff;color:#7c3aed">4.0.0</span>
+        <h2 class="feature-section__title">Coming Next</h2>
+      </div>
+
+      <div class="node-grid" style="margin-bottom:1.5rem">
+        <div class="node-card" style="border-style:dashed">
+          <div class="node-card__head">
+            <span class="node-card__name">Multi-scene Engine</span>
+            <span class="tag">4.0.0</span>
+          </div>
+          <p class="node-card__desc">
+            Multiple independent <code>Scene&nbsp;{&nbsp;}</code> composables on the same screen
+            sharing one Filament <code>Engine</code> — for split-screen, picture-in-picture,
+            and overlay scenarios.
+          </p>
+        </div>
+        <div class="node-card" style="border-style:dashed">
+          <div class="node-card__head">
+            <span class="node-card__name">PortalNode</span>
+            <span class="tag">4.0.0</span>
+          </div>
+          <p class="node-card__desc">
+            Render a secondary <code>Scene</code> inside a 3D frame — AR portals,
+            picture-in-world thumbnails, or dimensional windows in your scene.
+          </p>
+        </div>
+        <div class="node-card" style="border-style:dashed">
+          <div class="node-card__head">
+            <span class="node-card__name">SceneView XR</span>
+            <span class="tag">4.0.0</span>
+          </div>
+          <p class="node-card__desc">
+            <code>sceneview-xr</code> module for Android XR / spatial computing.
+            The same <code>Scene&nbsp;{&nbsp;}</code> API, targeting headsets and
+            mixed-reality form factors.
+          </p>
+        </div>
+        <div class="node-card" style="border-style:dashed">
+          <div class="node-card__head">
+            <span class="node-card__name">iOS — Kotlin Multiplatform</span>
+            <span class="tag">4.0.0</span>
+          </div>
+          <p class="node-card__desc">
+            Proof-of-concept: SceneView on iOS via Kotlin Multiplatform + Filament
+            Metal backend. Shared scene graph, platform-specific rendering layer.
+          </p>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <strong>Roadmap is public.</strong> Follow progress, vote on features, and contribute on
+        <a href="https://github.com/SceneView/sceneview-android/blob/main/ROADMAP.md" target="_blank" rel="noopener">ROADMAP.md</a>
+        and
+        <a href="https://github.com/SceneView/sceneview-android/discussions" target="_blank" rel="noopener">GitHub Discussions</a>.
       </div>
     </div>
 
