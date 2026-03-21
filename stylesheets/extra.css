@@ -965,10 +965,49 @@ table td:nth-child(2) {
   border-radius: var(--sv-shape-xs);
 }
 
+/* Clickable device sections */
+.device-section--clickable {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.device-section--clickable:hover {
+  border-color: var(--sv-primary);
+  box-shadow: 0 4px 20px rgba(123, 97, 255, 0.1);
+}
+
+.device-section__link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block;
+}
+
+.device-section__arrow {
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  color: var(--sv-primary);
+}
+
+.device-section--clickable:hover .device-section__arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
 /* Nested showcase gallery inside device section */
 .device-section .showcase-gallery {
   margin: 0.5rem -0.5rem 0;
   padding-bottom: 0.5rem;
+}
+
+/* Wide showcase items (landscape tablets, automotive HUDs) */
+.showcase-item--wide {
+  flex: 0 0 340px;
+}
+
+.showcase-item__img--landscape {
+  border-radius: var(--sv-shape-xl) !important;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
 }
 
 /* ---- Showcase gallery — ultra-round device screenshots ---- */

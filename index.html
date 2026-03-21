@@ -1927,7 +1927,7 @@
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>Write a <code>Scene { }</code> the same way you write a <code>Column { }</code>. Nodes are composables.
 State drives the scene. Lifecycle is automatic.</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Product viewer</label><label for="__tabbed_1_2">AR placement</label><label for="__tabbed_1_3">XR spatial</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Product viewer</label><label for="__tabbed_1_2">AR placement</label><label for="__tabbed_1_3">XR spatial</label><label for="__tabbed_1_4">iOS (v4.0)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <pre class="language-kotlin"><code>@Composable
@@ -1998,8 +1998,23 @@ fun SpatialShowroom() {
 }</code></pre>
 <p>Same composable API — now in spatial computing headsets.</p>
 </div>
+<div class="tabbed-block">
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">struct</span><span class="w"> </span><span class="nc">ProductViewer</span><span class="p">:</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">body</span><span class="p">:</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">            </span><span class="n">ModelNode</span><span class="p">(</span><span class="s">&quot;models/shoe.usdz&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">scaleToUnits</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">                </span><span class="p">.</span><span class="n">playAllAnimations</span><span class="p">()</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">            </span><span class="n">LightNode</span><span class="p">(.</span><span class="n">directional</span><span class="p">)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">orbit</span><span class="p">)</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Same mental model — SwiftUI + RealityKit under the hood. Share your scene graph via Kotlin Multiplatform.</p>
 </div>
 </div>
+</div>
+<p><a class="md-button" href="v4-preview/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> v4.0 multi-platform roadmap</a></p>
 <hr />
 <h2 id="ask-ai-get-a-3d-scene">Ask AI, get a 3D scene<a class="headerlink" href="#ask-ai-get-a-3d-scene" title="Permanent link">&para;</a></h2>
 <p>The most AI-friendly 3D library. Ships with an MCP server and <code>llms.txt</code> API reference — so Claude, Cursor, and Copilot always have the current API.</p>
@@ -2074,36 +2089,42 @@ fun ProductDetail(modelPath: String) {
 <hr />
 <p><code>ModelNode</code> loads glTF/GLB with animations, gestures, and automatic scaling.
 Geometry primitives — <code>CubeNode</code>, <code>SphereNode</code>, <code>CylinderNode</code>, <code>PlaneNode</code> — need no asset files.</p>
+<p><a href="recipes/#loading-display"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Model loading guide</a></p>
 </li>
 <li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 19a7 7 0 1 1 0-14 7 7 0 0 1 0 14m0-1.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 1 0 0 11m-5.657.157a.75.75 0 0 1 0 1.06l-1.768 1.768a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734l1.767-1.768a.75.75 0 0 1 1.061 0M3.515 3.515a.75.75 0 0 1 1.06 0l1.768 1.768a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L3.515 4.575a.75.75 0 0 1 0-1.06M12 0a.75.75 0 0 1 .75.75v2.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 12 0M4 12a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h2.5A.75.75 0 0 1 4 12m8 8a.75.75 0 0 1 .75.75v2.5a.75.75 0 0 1-1.5 0v-2.5A.75.75 0 0 1 12 20m12-8a.75.75 0 0 1-.75.75h-2.5a.75.75 0 0 1 0-1.5h2.5A.75.75 0 0 1 24 12m-6.343 5.657a.75.75 0 0 1 1.06 0l1.768 1.768a.75.75 0 0 1-.018 1.042.75.75 0 0 1-1.042.018l-1.768-1.767a.75.75 0 0 1 0-1.061m2.828-14.142a.75.75 0 0 1 0 1.06l-1.768 1.768a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042l1.767-1.768a.75.75 0 0 1 1.061 0"/></svg></span> <strong>Lighting &amp; Atmosphere</strong></p>
 <hr />
 <p><code>LightNode</code> (sun, point, spot, directional), <code>DynamicSkyNode</code> (time-of-day),
 <code>FogNode</code>, <code>ReflectionProbeNode</code>. All driven by Compose state.</p>
+<p><a href="recipes/#lighting-environment"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Lighting recipes</a></p>
 </li>
 <li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.75 3h14.5c.966 0 1.75.784 1.75 1.75v14.5A1.75 1.75 0 0 1 19.25 21H4.75A1.75 1.75 0 0 1 3 19.25V4.75C3 3.784 3.784 3 4.75 3m14.5 1.5H4.75a.25.25 0 0 0-.25.25v14.5c0 .138.112.25.25.25h.19l9.823-9.823a1.75 1.75 0 0 1 2.475 0l2.262 2.262V4.75a.25.25 0 0 0-.25-.25m.25 9.56-3.323-3.323a.25.25 0 0 0-.354 0L7.061 19.5H19.25a.25.25 0 0 0 .25-.25ZM8.5 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m0-1.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/></svg></span> <strong>Media &amp; UI in 3D</strong></p>
 <hr />
 <p><code>ImageNode</code>, <code>VideoNode</code> (with chromakey), and <code>ViewNode</code> — render <strong>any Composable</strong>
 directly inside 3D space. Text, buttons, cards — floating in your scene.</p>
+<p><a href="recipes/#viewnode-compose-inside-3d-space"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> ViewNode recipes</a></p>
 </li>
 <li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.716 1.329a1.341 1.341 0 0 1 2.109 1.55L15.147 9h4.161c1.623 0 2.372 2.016 1.143 3.075L8.102 22.721a1.148 1.148 0 0 1-1.81-1.317L8.996 15H4.674c-1.619 0-2.37-2.008-1.148-3.07l12.19-10.6Zm.452 1.595L4.51 13.061a.25.25 0 0 0 .164.439h5.45a.75.75 0 0 1 .692 1.041l-2.559 6.066 11.215-9.668a.25.25 0 0 0-.164-.439H14a.75.75 0 0 1-.687-1.05Z"/></svg></span> <strong>Physics</strong></p>
 <hr />
 <p><code>PhysicsNode</code> — rigid body simulation with gravity, collision, and tap-to-throw.
 Interactive 3D worlds without a game engine.</p>
+<p><a href="codelabs/guide-physics/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Physics guide</a></p>
 </li>
 <li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.642 6.653c-1.31 1.812-3.251 3.86-4.945 5.575l-.091.092-2.69-2.69.098-.098c1.69-1.71 3.732-3.656 5.544-4.962.911-.657 1.715-1.115 2.353-1.318.652-.207.915-.091 1.039.033.113.113.231.367.019 1.02-.207.635-.668 1.436-1.327 2.348M10.9 10.736l2.605 2.605c-.88.754-1.684 1.294-2.378 1.655a4.83 4.83 0 0 0-1.892-1.89c.36-.69.903-1.482 1.665-2.37m-3.086 1.856a4.83 4.83 0 0 0-4.33 1.328c-.525.525-.88 1.302-1.13 2.079-.256.795-.43 1.682-.541 2.507a19 19 0 0 0-.173 2.216c-.004.3.003.567.022.778.009.104.022.212.044.31.01.05.027.113.053.18.02.051.074.178.19.295.117.117.245.17.297.19.066.026.13.043.178.054.099.021.207.035.31.044.211.019.479.025.779.021.603-.008 1.39-.06 2.216-.172.825-.112 1.711-.285 2.507-.54.776-.25 1.553-.606 2.079-1.132a4.83 4.83 0 0 0 1.327-4.333c1.209-.6 2.622-1.618 4.121-3.135 1.694-1.714 3.709-3.835 5.093-5.75.688-.952 1.258-1.904 1.538-2.764.274-.842.334-1.826-.384-2.544-.72-.719-1.703-.672-2.555-.401-.865.275-1.822.843-2.776 1.53-1.92 1.384-4.036 3.407-5.733 5.125-1.5 1.518-2.53 2.896-3.132 4.114m1.44 2.388a3.33 3.33 0 0 1 0 4.71c-.271.27-.774.537-1.478.763-.684.22-1.477.378-2.248.482-.769.104-1.495.152-2.035.16a9 9 0 0 1-.351-.002 9 9 0 0 1-.002-.35c.007-.542.055-1.267.16-2.036.104-.771.261-1.564.481-2.249.227-.703.493-1.206.764-1.478a3.33 3.33 0 0 1 4.71 0Z"/></svg></span> <strong>Drawing &amp; Text</strong></p>
 <hr />
 <p><code>LineNode</code>, <code>PathNode</code> for 3D polylines and animated paths.
 <code>TextNode</code>, <code>BillboardNode</code> for camera-facing labels.</p>
+<p><a href="codelabs/guide-lines-text/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Lines &amp; text guide</a></p>
 </li>
 <li>
 <p><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 12a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0"/><path d="M12 3.5c3.432 0 6.124 1.534 8.054 3.241 1.926 1.703 3.132 3.61 3.616 4.46a1.6 1.6 0 0 1 0 1.598c-.484.85-1.69 2.757-3.616 4.461-1.929 1.706-4.622 3.24-8.054 3.24s-6.124-1.534-8.054-3.24C2.02 15.558.814 13.65.33 12.8a1.6 1.6 0 0 1 0-1.598c.484-.85 1.69-2.757 3.616-4.462C5.875 5.034 8.568 3.5 12 3.5M1.633 11.945a.1.1 0 0 0-.017.055q.001.03.017.056c.441.774 1.551 2.527 3.307 4.08C6.691 17.685 9.045 19 12 19s5.31-1.315 7.06-2.864c1.756-1.553 2.866-3.306 3.307-4.08a.1.1 0 0 0 .017-.056.1.1 0 0 0-.017-.056c-.441-.773-1.551-2.527-3.307-4.08C17.309 6.315 14.955 5 12 5S6.69 6.314 4.94 7.865c-1.756 1.552-2.866 3.306-3.307 4.08"/></svg></span> <strong>AR &amp; spatial</strong></p>
 <hr />
 <p><code>AnchorNode</code>, <code>AugmentedImageNode</code>, <code>AugmentedFaceNode</code>, <code>CloudAnchorNode</code>,
 <code>StreetscapeGeometryNode</code>. Plane detection, geospatial, environmental HDR.</p>
+<p><a href="codelabs/codelab-ar-compose/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> AR codelab</a></p>
 </li>
 </ul>
 </div>
@@ -2179,23 +2200,23 @@ Interactive 3D worlds without a game engine.</p>
 <span class="device-section__badge device-section__badge--ready">Shipping today</span>
 </div>
 <div class="showcase-gallery">
-<div class="showcase-item" style="flex: 0 0 340px;">
-<img src="assets/images/industry-medical.svg" alt="Medical anatomy on tablet" class="showcase-item__img" style="border-radius: 24px;">
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/tablet-anatomy.svg" alt="3D anatomy lab on tablet" class="showcase-item__img showcase-item__img--landscape">
 <div class="showcase-item__label">3D Anatomy Lab</div>
-<div class="showcase-item__desc">Interactive heart model with annotations, opacity controls</div>
+<div class="showcase-item__desc">Interactive heart model, annotations, opacity controls</div>
 </div>
-<div class="showcase-item" style="flex: 0 0 340px;">
-<img src="assets/images/industry-realestate.svg" alt="Floor plan on tablet" class="showcase-item__img" style="border-radius: 24px;">
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/tablet-floorplan.svg" alt="3D floor plans on tablet" class="showcase-item__img showcase-item__img--landscape">
 <div class="showcase-item__label">3D Floor Plans</div>
-<div class="showcase-item__desc">Isometric rooms, AR staging, PortalNode walkthroughs</div>
+<div class="showcase-item__desc">Isometric rooms, measurements, AR staging</div>
 </div>
-<div class="showcase-item" style="flex: 0 0 340px;">
-<img src="assets/images/industry-education.svg" alt="Solar system on tablet" class="showcase-item__img" style="border-radius: 24px;">
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/tablet-solar.svg" alt="Solar system explorer on tablet" class="showcase-item__img showcase-item__img--landscape">
 <div class="showcase-item__label">Solar System Explorer</div>
 <div class="showcase-item__desc">Interactive planets, orbit rings, STEM education</div>
 </div>
-<div class="showcase-item" style="flex: 0 0 340px;">
-<img src="assets/images/industry-gaming.svg" alt="Level editor on tablet" class="showcase-item__img" style="border-radius: 24px;">
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/tablet-leveleditor.svg" alt="3D level editor on tablet" class="showcase-item__img showcase-item__img--landscape">
 <div class="showcase-item__label">3D Level Editor</div>
 <div class="showcase-item__desc">Isometric block placement, tool palette, play mode</div>
 </div>
@@ -2210,10 +2231,15 @@ Interactive 3D worlds without a game engine.</p>
 <span class="device-section__badge device-section__badge--ready">Shipping today</span>
 </div>
 <div class="showcase-gallery">
-<div class="showcase-item" style="flex: 0 0 340px;">
-<img src="assets/images/industry-automotive.svg" alt="Car HUD and companion app" class="showcase-item__img" style="border-radius: 24px;">
-<div class="showcase-item__label">HUD + Companion App</div>
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/auto-hud-wide.svg" alt="Widescreen car HUD with 3D navigation" class="showcase-item__img showcase-item__img--landscape">
+<div class="showcase-item__label">Head-Up Display</div>
 <div class="showcase-item__desc">3D navigation, speed arc, lane assist, traffic lights</div>
+</div>
+<div class="showcase-item">
+<img src="assets/images/auto-companion.svg" alt="Phone companion app for vehicle" class="showcase-item__img">
+<div class="showcase-item__label">Companion App</div>
+<div class="showcase-item__desc">Live 3D vehicle model, climate, battery status</div>
 </div>
 <div class="showcase-item">
 <img src="assets/images/showcase-autopilot.svg" alt="Autopilot HUD" class="showcase-item__img">
@@ -2224,33 +2250,63 @@ Interactive 3D worlds without a game engine.</p>
 </div>
 
 <!-- ───── XR Headsets ───── -->
-<div class="device-section">
+<div class="device-section device-section--clickable">
+<a href="v4-preview/" class="device-section__link">
 <div class="device-section__header">
 <span class="device-section__icon">🥽</span>
 <span class="device-section__title">XR Headsets</span>
 <span class="device-section__badge device-section__badge--coming">v4.0</span>
+<span class="device-section__arrow">:octicons-arrow-right-24:</span>
 </div>
-<p class="device-section__desc">Same composable API — <code>XRScene { }</code> for spatial computing. Floating Compose UI via <code>ViewNode</code>. Coming in v4.0 with Kotlin Multiplatform.</p>
+</a>
+<p class="device-section__desc">Same composable API — <code>XRScene { }</code> for spatial computing. Floating Compose UI via <code>ViewNode</code>.</p>
+<div class="showcase-gallery">
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/device-xr-preview.svg" alt="XR spatial computing with floating UI panels" class="showcase-item__img showcase-item__img--landscape">
+<div class="showcase-item__label">Spatial Showroom</div>
+<div class="showcase-item__desc">Floating 3D models + Compose UI panels in space</div>
+</div>
+</div>
 </div>
 
 <!-- ───── iOS ───── -->
-<div class="device-section">
+<div class="device-section device-section--clickable">
+<a href="v4-preview/" class="device-section__link">
 <div class="device-section__header">
 <span class="device-section__icon">🍎</span>
 <span class="device-section__title">iOS</span>
 <span class="device-section__badge device-section__badge--coming">v4.0</span>
+<span class="device-section__arrow">:octicons-arrow-right-24:</span>
 </div>
-<p class="device-section__desc">Kotlin Multiplatform + Filament Metal backend. Share your scene graph across Android and iOS from one codebase.</p>
+</a>
+<p class="device-section__desc">Kotlin Multiplatform + Filament Metal backend. Share your scene graph across Android and iOS.</p>
+<div class="showcase-gallery">
+<div class="showcase-item">
+<img src="assets/images/device-ios-preview.svg" alt="SceneView running on iPhone" class="showcase-item__img">
+<div class="showcase-item__label">iOS Product Viewer</div>
+<div class="showcase-item__desc">SwiftUI + RealityKit, same API patterns</div>
+</div>
+</div>
 </div>
 
 <!-- ───── TV · Desktop ───── -->
-<div class="device-section">
+<div class="device-section device-section--clickable">
+<a href="v4-preview/" class="device-section__link">
 <div class="device-section__header">
 <span class="device-section__icon">🖥️</span>
 <span class="device-section__title">TV · Desktop</span>
 <span class="device-section__badge device-section__badge--coming">v4.0</span>
+<span class="device-section__arrow">:octicons-arrow-right-24:</span>
 </div>
+</a>
 <p class="device-section__desc">Compose Multiplatform opens the door to Android TV, Desktop JVM, and every screen Kotlin reaches.</p>
+<div class="showcase-gallery">
+<div class="showcase-item showcase-item--wide">
+<img src="assets/images/device-tv-preview.svg" alt="3D virtual tour on TV screen" class="showcase-item__img showcase-item__img--landscape">
+<div class="showcase-item__label">Virtual Showroom</div>
+<div class="showcase-item__desc">Living room tour with room navigation, remote control</div>
+</div>
+</div>
 </div>
 
 <hr />

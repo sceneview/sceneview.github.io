@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 340" fill="none">
+  <defs>
+    <!-- TV screen background -->
+    <linearGradient id="tv-bg" x1="260" y1="30" x2="260" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF8F0"/>
+      <stop offset="100%" stop-color="#F5EDE0"/>
+    </linearGradient>
+    <!-- Floor gradient -->
+    <linearGradient id="tv-floor" x1="260" y1="160" x2="260" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D4A574"/>
+      <stop offset="100%" stop-color="#C4956A"/>
+    </linearGradient>
+    <!-- Wall -->
+    <linearGradient id="tv-wall" x1="260" y1="30" x2="260" y2="180" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FAF3EB"/>
+      <stop offset="80%" stop-color="#F0E6D6"/>
+      <stop offset="100%" stop-color="#E8DCC8"/>
+    </linearGradient>
+    <!-- Window light -->
+    <linearGradient id="window-light" x1="380" y1="50" x2="380" y2="140" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF5CC"/>
+      <stop offset="100%" stop-color="#FFE89A"/>
+    </linearGradient>
+    <!-- Sofa gradient -->
+    <linearGradient id="sofa-fill" x1="160" y1="180" x2="160" y2="230" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <!-- Rug gradient -->
+    <radialGradient id="rug-fill" cx="240" cy="240" r="80" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#DC8A5A"/>
+      <stop offset="60%" stop-color="#C67A4E"/>
+      <stop offset="100%" stop-color="#A0603A"/>
+    </radialGradient>
+    <!-- Drop shadows -->
+    <filter id="tv-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+    <filter id="tv-shadow-lg" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+    <filter id="card-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+    <!-- Lamp light glow -->
+    <radialGradient id="lamp-glow" cx="110" cy="110" r="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFF5CC" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFF5CC" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- TV outer frame (bezel) -->
+  <rect x="10" y="10" width="500" height="280" rx="8" fill="#1D1D1F"/>
+  <!-- Screen -->
+  <rect x="16" y="16" width="488" height="268" rx="4" fill="url(#tv-bg)"/>
+
+  <!-- === Room Scene === -->
+  <!-- Wall -->
+  <rect x="16" y="16" width="488" height="160" rx="4" fill="url(#tv-wall)"/>
+  <!-- Floor -->
+  <rect x="16" y="170" width="488" height="114" fill="url(#tv-floor)"/>
+  <!-- Baseboard -->
+  <rect x="16" y="168" width="488" height="6" fill="#E0D0BC"/>
+
+  <!-- Floor plank lines -->
+  <g stroke="#BA8A5E" stroke-width="0.3" opacity="0.35">
+    <line x1="16" y1="195" x2="504" y2="195"/>
+    <line x1="16" y1="220" x2="504" y2="220"/>
+    <line x1="16" y1="245" x2="504" y2="245"/>
+    <line x1="16" y1="270" x2="504" y2="270"/>
+    <!-- Vertical joints -->
+    <line x1="100" y1="170" x2="100" y2="195"/>
+    <line x1="220" y1="170" x2="220" y2="195"/>
+    <line x1="340" y1="170" x2="340" y2="195"/>
+    <line x1="460" y1="170" x2="460" y2="195"/>
+    <line x1="160" y1="195" x2="160" y2="220"/>
+    <line x1="280" y1="195" x2="280" y2="220"/>
+    <line x1="400" y1="195" x2="400" y2="220"/>
+    <line x1="60" y1="220" x2="60" y2="245"/>
+    <line x1="180" y1="220" x2="180" y2="245"/>
+    <line x1="300" y1="220" x2="300" y2="245"/>
+    <line x1="420" y1="220" x2="420" y2="245"/>
+  </g>
+
+  <!-- Window -->
+  <g transform="translate(360, 40)">
+    <rect width="100" height="115" rx="3" fill="url(#window-light)" stroke="#C4B494" stroke-width="2"/>
+    <!-- Window panes -->
+    <line x1="50" y1="0" x2="50" y2="115" stroke="#C4B494" stroke-width="2"/>
+    <line x1="0" y1="57" x2="100" y2="57" stroke="#C4B494" stroke-width="2"/>
+    <!-- Window curtain left -->
+    <path d="M-8 0 Q-2 30 -6 115 L-12 115 Q-16 30 -12 0 Z" fill="#E8D8C4" opacity="0.7"/>
+    <!-- Window curtain right -->
+    <path d="M108 0 Q102 30 106 115 L112 115 Q116 30 112 0 Z" fill="#E8D8C4" opacity="0.7"/>
+  </g>
+
+  <!-- Light rays from window -->
+  <g opacity="0.08">
+    <polygon points="360,155 460,155 500,284 380,284" fill="#FFE89A"/>
+  </g>
+
+  <!-- Rug -->
+  <ellipse cx="250" cy="245" rx="100" ry="30" fill="url(#rug-fill)" opacity="0.7"/>
+  <!-- Rug pattern -->
+  <ellipse cx="250" cy="245" rx="80" ry="22" fill="none" stroke="#A0603A" stroke-width="1" opacity="0.4"/>
+  <ellipse cx="250" cy="245" rx="55" ry="15" fill="none" stroke="#A0603A" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- === Floor Lamp (left) === -->
+  <g transform="translate(80, 60)">
+    <!-- Lamp glow -->
+    <circle cx="0" cy="50" r="50" fill="url(#lamp-glow)"/>
+    <!-- Pole -->
+    <rect x="-2" y="30" width="4" height="130" fill="#3A3A3C"/>
+    <!-- Base -->
+    <ellipse cx="0" cy="160" rx="14" ry="4" fill="#3A3A3C"/>
+    <!-- Shade -->
+    <path d="M-18 20 Q-20 30 -14 40 L14 40 Q20 30 18 20 Z" fill="#F5E6D0" stroke="#E0D0B8" stroke-width="0.5"/>
+    <!-- Light bulb glow -->
+    <circle cx="0" cy="35" r="5" fill="#FFF5CC" opacity="0.6"/>
+  </g>
+
+  <!-- === Sofa === -->
+  <g transform="translate(140, 175)">
+    <!-- Sofa shadow -->
+    <ellipse cx="80" cy="58" rx="80" ry="8" fill="#000" opacity="0.08"/>
+    <!-- Sofa back -->
+    <rect x="0" y="-10" width="160" height="35" rx="8" fill="url(#sofa-fill)"/>
+    <!-- Sofa seat -->
+    <rect x="-5" y="20" width="170" height="28" rx="6" fill="#D97706"/>
+    <!-- Seat cushion line -->
+    <line x1="80" y1="22" x2="80" y2="46" stroke="#C56E06" stroke-width="1"/>
+    <!-- Left armrest -->
+    <rect x="-12" y="-5" width="18" height="50" rx="6" fill="#C56E06"/>
+    <!-- Right armrest -->
+    <rect x="154" y="-5" width="18" height="50" rx="6" fill="#C56E06"/>
+    <!-- Cushion pillows -->
+    <ellipse cx="50" cy="10" rx="22" ry="14" fill="#E8920A" opacity="0.5"/>
+    <ellipse cx="110" cy="10" rx="22" ry="14" fill="#E8920A" opacity="0.5"/>
+    <!-- Sofa legs -->
+    <rect x="10" y="46" width="5" height="10" rx="1" fill="#654321"/>
+    <rect x="145" y="46" width="5" height="10" rx="1" fill="#654321"/>
+  </g>
+
+  <!-- === Coffee Table === -->
+  <g transform="translate(210, 235)">
+    <!-- Table shadow -->
+    <ellipse cx="40" cy="18" rx="38" ry="5" fill="#000" opacity="0.06"/>
+    <!-- Table top -->
+    <rect x="0" y="0" width="80" height="6" rx="2" fill="#8B5E3C"/>
+    <rect x="2" y="1" width="76" height="3" rx="1" fill="#A0714D" opacity="0.5"/>
+    <!-- Legs -->
+    <rect x="8" y="6" width="3" height="12" fill="#7A5030"/>
+    <rect x="69" y="6" width="3" height="12" fill="#7A5030"/>
+    <!-- Items on table -->
+    <rect x="20" y="-4" width="16" height="4" rx="1" fill="#C4956A" opacity="0.6"/>
+    <circle cx="55" cy="-2" r="5" fill="#5B9BD5" opacity="0.4"/>
+  </g>
+
+  <!-- === Wall Art (left wall) === -->
+  <g transform="translate(50, 50)">
+    <rect width="55" height="70" rx="2" fill="#E8DCC8" stroke="#C4B494" stroke-width="1.5"/>
+    <!-- Abstract art inside -->
+    <circle cx="28" cy="30" r="15" fill="#D97706" opacity="0.3"/>
+    <circle cx="20" cy="38" r="10" fill="#92400E" opacity="0.25"/>
+    <rect x="10" y="52" width="35" height="2" rx="1" fill="#C4B494" opacity="0.5"/>
+  </g>
+
+  <!-- === Floating Info Card === -->
+  <g transform="translate(30, 190)" filter="url(#card-shadow)">
+    <rect width="140" height="44" rx="10" fill="white" opacity="0.95"/>
+    <rect width="140" height="44" rx="10" fill="none" stroke="#D97706" stroke-width="0.5" opacity="0.3"/>
+    <!-- Room icon -->
+    <g transform="translate(12, 10)">
+      <rect width="18" height="14" rx="2" fill="none" stroke="#D97706" stroke-width="1.5"/>
+      <path d="M0 14 L6 8 L12 12 L15 9 L18 14" fill="#D97706" opacity="0.2"/>
+    </g>
+    <text x="38" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#1D1D1F">Living Room</text>
+    <text x="38" y="35" font-family="system-ui, sans-serif" font-size="9" fill="#8E8E93">32m2 -- 345 sq ft</text>
+  </g>
+
+  <!-- === Bottom Toolbar (room navigation) === -->
+  <g transform="translate(100, 260)">
+    <rect width="300" height="20" rx="10" fill="#1D1D1F" opacity="0.7"/>
+    <!-- Active dot: Living -->
+    <circle cx="40" cy="10" r="4" fill="#D97706"/>
+    <text x="40" y="10" font-family="system-ui, sans-serif" font-size="0" fill="transparent">.</text>
+    <!-- Room labels -->
+    <text x="40" y="-3" font-family="system-ui, sans-serif" font-size="7" fill="white" opacity="0.9" text-anchor="middle">Living</text>
+
+    <circle cx="110" cy="10" r="3" fill="white" opacity="0.4"/>
+    <text x="110" y="-3" font-family="system-ui, sans-serif" font-size="7" fill="white" opacity="0.5" text-anchor="middle">Kitchen</text>
+
+    <circle cx="180" cy="10" r="3" fill="white" opacity="0.4"/>
+    <text x="180" y="-3" font-family="system-ui, sans-serif" font-size="7" fill="white" opacity="0.5" text-anchor="middle">Bedroom</text>
+
+    <circle cx="255" cy="10" r="3" fill="white" opacity="0.4"/>
+    <text x="255" y="-3" font-family="system-ui, sans-serif" font-size="7" fill="white" opacity="0.5" text-anchor="middle">Bath</text>
+  </g>
+
+  <!-- === Remote cursor === -->
+  <g transform="translate(280, 200)" opacity="0.7">
+    <!-- Cursor pointer -->
+    <path d="M0 0 L0 16 L5 12 L9 18 L12 16 L8 10 L14 10 Z" fill="white" stroke="#1D1D1F" stroke-width="0.8"/>
+  </g>
+
+  <!-- === TV Stand === -->
+  <rect x="210" y="292" width="100" height="6" rx="2" fill="#2C2C2E"/>
+  <!-- Stand neck -->
+  <rect x="250" y="290" width="20" height="8" rx="1" fill="#3A3A3C"/>
+  <!-- Stand base -->
+  <rect x="225" y="298" width="70" height="4" rx="2" fill="#2C2C2E"/>
+
+  <!-- TV frame edge highlight -->
+  <rect x="10" y="10" width="500" height="280" rx="8" fill="none" stroke="#3A3A3C" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Power LED -->
+  <circle cx="260" cy="287" r="1.5" fill="#34C759" opacity="0.7"/>
+
+  <!-- === Compose Desktop badge === -->
+  <g transform="translate(24, 24)">
+    <rect width="116" height="22" rx="6" fill="#1D1D1F" opacity="0.75"/>
+    <text x="12" y="15" font-family="system-ui, monospace" font-size="9" fill="#D97706" font-weight="600">Compose Desktop</text>
+  </g>
+</svg>
