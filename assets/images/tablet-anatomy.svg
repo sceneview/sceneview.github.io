@@ -90,7 +90,7 @@
   <!-- Sidebar bottom icons -->
   <line x1="26" y1="260" x2="90" y2="260" stroke="#E2E8F0" stroke-width="0.5"/>
   <circle cx="42" cy="275" r="7" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="0.5"/>
-  <text x="42" y="277.5" text-anchor="middle" font-size="7" fill="#64748B">⚙</text>
+  <text x="42" y="277.5" text-anchor="middle" font-size="7" fill="#64748B">Set</text>
   <circle cx="66" cy="275" r="7" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="0.5"/>
   <text x="66" y="277.5" text-anchor="middle" font-size="7" fill="#64748B">?</text>
 

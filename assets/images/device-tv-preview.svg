@@ -175,7 +175,7 @@
       <path d="M0 14 L6 8 L12 12 L15 9 L18 14" fill="#D97706" opacity="0.2"/>
     </g>
     <text x="38" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#1D1D1F">Living Room</text>
-    <text x="38" y="35" font-family="system-ui, sans-serif" font-size="9" fill="#8E8E93">32m2 -- 345 sq ft</text>
+    <text x="38" y="35" font-family="system-ui, sans-serif" font-size="9" fill="#8E8E93">32m² · 345 sq ft</text>
   </g>
 
   <!-- === Bottom Toolbar (room navigation) === -->
