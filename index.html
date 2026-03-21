@@ -74,6 +74,66 @@
     .footer__links{display:flex;align-items:center;gap:1rem}.footer__links a{display:inline-flex;align-items:center;gap:5px;font-size:0.8125rem;font-weight:500;color:var(--text-muted);transition:color .15s var(--ease)}.footer__links a:hover{color:var(--text)}
     .social-icon{width:16px;height:16px}
     .reveal{opacity:1;transform:none}
+
+    /* ── Demo cards ──────────────────────────────── */
+    .demo-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    @media(max-width:640px){.demo-cards{grid-template-columns:1fr;gap:0.75rem}}
+    .demo-card{all:unset;display:flex;flex-direction:column;cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow);background:var(--surface);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+    .demo-card:hover{transform:translateY(-6px) scale(1.015);box-shadow:0 8px 24px rgba(60,64,67,0.18)}
+    .demo-card:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+    .demo-card__img-wrap{position:relative;overflow:hidden}
+    .demo-card__img{width:100%;height:auto;display:block;transition:transform 6s ease}
+    .demo-card:hover .demo-card__img{transform:scale(1.06)}
+    .demo-card__overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--font-head);font-size:0.875rem;font-weight:500;color:#fff;background:rgba(0,0,0,0.38);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;transition:opacity .2s var(--ease)}
+    .demo-card:hover .demo-card__overlay{opacity:1}
+    .demo-card__foot{padding:0.875rem 1rem;background:var(--surface)}
+    .demo-card__title{display:block;font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.2rem}
+    .demo-card__sub{display:block;font-size:0.8rem;color:var(--text-secondary)}
+
+    /* ── Demo modal ──────────────────────────────── */
+    .dmodal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;pointer-events:none}
+    .dmodal.open{pointer-events:all}
+    .dmodal__backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .3s var(--ease)}
+    .dmodal.open .dmodal__backdrop{opacity:1}
+    .dmodal__panel{position:relative;background:var(--surface);border-radius:20px;width:100%;max-width:900px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,0.3);transform:translateY(32px) scale(0.96);opacity:0;transition:transform .35s cubic-bezier(.34,1.2,.64,1),opacity .25s var(--ease)}
+    .dmodal.open .dmodal__panel{transform:translateY(0) scale(1);opacity:1}
+    .dmodal.closing .dmodal__panel{transform:translateY(20px) scale(0.97);opacity:0;transition:transform .2s var(--ease),opacity .2s var(--ease)}
+    .dmodal.closing .dmodal__backdrop{opacity:0;transition:opacity .2s var(--ease)}
+    .dmodal__close{position:absolute;top:14px;right:14px;z-index:10;width:32px;height:32px;border-radius:50%;border:none;background:var(--bg-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);transition:background .15s,color .15s}
+    .dmodal__close:hover{background:var(--border);color:var(--text)}
+    .dmodal__tabs{display:flex;gap:0;padding:1rem 1.25rem 0;border-bottom:1px solid var(--border-light);flex-shrink:0}
+    .dmodal__tab{all:unset;cursor:pointer;padding:0.5rem 0.875rem;font-family:var(--font-head);font-size:0.875rem;font-weight:500;color:var(--text-secondary);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s}
+    .dmodal__tab:hover{color:var(--text)}
+    .dmodal__tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+    .dmodal__body{display:grid;grid-template-columns:auto 1fr;gap:0;overflow:hidden;flex:1}
+    @media(max-width:640px){.dmodal__body{grid-template-columns:1fr;overflow-y:auto}}
+    /* Phone */
+    .dmodal__phone{display:flex;align-items:center;justify-content:center;padding:1.5rem 1.25rem 1.5rem 1.5rem;background:linear-gradient(135deg,#1e1e2e 0%,#313244 100%);flex-shrink:0}
+    @media(max-width:640px){.dmodal__phone{padding:1.25rem;background:linear-gradient(135deg,#1e1e2e 0%,#313244 100%)}}
+    .dmodal__phone-frame{position:relative;width:160px;border-radius:28px;background:#0f0f17;padding:8px;box-shadow:0 0 0 1px rgba(255,255,255,0.12),0 16px 48px rgba(0,0,0,0.6),inset 0 0 0 1px rgba(255,255,255,0.05)}
+    @media(max-width:640px){.dmodal__phone-frame{width:120px;border-radius:22px}}
+    .dmodal__phone-notch{width:48px;height:10px;background:#0f0f17;border-radius:0 0 8px 8px;margin:0 auto 4px;position:relative;z-index:1}
+    .dmodal__screen-wrap{border-radius:18px;overflow:hidden;position:relative;background:#000}
+    @media(max-width:640px){.dmodal__screen-wrap{border-radius:14px}}
+    .dmodal__screen-img{width:100%;height:auto;display:block;animation:kenburns 18s ease-in-out infinite alternate}
+    .dmodal__phone-home{width:36px;height:5px;background:rgba(255,255,255,0.25);border-radius:3px;margin:8px auto 0}
+    @keyframes kenburns{0%{transform:scale(1) translate(0,0)}33%{transform:scale(1.08) translate(-2%,-1%)}66%{transform:scale(1.05) translate(1%,2%)}100%{transform:scale(1.1) translate(-1%,1%)}}
+    /* Details */
+    .dmodal__details{padding:1.5rem 1.75rem 1.5rem 1.25rem;overflow-y:auto;display:flex;flex-direction:column;gap:0.75rem}
+    @media(max-width:640px){.dmodal__details{padding:1.25rem 1.25rem 1.75rem}}
+    .dmodal__badge{display:inline-block;padding:3px 10px;font-family:var(--font-head);font-size:0.6875rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;border-radius:4px;background:var(--accent-soft);color:var(--accent)}
+    .dmodal__title{font-size:1.5rem;font-weight:500;letter-spacing:-0.02em;line-height:1.2}
+    .dmodal__desc{font-size:0.9375rem;color:var(--text-secondary);line-height:1.65;margin:0}
+    .dmodal__features{list-style:none;display:flex;flex-direction:column;gap:0;margin:0}
+    .dmodal__feature{display:flex;align-items:flex-start;gap:0.75rem;padding:0.625rem 0;border-bottom:1px solid var(--border-light);font-size:0.875rem;opacity:0;transform:translateX(-12px);animation:none}
+    .dmodal__feature.show{animation:featureIn .3s var(--ease) forwards}
+    @keyframes featureIn{to{opacity:1;transform:translateX(0)}}
+    .dmodal__feature:last-child{border-bottom:none}
+    .dmodal__feature-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.875rem;background:var(--accent-soft)}
+    .dmodal__feature-text{display:flex;flex-direction:column;gap:1px}
+    .dmodal__feature-label{font-weight:500;color:var(--text)}
+    .dmodal__feature-sub{font-size:0.8125rem;color:var(--text-secondary);line-height:1.4}
+    .dmodal__actions{display:flex;gap:0.625rem;flex-wrap:wrap;padding-top:0.25rem}
   </style>
 </head>
 <body>
@@ -265,30 +325,55 @@ implementation("io.github.sceneview:arsceneview:3.2.0")</code></pre>
       <h2 class="section__title">See every node type live</h2>
       <p class="section__subtitle">The SceneView Demo app showcases all 19+ node types with live 3D previews, code snippets, and real-time effects.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem">
-      <div style="border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow)">
-        <img src="images/apps/demo_explore.png" alt="SceneView Demo — Explore tab with 3D model viewer" style="width:100%;height:auto;display:block"/>
-        <div style="padding:0.875rem 1rem;background:var(--surface)">
-          <div style="font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.25rem">Explore</div>
-          <div style="font-size:0.8rem;color:var(--text-secondary)">8 models × 6 HDR environments, orbit camera</div>
+
+    <div class="demo-cards">
+      <!-- Explore -->
+      <button class="demo-card" data-tab="explore" aria-label="Open Explore tab demo">
+        <div class="demo-card__img-wrap">
+          <img src="images/apps/demo_explore.png" alt="Explore tab" class="demo-card__img"/>
+          <div class="demo-card__overlay">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Explore
+          </div>
         </div>
-      </div>
-      <div style="border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow)">
-        <img src="images/apps/demo_showcase.png" alt="SceneView Demo — Showcase tab with 17 node types" style="width:100%;height:auto;display:block"/>
-        <div style="padding:0.875rem 1rem;background:var(--surface)">
-          <div style="font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.25rem">Showcase</div>
-          <div style="font-size:0.8rem;color:var(--text-secondary)">17 node types, live 3D preview, copy code</div>
+        <div class="demo-card__foot">
+          <span class="demo-card__title">Explore</span>
+          <span class="demo-card__sub">8 models × 6 HDR environments</span>
         </div>
-      </div>
-      <div style="border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow)">
-        <img src="images/apps/demo_effects.png" alt="SceneView Demo — Effects tab with DynamicSkyNode and FogNode" style="width:100%;height:auto;display:block"/>
-        <div style="padding:0.875rem 1rem;background:var(--surface)">
-          <div style="font-family:var(--font-head);font-weight:500;font-size:0.9rem;margin-bottom:0.25rem">Effects</div>
-          <div style="font-size:0.8rem;color:var(--text-secondary)">DynamicSkyNode, FogNode, SSAO controls</div>
+      </button>
+
+      <!-- Showcase -->
+      <button class="demo-card" data-tab="showcase" aria-label="Open Showcase tab demo">
+        <div class="demo-card__img-wrap">
+          <img src="images/apps/demo_showcase.png" alt="Showcase tab" class="demo-card__img"/>
+          <div class="demo-card__overlay">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Explore
+          </div>
         </div>
-      </div>
+        <div class="demo-card__foot">
+          <span class="demo-card__title">Showcase</span>
+          <span class="demo-card__sub">19+ node types, live 3D preview</span>
+        </div>
+      </button>
+
+      <!-- Effects -->
+      <button class="demo-card" data-tab="effects" aria-label="Open Effects tab demo">
+        <div class="demo-card__img-wrap">
+          <img src="images/apps/demo_effects.png" alt="Effects tab" class="demo-card__img"/>
+          <div class="demo-card__overlay">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Explore
+          </div>
+        </div>
+        <div class="demo-card__foot">
+          <span class="demo-card__title">Effects</span>
+          <span class="demo-card__sub">DynamicSkyNode · FogNode · SSAO</span>
+        </div>
+      </button>
     </div>
-    <div style="text-align:center;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+
+    <div style="text-align:center;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem">
       <a class="btn btn--primary" href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.28.16.6.24.93.24.37 0 .74-.1 1.07-.3l13.08-7.56-3.12-3.12-11.96 10.74zm-1.18-21v20.48l11.22-10.08L2 2.76zM19.34 9.1L16.2 7.26 12.9 10.56l3.3 3.3 3.16-1.82a1.75 1.75 0 0 0 0-2.94zM4.1.54L16.2 7.26 13.08 10.38 2 .3C2.5.06 3.06.1 3.54.3z"/></svg>
         Get it on Google Play
@@ -298,6 +383,49 @@ implementation("io.github.sceneview:arsceneview:3.2.0")</code></pre>
       </a>
     </div>
   </section>
+
+  <!-- ── Demo Modal ──────────────────────────────── -->
+  <div id="demo-modal" class="dmodal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="dmodal__backdrop"></div>
+    <div class="dmodal__panel">
+
+      <!-- Close -->
+      <button class="dmodal__close" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+
+      <!-- Tab switcher -->
+      <div class="dmodal__tabs" role="tablist">
+        <button class="dmodal__tab" data-tab="explore" role="tab">Explore</button>
+        <button class="dmodal__tab" data-tab="showcase" role="tab">Showcase</button>
+        <button class="dmodal__tab" data-tab="effects" role="tab">Effects</button>
+      </div>
+
+      <!-- Content -->
+      <div class="dmodal__body">
+        <!-- Phone mockup -->
+        <div class="dmodal__phone">
+          <div class="dmodal__phone-frame">
+            <div class="dmodal__phone-notch"></div>
+            <div class="dmodal__screen-wrap">
+              <img id="dmodal-img" src="" alt="" class="dmodal__screen-img"/>
+            </div>
+            <div class="dmodal__phone-home"></div>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="dmodal__details">
+          <div class="dmodal__badge" id="dmodal-badge"></div>
+          <h2 class="dmodal__title" id="dmodal-title"></h2>
+          <p class="dmodal__desc" id="dmodal-desc"></p>
+          <ul class="dmodal__features" id="dmodal-features"></ul>
+          <div class="dmodal__actions" id="dmodal-actions"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Features teaser -->
   <section class="section" style="padding-top:0">
@@ -399,5 +527,172 @@ implementation("io.github.sceneview:arsceneview:3.2.0")</code></pre>
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+(function() {
+  var TABS = {
+    explore: {
+      img: 'images/apps/demo_explore.png',
+      badge: 'Explore Tab',
+      title: '3D Model Viewer',
+      desc: 'A full-screen 3D scene with orbit camera, HDR environment lighting, and a curated library of models. Drag to rotate, pinch to zoom, switch models and environments instantly.',
+      features: [
+        { icon: '🎨', label: '8 curated 3D models', sub: 'Toy Car, Geisha Mask, Space Helmet, Robot Mantis, Kawaii Meka…' },
+        { icon: '🌅', label: '6 HDR environments', sub: 'Night · Studio · Warm · Outdoor · Sunset · Autumn Field' },
+        { icon: '🖐️', label: 'Orbit camera', sub: 'Drag to rotate · Pinch to zoom · Auto-rotate mode' },
+        { icon: '💡', label: 'Image-based lighting (IBL)', sub: 'Real specular reflections from each HDR environment' },
+        { icon: '▶️', label: 'Model animation playback', sub: 'Play / pause animated GLB models in real time' },
+        { icon: '🧩', label: 'Compose chip pickers', sub: 'Model + environment switcher overlaid on the 3D scene' }
+      ],
+      actions: [
+        { label: 'View source', href: 'https://github.com/SceneView/sceneview-android/tree/main/samples/model-viewer', primary: false }
+      ]
+    },
+    showcase: {
+      img: 'images/apps/demo_showcase.png',
+      badge: 'Showcase Tab',
+      title: '19+ Node Types',
+      desc: 'Browse every node type available in SceneView with a live 3D preview and a copy-ready Kotlin code snippet for each one.',
+      features: [
+        { icon: '📦', label: 'ModelNode', sub: 'glTF / GLB models with PBR materials and animations' },
+        { icon: '🔷', label: 'Procedural geometry', sub: 'CubeNode · SphereNode · CylinderNode · PlaneNode' },
+        { icon: '🏷️', label: 'TextNode & BillboardNode', sub: 'SDF text and always-facing-camera quads — new in 3.4.0' },
+        { icon: '⚡', label: 'PhysicsNode', sub: 'Rigid body simulation via Bullet Physics — added in 3.2.0' },
+        { icon: '🌤️', label: 'DynamicSkyNode · FogNode', sub: 'Atmosphere + distance fog composited via Filament' },
+        { icon: '📋', label: 'Copy code button', sub: 'One tap to copy the Kotlin snippet for any node' }
+      ],
+      actions: [
+        { label: 'View source', href: 'https://github.com/SceneView/sceneview-android/tree/main/samples/sceneview-demo', primary: false },
+        { label: 'All features →', href: 'features.html', primary: true }
+      ]
+    },
+    effects: {
+      img: 'images/apps/demo_effects.png',
+      badge: 'Effects Tab',
+      title: 'Atmosphere & Post-Processing',
+      desc: 'Real-time atmosphere simulation and post-processing effects with live sliders. The sky, fog density, and SSAO update instantly as you move the controls.',
+      features: [
+        { icon: '🌄', label: 'DynamicSkyNode', sub: 'Time-of-day slider from 5 AM to 9 PM — auto-animates at 24s/day' },
+        { icon: '🌫️', label: 'FogNode', sub: 'Distance + density controls · Color tinted to match the sky' },
+        { icon: '🔆', label: 'SSAO', sub: 'Screen-space ambient occlusion — toggle on/off in real time' },
+        { icon: '✨', label: 'Bloom', sub: 'Luminance threshold + strength via Filament BloomOptions' },
+        { icon: '📷', label: 'Depth of Field', sub: 'Focus distance + aperture configurable per scene' },
+        { icon: '🔁', label: 'All state-driven', sub: 'Sliders are Compose state → Scene re-renders on each frame' }
+      ],
+      actions: [
+        { label: 'Features docs →', href: 'features.html#atmosphere', primary: true }
+      ]
+    }
+  };
+
+  var modal = document.getElementById('demo-modal');
+  var modalImg = document.getElementById('dmodal-img');
+  var modalBadge = document.getElementById('dmodal-badge');
+  var modalTitle = document.getElementById('dmodal-title');
+  var modalDesc = document.getElementById('dmodal-desc');
+  var modalFeatures = document.getElementById('dmodal-features');
+  var modalActions = document.getElementById('dmodal-actions');
+  var modalTabs = modal.querySelectorAll('.dmodal__tab');
+  var activeTab = 'explore';
+
+  function openModal(tab) {
+    activeTab = tab;
+    renderTab(tab);
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    // Animate features in with stagger
+    setTimeout(animateFeatures, 120);
+  }
+
+  function closeModal() {
+    modal.classList.add('closing');
+    setTimeout(function() {
+      modal.classList.remove('open', 'closing');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }, 220);
+  }
+
+  function renderTab(tab) {
+    var data = TABS[tab];
+    if (!data) return;
+    // Update active tab indicator
+    modalTabs.forEach(function(t) {
+      t.classList.toggle('active', t.dataset.tab === tab);
+    });
+    // Update content
+    modalImg.src = data.img;
+    modalImg.alt = data.title;
+    modalBadge.textContent = data.badge;
+    modalTitle.textContent = data.title;
+    modalDesc.textContent = data.desc;
+    // Features
+    modalFeatures.innerHTML = '';
+    data.features.forEach(function(f) {
+      var li = document.createElement('li');
+      li.className = 'dmodal__feature';
+      li.innerHTML = '<div class="dmodal__feature-icon">' + f.icon + '</div>'
+        + '<div class="dmodal__feature-text">'
+        + '<span class="dmodal__feature-label">' + f.label + '</span>'
+        + '<span class="dmodal__feature-sub">' + f.sub + '</span>'
+        + '</div>';
+      modalFeatures.appendChild(li);
+    });
+    // Actions
+    modalActions.innerHTML = '';
+    data.actions.forEach(function(a) {
+      var btn = document.createElement('a');
+      btn.className = 'btn ' + (a.primary ? 'btn--primary' : 'btn--outline') + ' btn--sm';
+      btn.href = a.href;
+      if (a.href.startsWith('http')) { btn.target = '_blank'; btn.rel = 'noopener'; }
+      btn.textContent = a.label;
+      modalActions.appendChild(btn);
+    });
+  }
+
+  function animateFeatures() {
+    var items = modalFeatures.querySelectorAll('.dmodal__feature');
+    items.forEach(function(item, i) {
+      item.style.animationDelay = (i * 55) + 'ms';
+      item.classList.add('show');
+    });
+  }
+
+  // Open from cards
+  document.querySelectorAll('.demo-card').forEach(function(card) {
+    card.addEventListener('click', function() { openModal(card.dataset.tab); });
+  });
+
+  // Tab switching inside modal
+  modalTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      if (tab.dataset.tab === activeTab) return;
+      // Reset feature animations
+      modalFeatures.querySelectorAll('.dmodal__feature').forEach(function(f) { f.classList.remove('show'); });
+      renderTab(tab.dataset.tab);
+      activeTab = tab.dataset.tab;
+      setTimeout(animateFeatures, 60);
+    });
+  });
+
+  // Close
+  modal.querySelector('.dmodal__close').addEventListener('click', closeModal);
+  modal.querySelector('.dmodal__backdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'ArrowRight') {
+      var tabs = Object.keys(TABS);
+      var next = tabs[(tabs.indexOf(activeTab) + 1) % tabs.length];
+      renderTab(next); activeTab = next; setTimeout(animateFeatures, 60);
+    }
+    if (e.key === 'ArrowLeft') {
+      var tabs = Object.keys(TABS);
+      var prev = tabs[(tabs.indexOf(activeTab) + tabs.length - 1) % tabs.length];
+      renderTab(prev); activeTab = prev; setTimeout(animateFeatures, 60);
+    }
+  });
+})();
+</script>
 </body>
 </html>
