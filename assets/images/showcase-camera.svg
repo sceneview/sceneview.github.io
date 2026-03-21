@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <linearGradient id="cam-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F5F3FF"/><stop offset="100%" stop-color="#EDE9FE"/>
+    </linearGradient>
+    <linearGradient id="cam-cube" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7B61FF"/><stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="cam-cube-side" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6D28D9"/><stop offset="100%" stop-color="#7B61FF"/>
+    </linearGradient>
+    <linearGradient id="cam-cube-top" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#C4B5FD"/>
+    </linearGradient>
+    <filter id="cam-shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#7B61FF" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  <!-- Phone frame (white/silver) -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#E5E5E5"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#F5F5F5"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#cam-bg)"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#E5E5E5"/>
+  <!-- Status bar -->
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="#666" font-weight="600">9:41</text>
+  <!-- App bar -->
+  <text x="140" y="72" font-family="system-ui" font-size="13" fill="#1A1A1A" text-anchor="middle" font-weight="700">Camera Controls</text>
+  <!-- 3D viewport -->
+  <rect x="34" y="86" width="212" height="240" rx="24" fill="white" filter="url(#cam-shadow)" stroke="#E9D5FF" stroke-width="0.5"/>
+  <!-- Grid -->
+  <g opacity="0.12">
+    <line x1="60" y1="280" x2="220" y2="280" stroke="#7B61FF"/><line x1="60" y1="260" x2="220" y2="260" stroke="#7B61FF"/>
+    <line x1="60" y1="240" x2="220" y2="240" stroke="#7B61FF"/><line x1="60" y1="220" x2="220" y2="220" stroke="#7B61FF"/>
+    <line x1="80" y1="200" x2="80" y2="290" stroke="#7B61FF"/><line x1="110" y1="200" x2="110" y2="290" stroke="#7B61FF"/>
+    <line x1="140" y1="200" x2="140" y2="290" stroke="#7B61FF"/><line x1="170" y1="200" x2="170" y2="290" stroke="#7B61FF"/>
+    <line x1="200" y1="200" x2="200" y2="290" stroke="#7B61FF"/>
+  </g>
+  <!-- Isometric cube -->
+  <g transform="translate(100, 130)">
+    <!-- Front face -->
+    <path d="M0,35 L40,55 L80,35 L80,-15 L40,-35 L0,-15 Z" fill="url(#cam-cube)"/>
+    <!-- Right face -->
+    <path d="M80,35 L80,-15 L40,-35 L40,15 Z" fill="url(#cam-cube-side)"/>
+    <!-- Top face -->
+    <path d="M0,-15 L40,-35 L80,-15 L40,5 Z" fill="url(#cam-cube-top)"/>
+    <!-- Edge highlights -->
+    <line x1="0" y1="-15" x2="0" y2="35" stroke="white" stroke-width="0.5" opacity="0.3"/>
+    <line x1="0" y1="-15" x2="40" y2="5" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <!-- Camera orbit ring -->
+  <ellipse cx="140" cy="190" rx="85" ry="30" fill="none" stroke="#7B61FF" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.3"/>
+  <!-- Camera position dot -->
+  <circle cx="55" cy="190" r="6" fill="#7B61FF"/>
+  <circle cx="55" cy="190" r="3" fill="white"/>
+  <!-- Orbit arrow -->
+  <path d="M55,196 Q90,220 140,220 Q190,220 220,198" stroke="#7B61FF" stroke-width="1" fill="none" stroke-dasharray="3,2" opacity="0.4"/>
+  <!-- Axis gizmo -->
+  <g transform="translate(50, 108)" opacity="0.6">
+    <line x1="0" y1="0" x2="18" y2="0" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="0" y2="-18" stroke="#22C55E" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="0" x2="-10" y2="10" stroke="#3B82F6" stroke-width="2" stroke-linecap="round"/>
+    <text x="22" y="4" font-family="system-ui" font-size="8" fill="#EF4444" font-weight="700">X</text>
+    <text x="-4" y="-22" font-family="system-ui" font-size="8" fill="#22C55E" font-weight="700">Y</text>
+    <text x="-20" y="18" font-family="system-ui" font-size="8" fill="#3B82F6" font-weight="700">Z</text>
+  </g>
+  <!-- Camera mode selector -->
+  <g transform="translate(34, 340)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#666" font-weight="700">CAMERA MODE</text>
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="66" height="30" rx="15" fill="#7B61FF"/>
+      <text x="33" y="20" font-family="system-ui" font-size="9" fill="white" text-anchor="middle" font-weight="600">Orbit</text>
+      <rect x="72" y="0" width="66" height="30" rx="15" fill="#F5F3FF" stroke="#E9D5FF"/>
+      <text x="105" y="20" font-family="system-ui" font-size="9" fill="#666" text-anchor="middle">Pan</text>
+      <rect x="144" y="0" width="66" height="30" rx="15" fill="#F5F3FF" stroke="#E9D5FF"/>
+      <text x="177" y="20" font-family="system-ui" font-size="9" fill="#666" text-anchor="middle">Zoom</text>
+    </g>
+  </g>
+  <!-- Sensitivity sliders -->
+  <g transform="translate(34, 395)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">ORBIT SPEED</text>
+    <rect x="0" y="8" width="100" height="4" rx="2" fill="#E9D5FF"/>
+    <rect x="0" y="8" width="65" height="4" rx="2" fill="#7B61FF"/>
+    <circle cx="65" cy="10" r="6" fill="white" stroke="#7B61FF" stroke-width="1.5"/>
+    <text x="108" y="14" font-family="system-ui" font-size="9" fill="#333" font-weight="600">1.0x</text>
+  </g>
+  <g transform="translate(34, 420)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">ZOOM SPEED</text>
+    <rect x="0" y="8" width="100" height="4" rx="2" fill="#E9D5FF"/>
+    <rect x="0" y="8" width="45" height="4" rx="2" fill="#A78BFA"/>
+    <circle cx="45" cy="10" r="6" fill="white" stroke="#A78BFA" stroke-width="1.5"/>
+    <text x="108" y="14" font-family="system-ui" font-size="9" fill="#333" font-weight="600">0.7x</text>
+  </g>
+</svg>

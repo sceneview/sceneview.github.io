@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <linearGradient id="ln-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/><stop offset="100%" stop-color="#1E1B4B"/>
+    </linearGradient>
+    <filter id="ln-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#ln-bg)"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
+  <!-- Status bar -->
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="white" font-weight="600" opacity="0.6">9:41</text>
+  <!-- Title -->
+  <rect x="44" y="56" width="192" height="28" rx="14" fill="rgba(255,255,255,0.08)"/>
+  <text x="140" y="75" font-family="system-ui" font-size="10" fill="white" text-anchor="middle" font-weight="700">Line Paths</text>
+  <!-- 3D viewport -->
+  <rect x="34" y="94" width="212" height="260" rx="18" fill="#020617" stroke="#334155" stroke-width="0.5"/>
+  <!-- Lissajous curve — animated glowing path -->
+  <g filter="url(#ln-glow)">
+    <path d="M80,170 Q90,120 120,140 Q150,160 140,200 Q130,240 160,230 Q190,220 200,180 Q210,140 180,130 Q150,120 140,160 Q130,200 110,210 Q90,220 80,190 Q70,160 80,170"
+      stroke="#06B6D4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- Second curve -->
+  <g filter="url(#ln-glow)">
+    <path d="M70,200 Q100,150 130,170 Q160,190 170,160 Q180,130 200,150 Q220,170 210,210 Q200,250 170,240 Q140,230 120,250 Q100,270 80,240 Q60,210 70,200"
+      stroke="#F472B6" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+  </g>
+  <!-- Third curve — sine wave -->
+  <g filter="url(#ln-glow)">
+    <path d="M50,300 Q80,270 110,300 Q140,330 170,300 Q200,270 230,300"
+      stroke="#FCD34D" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+  </g>
+  <!-- Moving dot on curve -->
+  <circle cx="160" cy="230" r="5" fill="#06B6D4" filter="url(#ln-glow)"/>
+  <circle cx="160" cy="230" r="2.5" fill="white"/>
+  <!-- Moving dot on second curve -->
+  <circle cx="120" cy="250" r="4" fill="#F472B6" filter="url(#ln-glow)"/>
+  <circle cx="120" cy="250" r="2" fill="white"/>
+  <!-- Grid floor hint -->
+  <g opacity="0.1">
+    <line x1="50" y1="340" x2="230" y2="340" stroke="white"/>
+    <line x1="55" y1="330" x2="225" y2="330" stroke="white"/>
+  </g>
+  <!-- Path selector -->
+  <g transform="translate(34, 370)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#94A3B8" font-weight="700">PATH TYPE</text>
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="65" height="26" rx="13" fill="rgba(6,182,212,0.2)" stroke="#06B6D4" stroke-width="1"/>
+      <text x="32" y="17" font-family="system-ui" font-size="8" fill="#67E8F9" text-anchor="middle" font-weight="600">Lissajous</text>
+      <rect x="72" y="0" width="50" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="#64748B"/>
+      <text x="97" y="17" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="middle">Sine</text>
+      <rect x="128" y="0" width="50" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="#64748B"/>
+      <text x="153" y="17" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="middle">Helix</text>
+    </g>
+  </g>
+  <!-- Speed -->
+  <g transform="translate(34, 410)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">ANIMATION SPEED</text>
+    <rect x="0" y="8" width="212" height="4" rx="2" fill="#334155"/>
+    <rect x="0" y="8" width="120" height="4" rx="2" fill="#06B6D4"/>
+    <circle cx="120" cy="10" r="7" fill="white" stroke="#06B6D4" stroke-width="2"/>
+    <text x="192" y="14" font-family="system-ui" font-size="9" fill="white" font-weight="600">1.5x</text>
+  </g>
+  <!-- Color toggles -->
+  <g transform="translate(34, 438)">
+    <circle cx="8" cy="0" r="6" fill="#06B6D4" stroke="white" stroke-width="1.5"/>
+    <circle cx="28" cy="0" r="6" fill="#F472B6" stroke="white" stroke-width="1.5"/>
+    <circle cx="48" cy="0" r="6" fill="#FCD34D" stroke="white" stroke-width="1.5"/>
+    <text x="64" y="4" font-family="system-ui" font-size="8" fill="#94A3B8">3 active paths</text>
+  </g>
+  <rect x="100" y="454" width="80" height="4" rx="2" fill="#666"/>
+</svg>

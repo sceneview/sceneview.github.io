@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
+  <defs>
+    <linearGradient id="tx-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F0F9FF"/><stop offset="100%" stop-color="#F5F3FF"/>
+    </linearGradient>
+    <filter id="tx-shadow" x="-8%" y="-8%" width="116%" height="116%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0D9488" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#E5E5E5"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#F5F5F5"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#tx-bg)"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#E5E5E5"/>
+  <!-- Status bar -->
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="#666" font-weight="600">9:41</text>
+  <!-- App bar -->
+  <text x="140" y="72" font-family="system-ui" font-size="13" fill="#1A1A1A" text-anchor="middle" font-weight="700">Text Labels</text>
+  <!-- 3D viewport -->
+  <rect x="34" y="86" width="212" height="260" rx="24" fill="white" filter="url(#tx-shadow)" stroke="#CCFBF1" stroke-width="0.5"/>
+  <!-- Ground plane -->
+  <g opacity="0.08">
+    <rect x="50" y="270" width="180" height="60" rx="4" fill="#0D9488"/>
+  </g>
+  <!-- 3D Objects with floating text labels -->
+  <!-- Cube object -->
+  <g transform="translate(70, 170)">
+    <path d="M0,20 L20,30 L40,20 L40,0 L20,-10 L0,0 Z" fill="#7B61FF" opacity="0.8"/>
+    <path d="M40,20 L40,0 L20,-10 L20,10 Z" fill="#6D28D9" opacity="0.8"/>
+    <path d="M0,0 L20,-10 L40,0 L20,10 Z" fill="#A78BFA" opacity="0.8"/>
+    <!-- Billboard label -->
+    <g transform="translate(-10, -40)">
+      <rect x="0" y="0" width="60" height="22" rx="11" fill="white" stroke="#7B61FF" stroke-width="1"/>
+      <text x="30" y="15" font-family="system-ui" font-size="8" fill="#7B61FF" text-anchor="middle" font-weight="600">Cube</text>
+      <!-- Connector line -->
+      <line x1="30" y1="22" x2="20" y2="38" stroke="#7B61FF" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+    </g>
+  </g>
+  <!-- Sphere object -->
+  <g transform="translate(150, 190)">
+    <circle cx="20" cy="15" r="18" fill="#0D9488" opacity="0.7"/>
+    <circle cx="16" cy="10" r="5" fill="white" opacity="0.25"/>
+    <!-- Billboard label -->
+    <g transform="translate(-10, -45)">
+      <rect x="0" y="0" width="64" height="22" rx="11" fill="white" stroke="#0D9488" stroke-width="1"/>
+      <text x="32" y="15" font-family="system-ui" font-size="8" fill="#0D9488" text-anchor="middle" font-weight="600">Sphere</text>
+      <line x1="32" y1="22" x2="20" y2="40" stroke="#0D9488" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+    </g>
+  </g>
+  <!-- Cylinder object -->
+  <g transform="translate(100, 230)">
+    <ellipse cx="20" cy="0" rx="16" ry="6" fill="#F472B6" opacity="0.6"/>
+    <rect x="4" y="0" width="32" height="30" fill="#EC4899" opacity="0.6"/>
+    <ellipse cx="20" cy="30" rx="16" ry="6" fill="#DB2777" opacity="0.6"/>
+    <!-- Billboard label -->
+    <g transform="translate(-12, -35)">
+      <rect x="0" y="0" width="68" height="22" rx="11" fill="white" stroke="#F472B6" stroke-width="1"/>
+      <text x="34" y="15" font-family="system-ui" font-size="8" fill="#EC4899" text-anchor="middle" font-weight="600">Cylinder</text>
+      <line x1="34" y1="22" x2="20" y2="32" stroke="#F472B6" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+    </g>
+  </g>
+  <!-- Large floating 3D text -->
+  <g transform="translate(50, 110)">
+    <text x="0" y="0" font-family="system-ui" font-size="28" fill="#0D9488" font-weight="800" opacity="0.15">Hello 3D</text>
+    <text x="2" y="-2" font-family="system-ui" font-size="28" fill="#0D9488" font-weight="800" opacity="0.3">Hello 3D</text>
+    <text x="4" y="-4" font-family="system-ui" font-size="28" fill="#0D9488" font-weight="800" opacity="0.6">Hello 3D</text>
+  </g>
+  <!-- Controls -->
+  <g transform="translate(34, 360)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#666" font-weight="700">LABEL STYLE</text>
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="68" height="26" rx="13" fill="#0D9488"/>
+      <text x="34" y="17" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="600">Billboard</text>
+      <rect x="74" y="0" width="68" height="26" rx="13" fill="#F0FDFA" stroke="#CCFBF1"/>
+      <text x="108" y="17" font-family="system-ui" font-size="8" fill="#666" text-anchor="middle">Anchored</text>
+      <rect x="148" y="0" width="68" height="26" rx="13" fill="#F0FDFA" stroke="#CCFBF1"/>
+      <text x="182" y="17" font-family="system-ui" font-size="8" fill="#666" text-anchor="middle">Extruded</text>
+    </g>
+  </g>
+  <!-- Font size -->
+  <g transform="translate(34, 405)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">FONT SIZE</text>
+    <rect x="0" y="8" width="140" height="4" rx="2" fill="#CCFBF1"/>
+    <rect x="0" y="8" width="80" height="4" rx="2" fill="#0D9488"/>
+    <circle cx="80" cy="10" r="6" fill="white" stroke="#0D9488" stroke-width="1.5"/>
+    <text x="152" y="14" font-family="system-ui" font-size="9" fill="#333" font-weight="600">24pt</text>
+  </g>
+  <!-- Toggle -->
+  <g transform="translate(34, 434)">
+    <text x="0" y="0" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">FACE CAMERA</text>
+    <rect x="90" y="-10" width="32" height="16" rx="8" fill="#0D9488"/>
+    <circle cx="112" cy="-2" r="5" fill="white"/>
+  </g>
+</svg>

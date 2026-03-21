@@ -1,115 +1,80 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 720" width="400" height="720">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
   <defs>
-    <linearGradient id="road-bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a1628"/>
-      <stop offset="100%" stop-color="#162d50"/>
+    <linearGradient id="ap-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/><stop offset="100%" stop-color="#1E293B"/>
     </linearGradient>
-    <linearGradient id="road-surface" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1a2a40"/>
-      <stop offset="100%" stop-color="#0f1a28"/>
+    <linearGradient id="ap-road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#475569"/><stop offset="100%" stop-color="#334155"/>
     </linearGradient>
-    <linearGradient id="hud-green" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#00E676"/>
-      <stop offset="100%" stop-color="#69F0AE"/>
+    <linearGradient id="ap-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E3A5F"/><stop offset="100%" stop-color="#475569"/>
     </linearGradient>
-    <filter id="glow-hud">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
+    <filter id="ap-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <clipPath id="screen-auto">
-      <rect x="16" y="16" width="368" height="688" rx="20"/>
-    </clipPath>
   </defs>
-
-  <!-- Device frame -->
-  <rect width="400" height="720" rx="32" fill="#1a1a1a"/>
-  <rect x="4" y="4" width="392" height="712" rx="28" fill="#2a2a2a"/>
-
-  <g clip-path="url(#screen-auto)">
-    <!-- Dark background -->
-    <rect x="16" y="16" width="368" height="688" fill="url(#road-bg)"/>
-
-    <!-- Road with perspective -->
-    <polygon points="160,200 240,200 384,704 16,704" fill="url(#road-surface)"/>
-
-    <!-- Road lines -->
-    <g stroke="#FFD54F" stroke-width="3">
-      <!-- Center dashes -->
-      <line x1="200" y1="220" x2="200" y2="260" opacity="0.9"/>
-      <line x1="200" y1="290" x2="198" y2="340" opacity="0.8"/>
-      <line x1="196" y1="370" x2="192" y2="430" opacity="0.7"/>
-      <line x1="188" y1="460" x2="180" y2="540" opacity="0.6"/>
-      <line x1="172" y1="570" x2="155" y2="660" opacity="0.5"/>
-    </g>
-    <!-- Right white line -->
-    <g stroke="white" stroke-width="2.5" opacity="0.8">
-      <line x1="240" y1="200" x2="260" y2="280"/>
-      <line x1="260" y1="280" x2="300" y2="400"/>
-      <line x1="300" y1="400" x2="370" y2="600"/>
-      <line x1="370" y1="600" x2="384" y2="704"/>
-    </g>
-    <!-- Left white line -->
-    <g stroke="white" stroke-width="2.5" opacity="0.6">
-      <line x1="160" y1="200" x2="140" y2="280"/>
-      <line x1="140" y1="280" x2="100" y2="400"/>
-      <line x1="100" y1="400" x2="40" y2="600"/>
-    </g>
-
-    <!-- Detected objects (cars ahead) -->
-    <!-- Car 1 - nearby -->
-    <g transform="translate(210,340)">
-      <rect x="-20" y="-12" width="40" height="24" rx="4" fill="none" stroke="#00E5FF" stroke-width="1.5" opacity="0.8"/>
-      <text x="25" y="4" fill="#00E5FF" font-family="monospace" font-size="8" opacity="0.7">42m</text>
-    </g>
-    <!-- Car 2 - far -->
-    <g transform="translate(195,270)">
-      <rect x="-10" y="-6" width="20" height="12" rx="2" fill="none" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
-    </g>
-
-    <!-- Lane detection overlay -->
-    <g opacity="0.25">
-      <polygon points="165,210 235,210 350,650 50,650" fill="none" stroke="#00E676" stroke-width="1.5"/>
-    </g>
-
-    <!-- HUD - Top status bar -->
-    <g transform="translate(30,45)">
-      <rect width="340" height="55" rx="10" fill="rgba(0,0,0,0.7)" stroke="rgba(0,230,118,0.3)" stroke-width="1"/>
-      <text x="15" y="22" fill="#00E676" font-family="system-ui" font-size="11" font-weight="700">AUTOPILOT</text>
-      <text x="130" y="22" fill="rgba(255,255,255,0.5)" font-family="system-ui" font-size="11">FOLLOWING DIST</text>
-      <text x="15" y="42" fill="white" font-family="system-ui" font-size="14" font-weight="500">SceneView FSD</text>
-      <text x="130" y="42" fill="#00E676" font-family="system-ui" font-size="13" font-weight="500">COMFORTABLE</text>
-
-      <!-- Active indicator -->
-      <circle cx="305" cy="20" r="5" fill="#00E676" filter="url(#glow-hud)"/>
-      <text x="305" y="42" text-anchor="middle" fill="#00E676" font-family="system-ui" font-size="12" font-weight="700">ACTIVE</text>
-    </g>
-
-    <!-- Speed display -->
-    <g transform="translate(40,560)">
-      <!-- Speed limit sign -->
-      <circle cx="30" cy="0" r="22" fill="white" stroke="#E53935" stroke-width="4"/>
-      <text x="30" y="7" text-anchor="middle" fill="#1a1a1a" font-family="system-ui" font-size="18" font-weight="700">120</text>
-
-      <!-- Current speed -->
-      <text x="0" y="70" fill="white" font-family="system-ui" font-size="52" font-weight="200">108</text>
-      <text x="0" y="90" fill="rgba(255,255,255,0.4)" font-family="system-ui" font-size="14">km/h</text>
-    </g>
-
-    <!-- Detection panel -->
-    <g transform="translate(240,540)">
-      <rect width="130" height="110" rx="8" fill="rgba(0,0,0,0.7)"/>
-      <text x="12" y="22" fill="rgba(255,255,255,0.5)" font-family="system-ui" font-size="10" font-weight="600" letter-spacing="1">DETECTED</text>
-      <g transform="translate(12,38)" font-family="system-ui" font-size="13">
-        <rect width="8" height="8" rx="1" fill="#42A5F5"/><text x="14" y="9" fill="white">Cars     3</text>
-        <g transform="translate(0,20)"><rect width="8" height="8" rx="1" fill="#FFA726"/><text x="14" y="9" fill="white">Bus      1</text></g>
-        <g transform="translate(0,40)"><rect width="8" height="8" rx="1" fill="#EF5350"/><text x="14" y="9" fill="white">Truck    1</text></g>
-        <g transform="translate(0,60)"><rect width="8" height="8" rx="1" fill="#66BB6A"/><text x="14" y="9" fill="white">Bikes    2</text></g>
-      </g>
-    </g>
-
-    <!-- Bottom credit -->
-    <text x="200" y="695" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="system-ui" font-size="10">Powered by SceneView + Jetpack Compose</text>
+  <!-- Phone frame -->
+  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
+  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
+  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#ap-bg)"/>
+  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
+  <text x="40" y="50" font-family="system-ui" font-size="10" fill="white" font-weight="600" opacity="0.6">9:41</text>
+  <rect x="34" y="56" width="212" height="28" rx="14" fill="rgba(255,255,255,0.06)"/>
+  <text x="140" y="75" font-family="system-ui" font-size="10" fill="white" text-anchor="middle" font-weight="700">Autopilot HUD</text>
+  <!-- Scene -->
+  <rect x="24" y="90" width="232" height="250" rx="0" fill="url(#ap-sky)"/>
+  <path d="M24,340 L24,260 L80,180 Q140,140 200,180 L256,260 L256,340 Z" fill="url(#ap-road)"/>
+  <line x1="110" y1="340" x2="120" y2="190" stroke="white" stroke-width="2" stroke-dasharray="10,8" opacity="0.5"/>
+  <line x1="170" y1="340" x2="160" y2="190" stroke="white" stroke-width="2" stroke-dasharray="10,8" opacity="0.5"/>
+  <line x1="50" y1="340" x2="85" y2="195" stroke="#FDE68A" stroke-width="2" opacity="0.4"/>
+  <line x1="230" y1="340" x2="195" y2="195" stroke="#FDE68A" stroke-width="2" opacity="0.4"/>
+  <g filter="url(#ap-glow)">
+    <path d="M125,260 L140,220 L155,260 Z" fill="#06B6D4" opacity="0.7"/>
+    <path d="M130,255 L140,225 L150,255 Z" fill="#22D3EE" opacity="0.5"/>
   </g>
-
-  <rect x="140" y="16" width="120" height="28" rx="14" fill="#1a1a1a"/>
+  <g opacity="0.3">
+    <rect x="24" y="140" width="30" height="60" fill="#1E293B"/>
+    <rect x="60" y="155" width="20" height="40" fill="#1E293B"/>
+    <rect x="200" y="150" width="25" height="50" fill="#1E293B"/>
+    <rect x="230" y="135" width="26" height="65" fill="#1E293B"/>
+    <rect x="28" y="148" width="4" height="4" fill="#FDE68A" opacity="0.6"/>
+    <rect x="36" y="148" width="4" height="4" fill="#FDE68A" opacity="0.4"/>
+    <rect x="234" y="142" width="4" height="4" fill="#FDE68A" opacity="0.5"/>
+  </g>
+  <g transform="translate(200, 160)" filter="url(#ap-glow)">
+    <rect x="0" y="0" width="14" height="32" rx="4" fill="#1E293B" stroke="#334155" stroke-width="0.5"/>
+    <circle cx="7" cy="8" r="4" fill="#334155"/><circle cx="7" cy="16" r="4" fill="#334155"/>
+    <circle cx="7" cy="24" r="4" fill="#22C55E"/>
+  </g>
+  <g transform="translate(34, 100)">
+    <text x="0" y="15" font-family="system-ui" font-size="28" fill="white" font-weight="800" opacity="0.9">67</text>
+    <text x="52" y="15" font-family="system-ui" font-size="10" fill="#94A3B8" font-weight="500">km/h</text>
+  </g>
+  <g transform="translate(180, 100)">
+    <rect x="0" y="0" width="66" height="20" rx="10" fill="rgba(34,197,94,0.15)"/>
+    <circle cx="12" cy="10" r="4" fill="#22C55E" filter="url(#ap-glow)"/>
+    <text x="22" y="14" font-family="system-ui" font-size="7" fill="#22C55E" font-weight="600">AUTO ON</text>
+  </g>
+  <text x="34" y="136" font-family="system-ui" font-size="9" fill="#67E8F9" font-weight="600">&#x2197; Right on Main St — 200m</text>
+  <g transform="translate(34, 355)">
+    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#94A3B8" font-weight="700">AUTOPILOT MODE</text>
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="68" height="26" rx="13" fill="rgba(34,197,94,0.15)" stroke="#22C55E" stroke-width="1"/>
+      <text x="34" y="17" font-family="system-ui" font-size="8" fill="#22C55E" text-anchor="middle" font-weight="600">Full Auto</text>
+      <rect x="74" y="0" width="68" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="#64748B"/>
+      <text x="108" y="17" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="middle">Cruise</text>
+      <rect x="148" y="0" width="68" height="26" rx="13" fill="rgba(255,255,255,0.05)" stroke="#64748B"/>
+      <text x="182" y="17" font-family="system-ui" font-size="8" fill="#94A3B8" text-anchor="middle">Manual</text>
+    </g>
+  </g>
+  <g transform="translate(34, 400)">
+    <rect x="0" y="0" width="100" height="32" rx="16" fill="rgba(255,255,255,0.06)"/>
+    <text x="15" y="20" font-family="system-ui" font-size="9" fill="white" font-weight="600">ETA</text>
+    <text x="46" y="20" font-family="system-ui" font-size="10" fill="#67E8F9" font-weight="700">8 min</text>
+    <rect x="112" y="0" width="100" height="32" rx="16" fill="rgba(255,255,255,0.06)"/>
+    <text x="127" y="20" font-family="system-ui" font-size="9" fill="white" font-weight="600">Dist</text>
+    <text x="162" y="20" font-family="system-ui" font-size="10" fill="#67E8F9" font-weight="700">3.2 km</text>
+  </g>
+  <rect x="100" y="454" width="80" height="4" rx="2" fill="#666"/>
 </svg>
