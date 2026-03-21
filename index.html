@@ -57,7 +57,7 @@
     .stat-item__label{display:block;font-size:0.8125rem;font-weight:400;color:var(--text-muted);margin-top:0.125rem}
     @media(max-width:600px){.stats-strip{grid-template-columns:repeat(2,1fr)}}
     .card{background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.5rem;display:flex;flex-direction:column;transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}.card:hover{border-color:var(--border);box-shadow:var(--shadow-md)}
-    .card__icon{font-size:1.5rem;margin-bottom:0.875rem;line-height:1}.card__title{font-family:var(--font-head);font-weight:500;font-size:1rem;margin-bottom:0.375rem}.card__body{font-size:0.875rem;color:var(--text-secondary);line-height:1.6;flex:1}
+    .card__icon{width:36px;height:36px;margin-bottom:0.875rem;color:var(--accent);flex-shrink:0}.card__title{font-family:var(--font-head);font-weight:500;font-size:1rem;margin-bottom:0.375rem}.card__body{font-size:0.875rem;color:var(--text-secondary);line-height:1.6;flex:1}
     .card__link{display:inline-flex;align-items:center;gap:3px;margin-top:1rem;font-size:0.8125rem;font-weight:500;color:var(--accent);transition:gap .15s var(--ease)}.card__link:hover{gap:6px}
     .repo-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-lg);padding:1.5rem;transition:border-color .15s var(--ease),box-shadow .15s var(--ease)}
     .repo-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md)}
@@ -437,37 +437,37 @@ implementation("io.github.sceneview:arsceneview:3.2.0")</code></pre>
 
     <div class="grid-3">
       <div class="card reveal">
-        <div class="card__icon">🎯</div>
+        <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         <div class="card__title">ModelNode</div>
         <div class="card__body">Load, display and animate glTF / GLB models with PBR materials, HDR environment lighting, and full gesture control.</div>
         <a class="card__link" href="https://sceneview.github.io/api/sceneview-android/sceneview/io.github.sceneview.node/-model-node/index.html" target="_blank" rel="noopener">API reference <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">🔤</div>
+        <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
         <div class="card__title">TextNode &amp; BillboardNode</div>
         <div class="card__body">Camera-facing 3D text labels and sprites. Reactive to Compose state — change text, the 3D world updates instantly.</div>
         <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/text-labels" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">⚡</div>
+        <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
         <div class="card__title">PhysicsNode</div>
         <div class="card__body">Rigid body simulation with gravity, floor collision and sleep detection — powered by Bullet physics, configured in one line.</div>
         <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/physics-demo" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">🌤️</div>
+        <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
         <div class="card__title">DynamicSkyNode &amp; FogNode</div>
         <div class="card__body">Time-of-day sun lighting with turbidity control. Volumetric fog with height falloff. Real-time atmosphere in Compose.</div>
         <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/post-processing" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">🔲</div>
+        <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3H3v2M21 3h-2v2M5 21H3v-2M21 21h-2v-2"/><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
         <div class="card__title">AR Anchoring</div>
         <div class="card__body">AnchorNode, AugmentedImageNode, CloudAnchorNode — tap-to-place AR in a single composable. No ARCore boilerplate.</div>
         <a class="card__link" href="https://github.com/SceneView/sceneview-android/tree/main/samples/ar-model-viewer" target="_blank" rel="noopener">See sample <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
       <div class="card reveal">
-        <div class="card__icon">🤖</div>
+        <svg class="card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="14" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1" fill="currentColor" stroke="none"/></svg>
         <div class="card__title">AI-First Design</div>
         <div class="card__body">Ships with <code>llms.txt</code> — machine-readable API reference. AI coding assistants generate correct 3D/AR code on the first try.</div>
         <a class="card__link" href="https://github.com/SceneView/sceneview-android/blob/main/llms.txt" target="_blank" rel="noopener">View llms.txt <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
