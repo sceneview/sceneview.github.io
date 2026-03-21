@@ -999,6 +999,23 @@ table td:nth-child(2) {
   padding-bottom: 0.5rem;
 }
 
+/* Device section subtitles */
+.device-section__subtitle {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--sv-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0.75rem 0 0;
+}
+
+/* Real screenshot images (PNG, need object-fit) */
+.showcase-item__img--screenshot {
+  object-fit: cover;
+  object-position: top;
+  height: 340px;
+}
+
 /* Wide showcase items (landscape tablets, automotive HUDs) */
 .showcase-item--wide {
   flex: 0 0 340px;
