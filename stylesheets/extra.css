@@ -891,6 +891,86 @@ table td:nth-child(2) {
   background: var(--sv-surface-container);
 }
 
+/* ---- Device sections — grouped by OS/form-factor ---- */
+
+.device-section {
+  margin: 1.5rem 0 2rem;
+  padding: 1.5rem;
+  background: var(--sv-surface-container);
+  border-radius: var(--sv-shape-xxl);
+  border: 1px solid var(--sv-outline-variant);
+}
+
+[data-md-color-scheme="slate"] .device-section {
+  background: var(--sv-surface-container);
+}
+
+.device-section__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.device-section__icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.device-section__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--sv-on-surface);
+}
+
+.device-section__badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.7rem;
+  border-radius: var(--sv-shape-full);
+  margin-left: 0.25rem;
+}
+
+.device-section__badge--ready {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.device-section__badge--coming {
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+}
+
+[data-md-color-scheme="slate"] .device-section__badge--ready {
+  background: #052E16;
+  color: #86EFAC;
+}
+
+[data-md-color-scheme="slate"] .device-section__badge--coming {
+  background: var(--sv-primary-container);
+  color: var(--sv-primary);
+}
+
+.device-section__desc {
+  font-size: 0.9rem;
+  color: var(--sv-on-surface-variant);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.device-section__desc code {
+  font-size: 0.82rem;
+  background: var(--sv-surface);
+  padding: 0.15em 0.4em;
+  border-radius: var(--sv-shape-xs);
+}
+
+/* Nested showcase gallery inside device section */
+.device-section .showcase-gallery {
+  margin: 0.5rem -0.5rem 0;
+  padding-bottom: 0.5rem;
+}
+
 /* ---- Showcase gallery — ultra-round device screenshots ---- */
 
 .showcase-gallery {
