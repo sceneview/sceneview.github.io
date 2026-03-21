@@ -1,1 +1,0 @@
-sourceset_dependencies = '{":sceneview/debug":[],":sceneview/main":[],":sceneview/release":[],":arsceneview/debug":[],":arsceneview/main":[],":arsceneview/release":[]}'
