@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sceneview.github.io/sitemap.xml
+
+# SceneView — 3D & AR SDK for Android
+# https://github.com/SceneView/sceneview

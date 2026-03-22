@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "SceneView",
+  "description": "The modern, Compose-native 3D and AR SDK for Android — built on Google Filament and ARCore. Declarative 3D scenes with Jetpack Compose.",
+  "url": "https://sceneview.github.io",
+  "codeRepository": "https://github.com/SceneView/sceneview",
+  "programmingLanguage": ["Kotlin", "Java"],
+  "runtimePlatform": "Android",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "author": {
+    "@type": "Person",
+    "name": "Thomas Gorisse",
+    "url": "https://github.com/ThomasGorisse"
+  },
+  "maintainer": {
+    "@type": "Organization",
+    "name": "SceneView",
+    "url": "https://github.com/SceneView"
+  },
+  "keywords": ["3D", "AR", "Android", "Jetpack Compose", "Filament", "ARCore", "glTF", "augmented reality", "3D rendering", "Kotlin"],
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Android 7.0+",
+  "softwareVersion": "3.2.0"
+}
