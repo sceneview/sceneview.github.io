@@ -1,226 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 320" width="800" height="320">
-  <defs>
-    <filter id="cardShadow" x="-4%" y="-4%" width="108%" height="112%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#00000012"/>
-    </filter>
-    <style>
-      .node-name { font-family: 'Google Sans', 'Segoe UI', system-ui, sans-serif; font-size: 12px; font-weight: 700; fill: #3C3226; text-anchor: middle; }
-    </style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280" width="800" height="280">
+  <style>
+    .node-label { font-family: 'Google Sans', 'Segoe UI', system-ui, sans-serif; font-size: 11px; font-weight: 500; fill: #49454F; text-anchor: middle; }
+  </style>
 
   <!-- Row 1 -->
 
-  <!-- Card 1: ModelNode -->
-  <g transform="translate(20, 10)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <rect width="180" height="4" rx="2" ry="2" y="0" fill="#F97316" clip-path="inset(0 0 0 0 round 20px 20px 0 0)"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#F97316"/>
-    <rect x="0" y="4" width="180" height="16" fill="#F97316"/>
-    <!-- Robot silhouette -->
-    <g transform="translate(90, 68)">
-      <!-- Head -->
-      <rect x="-16" y="-28" width="32" height="24" rx="6" fill="#F97316" opacity="0.15"/>
-      <rect x="-14" y="-26" width="28" height="20" rx="5" fill="#F97316" opacity="0.35"/>
-      <!-- Eyes -->
-      <circle cx="-6" cy="-16" r="3" fill="#F97316"/>
-      <circle cx="6" cy="-16" r="3" fill="#F97316"/>
-      <!-- Antenna -->
-      <line x1="0" y1="-28" x2="0" y2="-36" stroke="#F97316" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="0" cy="-38" r="3" fill="#F97316" opacity="0.6"/>
-      <!-- Body -->
-      <rect x="-20" y="-2" width="40" height="28" rx="8" fill="#F97316" opacity="0.2"/>
-      <rect x="-18" y="0" width="36" height="24" rx="6" fill="#F97316" opacity="0.4"/>
-      <!-- Chest detail -->
-      <circle cx="0" cy="10" r="5" fill="#F97316" opacity="0.3"/>
-      <circle cx="0" cy="10" r="3" fill="#F97316" opacity="0.5"/>
-      <!-- Arms -->
-      <rect x="-28" y="2" width="8" height="18" rx="4" fill="#F97316" opacity="0.3"/>
-      <rect x="20" y="2" width="8" height="18" rx="4" fill="#F97316" opacity="0.3"/>
-      <!-- Legs -->
-      <rect x="-12" y="26" width="10" height="12" rx="4" fill="#F97316" opacity="0.25"/>
-      <rect x="2" y="26" width="10" height="12" rx="4" fill="#F97316" opacity="0.25"/>
-    </g>
-    <text x="90" y="126" class="node-name">ModelNode</text>
+  <!-- ModelNode — rotated rounded square -->
+  <g transform="translate(100, 60)">
+    <rect x="-20" y="-20" width="40" height="40" rx="10" fill="#D0BCFF" transform="rotate(15)"/>
+    <text y="42" class="node-label">ModelNode</text>
   </g>
 
-  <!-- Card 2: LightNode -->
-  <g transform="translate(210, 10)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#EAB308"/>
-    <rect x="0" y="4" width="180" height="16" fill="#EAB308"/>
-    <!-- Sun with rays -->
-    <g transform="translate(90, 70)">
-      <!-- Glow -->
-      <circle cx="0" cy="0" r="28" fill="#EAB308" opacity="0.08"/>
-      <circle cx="0" cy="0" r="22" fill="#EAB308" opacity="0.12"/>
-      <!-- Core -->
-      <circle cx="0" cy="0" r="14" fill="#EAB308" opacity="0.3"/>
-      <circle cx="0" cy="0" r="10" fill="#EAB308" opacity="0.6"/>
-      <circle cx="0" cy="0" r="7" fill="#EAB308"/>
-      <!-- Rays -->
-      <g stroke="#EAB308" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
-        <line x1="0" y1="-18" x2="0" y2="-28"/>
-        <line x1="0" y1="18" x2="0" y2="28"/>
-        <line x1="-18" y1="0" x2="-28" y2="0"/>
-        <line x1="18" y1="0" x2="28" y2="0"/>
-      </g>
-      <g stroke="#EAB308" stroke-width="2" stroke-linecap="round" opacity="0.5">
-        <line x1="-13" y1="-13" x2="-20" y2="-20"/>
-        <line x1="13" y1="-13" x2="20" y2="-20"/>
-        <line x1="-13" y1="13" x2="-20" y2="20"/>
-        <line x1="13" y1="13" x2="20" y2="20"/>
-      </g>
-    </g>
-    <text x="90" y="126" class="node-name">LightNode</text>
+  <!-- LightNode — circle with radiating dots -->
+  <g transform="translate(300, 60)">
+    <circle cx="0" cy="0" r="16" fill="#FFD8E4"/>
+    <circle cx="0" cy="-26" r="3" fill="#FFD8E4"/>
+    <circle cx="0" cy="26" r="3" fill="#FFD8E4"/>
+    <circle cx="-26" cy="0" r="3" fill="#FFD8E4"/>
+    <circle cx="26" cy="0" r="3" fill="#FFD8E4"/>
+    <text y="42" class="node-label">LightNode</text>
   </g>
 
-  <!-- Card 3: CubeNode -->
-  <g transform="translate(400, 10)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#7B61FF"/>
-    <rect x="0" y="4" width="180" height="16" fill="#7B61FF"/>
-    <!-- Isometric cube -->
-    <g transform="translate(90, 70)">
-      <!-- Top face -->
-      <polygon points="0,-26 28,-12 0,2 -28,-12" fill="#7B61FF" opacity="0.35"/>
-      <!-- Left face -->
-      <polygon points="-28,-12 0,2 0,30 -28,16" fill="#7B61FF" opacity="0.55"/>
-      <!-- Right face -->
-      <polygon points="28,-12 0,2 0,30 28,16" fill="#7B61FF" opacity="0.75"/>
-      <!-- Edges -->
-      <polygon points="0,-26 28,-12 0,2 -28,-12" fill="none" stroke="#7B61FF" stroke-width="1.5" stroke-linejoin="round"/>
-      <polygon points="-28,-12 0,2 0,30 -28,16" fill="none" stroke="#7B61FF" stroke-width="1.5" stroke-linejoin="round"/>
-      <polygon points="28,-12 0,2 0,30 28,16" fill="none" stroke="#7B61FF" stroke-width="1.5" stroke-linejoin="round"/>
-    </g>
-    <text x="90" y="126" class="node-name">CubeNode</text>
+  <!-- CubeNode — hexagon (isometric cube hint) -->
+  <g transform="translate(500, 60)">
+    <polygon points="0,-22 19,-11 19,11 0,22 -19,11 -19,-11" fill="#B4C5E4"/>
+    <text y="42" class="node-label">CubeNode</text>
   </g>
 
-  <!-- Card 4: AnchorNode -->
-  <g transform="translate(590, 10)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#0D9488"/>
-    <rect x="0" y="4" width="180" height="16" fill="#0D9488"/>
-    <!-- Anchor pin on surface -->
-    <g transform="translate(90, 65)">
-      <!-- AR plane grid -->
-      <g stroke="#0D9488" stroke-width="0.7" opacity="0.2">
-        <line x1="-32" y1="18" x2="32" y2="18"/>
-        <line x1="-28" y1="24" x2="28" y2="24"/>
-        <line x1="-24" y1="30" x2="24" y2="30"/>
-        <line x1="-18" y1="15" x2="-8" y2="33"/>
-        <line x1="-4" y1="15" x2="2" y2="33"/>
-        <line x1="10" y1="15" x2="12" y2="33"/>
-        <line x1="24" y1="15" x2="22" y2="33"/>
-      </g>
-      <!-- Pin body -->
-      <path d="M0,-30 C-14,-30 -18,-18 -18,-14 C-18,-4 0,12 0,12 C0,12 18,-4 18,-14 C18,-18 14,-30 0,-30 Z" fill="#0D9488" opacity="0.3"/>
-      <path d="M0,-26 C-10,-26 -14,-16 -14,-12 C-14,-4 0,8 0,8 C0,8 14,-4 14,-12 C14,-16 10,-26 0,-26 Z" fill="#0D9488" opacity="0.6"/>
-      <!-- Pin center -->
-      <circle cx="0" cy="-14" r="5" fill="white" opacity="0.8"/>
-      <circle cx="0" cy="-14" r="3" fill="#0D9488"/>
-      <!-- Drop shadow / contact point -->
-      <ellipse cx="0" cy="16" rx="8" ry="3" fill="#0D9488" opacity="0.15"/>
-    </g>
-    <text x="90" y="126" class="node-name">AnchorNode</text>
+  <!-- AnchorNode — pin: circle + vertical line -->
+  <g transform="translate(700, 60)">
+    <circle cx="0" cy="-8" r="12" fill="#C8E6C9"/>
+    <line x1="0" y1="4" x2="0" y2="22" stroke="#C8E6C9" stroke-width="4" stroke-linecap="round"/>
+    <text y="42" class="node-label">AnchorNode</text>
   </g>
 
   <!-- Row 2 -->
 
-  <!-- Card 5: VideoNode -->
-  <g transform="translate(20, 170)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#F472B6"/>
-    <rect x="0" y="4" width="180" height="16" fill="#F472B6"/>
-    <!-- Video screen with play button -->
-    <g transform="translate(90, 68)">
-      <!-- Floating screen shadow -->
-      <rect x="-30" y="-18" width="60" height="38" rx="6" fill="#F472B6" opacity="0.08" transform="translate(3,3)"/>
-      <!-- Screen -->
-      <rect x="-30" y="-20" width="60" height="38" rx="6" fill="#F472B6" opacity="0.15" stroke="#F472B6" stroke-width="1.5" stroke-opacity="0.3"/>
-      <!-- Screen inner -->
-      <rect x="-26" y="-16" width="52" height="30" rx="4" fill="#F472B6" opacity="0.08"/>
-      <!-- Play triangle -->
-      <polygon points="-8,-10 -8,10 12,0" fill="#F472B6" opacity="0.7"/>
-      <polygon points="-6,-8 -6,8 10,0" fill="#F472B6"/>
-      <!-- Screen reflection -->
-      <rect x="-26" y="-16" width="52" height="8" rx="4" fill="white" opacity="0.1"/>
-    </g>
-    <text x="90" y="126" class="node-name">VideoNode</text>
+  <!-- VideoNode — rounded rect with play triangle -->
+  <g transform="translate(100, 190)">
+    <rect x="-24" y="-16" width="48" height="32" rx="8" fill="#EFB8C8"/>
+    <polygon points="-6,-8 -6,8 8,0" fill="white" opacity="0.85"/>
+    <text y="42" class="node-label">VideoNode</text>
   </g>
 
-  <!-- Card 6: TextNode -->
-  <g transform="translate(210, 170)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#3B82F6"/>
-    <rect x="0" y="4" width="180" height="16" fill="#3B82F6"/>
-    <!-- 3D extruded "Abc" text -->
-    <g transform="translate(90, 68)">
-      <!-- Shadow / extrusion layer -->
-      <g transform="translate(3, 3)" opacity="0.2">
-        <text x="-28" y="8" font-family="'Google Sans', 'Segoe UI', system-ui, sans-serif" font-size="32" font-weight="800" fill="#3B82F6" text-anchor="start">Abc</text>
-      </g>
-      <!-- Mid extrusion -->
-      <g transform="translate(1.5, 1.5)" opacity="0.4">
-        <text x="-28" y="8" font-family="'Google Sans', 'Segoe UI', system-ui, sans-serif" font-size="32" font-weight="800" fill="#3B82F6" text-anchor="start">Abc</text>
-      </g>
-      <!-- Front face -->
-      <text x="-28" y="8" font-family="'Google Sans', 'Segoe UI', system-ui, sans-serif" font-size="32" font-weight="800" fill="#3B82F6" opacity="0.8" text-anchor="start">Abc</text>
-      <!-- Highlight -->
-      <text x="-28" y="8" font-family="'Google Sans', 'Segoe UI', system-ui, sans-serif" font-size="32" font-weight="800" fill="#3B82F6" text-anchor="start" opacity="0.9">Abc</text>
-    </g>
-    <text x="90" y="126" class="node-name">TextNode</text>
+  <!-- TextNode — bold "A" -->
+  <g transform="translate(300, 190)">
+    <text y="8" font-family="'Google Sans', 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="700" fill="#D0BCFF" text-anchor="middle">A</text>
+    <text y="42" class="node-label">TextNode</text>
   </g>
 
-  <!-- Card 7: PathNode -->
-  <g transform="translate(400, 170)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#06B6D4"/>
-    <rect x="0" y="4" width="180" height="16" fill="#06B6D4"/>
-    <!-- Sine wave path -->
-    <g transform="translate(90, 70)">
-      <!-- Path glow -->
-      <path d="M-35,0 C-25,-24 -10,-24 0,0 C10,24 25,24 35,0" fill="none" stroke="#06B6D4" stroke-width="6" stroke-linecap="round" opacity="0.1"/>
-      <!-- Main path -->
-      <path d="M-35,0 C-25,-24 -10,-24 0,0 C10,24 25,24 35,0" fill="none" stroke="#06B6D4" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
-      <path d="M-35,0 C-25,-24 -10,-24 0,0 C10,24 25,24 35,0" fill="none" stroke="#06B6D4" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
-      <!-- Dots along path -->
-      <circle cx="-35" cy="0" r="3.5" fill="#06B6D4" opacity="0.4"/>
-      <circle cx="-17" cy="-16" r="3" fill="#06B6D4" opacity="0.55"/>
-      <circle cx="0" cy="0" r="3.5" fill="#06B6D4" opacity="0.7"/>
-      <circle cx="17" cy="16" r="3" fill="#06B6D4" opacity="0.85"/>
-      <circle cx="35" cy="0" r="4" fill="#06B6D4"/>
-      <!-- Motion lines -->
-      <path d="M33,-4 L40,-2" stroke="#06B6D4" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-      <path d="M34,3 L41,4" stroke="#06B6D4" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/>
-    </g>
-    <text x="90" y="126" class="node-name">PathNode</text>
+  <!-- PathNode — S-curve -->
+  <g transform="translate(500, 190)">
+    <path d="M-20,-14 C-6,-14 6,14 20,14" fill="none" stroke="#B4C5E4" stroke-width="2" stroke-linecap="round"/>
+    <text y="42" class="node-label">PathNode</text>
   </g>
 
-  <!-- Card 8: ViewNode -->
-  <g transform="translate(590, 170)" filter="url(#cardShadow)">
-    <rect width="180" height="140" rx="20" ry="20" fill="white" stroke="#ECE6DF" stroke-width="1"/>
-    <path d="M180,20 L180,4 Q180,0 176,0 L4,0 Q0,0 0,4 L0,20 Z" fill="#10B981"/>
-    <rect x="0" y="4" width="180" height="16" fill="#10B981"/>
-    <!-- Compose card floating in 3D -->
-    <g transform="translate(90, 66)">
-      <!-- 3D perspective card shadow -->
-      <g transform="skewY(-4) skewX(6) translate(2, 4)" opacity="0.1">
-        <rect x="-28" y="-22" width="56" height="44" rx="8" fill="#10B981"/>
-      </g>
-      <!-- Card -->
-      <g transform="skewY(-3) skewX(4)">
-        <rect x="-28" y="-22" width="56" height="44" rx="8" fill="white" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.4"/>
-        <!-- Card content lines -->
-        <rect x="-20" y="-14" width="28" height="3" rx="1.5" fill="#10B981" opacity="0.2"/>
-        <rect x="-20" y="-8" width="20" height="3" rx="1.5" fill="#10B981" opacity="0.15"/>
-        <!-- Button inside card -->
-        <rect x="-14" y="4" width="28" height="12" rx="6" fill="#10B981" opacity="0.7"/>
-        <rect x="-6" y="8" width="12" height="3" rx="1.5" fill="white" opacity="0.9"/>
-      </g>
-      <!-- Floating indicator dots -->
-      <circle cx="30" cy="-18" r="2" fill="#10B981" opacity="0.3"/>
-      <circle cx="34" cy="-10" r="1.5" fill="#10B981" opacity="0.2"/>
-    </g>
-    <text x="90" y="126" class="node-name">ViewNode</text>
+  <!-- ViewNode — two overlapping rounded rectangles -->
+  <g transform="translate(700, 190)">
+    <rect x="-16" y="-14" width="32" height="28" rx="6" fill="#C8E6C9" opacity="0.5"/>
+    <rect x="-12" y="-18" width="32" height="28" rx="6" fill="#C8E6C9"/>
+    <text y="42" class="node-label">ViewNode</text>
   </g>
 </svg>

@@ -1,274 +1,107 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="800" height="340">
   <defs>
-    <!-- Background gradient -->
-    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFFBF5"/>
-      <stop offset="100%" stop-color="#FFF5F0"/>
+    <linearGradient id="envGrad" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#D0BCFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#EFB8C8" stop-opacity="0.15"/>
     </linearGradient>
-    <!-- 3D viewport gradient -->
-    <linearGradient id="viewportGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E1B2E"/>
-      <stop offset="100%" stop-color="#2A2540"/>
-    </linearGradient>
-    <!-- Purple arrow gradient -->
-    <linearGradient id="arrowGradL" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#7B61FF" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#7B61FF"/>
-    </linearGradient>
-    <linearGradient id="arrowGradR" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#7B61FF"/>
-      <stop offset="100%" stop-color="#7B61FF" stop-opacity="0.3"/>
-    </linearGradient>
-    <!-- Car body gradient -->
-    <linearGradient id="carGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#F97316"/>
-      <stop offset="60%" stop-color="#EA580C"/>
-      <stop offset="100%" stop-color="#C2410C"/>
-    </linearGradient>
-    <!-- Car roof gradient -->
-    <linearGradient id="carRoofGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FB923C"/>
-      <stop offset="100%" stop-color="#F97316"/>
-    </linearGradient>
-    <!-- Sun glow -->
-    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#FBBF24" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#FBBF24" stop-opacity="0"/>
+    <radialGradient id="envRadial" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#D0BCFF" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#EFB8C8" stop-opacity="0.1"/>
     </radialGradient>
-    <!-- Card shadow -->
-    <filter id="cardShadow" x="-10%" y="-10%" width="130%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.12"/>
-    </filter>
-    <!-- App shadow -->
-    <filter id="appShadow" x="-3%" y="-3%" width="106%" height="110%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#7B61FF" flood-opacity="0.15"/>
-    </filter>
-    <!-- Icon shadow -->
-    <filter id="iconShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.1"/>
-    </filter>
-    <!-- Grid pattern for viewport floor -->
-    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="skewX(-30) scale(1, 0.5)">
-      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#7B61FF" stroke-width="0.3" stroke-opacity="0.2"/>
-    </pattern>
+    <linearGradient id="nodeGrad1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D0BCFF"/>
+      <stop offset="100%" stop-color="#CCC2DC"/>
+    </linearGradient>
+    <linearGradient id="nodeGrad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EFB8C8"/>
+      <stop offset="100%" stop-color="#E8C5D0"/>
+    </linearGradient>
+    <linearGradient id="nodeGrad3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B4C5E4"/>
+      <stop offset="100%" stop-color="#C8D5EA"/>
+    </linearGradient>
   </defs>
 
   <!-- Background -->
-  <rect width="800" height="400" rx="0" fill="url(#bgGrad)"/>
+  <rect width="800" height="340" fill="#FFFBFE"/>
 
-  <!-- ==================== LEFT SIDE: INPUTS ==================== -->
+  <!-- Subtle background shape -->
+  <circle cx="400" cy="160" r="180" fill="#F4EFF4" opacity="0.3"/>
 
-  <!-- .glb file icon -->
-  <g transform="translate(60, 90)" filter="url(#iconShadow)">
-    <rect x="0" y="0" width="52" height="64" rx="8" fill="#fff" stroke="#E5E7EB" stroke-width="1.5"/>
-    <path d="M 32 0 L 52 20 L 32 20 Z" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="8" y="30" width="36" height="14" rx="4" fill="#F97316"/>
-    <text x="26" y="40" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">.glb</text>
-    <text x="26" y="56" font-family="system-ui, sans-serif" font-size="7" fill="#9CA3AF" text-anchor="middle">3D</text>
-  </g>
-  <text x="86" y="170" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151" text-anchor="middle">Models</text>
+  <!-- ==================== LEFT ZONE: Assets ==================== -->
 
-  <!-- .hdr file icon -->
-  <g transform="translate(60, 190)" filter="url(#iconShadow)">
-    <rect x="0" y="0" width="52" height="64" rx="8" fill="#fff" stroke="#E5E7EB" stroke-width="1.5"/>
-    <path d="M 32 0 L 52 20 L 52 20 L 32 20 Z" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5" stroke-linejoin="round"/>
-    <rect x="8" y="30" width="36" height="14" rx="4" fill="#0D9488"/>
-    <text x="26" y="40" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">.hdr</text>
-    <!-- Small gradient circle for HDR icon -->
-    <circle cx="26" cy="54" r="5" fill="none" stroke="#0D9488" stroke-width="1.2"/>
-    <circle cx="26" cy="54" r="2" fill="#0D9488"/>
-  </g>
-  <text x="86" y="270" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151" text-anchor="middle">Environments</text>
+  <!-- Model file — rounded square -->
+  <rect x="68" y="88" width="40" height="40" rx="10" fill="#D0BCFF" opacity="0.55"/>
+  <text x="88" y="146" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">Model</text>
 
-  <!-- Compose diamond icon -->
-  <g transform="translate(60, 290)" filter="url(#iconShadow)">
-    <rect x="0" y="0" width="52" height="52" rx="12" fill="#fff" stroke="#E5E7EB" stroke-width="1.5"/>
-    <!-- Compose-style diamond -->
-    <g transform="translate(26, 26)">
-      <rect x="-10" y="-10" width="20" height="20" rx="3" fill="#7B61FF" transform="rotate(45)"/>
-      <text x="0" y="4" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">{}</text>
-    </g>
-  </g>
-  <text x="86" y="356" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151" text-anchor="middle">UI in 3D</text>
+  <!-- Environment — circle with gradient -->
+  <circle cx="88" cy="180" r="20" fill="url(#envRadial)"/>
+  <text x="88" y="218" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">Environment</text>
 
-  <!-- Bottom label: inputs -->
-  <text x="86" y="388" font-family="system-ui, sans-serif" font-size="10" fill="#9CA3AF" text-anchor="middle">Standard assets</text>
+  <!-- Compose — diamond -->
+  <rect x="76" y="246" width="24" height="24" rx="4" fill="#EFB8C8" opacity="0.5" transform="rotate(45 88 258)"/>
+  <text x="88" y="290" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">Compose</text>
 
-  <!-- ==================== ARROWS LEFT ==================== -->
-  <!-- Arrow from Models -->
-  <path d="M 118 122 C 155 122, 170 140, 200 150" fill="none" stroke="url(#arrowGradL)" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="200,146 210,150 200,154" fill="#7B61FF"/>
+  <!-- Bottom label: left -->
+  <text x="88" y="322" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="11" fill="#625B71" text-anchor="middle" letter-spacing="0.05em">Standard assets</text>
 
-  <!-- Arrow from Environments -->
-  <path d="M 118 222 C 155 222, 175 210, 200 200" fill="none" stroke="url(#arrowGradL)" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="200,196 210,200 200,204" fill="#7B61FF"/>
+  <!-- ==================== CONNECTING CURVES LEFT ==================== -->
+  <path d="M 118 108 C 175 108, 220 135, 280 140" fill="none" stroke="#D0BCFF" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <path d="M 118 180 C 175 180, 220 172, 280 170" fill="none" stroke="#D0BCFF" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <path d="M 118 258 C 175 258, 220 210, 280 200" fill="none" stroke="#D0BCFF" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
 
-  <!-- Arrow from Compose -->
-  <path d="M 118 316 C 160 316, 175 290, 200 270" fill="none" stroke="url(#arrowGradL)" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="200,266 210,270 200,274" fill="#7B61FF"/>
+  <!-- ==================== CENTER ZONE: Declarative API ==================== -->
 
-  <!-- ==================== CENTER: APP ==================== -->
-  <g filter="url(#appShadow)">
-    <!-- App container -->
-    <rect x="215" y="30" width="370" height="310" rx="24" fill="#fff" stroke="#E8E0F0" stroke-width="1.5"/>
+  <!-- Large container -->
+  <rect x="280" y="68" width="240" height="200" rx="28" fill="#F4EFF4"/>
 
-    <!-- Toolbar -->
-    <rect x="215" y="30" width="370" height="44" rx="24" fill="#F9F5FF"/>
-    <rect x="215" y="54" width="370" height="20" fill="#F9F5FF"/>
-    <!-- Toolbar divider -->
-    <line x1="225" y1="74" x2="575" y2="74" stroke="#E8E0F0" stroke-width="1"/>
-    <!-- App title -->
-    <circle cx="240" cy="52" r="8" fill="#7B61FF" opacity="0.15"/>
-    <text x="240" y="55" font-family="system-ui, sans-serif" font-size="8" fill="#7B61FF" text-anchor="middle" font-weight="700">S</text>
-    <text x="258" y="56" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#1F1B2E">My App</text>
-    <!-- Three-dot menu -->
-    <circle cx="560" cy="52" r="2" fill="#9CA3AF"/>
-    <circle cx="550" cy="52" r="2" fill="#9CA3AF"/>
-    <circle cx="540" cy="52" r="2" fill="#9CA3AF"/>
+  <!-- Scene { } label -->
+  <text x="400" y="110" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="18" font-weight="500" fill="#6750A4" text-anchor="middle">Scene { }</text>
 
-    <!-- 3D Viewport -->
-    <rect x="228" y="82" width="344" height="225" rx="16" fill="url(#viewportGrad)"/>
+  <!-- Abstract node graph inside -->
+  <!-- Node 1 — purple circle -->
+  <circle cx="350" cy="155" r="14" fill="url(#nodeGrad1)" opacity="0.7"/>
 
-    <!-- Grid floor -->
-    <rect x="228" y="200" width="344" height="107" rx="0" fill="url(#grid)" clip-path="inset(0 0 0 0 round 0 0 16px 16px)"/>
-    <!-- Floor fade -->
-    <rect x="228" y="200" width="344" height="107" fill="url(#viewportGrad)" opacity="0.4" rx="0"/>
+  <!-- Node 2 — pink circle -->
+  <circle cx="420" cy="175" r="11" fill="url(#nodeGrad2)" opacity="0.65"/>
 
-    <!-- Viewport label -->
-    <rect x="240" y="90" width="90" height="22" rx="11" fill="#7B61FF" opacity="0.2"/>
-    <text x="285" y="104" font-family="monospace, monospace" font-size="10" font-weight="600" fill="#C4B5FD" text-anchor="middle">Scene { }</text>
+  <!-- Node 3 — blue rounded square -->
+  <rect x="370" y="210" width="22" height="22" rx="6" fill="url(#nodeGrad3)" opacity="0.6"/>
 
-    <!-- ===== Sun / Light source ===== -->
-    <circle cx="510" cy="118" r="20" fill="url(#sunGlow)"/>
-    <circle cx="510" cy="118" r="7" fill="#FBBF24"/>
-    <!-- Sun rays -->
-    <g stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" opacity="0.7">
-      <line x1="510" y1="105" x2="510" y2="100"/>
-      <line x1="510" y1="131" x2="510" y2="136"/>
-      <line x1="497" y1="118" x2="492" y2="118"/>
-      <line x1="523" y1="118" x2="528" y2="118"/>
-      <line x1="501" y1="109" x2="497" y2="105"/>
-      <line x1="519" y1="109" x2="523" y2="105"/>
-      <line x1="501" y1="127" x2="497" y2="131"/>
-      <line x1="519" y1="127" x2="523" y2="131"/>
-    </g>
-    <!-- Light label -->
-    <text x="510" y="148" font-family="system-ui, sans-serif" font-size="7" fill="#FBBF24" text-anchor="middle" opacity="0.8">LightNode</text>
+  <!-- Connections between nodes — thin lines -->
+  <line x1="362" y1="161" x2="411" y2="170" stroke="#CCC2DC" stroke-width="1" opacity="0.5"/>
+  <line x1="418" y1="185" x2="388" y2="210" stroke="#CCC2DC" stroke-width="1" opacity="0.5"/>
+  <line x1="355" y1="168" x2="375" y2="215" stroke="#CCC2DC" stroke-width="1" opacity="0.5"/>
 
-    <!-- ===== 3D Car ===== -->
-    <g transform="translate(370, 215)">
-      <!-- Car shadow on ground -->
-      <ellipse cx="0" cy="45" rx="55" ry="8" fill="#000" opacity="0.2"/>
+  <!-- Bottom label: center -->
+  <text x="400" y="322" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="11" fill="#625B71" text-anchor="middle" letter-spacing="0.05em">Declarative API</text>
 
-      <!-- Car body (lower) -->
-      <path d="M -50 10 Q -50 -5, -35 -5 L 40 -5 Q 55 -5, 55 10 L 55 25 Q 55 35, 45 35 L -40 35 Q -50 35, -50 25 Z" fill="url(#carGrad)"/>
+  <!-- ==================== CONNECTING CURVES RIGHT ==================== -->
+  <path d="M 520 140 C 570 135, 600 108, 640 108" fill="none" stroke="#D0BCFF" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <path d="M 520 170 C 570 170, 600 175, 640 175" fill="none" stroke="#D0BCFF" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
+  <path d="M 520 200 C 570 210, 600 240, 640 245" fill="none" stroke="#D0BCFF" stroke-width="1" stroke-dasharray="4 4" opacity="0.7"/>
 
-      <!-- Car roof/cabin -->
-      <path d="M -25 -5 L -15 -30 Q -12 -35, -5 -35 L 20 -35 Q 27 -35, 28 -30 L 35 -5 Z" fill="url(#carRoofGrad)"/>
+  <!-- ==================== RIGHT ZONE: Every screen ==================== -->
 
-      <!-- Windshield -->
-      <path d="M -20 -5 L -12 -28 Q -10 -32, -5 -32 L 18 -32 Q 23 -32, 24 -28 L 30 -5 Z" fill="#1E1B2E" opacity="0.6"/>
+  <!-- Phone — tall rect outline -->
+  <rect x="650" y="84" width="28" height="48" rx="6" fill="none" stroke="#CAC4D0" stroke-width="1.5"/>
+  <!-- Checkmark dot -->
+  <circle cx="690" cy="100" r="4" fill="#C8E6C9"/>
+  <text x="664" y="150" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">Phone</text>
 
-      <!-- Headlight -->
-      <rect x="45" y="5" width="10" height="8" rx="3" fill="#FDE68A" opacity="0.9"/>
-      <!-- Taillight -->
-      <rect x="-52" y="5" width="6" height="8" rx="3" fill="#F472B6" opacity="0.8"/>
+  <!-- Tablet — wide rect outline -->
+  <rect x="640" y="162" width="48" height="30" rx="6" fill="none" stroke="#CAC4D0" stroke-width="1.5"/>
+  <!-- Checkmark dot -->
+  <circle cx="700" cy="172" r="4" fill="#C8E6C9"/>
+  <text x="664" y="210" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">Tablet</text>
 
-      <!-- Wheels -->
-      <circle cx="-28" cy="35" r="10" fill="#1F2937"/>
-      <circle cx="-28" cy="35" r="6" fill="#374151"/>
-      <circle cx="-28" cy="35" r="2" fill="#6B7280"/>
-      <circle cx="32" cy="35" r="10" fill="#1F2937"/>
-      <circle cx="32" cy="35" r="6" fill="#374151"/>
-      <circle cx="32" cy="35" r="2" fill="#6B7280"/>
+  <!-- XR — circle outline -->
+  <circle cx="664" cy="245" r="18" fill="none" stroke="#CAC4D0" stroke-width="1.5"/>
+  <!-- Checkmark dot -->
+  <circle cx="690" cy="235" r="4" fill="#C8E6C9"/>
+  <text x="664" y="280" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">XR</text>
 
-      <!-- Highlight reflection on body -->
-      <path d="M -45 2 Q -30 -2, 0 0 Q 30 -2, 50 2" fill="none" stroke="#fff" stroke-width="1" opacity="0.3"/>
-    </g>
+  <!-- Bottom label: right -->
+  <text x="664" y="322" font-family="'Google Sans', 'Product Sans', system-ui, sans-serif" font-size="11" fill="#625B71" text-anchor="middle" letter-spacing="0.05em">Every screen</text>
 
-    <!-- ModelNode label -->
-    <text x="370" y="278" font-family="system-ui, sans-serif" font-size="7" fill="#F97316" text-anchor="middle" opacity="0.9">ModelNode</text>
-
-    <!-- ===== Orbit camera path ===== -->
-    <ellipse cx="370" cy="235" rx="80" ry="30" fill="none" stroke="#C4B5FD" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
-    <!-- Camera icon on orbit path -->
-    <g transform="translate(295, 220)">
-      <rect x="-7" y="-5" width="14" height="10" rx="2" fill="#C4B5FD" opacity="0.8"/>
-      <circle cx="0" cy="0" r="3" fill="#7B61FF" opacity="0.8"/>
-      <polygon points="7,-3 12,-6 12,6 7,3" fill="#C4B5FD" opacity="0.6"/>
-    </g>
-    <text x="290" y="238" font-family="system-ui, sans-serif" font-size="7" fill="#C4B5FD" text-anchor="middle" opacity="0.7">Camera</text>
-
-    <!-- ===== ViewNode: Buy button card ===== -->
-    <g transform="translate(475, 195)" filter="url(#cardShadow)">
-      <rect x="0" y="0" width="72" height="55" rx="12" fill="#fff" fill-opacity="0.95"/>
-      <!-- Product thumbnail -->
-      <rect x="8" y="8" width="56" height="20" rx="6" fill="#FFF7ED"/>
-      <text x="36" y="21" font-family="system-ui, sans-serif" font-size="7" fill="#F97316" text-anchor="middle">$29,999</text>
-      <!-- Buy button -->
-      <rect x="12" y="34" width="48" height="16" rx="8" fill="#10B981"/>
-      <text x="36" y="45" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#fff" text-anchor="middle">Buy Now</text>
-    </g>
-    <text x="511" y="262" font-family="system-ui, sans-serif" font-size="7" fill="#10B981" text-anchor="middle" opacity="0.9">ViewNode</text>
-  </g>
-
-  <!-- Code hint below app -->
-  <text x="400" y="358" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#7B61FF" text-anchor="middle">Declarative Compose API</text>
-
-  <!-- ==================== ARROWS RIGHT ==================== -->
-  <!-- Arrow to Phone -->
-  <path d="M 590 150 C 610 150, 625 130, 645 122" fill="none" stroke="url(#arrowGradR)" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="645,118 655,122 645,126" fill="#7B61FF" opacity="0.5"/>
-
-  <!-- Arrow to Tablet -->
-  <path d="M 590 200 C 615 200, 630 210, 645 218" fill="none" stroke="url(#arrowGradR)" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="645,214 655,218 645,222" fill="#7B61FF" opacity="0.5"/>
-
-  <!-- Arrow to XR -->
-  <path d="M 590 270 C 615 280, 630 300, 645 310" fill="none" stroke="url(#arrowGradR)" stroke-width="2.5" stroke-linecap="round"/>
-  <polygon points="645,306 655,310 645,314" fill="#7B61FF" opacity="0.5"/>
-
-  <!-- ==================== RIGHT SIDE: OUTPUTS ==================== -->
-
-  <!-- Phone -->
-  <g transform="translate(660, 80)" filter="url(#iconShadow)">
-    <rect x="0" y="0" width="36" height="64" rx="8" fill="#fff" stroke="#E5E7EB" stroke-width="1.5"/>
-    <rect x="4" y="8" width="28" height="44" rx="2" fill="#F0FDF4"/>
-    <!-- Checkmark -->
-    <circle cx="18" cy="30" r="8" fill="#10B981" opacity="0.15"/>
-    <polyline points="13,30 17,34 24,26" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- Home bar -->
-    <rect x="12" y="56" width="12" height="2" rx="1" fill="#D1D5DB"/>
-  </g>
-  <text x="678" y="158" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#374151" text-anchor="middle">Phone</text>
-
-  <!-- Tablet -->
-  <g transform="translate(650, 180)" filter="url(#iconShadow)">
-    <rect x="0" y="0" width="56" height="44" rx="8" fill="#fff" stroke="#E5E7EB" stroke-width="1.5"/>
-    <rect x="6" y="5" width="44" height="30" rx="3" fill="#F0FDF4"/>
-    <!-- Checkmark -->
-    <circle cx="28" cy="20" r="7" fill="#10B981" opacity="0.15"/>
-    <polyline points="23,20 27,24 33,16" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- Home bar -->
-    <rect x="20" y="38" width="16" height="2" rx="1" fill="#D1D5DB"/>
-  </g>
-  <text x="678" y="240" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#374151" text-anchor="middle">Tablet</text>
-
-  <!-- XR Headset -->
-  <g transform="translate(648, 275)" filter="url(#iconShadow)">
-    <rect x="0" y="5" width="60" height="32" rx="16" fill="#fff" stroke="#E5E7EB" stroke-width="1.5"/>
-    <!-- Lenses -->
-    <circle cx="20" cy="21" r="9" fill="#F0FDF4" stroke="#E5E7EB" stroke-width="1"/>
-    <circle cx="40" cy="21" r="9" fill="#F0FDF4" stroke="#E5E7EB" stroke-width="1"/>
-    <!-- Checkmarks in lenses -->
-    <polyline points="16,21 19,24 24,18" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <polyline points="36,21 39,24 44,18" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- Strap -->
-    <path d="M 0 16 Q -8 10, -4 21 Q 0 30, 0 26" fill="none" stroke="#E5E7EB" stroke-width="1.5"/>
-    <path d="M 60 16 Q 68 10, 64 21 Q 60 30, 60 26" fill="none" stroke="#E5E7EB" stroke-width="1.5"/>
-  </g>
-  <text x="678" y="328" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#374151" text-anchor="middle">XR</text>
-
-  <!-- Bottom label: outputs -->
-  <text x="678" y="388" font-family="system-ui, sans-serif" font-size="10" fill="#9CA3AF" text-anchor="middle">Every screen</text>
 </svg>

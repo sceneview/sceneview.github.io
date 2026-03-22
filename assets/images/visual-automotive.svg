@@ -1,196 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360">
-  <defs>
-    <!-- Background gradient -->
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#1E293B"/>
-    </linearGradient>
-    <!-- Road gradient -->
-    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#334155"/>
-    </linearGradient>
-    <!-- Nav arrow glow -->
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <!-- Cyan glow for HUD elements -->
-    <filter id="cyanGlow">
-      <feGaussianBlur stdDeviation="2.5" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <!-- Speed text glow -->
-    <filter id="textGlow">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge>
-        <feMergeNode in="blur"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <!-- Dashboard panel gradient -->
-    <linearGradient id="dashPanel" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#0F172A"/>
-    </linearGradient>
-    <!-- Battery arc gradient -->
-    <linearGradient id="batteryGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#10B981"/>
-      <stop offset="100%" stop-color="#06B6D4"/>
-    </linearGradient>
-    <!-- Windshield frame -->
-    <clipPath id="windshield">
-      <rect x="30" y="15" width="540" height="200" rx="16"/>
-    </clipPath>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340">
+  <!-- M3 tonal background -->
+  <rect width="600" height="340" rx="24" fill="#F4EFF4"/>
 
-  <!-- Main background -->
-  <rect width="600" height="360" rx="20" fill="#0F172A"/>
+  <!-- Widescreen HUD display -->
+  <rect x="80" y="50" width="440" height="190" rx="28" fill="white" stroke="#CAC4D0" stroke-width="1.5"/>
 
-  <!-- ===== WINDSHIELD AREA ===== -->
-  <g clip-path="url(#windshield)">
-    <!-- Sky / windshield background -->
-    <rect x="30" y="15" width="540" height="200" fill="url(#bg)"/>
+  <!-- Subtle dark interior -->
+  <rect x="80" y="50" width="440" height="190" rx="28" fill="#1C1B1F" opacity="0.04"/>
 
-    <!-- Horizon line -->
-    <line x1="30" y1="120" x2="570" y2="120" stroke="#334155" stroke-width="0.5" opacity="0.5"/>
+  <!-- Speed: 87 -->
+  <text x="200" y="160" font-family="'Google Sans', 'Inter', system-ui, sans-serif" font-size="42" font-weight="700" fill="#6750A4" text-anchor="middle" letter-spacing="-1">87</text>
 
-    <!-- Road surface -->
-    <polygon points="300,80 570,215 30,215" fill="#1a2332" opacity="0.8"/>
+  <!-- km/h label -->
+  <text x="200" y="178" font-family="'Google Sans', 'Inter', system-ui, sans-serif" font-size="11" fill="#625B71" text-anchor="middle" font-weight="400">km/h</text>
 
-    <!-- White edge lines (left) -->
-    <line x1="300" y1="80" x2="90" y2="215" stroke="#E2E8F0" stroke-width="1.5" opacity="0.6"/>
-    <!-- White edge lines (right) -->
-    <line x1="300" y1="80" x2="510" y2="215" stroke="#E2E8F0" stroke-width="1.5" opacity="0.6"/>
+  <!-- Navigation chevron (abstract arrow) -->
+  <path d="M 350,100 L 380,135 L 350,125 L 320,135 Z" fill="#C8E6C9"/>
 
-    <!-- Yellow center dashes -->
-    <line x1="300" y1="82" x2="300" y2="95" stroke="#FDE68A" stroke-width="1.5" opacity="0.5"/>
-    <line x1="300" y1="100" x2="300" y2="118" stroke="#FDE68A" stroke-width="2" opacity="0.6"/>
-    <line x1="300" y1="125" x2="300" y2="148" stroke="#FDE68A" stroke-width="2.5" opacity="0.7"/>
-    <line x1="300" y1="156" x2="300" y2="185" stroke="#FDE68A" stroke-width="3" opacity="0.8"/>
-    <line x1="300" y1="195" x2="300" y2="215" stroke="#FDE68A" stroke-width="3.5" opacity="0.9"/>
+  <!-- Dotted route line -->
+  <line x1="380" y1="135" x2="470" y2="165" stroke="#B4C5E4" stroke-width="1.5" stroke-dasharray="4 6" stroke-linecap="round"/>
 
-    <!-- Navigation arrow (3D, semi-transparent, glowing) -->
-    <g filter="url(#glow)" opacity="0.85">
-      <!-- Arrow shadow / depth -->
-      <polygon points="300,88 330,140 300,130 270,140" fill="#059669" opacity="0.5"/>
-      <!-- Main arrow -->
-      <polygon points="300,78 340,138 300,125 260,138" fill="#10B981" opacity="0.7"/>
-      <!-- Arrow highlight edge -->
-      <polygon points="300,78 300,125 260,138" fill="#34D399" opacity="0.4"/>
-    </g>
+  <!-- Small decorative dot at route end -->
+  <circle cx="470" cy="165" r="3" fill="#B4C5E4" opacity="0.5"/>
 
-    <!-- Distant scenery dots (stars / city lights) -->
-    <circle cx="120" cy="55" r="1" fill="#94A3B8" opacity="0.4"/>
-    <circle cx="200" cy="40" r="1" fill="#94A3B8" opacity="0.3"/>
-    <circle cx="420" cy="50" r="1.2" fill="#94A3B8" opacity="0.4"/>
-    <circle cx="480" cy="35" r="0.8" fill="#94A3B8" opacity="0.3"/>
-    <circle cx="350" cy="30" r="1" fill="#94A3B8" opacity="0.35"/>
-    <circle cx="160" cy="70" r="0.8" fill="#94A3B8" opacity="0.25"/>
-    <circle cx="450" cy="65" r="0.9" fill="#94A3B8" opacity="0.3"/>
-  </g>
+  <!-- Bottom-left gauge arc -->
+  <path d="M 110,215 A 24 24 0 0 1 148,205" fill="none" stroke="#C8E6C9" stroke-width="3" stroke-linecap="round"/>
 
-  <!-- Windshield border -->
-  <rect x="30" y="15" width="540" height="200" rx="16" fill="none" stroke="#334155" stroke-width="1.5"/>
+  <!-- Small accent circle near gauge -->
+  <circle cx="110" cy="215" r="2.5" fill="#C8E6C9" opacity="0.6"/>
 
-  <!-- ===== SPEED READOUT ===== -->
-  <g filter="url(#textGlow)">
-    <text x="490" y="65" font-family="'SF Pro Display', 'Inter', system-ui, sans-serif" font-size="48" font-weight="800" fill="white" text-anchor="end" letter-spacing="-2">87</text>
-    <text x="495" y="65" font-family="'SF Pro Display', 'Inter', system-ui, sans-serif" font-size="14" font-weight="400" fill="#94A3B8" text-anchor="start">km/h</text>
-  </g>
+  <!-- Floating soft purple circle (decorative, top-right area) -->
+  <circle cx="480" cy="85" r="8" fill="#D0BCFF" opacity="0.35"/>
 
-  <!-- ===== COMPASS / HEADING ===== -->
-  <g transform="translate(525, 175)">
-    <circle cx="0" cy="0" r="18" fill="#1E293B" stroke="#334155" stroke-width="1"/>
-    <!-- Compass ring -->
-    <circle cx="0" cy="0" r="14" fill="none" stroke="#06B6D4" stroke-width="0.8" opacity="0.5"/>
-    <!-- N marker -->
-    <text x="0" y="-7" font-family="'Inter', sans-serif" font-size="7" fill="#06B6D4" text-anchor="middle" font-weight="600">N</text>
-    <!-- Compass needle -->
-    <polygon points="0,-12 3,-2 0,2 -3,-2" fill="#06B6D4" opacity="0.8" transform="rotate(-25)"/>
-    <polygon points="0,2 3,-2 0,12 -3,-2" fill="#334155" opacity="0.6" transform="rotate(-25)"/>
-    <!-- Heading text -->
-    <text x="0" y="8" font-family="'Inter', sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle">342°</text>
-  </g>
+  <!-- Small accent rectangle (decorative, abstract) -->
+  <rect x="440" y="195" width="30" height="4" rx="2" fill="#D0BCFF" opacity="0.3"/>
 
-  <!-- ===== TRAFFIC LIGHT (left side) ===== -->
-  <g transform="translate(52, 50)">
-    <rect x="-10" y="-5" width="20" height="60" rx="8" fill="#1E293B" stroke="#334155" stroke-width="1"/>
-    <!-- Red (off) -->
-    <circle cx="0" cy="7" r="5.5" fill="#1E293B" stroke="#7f1d1d" stroke-width="0.8"/>
-    <!-- Yellow (off) -->
-    <circle cx="0" cy="23" r="5.5" fill="#1E293B" stroke="#78350f" stroke-width="0.8"/>
-    <!-- Green (lit) -->
-    <circle cx="0" cy="39" r="5.5" fill="#10B981" stroke="#10B981" stroke-width="0.8"/>
-    <circle cx="0" cy="39" r="5.5" fill="#10B981" opacity="0.4" filter="url(#cyanGlow)"/>
-  </g>
-
-  <!-- ===== DASHBOARD AREA ===== -->
-  <!-- Dashboard panel -->
-  <rect x="30" y="225" width="540" height="100" rx="16" fill="url(#dashPanel)" stroke="#334155" stroke-width="1"/>
-
-  <!-- Battery gauge -->
-  <g transform="translate(95, 275)">
-    <!-- Background arc -->
-    <path d="M -28,-5 A 30 30 0 0 1 28,-5" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-    <!-- Filled arc (78%) -->
-    <path d="M -28,-5 A 30 30 0 0 1 22,-18" fill="none" stroke="url(#batteryGrad)" stroke-width="4" stroke-linecap="round"/>
-    <!-- Battery icon -->
-    <rect x="-6" y="2" width="12" height="7" rx="1.5" fill="none" stroke="#10B981" stroke-width="1"/>
-    <rect x="6" y="4" width="2" height="3" rx="0.5" fill="#10B981"/>
-    <rect x="-4" y="4" width="7" height="3" rx="0.5" fill="#10B981" opacity="0.7"/>
-    <!-- Percentage -->
-    <text x="0" y="22" font-family="'Inter', sans-serif" font-size="11" fill="#10B981" text-anchor="middle" font-weight="600">78%</text>
-  </g>
-
-  <!-- Temperature -->
-  <g transform="translate(195, 268)">
-    <rect x="-30" y="-12" width="60" height="24" rx="12" fill="#334155" opacity="0.5"/>
-    <!-- Thermometer icon -->
-    <circle cx="-14" cy="0" r="4" fill="none" stroke="#06B6D4" stroke-width="1"/>
-    <line x1="-14" y1="-7" x2="-14" y2="-4" stroke="#06B6D4" stroke-width="1.2" stroke-linecap="round"/>
-    <circle cx="-14" cy="0" r="2" fill="#06B6D4"/>
-    <text x="6" y="4" font-family="'Inter', sans-serif" font-size="13" fill="#06B6D4" text-anchor="middle" font-weight="500">22°C</text>
-  </g>
-
-  <!-- 3D car silhouette (top-down) -->
-  <g transform="translate(320, 272)">
-    <!-- Car body outline -->
-    <rect x="-12" y="-18" width="24" height="36" rx="8" fill="#334155" stroke="#06B6D4" stroke-width="0.8" opacity="0.6"/>
-    <!-- Windshield -->
-    <rect x="-8" y="-12" width="16" height="8" rx="3" fill="#1E293B" stroke="#06B6D4" stroke-width="0.5" opacity="0.5"/>
-    <!-- Rear window -->
-    <rect x="-7" y="6" width="14" height="6" rx="2.5" fill="#1E293B" stroke="#06B6D4" stroke-width="0.5" opacity="0.5"/>
-    <!-- Wheels -->
-    <rect x="-14" y="-10" width="4" height="7" rx="2" fill="#06B6D4" opacity="0.4"/>
-    <rect x="10" y="-10" width="4" height="7" rx="2" fill="#06B6D4" opacity="0.4"/>
-    <rect x="-14" y="5" width="4" height="7" rx="2" fill="#06B6D4" opacity="0.4"/>
-    <rect x="10" y="5" width="4" height="7" rx="2" fill="#06B6D4" opacity="0.4"/>
-    <!-- Center dot -->
-    <circle cx="0" cy="-2" r="2" fill="#06B6D4" opacity="0.7"/>
-  </g>
-
-  <!-- ETA pill -->
-  <g transform="translate(460, 268)">
-    <rect x="-45" y="-13" width="90" height="26" rx="13" fill="#334155" opacity="0.6" stroke="#10B981" stroke-width="0.8"/>
-    <!-- Clock icon -->
-    <circle cx="-26" cy="0" r="6" fill="none" stroke="#10B981" stroke-width="1"/>
-    <line x1="-26" y1="-3" x2="-26" y2="0" stroke="#10B981" stroke-width="1" stroke-linecap="round"/>
-    <line x1="-26" y1="0" x2="-23" y2="1.5" stroke="#10B981" stroke-width="1" stroke-linecap="round"/>
-    <text x="6" y="4" font-family="'Inter', sans-serif" font-size="12" fill="#10B981" text-anchor="middle" font-weight="600">ETA 12 min</text>
-  </g>
-
-  <!-- Dashboard divider lines -->
-  <line x1="150" y1="240" x2="150" y2="310" stroke="#334155" stroke-width="0.5" opacity="0.4"/>
-  <line x1="260" y1="240" x2="260" y2="310" stroke="#334155" stroke-width="0.5" opacity="0.4"/>
-  <line x1="385" y1="240" x2="385" y2="310" stroke="#334155" stroke-width="0.5" opacity="0.4"/>
-
-  <!-- ===== LABEL ===== -->
-  <text x="300" y="348" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#7B61FF" text-anchor="middle" font-weight="500" letter-spacing="0.3">Android Automotive — Scene { } on every screen</text>
+  <!-- Bottom text -->
+  <text x="300" y="280" font-family="'Google Sans', 'Inter', system-ui, sans-serif" font-size="13" fill="#6750A4" text-anchor="middle" font-weight="500">Automotive</text>
+  <text x="300" y="296" font-family="'Google Sans', 'Inter', system-ui, sans-serif" font-size="10" fill="#625B71" text-anchor="middle" font-weight="400">HUD &amp; dashboard</text>
 </svg>

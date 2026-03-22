@@ -1,229 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360">
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FFFBF5"/>
-      <stop offset="100%" stop-color="#FFF0E8"/>
+    <linearGradient id="blobGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D0BCFF"/>
+      <stop offset="100%" stop-color="#EFB8C8"/>
     </linearGradient>
-    <linearGradient id="purpleGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#7B61FF"/>
-      <stop offset="100%" stop-color="#9B85FF"/>
-    </linearGradient>
-    <linearGradient id="shoeBody" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#9B85FF"/>
-      <stop offset="40%" stop-color="#7B61FF"/>
-      <stop offset="100%" stop-color="#5A3FE0"/>
-    </linearGradient>
-    <linearGradient id="shoeSole" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F0F0F0"/>
-      <stop offset="100%" stop-color="#E0E0E0"/>
-    </linearGradient>
-    <linearGradient id="tealBtn" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#0D9488"/>
-      <stop offset="100%" stop-color="#14B8A6"/>
-    </linearGradient>
-    <linearGradient id="purpleBtn" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#7B61FF"/>
-      <stop offset="100%" stop-color="#A78BFA"/>
-    </linearGradient>
-    <linearGradient id="screenBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FEFEFE"/>
-      <stop offset="100%" stop-color="#F8F6FF"/>
-    </linearGradient>
-    <filter id="phoneShadow" x="-10%" y="-5%" width="120%" height="115%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#1C1B1F" flood-opacity="0.15"/>
-    </filter>
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#7B61FF" flood-opacity="0.2"/>
-    </filter>
-    <clipPath id="screenClip">
-      <rect x="137" y="32" width="186" height="316" rx="16"/>
-    </clipPath>
   </defs>
 
   <!-- Background -->
-  <rect width="600" height="360" rx="16" fill="url(#bg)"/>
+  <rect width="600" height="340" fill="#FFFBFE"/>
 
-  <!-- ==================== PHONE FRAME ==================== -->
-  <g filter="url(#phoneShadow)">
-    <!-- Phone body -->
-    <rect x="130" y="20" width="200" height="340" rx="24" fill="#1C1B1F"/>
-    <!-- Screen -->
-    <rect x="137" y="32" width="186" height="316" rx="16" fill="url(#screenBg)"/>
-  </g>
+  <!-- Large background accent shape — soft circle, far back -->
+  <circle cx="300" cy="145" r="160" fill="#D0BCFF" opacity="0.07"/>
 
-  <!-- Screen content (clipped) -->
-  <g clip-path="url(#screenClip)">
+  <!-- The "viewer" container — large rounded rect -->
+  <rect x="150" y="40" width="300" height="210" rx="28" fill="#F4EFF4"/>
 
-    <!-- Top bar: Price and rating -->
-    <text x="150" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="700" fill="#1C1B1F">$149</text>
-    <text x="268" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#F97316" text-anchor="end">&#9733;&#9733;&#9733;&#9733;&#9733;</text>
-    <text x="310" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#666" text-anchor="end">4.8</text>
+  <!-- Inner subtle layer for depth -->
+  <rect x="170" y="55" width="260" height="180" rx="22" fill="#FFFBFE" opacity="0.6"/>
 
-    <!-- 360 badge -->
-    <rect x="286" y="62" width="32" height="16" rx="8" fill="#7B61FF" opacity="0.12"/>
-    <text x="302" y="73" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700" fill="#7B61FF" text-anchor="middle">360&#176;</text>
+  <!-- Abstract product shape — soft rounded pentagon / blob -->
+  <path d="
+    M300,80
+    C330,78 355,95 358,125
+    C360,148 345,170 325,178
+    C312,183 288,183 275,178
+    C255,170 240,148 242,125
+    C245,95 270,78 300,80
+    Z
+  " fill="url(#blobGrad)" opacity="0.85"/>
 
-    <!-- ==================== ORBIT RING ==================== -->
-    <ellipse cx="230" cy="155" rx="70" ry="22" fill="none" stroke="#7B61FF" stroke-width="1" stroke-dasharray="4 3" opacity="0.3"/>
+  <!-- Inner highlight on blob -->
+  <ellipse cx="290" cy="118" rx="28" ry="22" fill="#FFFBFE" opacity="0.25"/>
 
-    <!-- ==================== 3D SNEAKER ==================== -->
-    <g transform="translate(230, 140)">
-      <!-- Shoe sole - bottom -->
-      <path d="M-52,18 C-52,18 -48,28 -10,30 C20,32 55,26 58,22 C60,18 58,14 55,12 L-45,12 C-50,12 -52,14 -52,18Z" fill="url(#shoeSole)" stroke="#D0D0D0" stroke-width="0.5"/>
-      <!-- Sole edge highlight -->
-      <path d="M-48,20 C-48,20 -40,26 -10,28 C18,30 50,24 54,20" fill="none" stroke="#CCCCCC" stroke-width="0.5"/>
+  <!-- Orbit path — subtle curved dotted line -->
+  <ellipse cx="300" cy="138" rx="85" ry="30" fill="none" stroke="#CAC4D0" stroke-width="1" stroke-dasharray="5 4"/>
 
-      <!-- Shoe body - main upper -->
-      <path d="M-45,12 C-48,8 -50,-5 -44,-20 C-40,-30 -30,-38 -15,-40 C0,-42 20,-38 35,-28 C48,-20 55,-8 55,5 C55,10 55,12 55,12 Z" fill="url(#shoeBody)"/>
+  <!-- Small orbit dot indicator -->
+  <circle cx="385" cy="138" r="3" fill="#CAC4D0"/>
 
-      <!-- Shoe tongue -->
-      <path d="M-5,-38 C-2,-50 5,-52 10,-48 C15,-44 18,-36 15,-28" fill="#8B75FF" stroke="#6B55E0" stroke-width="0.5"/>
+  <!-- Color swatches — 4 small circles below the product -->
+  <circle cx="262" cy="206" r="7" fill="#D0BCFF"/>
+  <circle cx="284" cy="206" r="7" fill="#EFB8C8"/>
+  <circle cx="306" cy="206" r="7" fill="#B4C5E4"/>
+  <circle cx="328" cy="206" r="7" fill="#C8E6C9"/>
 
-      <!-- Shoe collar / ankle opening -->
-      <path d="M-20,-30 C-15,-38 -5,-42 10,-38 C18,-35 22,-30 20,-25" fill="none" stroke="#6B55E0" stroke-width="1"/>
+  <!-- Selected ring on first swatch -->
+  <circle cx="262" cy="206" r="10" fill="none" stroke="#6750A4" stroke-width="1.5" opacity="0.5"/>
 
-      <!-- Swoosh / stripe decoration -->
-      <path d="M-38,-2 C-20,-15 5,-20 30,-12 C40,-8 48,-2 50,5" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+  <!-- AR floating pill — to the right -->
+  <rect x="474" y="108" width="52" height="26" rx="13" fill="#F4EFF4"/>
+  <circle cx="488" cy="121" r="4" fill="#C8E6C9"/>
+  <text x="506" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="#625B71" text-anchor="middle">AR</text>
 
-      <!-- Toe cap highlight -->
-      <path d="M-44,-18 C-46,-10 -48,0 -45,10" fill="none" stroke="#6B55E0" stroke-width="0.8" opacity="0.5"/>
+  <!-- Decorative background shapes for depth -->
+  <circle cx="108" cy="80" r="40" fill="#EFB8C8" opacity="0.08"/>
+  <circle cx="510" cy="220" r="55" fill="#B4C5E4" opacity="0.08"/>
+  <rect x="60" y="200" width="50" height="50" rx="16" fill="#D0BCFF" opacity="0.06" transform="rotate(-15 85 225)"/>
 
-      <!-- Lace holes -->
-      <circle cx="-2" cy="-32" r="1.5" fill="white" opacity="0.7"/>
-      <circle cx="2" cy="-28" r="1.5" fill="white" opacity="0.7"/>
-      <circle cx="5" cy="-24" r="1.5" fill="white" opacity="0.7"/>
-
-      <!-- Heel tab -->
-      <rect x="42" y="-18" width="8" height="14" rx="3" fill="#6B55E0" opacity="0.6"/>
-      <text x="46" y="-8" font-family="system-ui, sans-serif" font-size="5" fill="white" text-anchor="middle" opacity="0.8">SV</text>
-
-      <!-- Shoe shadow on ground -->
-      <ellipse cx="5" cy="32" rx="45" ry="6" fill="#7B61FF" opacity="0.08"/>
-    </g>
-
-    <!-- Orbit arrows on ring -->
-    <path d="M162,170 L158,166 M162,170 L166,166" stroke="#7B61FF" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
-    <path d="M298,140 L302,136 M298,140 L294,136" stroke="#7B61FF" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.5"/>
-
-    <!-- ==================== COLOR SWATCHES ==================== -->
-    <text x="150" y="205" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#999">Color</text>
-    <!-- Purple (selected) -->
-    <circle cx="160" cy="218" r="9" fill="#7B61FF" stroke="#7B61FF" stroke-width="2"/>
-    <circle cx="160" cy="218" r="6" fill="#7B61FF"/>
-    <circle cx="160" cy="218" r="11" fill="none" stroke="#7B61FF" stroke-width="1.5" opacity="0.4"/>
-    <!-- Orange -->
-    <circle cx="185" cy="218" r="9" fill="#F97316"/>
-    <!-- Pink -->
-    <circle cx="210" cy="218" r="9" fill="#F472B6"/>
-    <!-- Teal -->
-    <circle cx="235" cy="218" r="9" fill="#0D9488"/>
-
-    <!-- ==================== SIZE PILLS ==================== -->
-    <text x="150" y="245" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#999">Size</text>
-    <!-- 39 -->
-    <rect x="148" y="251" width="30" height="20" rx="10" fill="white" stroke="#E0E0E0" stroke-width="1"/>
-    <text x="163" y="264" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#666" text-anchor="middle">39</text>
-    <!-- 40 -->
-    <rect x="182" y="251" width="30" height="20" rx="10" fill="white" stroke="#E0E0E0" stroke-width="1"/>
-    <text x="197" y="264" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#666" text-anchor="middle">40</text>
-    <!-- 41 (selected) -->
-    <rect x="216" y="251" width="30" height="20" rx="10" fill="#7B61FF"/>
-    <text x="231" y="264" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" fill="white" text-anchor="middle">41</text>
-    <!-- 42 -->
-    <rect x="250" y="251" width="30" height="20" rx="10" fill="white" stroke="#E0E0E0" stroke-width="1"/>
-    <text x="265" y="264" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#666" text-anchor="middle">42</text>
-
-    <!-- ==================== BOTTOM BUTTONS ==================== -->
-    <!-- View in AR button -->
-    <rect x="142" y="282" width="88" height="30" rx="15" fill="url(#tealBtn)"/>
-    <!-- Camera icon -->
-    <g transform="translate(155, 291)">
-      <rect x="0" y="2" width="10" height="7" rx="1.5" fill="none" stroke="white" stroke-width="1.2"/>
-      <circle cx="5" cy="5.5" r="2" fill="none" stroke="white" stroke-width="1"/>
-      <path d="M2,2 L3.5,0 L6.5,0 L8,2" fill="none" stroke="white" stroke-width="1"/>
-    </g>
-    <text x="192" y="301" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600" fill="white" text-anchor="middle">View in AR</text>
-
-    <!-- Add to Cart button -->
-    <rect x="234" y="282" width="82" height="30" rx="15" fill="url(#purpleBtn)"/>
-    <text x="275" y="301" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600" fill="white" text-anchor="middle">Add to Cart</text>
-
-    <!-- Bottom bar / home indicator -->
-    <rect x="200" y="338" width="60" height="4" rx="2" fill="#1C1B1F" opacity="0.15"/>
-
-  </g>
-
-  <!-- ==================== AR PREVIEW (outside phone) ==================== -->
-
-  <!-- Arrow from phone to AR room -->
-  <g opacity="0.6">
-    <path d="M338,240 C360,235 380,230 420,215" fill="none" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 3"/>
-    <path d="M416,218 L422,213 L418,220" fill="#0D9488"/>
-  </g>
-
-  <!-- "Tap to see in your room" label -->
-  <text x="370" y="252" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#0D9488" text-anchor="middle" opacity="0.8">tap to see in</text>
-  <text x="370" y="262" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#0D9488" text-anchor="middle" opacity="0.8">your room</text>
-
-  <!-- AR Room outline -->
-  <g transform="translate(480, 160)" opacity="0.5">
-    <!-- Floor -->
-    <path d="M-55,40 L0,60 L55,40 L0,20 Z" fill="#0D9488" opacity="0.06" stroke="#0D9488" stroke-width="0.8"/>
-    <!-- Back wall left -->
-    <path d="M-55,40 L-55,-15 L0,-35 L0,20 Z" fill="#0D9488" opacity="0.04" stroke="#0D9488" stroke-width="0.8"/>
-    <!-- Back wall right -->
-    <path d="M55,40 L55,-15 L0,-35 L0,20 Z" fill="#0D9488" opacity="0.03" stroke="#0D9488" stroke-width="0.8"/>
-
-    <!-- Ghost shoe in room -->
-    <g transform="translate(0, 20) scale(0.4)" opacity="0.6">
-      <!-- Simplified shoe silhouette -->
-      <path d="M-45,12 C-48,8 -50,-5 -44,-20 C-40,-30 -30,-38 -15,-40 C0,-42 20,-38 35,-28 C48,-20 55,-8 55,5 C55,10 55,12 55,12 L-45,12Z" fill="#7B61FF" opacity="0.5"/>
-      <path d="M-52,18 C-52,18 -48,28 -10,30 C20,32 55,26 58,22 C60,18 58,14 55,12 L-45,12 C-50,12 -52,14 -52,18Z" fill="#E8E8E8" opacity="0.5"/>
-      <!-- Swoosh -->
-      <path d="M-38,-2 C-20,-15 5,-20 30,-12" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-      <!-- AR shimmer dots -->
-      <circle cx="-30" cy="35" r="1.5" fill="#0D9488" opacity="0.4"/>
-      <circle cx="0" cy="38" r="1.5" fill="#0D9488" opacity="0.4"/>
-      <circle cx="25" cy="35" r="1.5" fill="#0D9488" opacity="0.4"/>
-    </g>
-
-    <!-- AR grid dots on floor -->
-    <circle cx="-30" cy="30" r="1" fill="#0D9488" opacity="0.25"/>
-    <circle cx="-15" cy="37" r="1" fill="#0D9488" opacity="0.25"/>
-    <circle cx="0" cy="44" r="1" fill="#0D9488" opacity="0.25"/>
-    <circle cx="15" cy="37" r="1" fill="#0D9488" opacity="0.25"/>
-    <circle cx="30" cy="30" r="1" fill="#0D9488" opacity="0.25"/>
-    <circle cx="-25" cy="45" r="1" fill="#0D9488" opacity="0.2"/>
-    <circle cx="25" cy="45" r="1" fill="#0D9488" opacity="0.2"/>
-
-    <!-- AR label -->
-    <rect x="-12" y="-48" width="24" height="12" rx="6" fill="#0D9488" opacity="0.15"/>
-    <text x="0" y="-39" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="600" fill="#0D9488" text-anchor="middle">AR</text>
-  </g>
-
-  <!-- ==================== DECORATIVE ELEMENTS ==================== -->
-
-  <!-- Floating dots / particles -->
-  <circle cx="80" cy="60" r="3" fill="#7B61FF" opacity="0.1"/>
-  <circle cx="95" cy="120" r="2" fill="#F97316" opacity="0.12"/>
-  <circle cx="60" cy="200" r="4" fill="#F472B6" opacity="0.08"/>
-  <circle cx="110" cy="280" r="2.5" fill="#0D9488" opacity="0.1"/>
-  <circle cx="530" cy="80" r="3" fill="#F472B6" opacity="0.1"/>
-  <circle cx="550" cy="300" r="2.5" fill="#7B61FF" opacity="0.1"/>
-  <circle cx="420" cy="50" r="2" fill="#F97316" opacity="0.1"/>
-
-  <!-- Subtle grid pattern top-left -->
-  <g opacity="0.04" stroke="#7B61FF" stroke-width="0.5">
-    <line x1="30" y1="30" x2="30" y2="80"/>
-    <line x1="45" y1="30" x2="45" y2="80"/>
-    <line x1="60" y1="30" x2="60" y2="80"/>
-    <line x1="30" y1="30" x2="60" y2="30"/>
-    <line x1="30" y1="45" x2="60" y2="45"/>
-    <line x1="30" y1="60" x2="60" y2="60"/>
-    <line x1="30" y1="80" x2="60" y2="80"/>
-  </g>
-
-  <!-- ==================== LABEL ==================== -->
-  <text x="300" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#7B61FF" text-anchor="middle" font-weight="500">E-commerce — 3D product viewer + AR try-on</text>
+  <!-- Bottom text -->
+  <text x="300" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#6750A4" text-anchor="middle">Product viewer</text>
+  <text x="300" y="306" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">3D + AR try-on</text>
 
 </svg>
