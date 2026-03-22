@@ -502,7 +502,7 @@
   counter-reset: step;
 }
 
-/* ---- Code blocks — Catppuccin-inspired, ultra-rounded ---- */
+/* ---- Code blocks — GitHub / VS Code-inspired, ultra-rounded ---- */
 .highlight code {
   font-size: 0.85rem;
 }
@@ -511,34 +511,34 @@
   border-radius: var(--sv-shape-lg) !important;
 }
 
-/* Light mode: Catppuccin Latte-inspired — warm, soft, readable */
+/* Light mode: GitHub Light */
 :root {
-  --sv-code-bg: #F8F6F2;
-  --sv-code-fg: #4C4F69;
-  --sv-code-comment: #9CA0B0;
-  --sv-code-keyword: #8839EF;
-  --sv-code-string: #40A02B;
-  --sv-code-function: #1E66F5;
-  --sv-code-type: #D20F39;
-  --sv-code-number: #FE640B;
-  --sv-code-operator: #04A5E5;
-  --sv-code-property: #DF8E1D;
-  --sv-code-annotation: #EA76CB;
+  --sv-code-bg: #F6F8FA;
+  --sv-code-fg: #24292F;
+  --sv-code-comment: #6E7781;
+  --sv-code-keyword: #CF222E;
+  --sv-code-string: #0A3069;
+  --sv-code-function: #8250DF;
+  --sv-code-type: #953800;
+  --sv-code-number: #0550AE;
+  --sv-code-operator: #CF222E;
+  --sv-code-property: #0550AE;
+  --sv-code-annotation: #8250DF;
 }
 
-/* Dark mode: Catppuccin Mocha-inspired */
+/* Dark mode: VS Code Dark+ */
 [data-md-color-scheme="slate"] {
-  --sv-code-bg: #1E1E2E;
-  --sv-code-fg: #CDD6F4;
-  --sv-code-comment: #6C7086;
-  --sv-code-keyword: #CBA6F7;
-  --sv-code-string: #A6E3A1;
-  --sv-code-function: #89B4FA;
-  --sv-code-type: #F38BA8;
-  --sv-code-number: #FAB387;
-  --sv-code-operator: #89DCEB;
-  --sv-code-property: #F9E2AF;
-  --sv-code-annotation: #F5C2E7;
+  --sv-code-bg: #1E1E1E;
+  --sv-code-fg: #D4D4D4;
+  --sv-code-comment: #6A9955;
+  --sv-code-keyword: #569CD6;
+  --sv-code-string: #CE9178;
+  --sv-code-function: #DCDCAA;
+  --sv-code-type: #4EC9B0;
+  --sv-code-number: #B5CEA8;
+  --sv-code-operator: #D4D4D4;
+  --sv-code-property: #9CDCFE;
+  --sv-code-annotation: #DCDCAA;
 }
 
 /* Apply the code theme */
@@ -556,7 +556,7 @@
   border: 1px solid var(--sv-outline-variant);
 }
 
-/* Pygments token overrides for Catppuccin palette */
+/* Pygments token overrides */
 .highlight .k, .highlight .kd, .highlight .kn,
 .highlight .kp, .highlight .kr, .highlight .kt,
 .highlight .kc { color: var(--sv-code-keyword) !important; }
