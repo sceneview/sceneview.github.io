@@ -1,99 +1,223 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
   <defs>
-    <linearGradient id="pp-bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E1B4B"/><stop offset="100%" stop-color="#0F172A"/>
+    <!-- Bloom filters - triple layer for convincing glow -->
+    <filter id="bloom-inner" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+    <filter id="bloom-outer" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="15"/>
+    </filter>
+    <filter id="bloom-mega" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="25"/>
+    </filter>
+    <filter id="bloom-small" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+    <filter id="bloom-particle" x="-200%" y="-200%" width="500%" height="500%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <filter id="reflection-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3"/>
+    </filter>
+
+    <!-- Vignette gradient -->
+    <radialGradient id="vignette" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#0A0A1A" stop-opacity="0"/>
+      <stop offset="65%" stop-color="#0A0A1A" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0A0A1A" stop-opacity="0.7"/>
+    </radialGradient>
+
+    <!-- Magenta sphere gradient -->
+    <radialGradient id="sphere-magenta" cx="40%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#F9A8D4"/>
+      <stop offset="40%" stop-color="#EC4899"/>
+      <stop offset="100%" stop-color="#9D174D"/>
+    </radialGradient>
+
+    <!-- Floor fade -->
+    <linearGradient id="floor-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0A0A1A" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#0A0A1A" stop-opacity="0.85"/>
     </linearGradient>
-    <filter id="pp-bloom" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="8" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="pp-vignette">
-      <feFlood flood-color="black" flood-opacity="0.4"/>
-      <feComposite in2="SourceGraphic" operator="in"/>
-      <feGaussianBlur stdDeviation="30"/>
-      <feComposite in2="SourceGraphic" operator="over"/>
-    </filter>
+
+    <!-- Torus body gradient -->
+    <linearGradient id="torus-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="50%" stop-color="#06B6D4"/>
+      <stop offset="100%" stop-color="#0891B2"/>
+    </linearGradient>
+
+    <!-- Clip for scene area -->
+    <clipPath id="scene-clip">
+      <rect x="0" y="0" width="280" height="480" rx="0"/>
+    </clipPath>
   </defs>
-  <!-- Phone frame -->
-  <rect x="10" y="10" width="260" height="460" rx="36" fill="#1A1A1A"/>
-  <rect x="12" y="12" width="256" height="456" rx="34" fill="#2A2A2A"/>
-  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#pp-bg)"/>
-  <rect x="90" y="14" width="100" height="22" rx="11" fill="#1A1A1A"/>
-  <!-- Status -->
-  <text x="40" y="50" font-family="system-ui" font-size="10" fill="white" font-weight="600" opacity="0.6">9:41</text>
-  <!-- Title -->
-  <rect x="44" y="56" width="192" height="28" rx="14" fill="rgba(255,255,255,0.08)"/>
-  <text x="140" y="75" font-family="system-ui" font-size="10" fill="white" text-anchor="middle" font-weight="700">Post-Processing</text>
-  <!-- 3D Scene with effects -->
-  <rect x="34" y="94" width="212" height="200" rx="18" fill="#020617" stroke="#334155" stroke-width="0.5"/>
-  <!-- Vignette corners -->
-  <rect x="34" y="94" width="212" height="200" rx="18" fill="black" opacity="0.15"/>
-  <rect x="60" y="120" width="160" height="148" rx="10" fill="#020617"/>
-  <!-- Glowing sphere with bloom -->
-  <g filter="url(#pp-bloom)">
-    <circle cx="140" cy="180" r="30" fill="#7B61FF" opacity="0.4"/>
-    <circle cx="140" cy="180" r="18" fill="#A78BFA"/>
+
+  <!-- Background -->
+  <rect width="280" height="480" fill="#0A0A1A"/>
+
+  <!-- Subtle ambient light from above -->
+  <ellipse cx="140" cy="100" rx="160" ry="80" fill="#06B6D4" opacity="0.02"/>
+
+  <!-- === GROUND PLANE - Perspective grid === -->
+  <g opacity="0.25">
+    <!-- Horizontal lines (receding) -->
+    <line x1="20" y1="340" x2="260" y2="340" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="30" y1="355" x2="250" y2="355" stroke="#1E293B" stroke-width="0.35"/>
+    <line x1="10" y1="370" x2="270" y2="370" stroke="#1E293B" stroke-width="0.4"/>
+    <line x1="0" y1="385" x2="280" y2="385" stroke="#1E293B" stroke-width="0.45"/>
+    <line x1="0" y1="400" x2="280" y2="400" stroke="#1E293B" stroke-width="0.5"/>
+    <line x1="0" y1="418" x2="280" y2="418" stroke="#1E293B" stroke-width="0.5"/>
+    <!-- Converging vertical lines -->
+    <line x1="140" y1="320" x2="0" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="40" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="80" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="120" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="160" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="200" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="240" y2="440" stroke="#1E293B" stroke-width="0.3"/>
+    <line x1="140" y1="320" x2="280" y2="440" stroke="#1E293B" stroke-width="0.3"/>
   </g>
-  <circle cx="135" cy="174" r="5" fill="white" opacity="0.4"/>
-  <!-- Smaller glowing objects -->
-  <g filter="url(#pp-bloom)">
-    <circle cx="85" cy="210" r="10" fill="#F472B6" opacity="0.5"/>
-    <circle cx="85" cy="210" r="6" fill="#F9A8D4"/>
+
+  <!-- Grid highlight on floor beneath torus -->
+  <ellipse cx="140" cy="370" rx="70" ry="12" fill="#06B6D4" opacity="0.04"/>
+
+  <!-- === TORUS / RING - Triple-layer bloom === -->
+
+  <!-- Layer 3: Mega outer bloom (widest, faintest) -->
+  <g filter="url(#bloom-mega)">
+    <ellipse cx="140" cy="210" rx="72" ry="28" fill="none" stroke="#06B6D4" stroke-width="18" opacity="0.12"/>
   </g>
-  <g filter="url(#pp-bloom)">
-    <circle cx="195" cy="160" r="8" fill="#06B6D4" opacity="0.5"/>
-    <circle cx="195" cy="160" r="5" fill="#67E8F9"/>
+
+  <!-- Layer 2: Outer bloom -->
+  <g filter="url(#bloom-outer)">
+    <ellipse cx="140" cy="210" rx="72" ry="28" fill="none" stroke="#06B6D4" stroke-width="10" opacity="0.25"/>
   </g>
-  <g filter="url(#pp-bloom)">
-    <circle cx="160" cy="240" r="7" fill="#FCD34D" opacity="0.5"/>
-    <circle cx="160" cy="240" r="4" fill="#FDE68A"/>
+
+  <!-- Layer 1: Inner glow -->
+  <g filter="url(#bloom-inner)">
+    <ellipse cx="140" cy="210" rx="72" ry="28" fill="none" stroke="#06B6D4" stroke-width="5" opacity="0.6"/>
   </g>
-  <!-- Grid floor -->
-  <g opacity="0.15">
-    <line x1="60" y1="270" x2="90" y2="240" stroke="#64748B"/>
-    <line x1="100" y1="270" x2="120" y2="240" stroke="#64748B"/>
-    <line x1="140" y1="270" x2="140" y2="240" stroke="#64748B"/>
-    <line x1="180" y1="270" x2="160" y2="240" stroke="#64748B"/>
-    <line x1="220" y1="270" x2="190" y2="240" stroke="#64748B"/>
+
+  <!-- Core torus shape - front arc (visible part) -->
+  <ellipse cx="140" cy="210" rx="72" ry="28" fill="none" stroke="url(#torus-grad)" stroke-width="3"/>
+
+  <!-- Torus 3D thickness - inner ellipse (hole) -->
+  <ellipse cx="140" cy="210" rx="52" ry="16" fill="none" stroke="#06B6D4" stroke-width="1" opacity="0.3"/>
+
+  <!-- Torus highlight streak -->
+  <ellipse cx="120" cy="200" rx="25" ry="5" fill="none" stroke="white" stroke-width="0.8" opacity="0.25" transform="rotate(-10, 120, 200)"/>
+
+  <!-- === MAGENTA SPHERE with bloom === -->
+
+  <!-- Sphere mega bloom -->
+  <g filter="url(#bloom-mega)">
+    <circle cx="195" cy="170" r="22" fill="#EC4899" opacity="0.1"/>
   </g>
-  <!-- Film grain overlay (subtle dots) -->
-  <g opacity="0.06">
-    <circle cx="60" cy="120" r="0.5" fill="white"/><circle cx="90" cy="140" r="0.5" fill="white"/>
-    <circle cx="130" cy="110" r="0.5" fill="white"/><circle cx="180" cy="150" r="0.5" fill="white"/>
-    <circle cx="70" cy="200" r="0.5" fill="white"/><circle cx="200" cy="230" r="0.5" fill="white"/>
-    <circle cx="110" cy="260" r="0.5" fill="white"/><circle cx="170" cy="120" r="0.5" fill="white"/>
+
+  <!-- Sphere outer bloom -->
+  <g filter="url(#bloom-outer)">
+    <circle cx="195" cy="170" r="18" fill="#EC4899" opacity="0.2"/>
   </g>
-  <!-- Effect toggles -->
-  <g transform="translate(34, 310)">
-    <!-- Bloom -->
-    <rect x="0" y="0" width="102" height="36" rx="18" fill="rgba(123,97,255,0.15)" stroke="#7B61FF" stroke-width="1"/>
-    <circle cx="18" cy="18" r="8" fill="#7B61FF"/>
-    <text x="18" y="22" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="700">&#x2713;</text>
-    <text x="36" y="22" font-family="system-ui" font-size="9" fill="white" font-weight="600">Bloom</text>
-    <!-- Vignette -->
-    <rect x="110" y="0" width="102" height="36" rx="18" fill="rgba(244,114,182,0.15)" stroke="#F472B6" stroke-width="1"/>
-    <circle cx="128" cy="18" r="8" fill="#F472B6"/>
-    <text x="128" y="22" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="700">&#x2713;</text>
-    <text x="146" y="22" font-family="system-ui" font-size="9" fill="white" font-weight="600">Vignette</text>
+
+  <!-- Sphere inner glow -->
+  <g filter="url(#bloom-inner)">
+    <circle cx="195" cy="170" r="14" fill="#EC4899" opacity="0.4"/>
   </g>
-  <g transform="translate(34, 354)">
-    <!-- Tone mapping -->
-    <rect x="0" y="0" width="102" height="36" rx="18" fill="rgba(6,182,212,0.15)" stroke="#06B6D4" stroke-width="1"/>
-    <circle cx="18" cy="18" r="8" fill="#06B6D4"/>
-    <text x="18" y="22" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="700">&#x2713;</text>
-    <text x="36" y="22" font-family="system-ui" font-size="9" fill="white" font-weight="600">ACES</text>
-    <!-- FXAA -->
-    <rect x="110" y="0" width="102" height="36" rx="18" fill="rgba(255,255,255,0.05)" stroke="#64748B" stroke-width="1"/>
-    <circle cx="128" cy="18" r="8" fill="#334155"/>
-    <text x="146" y="22" font-family="system-ui" font-size="9" fill="#94A3B8" font-weight="600">FXAA</text>
+
+  <!-- Sphere body -->
+  <circle cx="195" cy="170" r="14" fill="url(#sphere-magenta)"/>
+
+  <!-- Sphere specular highlight -->
+  <circle cx="190" cy="164" r="4" fill="white" opacity="0.35"/>
+  <circle cx="192" cy="167" r="1.5" fill="white" opacity="0.6"/>
+
+  <!-- === PARTICLE DOTS with glow === -->
+
+  <!-- Particle 1 - purple -->
+  <g filter="url(#bloom-particle)">
+    <circle cx="78" cy="175" r="2.5" fill="#A78BFA" opacity="0.8"/>
   </g>
-  <!-- Bloom intensity -->
-  <g transform="translate(34, 400)">
-    <text x="0" y="10" font-family="system-ui" font-size="8" fill="#94A3B8" font-weight="600">BLOOM INTENSITY</text>
-    <rect x="0" y="18" width="212" height="4" rx="2" fill="#334155"/>
-    <rect x="0" y="18" width="150" height="4" rx="2" fill="#7B61FF"/>
-    <circle cx="150" cy="20" r="7" fill="white" stroke="#7B61FF" stroke-width="2"/>
-    <text x="190" y="24" font-family="system-ui" font-size="9" fill="white" font-weight="600">0.7</text>
+  <circle cx="78" cy="175" r="1.5" fill="#A78BFA"/>
+  <circle cx="78" cy="175" r="0.6" fill="white" opacity="0.7"/>
+
+  <!-- Particle 2 - cyan -->
+  <g filter="url(#bloom-particle)">
+    <circle cx="210" cy="240" r="2" fill="#22D3EE" opacity="0.7"/>
   </g>
-  <rect x="100" y="440" width="80" height="4" rx="2" fill="#666"/>
+  <circle cx="210" cy="240" r="1.2" fill="#22D3EE"/>
+  <circle cx="210" cy="240" r="0.5" fill="white" opacity="0.6"/>
+
+  <!-- Particle 3 - pink -->
+  <g filter="url(#bloom-particle)">
+    <circle cx="100" cy="260" r="1.8" fill="#F472B6" opacity="0.7"/>
+  </g>
+  <circle cx="100" cy="260" r="1" fill="#F472B6"/>
+  <circle cx="100" cy="260" r="0.4" fill="white" opacity="0.5"/>
+
+  <!-- Particle 4 - small cyan far -->
+  <g filter="url(#bloom-particle)">
+    <circle cx="60" cy="140" r="1.2" fill="#22D3EE" opacity="0.5"/>
+  </g>
+  <circle cx="60" cy="140" r="0.7" fill="#22D3EE"/>
+
+  <!-- Particle 5 - tiny white -->
+  <circle cx="230" cy="150" r="0.8" fill="white" opacity="0.3"/>
+  <circle cx="170" cy="135" r="0.6" fill="white" opacity="0.2"/>
+
+  <!-- === REFLECTIONS on ground plane === -->
+  <g filter="url(#reflection-blur)" opacity="0.12" transform="translate(0, 320) scale(1, -0.35) translate(0, -210)">
+    <!-- Torus reflection -->
+    <ellipse cx="140" cy="210" rx="72" ry="28" fill="none" stroke="#06B6D4" stroke-width="4"/>
+  </g>
+
+  <g filter="url(#reflection-blur)" opacity="0.08" transform="translate(0, 310) scale(1, -0.3) translate(0, -170)">
+    <!-- Sphere reflection -->
+    <circle cx="195" cy="170" r="14" fill="#EC4899"/>
+  </g>
+
+  <!-- Floor gradient fade -->
+  <rect x="0" y="330" width="280" height="150" fill="url(#floor-fade)"/>
+
+  <!-- === LENS FLARE HEXAGONS === -->
+  <!-- Hexagon 1 near torus -->
+  <polygon points="115,195 118,193 121,195 121,199 118,201 115,199" fill="#06B6D4" opacity="0.08"/>
+  <!-- Hexagon 2 near sphere -->
+  <polygon points="205,160 208,158 211,160 211,164 208,166 205,164" fill="#EC4899" opacity="0.07"/>
+  <!-- Hexagon 3 scattered -->
+  <polygon points="160,185 162,183.5 164,185 164,188 162,189.5 160,188" fill="#06B6D4" opacity="0.06"/>
+
+  <!-- Light streak across torus -->
+  <line x1="85" y1="208" x2="195" y2="212" stroke="white" stroke-width="0.3" opacity="0.08"/>
+
+  <!-- === VIGNETTE OVERLAY === -->
+  <rect width="280" height="480" fill="url(#vignette)"/>
+
+  <!-- === UI OVERLAYS === -->
+
+  <!-- Top-left label -->
+  <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="white" opacity="0.6" font-weight="500">Post-Processing</text>
+
+  <!-- SSAO label near shadow area -->
+  <text x="85" y="310" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B" opacity="0.5" font-weight="500" letter-spacing="1">SSAO</text>
+
+  <!-- Bottom effect toggle pills -->
+  <g transform="translate(16, 438)">
+    <!-- Bloom pill -->
+    <rect x="0" y="0" width="52" height="20" rx="10" fill="#1E293B"/>
+    <text x="26" y="14" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="500" opacity="0.9">&#x2713; Bloom</text>
+
+    <!-- Vignette pill -->
+    <rect x="58" y="0" width="62" height="20" rx="10" fill="#1E293B"/>
+    <text x="89" y="14" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="500" opacity="0.9">&#x2713; Vignette</text>
+
+    <!-- ACES pill -->
+    <rect x="126" y="0" width="50" height="20" rx="10" fill="#1E293B"/>
+    <text x="151" y="14" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="500" opacity="0.9">&#x2713; ACES</text>
+
+    <!-- FXAA pill -->
+    <rect x="182" y="0" width="50" height="20" rx="10" fill="#1E293B"/>
+    <text x="207" y="14" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="500" opacity="0.9">&#x2713; FXAA</text>
+  </g>
 </svg>

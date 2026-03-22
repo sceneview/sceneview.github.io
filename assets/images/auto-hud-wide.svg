@@ -1,47 +1,79 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 240">
   <defs>
-    <!-- Gradients -->
-    <linearGradient id="hudBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="100%" stop-color="#0A0F1E"/>
-    </linearGradient>
-    <linearGradient id="speedArc" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#06B6D4"/>
-      <stop offset="100%" stop-color="#8B5CF6"/>
-    </linearGradient>
-    <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E293B" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#1E293B"/>
-    </linearGradient>
-    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0F172A"/>
-      <stop offset="60%" stop-color="#1E293B"/>
-      <stop offset="100%" stop-color="#1a2540"/>
-    </linearGradient>
-    <linearGradient id="laneGlow" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.1"/>
-      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.4"/>
-    </linearGradient>
-    <linearGradient id="batteryFill" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#22C55E"/>
-      <stop offset="100%" stop-color="#4ADE80"/>
-    </linearGradient>
-    <linearGradient id="mapBg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#1E293B"/>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
       <stop offset="100%" stop-color="#0F172A"/>
     </linearGradient>
-    <linearGradient id="navArrowGlow" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.8"/>
-      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.2"/>
+
+    <!-- Road surface gradient -->
+    <linearGradient id="roadSurface" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
     </linearGradient>
-    <!-- Glow filters -->
-    <filter id="cyanGlow" x="-50%" y="-50%" width="200%" height="200%">
+
+    <!-- Road fog fade at top -->
+    <linearGradient id="roadFog" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#020617" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#020617" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#020617" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Speed arc gradient -->
+    <linearGradient id="speedArcGrad" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22C55E"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#EF4444"/>
+    </linearGradient>
+
+    <!-- Speed arc background -->
+    <linearGradient id="speedArcBg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Lane assist glow -->
+    <linearGradient id="laneAssistGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22C55E" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#22C55E" stop-opacity="0.4"/>
+    </linearGradient>
+
+    <!-- Status bar bg -->
+    <linearGradient id="statusBarBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Nav arrow glow gradient -->
+    <radialGradient id="navGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Route progress gradient -->
+    <linearGradient id="routeProgress" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#06B6D4"/>
+      <stop offset="60%" stop-color="#06B6D4"/>
+      <stop offset="60%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <!-- Side mirror gradient -->
+    <linearGradient id="mirrorBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B" stop-opacity="0.5"/>
+    </linearGradient>
+
+    <!-- Cyan detection glow filter -->
+    <filter id="cyanGlow" x="-80%" y="-80%" width="260%" height="260%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
+
+    <!-- Soft glow -->
     <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
       <feMerge>
@@ -49,194 +81,247 @@
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <filter id="greenGlow" x="-50%" y="-50%" width="200%" height="200%">
+
+    <!-- Green glow -->
+    <filter id="greenGlow" x="-60%" y="-60%" width="220%" height="220%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <filter id="arrowGlow" x="-50%" y="-50%" width="200%" height="200%">
+
+    <!-- Larger glow for nav arrow -->
+    <filter id="arrowGlow" x="-80%" y="-80%" width="260%" height="260%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
       <feMerge>
         <feMergeNode in="blur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <!-- Clip for display panel -->
+
+    <!-- Traffic light active glow -->
+    <filter id="trafficGreenGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Display clip -->
     <clipPath id="panelClip">
-      <rect x="4" y="4" width="512" height="232" rx="14"/>
+      <rect x="2" y="2" width="516" height="236" rx="6"/>
     </clipPath>
   </defs>
 
-  <!-- Main display panel -->
-  <rect x="2" y="2" width="516" height="236" rx="16" fill="url(#hudBg)" stroke="#1E293B" stroke-width="1.5"/>
-  <rect x="2" y="2" width="516" height="236" rx="16" fill="none" stroke="#06B6D4" stroke-width="0.3" stroke-opacity="0.4"/>
+  <!-- Main background -->
+  <rect width="520" height="240" fill="url(#bg)" rx="6"/>
+  <rect x="1" y="1" width="518" height="238" rx="6" fill="none" stroke="#1E293B" stroke-width="0.5"/>
 
   <g clip-path="url(#panelClip)">
 
-    <!-- === CENTER: 3D Road Perspective === -->
-    <g>
-      <!-- Sky -->
-      <rect x="160" y="20" width="200" height="140" fill="url(#skyGrad)" opacity="0.6"/>
+    <!-- ============================================ -->
+    <!-- TOP STATUS BAR                               -->
+    <!-- ============================================ -->
+    <rect x="0" y="0" width="520" height="22" fill="url(#statusBarBg)"/>
+    <line x1="0" y1="22" x2="520" y2="22" stroke="#1E293B" stroke-width="0.5" opacity="0.6"/>
 
-      <!-- Stars -->
-      <circle cx="200" cy="35" r="0.6" fill="#94A3B8" opacity="0.5"/>
-      <circle cx="250" cy="28" r="0.8" fill="#94A3B8" opacity="0.4"/>
-      <circle cx="310" cy="32" r="0.5" fill="#94A3B8" opacity="0.6"/>
-      <circle cx="340" cy="42" r="0.7" fill="#94A3B8" opacity="0.3"/>
-      <circle cx="230" cy="45" r="0.4" fill="#94A3B8" opacity="0.5"/>
+    <!-- Temperature left -->
+    <text x="18" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="white" opacity="0.8">22°C</text>
 
-      <!-- Buildings silhouettes - left -->
-      <polygon points="170,105 170,65 180,65 180,75 190,75 190,55 200,55 200,70 208,70 208,105" fill="#1E293B" opacity="0.8"/>
-      <polygon points="208,105 208,80 215,75 222,80 222,105" fill="#1a2540" opacity="0.7"/>
-      <rect x="172" y="70" width="3" height="4" fill="#FCD34D" opacity="0.3" rx="0.5"/>
-      <rect x="177" y="68" width="2" height="3" fill="#FCD34D" opacity="0.2" rx="0.5"/>
-      <rect x="193" y="60" width="3" height="4" fill="#FCD34D" opacity="0.25" rx="0.5"/>
-      <rect x="193" y="67" width="3" height="3" fill="#FCD34D" opacity="0.2" rx="0.5"/>
-      <rect x="202" y="74" width="2" height="3" fill="#FCD34D" opacity="0.15" rx="0.5"/>
+    <!-- Time center -->
+    <text x="260" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="white" text-anchor="middle" letter-spacing="1">14:32</text>
 
-      <!-- Buildings silhouettes - right -->
-      <polygon points="312,105 312,60 322,60 322,80 330,80 330,50 342,50 342,70 350,70 350,105" fill="#1E293B" opacity="0.8"/>
-      <polygon points="298,105 298,85 305,80 312,85 312,105" fill="#1a2540" opacity="0.7"/>
-      <rect x="315" y="65" width="3" height="4" fill="#FCD34D" opacity="0.3" rx="0.5"/>
-      <rect x="333" y="55" width="3" height="4" fill="#FCD34D" opacity="0.25" rx="0.5"/>
-      <rect x="333" y="62" width="3" height="3" fill="#FCD34D" opacity="0.2" rx="0.5"/>
-      <rect x="344" y="74" width="2" height="3" fill="#FCD34D" opacity="0.2" rx="0.5"/>
-
-      <!-- Road surface -->
-      <polygon points="260,105 160,200 360,200 260,105" fill="#1E293B"/>
-      <polygon points="260,105 160,200 360,200 260,105" fill="url(#roadGrad)" opacity="0.5"/>
-
-      <!-- Lane assist glow zones -->
-      <polygon points="260,105 160,200 200,200 260,118" fill="url(#laneGlow)" opacity="0.3"/>
-      <polygon points="260,105 360,200 320,200 260,118" fill="url(#laneGlow)" opacity="0.3"/>
-
-      <!-- Lane markings - left edge (cyan lane assist) -->
-      <line x1="260" y1="105" x2="165" y2="198" stroke="#06B6D4" stroke-width="1.5" opacity="0.8" filter="url(#softGlow)"/>
-
-      <!-- Lane markings - right edge (cyan lane assist) -->
-      <line x1="260" y1="105" x2="355" y2="198" stroke="#06B6D4" stroke-width="1.5" opacity="0.8" filter="url(#softGlow)"/>
-
-      <!-- Dashed center line -->
-      <line x1="260" y1="120" x2="260" y2="132" stroke="#E2E8F0" stroke-width="1" opacity="0.6" stroke-dasharray="3,5"/>
-      <line x1="260" y1="140" x2="260" y2="155" stroke="#E2E8F0" stroke-width="1.2" opacity="0.5"/>
-      <line x1="260" y1="162" x2="260" y2="180" stroke="#E2E8F0" stroke-width="1.5" opacity="0.4"/>
-      <line x1="260" y1="186" x2="260" y2="200" stroke="#E2E8F0" stroke-width="2" opacity="0.3"/>
-
-      <!-- Left lane dashes -->
-      <line x1="247" y1="135" x2="244" y2="148" stroke="#94A3B8" stroke-width="0.8" opacity="0.3" stroke-dasharray="4,6"/>
-      <line x1="236" y1="158" x2="228" y2="180" stroke="#94A3B8" stroke-width="1" opacity="0.25" stroke-dasharray="5,7"/>
-
-      <!-- Right lane dashes -->
-      <line x1="273" y1="135" x2="276" y2="148" stroke="#94A3B8" stroke-width="0.8" opacity="0.3" stroke-dasharray="4,6"/>
-      <line x1="284" y1="158" x2="292" y2="180" stroke="#94A3B8" stroke-width="1" opacity="0.25" stroke-dasharray="5,7"/>
-
-      <!-- Navigation arrow -->
-      <polygon points="260,110 250,135 256,132 256,148 264,148 264,132 270,135" fill="#06B6D4" opacity="0.9" filter="url(#arrowGlow)"/>
+    <!-- Battery right -->
+    <g transform="translate(458, 6)">
+      <rect x="0" y="0" width="22" height="11" rx="2" fill="none" stroke="#22C55E" stroke-width="0.8" opacity="0.7"/>
+      <rect x="22" y="3" width="2" height="5" rx="0.5" fill="#22C55E" opacity="0.7"/>
+      <rect x="2" y="2" width="15" height="7" rx="1" fill="#22C55E" opacity="0.6"/>
     </g>
+    <text x="494" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#22C55E" opacity="0.9">78%</text>
 
-    <!-- === LEFT CLUSTER === -->
+
+    <!-- ============================================ -->
+    <!-- 3D ROAD — CENTER                             -->
+    <!-- ============================================ -->
     <g>
-      <!-- Speed display -->
-      <text x="68" y="80" font-family="system-ui" font-size="42" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">72</text>
-      <text x="68" y="98" font-family="system-ui" font-size="10" fill="#94A3B8" text-anchor="middle" letter-spacing="1">km/h</text>
+      <!-- Road trapezoid: wide at bottom, narrow at vanishing point -->
+      <polygon points="260,60 240,60 110,230 410,230 280,60" fill="url(#roadSurface)"/>
 
-      <!-- Speed arc gauge -->
-      <path d="M 28,110 A 40,40 0 0,1 108,110" fill="none" stroke="#1E293B" stroke-width="4" stroke-linecap="round"/>
-      <path d="M 28,110 A 40,40 0 0,1 96,82" fill="none" stroke="url(#speedArc)" stroke-width="4" stroke-linecap="round" filter="url(#softGlow)"/>
-      <!-- Tick marks -->
-      <line x1="28" y1="106" x2="28" y2="110" stroke="#475569" stroke-width="1"/>
-      <line x1="38" y1="84" x2="40" y2="87" stroke="#475569" stroke-width="1"/>
-      <line x1="58" y1="72" x2="58" y2="76" stroke="#475569" stroke-width="1"/>
-      <line x1="78" y1="72" x2="78" y2="76" stroke="#475569" stroke-width="1"/>
-      <line x1="98" y1="84" x2="96" y2="87" stroke="#475569" stroke-width="1"/>
-      <line x1="108" y1="106" x2="108" y2="110" stroke="#475569" stroke-width="1"/>
+      <!-- Fog overlay at vanishing point -->
+      <rect x="110" y="40" width="300" height="80" fill="url(#roadFog)"/>
 
-      <!-- Battery -->
-      <g transform="translate(22, 128)">
-        <!-- Battery outline -->
-        <rect x="0" y="0" width="36" height="14" rx="2" fill="none" stroke="#475569" stroke-width="1"/>
-        <rect x="36" y="3" width="3" height="8" rx="1" fill="#475569"/>
-        <!-- Battery fill -->
-        <rect x="2" y="2" width="26" height="10" rx="1" fill="url(#batteryFill)" filter="url(#greenGlow)"/>
-        <!-- Percentage -->
-        <text x="52" y="11" font-family="system-ui" font-size="10" font-weight="600" fill="#22C55E">82%</text>
+      <!-- Solid left edge line -->
+      <line x1="240" y1="60" x2="110" y2="230" stroke="#475569" stroke-width="1.2" opacity="0.7"/>
+      <!-- Solid right edge line -->
+      <line x1="280" y1="60" x2="410" y2="230" stroke="#475569" stroke-width="1.2" opacity="0.7"/>
+
+      <!-- Center amber divider — dashes converging -->
+      <line x1="260" y1="75" x2="260" y2="85" stroke="#F59E0B" stroke-width="1.2" opacity="0.7"/>
+      <line x1="260" y1="95" x2="260" y2="108" stroke="#F59E0B" stroke-width="1.4" opacity="0.6"/>
+      <line x1="260" y1="118" x2="260" y2="135" stroke="#F59E0B" stroke-width="1.6" opacity="0.5"/>
+      <line x1="260" y1="148" x2="260" y2="170" stroke="#F59E0B" stroke-width="2" opacity="0.4"/>
+      <line x1="260" y1="185" x2="260" y2="215" stroke="#F59E0B" stroke-width="2.5" opacity="0.3"/>
+
+      <!-- Left lane dashes (between left edge and center) -->
+      <line x1="250" y1="75" x2="248" y2="85" stroke="white" stroke-width="0.8" opacity="0.4" stroke-dasharray="3,6"/>
+      <line x1="244" y1="100" x2="238" y2="120" stroke="white" stroke-width="1" opacity="0.35" stroke-dasharray="4,7"/>
+      <line x1="232" y1="135" x2="222" y2="165" stroke="white" stroke-width="1.2" opacity="0.3" stroke-dasharray="5,8"/>
+      <line x1="212" y1="180" x2="195" y2="220" stroke="white" stroke-width="1.5" opacity="0.2" stroke-dasharray="6,10"/>
+
+      <!-- Right lane dashes (between center and right edge) -->
+      <line x1="270" y1="75" x2="272" y2="85" stroke="white" stroke-width="0.8" opacity="0.4" stroke-dasharray="3,6"/>
+      <line x1="276" y1="100" x2="282" y2="120" stroke="white" stroke-width="1" opacity="0.35" stroke-dasharray="4,7"/>
+      <line x1="288" y1="135" x2="298" y2="165" stroke="white" stroke-width="1.2" opacity="0.3" stroke-dasharray="5,8"/>
+      <line x1="308" y1="180" x2="325" y2="220" stroke="white" stroke-width="1.5" opacity="0.2" stroke-dasharray="6,10"/>
+
+      <!-- ===== LANE ASSIST green lines ===== -->
+      <!-- Left lane boundary (driver's lane = center-left) -->
+      <line x1="250" y1="70" x2="175" y2="230" stroke="#22C55E" stroke-width="1" opacity="0.4" filter="url(#greenGlow)"/>
+      <!-- Right lane boundary -->
+      <line x1="270" y1="70" x2="345" y2="230" stroke="#22C55E" stroke-width="1" opacity="0.4" filter="url(#greenGlow)"/>
+
+      <!-- ===== DETECTED VEHICLES ===== -->
+      <!-- Far vehicle (98m) -->
+      <g filter="url(#cyanGlow)">
+        <rect x="253" y="78" width="14" height="5" rx="1" fill="none" stroke="#06B6D4" stroke-width="1" opacity="0.5"/>
       </g>
+      <text x="260" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="6" fill="#06B6D4" text-anchor="middle" opacity="0.6">98m</text>
 
-      <!-- Range -->
-      <text x="22" y="162" font-family="system-ui" font-size="9" fill="#64748B">Range:</text>
-      <text x="56" y="162" font-family="system-ui" font-size="9" font-weight="600" fill="#94A3B8">342 km</text>
+      <!-- Mid vehicle (56m) -->
+      <g filter="url(#cyanGlow)">
+        <rect x="246" y="108" width="28" height="10" rx="1.5" fill="none" stroke="#06B6D4" stroke-width="1.2" opacity="0.7"/>
+      </g>
+      <text x="260" y="104" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#06B6D4" text-anchor="middle" opacity="0.8">56m</text>
 
-      <!-- Traffic light indicator -->
-      <g transform="translate(22, 174)">
-        <circle cx="6" cy="6" r="6" fill="#0F2A0F" stroke="#22C55E" stroke-width="0.8"/>
-        <circle cx="6" cy="6" r="4" fill="#22C55E" filter="url(#greenGlow)"/>
-        <text x="18" y="9" font-family="system-ui" font-size="8" fill="#22C55E" font-weight="500">Green 12s</text>
+      <!-- Closest vehicle (24m) — slightly left lane -->
+      <g filter="url(#cyanGlow)">
+        <rect x="218" y="152" width="45" height="18" rx="2" fill="none" stroke="#06B6D4" stroke-width="1.5" opacity="0.9"/>
+        <!-- Headlight indicators -->
+        <rect x="220" y="154" width="4" height="3" rx="0.5" fill="#06B6D4" opacity="0.4"/>
+        <rect x="257" y="154" width="4" height="3" rx="0.5" fill="#06B6D4" opacity="0.4"/>
+      </g>
+      <text x="240" y="148" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#06B6D4" text-anchor="middle" font-weight="600">24m</text>
+
+      <!-- ===== TRAFFIC LIGHT (top-right of road) ===== -->
+      <g transform="translate(295, 38)">
+        <!-- Housing -->
+        <rect x="0" y="0" width="10" height="26" rx="2" fill="#0F172A" stroke="#1E293B" stroke-width="0.5"/>
+        <!-- Red (off) -->
+        <circle cx="5" cy="6" r="3" fill="#1E293B"/>
+        <!-- Amber (off) -->
+        <circle cx="5" cy="13" r="3" fill="#1E293B"/>
+        <!-- Green (active) -->
+        <circle cx="5" cy="20" r="3" fill="#22C55E" filter="url(#trafficGreenGlow)"/>
       </g>
     </g>
 
-    <!-- === RIGHT SIDE === -->
-    <g>
-      <!-- Mini map -->
-      <rect x="390" y="30" width="110" height="90" rx="8" fill="url(#mapBg)" stroke="#1E293B" stroke-width="1"/>
 
-      <!-- Map grid roads -->
-      <line x1="400" y1="60" x2="490" y2="60" stroke="#2a3550" stroke-width="0.8"/>
-      <line x1="400" y1="80" x2="490" y2="80" stroke="#2a3550" stroke-width="0.8"/>
-      <line x1="400" y1="100" x2="490" y2="100" stroke="#2a3550" stroke-width="0.8"/>
-      <line x1="420" y1="35" x2="420" y2="115" stroke="#2a3550" stroke-width="0.8"/>
-      <line x1="445" y1="35" x2="445" y2="115" stroke="#2a3550" stroke-width="0.8"/>
-      <line x1="470" y1="35" x2="470" y2="115" stroke="#2a3550" stroke-width="0.8"/>
+    <!-- ============================================ -->
+    <!-- SPEED GAUGE — LEFT                           -->
+    <!-- ============================================ -->
+    <g transform="translate(68, 115)">
+      <!-- Arc background track (270° sweep) -->
+      <!-- Arc from 135° to 405° (135° to 45°), radius 55 -->
+      <path d="M -38.89,38.89 A 55,55 0 1,1 38.89,38.89" fill="none" stroke="#1E293B" stroke-width="5" stroke-linecap="round"/>
 
-      <!-- Diagonal road -->
-      <line x1="400" y1="110" x2="460" y2="45" stroke="#334155" stroke-width="1.2"/>
+      <!-- Active arc (gradient) — ~75% filled for 112 km/h -->
+      <path d="M -38.89,38.89 A 55,55 0 1,1 33.5,33.5" fill="none" stroke="url(#speedArcGrad)" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)"/>
 
-      <!-- Route (cyan) -->
-      <polyline points="445,105 445,80 470,80 470,55" stroke="#06B6D4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)"/>
-
-      <!-- Current position dot -->
-      <circle cx="445" cy="105" r="4" fill="#3B82F6" filter="url(#softGlow)"/>
-      <circle cx="445" cy="105" r="2" fill="#FFFFFF"/>
-
-      <!-- Route destination marker -->
-      <circle cx="470" cy="55" r="3" fill="#06B6D4" opacity="0.5"/>
-      <circle cx="470" cy="55" r="1.5" fill="#06B6D4"/>
-
-      <!-- Turn-by-turn -->
-      <g transform="translate(390, 132)">
-        <!-- Turn arrow -->
-        <text x="5" y="12" font-family="system-ui" font-size="14" fill="#06B6D4" filter="url(#softGlow)">→</text>
-        <text x="22" y="10" font-family="system-ui" font-size="8.5" font-weight="600" fill="#06B6D4">Right on Main St</text>
-        <text x="22" y="22" font-family="system-ui" font-size="8" fill="#64748B">in 300m</text>
+      <!-- Tick marks around arc -->
+      <g stroke="white" stroke-width="0.8" opacity="0.25">
+        <!-- Bottom-left (0) -->
+        <line x1="-41" y1="41" x2="-36" y2="36"/>
+        <!-- Left -->
+        <line x1="-55" y1="0" x2="-49" y2="0"/>
+        <!-- Top-left -->
+        <line x1="-41" y1="-41" x2="-36" y2="-36"/>
+        <!-- Top -->
+        <line x1="0" y1="-55" x2="0" y2="-49"/>
+        <!-- Top-right -->
+        <line x1="41" y1="-41" x2="36" y2="-36"/>
+        <!-- Right -->
+        <line x1="55" y1="0" x2="49" y2="0"/>
+        <!-- Bottom-right (max) -->
+        <line x1="41" y1="41" x2="36" y2="36"/>
       </g>
 
-      <!-- ETA info -->
-      <g transform="translate(390, 168)">
-        <text x="5" y="10" font-family="system-ui" font-size="8" fill="#64748B">ETA</text>
-        <text x="30" y="10" font-family="system-ui" font-size="9" font-weight="600" fill="#E2E8F0">14:32</text>
-        <text x="65" y="10" font-family="system-ui" font-size="8" fill="#64748B">· 12 min</text>
+      <!-- Minor ticks -->
+      <g stroke="white" stroke-width="0.5" opacity="0.12">
+        <line x1="-51.3" y1="20.5" x2="-46" y2="18.4"/>
+        <line x1="-51.3" y1="-20.5" x2="-46" y2="-18.4"/>
+        <line x1="-20.5" y1="-51.3" x2="-18.4" y2="-46"/>
+        <line x1="20.5" y1="-51.3" x2="18.4" y2="-46"/>
+        <line x1="51.3" y1="-20.5" x2="46" y2="-18.4"/>
+        <line x1="51.3" y1="20.5" x2="46" y2="18.4"/>
       </g>
+
+      <!-- Speed number -->
+      <text x="0" y="8" font-family="system-ui, -apple-system, sans-serif" font-size="32" font-weight="700" fill="white" text-anchor="middle" letter-spacing="-1">112</text>
+      <!-- Unit -->
+      <text x="0" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94A3B8" text-anchor="middle" letter-spacing="0.5">km/h</text>
     </g>
 
-    <!-- === BOTTOM BAR === -->
-    <g>
-      <rect x="4" y="204" width="512" height="30" fill="#0A0F1E" opacity="0.8"/>
-      <line x1="4" y1="204" x2="516" y2="204" stroke="#1E293B" stroke-width="0.5"/>
 
-      <!-- Active status dot -->
-      <circle cx="30" cy="219" r="3" fill="#22C55E" filter="url(#greenGlow)"/>
-      <text x="40" y="222" font-family="system-ui" font-size="8.5" font-weight="600" fill="#22C55E">Active</text>
+    <!-- ============================================ -->
+    <!-- NAVIGATION — RIGHT                           -->
+    <!-- ============================================ -->
+    <g transform="translate(410, 50)">
+      <!-- Glow backdrop -->
+      <circle cx="45" cy="30" r="35" fill="url(#navGlow)"/>
 
-      <!-- Feature labels -->
-      <text x="160" y="222" font-family="system-ui" font-size="8.5" fill="#06B6D4" opacity="0.7" text-anchor="middle" letter-spacing="0.5">Lane Assist</text>
-      <text x="210" y="222" font-family="system-ui" font-size="8.5" fill="#475569" text-anchor="middle">·</text>
-      <text x="260" y="222" font-family="system-ui" font-size="8.5" fill="#06B6D4" opacity="0.7" text-anchor="middle" letter-spacing="0.5">ACC 80</text>
-      <text x="310" y="222" font-family="system-ui" font-size="8.5" fill="#475569" text-anchor="middle">·</text>
-      <text x="360" y="222" font-family="system-ui" font-size="8.5" fill="#06B6D4" opacity="0.7" text-anchor="middle" letter-spacing="0.5">Autopilot</text>
+      <!-- Large turn arrow (right turn) -->
+      <g filter="url(#arrowGlow)">
+        <path d="M 25,52 L 25,30 Q 25,18 37,18 L 55,18 L 48,10 L 57,18 L 48,26 L 55,18"
+              fill="none" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Arrowhead -->
+        <polygon points="55,18 47,12 47,24" fill="#06B6D4"/>
+      </g>
 
-      <!-- Temperature -->
-      <text x="480" y="222" font-family="system-ui" font-size="8.5" fill="#94A3B8" text-anchor="middle">22°C</text>
+      <!-- Turn instruction -->
+      <text x="45" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#06B6D4" text-anchor="middle" font-weight="600">Turn right in 200m</text>
+
+      <!-- Street name -->
+      <text x="45" y="82" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="white" text-anchor="middle" opacity="0.9">Hauptstraße</text>
+
+      <!-- Route progress bar -->
+      <rect x="10" y="92" width="70" height="3" rx="1.5" fill="#1E293B"/>
+      <rect x="10" y="92" width="42" height="3" rx="1.5" fill="#06B6D4" opacity="0.8"/>
+      <circle cx="52" cy="93.5" r="2" fill="#06B6D4" filter="url(#softGlow)"/>
     </g>
+
+
+    <!-- ============================================ -->
+    <!-- BOTTOM INFO STRIP                            -->
+    <!-- ============================================ -->
+    <rect x="0" y="218" width="520" height="22" fill="#020617" opacity="0.7"/>
+    <line x1="0" y1="218" x2="520" y2="218" stroke="#1E293B" stroke-width="0.5" opacity="0.4"/>
+
+    <text x="80" y="232" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B" text-anchor="middle" letter-spacing="0.3">Range: 342km</text>
+    <text x="165" y="232" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B" text-anchor="middle">|</text>
+    <text x="260" y="232" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B" text-anchor="middle" letter-spacing="0.3">ADAS: Active</text>
+    <text x="350" y="232" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B" text-anchor="middle">|</text>
+    <text x="440" y="232" font-family="system-ui, -apple-system, sans-serif" font-size="7" fill="#64748B" text-anchor="middle" letter-spacing="0.3">Music: Now Playing</text>
+
+
+    <!-- ============================================ -->
+    <!-- SIDE MIRRORS                                 -->
+    <!-- ============================================ -->
+    <!-- Left side mirror -->
+    <g opacity="0.5">
+      <polygon points="0,200 0,230 45,230 35,200" fill="url(#mirrorBg)" stroke="#1E293B" stroke-width="0.5"/>
+      <!-- Tiny vehicle highlight in mirror -->
+      <rect x="12" y="212" width="8" height="4" rx="1" fill="#EF4444" opacity="0.3"/>
+      <rect x="25" y="218" width="5" height="3" rx="0.5" fill="#F59E0B" opacity="0.2"/>
+    </g>
+
+    <!-- Right side mirror -->
+    <g opacity="0.5">
+      <polygon points="520,200 520,230 475,230 485,200" fill="url(#mirrorBg)" stroke="#1E293B" stroke-width="0.5"/>
+      <!-- Tiny vehicle highlight in mirror -->
+      <rect x="498" y="215" width="7" height="3" rx="0.5" fill="#EF4444" opacity="0.25"/>
+    </g>
+
   </g>
 </svg>

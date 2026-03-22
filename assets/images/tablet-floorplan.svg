@@ -1,201 +1,305 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" font-family="system-ui, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 320" font-family="system-ui, -apple-system, sans-serif">
   <defs>
-    <linearGradient id="tBezel2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E5E7EB"/>
-      <stop offset="100%" stop-color="#9CA3AF"/>
-    </linearGradient>
-    <linearGradient id="floorGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFFBEB"/>
-      <stop offset="100%" stop-color="#FEF3C7"/>
-    </linearGradient>
-    <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#78716C"/>
-      <stop offset="100%" stop-color="#57534E"/>
-    </linearGradient>
-    <linearGradient id="wallTop" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#A8A29E"/>
-      <stop offset="100%" stop-color="#78716C"/>
-    </linearGradient>
-    <filter id="floorShadow">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
+    <!-- Wood grain pattern -->
+    <pattern id="woodGrain" patternUnits="userSpaceOnUse" width="200" height="4" patternTransform="rotate(-30)">
+      <line x1="0" y1="0" x2="200" y2="0" stroke="#F0E6D8" stroke-width="0.3"/>
+      <line x1="0" y1="2" x2="200" y2="2" stroke="#EDE0D0" stroke-width="0.2"/>
+    </pattern>
+    <!-- Isometric grid dots -->
+    <pattern id="isoDots" patternUnits="userSpaceOnUse" width="20" height="20">
+      <circle cx="0" cy="0" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="10" cy="5" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="20" cy="0" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="0" cy="10" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="10" cy="15" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="20" cy="10" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="0" cy="20" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+      <circle cx="20" cy="20" r="0.5" fill="#E5E7EB" opacity="0.3"/>
+    </pattern>
+    <!-- Floor shadow filter -->
+    <filter id="fShadow" x="-5%" y="-5%" width="115%" height="120%">
+      <feDropShadow dx="4" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.05"/>
+    </filter>
+    <!-- Furniture shadow -->
+    <filter id="furnShadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.08"/>
     </filter>
   </defs>
 
-  <!-- Tablet frame -->
-  <rect x="5" y="10" width="410" height="300" rx="20" ry="20" fill="url(#tBezel2)" stroke="#6B7280" stroke-width="1"/>
-  <rect x="7" y="12" width="406" height="296" rx="18" ry="18" fill="none" stroke="#D1D5DB" stroke-width="0.5"/>
-  <circle cx="210" cy="18" r="2.5" fill="#4B5563"/>
-  <circle cx="210" cy="18" r="1.2" fill="#1F2937"/>
+  <!-- Background -->
+  <rect width="420" height="320" fill="#FAFAFA"/>
 
-  <!-- Screen -->
-  <rect x="18" y="26" width="384" height="268" rx="4" fill="#F5F5F4"/>
+  <!-- Isometric grid dots -->
+  <rect width="420" height="320" fill="url(#isoDots)"/>
 
-  <!-- Top bar -->
-  <rect x="18" y="26" width="384" height="28" fill="white"/>
-  <text x="32" y="44" font-size="8" font-weight="700" fill="#0F172A">FloorPlan 3D</text>
-  <text x="32" y="51" font-size="4.5" fill="#64748B">Apartment 4B · 78 m²</text>
+  <!-- Main isometric scene centered -->
+  <g transform="translate(190, 145)">
 
-  <!-- Top right buttons -->
-  <rect x="340" y="32" width="22" height="16" rx="4" fill="#FFF7ED" stroke="#D97706" stroke-width="0.8"/>
-  <text x="351" y="43" text-anchor="middle" font-size="5" font-weight="600" fill="#D97706">Save</text>
-  <rect x="368" y="32" width="28" height="16" rx="4" fill="#D97706"/>
-  <text x="382" y="43" text-anchor="middle" font-size="5" font-weight="600" fill="white">Share</text>
+    <!-- ============ FLOOR PLATE (isometric parallelogram) ============ -->
+    <!-- Shadow under floor -->
+    <polygon points="-140,0 0,70 160,0 20,-70" fill="#000" opacity="0.04" transform="translate(5,5)"/>
 
-  <!-- Isometric floor plan -->
-  <g transform="translate(200, 155)" filter="url(#floorShadow)">
-    <!-- Floor shadow -->
-    <polygon points="-130,65 0,130 130,65 0,0" fill="#D6D3D1" fill-opacity="0.3"/>
+    <!-- Floor base -->
+    <polygon points="-140,0 0,70 160,0 20,-70" fill="#FFF8F0" filter="url(#fShadow)"/>
+    <!-- Wood grain overlay -->
+    <polygon points="-140,0 0,70 160,0 20,-70" fill="url(#woodGrain)" opacity="0.6"/>
+    <!-- Floor outline -->
+    <polygon points="-140,0 0,70 160,0 20,-70" fill="none" stroke="#E8DFD4" stroke-width="0.5"/>
 
-    <!-- Main floor (isometric rectangle) -->
-    <!-- Living room -->
-    <polygon points="-120,0 -20,50 60,10 -40,-40" fill="#FEF3C7" stroke="#92400E" stroke-width="0.3"/>
+    <!-- ============ ROOM DIVIDERS (floor tint per room) ============ -->
+    <!-- Living room (front-left, largest) -->
+    <polygon points="-140,0 -10,65 10,55 10,-5 -60,-40" fill="#FFF8F0" opacity="0.3"/>
 
-    <!-- Kitchen -->
-    <polygon points="-20,50 30,75 110,35 60,10" fill="#ECFCCB" stroke="#92400E" stroke-width="0.3"/>
+    <!-- Kitchen (front-right) -->
+    <polygon points="10,55 0,70 160,0 90,-35 10,-5" fill="#F0FFF0" opacity="0.15"/>
 
-    <!-- Bedroom -->
-    <polygon points="-40,-40 30,-75 100,-40 60,10" fill="#DBEAFE" stroke="#92400E" stroke-width="0.3"/>
+    <!-- Bedroom (back-left) -->
+    <polygon points="-60,-40 10,-5 10,-55 20,-70 -50,-55" fill="#F0F0FF" opacity="0.15"/>
 
-    <!-- Bathroom -->
-    <polygon points="60,10 100,-40 130,-25 110,35" fill="#E0E7FF" stroke="#92400E" stroke-width="0.3"/>
+    <!-- Bathroom (back-right, smallest) -->
+    <polygon points="10,-5 90,-35 100,-50 20,-70 10,-55" fill="#F0F4FF" opacity="0.2"/>
 
-    <!-- Walls - isometric style (thick lines for outer walls) -->
-    <!-- Outer walls -->
-    <polygon points="-120,0 -20,50 30,75 110,35 130,-25 100,-40 30,-75 -40,-40" fill="none" stroke="#57534E" stroke-width="3" stroke-linejoin="round"/>
+    <!-- ============ EXTRUDED 3D WALLS ============ -->
+    <!-- Wall height = 15px upward (subtract 15 from y for top edges) -->
 
-    <!-- Inner walls -->
-    <line x1="-20" y1="50" x2="60" y2="10" stroke="#78716C" stroke-width="2.5"/>
-    <line x1="60" y1="10" x2="100" y2="-40" stroke="#78716C" stroke-width="2.5"/>
-    <line x1="60" y1="10" x2="-40" y2="-40" stroke="#78716C" stroke-width="2.5"/>
+    <!-- === OUTER WALLS === -->
 
-    <!-- Doors (gaps in walls) -->
-    <line x1="10" y1="33" x2="25" y2="26" stroke="#FEF3C7" stroke-width="3.5"/>
-    <line x1="20" y1="-8" x2="35" y2="-15" stroke="#DBEAFE" stroke-width="3.5"/>
-    <line x1="70" y1="-5" x2="80" y2="-15" stroke="#E0E7FF" stroke-width="3.5"/>
+    <!-- FRONT-LEFT wall: from (-140,0) to (-10,65) — visible front face -->
+    <!-- Side face (front) -->
+    <polygon points="-140,0 -140,-15 -10,50 -10,65" fill="#E8E8E8" stroke="#D0D0D0" stroke-width="0.3"/>
+    <!-- Top face -->
+    <polygon points="-140,-15 -136,-17 -6,48 -10,50" fill="#FFFFFF" stroke="#D0D0D0" stroke-width="0.3"/>
 
-    <!-- Door swing arcs -->
-    <path d="M10,33 Q18,38 25,26" fill="none" stroke="#D97706" stroke-width="0.6" stroke-dasharray="1.5,1"/>
-    <path d="M20,-8 Q28,-3 35,-15" fill="none" stroke="#D97706" stroke-width="0.6" stroke-dasharray="1.5,1"/>
+    <!-- FRONT-RIGHT wall: from (-10,65) to (0,70) — small segment -->
+    <polygon points="-10,65 -10,50 0,55 0,70" fill="#E0E0E0" stroke="#D0D0D0" stroke-width="0.3"/>
+    <polygon points="-10,50 -6,48 4,53 0,55" fill="#FFFFFF" stroke="#D0D0D0" stroke-width="0.3"/>
 
-    <!-- Furniture: Living room - sofa -->
-    <g transform="translate(-75, 5)">
-      <!-- Sofa isometric -->
-      <polygon points="0,0 20,10 40,0 20,-10" fill="#A78BFA" fill-opacity="0.5" stroke="#7C3AED" stroke-width="0.6"/>
-      <polygon points="0,0 0,-4 20,-14 20,-10" fill="#8B5CF6" fill-opacity="0.4"/>
-      <!-- Back cushions -->
-      <polygon points="0,-4 20,-14 20,-10 0,0" fill="none" stroke="#7C3AED" stroke-width="0.3"/>
+    <!-- RIGHT-FRONT wall: from (0,70) to (160,0) -->
+    <polygon points="0,70 0,55 160,-15 160,0" fill="#E8E8E8" stroke="#D0D0D0" stroke-width="0.3"/>
+    <polygon points="0,55 4,53 164,-17 160,-15" fill="#FFFFFF" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- RIGHT-BACK wall: from (160,0) to (100,-50) — actually this goes up-right to back-right corner -->
+    <!-- Back-right segment: (160,0) to (20,-70) via top-right -->
+
+    <!-- TOP-RIGHT wall: from (160,0) to (20,-70) -->
+    <polygon points="160,0 160,-15 20,-85 20,-70" fill="#DCDCDC" stroke="#D0D0D0" stroke-width="0.3"/>
+    <polygon points="160,-15 156,-17 16,-87 20,-85" fill="#F5F5F5" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- TOP-LEFT wall: from (20,-70) to (-60,-40) -->
+    <polygon points="20,-70 20,-85 -60,-55 -60,-40" fill="#DCDCDC" stroke="#D0D0D0" stroke-width="0.3"/>
+    <polygon points="20,-85 16,-87 -64,-57 -60,-55" fill="#F5F5F5" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- LEFT wall: from (-60,-40) to (-140,0) -->
+    <polygon points="-60,-40 -60,-55 -140,-15 -140,0" fill="#E0E0E0" stroke="#D0D0D0" stroke-width="0.3"/>
+    <polygon points="-60,-55 -64,-57 -144,-17 -140,-15" fill="#F5F5F5" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- === INNER WALLS (with 3D extrusion) === -->
+
+    <!-- Horizontal divider: Living/Kitchen to Bedroom/Bath — from (10,-5) to (10,-55) (vertical in iso) -->
+    <!-- Actually this wall goes from point separating front from back -->
+
+    <!-- Wall 1: East-west divider separating front (Living+Kitchen) from back (Bed+Bath) -->
+    <!-- From (-60,-40) across to (90,-35) — but let's do the L-shape properly -->
+
+    <!-- Inner wall: horizontal split — from (10,55) up to (10,-55) -->
+    <!-- This separates Living (left) from Kitchen (right) on south, and Bed from Bath on north -->
+
+    <!-- Side face -->
+    <polygon points="10,55 10,40 10,-70 10,-55" fill="#E8E8E8" stroke="#D0D0D0" stroke-width="0.3"/>
+    <!-- Top face -->
+    <polygon points="10,40 14,38 14,-72 10,-70" fill="#FFFFFF" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- Door gap in inner wall: Living to Kitchen (around y=30) -->
+    <rect x="8" y="20" width="8" height="18" fill="#FFF8F0" opacity="0.9"/>
+    <!-- Redraw wall segments around door -->
+    <polygon points="10,55 10,40 14,38 14,53" fill="#FFFFFF" stroke="#D0D0D0" stroke-width="0.3"/>
+    <polygon points="10,55 10,40 10,38 10,55" fill="#E8E8E8" stroke="none"/>
+    <!-- Door swing arc -->
+    <path d="M12,38 Q22,35 22,25" fill="none" stroke="#9CA3AF" stroke-width="0.5" stroke-dasharray="1.5,1"/>
+
+    <!-- Inner wall: east-west split — from (-60,-40) to (10,-5), separating Bed from Living -->
+    <!-- Side face -->
+    <polygon points="-60,-40 -60,-55 10,-20 10,-5" fill="#E0E0E0" stroke="#D0D0D0" stroke-width="0.3"/>
+    <!-- Top face -->
+    <polygon points="-60,-55 -56,-57 14,-22 10,-20" fill="#FFFFFF" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- Door gap: Living to Bedroom (around x=-20) -->
+    <polygon points="-30,-28 -30,-43 -15,-36 -15,-21" fill="#FFF8F0"/>
+    <!-- Door swing arc -->
+    <path d="M-15,-21 Q-12,-30 -22,-35" fill="none" stroke="#9CA3AF" stroke-width="0.5" stroke-dasharray="1.5,1"/>
+
+    <!-- Inner wall: from (10,-5) going right to (90,-35), separating Kitchen from Bath -->
+    <!-- Side face -->
+    <polygon points="10,-5 10,-20 90,-50 90,-35" fill="#E0E0E0" stroke="#D0D0D0" stroke-width="0.3"/>
+    <!-- Top face -->
+    <polygon points="10,-20 14,-22 94,-52 90,-50" fill="#F8F8F8" stroke="#D0D0D0" stroke-width="0.3"/>
+
+    <!-- Door gap: Kitchen to Bath (around x=55) -->
+    <polygon points="45,-22 45,-37 60,-30 60,-15" fill="#FFF8F0"/>
+    <!-- Door swing arc -->
+    <path d="M60,-15 Q63,-24 53,-29" fill="none" stroke="#9CA3AF" stroke-width="0.5" stroke-dasharray="1.5,1"/>
+
+    <!-- ============ FURNITURE ============ -->
+
+    <!-- == Living Room furniture == -->
+    <!-- Sofa (front-left area) -->
+    <g filter="url(#furnShadow)">
+      <!-- Top face -->
+      <polygon points="-100,15 -65,32.5 -45,22.5 -80,5" fill="#8B9CC4"/>
+      <!-- Front side face -->
+      <polygon points="-100,15 -100,19 -65,36.5 -65,32.5" fill="#7585AB"/>
+      <!-- Right side face -->
+      <polygon points="-65,32.5 -65,36.5 -45,26.5 -45,22.5" fill="#6B7899"/>
+      <!-- Sofa back (raised portion) -->
+      <polygon points="-100,15 -100,10 -80,0 -80,5" fill="#7B8DB8"/>
+      <polygon points="-100,10 -96,8 -76,-2 -80,0" fill="#9AAAD0"/>
     </g>
 
     <!-- Coffee table -->
-    <polygon points="-55,18 -45,23 -35,18 -45,13" fill="#D97706" fill-opacity="0.3" stroke="#B45309" stroke-width="0.5"/>
-
-    <!-- Kitchen - counter -->
-    <g transform="translate(35, 42)">
-      <polygon points="0,0 18,9 30,3 12,-6" fill="#D1D5DB" stroke="#6B7280" stroke-width="0.6"/>
-      <!-- Stovetop circles -->
-      <ellipse cx="10" cy="0" rx="2" ry="1" fill="none" stroke="#6B7280" stroke-width="0.4"/>
-      <ellipse cx="17" cy="3.5" rx="2" ry="1" fill="none" stroke="#6B7280" stroke-width="0.4"/>
+    <g filter="url(#furnShadow)">
+      <polygon points="-75,30 -60,37.5 -48,31.5 -63,24" fill="#D4A574"/>
+      <polygon points="-75,30 -75,33 -60,40.5 -60,37.5" fill="#C09460"/>
+      <polygon points="-60,37.5 -60,40.5 -48,34.5 -48,31.5" fill="#B8895A"/>
     </g>
 
-    <!-- Kitchen table -->
-    <polygon points="10,55 25,62.5 40,55 25,47.5" fill="#D97706" fill-opacity="0.25" stroke="#B45309" stroke-width="0.5"/>
-
-    <!-- Bedroom - bed -->
-    <g transform="translate(10, -55)">
-      <polygon points="0,0 25,12.5 50,0 25,-12.5" fill="#93C5FD" fill-opacity="0.4" stroke="#3B82F6" stroke-width="0.6"/>
-      <!-- Pillow -->
-      <polygon points="5,-4 15,1 25,-4 15,-9" fill="#BFDBFE" stroke="#3B82F6" stroke-width="0.4"/>
+    <!-- TV stand (against left wall) -->
+    <g filter="url(#furnShadow)">
+      <polygon points="-125,8 -115,13 -108,9.5 -118,4.5" fill="#555555"/>
+      <polygon points="-125,8 -125,10 -115,15 -115,13" fill="#444444"/>
     </g>
 
-    <!-- Bathroom - bathtub -->
-    <g transform="translate(80, -20)">
-      <ellipse cx="12" cy="-6" rx="12" ry="7" fill="#C7D2FE" fill-opacity="0.5" stroke="#6366F1" stroke-width="0.6" transform="skewX(-20)"/>
+    <!-- == Kitchen furniture == -->
+    <!-- L-shaped counter (against right walls) -->
+    <g filter="url(#furnShadow)">
+      <!-- Counter top along right wall -->
+      <polygon points="100,30 130,15 140,0 110,15" fill="#E5E7EB"/>
+      <polygon points="100,30 100,34 130,19 130,15" fill="#CCCED2"/>
+      <polygon points="130,15 130,19 140,4 140,0" fill="#C0C2C6"/>
+      <!-- Counter top along back -->
+      <polygon points="40,50 100,30 110,15 50,35" fill="#E5E7EB"/>
+      <polygon points="40,50 40,54 100,34 100,30" fill="#CCCED2"/>
     </g>
 
-    <!-- Room labels -->
-    <text x="-50" y="15" font-size="5" font-weight="600" fill="#92400E" text-anchor="middle" transform="rotate(-26, -50, 15)">Living Room</text>
-    <text x="50" y="45" font-size="4.5" font-weight="600" fill="#4D7C0F" text-anchor="middle" transform="rotate(-26, 50, 45)">Kitchen</text>
-    <text x="35" y="-35" font-size="4.5" font-weight="600" fill="#1D4ED8" text-anchor="middle" transform="rotate(-26, 35, -35)">Bedroom</text>
-    <text x="95" y="-10" font-size="4" font-weight="600" fill="#4338CA" text-anchor="middle" transform="rotate(-26, 95, -10)">Bath</text>
+    <!-- Kitchen island/table -->
+    <g filter="url(#furnShadow)">
+      <polygon points="50,45 70,55 85,47.5 65,37.5" fill="#D4A574"/>
+      <polygon points="50,45 50,48 70,58 70,55" fill="#C09460"/>
+      <polygon points="70,55 70,58 85,50.5 85,47.5" fill="#B8895A"/>
+    </g>
 
-    <!-- Wall height extrusion (3D effect) -->
-    <!-- Front-left wall height -->
-    <polygon points="-120,0 -120,-8 -20,42 -20,50" fill="url(#wallGrad)" fill-opacity="0.6" stroke="#57534E" stroke-width="0.5"/>
-    <!-- Front-right wall height -->
-    <polygon points="-20,50 -20,42 30,67 30,75" fill="url(#wallGrad)" fill-opacity="0.5" stroke="#57534E" stroke-width="0.5"/>
-    <!-- Wall top edge -->
-    <line x1="-120" y1="-8" x2="-20" y2="42" stroke="#A8A29E" stroke-width="0.8"/>
-    <line x1="-20" y1="42" x2="30" y2="67" stroke="#A8A29E" stroke-width="0.8"/>
-  </g>
+    <!-- == Bedroom furniture == -->
+    <!-- Bed (large, back-left) -->
+    <g filter="url(#furnShadow)">
+      <!-- Mattress top -->
+      <polygon points="-40,-25 -5,-42.5 20,-30 -15,-12.5" fill="#C4B5D8"/>
+      <!-- Front side -->
+      <polygon points="-40,-25 -40,-21 -15,-8.5 -15,-12.5" fill="#AD9EC5"/>
+      <!-- Right side -->
+      <polygon points="-15,-12.5 -15,-8.5 20,-26 20,-30" fill="#A293BB"/>
+      <!-- Pillow area -->
+      <polygon points="-35,-27 -18,-35.5 -8,-30 -25,-21.5" fill="#D8CCE8"/>
+      <polygon points="-15,-36 -5,-41 5,-35.5 -5,-30.5" fill="#D8CCE8"/>
+      <!-- Headboard -->
+      <polygon points="-5,-42.5 -5,-48 20,-36 20,-30" fill="#9585A8"/>
+      <polygon points="-5,-48 -1,-50 24,-38 20,-36" fill="#B0A3C0"/>
+    </g>
 
-  <!-- Measurement annotation -->
-  <g transform="translate(95, 185)">
-    <line x1="0" y1="0" x2="55" y2="27" stroke="#D97706" stroke-width="0.8"/>
+    <!-- Bedside table left -->
+    <g filter="url(#furnShadow)">
+      <polygon points="-42,-14 -35,-17.5 -30,-15 -37,-11.5" fill="#D4A574"/>
+      <polygon points="-42,-14 -42,-11 -37,-8.5 -37,-11.5" fill="#C09460"/>
+    </g>
+
+    <!-- Bedside table right -->
+    <g filter="url(#furnShadow)">
+      <polygon points="22,-28 29,-31.5 34,-29 27,-25.5" fill="#D4A574"/>
+      <polygon points="22,-28 22,-25 27,-22.5 27,-25.5" fill="#C09460"/>
+    </g>
+
+    <!-- == Bathroom furniture == -->
+    <!-- Bathtub -->
+    <g filter="url(#furnShadow)">
+      <!-- Tub body -->
+      <polygon points="55,-42 80,-54.5 95,-47 70,-34.5" fill="#E8EEF4" stroke="#B0BEC5" stroke-width="0.5"/>
+      <!-- Inner basin -->
+      <polygon points="58,-41 78,-51 90,-45 70,-35" fill="#D6E4F0" stroke="#B0BEC5" stroke-width="0.3"/>
+      <!-- Rim height -->
+      <polygon points="55,-42 55,-45 70,-37.5 70,-34.5" fill="#CCD5DD"/>
+      <polygon points="70,-34.5 70,-37.5 95,-50 95,-47" fill="#C0CAD4"/>
+    </g>
+
+    <!-- Sink (small circle/dot) -->
+    <circle cx="35" cy="-48" r="3" fill="#E8EEF4" stroke="#B0BEC5" stroke-width="0.5"/>
+    <circle cx="35" cy="-48" r="1.5" fill="#D6E4F0"/>
+
+    <!-- ============ ROOM LABELS ============ -->
+    <text x="-72" y="22" font-size="8" font-weight="500" fill="#6B7280" text-anchor="middle">Living</text>
+    <text x="75" y="42" font-size="8" font-weight="500" fill="#6B7280" text-anchor="middle">Kitchen</text>
+    <text x="-18" y="-28" font-size="8" font-weight="500" fill="#6B7280" text-anchor="middle">Bed</text>
+    <text x="65" y="-40" font-size="7" font-weight="500" fill="#6B7280" text-anchor="middle">Bath</text>
+
+  </g><!-- end main isometric group -->
+
+  <!-- ============ MEASUREMENT LINES ============ -->
+  <!-- Dimension 1: width along front-left wall -->
+  <g>
+    <line x1="50" y1="158" x2="180" y2="223" stroke="#EF4444" stroke-width="0.6"/>
     <!-- End caps -->
-    <line x1="-2" y1="-3" x2="2" y2="3" stroke="#D97706" stroke-width="0.8"/>
-    <line x1="53" y1="24" x2="57" y2="30" stroke="#D97706" stroke-width="0.8"/>
-    <!-- Label -->
-    <rect x="16" y="6" width="24" height="12" rx="3" fill="white" stroke="#D97706" stroke-width="0.8"/>
-    <text x="28" y="15" text-anchor="middle" font-size="5.5" font-weight="700" fill="#D97706">4.2m</text>
+    <line x1="48" y1="155" x2="52" y2="161" stroke="#EF4444" stroke-width="0.8"/>
+    <line x1="178" y1="220" x2="182" y2="226" stroke="#EF4444" stroke-width="0.8"/>
+    <!-- Label bg -->
+    <rect x="98" y="181" width="28" height="12" rx="2" fill="white" stroke="#EF4444" stroke-width="0.5"/>
+    <text x="112" y="190" text-anchor="middle" font-size="7" font-weight="600" fill="#EF4444">4.2m</text>
   </g>
 
-  <!-- Compass -->
-  <g transform="translate(370, 75)">
-    <circle cx="0" cy="0" r="14" fill="white" fill-opacity="0.9" stroke="#D1D5DB" stroke-width="0.5"/>
-    <polygon points="0,-10 3,-2 0,0 -3,-2" fill="#EF4444"/>
-    <polygon points="0,10 3,2 0,0 -3,2" fill="#94A3B8"/>
-    <text x="0" y="-13" text-anchor="middle" font-size="4" font-weight="700" fill="#EF4444">N</text>
+  <!-- Dimension 2: depth along left wall -->
+  <g>
+    <line x1="42" y1="148" x2="100" y2="110" stroke="#EF4444" stroke-width="0.6"/>
+    <line x1="40" y1="145" x2="44" y2="151" stroke="#EF4444" stroke-width="0.8"/>
+    <line x1="98" y1="107" x2="102" y2="113" stroke="#EF4444" stroke-width="0.8"/>
+    <rect x="55" y="121" width="28" height="12" rx="2" fill="white" stroke="#EF4444" stroke-width="0.5"/>
+    <text x="69" y="130" text-anchor="middle" font-size="7" font-weight="600" fill="#EF4444">3.1m</text>
   </g>
 
-  <!-- Right side info panel -->
-  <rect x="345" y="100" width="52" height="85" rx="6" fill="white" fill-opacity="0.95" stroke="#E2E8F0" stroke-width="0.5"/>
-  <text x="371" y="114" text-anchor="middle" font-size="5.5" font-weight="700" fill="#0F172A">Rooms</text>
-  <line x1="351" y1="118" x2="391" y2="118" stroke="#F3F4F6" stroke-width="0.5"/>
-
-  <circle cx="356" cy="128" r="3" fill="#FEF3C7" stroke="#92400E" stroke-width="0.5"/>
-  <text x="363" y="130" font-size="4.5" fill="#57534E">Living 32m²</text>
-
-  <circle cx="356" cy="141" r="3" fill="#ECFCCB" stroke="#4D7C0F" stroke-width="0.5"/>
-  <text x="363" y="143" font-size="4.5" fill="#57534E">Kitchen 18m²</text>
-
-  <circle cx="356" cy="154" r="3" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="0.5"/>
-  <text x="363" y="156" font-size="4.5" fill="#57534E">Bed 20m²</text>
-
-  <circle cx="356" cy="167" r="3" fill="#E0E7FF" stroke="#4338CA" stroke-width="0.5"/>
-  <text x="363" y="169" font-size="4.5" fill="#57534E">Bath 8m²</text>
-
-  <!-- Bottom toolbar -->
-  <rect x="18" y="270" width="384" height="24" rx="4" fill="white"/>
-  <line x1="18" y1="270" x2="402" y2="270" stroke="#E5E7EB" stroke-width="0.5"/>
-
-  <!-- View mode pills -->
-  <g transform="translate(155, 275)">
-    <rect x="0" y="0" width="28" height="16" rx="8" fill="#D97706"/>
-    <text x="14" y="11" text-anchor="middle" font-size="6" font-weight="700" fill="white">3D</text>
-
-    <rect x="34" y="0" width="24" height="16" rx="8" fill="#FFF7ED" stroke="#D97706" stroke-width="0.8"/>
-    <text x="46" y="11" text-anchor="middle" font-size="6" font-weight="600" fill="#D97706">AR</text>
-
-    <rect x="64" y="0" width="24" height="16" rx="8" fill="#FFF7ED" stroke="#D97706" stroke-width="0.8"/>
-    <text x="76" y="11" text-anchor="middle" font-size="6" font-weight="600" fill="#D97706">2D</text>
+  <!-- ============ COMPASS (top-right) ============ -->
+  <g transform="translate(385, 30)">
+    <circle cx="0" cy="0" r="12" fill="white" stroke="#D1D5DB" stroke-width="0.5"/>
+    <!-- North arrow -->
+    <polygon points="0,-9 2.5,-2 0,-3.5 -2.5,-2" fill="#EF4444"/>
+    <!-- South arrow -->
+    <polygon points="0,9 2.5,2 0,3.5 -2.5,2" fill="#CBD5E1"/>
+    <text x="0" y="-13" text-anchor="middle" font-size="5" font-weight="700" fill="#EF4444">N</text>
   </g>
 
-  <!-- Left side tools -->
-  <rect x="28" y="275" width="16" height="14" rx="4" fill="#F5F5F4" stroke="#D1D5DB" stroke-width="0.5"/>
-  <text x="36" y="284.5" text-anchor="middle" font-size="6" fill="#57534E">Ed</text>
+  <!-- ============ UI CHROME: Bottom toolbar ============ -->
+  <rect x="10" y="293" width="400" height="22" rx="6" fill="white" stroke="#E5E7EB" stroke-width="0.5"/>
 
-  <rect x="48" y="275" width="16" height="14" rx="4" fill="#F5F5F4" stroke="#D1D5DB" stroke-width="0.5"/>
-  <text x="56" y="284.5" text-anchor="middle" font-size="6" fill="#57534E">Ru</text>
+  <!-- Room selector pills -->
+  <g transform="translate(120, 297)">
+    <!-- All (selected) -->
+    <rect x="0" y="0" width="26" height="14" rx="7" fill="#6750A4"/>
+    <text x="13" y="10" text-anchor="middle" font-size="7" font-weight="600" fill="white">All</text>
 
-  <!-- Right side -->
-  <text x="388" y="285" text-anchor="end" font-size="4.5" fill="#D97706">SceneView 3D</text>
+    <!-- Living -->
+    <rect x="32" y="0" width="38" height="14" rx="7" fill="none" stroke="#D1D5DB" stroke-width="0.5"/>
+    <text x="51" y="10" text-anchor="middle" font-size="7" fill="#6B7280">Living</text>
 
-  <!-- Floor level indicator -->
-  <g transform="translate(30, 85)">
-    <rect x="0" y="0" width="18" height="40" rx="4" fill="white" fill-opacity="0.9" stroke="#E2E8F0" stroke-width="0.5"/>
-    <rect x="3" y="3" width="12" height="10" rx="2" fill="#D97706" fill-opacity="0.15" stroke="#D97706" stroke-width="0.6"/>
-    <text x="9" y="10.5" text-anchor="middle" font-size="5" font-weight="700" fill="#D97706">1</text>
-    <text x="9" y="24" text-anchor="middle" font-size="5" fill="#94A3B8">2</text>
-    <text x="9" y="36" text-anchor="middle" font-size="5" fill="#94A3B8">3</text>
+    <!-- Kitchen -->
+    <rect x="76" y="0" width="44" height="14" rx="7" fill="none" stroke="#D1D5DB" stroke-width="0.5"/>
+    <text x="98" y="10" text-anchor="middle" font-size="7" fill="#6B7280">Kitchen</text>
+
+    <!-- Bed -->
+    <rect x="126" y="0" width="28" height="14" rx="7" fill="none" stroke="#D1D5DB" stroke-width="0.5"/>
+    <text x="140" y="10" text-anchor="middle" font-size="7" fill="#6B7280">Bed</text>
   </g>
+
+  <!-- ============ UI CHROME: AR View button (top-right) ============ -->
+  <g transform="translate(340, 7)">
+    <rect x="0" y="0" width="68" height="18" rx="9" fill="#6750A4"/>
+    <!-- Camera icon (simplified) -->
+    <rect x="8" y="5" width="10" height="8" rx="1.5" fill="none" stroke="white" stroke-width="0.8"/>
+    <circle cx="13" cy="9" r="2" fill="none" stroke="white" stroke-width="0.7"/>
+    <text x="42" y="13" text-anchor="middle" font-size="7" font-weight="600" fill="white">AR View</text>
+  </g>
+
 </svg>
