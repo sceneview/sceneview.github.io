@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" width="600" height="360">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFBF5"/>
+      <stop offset="100%" stop-color="#FFF0E8"/>
+    </linearGradient>
+    <!-- Scene depth gradient -->
+    <radialGradient id="sceneDepth" cx="0.55" cy="0.45" r="0.5">
+      <stop offset="0%" stop-color="#F0EAFF" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#E8E0FF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#FFFBF5" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Headset body gradient -->
+    <linearGradient id="headsetBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3D3A50"/>
+      <stop offset="100%" stop-color="#2D2B3D"/>
+    </linearGradient>
+    <!-- Headset lens gradient -->
+    <radialGradient id="lensGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#7B61FF" stop-opacity="0.4"/>
+      <stop offset="70%" stop-color="#7B61FF" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#2D2B3D" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Purple glow -->
+    <radialGradient id="purpleGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#7B61FF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#7B61FF" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Card shadow filter -->
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#7B61FF" flood-opacity="0.15"/>
+    </filter>
+    <filter id="headsetShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#2D2B3D" flood-opacity="0.25"/>
+    </filter>
+    <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="sparkleGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <!-- Grid pattern -->
+    <pattern id="gridPattern" width="30" height="30" patternUnits="userSpaceOnUse" patternTransform="skewX(-30) scale(1, 0.6)">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#7B61FF" stroke-width="0.5" stroke-opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="360" rx="28" fill="url(#bg)"/>
+
+  <!-- Scene depth area -->
+  <ellipse cx="370" cy="165" rx="200" ry="160" fill="url(#sceneDepth)"/>
+
+  <!-- === PERSPECTIVE GRID FLOOR === -->
+  <g opacity="0.5">
+    <!-- Grid lines converging to vanishing point -->
+    <g stroke="#7B61FF" stroke-opacity="0.12" stroke-width="0.7" fill="none">
+      <!-- Horizontal lines -->
+      <line x1="260" y1="235" x2="560" y2="235"/>
+      <line x1="270" y1="248" x2="555" y2="248"/>
+      <line x1="280" y1="260" x2="550" y2="260"/>
+      <line x1="290" y1="271" x2="545" y2="271"/>
+      <line x1="300" y1="281" x2="540" y2="281"/>
+      <line x1="310" y1="290" x2="535" y2="290"/>
+      <!-- Vertical lines converging -->
+      <line x1="310" y1="220" x2="295" y2="295"/>
+      <line x1="340" y1="220" x2="330" y2="295"/>
+      <line x1="370" y1="220" x2="365" y2="295"/>
+      <line x1="400" y1="220" x2="400" y2="295"/>
+      <line x1="430" y1="220" x2="435" y2="295"/>
+      <line x1="460" y1="220" x2="470" y2="295"/>
+      <line x1="490" y1="220" x2="505" y2="295"/>
+      <line x1="520" y1="220" x2="540" y2="295"/>
+    </g>
+    <!-- Grid floor fade -->
+    <rect x="255" y="220" width="310" height="80" fill="url(#bg)" opacity="0.3"/>
+  </g>
+
+  <!-- === VR HEADSET === -->
+  <g filter="url(#headsetShadow)">
+    <!-- Headset strap (behind) -->
+    <path d="M 95 120 Q 60 100 55 135 Q 50 170 95 185" fill="none" stroke="#3D3A50" stroke-width="14" stroke-linecap="round"/>
+
+    <!-- Main headset body — rounded goggles shape -->
+    <path d="M 90 105 Q 90 85 120 80 L 210 75 Q 245 75 248 100 L 252 155 Q 255 185 240 192 L 215 200 Q 195 208 175 205 L 155 200 Q 140 208 125 205 L 105 198 Q 88 190 85 175 Z"
+          fill="url(#headsetBody)" stroke="#3D3A50" stroke-width="1"/>
+
+    <!-- Front face plate — slightly lighter -->
+    <path d="M 100 108 Q 100 92 125 87 L 205 83 Q 235 82 238 102 L 242 152 Q 244 178 232 184 L 210 192 Q 195 198 175 196 L 155 192 Q 140 198 125 196 L 108 190 Q 96 184 94 170 Z"
+          fill="#353248" opacity="0.7"/>
+
+    <!-- Left lens -->
+    <ellipse cx="138" cy="140" rx="30" ry="32" fill="#1a1828" stroke="#4a4660" stroke-width="1.5"/>
+    <ellipse cx="138" cy="140" rx="28" ry="30" fill="url(#lensGlow)"/>
+    <ellipse cx="132" cy="132" rx="8" ry="6" fill="#7B61FF" opacity="0.12"/>
+
+    <!-- Right lens -->
+    <ellipse cx="200" cy="138" rx="30" ry="32" fill="#1a1828" stroke="#4a4660" stroke-width="1.5"/>
+    <ellipse cx="200" cy="138" rx="28" ry="30" fill="url(#lensGlow)"/>
+    <ellipse cx="194" cy="130" rx="8" ry="6" fill="#7B61FF" opacity="0.12"/>
+
+    <!-- Nose bridge -->
+    <path d="M 160 155 Q 170 168 180 155" fill="none" stroke="#4a4660" stroke-width="1.5"/>
+
+    <!-- Top ridge detail -->
+    <path d="M 115 88 L 220 83" stroke="#4a4660" stroke-width="1" stroke-opacity="0.5"/>
+
+    <!-- Side button -->
+    <rect x="245" y="125" width="6" height="18" rx="3" fill="#4a4660"/>
+
+    <!-- Face padding hint -->
+    <path d="M 98 115 Q 95 140 98 170" stroke="#3D3A50" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  </g>
+
+  <!-- === PROJECTION RAYS from headset === -->
+  <g opacity="0.15">
+    <line x1="245" y1="120" x2="310" y2="80" stroke="#7B61FF" stroke-width="1.5"/>
+    <line x1="250" y1="140" x2="310" y2="140" stroke="#7B61FF" stroke-width="1.5"/>
+    <line x1="245" y1="165" x2="310" y2="220" stroke="#7B61FF" stroke-width="1.5"/>
+  </g>
+
+  <!-- === FLOATING 3D SOFA === -->
+  <g transform="translate(370, 130)" filter="url(#softShadow)">
+    <!-- Sofa shadow on grid -->
+    <ellipse cx="0" cy="95" rx="55" ry="10" fill="#7B61FF" opacity="0.08"/>
+
+    <!-- Sofa base/seat -->
+    <rect x="-52" y="25" width="104" height="35" rx="12" fill="#F97316"/>
+    <rect x="-52" y="25" width="104" height="18" rx="10" fill="#FB923C" opacity="0.6"/>
+
+    <!-- Sofa back -->
+    <rect x="-52" y="-10" width="104" height="40" rx="14" fill="#F97316"/>
+    <rect x="-48" y="-6" width="96" height="32" rx="12" fill="#FB923C" opacity="0.4"/>
+
+    <!-- Left armrest -->
+    <rect x="-60" y="0" width="18" height="55" rx="9" fill="#EA580C"/>
+    <!-- Right armrest -->
+    <rect x="42" y="0" width="18" height="55" rx="9" fill="#EA580C"/>
+
+    <!-- Cushion lines -->
+    <line x1="-18" y1="28" x2="-18" y2="55" stroke="#EA580C" stroke-width="1.5" stroke-opacity="0.4"/>
+    <line x1="18" y1="28" x2="18" y2="55" stroke="#EA580C" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Sofa legs -->
+    <rect x="-42" y="58" width="8" height="10" rx="3" fill="#2D2B3D"/>
+    <rect x="34" y="58" width="8" height="10" rx="3" fill="#2D2B3D"/>
+
+    <!-- Floating indicator ring -->
+    <ellipse cx="0" cy="82" rx="50" ry="8" fill="none" stroke="#7B61FF" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+  </g>
+
+  <!-- === CUSTOMIZE PANEL (Compose Card) === -->
+  <g transform="translate(480, 65)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="100" height="110" rx="20" fill="white" fill-opacity="0.95"/>
+    <rect x="0" y="0" width="100" height="110" rx="20" fill="none" stroke="#7B61FF" stroke-width="1" stroke-opacity="0.2"/>
+
+    <!-- Card header -->
+    <text x="14" y="24" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#2D2B3D">Customize</text>
+
+    <!-- Color swatches row -->
+    <circle cx="22" cy="42" r="7" fill="#F97316" stroke="white" stroke-width="2"/>
+    <circle cx="42" cy="42" r="7" fill="#0D9488" stroke="white" stroke-width="2"/>
+    <circle cx="62" cy="42" r="7" fill="#F472B6" stroke="white" stroke-width="2"/>
+    <circle cx="82" cy="42" r="7" fill="#7B61FF" stroke="white" stroke-width="2"/>
+
+    <!-- Selected indicator -->
+    <circle cx="22" cy="42" r="9" fill="none" stroke="#F97316" stroke-width="1.5"/>
+
+    <!-- Material label -->
+    <text x="14" y="65" font-family="system-ui, sans-serif" font-size="7.5" fill="#666">Material</text>
+    <rect x="12" y="70" width="76" height="14" rx="7" fill="#F5F0FF"/>
+    <text x="22" y="80" font-family="system-ui, sans-serif" font-size="7" fill="#7B61FF" font-weight="500">Velvet</text>
+
+    <!-- Divider -->
+    <line x1="12" y1="90" x2="88" y2="90" stroke="#E5E0F0" stroke-width="0.8"/>
+
+    <!-- Price -->
+    <text x="14" y="104" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#2D2B3D">$1,299</text>
+    <text x="60" y="104" font-family="system-ui, sans-serif" font-size="7" fill="#0D9488" font-weight="600">In Stock</text>
+  </g>
+
+  <!-- === SECONDARY PANEL — Dimensions === -->
+  <g transform="translate(280, 45)" filter="url(#softShadow)">
+    <rect x="0" y="0" width="80" height="55" rx="16" fill="white" fill-opacity="0.9"/>
+    <rect x="0" y="0" width="80" height="55" rx="16" fill="none" stroke="#F472B6" stroke-width="1" stroke-opacity="0.2"/>
+
+    <!-- 3D icon -->
+    <g transform="translate(14, 14)">
+      <path d="M 0 5 L 8 0 L 16 5 L 8 10 Z" fill="#F472B6" opacity="0.3"/>
+      <path d="M 0 5 L 0 13 L 8 18 L 8 10 Z" fill="#F472B6" opacity="0.5"/>
+      <path d="M 16 5 L 16 13 L 8 18 L 8 10 Z" fill="#F472B6" opacity="0.7"/>
+    </g>
+
+    <text x="38" y="22" font-family="system-ui, sans-serif" font-size="7" fill="#666">Dimensions</text>
+    <text x="38" y="34" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#2D2B3D">220 x 85cm</text>
+    <text x="14" y="48" font-family="system-ui, sans-serif" font-size="6.5" fill="#0D9488">Fits your space ✓</text>
+  </g>
+
+  <!-- === SPATIAL HAND CURSOR === -->
+  <g transform="translate(430, 195)" filter="url(#glowFilter)">
+    <!-- Hand cursor — stylized pointing hand -->
+    <g fill="#7B61FF" opacity="0.85">
+      <!-- Palm -->
+      <path d="M 0 12 Q -2 6 2 0 L 5 0 Q 8 5 6 12 Z"/>
+      <!-- Index finger extended -->
+      <path d="M 2 0 Q 3 -10 4 -14 Q 5 -15 6 -14 Q 7 -10 5 0 Z"/>
+      <!-- Other fingers curled -->
+      <ellipse cx="-1" cy="5" rx="3" ry="5" opacity="0.5"/>
+    </g>
+    <!-- Cursor ring -->
+    <circle cx="4" cy="-14" r="6" fill="none" stroke="#7B61FF" stroke-width="1.2" opacity="0.5"/>
+    <circle cx="4" cy="-14" r="2" fill="#7B61FF" opacity="0.6"/>
+    <!-- Pulse ring -->
+    <circle cx="4" cy="-14" r="10" fill="none" stroke="#7B61FF" stroke-width="0.7" opacity="0.2"/>
+  </g>
+
+  <!-- === SPARKLE / PARTICLE EFFECTS === -->
+  <!-- Sparkles around sofa area -->
+  <g filter="url(#sparkleGlow)">
+    <circle cx="310" cy="100" r="2.5" fill="#7B61FF" opacity="0.5"/>
+    <circle cx="455" cy="85" r="2" fill="#F472B6" opacity="0.5"/>
+    <circle cx="340" cy="195" r="1.8" fill="#F97316" opacity="0.4"/>
+    <circle cx="530" cy="145" r="2.2" fill="#0D9488" opacity="0.45"/>
+    <circle cx="290" cy="155" r="1.5" fill="#7B61FF" opacity="0.4"/>
+    <circle cx="500" cy="200" r="1.8" fill="#F472B6" opacity="0.35"/>
+    <circle cx="555" cy="110" r="1.5" fill="#7B61FF" opacity="0.3"/>
+  </g>
+
+  <!-- Star sparkles (4-point) -->
+  <g fill="#7B61FF" opacity="0.4">
+    <path d="M 325 75 L 326.5 72 L 328 75 L 326.5 78 Z"/>
+    <path d="M 540 180 L 541.5 177 L 543 180 L 541.5 183 Z"/>
+  </g>
+  <g fill="#F472B6" opacity="0.35">
+    <path d="M 470 215 L 472 212 L 474 215 L 472 218 Z"/>
+  </g>
+  <g fill="#F97316" opacity="0.4">
+    <path d="M 295 205 L 296.5 202 L 298 205 L 296.5 208 Z"/>
+  </g>
+
+  <!-- Floating dots trail -->
+  <circle cx="265" cy="115" r="1" fill="#7B61FF" opacity="0.3"/>
+  <circle cx="275" cy="108" r="1.3" fill="#7B61FF" opacity="0.25"/>
+  <circle cx="288" cy="95" r="1" fill="#7B61FF" opacity="0.2"/>
+
+  <!-- === CONNECTING LINE headset to scene === -->
+  <path d="M 250 140 Q 275 140 295 130" stroke="#7B61FF" stroke-width="1.5" stroke-opacity="0.2" fill="none" stroke-dasharray="3 4"/>
+
+  <!-- === BOTTOM LABEL === -->
+  <text x="300" y="340" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#7B61FF">
+    XRScene { } — Spatial computing with Compose
+  </text>
+</svg>

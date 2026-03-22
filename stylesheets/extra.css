@@ -1138,6 +1138,104 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ---- Visual showcase wall — large illustration cards ---- */
+
+.visual-wall {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.visual-card {
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-outline-variant);
+  border-radius: var(--sv-shape-xxl);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.visual-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 56px rgba(123, 97, 255, 0.14);
+}
+
+[data-md-color-scheme="slate"] .visual-card:hover {
+  box-shadow: 0 20px 56px rgba(167, 139, 250, 0.18);
+}
+
+.visual-card__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.visual-card__badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(28, 27, 31, 0.82);
+  color: white;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: var(--sv-shape-full);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.02em;
+}
+
+.visual-card h3 {
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 0.75rem 1.25rem 0.25rem;
+  color: var(--sv-on-surface);
+}
+
+.visual-card p {
+  font-size: 0.85rem;
+  color: var(--sv-on-surface-variant);
+  line-height: 1.5;
+  margin: 0 1.25rem 1.25rem;
+}
+
+.visual-card p code {
+  font-size: 0.78rem;
+  background: var(--sv-surface-container);
+  padding: 0.12em 0.4em;
+  border-radius: var(--sv-shape-xs);
+}
+
+/* "Made with SceneView" badge on screenshot items */
+.showcase-item__wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.showcase-item__wrapper .showcase-item__img {
+  display: block;
+}
+
+.showcase-item__made-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(28, 27, 31, 0.82);
+  color: white;
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--sv-shape-full);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
 /* ---- Infographic banners ---- */
 .infographic {
   text-align: center;
@@ -1184,6 +1282,10 @@ html {
   }
 
   .industry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-wall {
     grid-template-columns: 1fr;
   }
 
