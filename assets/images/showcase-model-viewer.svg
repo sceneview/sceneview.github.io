@@ -1,104 +1,171 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none">
   <defs>
+    <!-- Background gradient -->
     <linearGradient id="mv-bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FAFAFA"/><stop offset="100%" stop-color="#F5F3FF"/>
+      <stop offset="0%" stop-color="#1A1A2E"/>
+      <stop offset="100%" stop-color="#16213E"/>
     </linearGradient>
-    <linearGradient id="mv-helmet" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#E5E7EB"/><stop offset="40%" stop-color="#D1D5DB"/>
-      <stop offset="100%" stop-color="#9CA3AF"/>
+
+    <!-- HDRI warm band -->
+    <linearGradient id="mv-hdri" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3E0" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#FFF3E0" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="mv-visor" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#7B61FF" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.4"/>
-    </linearGradient>
-    <filter id="mv-shadow" x="-8%" y="-8%" width="116%" height="116%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#7B61FF" flood-opacity="0.12"/>
+
+    <!-- Helmet radial gradient (bronze) -->
+    <radialGradient id="mv-helmet-fill" cx="0.35" cy="0.3" r="0.7" fx="0.3" fy="0.25">
+      <stop offset="0%" stop-color="#D4A373"/>
+      <stop offset="50%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#3D2B0E"/>
+    </radialGradient>
+
+    <!-- Specular highlight -->
+    <radialGradient id="mv-spec" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Ground shadow blur -->
+    <filter id="mv-ground-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6"/>
     </filter>
+
+    <!-- Subtle glow for helmet -->
+    <filter id="mv-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2"/>
+    </filter>
+
+    <!-- Grid line gradient (fades out) -->
+    <linearGradient id="mv-grid-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#334155" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#334155" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Slider track gradient -->
+    <linearGradient id="mv-slider" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+    </linearGradient>
   </defs>
-  <!-- Phone frame -->
-  <rect x="10" y="10" width="260" height="460" rx="36" fill="#E5E5E5"/>
-  <rect x="12" y="12" width="256" height="456" rx="34" fill="#F5F5F5"/>
-  <rect x="24" y="32" width="232" height="416" rx="6" fill="url(#mv-bg)"/>
-  <rect x="90" y="14" width="100" height="22" rx="11" fill="#E5E5E5"/>
-  <!-- Status bar -->
-  <text x="40" y="50" font-family="system-ui" font-size="10" fill="#666" font-weight="600">9:41</text>
-  <!-- App bar -->
-  <text x="140" y="72" font-family="system-ui" font-size="13" fill="#1A1A1A" text-anchor="middle" font-weight="700">Model Viewer</text>
-  <!-- 3D viewport -->
-  <rect x="34" y="86" width="212" height="220" rx="24" fill="white" filter="url(#mv-shadow)" stroke="#E9D5FF" stroke-width="0.5"/>
-  <!-- Astronaut (full body, properly scaled in viewport) -->
-  <g transform="translate(108, 110) scale(0.72)">
-    <ellipse cx="40" cy="155" rx="28" ry="5" fill="#E5E7EB" opacity="0.4"/>
-    <!-- Boots -->
-    <rect x="18" y="140" width="16" height="14" rx="5" fill="#9CA3AF"/>
-    <rect x="46" y="140" width="16" height="14" rx="5" fill="#9CA3AF"/>
-    <!-- Legs -->
-    <rect x="20" y="110" width="14" height="34" rx="5" fill="#D1D5DB"/>
-    <rect x="46" y="110" width="14" height="34" rx="5" fill="#D1D5DB"/>
-    <!-- Body / suit -->
-    <rect x="14" y="60" width="52" height="55" rx="10" fill="url(#mv-helmet)"/>
-    <!-- Chest panel -->
-    <rect x="22" y="68" width="36" height="22" rx="4" fill="#E5E7EB" stroke="#D1D5DB" stroke-width="0.5"/>
-    <circle cx="32" cy="79" r="2.5" fill="#22C55E"/>
-    <circle cx="40" cy="79" r="2.5" fill="#FDE68A"/>
-    <circle cx="48" cy="79" r="2.5" fill="#EF4444"/>
-    <!-- Backpack -->
-    <rect x="54" y="58" width="18" height="40" rx="5" fill="#9CA3AF" opacity="0.7"/>
-    <rect x="56" y="62" width="14" height="14" rx="3" fill="#6B7280" opacity="0.5"/>
-    <!-- Arms -->
-    <rect x="4" y="66" width="14" height="36" rx="6" fill="#D1D5DB"/>
-    <rect x="62" y="66" width="14" height="36" rx="6" fill="#D1D5DB"/>
-    <!-- Gloves -->
-    <rect x="4" y="96" width="14" height="10" rx="5" fill="#9CA3AF"/>
-    <rect x="62" y="96" width="14" height="10" rx="5" fill="#9CA3AF"/>
-    <!-- Helmet -->
-    <ellipse cx="40" cy="38" rx="28" ry="28" fill="url(#mv-helmet)"/>
-    <!-- Visor -->
-    <ellipse cx="40" cy="36" rx="20" ry="18" fill="url(#mv-visor)"/>
-    <!-- Visor reflection -->
-    <path d="M28,30 Q35,22 46,26" stroke="white" stroke-width="1.5" fill="none" opacity="0.5" stroke-linecap="round"/>
-    <!-- Helmet rim -->
-    <path d="M12,44 Q40,56 68,44" stroke="#9CA3AF" stroke-width="1.5" fill="none"/>
-    <!-- Antenna -->
-    <line x1="55" y1="18" x2="62" y2="6" stroke="#9CA3AF" stroke-width="1.5" stroke-linecap="round"/>
-    <circle cx="63" cy="4" r="2.5" fill="#EF4444"/>
+
+  <!-- Background -->
+  <rect width="280" height="480" fill="url(#mv-bg)"/>
+
+  <!-- HDRI warm band at top -->
+  <rect x="0" y="0" width="280" height="120" fill="url(#mv-hdri)"/>
+
+  <!-- Perspective grid floor -->
+  <g opacity="0.2">
+    <!-- Horizontal lines (perspective converging) -->
+    <line x1="0" y1="360" x2="280" y2="360" stroke="#334155" stroke-width="0.4" opacity="0.3"/>
+    <line x1="0" y1="380" x2="280" y2="380" stroke="#334155" stroke-width="0.4" opacity="0.25"/>
+    <line x1="0" y1="400" x2="280" y2="400" stroke="#334155" stroke-width="0.5" opacity="0.2"/>
+    <line x1="0" y1="420" x2="280" y2="420" stroke="#334155" stroke-width="0.5" opacity="0.15"/>
+    <line x1="0" y1="440" x2="280" y2="440" stroke="#334155" stroke-width="0.6" opacity="0.1"/>
+    <line x1="0" y1="460" x2="280" y2="460" stroke="#334155" stroke-width="0.6" opacity="0.05"/>
+    <!-- Vertical lines (converging to vanishing point at center) -->
+    <line x1="140" y1="340" x2="0" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="40" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="80" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="120" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="160" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="200" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="240" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
+    <line x1="140" y1="340" x2="280" y2="480" stroke="#334155" stroke-width="0.4" opacity="0.15"/>
   </g>
-  <!-- Rotation orbit line -->
-  <ellipse cx="140" cy="250" rx="70" ry="15" fill="none" stroke="#7B61FF" stroke-width="1" stroke-dasharray="4,3" opacity="0.3"/>
-  <!-- HDR selector -->
-  <g transform="translate(34, 320)">
-    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#666" font-weight="700">ENVIRONMENT</text>
-    <g transform="translate(0, 10)">
-      <rect x="0" y="0" width="48" height="36" rx="10" fill="#1E1B4B" stroke="#7B61FF" stroke-width="1.5"/>
-      <text x="24" y="22" font-family="system-ui" font-size="7" fill="white" text-anchor="middle" font-weight="600">Night</text>
-      <rect x="54" y="0" width="48" height="36" rx="10" fill="#F5F3FF" stroke="#E5E7EB"/>
-      <text x="78" y="22" font-family="system-ui" font-size="7" fill="#666" text-anchor="middle">Studio</text>
-      <rect x="108" y="0" width="48" height="36" rx="10" fill="#FFF7ED" stroke="#E5E7EB"/>
-      <text x="132" y="22" font-family="system-ui" font-size="7" fill="#666" text-anchor="middle">Warm</text>
-      <rect x="162" y="0" width="48" height="36" rx="10" fill="#ECFDF5" stroke="#E5E7EB"/>
-      <text x="186" y="22" font-family="system-ui" font-size="7" fill="#666" text-anchor="middle">Park</text>
-    </g>
+
+  <!-- Ground shadow -->
+  <ellipse cx="140" cy="340" rx="65" ry="12" fill="#000000" opacity="0.4" filter="url(#mv-ground-shadow)"/>
+
+  <!-- Orbit ring (dotted) -->
+  <ellipse cx="140" cy="260" rx="90" ry="90" fill="none" stroke="#94A3B8" stroke-width="0.5" stroke-dasharray="3,5" opacity="0.3"/>
+
+  <!-- Small orbit dot indicator -->
+  <circle cx="230" cy="260" r="2" fill="#94A3B8" opacity="0.5"/>
+
+  <!-- === DAMAGED HELMET === -->
+  <g transform="translate(140, 230)">
+
+    <!-- Helmet glow (ambient light) -->
+    <ellipse cx="0" cy="0" rx="68" ry="72" fill="#D4A373" opacity="0.04" filter="url(#mv-glow)"/>
+
+    <!-- Main helmet dome -->
+    <ellipse cx="0" cy="-5" rx="60" ry="65" fill="url(#mv-helmet-fill)"/>
+
+    <!-- Helmet top ridge / crest -->
+    <path d="M-8,-68 Q0,-78 8,-68" stroke="#8B6914" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M-5,-66 Q0,-73 5,-66" stroke="#D4A373" stroke-width="1" fill="none" opacity="0.3"/>
+
+    <!-- Visor slot (horizontal opening) -->
+    <rect x="-38" y="-18" width="76" height="10" rx="4" fill="#0A0A12" opacity="0.85"/>
+    <!-- Visor inner darkness -->
+    <rect x="-34" y="-16" width="68" height="6" rx="2.5" fill="#050510"/>
+    <!-- Visor subtle reflection -->
+    <line x1="-30" y1="-14" x2="10" y2="-14" stroke="#94A3B8" stroke-width="0.4" opacity="0.2" stroke-linecap="round"/>
+
+    <!-- Surface detail: brow line -->
+    <path d="M-45,-25 Q0,-40 45,-25" stroke="#3D2B0E" stroke-width="0.8" fill="none" opacity="0.4"/>
+
+    <!-- Surface detail: cheek contour lines -->
+    <path d="M-48,5 Q-42,20 -30,30" stroke="#3D2B0E" stroke-width="0.6" fill="none" opacity="0.3"/>
+    <path d="M48,5 Q42,20 30,30" stroke="#3D2B0E" stroke-width="0.6" fill="none" opacity="0.3"/>
+
+    <!-- Metallic sheen reflections -->
+    <path d="M-35,-50 Q-25,-45 -20,-35" stroke="#D4A373" stroke-width="0.6" fill="none" opacity="0.25"/>
+    <path d="M-25,-55 Q-15,-48 -8,-38" stroke="#D4A373" stroke-width="0.5" fill="none" opacity="0.2"/>
+    <path d="M20,15 Q30,10 35,0" stroke="#D4A373" stroke-width="0.4" fill="none" opacity="0.15"/>
+
+    <!-- Battle damage: scratch 1 (long diagonal) -->
+    <path d="M-20,-40 Q-10,-25 5,-15" stroke="#1A1A2E" stroke-width="0.8" fill="none" opacity="0.5" stroke-linecap="round"/>
+    <!-- Scratch highlight edge -->
+    <path d="M-19,-39 Q-9,-24 6,-14" stroke="#D4A373" stroke-width="0.3" fill="none" opacity="0.2" stroke-linecap="round"/>
+
+    <!-- Battle damage: scratch 2 (shorter, steeper) -->
+    <path d="M15,-30 Q20,-18 18,-5" stroke="#1A1A2E" stroke-width="0.8" fill="none" opacity="0.45" stroke-linecap="round"/>
+    <path d="M16,-29 Q21,-17 19,-4" stroke="#D4A373" stroke-width="0.3" fill="none" opacity="0.18" stroke-linecap="round"/>
+
+    <!-- Battle damage: scratch 3 (small nick) -->
+    <path d="M-30,10 L-22,18" stroke="#1A1A2E" stroke-width="0.7" fill="none" opacity="0.4" stroke-linecap="round"/>
+    <path d="M-29,11 L-21,19" stroke="#D4A373" stroke-width="0.3" fill="none" opacity="0.15" stroke-linecap="round"/>
+
+    <!-- Specular highlight (top-left) -->
+    <ellipse cx="-22" cy="-42" rx="14" ry="18" fill="url(#mv-spec)" opacity="0.2"/>
+
+    <!-- Rim light (left edge) -->
+    <path d="M-58,-20 Q-62,0 -55,30 Q-48,50 -35,58" stroke="#D4A373" stroke-width="0.5" fill="none" opacity="0.3"/>
+
+    <!-- Helmet bottom edge -->
+    <path d="M-50,40 Q-30,58 0,62 Q30,58 50,40" stroke="#3D2B0E" stroke-width="1" fill="none" opacity="0.5"/>
+
+    <!-- Neck opening hint -->
+    <ellipse cx="0" cy="55" rx="30" ry="8" fill="#0A0A12" opacity="0.3"/>
   </g>
-  <!-- Animation controls -->
-  <g transform="translate(34, 380)">
-    <text x="0" y="0" font-family="system-ui" font-size="9" fill="#666" font-weight="700">ANIMATION</text>
-    <rect x="0" y="10" width="212" height="36" rx="18" fill="#F5F3FF" stroke="#E9D5FF"/>
-    <circle cx="24" cy="28" r="12" fill="#7B61FF"/>
-    <polygon points="21,24 21,32 29,28" fill="white"/>
-    <text x="48" y="32" font-family="system-ui" font-size="9" fill="#333" font-weight="600">Walk cycle</text>
-    <rect x="120" y="22" width="80" height="12" rx="6" fill="#E9D5FF"/>
-    <rect x="120" y="22" width="45" height="12" rx="6" fill="#7B61FF"/>
-    <text x="210" y="32" font-family="system-ui" font-size="8" fill="#A78BFA" text-anchor="end">1.2x</text>
+
+  <!-- === UI ELEMENTS === -->
+
+  <!-- Top-left label -->
+  <text x="16" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#FFFFFF" opacity="0.6" font-weight="500">Model Viewer</text>
+
+  <!-- Bottom center: play/pause button -->
+  <g transform="translate(140, 430)">
+    <!-- Button circle -->
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.4"/>
+    <!-- Play triangle -->
+    <polygon points="-3,-5 -3,5 5,0" fill="#FFFFFF" opacity="0.4"/>
   </g>
-  <!-- Model selector chips -->
-  <g transform="translate(34, 430)">
-    <rect x="0" y="0" width="60" height="22" rx="11" fill="#7B61FF"/>
-    <text x="30" y="15" font-family="system-ui" font-size="8" fill="white" text-anchor="middle" font-weight="600">Astronaut</text>
-    <rect x="66" y="0" width="42" height="22" rx="11" fill="white" stroke="#E5E7EB"/>
-    <text x="87" y="15" font-family="system-ui" font-size="8" fill="#666" text-anchor="middle">Fox</text>
-    <rect x="114" y="0" width="50" height="22" rx="11" fill="white" stroke="#E5E7EB"/>
-    <text x="139" y="15" font-family="system-ui" font-size="8" fill="#666" text-anchor="middle">Helmet</text>
-    <rect x="170" y="0" width="42" height="22" rx="11" fill="white" stroke="#E5E7EB"/>
-    <text x="191" y="15" font-family="system-ui" font-size="8" fill="#666" text-anchor="middle">Car</text>
+
+  <!-- Animation label -->
+  <text x="140" y="452" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#94A3B8" text-anchor="middle" opacity="0.8">Animation: Rotate</text>
+
+  <!-- Right side: vertical slider (exposure) -->
+  <g transform="translate(262, 200)">
+    <!-- Track -->
+    <rect x="-2" y="0" width="4" height="60" rx="2" fill="#FFFFFF" opacity="0.08"/>
+    <!-- Filled portion -->
+    <rect x="-2" y="20" width="4" height="40" rx="2" fill="url(#mv-slider)"/>
+    <!-- Thumb -->
+    <circle cx="0" cy="20" r="4" fill="#FFFFFF" opacity="0.3" stroke="#FFFFFF" stroke-width="0.5" stroke-opacity="0.4"/>
+    <!-- Label -->
+    <text x="0" y="72" font-family="system-ui, -apple-system, sans-serif" font-size="6" fill="#94A3B8" text-anchor="middle" opacity="0.5">EV</text>
   </g>
 </svg>
