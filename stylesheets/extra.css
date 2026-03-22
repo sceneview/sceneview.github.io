@@ -20,13 +20,15 @@
   --sv-secondary-container: #FFF1F2;
   --sv-tertiary: #06B6D4;
   --sv-tertiary-container: #ECFEFF;
-  --sv-surface: #FEFBFF;
-  --sv-surface-container: #F4F0FA;
-  --sv-surface-container-high: #ECE6F5;
+  --sv-warm: #F97316;
+  --sv-warm-container: #FFF7ED;
+  --sv-surface: #FFFCFA;
+  --sv-surface-container: #F8F4F0;
+  --sv-surface-container-high: #F0EBE5;
   --sv-on-surface: #1C1B1F;
   --sv-on-surface-variant: #49454F;
-  --sv-outline: #CAC4D0;
-  --sv-outline-variant: #E7E0EC;
+  --sv-outline: #D6CFC8;
+  --sv-outline-variant: #ECE6DF;
 
   /* M3 Expressive shape scale — bumped up for maximum roundness
      None: 0, XS: 8, S: 16, M: 24, L: 32, XL: 48, Full: 9999 */
@@ -38,8 +40,8 @@
   --sv-shape-xxl: 56px;
   --sv-shape-full: 9999px;
 
-  /* Gradients */
-  --sv-gradient-hero: linear-gradient(135deg, #F5F3FF 0%, #FFF1F2 50%, #ECFEFF 100%);
+  /* Gradients — warm, inviting */
+  --sv-gradient-hero: linear-gradient(135deg, #FFF8F0 0%, #FFF1F2 40%, #F5F3FF 100%);
   --sv-gradient-primary: linear-gradient(135deg, #7B61FF 0%, #A78BFA 100%);
   --sv-gradient-warm: linear-gradient(135deg, #F472B6 0%, #FB923C 100%);
   --sv-gradient-cool: linear-gradient(135deg, #06B6D4 0%, #7B61FF 100%);
@@ -53,14 +55,16 @@
   --sv-secondary-container: #831843;
   --sv-tertiary: #67E8F9;
   --sv-tertiary-container: #164E63;
+  --sv-warm: #FB923C;
+  --sv-warm-container: #431407;
   --sv-surface: #1C1B1F;
-  --sv-surface-container: #211F26;
-  --sv-surface-container-high: #2B2930;
+  --sv-surface-container: #242220;
+  --sv-surface-container-high: #2E2B28;
   --sv-on-surface: #E6E1E5;
   --sv-on-surface-variant: #CAC4D0;
   --sv-outline: #49454F;
-  --sv-outline-variant: #332D41;
-  --sv-gradient-hero: linear-gradient(135deg, #1C1B2E 0%, #2D1B2E 50%, #1B2D2E 100%);
+  --sv-outline-variant: #332D2A;
+  --sv-gradient-hero: linear-gradient(135deg, #2A1F1A 0%, #2D1B2E 40%, #1A2030 100%);
 }
 
 /* ---- Typography — M3 Expressive uses bolder, more playful type ---- */
@@ -202,12 +206,14 @@
 /* ---- Hero section ---- */
 
 .hero-tagline {
-  font-size: 1.35rem;
-  font-weight: 400;
-  color: var(--sv-on-surface-variant);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--sv-on-surface);
   margin-top: -0.25rem;
   margin-bottom: 1.5rem;
   line-height: 1.5;
+  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.1s;
 }
 
 /* Platform badges row */
@@ -217,6 +223,8 @@
   gap: 0.5rem;
   margin: 1rem 0 1.5rem;
   justify-content: center;
+  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.2s;
 }
 
 .platform-badge {
@@ -286,11 +294,12 @@
 /* ---- LLM Prompt Showcase ---- */
 
 .prompt-showcase {
-  background: var(--sv-surface-container);
+  background: var(--sv-gradient-hero);
   border-radius: var(--sv-shape-xxl);
   padding: 2.5rem;
   margin: 1.5rem 0;
   position: relative;
+  border: 1px solid var(--sv-outline-variant);
 }
 
 .prompt-showcase__header {
@@ -422,6 +431,11 @@
   color: var(--sv-tertiary);
 }
 
+.feature-chip--warm {
+  background: var(--sv-warm-container);
+  color: var(--sv-warm);
+}
+
 /* ---- "What you see" banner ---- */
 
 .live-badge {
@@ -511,9 +525,9 @@
   border-radius: var(--sv-shape-lg) !important;
 }
 
-/* Light mode: GitHub Light */
+/* Light mode: GitHub Light — slightly warmed */
 :root {
-  --sv-code-bg: #F6F8FA;
+  --sv-code-bg: #FAF8F6;
   --sv-code-fg: #24292F;
   --sv-code-comment: #6E7781;
   --sv-code-keyword: #CF222E;
@@ -732,6 +746,8 @@ table td:nth-child(2) {
   gap: 0.75rem;
   justify-content: center;
   margin: 1.5rem 0;
+  animation: spring-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: 0.3s;
 }
 
 .stat-pill {
@@ -755,6 +771,17 @@ table td:nth-child(2) {
 .stat-pill strong {
   color: var(--sv-primary);
 }
+
+/* Color-coded stat pills */
+.stat-pill:nth-child(1) { border-left: 4px solid var(--sv-primary); }
+.stat-pill:nth-child(2) { border-left: 4px solid var(--sv-secondary); }
+.stat-pill:nth-child(3) { border-left: 4px solid var(--sv-warm); }
+.stat-pill:nth-child(4) { border-left: 4px solid #10B981; }
+
+.stat-pill:nth-child(1) strong { color: var(--sv-primary); }
+.stat-pill:nth-child(2) strong { color: var(--sv-secondary); }
+.stat-pill:nth-child(3) strong { color: var(--sv-warm); }
+.stat-pill:nth-child(4) strong { color: #10B981; }
 
 /* ---- Tech ecosystem logo bar ---- */
 
@@ -804,7 +831,16 @@ table td:nth-child(2) {
   border-radius: var(--sv-shape-xxl);
   overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  border-top: 4px solid transparent;
 }
+
+/* Warm color accent on each industry card */
+.industry-card:nth-child(1) { border-top-color: var(--sv-primary); }
+.industry-card:nth-child(2) { border-top-color: var(--sv-warm); }
+.industry-card:nth-child(3) { border-top-color: #0D9488; }
+.industry-card:nth-child(4) { border-top-color: var(--sv-secondary); }
+.industry-card:nth-child(5) { border-top-color: #8B5CF6; }
+.industry-card:nth-child(6) { border-top-color: #06B6D4; }
 
 .industry-card:hover {
   transform: translateY(-6px) scale(1.01);
@@ -1102,11 +1138,28 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ---- Infographic banners ---- */
+.infographic {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.infographic img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: var(--sv-shape-xl);
+}
+
+.infographic--small img {
+  max-width: 480px;
+}
+
 /* ---- Spring-like hover animation for interactive elements ---- */
 @keyframes spring-in {
-  0% { transform: scale(0.95); }
-  60% { transform: scale(1.03); }
-  100% { transform: scale(1); }
+  0% { transform: scale(0.95); opacity: 0; }
+  60% { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 /* ---- Mobile responsive ---- */
