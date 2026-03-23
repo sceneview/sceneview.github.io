@@ -89,17 +89,6 @@
   }
 }
 
-@keyframes flagship-reveal-scale {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .grid.cards > ul > li,
 .device-section,
 .industry-card,
@@ -503,12 +492,8 @@
   background: color-mix(in srgb, var(--sv-primary) 6%, var(--sv-surface-container));
 }
 
-/* ── 14. Fluid Typography Already Applied in Section 4 ─────── */
-/* (Consolidated with clamp() values above) */
-
 /* ── 15. Better Mobile Experience ───────────────────────────── */
 @media screen and (max-width: 76.1875em) {
-  /* Larger touch targets */
   .md-nav__link {
     min-height: 48px !important;
     display: flex !important;
@@ -521,7 +506,6 @@
     padding: 8px 16px !important;
   }
 
-  /* Bottom-navigation feel for mobile tabs */
   .md-tabs {
     position: sticky;
     top: 0;
@@ -531,14 +515,12 @@
     -webkit-backdrop-filter: blur(16px) !important;
   }
 
-  /* Full-bleed hero on mobile */
   .hero-section {
     border-radius: 0 0 var(--sv-shape-xl) var(--sv-shape-xl) !important;
     margin-left: -16px !important;
     margin-right: -16px !important;
   }
 
-  /* Larger button touch targets */
   .md-typeset .md-button {
     min-height: 48px;
     padding: 0.75rem 2rem !important;
@@ -550,17 +532,14 @@
     padding: 0.5rem 1.2rem !important;
   }
 
-  /* Showcase items larger on mobile */
   .showcase-item {
     flex: 0 0 200px !important;
   }
 
-  /* Card grid — single column with more breathing room */
   .grid.cards > ul > li {
     padding: 1.75rem !important;
   }
 
-  /* Stat pills wrap more gracefully */
   .stat-row {
     gap: 0.6rem;
   }
@@ -574,7 +553,6 @@
 }
 
 @media screen and (max-width: 36em) {
-  /* Extra-small screens */
   .platform-badges {
     gap: 0.4rem;
   }
@@ -621,17 +599,6 @@
 .grid.cards > ul > li:hover .twemoji svg {
   transition: transform 0.5s cubic-bezier(0.35, 1.7, 0.5, 0.97);
   transform: rotate(-8deg) scale(1.15);
-}
-
-/* ── Bonus: Keyboard Scroll Indicator Fade ──────────────────── */
-.showcase-gallery::after {
-  content: '';
-  position: sticky;
-  right: 0;
-  flex-shrink: 0;
-  width: 48px;
-  background: linear-gradient(to right, transparent, var(--sv-surface));
-  pointer-events: none;
 }
 
 /* ── Reduced Motion — Respect User Preferences ──────────────── */
