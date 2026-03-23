@@ -1,0 +1,5 @@
+Contact: https://github.com/SceneView/sceneview/security/advisories
+Expires: 2027-03-23T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://sceneview.github.io/.well-known/security.txt
+Policy: https://github.com/SceneView/sceneview/security/policy
