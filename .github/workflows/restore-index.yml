@@ -1,6 +1,9 @@
 name: Restore index.html
 
 on:
+  push:
+    paths:
+      - '.github/workflows/restore-index.yml'
   workflow_dispatch:
 
 permissions:
@@ -18,21 +21,58 @@ jobs:
         run: |
           # Get the full index.html from commit 8ba7810 (before truncation)
           git checkout 8ba7810 -- index.html
-          # Add m3-interactions.js script tag
-          sed -i 's|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>\n      <script src="assets/javascripts/m3-interactions.js"></script>|' index.html
+          # Add m3-interactions.js script tag if not present
+          if ! grep -q 'm3-interactions.js' index.html; then
+            sed -i 's|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>\n      <script src="assets/javascripts/m3-interactions.js"></script>|' index.html
+          fi
           # Verify
-          echo "File size: $(wc -c < index.html)"
-          grep -c 'm3-flagship.css' index.html && echo 'CSS linked'
-          grep -c 'm3-interactions.js' index.html && echo 'JS linked'
+          echo "File size: $(wc -c < index.html) bytes"
+          grep -c 'm3-flagship.css' index.html && echo 'CSS: linked' || echo 'CSS: MISSING'
+          grep -c 'm3-interactions.js' index.html && echo 'JS: linked' || echo 'JS: MISSING'
 
-      - name: Commit and push
+      - name: Commit and push restored file
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git commit -m "fix: restore full index.html (92KB) with m3-interactions.js
+          git diff --cached --quiet && echo 'No changes needed' || {
+            git commit -m "fix: restore full index.html (92KB) with all enhancements
 
-          Previous commit accidentally truncated index.html from 92KB to 13KB.
-          This restores the complete homepage from commit 8ba7810 and adds
-          the m3-interactions.js script tag."
-          git push
+            Restored from commit 8ba7810 with m3-interactions.js script tag added.
+            Previous commit accidentally truncated the file from 92KB to 13KB."
+            git push
+          }
+
+      - name: Self-cleanup - revert workflow to manual-only
+        run: |
+          # After restoration, update workflow to only trigger manually
+          cat > .github/workflows/restore-index.yml << 'WORKFLOW'
+          name: Restore index.html
+          on:
+            workflow_dispatch:
+          permissions:
+            contents: write
+          jobs:
+            restore:
+              runs-on: ubuntu-latest
+              steps:
+                - uses: actions/checkout@v4
+                  with:
+                    fetch-depth: 0
+                - name: Restore index.html
+                  run: |
+                    git checkout 8ba7810 -- index.html
+                    if ! grep -q 'm3-interactions.js' index.html; then
+                      sed -i 's|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>\n      <script src="assets/javascripts/m3-interactions.js"></script>|' index.html
+                    fi
+                    echo "Size: $(wc -c < index.html)"
+                - name: Commit
+                  run: |
+                    git config user.name "github-actions[bot]"
+                    git config user.email "github-actions[bot]@users.noreply.github.com"
+                    git add index.html
+                    git diff --cached --quiet || git commit -m "fix: restore index.html" && git push
+          WORKFLOW
+          git add .github/workflows/restore-index.yml
+          git commit -m "ci: revert restore workflow to manual-only trigger" || true
+          git push || true
