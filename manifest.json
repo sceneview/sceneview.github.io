@@ -1,7 +1,7 @@
 {
   "name": "SceneView — 3D & AR SDK for Android",
   "short_name": "SceneView",
-  "description": "The #1 open-source 3D & AR SDK for Android. Compose-native scenes powered by Google Filament and ARCore. 22+ node types, physics, AR, and AI-assisted development.",
+  "description": "The #1 open-source 3D & AR SDK for Android. Compose-native scenes powered by Google Filament and ARCore. 26+ node types, physics, AR, and AI-assisted development.",
   "start_url": "/",
   "scope": "/",
   "id": "/",
@@ -10,7 +10,8 @@
   "background_color": "#FEF7FF",
   "theme_color": "#6750A4",
   "orientation": "any",
-  "categories": ["developer tools", "education", "productivity", "utilities"],
+  "categories": ["developer-tools", "3d", "augmented-reality", "education", "productivity"],
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
   "icons": [
     {
       "src": "/assets/images/favicon.png",

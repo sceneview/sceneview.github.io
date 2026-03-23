@@ -111,7 +111,7 @@ fun MyARScreen() {
 
 ---
 
-## All Node Types (22+)
+## All Node Types (26+)
 
 ### ModelNode — glTF/GLB Models
 ```kotlin
@@ -180,7 +180,35 @@ HitResultNode(xPx = screenCenterX, yPx = screenCenterY) { SphereNode(radius = 0.
 AugmentedImageNode(augmentedImage = image) { ModelNode(...) }
 AugmentedFaceNode(augmentedFace = face, meshMaterialInstance = faceMaterial)
 CloudAnchorNode(anchor = localAnchor, onHosted = { cloudId, state -> })
+GeospatialNode(latitude = 37.7749, longitude = -122.4194, altitude = 0.0)
+DepthNode(depthTexture = depthImage)
+InstantPlacementNode(xPx = centerX, yPx = centerY, approximateDistanceMeters = 2.0f)
+ArrowNode(from = Position(0f), to = Position(1f, 0f, 0f), materialInstance = mat)
 ```
+
+---
+
+## MCP Server Installation
+
+Install the SceneView MCP server for AI-assisted development:
+
+```bash
+npx -y @sceneview/mcp
+```
+
+Add to your AI assistant's MCP configuration (Claude, Cursor, etc.):
+```json
+{
+  "mcpServers": {
+    "sceneview": {
+      "command": "npx",
+      "args": ["-y", "@sceneview/mcp"]
+    }
+  }
+}
+```
+
+Available MCP tools: `get_sample`, `list_samples`, `get_setup`, `validate_code`, `get_migration_guide`, `get_node_reference`, `get_platform_roadmap`, `get_best_practices`, `get_ar_setup`
 
 ---
 
@@ -213,6 +241,11 @@ val chrome = materialLoader.createColorInstance(Color.White, metallic = 1f, roug
 | Learning curve | Low | High | Very High | Very High | Medium |
 | AI tooling (MCP) | Yes | No | No | No | No |
 | Open source | Apache 2.0 | Proprietary | Proprietary | Apache 2.0 | Apache 2.0 |
+| Node types | 26+ | N/A | N/A | Manual | ~10 |
+| Physics | Built-in | Built-in | Built-in | None | None |
+| glTF support | Native | Plugin | Plugin | Manual | Limited |
+| Active maintenance | Yes (2026) | Yes | Yes | Yes | Dormant |
+| Android-first | Yes | No | No | Yes | Yes |
 
 ---
 

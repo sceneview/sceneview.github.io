@@ -656,3 +656,326 @@
     background: none !important;
   }
 }
+
+/* ================================================================
+   M3 FLAGSHIP ENHANCEMENTS — March 2026
+   Additional premium styles inspired by m3.material.io
+   ================================================================ */
+
+/* ── 16. M3-Style Chip Navigation (Tab Links as Filter Chips) ── */
+.md-tabs__link {
+  border-radius: var(--sv-shape-full) !important;
+  background: color-mix(in srgb, var(--sv-on-surface) 5%, transparent);
+  border: none !important;
+  padding: 6px 20px !important;
+  margin: 4px 3px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  color: var(--sv-on-surface-variant);
+  transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+  display: inline-flex;
+  align-items: center;
+}
+
+.md-tabs__link:hover {
+  background: color-mix(in srgb, var(--sv-primary) 12%, transparent);
+  color: var(--sv-primary);
+}
+
+.md-tabs__link--active {
+  background: var(--sv-primary-container) !important;
+  color: var(--sv-primary) !important;
+  font-weight: 600;
+}
+
+.md-tabs__link--active::after {
+  display: none !important;
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link {
+  background: color-mix(in srgb, var(--sv-on-surface) 8%, transparent);
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link:hover {
+  background: color-mix(in srgb, var(--sv-primary) 18%, transparent);
+}
+
+[data-md-color-scheme="slate"] .md-tabs__link--active {
+  background: color-mix(in srgb, var(--sv-primary) 22%, var(--sv-surface-container)) !important;
+  color: var(--sv-primary) !important;
+}
+
+/* ── 17. Gradient Text Fallback (Accessibility) ────────────────── */
+@supports not (background-clip: text) {
+  .hero-section h1,
+  .md-typeset .hero-section h1 {
+    color: var(--sv-primary) !important;
+    -webkit-text-fill-color: initial;
+  }
+}
+
+/* ── 18. Glass-Morphism Fallback ───────────────────────────────── */
+@supports not (backdrop-filter: blur(1px)) {
+  .md-header {
+    background: var(--sv-surface) !important;
+  }
+}
+
+/* ── 19. M3 Focus Visible States ───────────────────────────────── */
+.md-typeset .md-button:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  border-radius: var(--sv-shape-full);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+.grid.cards > ul > li:focus-visible,
+.m3-card:focus-visible,
+.md-typeset .grid-card:focus-visible,
+.md-typeset .feature-card:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  border-radius: var(--sv-shape-lg);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+.platform-badge:focus-visible,
+.m3-badge:focus-visible,
+.m3-chip:focus-visible,
+.md-typeset .feature-chip:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+.md-tabs__link:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+.stat-pill:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+.industry-card:focus-visible,
+.platform-card:focus-visible,
+.showcase-item:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+.m3-button-filled:focus-visible,
+.m3-button-filled-tonal:focus-visible,
+.m3-button-outlined:focus-visible,
+.m3-fab:focus-visible {
+  outline: 3px solid var(--sv-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+/* ── 20. Smooth Gradient Background Animation for Hero ─────────── */
+@keyframes flagship-hero-gradient-drift {
+  0% {
+    background-position: 0% 50%;
+    background-size: 200% 200%;
+  }
+  25% {
+    background-position: 100% 25%;
+    background-size: 220% 220%;
+  }
+  50% {
+    background-position: 50% 100%;
+    background-size: 200% 200%;
+  }
+  75% {
+    background-position: 0% 75%;
+    background-size: 210% 210%;
+  }
+  100% {
+    background-position: 0% 50%;
+    background-size: 200% 200%;
+  }
+}
+
+.hero-section {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--sv-primary-container) 60%, var(--sv-surface)) 0%,
+    color-mix(in srgb, var(--sv-tertiary-container, #FFD8E4) 40%, var(--sv-surface)) 30%,
+    color-mix(in srgb, var(--sv-secondary-container) 50%, var(--sv-surface)) 60%,
+    color-mix(in srgb, var(--sv-primary-container) 55%, var(--sv-surface)) 100%
+  ) !important;
+  background-size: 200% 200%;
+  animation: flagship-hero-gradient-drift 16s ease-in-out infinite !important;
+}
+
+[data-md-color-scheme="slate"] .hero-section {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--sv-primary) 10%, var(--sv-surface)) 0%,
+    color-mix(in srgb, var(--sv-tertiary, #7D5260) 8%, var(--sv-surface)) 35%,
+    color-mix(in srgb, var(--sv-secondary) 6%, var(--sv-surface)) 65%,
+    color-mix(in srgb, var(--sv-primary) 12%, var(--sv-surface)) 100%
+  ) !important;
+  background-size: 200% 200%;
+  animation: flagship-hero-gradient-drift 16s ease-in-out infinite !important;
+}
+
+/* ── 21. Enhanced Hero CTA Buttons ─────────────────────────────── */
+.hero-section .md-button--primary,
+.hero-section .md-typeset .md-button--primary,
+.md-typeset .hero-section .md-button--primary {
+  padding: 14px 36px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  border-radius: var(--sv-shape-full) !important;
+  background: var(--sv-primary) !important;
+  color: var(--sv-on-primary) !important;
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(103, 80, 164, 0.35),
+              0 1px 5px rgba(103, 80, 164, 0.2) !important;
+  letter-spacing: 0.02em;
+  transition: all 0.3s cubic-bezier(0.35, 1.7, 0.5, 0.97) !important;
+}
+
+.hero-section .md-button--primary:hover,
+.md-typeset .hero-section .md-button--primary:hover {
+  transform: translateY(-3px) scale(1.04) !important;
+  box-shadow: 0 8px 24px rgba(103, 80, 164, 0.4),
+              0 2px 8px rgba(103, 80, 164, 0.25) !important;
+}
+
+.hero-section .md-button--primary:active,
+.md-typeset .hero-section .md-button--primary:active {
+  transform: translateY(0) scale(0.97) !important;
+  box-shadow: 0 2px 8px rgba(103, 80, 164, 0.25) !important;
+  transition-duration: 0.1s !important;
+}
+
+/* Tonal variant for secondary CTA */
+.hero-section .md-button:not(.md-button--primary),
+.md-typeset .hero-section .md-button:not(.md-button--primary) {
+  padding: 14px 36px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border-radius: var(--sv-shape-full) !important;
+  background: var(--sv-primary-container) !important;
+  color: var(--sv-primary) !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(103, 80, 164, 0.12),
+              0 1px 3px rgba(103, 80, 164, 0.08) !important;
+  letter-spacing: 0.02em;
+  transition: all 0.3s cubic-bezier(0.35, 1.7, 0.5, 0.97) !important;
+}
+
+.hero-section .md-button:not(.md-button--primary):hover,
+.md-typeset .hero-section .md-button:not(.md-button--primary):hover {
+  transform: translateY(-3px) scale(1.04) !important;
+  box-shadow: 0 6px 20px rgba(103, 80, 164, 0.18),
+              0 2px 6px rgba(103, 80, 164, 0.12) !important;
+  background: color-mix(in srgb, var(--sv-primary-container) 85%, var(--sv-primary)) !important;
+}
+
+.hero-section .md-button:not(.md-button--primary):active,
+.md-typeset .hero-section .md-button:not(.md-button--primary):active {
+  transform: translateY(0) scale(0.97) !important;
+  transition-duration: 0.1s !important;
+}
+
+[data-md-color-scheme="slate"] .hero-section .md-button--primary,
+[data-md-color-scheme="slate"] .md-typeset .hero-section .md-button--primary {
+  background: var(--sv-primary) !important;
+  color: #1C1B1F !important;
+  box-shadow: 0 4px 14px rgba(167, 139, 250, 0.35),
+              0 1px 5px rgba(167, 139, 250, 0.2) !important;
+}
+
+[data-md-color-scheme="slate"] .hero-section .md-button--primary:hover,
+[data-md-color-scheme="slate"] .md-typeset .hero-section .md-button--primary:hover {
+  box-shadow: 0 8px 24px rgba(167, 139, 250, 0.45),
+              0 2px 8px rgba(167, 139, 250, 0.25) !important;
+}
+
+[data-md-color-scheme="slate"] .hero-section .md-button:not(.md-button--primary),
+[data-md-color-scheme="slate"] .md-typeset .hero-section .md-button:not(.md-button--primary) {
+  background: color-mix(in srgb, var(--sv-primary) 18%, var(--sv-surface-container)) !important;
+  color: var(--sv-primary) !important;
+  box-shadow: 0 2px 8px rgba(167, 139, 250, 0.15) !important;
+}
+
+/* ── 22. Subtle Animated Dot Pattern Background ────────────────── */
+@keyframes flagship-dot-drift {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 40px 40px; }
+}
+
+.md-content::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--sv-primary) 6%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
+  animation: flagship-dot-drift 60s linear infinite;
+  opacity: 0.45;
+}
+
+.md-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+[data-md-color-scheme="slate"] .md-content::before {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--sv-primary) 8%, transparent) 1px,
+    transparent 1px
+  );
+  opacity: 0.35;
+}
+
+/* Prevent dot pattern on hero (it has its own background) */
+.hero-section {
+  z-index: 2;
+  position: relative;
+}
+
+/* ── Reduced Motion Overrides for New Enhancements ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section {
+    animation: none !important;
+  }
+
+  .md-content::before {
+    animation: none !important;
+  }
+
+  .hero-section .md-button--primary:hover,
+  .md-typeset .hero-section .md-button--primary:hover,
+  .hero-section .md-button:not(.md-button--primary):hover,
+  .md-typeset .hero-section .md-button:not(.md-button--primary):hover {
+    transform: none !important;
+  }
+}
+
+/* ── Print Overrides for New Enhancements ──────────────────────── */
+@media print {
+  .md-content::before {
+    display: none !important;
+  }
+
+  .hero-section .md-button--primary,
+  .hero-section .md-button:not(.md-button--primary) {
+    box-shadow: none !important;
+  }
+}

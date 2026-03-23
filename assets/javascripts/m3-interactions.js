@@ -116,6 +116,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---------------------------------------------------------------------------
+  // 4b. Mouse tracking for CSS ripple effect (--mouse-x, --mouse-y)
+  // ---------------------------------------------------------------------------
+  const RIPPLE_SELECTORS = '.grid.cards > ul > li, .platform-card, .device-section--clickable, .industry-card';
+  document.querySelectorAll(RIPPLE_SELECTORS).forEach((el) => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+      el.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+    }, { passive: true });
+  });
+
+  // ---------------------------------------------------------------------------
   // 5. Smooth scroll for anchor links
   // ---------------------------------------------------------------------------
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -164,6 +176,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
     gallery.addEventListener('touchend', () => {
       autoScrollId = requestAnimationFrame(autoScroll);
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        if (autoScrollId) { cancelAnimationFrame(autoScrollId); autoScrollId = null; }
+      } else {
+        if (!autoScrollId) { autoScrollId = requestAnimationFrame(autoScroll); }
+      }
     }, { passive: true });
   }
 
@@ -220,7 +240,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------------------------------------------------------------------------
   document.querySelectorAll('.platform-badge').forEach((badge) => {
     badge.style.cursor = 'pointer';
-    badge.addEventListener('click', () => {
+    if (!badge.hasAttribute('tabindex')) badge.setAttribute('tabindex', '0');
+    if (!badge.hasAttribute('role')) badge.setAttribute('role', 'button');
+    const activateBadge = () => {
       const label = badge.textContent.trim().toLowerCase();
       const sections = document.querySelectorAll('.device-section');
       for (const section of sections) {
@@ -234,15 +256,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
       if (sections.length) sections[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    badge.addEventListener('click', activateBadge);
+    badge.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activateBadge();
+      }
     });
   });
 
-  // ---------------------------------------------------------------------------
-  // 10. Performance — cleanup on page hide
-  // ---------------------------------------------------------------------------
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden && gallery) {
-      // Pause animations when tab is hidden
-    }
-  }, { passive: true });
 });

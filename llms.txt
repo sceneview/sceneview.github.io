@@ -79,7 +79,7 @@ ARScene(
 }
 ```
 
-## Available Node Types
+## Available Node Types (26+)
 
 | Node | Description |
 |------|-------------|
@@ -105,6 +105,33 @@ ARScene(
 | AugmentedImageNode | Real-world image detection |
 | AugmentedFaceNode | Face mesh tracking |
 | CloudAnchorNode | Persistent cross-device anchors |
+| GeospatialNode | ARCore Geospatial API anchors |
+| DepthNode | ARCore depth mesh rendering |
+| InstantPlacementNode | Instant AR placement without plane |
+| HitResultNode | AR hit-test result anchoring |
+| ArrowNode | Directional 3D arrows |
+
+## MCP Server Installation
+
+Install the SceneView MCP server for AI-assisted development with Claude, Cursor, or other AI coding assistants:
+
+```bash
+npx -y @sceneview/mcp
+```
+
+Or add to your AI assistant's MCP configuration:
+```json
+{
+  "mcpServers": {
+    "sceneview": {
+      "command": "npx",
+      "args": ["-y", "@sceneview/mcp"]
+    }
+  }
+}
+```
+
+Available MCP tools: get_sample, list_samples, get_setup, validate_code, get_migration_guide, get_node_reference, get_platform_roadmap, get_best_practices, get_ar_setup
 
 ## Use Cases
 
@@ -119,12 +146,16 @@ ARScene(
 
 ## Why SceneView over alternatives?
 
-| Feature | SceneView | Unity | Unreal | Raw Filament |
-|---------|-----------|-------|--------|-------------|
-| Compose-native | Yes | No | No | No |
-| APK size | ~5MB | ~50MB | ~100MB | ~3MB |
-| Learning curve | Low | High | Very High | Very High |
-| AR support | Built-in | Plugin | Plugin | None |
-| Open source | Apache 2.0 | Proprietary | Proprietary | Apache 2.0 |
-| Android-first | Yes | No | No | Yes |
-| AI-assisted | MCP server | No | No | No |
+| Feature | SceneView | Unity | Unreal | Raw Filament | Rajawali |
+|---------|-----------|-------|--------|-------------|----------|
+| Compose-native | Yes | No | No | No | No |
+| APK size | ~5MB | ~50MB | ~100MB | ~3MB | ~2MB |
+| Learning curve | Low | High | Very High | Very High | Medium |
+| AR support | Built-in | Plugin | Plugin | None | None |
+| Open source | Apache 2.0 | Proprietary | Proprietary | Apache 2.0 | Apache 2.0 |
+| Android-first | Yes | No | No | Yes | Yes |
+| AI-assisted (MCP) | Yes | No | No | No | No |
+| Node types | 26+ | N/A | N/A | Manual | ~10 |
+| Physics | Built-in | Built-in | Built-in | None | None |
+| glTF support | Native | Plugin | Plugin | Manual | Limited |
+| Active maintenance | Yes (2026) | Yes | Yes | Yes | Dormant |
