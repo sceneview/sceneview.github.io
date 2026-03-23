@@ -1,0 +1,691 @@
+/* ================================================================
+   SceneView — M3 Flagship Design Layer
+   Premium visual enhancements inspired by m3.material.io
+   Layered on top of extra.css, m3-enhancements.css, m3-expressive.css
+   ================================================================ */
+
+/* ── 1. Animated Floating Blob Background for Hero ──────────── */
+@keyframes blob-float-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(80px, -40px) scale(1.15); }
+  50% { transform: translate(-20px, 60px) scale(0.9); }
+  75% { transform: translate(-60px, -20px) scale(1.08); }
+}
+
+@keyframes blob-float-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(-70px, 50px) scale(1.1); }
+  50% { transform: translate(40px, -30px) scale(0.95); }
+  75% { transform: translate(60px, 40px) scale(1.12); }
+}
+
+@keyframes blob-float-3 {
+  0%, 100% { transform: translate(0, 0) scale(1.05); }
+  33% { transform: translate(50px, 70px) scale(0.92); }
+  66% { transform: translate(-80px, -10px) scale(1.1); }
+}
+
+.hero-section::before,
+.hero-section::after,
+.bottom-cta::before {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.hero-section::before {
+  width: 420px;
+  height: 420px;
+  background: var(--sv-primary-container);
+  top: -10%;
+  right: -5%;
+  animation: blob-float-1 18s ease-in-out infinite;
+}
+
+.hero-section::after {
+  width: 350px;
+  height: 350px;
+  background: var(--sv-tertiary-container, #FFD8E4);
+  bottom: -8%;
+  left: 5%;
+  animation: blob-float-2 22s ease-in-out infinite;
+}
+
+.bottom-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.bottom-cta::before {
+  width: 300px;
+  height: 300px;
+  background: var(--sv-secondary-container, #E8DEF8);
+  top: -20%;
+  left: 50%;
+  animation: blob-float-3 20s ease-in-out infinite;
+}
+
+[data-md-color-scheme="slate"] .hero-section::before {
+  background: rgba(103, 80, 164, 0.25);
+}
+
+[data-md-color-scheme="slate"] .hero-section::after {
+  background: rgba(125, 82, 96, 0.2);
+}
+
+/* ── 2. Scroll-Triggered Reveal Animations ──────────────────── */
+@keyframes flagship-reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes flagship-reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.grid.cards > ul > li,
+.device-section,
+.industry-card,
+.visual-card,
+.platform-card,
+.prompt-showcase,
+.demo-container {
+  animation: flagship-reveal-up 0.7s cubic-bezier(0.05, 0.7, 0.1, 1) both;
+  animation-timeline: view();
+  animation-range: entry 0% entry 40%;
+}
+
+/* ── 3. M3 Expressive Spring Physics Micro-interactions ─────── */
+.md-typeset .md-button {
+  transition: all 0.35s cubic-bezier(0.35, 1.7, 0.5, 0.97);
+}
+
+.md-typeset .md-button:hover {
+  transform: translateY(-2px) scale(1.03);
+}
+
+.md-typeset .md-button:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 0.12s;
+}
+
+.platform-badge {
+  transition: all 0.35s cubic-bezier(0.35, 1.7, 0.5, 0.97) !important;
+}
+
+.platform-badge:active {
+  transform: scale(0.94) !important;
+  transition-duration: 0.1s !important;
+}
+
+.tech-logo {
+  transition: all 0.3s cubic-bezier(0.35, 1.7, 0.5, 0.97) !important;
+}
+
+.tech-logo:hover {
+  transform: translateY(-3px) scale(1.06) !important;
+}
+
+/* ── 4. Display-Level Bold Typography with Fluid Sizing ─────── */
+.md-typeset h1 {
+  font-size: clamp(2rem, 5vw + 0.5rem, 3.5rem) !important;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.hero-section h1,
+.md-typeset .hero-section h1 {
+  font-size: clamp(2.2rem, 6vw + 0.5rem, 4rem) !important;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05 !important;
+}
+
+.md-typeset h2 {
+  font-size: clamp(1.4rem, 3vw + 0.3rem, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h3 {
+  font-size: clamp(1.1rem, 2vw + 0.2rem, 1.5rem);
+  font-weight: 700;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2.5vw + 0.2rem, 1.45rem) !important;
+}
+
+.bottom-cta h2 {
+  font-size: clamp(1.6rem, 4vw + 0.4rem, 2.8rem) !important;
+}
+
+.bottom-cta p {
+  font-size: clamp(0.95rem, 1.5vw + 0.3rem, 1.2rem);
+}
+
+/* ── 5. Tonal Surface Coloring ──────────────────────────────── */
+.md-content {
+  background: color-mix(in srgb, var(--sv-primary) 2%, var(--sv-surface)) !important;
+}
+
+.md-sidebar {
+  background: color-mix(in srgb, var(--sv-primary) 1.5%, var(--sv-surface));
+}
+
+.md-footer {
+  background: color-mix(in srgb, var(--sv-primary) 4%, var(--sv-surface-container)) !important;
+}
+
+[data-md-color-scheme="slate"] .md-content {
+  background: color-mix(in srgb, var(--sv-primary) 3%, var(--sv-surface)) !important;
+}
+
+[data-md-color-scheme="slate"] .md-sidebar {
+  background: color-mix(in srgb, var(--sv-primary) 2%, var(--sv-surface));
+}
+
+/* ── 6. Interactive M3 State Layers (Ripple Hover Overlays) ─── */
+.grid.cards > ul > li,
+.platform-card,
+.device-section,
+.industry-card,
+.showcase-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.grid.cards > ul > li::after,
+.platform-card::after,
+.device-section--clickable::after,
+.industry-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(103, 80, 164, 0.08) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.grid.cards > ul > li:hover::after,
+.platform-card:hover::after,
+.device-section--clickable:hover::after,
+.industry-card:hover::after {
+  opacity: 1;
+}
+
+[data-md-color-scheme="slate"] .grid.cards > ul > li::after,
+[data-md-color-scheme="slate"] .platform-card::after,
+[data-md-color-scheme="slate"] .industry-card::after {
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(167, 139, 250, 0.1) 0%,
+    transparent 70%
+  );
+}
+
+/* ── 7. Gradient Text for Hero Headlines ────────────────────── */
+.hero-section h1,
+.md-typeset .hero-section h1 {
+  background: linear-gradient(
+    135deg,
+    var(--sv-on-surface) 0%,
+    var(--sv-primary) 45%,
+    var(--sv-tertiary, #7D5260) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-md-color-scheme="slate"] .hero-section h1,
+[data-md-color-scheme="slate"] .md-typeset .hero-section h1 {
+  background: linear-gradient(
+    135deg,
+    #E6E0E9 0%,
+    #D0BCFF 40%,
+    #EFB8C8 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bottom-cta h2 {
+  background: linear-gradient(135deg, var(--sv-on-surface) 0%, var(--sv-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-md-color-scheme="slate"] .bottom-cta h2 {
+  background: linear-gradient(135deg, #E6E0E9 0%, #D0BCFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 8. Card Hover Microanimations ──────────────────────────── */
+.grid.cards > ul > li {
+  transition: transform 0.4s cubic-bezier(0.35, 1.7, 0.5, 0.97),
+              box-shadow 0.4s cubic-bezier(0.05, 0.7, 0.1, 1),
+              border-color 0.3s ease !important;
+}
+
+.grid.cards > ul > li:hover {
+  transform: translateY(-6px) scale(1.015) !important;
+  box-shadow: 0 8px 32px rgba(103, 80, 164, 0.12),
+              0 2px 8px rgba(103, 80, 164, 0.08),
+              0 0 0 1px rgba(103, 80, 164, 0.1) !important;
+  border-color: color-mix(in srgb, var(--sv-primary) 40%, transparent) !important;
+}
+
+[data-md-color-scheme="slate"] .grid.cards > ul > li:hover {
+  box-shadow: 0 8px 32px rgba(167, 139, 250, 0.15),
+              0 2px 8px rgba(167, 139, 250, 0.1),
+              0 0 0 1px rgba(167, 139, 250, 0.15) !important;
+}
+
+.industry-card {
+  transition: transform 0.4s cubic-bezier(0.35, 1.7, 0.5, 0.97),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease !important;
+}
+
+.industry-card:hover {
+  transform: translateY(-6px) scale(1.01) !important;
+  box-shadow: 0 12px 40px rgba(103, 80, 164, 0.14),
+              0 0 0 1px rgba(103, 80, 164, 0.08) !important;
+}
+
+.platform-card {
+  transition: transform 0.4s cubic-bezier(0.35, 1.7, 0.5, 0.97),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease !important;
+}
+
+.platform-card:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 8px 28px rgba(103, 80, 164, 0.1),
+              0 0 0 1px rgba(103, 80, 164, 0.08) !important;
+}
+
+/* ── 9. Glass-Morphism Floating Header ──────────────────────── */
+.md-header {
+  background: color-mix(in srgb, var(--sv-surface) 78%, transparent) !important;
+  backdrop-filter: blur(24px) saturate(1.8) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.8) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--sv-outline) 30%, transparent) !important;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background: color-mix(in srgb, var(--sv-surface) 82%, transparent) !important;
+  border-bottom-color: color-mix(in srgb, var(--sv-outline) 20%, transparent) !important;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.md-tabs {
+  background: transparent !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+/* ── 10. Enhanced Showcase — Snap Scroll Gallery ────────────── */
+.showcase-gallery {
+  scroll-snap-type: x mandatory !important;
+  scroll-padding: 0 24px;
+  gap: 1.5rem !important;
+  padding: 1.5rem 24px 2rem !important;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+.showcase-item {
+  scroll-snap-align: center !important;
+  flex: 0 0 240px !important;
+  transition: transform 0.4s cubic-bezier(0.35, 1.7, 0.5, 0.97) !important;
+}
+
+.showcase-item:hover {
+  transform: translateY(-8px) scale(1.04) !important;
+}
+
+.showcase-item__img {
+  transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.05, 0.7, 0.1, 1) !important;
+}
+
+.showcase-item:hover .showcase-item__img {
+  box-shadow: 0 24px 64px rgba(103, 80, 164, 0.22),
+              0 0 0 2px rgba(103, 80, 164, 0.15) !important;
+}
+
+/* ── 11. Animated Stat Badges with Pulse ────────────────────── */
+@keyframes flagship-stat-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(103, 80, 164, 0.15); }
+  50% { box-shadow: 0 0 0 6px rgba(103, 80, 164, 0); }
+}
+
+.stat-pill strong {
+  display: inline-block;
+  animation: flagship-stat-pulse 3s ease-in-out infinite;
+  border-radius: var(--sv-shape-full);
+  padding: 0 2px;
+}
+
+.stat-pill:nth-child(1) strong { animation-delay: 0s; }
+.stat-pill:nth-child(2) strong { animation-delay: 0.5s; }
+.stat-pill:nth-child(3) strong { animation-delay: 1s; }
+.stat-pill:nth-child(4) strong { animation-delay: 1.5s; }
+
+.stat-pill {
+  transition: transform 0.35s cubic-bezier(0.35, 1.7, 0.5, 0.97),
+              box-shadow 0.3s ease,
+              background 0.3s ease !important;
+}
+
+.stat-pill:hover {
+  transform: translateY(-3px) scale(1.04) !important;
+  box-shadow: 0 4px 16px rgba(103, 80, 164, 0.12) !important;
+  background: color-mix(in srgb, var(--sv-primary) 6%, var(--sv-surface-container)) !important;
+}
+
+/* ── 12. Cross-Fade Page Transitions ────────────────────────── */
+@keyframes flagship-page-enter {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+.md-content__inner {
+  animation: flagship-page-enter 0.5s cubic-bezier(0.05, 0.7, 0.1, 1) both !important;
+}
+
+@supports (view-transition-name: auto) {
+  ::view-transition-old(root) {
+    animation: 0.3s ease-out both fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 0.3s ease-in both fade-in;
+  }
+  @keyframes fade-out {
+    to { opacity: 0; transform: scale(0.98); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; transform: scale(1.02); }
+  }
+}
+
+/* ── 13. Rich Dark Mode Tonal Palette ───────────────────────── */
+[data-md-color-scheme="slate"] {
+  --sv-surface-tint: color-mix(in srgb, var(--sv-primary) 8%, var(--sv-surface));
+}
+
+[data-md-color-scheme="slate"] .md-main {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sv-primary) 4%, var(--sv-surface)) 0%,
+    var(--sv-surface) 40%
+  );
+}
+
+[data-md-color-scheme="slate"] .hero-section {
+  border: 1px solid color-mix(in srgb, var(--sv-primary) 12%, transparent);
+}
+
+[data-md-color-scheme="slate"] .grid.cards > ul > li {
+  background: color-mix(in srgb, var(--sv-primary) 4%, var(--sv-surface-container));
+  border-color: color-mix(in srgb, var(--sv-primary) 8%, var(--sv-outline));
+}
+
+[data-md-color-scheme="slate"] .device-section {
+  background: color-mix(in srgb, var(--sv-primary) 3%, var(--sv-surface-container));
+  border-color: color-mix(in srgb, var(--sv-primary) 6%, var(--sv-outline-variant));
+}
+
+[data-md-color-scheme="slate"] .bottom-cta {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--sv-primary) 12%, var(--sv-surface)) 0%,
+    color-mix(in srgb, var(--sv-tertiary, #7D5260) 10%, var(--sv-surface)) 100%
+  );
+  border-color: color-mix(in srgb, var(--sv-primary) 15%, transparent);
+}
+
+[data-md-color-scheme="slate"] .stat-pill {
+  background: color-mix(in srgb, var(--sv-primary) 5%, var(--sv-surface-container));
+}
+
+[data-md-color-scheme="slate"] .platform-badge {
+  background: color-mix(in srgb, var(--sv-primary) 6%, var(--sv-surface-container));
+}
+
+/* ── 14. Fluid Typography Already Applied in Section 4 ─────── */
+/* (Consolidated with clamp() values above) */
+
+/* ── 15. Better Mobile Experience ───────────────────────────── */
+@media screen and (max-width: 76.1875em) {
+  /* Larger touch targets */
+  .md-nav__link {
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 8px 16px !important;
+  }
+
+  .md-tabs__link {
+    min-height: 44px;
+    padding: 8px 16px !important;
+  }
+
+  /* Bottom-navigation feel for mobile tabs */
+  .md-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: color-mix(in srgb, var(--sv-surface) 90%, transparent) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+  }
+
+  /* Full-bleed hero on mobile */
+  .hero-section {
+    border-radius: 0 0 var(--sv-shape-xl) var(--sv-shape-xl) !important;
+    margin-left: -16px !important;
+    margin-right: -16px !important;
+  }
+
+  /* Larger button touch targets */
+  .md-typeset .md-button {
+    min-height: 48px;
+    padding: 0.75rem 2rem !important;
+    font-size: 0.95rem;
+  }
+
+  .platform-badge {
+    min-height: 44px;
+    padding: 0.5rem 1.2rem !important;
+  }
+
+  /* Showcase items larger on mobile */
+  .showcase-item {
+    flex: 0 0 200px !important;
+  }
+
+  /* Card grid — single column with more breathing room */
+  .grid.cards > ul > li {
+    padding: 1.75rem !important;
+  }
+
+  /* Stat pills wrap more gracefully */
+  .stat-row {
+    gap: 0.6rem;
+  }
+
+  .stat-pill {
+    flex: 1 1 auto;
+    min-width: 120px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 36em) {
+  /* Extra-small screens */
+  .platform-badges {
+    gap: 0.4rem;
+  }
+
+  .platform-badge {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.9rem !important;
+    min-height: 40px;
+  }
+
+  .showcase-item {
+    flex: 0 0 170px !important;
+  }
+
+  .bottom-cta {
+    padding: 2.5rem 1.25rem !important;
+  }
+}
+
+/* ── Bonus: Animated Underline for Active Nav Tab ───────────── */
+.md-tabs__link--active {
+  position: relative;
+}
+
+.md-tabs__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  border-radius: var(--sv-shape-full);
+  background: var(--sv-primary);
+  animation: flagship-tab-indicator 0.35s cubic-bezier(0.35, 1.7, 0.5, 0.97) both;
+}
+
+@keyframes flagship-tab-indicator {
+  from { width: 0; opacity: 0; }
+  to { width: 24px; opacity: 1; }
+}
+
+/* ── Bonus: Smooth Icon Spin on Card Hover ──────────────────── */
+.grid.cards > ul > li:hover .twemoji svg {
+  transition: transform 0.5s cubic-bezier(0.35, 1.7, 0.5, 0.97);
+  transform: rotate(-8deg) scale(1.15);
+}
+
+/* ── Bonus: Keyboard Scroll Indicator Fade ──────────────────── */
+.showcase-gallery::after {
+  content: '';
+  position: sticky;
+  right: 0;
+  flex-shrink: 0;
+  width: 48px;
+  background: linear-gradient(to right, transparent, var(--sv-surface));
+  pointer-events: none;
+}
+
+/* ── Reduced Motion — Respect User Preferences ──────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::before,
+  .hero-section::after,
+  .bottom-cta::before {
+    animation: none !important;
+  }
+
+  .stat-pill strong {
+    animation: none !important;
+  }
+
+  .grid.cards > ul > li,
+  .device-section,
+  .industry-card,
+  .visual-card,
+  .platform-card {
+    animation: none !important;
+  }
+
+  .md-content__inner {
+    animation: none !important;
+  }
+
+  .md-typeset .md-button:hover {
+    transform: none;
+  }
+
+  .grid.cards > ul > li:hover {
+    transform: none !important;
+  }
+
+  .showcase-item:hover {
+    transform: none !important;
+  }
+}
+
+/* ── Print — Clean Output ───────────────────────────────────── */
+@media print {
+  .hero-section::before,
+  .hero-section::after,
+  .bottom-cta::before {
+    display: none !important;
+  }
+
+  .hero-section h1 {
+    -webkit-text-fill-color: var(--sv-on-surface) !important;
+    background: none !important;
+  }
+
+  .bottom-cta h2 {
+    -webkit-text-fill-color: var(--sv-on-surface) !important;
+    background: none !important;
+  }
+}
