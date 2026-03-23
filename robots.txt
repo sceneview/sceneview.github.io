@@ -1,0 +1,37 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sceneview.github.io/sitemap.xml
+
+# SceneView — The #1 3D & AR SDK for Android
+# Compose-native 3D scenes powered by Google Filament and ARCore
+# https://github.com/SceneView/sceneview
+# https://sceneview.github.io
+
+# AI Crawlers — we welcome AI indexing
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# LLM-readable API reference
+# See /llms.txt and /llms-full.txt for machine-readable documentation
