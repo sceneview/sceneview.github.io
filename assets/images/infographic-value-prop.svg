@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="200" viewBox="0 0 800 200">
+  <rect width="800" height="200" fill="#FFFBFE"/>
+
+  <!-- Left half: Without SceneView -->
+  <text x="200" y="40" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#625B71">Without SceneView</text>
+
+  <!-- Stack of 10 thin lines representing ~200 lines of code -->
+  <g transform="translate(140, 56)">
+    <rect x="0" y="0" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="6" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="12" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="18" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="24" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="30" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="36" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="42" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="48" width="120" height="2" rx="1" fill="#E6E1E5"/>
+    <rect x="0" y="54" width="120" height="2" rx="1" fill="#E6E1E5"/>
+  </g>
+
+  <text x="200" y="132" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#625B71">~200 lines</text>
+
+  <!-- Arrow in the middle -->
+  <line x1="370" y1="90" x2="420" y2="90" stroke="#D0BCFF" stroke-width="1.5" stroke-linecap="round"/>
+  <polyline points="416,86 422,90 416,94" fill="none" stroke="#D0BCFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Right half: With SceneView -->
+  <text x="580" y="40" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#6750A4">With SceneView</text>
+
+  <!-- 3 short lines representing ~5 lines of code -->
+  <g transform="translate(540, 56)">
+    <rect x="0" y="0" width="80" height="2" rx="1" fill="#D0BCFF"/>
+    <rect x="0" y="6" width="80" height="2" rx="1" fill="#D0BCFF"/>
+    <rect x="0" y="12" width="80" height="2" rx="1" fill="#D0BCFF"/>
+  </g>
+
+  <text x="580" y="90" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" fill="#6750A4">~5 lines</text>
+</svg>

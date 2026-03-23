@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340">
+  <defs>
+    <linearGradient id="blobGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D0BCFF"/>
+      <stop offset="100%" stop-color="#EFB8C8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="340" fill="#FFFBFE"/>
+
+  <!-- Large background accent shape — soft circle, far back -->
+  <circle cx="300" cy="145" r="160" fill="#D0BCFF" opacity="0.07"/>
+
+  <!-- The "viewer" container — large rounded rect -->
+  <rect x="150" y="40" width="300" height="210" rx="28" fill="#F4EFF4"/>
+
+  <!-- Inner subtle layer for depth -->
+  <rect x="170" y="55" width="260" height="180" rx="22" fill="#FFFBFE" opacity="0.6"/>
+
+  <!-- Abstract product shape — soft rounded pentagon / blob -->
+  <path d="
+    M300,80
+    C330,78 355,95 358,125
+    C360,148 345,170 325,178
+    C312,183 288,183 275,178
+    C255,170 240,148 242,125
+    C245,95 270,78 300,80
+    Z
+  " fill="url(#blobGrad)" opacity="0.85"/>
+
+  <!-- Inner highlight on blob -->
+  <ellipse cx="290" cy="118" rx="28" ry="22" fill="#FFFBFE" opacity="0.25"/>
+
+  <!-- Orbit path — subtle curved dotted line -->
+  <ellipse cx="300" cy="138" rx="85" ry="30" fill="none" stroke="#CAC4D0" stroke-width="1" stroke-dasharray="5 4"/>
+
+  <!-- Small orbit dot indicator -->
+  <circle cx="385" cy="138" r="3" fill="#CAC4D0"/>
+
+  <!-- Color swatches — 4 small circles below the product -->
+  <circle cx="262" cy="206" r="7" fill="#D0BCFF"/>
+  <circle cx="284" cy="206" r="7" fill="#EFB8C8"/>
+  <circle cx="306" cy="206" r="7" fill="#B4C5E4"/>
+  <circle cx="328" cy="206" r="7" fill="#C8E6C9"/>
+
+  <!-- Selected ring on first swatch -->
+  <circle cx="262" cy="206" r="10" fill="none" stroke="#6750A4" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- AR floating pill — to the right -->
+  <rect x="474" y="108" width="52" height="26" rx="13" fill="#F4EFF4"/>
+  <circle cx="488" cy="121" r="4" fill="#C8E6C9"/>
+  <text x="506" y="125" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="#625B71" text-anchor="middle">AR</text>
+
+  <!-- Decorative background shapes for depth -->
+  <circle cx="108" cy="80" r="40" fill="#EFB8C8" opacity="0.08"/>
+  <circle cx="510" cy="220" r="55" fill="#B4C5E4" opacity="0.08"/>
+  <rect x="60" y="200" width="50" height="50" rx="16" fill="#D0BCFF" opacity="0.06" transform="rotate(-15 85 225)"/>
+
+  <!-- Bottom text -->
+  <text x="300" y="290" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#6750A4" text-anchor="middle">Product viewer</text>
+  <text x="300" y="306" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#625B71" text-anchor="middle">3D + AR try-on</text>
+
+</svg>

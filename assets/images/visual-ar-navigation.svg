@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340" fill="none">
+
+  <!-- Background -->
+  <rect width="600" height="340" fill="#FFFBFE"/>
+
+  <!-- Abstract environment shapes (very subtle rounded rects) -->
+  <rect x="40" y="60" width="80" height="100" rx="20" fill="#F4EFF4"/>
+  <rect x="60" y="90" width="60" height="80" rx="16" fill="#F4EFF4"/>
+  <rect x="460" y="70" width="90" height="90" rx="22" fill="#F4EFF4"/>
+  <rect x="480" y="100" width="70" height="70" rx="18" fill="#F4EFF4"/>
+  <rect x="50" y="180" width="50" height="40" rx="12" fill="#F4EFF4"/>
+  <rect x="490" y="180" width="60" height="35" rx="12" fill="#F4EFF4"/>
+
+  <!-- Phone device outline -->
+  <rect x="230" y="30" width="120" height="210" rx="16" fill="none" stroke="#CAC4D0" stroke-width="1.5"/>
+
+  <!-- Inside phone: perspective path lines -->
+  <line x1="270" y1="220" x2="280" y2="80" stroke="#B4C5E4" stroke-width="1.2"/>
+  <line x1="310" y1="220" x2="300" y2="80" stroke="#B4C5E4" stroke-width="1.2"/>
+
+  <!-- Subtle cross lines for perspective depth -->
+  <line x1="274" y1="180" x2="306" y2="180" stroke="#B4C5E4" stroke-width="0.6" opacity="0.4"/>
+  <line x1="277" y1="150" x2="303" y2="150" stroke="#B4C5E4" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Green chevron arrow floating above the path -->
+  <path d="M282 110 L296 130 L282 125 L268 130 Z" fill="#C8E6C9"/>
+  <path d="M282 95 L298 118 L282 112 L266 118 Z" fill="#C8E6C9" opacity="0.5"/>
+
+  <!-- Surface detection dots (very subtle) -->
+  <circle cx="275" cy="195" r="2.5" fill="#D0BCFF" opacity="0.4"/>
+  <circle cx="290" cy="200" r="2" fill="#D0BCFF" opacity="0.4"/>
+  <circle cx="305" cy="198" r="2.2" fill="#D0BCFF" opacity="0.4"/>
+  <circle cx="260" cy="202" r="1.8" fill="#D0BCFF" opacity="0.4"/>
+
+  <!-- Floating distance pill -->
+  <rect x="370" y="110" width="64" height="28" rx="14" fill="#F4EFF4"/>
+  <text x="402" y="129" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#625B71">120m</text>
+
+  <!-- Bottom labels -->
+  <text x="300" y="290" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500" fill="#6750A4">AR navigation</text>
+  <text x="300" y="306" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#625B71">Real-world overlays</text>
+
+</svg>
