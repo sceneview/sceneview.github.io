@@ -1,0 +1,38 @@
+name: Restore index.html
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore index.html from pre-truncation commit
+        run: |
+          # Get the full index.html from commit 8ba7810 (before truncation)
+          git checkout 8ba7810 -- index.html
+          # Add m3-interactions.js script tag
+          sed -i 's|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>|<script src="assets/javascripts/bundle.79ae519e.min.js"></script>\n      <script src="assets/javascripts/m3-interactions.js"></script>|' index.html
+          # Verify
+          echo "File size: $(wc -c < index.html)"
+          grep -c 'm3-flagship.css' index.html && echo 'CSS linked'
+          grep -c 'm3-interactions.js' index.html && echo 'JS linked'
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "fix: restore full index.html (92KB) with m3-interactions.js
+
+          Previous commit accidentally truncated index.html from 92KB to 13KB.
+          This restores the complete homepage from commit 8ba7810 and adds
+          the m3-interactions.js script tag."
+          git push
