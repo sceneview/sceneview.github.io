@@ -1,8 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SceneView Web — One Line 3D</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SceneView Web Demo — Interactive 3D Model Viewer</title>
+<meta name="description" content="Interactive 3D model viewer demo powered by SceneView Web and Filament.js WASM. Switch between glTF models with real-time PBR rendering.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sceneview.github.io/sceneview-demo.html">
+<meta property="og:title" content="SceneView Web Demo — Interactive 3D Model Viewer">
+<meta property="og:description" content="Interactive 3D model viewer powered by Filament.js WASM. Real-time PBR rendering in the browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sceneview.github.io/sceneview-demo.html">
+<meta property="og:image" content="https://sceneview.github.io/favicon.svg">
+<meta property="og:site_name" content="SceneView">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SceneView Web Demo — 3D Model Viewer">
+<meta name="twitter:image" content="https://sceneview.github.io/favicon.svg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #0d1117; font-family: 'Inter', system-ui, sans-serif; color: #fff; height: 100vh; display: flex; flex-direction: column; }
@@ -135,12 +149,12 @@ Filament.init([DEFAULT_MODEL], function() {
     let angle = 0, orbitR = 3.5, orbitH = 0.8, dragging = false, lastX = 0, lastY = 0, autoRotate = true;
 
     canvas.addEventListener('mousedown', e => { dragging = true; lastX = e.clientX; lastY = e.clientY; autoRotate = false; });
-    canvas.addEventListener('mousemove', e => { if (!dragging) return; angle += (e.clientX - lastX) * 0.005; orbitH += (e.clientY - lastY) * 0.01; lastX = e.clientX; lastY = e.clientY; });
+    canvas.addEventListener('mousemove', e => { if (!dragging) return; angle -= (e.clientX - lastX) * 0.005; orbitH += (e.clientY - lastY) * 0.01; lastX = e.clientX; lastY = e.clientY; });
     canvas.addEventListener('mouseup', () => dragging = false);
     canvas.addEventListener('mouseleave', () => dragging = false);
     canvas.addEventListener('wheel', e => { e.preventDefault(); orbitR *= (1 + e.deltaY * 0.001); orbitR = Math.max(0.5, Math.min(20, orbitR)); }, { passive: false });
     canvas.addEventListener('touchstart', e => { if (e.touches.length === 1) { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; autoRotate = false; } });
-    canvas.addEventListener('touchmove', e => { if (!dragging) return; e.preventDefault(); angle += (e.touches[0].clientX - lastX) * 0.005; orbitH += (e.touches[0].clientY - lastY) * 0.01; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, { passive: false });
+    canvas.addEventListener('touchmove', e => { if (!dragging) return; e.preventDefault(); angle -= (e.touches[0].clientX - lastX) * 0.005; orbitH += (e.touches[0].clientY - lastY) * 0.01; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }, { passive: false });
     canvas.addEventListener('touchend', () => dragging = false);
 
     // Render loop
