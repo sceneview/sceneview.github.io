@@ -18,7 +18,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="js/model-viewer.min.js"></script>
+    <!-- Filament.js v1.70.1 WASM engine (local) -->
+    <script src="js/filament/filament.js"></script>
+    <!-- SceneView Web (local, uses Filament loaded above) -->
+    <script src="js/sceneview.js?v=1.3.3"></script>
     <style>
         /* ── Page layout ── */
         .page-platforms {
@@ -131,10 +134,9 @@
             color: var(--color-primary);
         }
 
-        model-viewer {
+        canvas.sv-viewer {
             width: 100%;
             height: 100%;
-            --poster-color: transparent;
             background: transparent;
         }
 
@@ -633,7 +635,7 @@
         [data-theme="light"] .claude-desktop .preview-side {
             background: #f0f0f4;
         }
-        .claude-desktop .preview-side model-viewer {
+        .claude-desktop .preview-side canvas.sv-viewer {
             width: 100%;
             height: 100%;
         }
@@ -738,14 +740,7 @@
                     SceneView Demo
                 </div>
                 <div class="mv-wrap">
-                    <model-viewer
-                        src="models/platforms/DamagedHelmet.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1"
-                        environment-image="neutral"
-                        camera-orbit="30deg 75deg auto"
-                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
-                    ></model-viewer>
+                    <canvas class="sv-viewer" data-model="models/platforms/DamagedHelmet.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
                 </div>
                 <div class="bottom-nav">
                     <div class="nav-pill"></div>
@@ -770,14 +765,7 @@
                     <span></span>
                 </div>
                 <div class="mv-wrap">
-                    <model-viewer
-                        src="models/platforms/SunglassesKhronos.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1"
-                        environment-image="neutral"
-                        camera-orbit="20deg 80deg auto"
-                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
-                    ></model-viewer>
+                    <canvas class="sv-viewer" data-model="models/platforms/SunglassesKhronos.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
                 </div>
                 <div class="home-indicator">
                     <div class="pill"></div>
@@ -797,14 +785,7 @@
         <div class="vision-pro">
             <div class="screen">
                 <div class="visionos-label">visionOS</div>
-                <model-viewer
-                    src="models/platforms/MosquitoInAmber.glb"
-                    camera-controls touch-action="pan-y"
-                    auto-rotate shadow-intensity="1"
-                    environment-image="neutral"
-                    camera-orbit="30deg 70deg auto"
-                    style="background: linear-gradient(135deg, rgba(30,30,60,0.8) 0%, rgba(10,10,30,0.9) 100%);"
-                ></model-viewer>
+                <canvas class="sv-viewer" data-model="models/platforms/MosquitoInAmber.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
                 <div class="window-controls">
                     <div class="ctl"></div>
                     <div class="ctl"></div>
@@ -826,14 +807,7 @@
             <div class="frame">
                 <div class="screen">
                     <div class="tv-overlay">Google TV</div>
-                    <model-viewer
-                        src="models/platforms/CarConcept.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1"
-                        environment-image="neutral"
-                        camera-orbit="30deg 70deg auto"
-                        style="background: linear-gradient(180deg, #0d1a2a 0%, #060d1a 100%);"
-                    ></model-viewer>
+                    <canvas class="sv-viewer" data-model="models/platforms/CarConcept.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
                 </div>
                 <div class="logo-dot"></div>
             </div>
@@ -864,14 +838,7 @@
                 </div>
             </div>
             <div class="viewport">
-                <model-viewer
-                    src="models/platforms/BoomBox.glb"
-                    camera-controls touch-action="pan-y"
-                    auto-rotate shadow-intensity="1"
-                    environment-image="neutral"
-                    camera-orbit="-30deg 80deg auto"
-                    style="background: linear-gradient(180deg, #12172a 0%, #0a0e1a 100%);"
-                ></model-viewer>
+                <canvas class="sv-viewer" data-model="models/platforms/BoomBox.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
             </div>
         </div>
         <div class="device-sublabel">Kotlin/JS + Filament.js &mdash; <code>WebGL2 + WASM</code></div>
@@ -914,14 +881,7 @@
                     </div>
                 </div>
                 <div class="preview-side">
-                    <model-viewer
-                        src="models/platforms/SheenChair.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1.5"
-                        environment-image="neutral"
-                        camera-orbit="40deg 65deg auto"
-                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
-                    ></model-viewer>
+                    <canvas class="sv-viewer" data-model="models/platforms/SheenChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
                     <div class="preview-badge">3D Preview</div>
                 </div>
             </div>
@@ -954,5 +914,45 @@
 </div>
 
 <script src="script.js"></script>
+
+<!-- Lazy SceneView loader -->
+<script>
+(function() {
+  var viewers = document.querySelectorAll('.sv-viewer');
+  if (!viewers.length) return;
+  var initialized = new Set();
+  function getThemeBg() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
+  }
+  function initViewer(canvas) {
+    if (initialized.has(canvas)) return;
+    initialized.add(canvas);
+    var model = canvas.dataset.model;
+    var light = parseInt(canvas.dataset.light) || 120000;
+    if (!model) return;
+    var bg = getThemeBg();
+    SceneView.modelViewer(canvas, model, {
+      backgroundColor: bg, lightIntensity: light, fov: 35
+    }).then(function(instance) {
+      canvas.style.opacity = '1';
+      new MutationObserver(function() {
+        var colors = getThemeBg();
+        instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    }).catch(function(e) {
+      console.warn('SceneView: ' + model + ' — ' + e.message);
+      initialized.delete(canvas);
+    });
+  }
+  viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) initViewer(entry.target);
+    });
+  }, { rootMargin: '300px 0px' });
+  viewers.forEach(function(canvas) { observer.observe(canvas); });
+})();
+</script>
 </body>
 </html>
