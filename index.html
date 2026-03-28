@@ -86,8 +86,6 @@
     "url": "https://sceneview.github.io/"
   }
   </script>
-  <!-- model-viewer for interactive 3D -->
-  <script type="module" src="js/model-viewer.min.js"></script>
 </head>
 <body>
 
@@ -456,21 +454,8 @@
         <!-- E-commerce -->
         <div class="showcase-item">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/MaterialsVariantsShoe.glb"
-              alt="3D sneaker product viewer"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="1"
-              exposure="0.8"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/MaterialsVariantsShoe.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="3D sneaker product viewer"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">E-commerce</div>
@@ -482,22 +467,8 @@
         <!-- Furniture AR -->
         <div class="showcase-item showcase-item--reverse">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/SheenChair.glb"
-              alt="3D chair for AR furniture placement"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="1.2"
-              exposure="0.9"
-              camera-orbit="30deg 75deg 2m"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/SheenChair.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="3D chair for AR furniture placement"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Furniture &amp; AR</div>
@@ -509,21 +480,8 @@
         <!-- Luxury product -->
         <div class="showcase-item">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/IridescentDishWithOlives.glb"
-              alt="Iridescent luxury product detail"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="1"
-              exposure="1"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/IridescentDishWithOlives.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="Iridescent luxury product detail"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Luxury &amp; Detail</div>
@@ -535,23 +493,8 @@
         <!-- Animated character -->
         <div class="showcase-item showcase-item--reverse">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/Fox.glb"
-              alt="Animated 3D fox character"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              autoplay
-              shadow-intensity="1"
-              exposure="0.8"
-              camera-orbit="20deg 75deg 120"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/Fox.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="Animated 3D fox character"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Gaming &amp; Entertainment</div>
@@ -563,22 +506,8 @@
         <!-- Automotive -->
         <div class="showcase-item">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/platforms/McLarenP1.glb"
-              alt="McLaren P1 3D automotive configurator"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="1.2"
-              exposure="1"
-              camera-orbit="220deg 70deg auto"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/McLarenP1.glb" data-light="150000" style="width:100%;height:100%;cursor:grab;display:block" aria-label="McLaren P1 3D automotive configurator"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Automotive</div>
@@ -590,22 +519,8 @@
         <!-- Electronics -->
         <div class="showcase-item showcase-item--reverse">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/platforms/BoseHeadphones.glb"
-              alt="3D headphones electronics product viewer"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="1"
-              exposure="1.2"
-              camera-orbit="30deg 80deg auto"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/BoseHeadphones.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="3D headphones electronics product viewer"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Electronics</div>
@@ -617,22 +532,8 @@
         <!-- Architecture -->
         <div class="showcase-item">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/platforms/ModernApartment.glb"
-              alt="3D modern apartment interior architecture"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="0.8"
-              exposure="1.2"
-              camera-orbit="150deg 80deg auto"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/ModernApartment.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="3D modern apartment interior architecture"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Architecture</div>
@@ -644,22 +545,8 @@
         <!-- Luxury Watch -->
         <div class="showcase-item showcase-item--reverse">
           <div class="showcase-item__viewer">
-            <model-viewer
-              src="models/platforms/GoldenWatch.glb"
-              alt="Golden luxury watch 3D product viewer"
-              auto-rotate
-              camera-controls
-              touch-action="pan-y"
-              shadow-intensity="1.2"
-              exposure="1"
-              camera-orbit="30deg 75deg auto"
-              environment-image="neutral"
-              style="width:100%;height:100%;--poster-color:transparent;"
-              loading="lazy"
-              poster=""
-            >
-              <div class="showcase-item__badge">Drag to orbit</div>
-            </model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/GoldenWatch.glb" data-light="150000" style="width:100%;height:100%;cursor:grab;display:block" aria-label="Golden luxury watch 3D product viewer"></canvas>
+            <div class="showcase-item__badge">Drag to orbit</div>
           </div>
           <div class="showcase-item__info">
             <div class="showcase-item__label">Luxury &amp; Watches</div>
@@ -764,21 +651,8 @@
   <!-- ===== 3D VISUAL BREAK ===== -->
   <section class="visual-break" aria-hidden="true">
     <div class="visual-break__inner">
-      <model-viewer
-        src="models/platforms/DragonAttenuation.glb"
-        alt="Subsurface scattering dragon rendered by SceneView"
-        auto-rotate
-        camera-controls
-        touch-action="pan-y"
-        shadow-intensity="1"
-        exposure="1.2"
-        camera-orbit="30deg 75deg auto"
-        environment-image="neutral"
-        style="width:100%;height:100%;--poster-color:transparent;"
-        loading="lazy"
-        poster=""
-      ></model-viewer>
-      <div class="visual-break__caption">Real-time subsurface scattering — powered by Filament PBR</div>
+      <canvas class="sv-viewer" data-model="models/platforms/DragonAttenuation.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="Subsurface scattering dragon rendered by SceneView"></canvas>
+      <div class="visual-break__caption">Real-time subsurface scattering — powered by SceneView</div>
     </div>
   </section>
 
@@ -837,21 +711,8 @@
   <!-- ===== 3D VISUAL BREAK 2 ===== -->
   <section class="visual-break" aria-hidden="true">
     <div class="visual-break__inner">
-      <model-viewer
-        src="models/platforms/AntiqueCamera.glb"
-        alt="Antique camera 3D model rendered by SceneView"
-        auto-rotate
-        camera-controls
-        touch-action="pan-y"
-        shadow-intensity="1.2"
-        exposure="1"
-        camera-orbit="150deg 70deg auto"
-        environment-image="neutral"
-        style="width:100%;height:100%;--poster-color:transparent;"
-        loading="lazy"
-        poster=""
-      ></model-viewer>
-      <div class="visual-break__caption">17 MB of detail — antique camera, every screw and dial</div>
+      <canvas class="sv-viewer" data-model="models/platforms/AntiqueCamera.glb" style="width:100%;height:100%;cursor:grab;display:block" aria-label="Antique camera 3D model rendered by SceneView"></canvas>
+      <div class="visual-break__caption">17 MB of detail — antique camera, every screw and dial — powered by SceneView</div>
     </div>
   </section>
 
@@ -1012,6 +873,58 @@
       // Hide loader on error too
       if (loader) loader.style.display = 'none';
     });
+  })();
+  </script>
+
+  <!-- Lazy SceneView loader — initializes 3D viewers as they scroll into view -->
+  <script>
+  (function() {
+    var viewers = document.querySelectorAll('.sv-viewer');
+    if (!viewers.length) return;
+
+    var initialized = new Set();
+
+    function getThemeBg() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
+    }
+
+    function initViewer(canvas) {
+      if (initialized.has(canvas)) return;
+      initialized.add(canvas);
+
+      var model = canvas.dataset.model;
+      var light = parseInt(canvas.dataset.light) || 120000;
+      if (!model) return;
+
+      var bg = getThemeBg();
+      SceneView.modelViewer(canvas, model, {
+        backgroundColor: bg,
+        lightIntensity: light,
+        fov: 35
+      }).then(function(instance) {
+        canvas.style.opacity = '1';
+        // Theme change support
+        new MutationObserver(function() {
+          var colors = getThemeBg();
+          instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      }).catch(function(e) {
+        console.warn('SceneView: ' + model + ' — ' + e.message);
+        initialized.delete(canvas);
+      });
+    }
+
+    // Fade-in effect
+    viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) initViewer(entry.target);
+      });
+    }, { rootMargin: '300px 0px' });
+
+    viewers.forEach(function(canvas) { observer.observe(canvas); });
   })();
   </script>
 </body>
