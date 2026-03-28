@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SceneView 3D Chart</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; overflow: hidden; font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif; }
+  canvas { display: block; }
+  #header { position: absolute; top: 20px; left: 28px; z-index: 10; pointer-events: none; }
+  #header h1 { font-size: 1.15rem; font-weight: 600; color: #e2e8f0; }
+  #header p { font-size: 0.78rem; color: #94a3b8; margin-top: 2px; }
+  #badge {
+    position: absolute; bottom: 20px; right: 24px; z-index: 10;
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 8px; padding: 7px 14px; backdrop-filter: blur(8px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  }
+  #badge svg { width: 16px; height: 16px; }
+  #badge .rendered { color: #94a3b8; font-size: 0.65rem; margin-right: 2px; }
+  #tooltip {
+    position: absolute; display: none; background: rgba(255,255,255,0.97);
+    border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
+    padding: 14px 18px; color: #1e293b; pointer-events: none; z-index: 20;
+    backdrop-filter: blur(16px); min-width: 170px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  }
+  #tooltip .label { color: #64748b; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  #tooltip .value { font-size: 1.6rem; font-weight: 700; margin-top: 3px; color: #0f172a; }
+  #tooltip .sub { color: #22c55e; font-size: 0.75rem; margin-top: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div id="header">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <rect width="32" height="32" rx="7" fill="#1e3a5f"/>
+      <path d="M8 16h4l3-6 4 12 3-6h4" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="16" cy="8" r="2.5" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
+      <circle cx="16" cy="8" r="1" fill="#60a5fa"/>
+    </svg>
+    <span style="font-size:1rem;font-weight:700;color:#e2e8f0;">Apex Ventures</span>
+  </div>
+  <h1>Q1 2026 Revenue by Region</h1>
+  <p>Board meeting dashboard</p>
+</div>
+<div id="badge">
+  <span class="rendered">Rendered by</span>
+  <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="#3b82f6" stroke-width="1.8" fill="rgba(59,130,246,0.08)"/><path d="M12 22V12M2 7l10 5 10-5" stroke="#3b82f6" stroke-width="1.8"/></svg>
+  <span style="color:#334155;font-weight:600;font-size:0.72rem;">SceneView</span>
+</div>
+<div id="tooltip"></div>
+
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+const data = [
+  { region: "North America", revenue: 4.2, growth: "+12%", color: 0x2563eb },
+  { region: "Europe", revenue: 3.1, growth: "+8%", color: 0x4f46e5 },
+  { region: "Asia Pacific", revenue: 2.8, growth: "+22%", color: 0x7c3aed },
+  { region: "Latin America", revenue: 1.4, growth: "+15%", color: 0x9333ea },
+  { region: "Middle East", revenue: 0.9, growth: "+31%", color: 0xc026d3 },
+];
+
+let scene, camera, renderer, barGroups = [], raycaster, mouse;
+let animStartTime = 0;
+const ANIM_DURATION = 1.2;
+
+async function init() {
+  scene = new THREE.Scene();
+
+  // Background set by HDR cubemap below
+
+  camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.9;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  document.body.appendChild(renderer.domElement);
+
+  // Load HDR environment — conference room, fallback to RoomEnvironment
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  pmremGenerator.compileEquirectangularShader();
+  try {
+    const hdrTexture = await new Promise((resolve, reject) => {
+      new RGBELoader().load(
+        'https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/unfinished_office_night_1k.hdr',
+        resolve, undefined, reject
+      );
+    });
+    const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
+    scene.environment = envMap;
+    scene.background = envMap;
+  } catch(e) {
+    console.log('HDR fallback to RoomEnvironment');
+    scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
+  }
+  pmremGenerator.dispose();
+
+  // Minimal direct lighting — env map does the work
+  scene.add(new THREE.AmbientLight(0xd0d8e8, 0.2));
+  const key = new THREE.DirectionalLight(0xfff8f0, 0.6);
+  key.position.set(5, 12, 7);
+  key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048);
+  key.shadow.camera.near = 0.5; key.shadow.camera.far = 40;
+  key.shadow.camera.left = -12; key.shadow.camera.right = 12;
+  key.shadow.camera.top = 12; key.shadow.camera.bottom = -4;
+  key.shadow.radius = 8; key.shadow.bias = -0.001;
+  scene.add(key);
+
+  // Ground
+  const ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(40, 30),
+    new THREE.MeshStandardMaterial({ color: 0x1a1a28, roughness: 0.3, metalness: 0.1, envMapIntensity: 0.8 })
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.01;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // Dot grid
+  for (let x = -7; x <= 7; x++) {
+    for (let z = -5; z <= 5; z++) {
+      const dot = new THREE.Mesh(
+        new THREE.CircleGeometry(0.025, 8),
+        new THREE.MeshBasicMaterial({ color: 0x404060, transparent: true, opacity: 0.4, side: THREE.DoubleSide })
+      );
+      dot.rotation.x = -Math.PI / 2;
+      dot.position.set(x * 1.4, 0.005, z * 1.4);
+      scene.add(dot);
+    }
+  }
+
+  // Build bars
+  const spacing = 1.9;
+  const offset = -(data.length - 1) * spacing / 2;
+
+  data.forEach((d, i) => {
+    const group = new THREE.Group();
+    group.position.x = offset + i * spacing;
+    const targetH = d.revenue * 1.0;
+
+    // Glass bar — real PBR glass with studio env reflections
+    const bar = new THREE.Mesh(
+      new THREE.BoxGeometry(0.85, targetH, 0.85),
+      new THREE.MeshPhysicalMaterial({
+        color: d.color,
+        roughness: 0.05,
+        metalness: 0.0,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.03,
+        transparent: true,
+        opacity: 0.82,
+        envMapIntensity: 3.0,
+        reflectivity: 1.0,
+        ior: 1.45,
+        thickness: 0.5,
+        transmission: 0.15,
+        specularIntensity: 1.0,
+      })
+    );
+    bar.position.y = targetH / 2;
+    bar.castShadow = true;
+    bar.receiveShadow = true;
+    bar.userData = d;
+    group.add(bar);
+
+    // Colored ground glow
+    const glow = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.8, 1.8),
+      new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: 0.08, side: THREE.DoubleSide })
+    );
+    glow.rotation.x = -Math.PI / 2;
+    glow.position.y = 0.006;
+    group.add(glow);
+
+    // Value label
+    const valCanvas = document.createElement('canvas');
+    valCanvas.width = 160; valCanvas.height = 56;
+    const vctx = valCanvas.getContext('2d');
+    vctx.fillStyle = '#f1f5f9';
+    vctx.font = '700 28px -apple-system, SF Pro Display, sans-serif';
+    vctx.textAlign = 'center';
+    vctx.fillText('$' + d.revenue + 'M', 80, 34);
+    const valSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(valCanvas), transparent: true, opacity: 0 }));
+    valSprite.position.y = targetH + 0.5;
+    valSprite.scale.set(1.7, 0.6, 1);
+    group.add(valSprite);
+
+    // Growth badge
+    const gc = document.createElement('canvas');
+    gc.width = 96; gc.height = 40;
+    const gx = gc.getContext('2d');
+    gx.fillStyle = 'rgba(34,197,94,0.15)';
+    gx.beginPath(); gx.roundRect(8,4,80,32,12); gx.fill();
+    gx.fillStyle = '#16a34a';
+    gx.font = '700 18px -apple-system, sans-serif';
+    gx.textAlign = 'center';
+    gx.fillText(d.growth, 48, 26);
+    const growthSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(gc), transparent: true, opacity: 0 }));
+    growthSprite.position.y = targetH + 0.95;
+    growthSprite.scale.set(0.9, 0.38, 1);
+    group.add(growthSprite);
+
+    // Region name
+    const nc = document.createElement('canvas');
+    nc.width = 256; nc.height = 48;
+    const nx = nc.getContext('2d');
+    nx.fillStyle = '#94a3b8';
+    nx.font = '500 18px -apple-system, SF Pro Display, sans-serif';
+    nx.textAlign = 'center';
+    nx.fillText(d.region, 128, 30);
+    const nameSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(nc), transparent: true, opacity: 0 }));
+    nameSprite.position.set(0, -0.5, 1.1);
+    nameSprite.scale.set(2.1, 0.4, 1);
+    group.add(nameSprite);
+
+    group.scale.y = 0.001;
+    scene.add(group);
+    barGroups.push({ group, targetH, valSprite, growthSprite, nameSprite, bar });
+  });
+
+  // Trend line
+  const trendGroup = new THREE.Group();
+  trendGroup.userData.isTrend = true;
+  const trendPoints = data.map((d, i) => new THREE.Vector3(offset + i * spacing, d.revenue * 1.0, 0));
+  const trendCurve = new THREE.CatmullRomCurve3(trendPoints);
+  const trendMesh = new THREE.Mesh(
+    new THREE.TubeGeometry(trendCurve, 32, 0.02, 6, false),
+    new THREE.MeshPhysicalMaterial({ color: 0x3b82f6, roughness: 0.2, metalness: 0.3, transparent: true, opacity: 0, emissive: 0x3b82f6, emissiveIntensity: 0.3 })
+  );
+  trendGroup.add(trendMesh);
+  data.forEach((d, i) => {
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(0.06, 16, 16),
+      new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: d.color, emissiveIntensity: 0.5, transparent: true, opacity: 0 })
+    );
+    sphere.position.set(offset + i * spacing, d.revenue * 1.0, 0);
+    trendGroup.add(sphere);
+  });
+  scene.add(trendGroup);
+
+  raycaster = new THREE.Raycaster();
+  mouse = new THREE.Vector2(-10, -10);
+  renderer.domElement.addEventListener('mousemove', onMouseMove);
+  renderer.domElement.addEventListener('wheel', e => {
+    camera.position.z = Math.max(10, Math.min(24, camera.position.z + e.deltaY * 0.008));
+  });
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  animStartTime = performance.now() / 1000;
+  animate();
+}
+
+function easeOutElastic(t) {
+  if (t === 0 || t === 1) return t;
+  return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * (2 * Math.PI) / 3) + 1;
+}
+
+function onMouseMove(e) {
+  mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  const meshes = [];
+  barGroups.forEach(b => b.group.traverse(c => { if (c.isMesh && c.userData.region) meshes.push(c); }));
+  const hits = raycaster.intersectObjects(meshes);
+  const tooltip = document.getElementById('tooltip');
+  if (hits.length > 0) {
+    const d = hits[0].object.userData;
+    tooltip.style.display = 'block';
+    tooltip.style.left = e.clientX + 16 + 'px';
+    tooltip.style.top = e.clientY - 12 + 'px';
+    tooltip.innerHTML = `<div class="label">${d.region}</div><div class="value">$${d.revenue}M</div><div class="sub">${d.growth} YoY</div>`;
+  } else { tooltip.style.display = 'none'; }
+}
+
+function smoothstep(a, b, t) {
+  t = Math.max(0, Math.min(1, (t - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  const now = performance.now() / 1000;
+  const elapsed = now - animStartTime;
+
+  const introT = smoothstep(0, 3.0, elapsed);
+  const sweepAngle = -Math.PI * 0.35 + Math.PI * 0.35 * introT;
+  const sweepRadius = 22 - 4 * introT;
+  const sweepY = 11 - 4.5 * introT;
+  const lookY = 3 - 2.2 * introT;
+
+  const orbitPhase = Math.max(0, elapsed - 2.5);
+  const swayX = Math.sin(orbitPhase * 0.12) * 2.5;
+  const swayZ = Math.cos(orbitPhase * 0.08) * 1.0;
+  const orbitFactor = smoothstep(2.5, 4.5, elapsed);
+  const breathe = Math.sin(elapsed * 0.22) * 0.35 * smoothstep(3, 5, elapsed);
+
+  const finalX = swayX * orbitFactor + Math.sin(sweepAngle) * sweepRadius * 0.2 * (1 - orbitFactor);
+  camera.position.set(finalX, sweepY + breathe, sweepRadius * 0.85 + swayZ * orbitFactor);
+  camera.lookAt(0, lookY, 0);
+  camera.fov = 46 - 8 * introT;
+  camera.updateProjectionMatrix();
+
+  barGroups.forEach((b, i) => {
+    const delay = 0.8 + i * 0.1;
+    const t = Math.max(0, Math.min(1, (elapsed - delay) / ANIM_DURATION));
+    b.group.scale.y = Math.max(0.001, easeOutElastic(t));
+    const lT = Math.max(0, Math.min(1, (elapsed - delay - ANIM_DURATION * 0.4) / 0.5));
+    b.valSprite.material.opacity = lT;
+    b.nameSprite.material.opacity = lT;
+    b.growthSprite.material.opacity = Math.max(0, Math.min(1, (elapsed - delay - ANIM_DURATION * 0.7) / 0.4));
+    if (t >= 1) b.group.scale.y = 1 + Math.sin(elapsed * 1.2 + i * 0.9) * 0.006;
+  });
+
+  const trendT = smoothstep(2.5, 3.5, elapsed);
+  scene.traverse(o => { if (o.parent?.userData?.isTrend && o.material) o.material.opacity = trendT * 0.6; });
+
+  renderer.render(scene, camera);
+}
+
+init();
+</script>
+</body>
+</html>

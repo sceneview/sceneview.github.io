@@ -9,10 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Filament.js v1.70.1 WASM engine (required by SceneView Web) -->
-    <script src="js/filament/filament.js"></script>
-    <!-- SceneView Web — our 3D library built on Filament.js -->
-    <script src="js/sceneview.js?v=1.3.3"></script>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -160,10 +157,10 @@
             border-color: rgba(74,144,255,0.2);
             box-shadow: 0 12px 48px rgba(0,0,0,0.4);
         }
-        .furniture-card canvas {
+        .furniture-card model-viewer {
             width: 100%; height: 340px;
             background: linear-gradient(180deg, #151c2c 0%, #0d1220 100%);
-            display: block;
+            --poster-color: transparent;
         }
         .furniture-info {
             padding: 1.5rem;
@@ -314,7 +311,7 @@
             .hero { padding: 120px 1.5rem 60px; }
             section { padding: 60px 1.5rem; }
             .furniture-grid { grid-template-columns: 1fr; }
-            .furniture-card canvas { height: 280px; }
+            .furniture-card model-viewer { height: 280px; }
             .steps { grid-template-columns: 1fr; }
             .nav-links { display: none; }
         }
@@ -386,16 +383,35 @@
         <div class="furniture-grid">
             <!-- Chair -->
             <div class="furniture-card animate">
-                <canvas id="ar-chair"></canvas>
+                <model-viewer
+                    src="models/platforms/SheenChair.glb"
+                    alt="Modern Sheen Chair"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="1.2"
+                    shadow-softness="0.8"
+                    environment-image="neutral"
+                    exposure="1"
+                    camera-orbit="30deg 75deg 2.5m"
+                    interaction-prompt="auto"
+                    loading="lazy"
+                >
+                    <button slot="ar-button" class="btn-ar" style="position:absolute;bottom:16px;right:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        View in AR
+                    </button>
+                </model-viewer>
                 <div class="furniture-info">
                     <span class="furniture-tag">Seating</span>
                     <div class="furniture-name">Modern Sheen Chair</div>
                     <div class="furniture-desc">Fabric upholstery with sheen finish. Perfect for living rooms and offices.</div>
                     <div class="furniture-bottom">
                         <div class="furniture-price">$349 <span>USD</span></div>
-                        <button class="btn-ar" disabled title="AR coming soon">
+                        <button class="btn-ar" onclick="document.querySelectorAll('model-viewer')[0].activateAR()">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            View in 3D
+                            View in AR
                         </button>
                     </div>
                 </div>
@@ -403,16 +419,35 @@
 
             <!-- Lamp -->
             <div class="furniture-card animate delay-1">
-                <canvas id="ar-lamp"></canvas>
+                <model-viewer
+                    src="models/platforms/IridescenceLamp.glb"
+                    alt="Iridescence Table Lamp"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="1.2"
+                    shadow-softness="0.8"
+                    environment-image="neutral"
+                    exposure="1.1"
+                    camera-orbit="40deg 70deg 1.8m"
+                    interaction-prompt="auto"
+                    loading="lazy"
+                >
+                    <button slot="ar-button" class="btn-ar" style="position:absolute;bottom:16px;right:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        View in AR
+                    </button>
+                </model-viewer>
                 <div class="furniture-info">
                     <span class="furniture-tag">Lighting</span>
                     <div class="furniture-name">Iridescence Table Lamp</div>
                     <div class="furniture-desc">Stunning iridescent finish that shifts color with viewing angle. Statement piece.</div>
                     <div class="furniture-bottom">
                         <div class="furniture-price">$189 <span>USD</span></div>
-                        <button class="btn-ar" disabled title="AR coming soon">
+                        <button class="btn-ar" onclick="document.querySelectorAll('model-viewer')[1].activateAR()">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            View in 3D
+                            View in AR
                         </button>
                     </div>
                 </div>
@@ -420,16 +455,35 @@
 
             <!-- Duck -->
             <div class="furniture-card animate delay-2">
-                <canvas id="ar-duck"></canvas>
+                <model-viewer
+                    src="models/platforms/Duck.glb"
+                    alt="Classic Rubber Duck Decor"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    auto-rotate
+                    shadow-intensity="1.2"
+                    shadow-softness="0.8"
+                    environment-image="neutral"
+                    exposure="1"
+                    camera-orbit="35deg 72deg 3m"
+                    interaction-prompt="auto"
+                    loading="lazy"
+                >
+                    <button slot="ar-button" class="btn-ar" style="position:absolute;bottom:16px;right:16px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                        View in AR
+                    </button>
+                </model-viewer>
                 <div class="furniture-info">
                     <span class="furniture-tag">Decor</span>
-                    <div class="furniture-name">Velvet Sofa</div>
+                    <div class="furniture-name">Classic Duck Sculpture</div>
                     <div class="furniture-desc">Whimsical golden duck figurine. An iconic conversation starter for any shelf.</div>
                     <div class="furniture-bottom">
                         <div class="furniture-price">$49 <span>USD</span></div>
-                        <button class="btn-ar" disabled title="AR coming soon">
+                        <button class="btn-ar" onclick="document.querySelectorAll('model-viewer')[2].activateAR()">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            View in 3D
+                            View in AR
                         </button>
                     </div>
                 </div>
@@ -564,22 +618,6 @@
         el.style.animationPlayState = 'paused';
         observer.observe(el);
     });
-</script>
-
-<!-- SceneView Web 3D viewers -->
-<script>
-    var bgColor = [0.082, 0.11, 0.17, 1.0];
-    SceneView.modelViewer('ar-chair', 'models/platforms/SheenChair.glb', {
-        backgroundColor: bgColor, lightIntensity: 150000, fov: 35
-    }).catch(function(e) { console.error('SceneView chair error:', e); });
-
-    SceneView.modelViewer('ar-lamp', 'models/platforms/IridescenceLamp.glb', {
-        backgroundColor: bgColor, lightIntensity: 150000, fov: 35
-    }).catch(function(e) { console.error('SceneView lamp error:', e); });
-
-    SceneView.modelViewer('ar-duck', 'models/platforms/GlamVelvetSofa.glb', {
-        backgroundColor: bgColor, lightIntensity: 150000, fov: 35
-    }).catch(function(e) { console.error('SceneView duck error:', e); });
 </script>
 
 </body>

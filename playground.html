@@ -31,12 +31,15 @@
   <!-- Preconnect hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Filament.js v1.70.1 WASM engine (local) -->
   <script src="js/filament/filament.js"></script>
   <!-- SceneView Web — our 3D library built on Filament.js -->
   <script src="js/sceneview.js?v=1.3.3"></script>
+  <!-- model-viewer (fallback renderer option) -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="styles.css">
@@ -95,6 +98,15 @@
     .playground__select:focus {
       outline: none;
       border-color: var(--color-primary);
+    }
+
+    .playground__select optgroup {
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .playground__select option {
+      font-weight: 500;
     }
 
     .playground__label {
@@ -220,6 +232,14 @@
       -moz-tab-size: 4;
     }
 
+    /* Syntax highlighting */
+    .playground__code .kw { color: #ff7b72; }
+    .playground__code .fn { color: #d2a8ff; }
+    .playground__code .str { color: #a5d6ff; }
+    .playground__code .num { color: #79c0ff; }
+    .playground__code .cm { color: #484f58; font-style: italic; }
+    .playground__code .ann { color: #ffa657; }
+
     .playground__line-numbers {
       position: absolute;
       top: 0;
@@ -288,9 +308,11 @@
         var(--color-surface-dim) 80%);
     }
 
+    .playground__model-wrap model-viewer,
     .playground__model-wrap canvas {
       width: 100%;
       height: 100%;
+      --poster-color: transparent;
       display: block;
     }
 
@@ -313,6 +335,10 @@
       color: var(--color-primary);
     }
 
+    .playground__renderer-badge--modelviewer {
+      background: rgba(108,92,231,0.12);
+      color: #6c5ce7;
+    }
 
     /* Description panel */
     .playground__description {
@@ -434,25 +460,51 @@
           <option value="custom-geometry">Custom Geometry</option>
           <option value="animation">Animation</option>
         </select>
+        <span class="playground__label" style="margin-left:16px">Renderer</span>
+        <select class="playground__select" id="rendererSelect">
+          <option value="sceneview">SceneView (Filament.js)</option>
+          <option value="model-viewer">model-viewer</option>
+        </select>
         <span class="playground__label" style="margin-left:16px">Model</span>
         <select class="playground__select" id="modelSelect">
-          <option value="DamagedHelmet">Damaged Helmet</option>
-          <option value="SheenChair">Sheen Chair</option>
-          <option value="ToyCar">Toy Car</option>
-          <option value="CarConcept">Car Concept</option>
-          <option value="SunglassesKhronos">Sunglasses</option>
-          <option value="ChronographWatch">Watch</option>
-          <option value="MaterialsVariantsShoe">Shoe</option>
-          <option value="MosquitoInAmber">Mosquito in Amber</option>
-          <option value="IridescenceLamp">Iridescent Lamp</option>
-          <option value="WaterBottle">Water Bottle</option>
-          <option value="GlassVaseFlowers">Glass Vase</option>
-          <option value="AntiqueCamera">Antique Camera</option>
-          <option value="Fox">Fox</option>
-          <option value="Lantern">Lantern</option>
-          <option value="DragonAttenuation">Dragon (Translucent)</option>
-          <option value="IridescentDishWithOlives">Iridescent Dish</option>
-          <option value="GlamVelvetSofa">Velvet Sofa</option>
+          <optgroup label="Featured">
+            <option value="DamagedHelmet">Damaged Helmet</option>
+            <option value="Fox">Fox</option>
+            <option value="Avocado">Avocado</option>
+            <option value="Lantern">Lantern</option>
+          </optgroup>
+          <optgroup label="Furniture">
+            <option value="SheenChair">Sheen Chair</option>
+            <option value="DamaskChair">Damask Chair</option>
+            <option value="LeatherSofa">Leather Sofa</option>
+            <option value="VelvetSofa">Velvet Sofa</option>
+            <option value="BarnLamp">Barn Lamp</option>
+          </optgroup>
+          <optgroup label="Accessories">
+            <option value="SunglassesKhronos">Sunglasses</option>
+            <option value="ChronographWatch">Watch</option>
+            <option value="Sneaker">Sneaker</option>
+            <option value="MaterialsVariantsShoe">Shoe (Variants)</option>
+          </optgroup>
+          <optgroup label="Decor">
+            <option value="GlassVaseFlowers">Glass Vase with Flowers</option>
+            <option value="CandleHolder">Candle Holder</option>
+            <option value="Plant">Plant</option>
+            <option value="DishWithOlives">Dish with Olives</option>
+            <option value="IridescenceLamp">Iridescent Lamp</option>
+          </optgroup>
+          <optgroup label="Objects">
+            <option value="ToyCar">Toy Car</option>
+            <option value="CarConcept">Car Concept</option>
+            <option value="BoomBox">Boom Box</option>
+            <option value="AntiqueCamera">Antique Camera</option>
+            <option value="WaterBottle">Water Bottle</option>
+            <option value="Duck">Duck</option>
+          </optgroup>
+          <optgroup label="Scientific">
+            <option value="MosquitoInAmber">Mosquito in Amber</option>
+            <option value="BrainStem">Brain Stem</option>
+          </optgroup>
         </select>
       </div>
       <div class="playground__toolbar-right">
@@ -488,11 +540,29 @@
       <!-- Right: 3D Preview -->
       <div class="playground__preview">
         <div class="playground__preview-header">
-          <span class="playground__preview-label">3D Preview<span class="playground__renderer-badge playground__renderer-badge--sceneview">SceneView</span></span>
+          <span class="playground__preview-label">3D Preview<span id="rendererBadge" class="playground__renderer-badge playground__renderer-badge--sceneview">SceneView</span></span>
           <span class="playground__preview-hint">Drag to rotate, scroll to zoom</span>
         </div>
         <div class="playground__model-wrap">
           <canvas id="previewCanvas" aria-label="3D model preview (SceneView Web / Filament.js)"></canvas>
+          <model-viewer
+            id="previewModel"
+            src="models/platforms/DamagedHelmet.glb"
+            alt="3D model preview"
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="30deg"
+            camera-controls
+            touch-action="pan-y"
+            interaction-prompt="none"
+            shadow-intensity="1.2"
+            shadow-softness="0.8"
+            exposure="1.1"
+            environment-image="neutral"
+            camera-orbit="45deg 70deg 2.5m"
+            loading="eager"
+            style="display:none"
+          ></model-viewer>
         </div>
         <div class="playground__description" id="description">
           <h3 id="descTitle">Model Viewer</h3>
@@ -545,7 +615,6 @@
         file: 'ModelViewerScreen.kt',
         lang: 'Kotlin',
         title: 'Model Viewer',
-        model: 'DamagedHelmet',
         description: 'A basic 3D scene with a glTF model, HDR environment lighting, orbit camera controls, and shadows. This is the simplest way to display a 3D model in your app.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -582,11 +651,13 @@ fun ModelViewerScreen() {\n\
         },\n\
         cameraManipulator = rememberCameraManipulator()\n\
     ) {\n\
-        ModelNode(\n\
-            modelInstance = rememberModelInstance(\n\
-                modelLoader, "models/helmet.glb"\n\
+        rememberModelInstance(\n\
+            modelLoader, "models/helmet.glb"\n\
+        )?.let { instance ->\n\
+            ModelNode(\n\
+                modelInstance = instance\n\
             )\n\
-        )\n\
+        }\n\
     }\n\
 }'
       },
@@ -594,7 +665,6 @@ fun ModelViewerScreen() {\n\
         file: 'ARPlacementScreen.kt',
         lang: 'Kotlin',
         title: 'AR Placement',
-        model: 'SheenChair',
         description: 'An AR scene with plane detection and tap-to-place. Users point their camera at a surface, then tap to place a 3D model. Supports ARCore on Android.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -618,6 +688,11 @@ fun ARPlacementScreen() {\n\
     val modelLoader = rememberModelLoader(engine)\n\
     var placedModel by remember { mutableStateOf(false) }\n\
 \n\
+    // Pre-load model on the main thread\n\
+    val modelInstance = rememberModelInstance(\n\
+        modelLoader, "models/chair.glb"\n\
+    )\n\
+\n\
     ARScene(\n\
         modifier = Modifier.fillMaxSize(),\n\
         engine = engine,\n\
@@ -629,7 +704,7 @@ fun ARPlacementScreen() {\n\
                     .PlaneFindingMode.HORIZONTAL\n\
         },\n\
         onTapAR = { motionEvent, hitResult ->\n\
-            if (!placedModel) {\n\
+            if (!placedModel && modelInstance != null) {\n\
                 hitResult\n\
                     ?.takeIf {\n\
                         it.trackable is Plane\n\
@@ -642,10 +717,7 @@ fun ARPlacementScreen() {\n\
                         anchorNode.addChildNode(\n\
                             ModelNode(\n\
                                 modelInstance =\n\
-                                    modelLoader\n\
-                                        .createModelInstance(\n\
-                                            "models/chair.glb"\n\
-                                        )\n\
+                                    modelInstance\n\
                             )\n\
                         )\n\
                         placedModel = true\n\
@@ -659,7 +731,6 @@ fun ARPlacementScreen() {\n\
         file: 'CustomGeometryScreen.kt',
         lang: 'Kotlin',
         title: 'Custom Geometry',
-        model: 'ToyCar',
         description: 'Procedurally generated 3D geometry using MeshNode. Create cubes, spheres, cylinders, and custom shapes at runtime with material properties.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -729,7 +800,6 @@ fun CustomGeometryScreen() {\n\
         file: 'AnimationScreen.kt',
         lang: 'Kotlin',
         title: 'Animation',
-        model: 'Fox',
         description: 'A model with animation playback controls. Load an animated glTF model and control playback with play, pause, and animation switching.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -843,6 +913,8 @@ fun AnimationScreen() {\n\
       // Apply syntax highlighting
       // Comments
       html = html.replace(/(\/\/.*)/g, '<span class="cm">$1</span>');
+      // Annotations (@Composable, etc.)
+      html = html.replace(/(@\w+)/g, '<span class="ann">$1</span>');
       // Strings
       html = html.replace(/("(?:[^"\\]|\\.)*")/g, '<span class="str">$1</span>');
       // Numbers
@@ -878,12 +950,6 @@ fun AnimationScreen() {\n\
       descTitle.textContent = ex.title;
       descText.textContent = ex.description;
 
-      // Sync 3D preview model with example
-      if (ex.model) {
-        modelSelect.value = ex.model;
-        initSceneView(getModelUrl(ex.model));
-      }
-
       // Update Claude link
       var prompt = encodeURIComponent(
         'Help me build a SceneView Android app. Here is the code I want to use:\n\n' + ex.code
@@ -899,10 +965,14 @@ fun AnimationScreen() {\n\
       loadExample(this.value);
     });
 
-    // ===== SCENEVIEW RENDERER =====
+    // ===== RENDERER SWITCHING =====
     var MODEL_BASE = 'models/platforms';
     var modelSelect = document.getElementById('modelSelect');
+    var rendererSelect = document.getElementById('rendererSelect');
+    var previewModel = document.getElementById('previewModel');
     var previewCanvas = document.getElementById('previewCanvas');
+    var rendererBadge = document.getElementById('rendererBadge');
+    var currentRenderer = 'sceneview'; // default to SceneView
     var sceneViewInstance = null;
 
     function getModelUrl(name) {
@@ -916,7 +986,8 @@ fun AnimationScreen() {\n\
 
     function initSceneView(modelUrl) {
       if (typeof SceneView === 'undefined') {
-        console.warn('SceneView not loaded');
+        console.warn('SceneView not loaded, falling back to model-viewer');
+        switchToModelViewer();
         return;
       }
       // Dispose previous instance
@@ -933,13 +1004,52 @@ fun AnimationScreen() {\n\
       });
     }
 
-    // Model preset switcher
-    modelSelect.addEventListener('change', function () {
-      initSceneView(getModelUrl(this.value));
+    function switchToSceneView() {
+      currentRenderer = 'sceneview';
+      previewCanvas.style.display = 'block';
+      previewModel.style.display = 'none';
+      rendererBadge.textContent = 'SceneView';
+      rendererBadge.className = 'playground__renderer-badge playground__renderer-badge--sceneview';
+      var name = modelSelect.value;
+      initSceneView(getModelUrl(name));
+    }
+
+    function switchToModelViewer() {
+      currentRenderer = 'model-viewer';
+      previewCanvas.style.display = 'none';
+      previewModel.style.display = 'block';
+      rendererBadge.textContent = 'model-viewer';
+      rendererBadge.className = 'playground__renderer-badge playground__renderer-badge--modelviewer';
+      // Dispose SceneView instance
+      if (sceneViewInstance) {
+        try { sceneViewInstance.dispose(); } catch(e) {}
+        sceneViewInstance = null;
+      }
+      var name = modelSelect.value;
+      previewModel.setAttribute('src', getModelUrl(name));
+    }
+
+    rendererSelect.addEventListener('change', function() {
+      if (this.value === 'sceneview') {
+        switchToSceneView();
+      } else {
+        switchToModelViewer();
+      }
     });
 
-    // Initialize SceneView with default model
-    initSceneView(getModelUrl(modelSelect.value));
+    // Model preset switcher
+    modelSelect.addEventListener('change', function () {
+      var name = this.value;
+      var url = getModelUrl(name);
+      if (currentRenderer === 'sceneview') {
+        initSceneView(url);
+      } else {
+        previewModel.setAttribute('src', url);
+      }
+    });
+
+    // Initialize default renderer (SceneView)
+    switchToSceneView();
 
     // Copy button
     copyBtn.addEventListener('click', function () {

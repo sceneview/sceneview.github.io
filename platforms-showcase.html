@@ -1,625 +1,952 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SceneView — One SDK, Every Screen</title>
-    <meta name="description" content="SceneView renders 3D natively on Android, iOS, macOS, visionOS, Web, TV, Flutter, React Native, and Claude.">
+    <meta name="description" content="SceneView renders 3D natively on Android, iOS, macOS, visionOS, Web, TV, Flutter, and React Native — one API, every platform.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://sceneview.github.io/platforms-showcase.html">
+    <meta property="og:title" content="SceneView — One SDK, Every Screen">
+    <meta property="og:description" content="Native 3D rendering on Android, iOS, macOS, visionOS, Web, TV, Flutter, React Native.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sceneview.github.io/platforms-showcase.html">
+    <meta property="og:image" content="https://sceneview.github.io/favicon.svg">
+    <meta name="twitter:card" content="summary">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Filament.js v1.70.1 WASM engine (required by SceneView Web) -->
-    <script src="js/filament/filament.js"></script>
-    <!-- SceneView Web — our 3D library built on Filament.js -->
-    <script src="js/sceneview.js?v=1.3.3"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
     <style>
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-        :root {
-            --bg: #0a0e1a;
-            --surface: #12172a;
-            --border: rgba(255,255,255,0.06);
-            --text: #e8eaf6;
-            --text-dim: #8892b0;
-            --blue: #4285f4;
-            --amber: #d97756;
+        /* ── Page layout ── */
+        .page-platforms {
+            padding-top: var(--nav-height);
         }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        /* ── Nav ── */
-        nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 32px;
-            border-bottom: 1px solid var(--border);
-        }
-        nav a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
-        nav a:hover { color: var(--text); }
-        .nav-logo { color: var(--text); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
-        .nav-links { display: flex; gap: 24px; }
 
         /* ── Hero ── */
-        .hero {
+        .plat-hero {
             text-align: center;
-            padding: 60px 24px 20px;
+            padding: var(--space-3xl) var(--space-lg) var(--space-xl);
+            position: relative;
         }
-        .hero h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
+        .plat-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(26,115,232,0.12) 0%, transparent 70%);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        [data-theme="dark"] .plat-hero::before {
+            background: radial-gradient(circle, rgba(138,180,248,0.15) 0%, transparent 70%);
+        }
+        .plat-hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
             font-weight: 900;
             letter-spacing: -0.03em;
+            background: linear-gradient(135deg, var(--color-primary) 30%, #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
         }
-        .hero h1 span { color: var(--blue); }
-        .hero p {
-            color: var(--text-dim);
-            margin-top: 12px;
-            font-size: 1rem;
+        [data-theme="dark"] .plat-hero h1 {
+            background: linear-gradient(135deg, #fff 30%, #8ab4f8);
+            -webkit-background-clip: text;
+            background-clip: text;
         }
-
-        /* ── Main shelf — all devices on one "table" ── */
-        .shelf {
-            max-width: 1200px;
+        .plat-hero p {
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: var(--color-on-surface-dim);
+            font-weight: 400;
+            max-width: 600px;
             margin: 0 auto;
-            padding: 40px 24px 80px;
+        }
+        .plat-hero p span {
+            color: var(--color-primary);
+            font-weight: 600;
         }
 
-        /* Row 1: phones side by side */
-        .shelf__phones {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 40px;
-            margin-bottom: 48px;
-        }
-
-        /* Row 2: wide devices */
-        .shelf__wide {
+        /* ── Grid ── */
+        .plat-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
-            margin-bottom: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg) var(--space-4xl);
         }
 
-        /* ── Device wrapper ── */
-        .device {
+        /* ── Device card ── */
+        .device-card {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 16px;
         }
-
-        .device__label {
-            font-size: 0.7rem;
+        .device-label {
+            font-size: 0.85rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--text-dim);
+            color: var(--color-on-surface);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .device-label .platform-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            opacity: 0.8;
+        }
+        .device-label .badge {
+            font-size: 0.6rem;
+            background: var(--color-primary-light);
+            border: 1px solid var(--color-primary-subtle);
+            padding: 2px 8px;
+            border-radius: 999px;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .device-sublabel {
+            font-size: 0.8rem;
+            color: var(--color-on-surface-dim);
+            font-weight: 500;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-
-        .device__badge {
-            font-size: 0.55rem;
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-        .device__badge--stable { background: rgba(66,133,244,0.15); color: var(--blue); }
-        .device__badge--alpha { background: rgba(255,255,255,0.08); color: var(--text-dim); }
-        .device__badge--ai { background: rgba(217,119,86,0.15); color: var(--amber); }
-
-        .device__tech {
+        .device-sublabel code {
+            font-family: var(--font-mono, 'JetBrains Mono', monospace);
             font-size: 0.7rem;
-            color: var(--text-dim);
-            opacity: 0.7;
+            background: var(--color-surface-dim);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--color-primary);
         }
 
-        .device-canvas {
+        model-viewer {
             width: 100%;
             height: 100%;
-            display: block;
+            --poster-color: transparent;
             background: transparent;
         }
 
+        /* ── Shared screen background ── */
+        .screen-bg {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);
+        }
+
         /* ══════════════════════════
-           COMPACT DEVICE FRAMES
+           DEVICE FRAMES
            ══════════════════════════ */
 
-        /* ── Phone (shared) ── */
-        .phone {
-            width: 160px;
-            height: 320px;
-            border-radius: 24px;
-            padding: 6px;
+        /* ── Android Phone ── */
+        .android-phone {
+            width: 260px;
+            height: 520px;
+            background: #1a1a1a;
+            border-radius: 28px;
+            padding: 8px;
             position: relative;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            box-shadow:
+                0 0 0 2px #333,
+                0 20px 60px rgba(0,0,0,0.25);
         }
-        .phone .screen {
+        [data-theme="dark"] .android-phone {
+            box-shadow: 0 0 0 2px #444, 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .android-phone .screen {
             width: 100%;
             height: 100%;
-            border-radius: 18px;
-            overflow: hidden;
             background: #000;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
             display: flex;
             flex-direction: column;
         }
-        .phone .screen .device-canvas {
-            flex: 1;
-        }
-
-        .phone--android { background: #1a1a2e; }
-        .phone--ios { background: #2c2c2e; }
-
-        /* Tiny status bar */
-        .phone .sbar {
-            height: 20px;
-            font-size: 8px;
-            font-weight: 600;
-            color: #fff;
+        .android-phone .status-bar {
+            height: 28px;
+            background: rgba(0,0,0,0.7);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 12px;
+            padding: 0 16px;
+            font-size: 10px;
+            color: #fff;
             flex-shrink: 0;
+            z-index: 2;
+        }
+        .android-phone .status-bar .time { font-weight: 600; }
+        .android-phone .status-icons {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .android-phone .status-icons .dot {
+            width: 4px; height: 4px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .android-phone .status-icons .battery {
+            width: 16px; height: 8px;
+            border: 1.5px solid #fff;
+            border-radius: 2px;
+            position: relative;
+        }
+        .android-phone .status-icons .battery::after {
+            content: '';
+            position: absolute;
+            left: 2px; top: 2px;
+            width: 8px; height: 2px;
+            background: #4caf50;
+            border-radius: 1px;
+        }
+        .android-phone .mv-wrap {
+            flex: 1;
+            position: relative;
+        }
+        .android-phone .app-bar {
+            height: 36px;
+            background: rgba(0,0,0,0.75);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            gap: 8px;
+            flex-shrink: 0;
+            z-index: 2;
+        }
+        .android-phone .app-bar svg { opacity: 0.7; }
+        .android-phone .bottom-nav {
+            height: 24px;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-shrink: 0;
+            z-index: 2;
+        }
+        .android-phone .bottom-nav .nav-pill {
+            width: 40px; height: 4px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 2px;
         }
 
-        /* Dynamic Island */
-        .phone--ios .di {
+        /* ── iPhone ── */
+        .iphone {
+            width: 260px;
+            height: 530px;
+            background: #e0e0e0;
+            border-radius: 40px;
+            padding: 8px;
+            position: relative;
+            box-shadow:
+                0 0 0 2px #ccc,
+                0 0 0 4px #b0b0b0,
+                0 20px 60px rgba(0,0,0,0.2);
+        }
+        [data-theme="dark"] .iphone {
+            background: #2c2c2e;
+            box-shadow: 0 0 0 2px #3a3a3c, 0 0 0 4px #1c1c1e, 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .iphone .screen {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .iphone .dynamic-island {
             position: absolute;
-            top: 12px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 18px;
+            width: 100px;
+            height: 28px;
             background: #000;
-            border-radius: 9px;
+            border-radius: 14px;
             z-index: 10;
         }
-        .phone--ios .sbar { height: 32px; padding-top: 8px; }
-
-        /* Nav pill */
-        .phone .nav-pill {
-            height: 18px;
+        .iphone .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 0 24px 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #fff;
+            flex-shrink: 0;
+            z-index: 5;
+        }
+        .iphone .mv-wrap {
+            flex: 1;
+            position: relative;
+        }
+        .iphone .home-indicator {
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            z-index: 5;
         }
-        .phone .nav-pill span {
-            width: 32px;
-            height: 3px;
+        .iphone .home-indicator .pill {
+            width: 100px; height: 4px;
             background: rgba(255,255,255,0.4);
             border-radius: 2px;
         }
 
-        /* ── Browser window ── */
-        .browser {
+        /* ── Vision Pro ── */
+        .vision-pro {
+            width: 440px;
+            height: 260px;
+            background: linear-gradient(
+                135deg,
+                rgba(200,200,210,0.2) 0%,
+                rgba(180,180,190,0.08) 50%,
+                rgba(200,200,210,0.15) 100%
+            );
+            border-radius: 50px;
+            padding: 16px;
+            position: relative;
+            box-shadow:
+                0 0 0 1px rgba(0,0,0,0.08),
+                0 20px 60px rgba(0,0,0,0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        [data-theme="dark"] .vision-pro {
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.12) 0%,
+                rgba(255,255,255,0.04) 50%,
+                rgba(255,255,255,0.08) 100%
+            );
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .vision-pro .screen {
             width: 100%;
-            background: var(--surface);
-            border-radius: 12px;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            border-radius: 36px;
             overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-        .browser .toolbar {
-            height: 32px;
-            background: rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            gap: 8px;
-            border-bottom: 1px solid var(--border);
-        }
-        .browser .dots { display: flex; gap: 5px; }
-        .browser .dots span {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-        .browser .dots .r { background: #ff5f57; }
-        .browser .dots .y { background: #ffbd2e; }
-        .browser .dots .g { background: #28c940; }
-        .browser .url {
-            flex: 1;
-            font-size: 0.65rem;
-            color: var(--text-dim);
-            background: rgba(255,255,255,0.05);
-            padding: 3px 10px;
-            border-radius: 4px;
-        }
-        .browser .viewport {
-            height: 180px;
             position: relative;
         }
-        .browser .viewport .device-canvas {
-            height: 100%;
+        .vision-pro .window-controls {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 16px;
+            z-index: 5;
+        }
+        .vision-pro .window-controls .ctl {
+            width: 6px; height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+        }
+        .vision-pro .visionos-label {
+            position: absolute;
+            top: 12px; left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 0.06em;
+            z-index: 5;
         }
 
         /* ── TV ── */
-        .tv-frame {
+        .tv {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .tv .frame {
+            width: 480px;
+            height: 280px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 10px;
+            position: relative;
+            box-shadow:
+                0 0 0 3px #2a2a2a,
+                0 0 0 5px #111,
+                0 20px 60px rgba(0,0,0,0.3);
+        }
+        [data-theme="dark"] .tv .frame {
+            box-shadow: 0 0 0 3px #2a2a2a, 0 0 0 5px #111, 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .tv .screen {
             width: 100%;
-            background: #1c2033;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            border: 2px solid #2a3050;
-        }
-        .tv-frame .screen {
-            height: 180px;
-        }
-        .tv-frame .device-canvas {
             height: 100%;
+            background: #000;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
         }
-        .tv-stand {
-            width: 60px;
+        .tv .stand {
+            width: 180px;
             height: 4px;
-            background: #2a3050;
-            margin: 0 auto;
+            background: linear-gradient(180deg, #333, #1a1a1a);
             border-radius: 0 0 4px 4px;
+            margin-top: -1px;
+        }
+        .tv .stand-leg {
+            width: 260px;
+            height: 6px;
+            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+            border-radius: 3px;
+            margin-top: 2px;
+        }
+        .tv .logo-dot {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 0 6px rgba(26,115,232,0.3);
+        }
+        .tv .tv-overlay {
+            position: absolute;
+            top: 8px; left: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.35);
+            z-index: 5;
+            letter-spacing: 0.04em;
         }
 
-        /* ── Claude Desktop ── */
-        .claude-win {
-            width: 100%;
-            background: var(--surface);
+        /* ── Desktop Browser ── */
+        .browser {
+            width: 480px;
+            height: 340px;
+            background: var(--color-surface-dim);
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid rgba(217,119,86,0.2);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 0 0 1px var(--color-outline), 0 20px 60px rgba(0,0,0,0.15);
         }
-        .claude-win .toolbar {
-            height: 32px;
-            background: rgba(0,0,0,0.3);
+        [data-theme="dark"] .browser {
+            background: #1c2033;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .browser .toolbar {
+            height: 36px;
+            background: var(--color-surface-container);
             display: flex;
             align-items: center;
             padding: 0 12px;
             gap: 8px;
-            border-bottom: 1px solid rgba(217,119,86,0.15);
+            border-bottom: 1px solid var(--color-outline);
         }
-        .claude-win .claude-title {
-            font-size: 0.75rem;
-            color: var(--amber);
-            font-weight: 600;
+        [data-theme="dark"] .browser .toolbar {
+            background: #1a1f33;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
-        .claude-win .chat {
-            padding: 16px;
-            height: 180px;
+        .browser .dots {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            font-size: 0.75rem;
-            line-height: 1.5;
+            gap: 6px;
         }
-        .claude-msg {
-            display: flex;
-            gap: 8px;
-            align-items: flex-start;
+        .browser .dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
         }
-        .claude-avatar {
-            width: 22px;
+        .browser .dots .d-close { background: #ff5f57; }
+        .browser .dots .d-min { background: #febc2e; }
+        .browser .dots .d-max { background: #28c840; }
+        .browser .tab {
+            background: var(--color-surface-dim);
+            padding: 4px 14px;
+            border-radius: 6px 6px 0 0;
+            font-size: 10px;
+            color: var(--color-on-surface-dim);
+            margin-left: 8px;
+        }
+        [data-theme="dark"] .browser .tab {
+            background: rgba(255,255,255,0.06);
+        }
+        .browser .address-bar {
+            flex: 1;
+            margin-left: 12px;
             height: 22px;
-            background: var(--amber);
+            background: var(--color-surface);
+            border: 1px solid var(--color-outline);
             border-radius: 6px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: #fff;
-            flex-shrink: 0;
+            padding: 0 10px;
+            font-size: 10px;
+            color: var(--color-on-surface-dim);
         }
-        .claude-bubble {
-            background: rgba(217,119,86,0.08);
-            border: 1px solid rgba(217,119,86,0.15);
-            border-radius: 8px;
-            padding: 8px 12px;
-            color: var(--text-dim);
+        [data-theme="dark"] .browser .address-bar {
+            background: rgba(0,0,0,0.3);
+            border-color: transparent;
         }
-        .claude-bubble code {
-            color: var(--amber);
-            font-family: 'Courier New', monospace;
-            font-size: 0.7rem;
+        .browser .address-bar .lock {
+            margin-right: 6px;
+            font-size: 8px;
         }
-        .claude-code {
-            background: rgba(0,0,0,0.4);
-            border-radius: 6px;
-            padding: 8px 12px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.65rem;
-            line-height: 1.6;
-            color: #d4d4d4;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .claude-code .kw { color: #569cd6; }
-        .claude-code .fn { color: #dcdcaa; }
-        .claude-code .str { color: #ce9178; }
-
-        /* ── Vision Pro ── */
-        .visionpro {
-            width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, rgba(30,30,60,0.8), rgba(10,10,30,0.95));
-            border-radius: 40px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.08);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        .browser .viewport {
+            height: calc(100% - 36px);
+            background: #000;
             position: relative;
         }
-        .visionpro .device-canvas {
+
+        /* ── Claude Desktop ── */
+        .claude-desktop {
+            width: 480px;
+            height: 340px;
+            background: var(--color-surface-dim);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 0 1px var(--color-outline), 0 20px 60px rgba(0,0,0,0.15);
+        }
+        [data-theme="dark"] .claude-desktop {
+            background: #1a1a2e;
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .claude-desktop .titlebar {
+            height: 36px;
+            background: var(--color-surface-container);
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            border-bottom: 1px solid var(--color-outline);
+        }
+        [data-theme="dark"] .claude-desktop .titlebar {
+            background: #14142a;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .claude-desktop .titlebar .dots {
+            display: flex;
+            gap: 6px;
+        }
+        .claude-desktop .titlebar .dots span {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+        .claude-desktop .titlebar .dots span:nth-child(1) { background: #ff5f57; }
+        .claude-desktop .titlebar .dots span:nth-child(2) { background: #febc2e; }
+        .claude-desktop .titlebar .dots span:nth-child(3) { background: #28c840; }
+        .claude-desktop .titlebar .title-text {
+            flex: 1;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-on-surface-dim);
+        }
+        .claude-desktop .body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: calc(100% - 36px);
+        }
+        .claude-desktop .chat-side {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-right: 1px solid var(--color-outline);
+            overflow: hidden;
+        }
+        [data-theme="dark"] .claude-desktop .chat-side {
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        .claude-desktop .chat-label {
+            font-size: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-on-surface-faint);
+        }
+        .claude-desktop .msg {
+            display: flex;
+            gap: 6px;
+            align-items: flex-start;
+        }
+        .claude-desktop .msg--user {
+            flex-direction: row-reverse;
+        }
+        .claude-desktop .avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: 700;
+            color: white;
+        }
+        .claude-desktop .avatar--claude {
+            background: linear-gradient(135deg, #d97757, #c25d3a);
+        }
+        .claude-desktop .avatar--user {
+            background: var(--color-primary);
+        }
+        .claude-desktop .bubble {
+            padding: 6px 10px;
+            border-radius: 10px;
+            font-size: 9px;
+            line-height: 1.4;
+            max-width: 85%;
+        }
+        .claude-desktop .bubble--user {
+            background: var(--color-primary);
+            color: white;
+            border-bottom-right-radius: 3px;
+        }
+        .claude-desktop .bubble--claude {
+            background: var(--color-surface);
+            color: var(--color-on-surface);
+            border: 1px solid var(--color-outline);
+            border-bottom-left-radius: 3px;
+        }
+        [data-theme="dark"] .claude-desktop .bubble--claude {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .claude-desktop .preview-side {
+            position: relative;
+            background: #0f0f1a;
+        }
+        [data-theme="light"] .claude-desktop .preview-side {
+            background: #f0f0f4;
+        }
+        .claude-desktop .preview-side model-viewer {
+            width: 100%;
             height: 100%;
         }
-
-        /* ── Back link ── */
-        .back {
-            text-align: center;
-            padding: 0 24px 60px;
-        }
-        .back a {
-            color: var(--blue);
-            text-decoration: none;
+        .claude-desktop .preview-badge {
+            position: absolute;
+            bottom: 6px; right: 8px;
+            font-size: 8px;
             font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .back a:hover { text-decoration: underline; }
-
-        /* ── Responsive ── */
-        @media (max-width: 700px) {
-            .shelf__phones { flex-direction: column; align-items: center; gap: 32px; }
-            .phone { width: 140px; height: 280px; }
+            padding: 2px 8px;
+            border-radius: 6px;
+            background: rgba(217,119,87,0.15);
+            color: #d97757;
+            z-index: 5;
         }
 
-        /* ── Theme toggle ── */
-        /* ── Light mode overrides ── */
-        @media (prefers-color-scheme: light) {
-            :root:not([data-theme="dark"]) {
-                --bg: #f5f7fa;
-                --surface: #ffffff;
-                --border: rgba(0,0,0,0.08);
-                --text: #1f2937;
-                --text-dim: #64748b;
+        /* ── Wide cards span 2 columns ── */
+        .wide { grid-column: span 2; }
+
+        @media (max-width: 900px) {
+            .wide { grid-column: span 1; }
+            .vision-pro, .tv .frame, .browser, .claude-desktop {
+                width: 100%;
+                max-width: 480px;
             }
-            :root:not([data-theme="dark"]) .phone--android { background: #e2e8f0; }
-            :root:not([data-theme="dark"]) .phone--ios { background: #d1d5db; }
-            :root:not([data-theme="dark"]) .phone .screen .device-canvas { background: transparent; }
-            :root:not([data-theme="dark"]) .browser { background: var(--surface); }
-            :root:not([data-theme="dark"]) .browser .toolbar { background: rgba(0,0,0,0.05); }
-            :root:not([data-theme="dark"]) .browser .url { background: rgba(0,0,0,0.04); }
-            :root:not([data-theme="dark"]) .browser .viewport .device-canvas { background: transparent; }
-            :root:not([data-theme="dark"]) .tv-frame { background: #e2e8f0; border-color: #cbd5e1; }
-            :root:not([data-theme="dark"]) .tv-frame .device-canvas { background: transparent; }
-            :root:not([data-theme="dark"]) .tv-stand { background: #cbd5e1; }
-            :root:not([data-theme="dark"]) .claude-win { background: var(--surface); border-color: rgba(217,119,86,0.2); }
-            :root:not([data-theme="dark"]) .claude-win .toolbar { background: rgba(0,0,0,0.04); border-bottom-color: rgba(217,119,86,0.1); }
-            :root:not([data-theme="dark"]) .claude-bubble { background: rgba(217,119,86,0.06); border-color: rgba(217,119,86,0.12); }
-            :root:not([data-theme="dark"]) .claude-code { background: #1e1e2e; }
-            :root:not([data-theme="dark"]) .phone .sbar { color: #333; }
-            :root:not([data-theme="dark"]) .phone .nav-pill span { background: rgba(0,0,0,0.2); }
-            :root:not([data-theme="dark"]) .phone .screen { background: #e8eaf6; }
-            :root:not([data-theme="dark"]) .visionpro { background: linear-gradient(135deg, rgba(200,200,230,0.8), rgba(220,220,240,0.95)); border-color: rgba(0,0,0,0.08); }
-            :root:not([data-theme="dark"]) .phone--ios .di { background: #d1d5db; }
+            .plat-grid { gap: 40px; padding: var(--space-lg) var(--space-md) var(--space-3xl); }
         }
 
-        [data-theme="light"] {
-            --bg: #f5f7fa;
-            --surface: #ffffff;
-            --border: rgba(0,0,0,0.08);
-            --text: #1f2937;
-            --text-dim: #64748b;
+        @media (max-width: 600px) {
+            .android-phone, .iphone {
+                width: 220px;
+            }
+            .android-phone { height: 440px; }
+            .iphone { height: 450px; }
         }
-        [data-theme="light"] .phone--android { background: #e2e8f0; }
-        [data-theme="light"] .phone--ios { background: #d1d5db; }
-        [data-theme="light"] .phone .screen .device-canvas { background: transparent; }
-        [data-theme="light"] .browser { background: var(--surface); }
-        [data-theme="light"] .browser .toolbar { background: rgba(0,0,0,0.05); }
-        [data-theme="light"] .browser .url { background: rgba(0,0,0,0.04); }
-        [data-theme="light"] .browser .viewport .device-canvas { background: transparent; }
-        [data-theme="light"] .tv-frame { background: #e2e8f0; border-color: #cbd5e1; }
-        [data-theme="light"] .tv-frame .device-canvas { background: transparent; }
-        [data-theme="light"] .tv-stand { background: #cbd5e1; }
-        [data-theme="light"] .claude-win { background: var(--surface); border-color: rgba(217,119,86,0.2); }
-        [data-theme="light"] .claude-win .toolbar { background: rgba(0,0,0,0.04); border-bottom-color: rgba(217,119,86,0.1); }
-        [data-theme="light"] .claude-bubble { background: rgba(217,119,86,0.06); border-color: rgba(217,119,86,0.12); }
-        [data-theme="light"] .claude-code { background: #1e1e2e; }
-        [data-theme="light"] .phone .sbar { color: #333; }
-        [data-theme="light"] .phone .nav-pill span { background: rgba(0,0,0,0.2); }
-        [data-theme="light"] .phone .screen { background: #e8eaf6; }
-        [data-theme="light"] .visionpro { background: linear-gradient(135deg, rgba(200,200,230,0.8), rgba(220,220,240,0.95)); border-color: rgba(0,0,0,0.08); }
-        [data-theme="light"] .phone--ios .di { background: #d1d5db; }
-        [data-theme="light"] .phone { box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-        [data-theme="light"] .browser { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-        [data-theme="light"] .claude-win { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-        [data-theme="light"] .visionpro { box-shadow: 0 8px 32px rgba(0,0,0,0.15); }
-        [data-theme="light"] .tv-frame { box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+
+        /* ── Footer ── */
+        .plat-footer {
+            text-align: center;
+            padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+            color: var(--color-on-surface-dim);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--color-outline);
+        }
+        .plat-footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
+<div class="page-platforms">
 
-<!-- Nav -->
-<nav>
-    <a href="/" class="nav-logo">
-        <img src="favicon.svg" width="28" height="28" alt="SceneView">
-        SceneView
-    </a>
-    <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/showcase.html">Showcase</a>
-        <a href="/playground.html">Playground</a>
-        <a href="https://github.com/sceneview/sceneview">GitHub</a>
+<!-- ===== NAVIGATION (matches site-wide nav from styles.css) ===== -->
+<nav class="nav" id="nav">
+    <div class="nav__container">
+        <a href="/" class="nav__logo">
+            <svg class="nav__logo-icon" viewBox="0 0 32 32" width="32" height="32" fill="none">
+                <rect width="32" height="32" rx="8" fill="currentColor"/>
+                <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            SceneView
+        </a>
+        <div class="nav__links">
+            <a href="/showcase.html" class="nav__link">Showcase</a>
+            <a href="/platforms-showcase.html" class="nav__link" style="color: var(--color-primary); font-weight: 600;">Platforms</a>
+            <a href="/#demos" class="nav__link">Demos</a>
+            <a href="/playground.html" class="nav__link">Playground</a>
+            <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
+            <a href="https://github.com/sceneview/sceneview" class="nav__link">GitHub</a>
+            <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+        </div>
     </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-    <h1>One SDK, <span>Every Screen</span></h1>
-    <p>Native 3D rendering on 7 platforms &mdash; interact with each device below</p>
+<section class="plat-hero">
+    <h1>One SDK, Every Screen</h1>
+    <p>SceneView delivers native 3D on <span>9 platforms</span> &mdash; interact with each model below</p>
 </section>
 
-<!-- Shelf: all devices together -->
-<section class="shelf">
+<div class="plat-grid">
 
-    <!-- Row 1: Phones -->
-    <div class="shelf__phones">
-        <div class="device">
-            <div class="device__label">Android <span class="device__badge device__badge--stable">Stable</span></div>
-            <div class="phone phone--android">
-                <div class="screen">
-                    <div class="sbar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
-                    <canvas id="canvas-android" class="device-canvas"></canvas>
-                    <div class="nav-pill"><span></span></div>
-                </div>
-            </div>
-            <div class="device__tech">Jetpack Compose + Filament</div>
+    <!-- ── Android Phone ── -->
+    <div class="device-card">
+        <div class="device-label">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="none"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V7H6v11zM3.5 7C2.67 7 2 7.67 2 8.5v7c0 .83.67 1.5 1.5 1.5S5 16.33 5 15.5v-7C5 7.67 4.33 7 3.5 7zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-5.84l1.3-1.3c.2-.2.2-.51 0-.71s-.51-.2-.71 0l-1.48 1.48A5.84 5.84 0 0 0 12 0c-.96 0-1.86.23-2.66.63L7.85.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31A5.983 5.983 0 0 0 6 6h12c0-2.15-1.13-4.04-2.83-5.12l-.14-.72zM10 4H9V3h1v1zm5 0h-1V3h1v1z" fill="#78C257"/></svg>
+            Android
+            <span class="badge">Stable</span>
         </div>
-
-        <div class="device">
-            <div class="device__label">iPhone <span class="device__badge device__badge--alpha">Alpha</span></div>
-            <div class="phone phone--ios">
-                <div class="di"></div>
-                <div class="screen">
-                    <div class="sbar"><span>9:41</span><span></span></div>
-                    <canvas id="canvas-ios" class="device-canvas"></canvas>
-                    <div class="nav-pill"><span></span></div>
-                </div>
-            </div>
-            <div class="device__tech">SwiftUI + RealityKit</div>
-        </div>
-    </div>
-
-    <!-- Row 2: Wide devices -->
-    <div class="shelf__wide">
-        <!-- Claude Desktop -->
-        <div class="device">
-            <div class="device__label">Claude Desktop <span class="device__badge device__badge--ai">AI</span></div>
-            <div class="claude-win">
-                <div class="toolbar">
-                    <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-                    <div class="claude-title">Claude</div>
-                </div>
-                <div class="chat">
-                    <div class="claude-msg">
-                        <div class="claude-avatar">C</div>
-                        <div class="claude-bubble">I'll create a 3D AR app with SceneView using <code>ARScene { }</code>:</div>
-                    </div>
-                    <div class="claude-code">
-                        <span class="kw">@Composable fun</span> <span class="fn">MyARApp</span>() {<br>
-                        &nbsp;&nbsp;<span class="fn">ARScene</span> {<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">ModelNode</span>(model = <span class="fn">rememberModelInstance</span>(<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modelLoader, <span class="str">"chair.glb"</span><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;))<br>
-                        &nbsp;&nbsp;}<br>
-                        }
+        <div class="android-phone">
+            <div class="screen">
+                <div class="status-bar">
+                    <span class="time">9:41</span>
+                    <div class="status-icons">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="battery"></div>
                     </div>
                 </div>
-            </div>
-            <div class="device__tech">SceneView MCP &mdash; npx sceneview-mcp</div>
-        </div>
-
-        <!-- Web Browser -->
-        <div class="device">
-            <div class="device__label">Web <span class="device__badge device__badge--alpha">Alpha</span></div>
-            <div class="browser">
-                <div class="toolbar">
-                    <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-                    <div class="url">sceneview.github.io/playground</div>
+                <div class="app-bar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                    SceneView Demo
                 </div>
-                <div class="viewport">
-                    <canvas id="canvas-web" class="device-canvas"></canvas>
+                <div class="mv-wrap">
+                    <model-viewer
+                        src="models/platforms/DamagedHelmet.glb"
+                        camera-controls touch-action="pan-y"
+                        auto-rotate shadow-intensity="1"
+                        environment-image="neutral"
+                        camera-orbit="30deg 75deg auto"
+                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
+                    ></model-viewer>
+                </div>
+                <div class="bottom-nav">
+                    <div class="nav-pill"></div>
                 </div>
             </div>
-            <div class="device__tech">Kotlin/JS + Filament.js (WASM)</div>
         </div>
+        <div class="device-sublabel">Jetpack Compose + Filament &mdash; <code>Scene { }</code></div>
     </div>
 
-    <div class="shelf__wide">
-        <!-- Apple Vision Pro -->
-        <div class="device">
-            <div class="device__label">Apple Vision Pro <span class="device__badge device__badge--alpha">Alpha</span></div>
-            <div class="visionpro">
-                <canvas id="canvas-visionpro" class="device-canvas"></canvas>
-            </div>
-            <div class="device__tech">SwiftUI + RealityKit (visionOS)</div>
+    <!-- ── iPhone ── -->
+    <div class="device-card">
+        <div class="device-label">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="none"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="#999"/></svg>
+            iPhone
+            <span class="badge">Alpha</span>
         </div>
+        <div class="iphone">
+            <div class="screen">
+                <div class="dynamic-island"></div>
+                <div class="status-bar">
+                    <span>9:41</span>
+                    <span></span>
+                </div>
+                <div class="mv-wrap">
+                    <model-viewer
+                        src="models/platforms/SunglassesKhronos.glb"
+                        camera-controls touch-action="pan-y"
+                        auto-rotate shadow-intensity="1"
+                        environment-image="neutral"
+                        camera-orbit="20deg 80deg auto"
+                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
+                    ></model-viewer>
+                </div>
+                <div class="home-indicator">
+                    <div class="pill"></div>
+                </div>
+            </div>
+        </div>
+        <div class="device-sublabel">SwiftUI + RealityKit &mdash; <code>SceneView { }</code></div>
+    </div>
 
-        <!-- Android TV -->
-        <div class="device">
-            <div class="device__label">Android TV <span class="device__badge device__badge--alpha">Alpha</span></div>
-            <div class="tv-frame">
+    <!-- ── Apple Vision Pro ── -->
+    <div class="device-card wide">
+        <div class="device-label">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="none"><path d="M2 12c0-3 4.5-7 10-7s10 4 10 7-4.5 7-10 7S2 15 2 12z" stroke="#999" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="#999" stroke-width="1.5"/><circle cx="12" cy="12" r="1" fill="#999"/></svg>
+            Apple Vision Pro
+            <span class="badge">Alpha</span>
+        </div>
+        <div class="vision-pro">
+            <div class="screen">
+                <div class="visionos-label">visionOS</div>
+                <model-viewer
+                    src="models/platforms/MosquitoInAmber.glb"
+                    camera-controls touch-action="pan-y"
+                    auto-rotate shadow-intensity="1"
+                    environment-image="neutral"
+                    camera-orbit="30deg 70deg auto"
+                    style="background: linear-gradient(135deg, rgba(30,30,60,0.8) 0%, rgba(10,10,30,0.9) 100%);"
+                ></model-viewer>
+                <div class="window-controls">
+                    <div class="ctl"></div>
+                    <div class="ctl"></div>
+                    <div class="ctl"></div>
+                </div>
+            </div>
+        </div>
+        <div class="device-sublabel">SwiftUI + RealityKit &mdash; Immersive Spaces</div>
+    </div>
+
+    <!-- ── Android TV ── -->
+    <div class="device-card wide">
+        <div class="device-label">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#78C257" stroke-width="1.5"/><path d="M8 21h8M12 17v4" stroke="#78C257" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Android TV
+            <span class="badge">Alpha</span>
+        </div>
+        <div class="tv">
+            <div class="frame">
                 <div class="screen">
-                    <canvas id="canvas-tv" class="device-canvas"></canvas>
+                    <div class="tv-overlay">Google TV</div>
+                    <model-viewer
+                        src="models/platforms/CarConcept.glb"
+                        camera-controls touch-action="pan-y"
+                        auto-rotate shadow-intensity="1"
+                        environment-image="neutral"
+                        camera-orbit="30deg 70deg auto"
+                        style="background: linear-gradient(180deg, #0d1a2a 0%, #060d1a 100%);"
+                    ></model-viewer>
                 </div>
+                <div class="logo-dot"></div>
             </div>
-            <div class="tv-stand"></div>
-            <div class="device__tech">Compose TV + Filament</div>
+            <div class="stand"></div>
+            <div class="stand-leg"></div>
         </div>
+        <div class="device-sublabel">Compose TV + Filament &mdash; D-pad navigation</div>
     </div>
 
-</section>
+    <!-- ── Desktop Browser (Web) ── -->
+    <div class="device-card wide">
+        <div class="device-label">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#4285F4" stroke-width="1.5"/><path d="M12 2a10 10 0 0 1 0 20" stroke="#EA4335" stroke-width="1.5"/><path d="M2 12h20" stroke="#FBBC04" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="#34A853" stroke-width="1.5"/></svg>
+            Web Browser
+            <span class="badge">Alpha</span>
+        </div>
+        <div class="browser">
+            <div class="toolbar">
+                <div class="dots">
+                    <span class="d-close"></span>
+                    <span class="d-min"></span>
+                    <span class="d-max"></span>
+                </div>
+                <div class="tab">SceneView Demo</div>
+                <div class="address-bar">
+                    <span class="lock">&#128274;</span>
+                    sceneview.github.io/playground
+                </div>
+            </div>
+            <div class="viewport">
+                <model-viewer
+                    src="models/platforms/BoomBox.glb"
+                    camera-controls touch-action="pan-y"
+                    auto-rotate shadow-intensity="1"
+                    environment-image="neutral"
+                    camera-orbit="-30deg 80deg auto"
+                    style="background: linear-gradient(180deg, #12172a 0%, #0a0e1a 100%);"
+                ></model-viewer>
+            </div>
+        </div>
+        <div class="device-sublabel">Kotlin/JS + Filament.js &mdash; <code>WebGL2 + WASM</code></div>
+    </div>
 
-<div class="back">
-    <a href="/">&larr; Back to SceneView</a>
+    <!-- ── Claude Desktop (AI + 3D) ── -->
+    <div class="device-card wide">
+        <div class="device-label">
+            <svg class="platform-icon" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#d97757" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Claude Desktop
+            <span class="badge" style="background: rgba(217,119,87,0.1); border-color: rgba(217,119,87,0.3); color: #d97757;">AI + 3D</span>
+        </div>
+        <div class="claude-desktop">
+            <div class="titlebar">
+                <div class="dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="title-text">Claude &mdash; SceneView MCP</div>
+            </div>
+            <div class="body">
+                <div class="chat-side">
+                    <div class="chat-label">Conversation</div>
+                    <div class="msg msg--user">
+                        <div class="avatar avatar--user">T</div>
+                        <div class="bubble bubble--user">Build me a 3D product viewer with AR support</div>
+                    </div>
+                    <div class="msg">
+                        <div class="avatar avatar--claude">C</div>
+                        <div class="bubble bubble--claude">Here's a complete Compose app with Scene { } and AR preview. The model loads via rememberModelInstance.</div>
+                    </div>
+                    <div class="msg msg--user">
+                        <div class="avatar avatar--user">T</div>
+                        <div class="bubble bubble--user">Now add environment lighting</div>
+                    </div>
+                    <div class="msg">
+                        <div class="avatar avatar--claude">C</div>
+                        <div class="bubble bubble--claude">Done! Added IBL with environmentInstance and adjusted exposure.</div>
+                    </div>
+                </div>
+                <div class="preview-side">
+                    <model-viewer
+                        src="models/platforms/SheenChair.glb"
+                        camera-controls touch-action="pan-y"
+                        auto-rotate shadow-intensity="1.5"
+                        environment-image="neutral"
+                        camera-orbit="40deg 65deg auto"
+                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
+                    ></model-viewer>
+                    <div class="preview-badge">3D Preview</div>
+                </div>
+            </div>
+        </div>
+        <div class="device-sublabel">SceneView MCP &mdash; AI generates correct 3D code on the first try</div>
+    </div>
+
 </div>
 
-<!-- Theme: respect system preference and sync with main site -->
-<script>
-    (function() {
-        var saved = localStorage.getItem('theme');
-        if (saved) {
-            document.documentElement.setAttribute('data-theme', saved);
-        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-            document.documentElement.setAttribute('data-theme', 'light');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
-    })();
+<footer class="plat-footer">
+    <p>
+        <a href="/">SceneView</a> &mdash; Open-source 3D &amp; AR SDK &middot;
+        <a href="https://github.com/sceneview/sceneview">GitHub</a> &middot;
+        <a href="https://discord.gg/sceneview">Discord</a> &middot;
+        <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0</a>
+    </p>
+</footer>
 
-    // Initialize SceneView Web canvases
-    function getThemeBg() {
-        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-        return dark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
-    }
+</div>
 
-    function initAllCanvases() {
-        if (typeof SceneView === 'undefined') {
-            console.warn('SceneView not loaded');
-            return;
-        }
-        var bg = getThemeBg();
-        var viewers = [
-            { id: 'canvas-android',    model: 'models/platforms/DamagedHelmet.glb' },
-            { id: 'canvas-ios',        model: 'models/platforms/SunglassesKhronos.glb' },
-            { id: 'canvas-web',        model: 'models/platforms/BoomBox.glb' },
-            { id: 'canvas-visionpro',  model: 'models/platforms/MosquitoInAmber.glb' },
-            { id: 'canvas-tv',         model: 'models/platforms/CarConcept.glb' }
-        ];
-        viewers.forEach(function(v) {
-            SceneView.modelViewer(v.id, v.model, { backgroundColor: bg });
-        });
-    }
-
-    // Wait for Filament WASM to be ready
-    if (typeof Filament !== 'undefined' && Filament.init) {
-        Filament.init([], null, function() { initAllCanvases(); });
-    } else {
-        window.addEventListener('load', function() {
-            if (typeof Filament !== 'undefined' && Filament.init) {
-                Filament.init([], null, function() { initAllCanvases(); });
-            } else {
-                initAllCanvases();
-            }
-        });
-    }
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>

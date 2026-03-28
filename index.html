@@ -37,6 +37,7 @@
   <!-- Preconnect hints for external resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -72,7 +73,7 @@
       "url": "https://github.com/sceneview"
     },
     "codeRepository": "https://github.com/sceneview/sceneview",
-    "programmingLanguage": ["Kotlin", "Swift", "JavaScript"],
+    "programmingLanguage": ["Kotlin", "Swift", "JavaScript", "TypeScript", "Dart"],
     "keywords": "3D, AR, Augmented Reality, Jetpack Compose, SwiftUI, Filament, RealityKit, ARCore, ARKit, glTF, USDZ"
   }
   </script>
@@ -86,6 +87,8 @@
     "url": "https://sceneview.github.io/"
   }
   </script>
+  <!-- model-viewer for interactive 3D -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 <body>
 
@@ -93,11 +96,6 @@
   <nav class="nav" id="nav">
     <div class="nav__container">
       <a href="/" class="nav__logo">
-        <svg class="nav__logo-icon" viewBox="0 0 32 32" width="32" height="32" fill="none">
-          <rect width="32" height="32" rx="8" fill="currentColor"/>
-          <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-          <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-        </svg>
         <span class="nav__logo-text">SceneView</span>
       </a>
 
@@ -106,9 +104,10 @@
       </button>
 
       <div class="nav__links" id="navLinks">
-        <a href="/showcase.html" class="nav__link nav__link--showcase">Showcase</a>
+        <a href="/showcase.html" class="nav__link" style="font-weight:600">Showcase</a>
+        <a href="/claude-3d.html" class="nav__link" style="color:#d97757;font-weight:600">AI + 3D</a>
         <a href="/platforms-showcase.html" class="nav__link">Platforms</a>
-        <a href="#demos" class="nav__link">Explore</a>
+        <a href="#demos" class="nav__link">Demos</a>
         <a href="/playground.html" class="nav__link">Playground</a>
         <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
         <a href="https://github.com/sceneview/sceneview" class="nav__link">GitHub</a>
@@ -133,35 +132,204 @@
         <h1 class="hero__title">SceneView</h1>
         <p class="hero__subtitle">3D & AR in a few lines of code</p>
         <p class="hero__description">Open-source, AI-first SDK for building 3D and augmented reality apps with Jetpack Compose and SwiftUI.</p>
-        <p class="hero__platforms">Android &middot; iOS &middot; macOS &middot; visionOS &middot; Web &middot; TV &middot; Flutter &middot; React Native &middot; Claude</p>
-        <p class="hero__langs">Kotlin &middot; Swift &middot; JavaScript &middot; Dart &middot; TypeScript</p>
+        <p class="hero__platforms">Android &middot; iOS &middot; macOS &middot; visionOS &middot; Web &middot; Desktop &middot; TV &middot; Flutter &middot; React Native &middot; Claude</p>
         <div class="hero__actions">
-          <a href="https://github.com/sceneview/sceneview#install" class="btn btn--primary">Get Started</a>
+          <a href="#install" class="btn btn--primary">Get Started</a>
           <a href="https://github.com/sceneview/sceneview" class="btn btn--outline">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
             View on GitHub
           </a>
+          <a href="https://claude.ai/new?mcp=sceneview-mcp" class="btn btn--claude" title="Open in Claude Desktop with SceneView MCP">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-5-5 1.41-1.41L11 14.17l7.59-7.59L20 8l-9 9z"/></svg>
+            Open in Claude
+          </a>
+        </div>
+        <div class="hero__stores">
+          <span class="hero__stores-label" style="display:flex;align-items:center;gap:8px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Demo apps coming soon on Play Store &amp; App Store
+          </span>
+          <div class="hero__stores-badges" style="align-items:center">
+            <a href="https://github.com/sceneview/sceneview/releases" class="btn btn--outline" style="font-size:0.8rem;padding:8px 16px;gap:6px" target="_blank" rel="noopener" title="Watch releases to get notified">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Notify me
+            </a>
+            <a href="https://github.com/sceneview/sceneview" class="btn btn--outline" style="font-size:0.8rem;padding:8px 16px;gap:6px" target="_blank" rel="noopener" title="Star the repo to follow updates">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Star on GitHub
+            </a>
+          </div>
         </div>
       </div>
       <div class="hero__model" style="position:relative">
-        <canvas id="hero-canvas" style="width:100%;height:100%;cursor:grab;display:block" aria-label="3D damaged helmet rendered by SceneView Web (Filament.js)"></canvas>
+        <canvas id="hero-canvas" style="width:100%;height:100%;cursor:grab;display:block;opacity:0;transition:opacity 0.8s ease" aria-label="3D damaged helmet rendered by SceneView Web (Filament.js)"></canvas>
         <div id="hero-loader" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;pointer-events:none;transition:opacity 0.5s ease">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1.2s linear infinite;opacity:0.5"><circle cx="12" cy="12" r="10" stroke-dasharray="50 20"/></svg>
           <span style="font-size:0.85rem;opacity:0.45;font-weight:500">Loading 3D engine&hellip;</span>
         </div>
         <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-        <div id="hero-badge" style="position:absolute;bottom:12px;right:14px;font-size:0.7rem;opacity:0;transition:opacity 0.5s ease;pointer-events:none;color:rgba(0,0,0,0.35);font-weight:500;letter-spacing:0.03em">Rendered by SceneView Web</div>
-        <style>
-          [data-theme="dark"] #hero-badge { color: rgba(255,255,255,0.45) !important; }
-          @media (prefers-color-scheme: dark) { :not([data-theme="light"]) #hero-badge { color: rgba(255,255,255,0.45) !important; } }
-        </style>
+        <div id="hero-badge" style="position:absolute;bottom:12px;right:14px;font-size:0.7rem;opacity:0;transition:opacity 0.5s ease;pointer-events:none;color:rgba(255,255,255,0.45);font-weight:500;letter-spacing:0.03em">Rendered by SceneView Web</div>
       </div>
-      <!-- Try with Claude — below the 3D model -->
-      <div style="text-align:center;margin-top:var(--space-md)">
-        <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#d97756,#c4704b);color:#fff;font-size:0.85rem;font-weight:600;border-radius:999px;text-decoration:none;box-shadow:0 4px 16px rgba(217,119,86,0.3);transition:transform 0.2s,box-shadow 0.2s">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#fff"/></svg>
-          Try with Claude
-        </a>
+    </div>
+  </section>
+
+  <!-- ===== INSTALL ===== -->
+  <section class="section install" id="install">
+    <div class="container">
+      <h2 class="section__title">Get started in seconds</h2>
+      <p class="section__subtitle">Pick your platform, paste one line, and you're running 3D.</p>
+
+      <div class="tabs" data-tabs="install">
+        <div class="tabs__nav">
+          <button class="tabs__btn tabs__btn--active" data-tab="android">Android</button>
+          <button class="tabs__btn" data-tab="ios">iOS</button>
+          <button class="tabs__btn" data-tab="web">Web</button>
+          <button class="tabs__btn" data-tab="flutter">Flutter</button>
+          <button class="tabs__btn" data-tab="reactnative">React Native</button>
+          <button class="tabs__btn" data-tab="claude-mcp">Claude / MCP</button>
+          <button class="tabs__btn" data-tab="desktop">Desktop</button>
+        </div>
+        <div class="tabs__panels">
+          <div class="tabs__panel tabs__panel--active" data-panel="android">
+            <pre class="code-block"><code><span class="cm">// build.gradle.kts</span>
+<span class="kw">dependencies</span> {
+    <span class="cm">// 3D only</span>
+    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview:3.4.7"</span>)
+    <span class="cm">// 3D + AR</span>
+    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:arsceneview:3.4.7"</span>)
+}</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="ios">
+            <pre class="code-block"><code><span class="cm">// Swift Package Manager</span>
+<span class="cm">// Add in Xcode: File &rarr; Add Package Dependencies</span>
+
+<span class="str">"https://github.com/sceneview/sceneview-swift"</span>
+<span class="cm">// Version: 3.4.7</span>
+
+<span class="kw">import</span> SceneViewSwift</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="web">
+            <pre class="code-block"><code><span class="cm">// build.gradle.kts (Kotlin/JS)</span>
+<span class="kw">dependencies</span> {
+    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview-web:3.4.7"</span>)
+}
+
+<span class="cm">// Or use Filament.js directly in HTML</span>
+<span class="cm">// See samples/web-demo for a full example</span></code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="flutter">
+            <pre class="code-block"><code><span class="cm"># pubspec.yaml (coming soon on pub.dev)</span>
+<span class="kw">dependencies</span>:
+  <span class="fn">sceneview_flutter</span>:
+    <span class="kw">git</span>:
+      <span class="fn">url</span>: <span class="str">https://github.com/sceneview/sceneview</span>
+      <span class="fn">path</span>: <span class="str">flutter</span>
+
+<span class="cm"># Then run:</span>
+<span class="kw">flutter</span> pub get</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="reactnative">
+            <pre class="code-block"><code><span class="cm">// package.json</span>
+<span class="str">"dependencies"</span>: {
+  <span class="str">"react-native-sceneview"</span>: <span class="str">"github:sceneview/sceneview#react-native"</span>
+}
+
+<span class="cm">// Then run:</span>
+<span class="kw">npm</span> install
+<span class="kw">npx</span> pod-install <span class="cm">// iOS only</span></code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="claude-mcp">
+            <pre class="code-block"><code><span class="cm">// Claude Desktop &mdash; add to claude_desktop_config.json</span>
+{
+  <span class="str">"mcpServers"</span>: {
+    <span class="str">"sceneview"</span>: {
+      <span class="str">"command"</span>: <span class="str">"npx"</span>,
+      <span class="str">"args"</span>: [<span class="str">"sceneview-mcp"</span>]
+    }
+  }
+}
+
+<span class="cm">// Claude Code &mdash; run from terminal</span>
+<span class="kw">claude</span> mcp add sceneview -- <span class="fn">npx</span> <span class="str">sceneview-mcp</span></code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="desktop">
+            <pre class="code-block"><code><span class="cm">// Compose Desktop (alpha &mdash; software renderer)</span>
+<span class="cm">// Clone the repo and run the desktop sample:</span>
+
+<span class="kw">git</span> clone <span class="str">https://github.com/sceneview/sceneview</span>
+<span class="kw">cd</span> sceneview/samples/desktop-demo
+<span class="kw">./gradlew</span> run</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AI / MCP ===== -->
+  <section class="section ai-section" id="ai">
+    <div class="container">
+      <div class="ai-section__inner">
+        <div class="ai-section__content">
+          <div class="ai-section__badge">AI-first SDK</div>
+          <h2 class="section__title">Built for AI assistants</h2>
+          <p class="section__subtitle">SceneView is the first 3D SDK designed so AI assistants can generate correct, working code on the first try. MCP integration gives Claude Desktop, Claude Code, Cursor, and Windsurf full access to the API reference, samples, and best practices.</p>
+          <pre class="code-block code-block--compact"><code><span class="cm">// Claude Code</span>
+<span class="kw">claude</span> mcp add sceneview -- <span class="fn">npx</span> <span class="str">sceneview-mcp</span></code></pre>
+          <pre class="code-block code-block--compact" style="margin-top:var(--space-sm)"><code><span class="cm">// Claude Desktop &mdash; claude_desktop_config.json</span>
+{ <span class="str">"mcpServers"</span>: { <span class="str">"sceneview"</span>: { <span class="str">"command"</span>: <span class="str">"npx"</span>, <span class="str">"args"</span>: [<span class="str">"sceneview-mcp"</span>] } } }</code></pre>
+          <p class="ai-section__hint">Works with Claude Desktop, Claude Code, Cursor, Windsurf, and any MCP-compatible client.</p>
+          <div style="display:flex;gap:var(--space-md);flex-wrap:wrap;margin-top:var(--space-lg)">
+            <a href="/claude-3d.html" class="btn btn--primary" style="gap:8px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              See AI + 3D in action
+            </a>
+            <a href="https://www.npmjs.com/package/sceneview-mcp" class="btn btn--outline" style="gap:8px" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 8v8M8 12h8"/></svg>
+              sceneview-mcp on npm
+            </a>
+          </div>
+        </div>
+        <div class="ai-section__graphic">
+          <!-- Claude Code Mac mockup -->
+          <div style="background:#1a1a2e;border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.08);max-width:520px">
+            <!-- macOS title bar -->
+            <div style="display:flex;align-items:center;padding:10px 14px;background:rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.06)">
+              <div style="display:flex;gap:7px">
+                <span style="width:12px;height:12px;border-radius:50%;background:#ff5f57"></span>
+                <span style="width:12px;height:12px;border-radius:50%;background:#febc2e"></span>
+                <span style="width:12px;height:12px;border-radius:50%;background:#28c840"></span>
+              </div>
+              <span style="flex:1;text-align:center;font-size:0.75rem;color:rgba(255,255,255,0.4);font-weight:500">Claude Code &mdash; SceneView Project</span>
+            </div>
+            <!-- Chat area -->
+            <div style="padding:16px;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.7">
+              <!-- User prompt -->
+              <div style="display:flex;gap:10px;margin-bottom:14px">
+                <span style="color:#d4a0ff;font-weight:700;flex-shrink:0">You</span>
+                <span style="color:#e2e8f0">Build me a 3D product viewer with AR try-on for shoes</span>
+              </div>
+              <!-- Claude response -->
+              <div style="display:flex;gap:10px">
+                <span style="color:#f0a050;font-weight:700;flex-shrink:0">Claude</span>
+                <div>
+                  <p style="color:rgba(255,255,255,0.5);margin:0 0 8px">Using SceneView MCP to generate your app...</p>
+                  <div style="background:#0d1117;border-radius:8px;padding:12px;border:1px solid rgba(255,255,255,0.06);margin-bottom:8px">
+                    <p style="color:#7ee787;margin:0 0 2px;font-size:0.7rem">// MainActivity.kt</p>
+                    <p style="color:#c9d1d9;margin:0"><span style="color:#ff7b72">ARScene</span>(</p>
+                    <p style="color:#c9d1d9;margin:0">&nbsp;&nbsp;planeRenderer = <span style="color:#79c0ff">true</span>,</p>
+                    <p style="color:#c9d1d9;margin:0">&nbsp;&nbsp;onTapAR = { hitResult <span style="color:#ff7b72">-&gt;</span></p>
+                    <p style="color:#c9d1d9;margin:0">&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#d2a8ff">AnchorNode</span>(hitResult) {</p>
+                    <p style="color:#c9d1d9;margin:0">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#d2a8ff">ModelNode</span>(<span style="color:#a5d6ff">"shoe.glb"</span>)</p>
+                    <p style="color:#c9d1d9;margin:0">&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+                    <p style="color:#c9d1d9;margin:0">&nbsp;&nbsp;}</p>
+                    <p style="color:#c9d1d9;margin:0">)</p>
+                  </div>
+                  <p style="color:#7ee787;margin:0;font-size:0.75rem">&#10003; App compiles and runs. Point camera at floor, tap to place shoe.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -170,19 +338,19 @@
   <section class="section code-section" id="code">
     <div class="container">
       <h2 class="section__title">Declarative 3D in a few lines</h2>
-      <p class="section__subtitle">Write 3D scenes the same way you write UI &mdash; composable, reactive, simple. Few lines of code means few tokens for AI.</p>
+      <p class="section__subtitle">Write 3D scenes the same way you write UI &mdash; composable, reactive, simple.</p>
 
       <div class="tabs" data-tabs="code">
         <div class="tabs__nav">
-          <button class="tabs__btn tabs__btn--active" data-tab="claude">Claude AI</button>
-          <button class="tabs__btn" data-tab="kotlin">Kotlin (Android)</button>
+          <button class="tabs__btn tabs__btn--active" data-tab="kotlin">Kotlin (Android)</button>
           <button class="tabs__btn" data-tab="swift">Swift (iOS)</button>
           <button class="tabs__btn" data-tab="js">JavaScript (Web)</button>
           <button class="tabs__btn" data-tab="dart">Dart (Flutter)</button>
-          <button class="tabs__btn" data-tab="ts">TypeScript (RN)</button>
+          <button class="tabs__btn" data-tab="ts">TypeScript (React Native)</button>
+          <button class="tabs__btn" data-tab="claude">Claude (AI)</button>
         </div>
         <div class="tabs__panels">
-          <div class="tabs__panel" data-panel="kotlin">
+          <div class="tabs__panel tabs__panel--active" data-panel="kotlin">
             <pre class="code-block"><code><span class="kw">Scene</span>(
     modifier = Modifier.<span class="fn">fillMaxSize</span>(),
     engine = <span class="fn">rememberEngine</span>(),
@@ -224,188 +392,190 @@
 }</code></pre>
           </div>
           <div class="tabs__panel" data-panel="js">
-            <pre class="code-block"><code><span class="cm">// One-liner 3D for the web — Filament.js WASM</span>
-<span class="cm">// npm install sceneview.js  OR  &lt;script src="sceneview.js"&gt;&lt;/script&gt;</span>
-<span class="kw">import</span> SceneView from <span class="str">'sceneview.js'</span>
+            <pre class="code-block"><code><span class="cm">// One line in your HTML:</span>
+<span class="kw">&lt;script</span> <span class="fn">src</span>=<span class="str">"https://unpkg.com/sceneview@1.2.0"</span><span class="kw">&gt;&lt;/script&gt;</span>
 
-<span class="cm">// Mount a 3D model viewer on any canvas element</span>
-<span class="kw">const</span> viewer = await SceneView.<span class="fn">modelViewer</span>(<span class="str">'canvas'</span>, <span class="str">'models/helmet.glb'</span>, {
-  backgroundColor: [<span class="num">0.07</span>, <span class="num">0.07</span>, <span class="num">0.11</span>, <span class="num">1.0</span>],
-  autoRotate: <span class="kw">true</span>
-})
-
-<span class="cm">// Swap model at runtime</span>
-viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</span>)</code></pre>
+<span class="kw">&lt;scene-view</span>
+  <span class="fn">model</span>=<span class="str">"models/helmet.glb"</span>
+  <span class="fn">environment</span>=<span class="str">"envs/sky.hdr"</span>
+  <span class="fn">camera-orbit</span>=<span class="str">"45deg 55deg 4m"</span>
+  <span class="fn">auto-rotate</span>
+<span class="kw">&gt;&lt;/scene-view&gt;</span></code></pre>
           </div>
           <div class="tabs__panel" data-panel="dart">
-            <pre class="code-block"><code><span class="cm">// Flutter — PlatformView bridge to native SceneView</span>
-<span class="cm">// pubspec.yaml:  sceneview_flutter: ^1.0.0</span>
-<span class="kw">import</span> <span class="str">'package:sceneview_flutter/sceneview_flutter.dart'</span>;
+            <pre class="code-block"><code><span class="kw">import</span> <span class="str">'package:sceneview_flutter/sceneview_flutter.dart'</span>;
 
-<span class="kw">class</span> ModelPage extends StatelessWidget {
-  <span class="kw">const</span> ModelPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    <span class="kw">return</span> SceneViewWidget(
-      modelPath: <span class="str">'assets/helmet.glb'</span>,
-      environment: <span class="str">'assets/envs/sky.hdr'</span>,
-      autoRotate: <span class="kw">true</span>,
-      onSceneCreated: (scene) {
-        scene.<span class="fn">addModelNode</span>(path: <span class="str">'assets/helmet.glb'</span>);
-      },
+<span class="kw">class</span> <span class="fn">MyScene</span> <span class="kw">extends</span> <span class="fn">StatelessWidget</span> {
+  <span class="kw">@override</span>
+  <span class="fn">Widget</span> <span class="fn">build</span>(<span class="fn">BuildContext</span> context) {
+    <span class="kw">return</span> <span class="fn">SceneView</span>(
+      model: <span class="str">'models/helmet.glb'</span>,
+      environment: <span class="str">'envs/sky.hdr'</span>,
+      cameraOrbit: <span class="fn">true</span>,
     );
   }
 }</code></pre>
           </div>
           <div class="tabs__panel" data-panel="ts">
-            <pre class="code-block"><code><span class="cm">// React Native — Fabric bridge to native SceneView</span>
-<span class="cm">// npm install react-native-sceneview</span>
-<span class="kw">import</span> { SceneView, ModelNode } from <span class="str">'react-native-sceneview'</span>
-<span class="kw">import</span> React from <span class="str">'react'</span>
-<span class="kw">import</span> { StyleSheet } from <span class="str">'react-native'</span>
+            <pre class="code-block"><code><span class="kw">import</span> { <span class="fn">SceneView</span>, <span class="fn">ModelNode</span> } <span class="kw">from</span> <span class="str">'react-native-sceneview'</span>;
 
-<span class="kw">export default function</span> App() {
+<span class="kw">export default function</span> <span class="fn">App</span>() {
   <span class="kw">return</span> (
-    &lt;SceneView style={styles.scene}&gt;
-      &lt;ModelNode
-        modelPath=<span class="str">"models/helmet.glb"</span>
-        environment=<span class="str">"envs/sky.hdr"</span>
-        autoRotate={<span class="kw">true</span>}
-      /&gt;
-    &lt;/SceneView&gt;
-  )
-}
-
-<span class="kw">const</span> styles = StyleSheet.create({
-  scene: { flex: <span class="num">1</span> }
-})</code></pre>
+    <span class="kw">&lt;SceneView</span> <span class="fn">style</span>={{ <span class="fn">flex</span>: <span class="num">1</span> }}<span class="kw">&gt;</span>
+      <span class="kw">&lt;ModelNode</span>
+        <span class="fn">source</span>=<span class="str">"models/helmet.glb"</span>
+        <span class="fn">position</span>={[<span class="num">0</span>, <span class="num">0</span>, <span class="num">-2</span>]}
+        <span class="fn">autoOrbit</span>
+      <span class="kw">/&gt;</span>
+    <span class="kw">&lt;/SceneView&gt;</span>
+  );
+}</code></pre>
           </div>
-          <div class="tabs__panel tabs__panel--active" data-panel="claude">
-            <div style="background:var(--color-surface-container);border:1px solid var(--color-outline);border-radius:var(--radius-md);padding:var(--space-xl);max-width:700px;margin:0 auto">
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:var(--space-md)">
-                <div style="width:28px;height:28px;background:linear-gradient(135deg,#d97756,#c4704b);border-radius:8px;display:flex;align-items:center;justify-content:center">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#fff"/></svg>
-                </div>
-                <span style="font-weight:700;font-size:0.95rem">Just ask Claude</span>
-                <span style="font-size:0.75rem;color:var(--color-on-surface-faint);margin-left:auto">No coding experience needed</span>
-              </div>
-              <div style="background:rgba(217,119,86,0.06);border:1px solid rgba(217,119,86,0.15);border-radius:12px;padding:var(--space-lg);font-size:1.05rem;line-height:1.6;color:var(--color-on-surface)">
-                <span style="color:#d97756;font-weight:600">&ldquo;</span>Build me an Android AR app that places a 3D chair on the floor when I tap. I want plane detection, realistic shadows, and pinch-to-resize.<span style="color:#d97756;font-weight:600">&rdquo;</span>
-              </div>
-              <div style="margin-top:var(--space-md);display:flex;align-items:center;gap:12px;font-size:0.8rem;color:var(--color-on-surface-faint)">
-                <span style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ~150 tokens</span>
-                <span style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Working app in seconds</span>
-                <span style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Zero boilerplate</span>
-              </div>
-              <div style="margin-top:var(--space-lg);text-align:center">
-                <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#d97756,#c4704b);color:#fff;font-size:0.85rem;font-weight:600;border-radius:999px;text-decoration:none;box-shadow:0 4px 16px rgba(217,119,86,0.3)">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#fff"/></svg>
-                  Try it now
-                </a>
-              </div>
-            </div>
+          <div class="tabs__panel" data-panel="claude">
+            <pre class="code-block"><code><span class="cm">// Ask Claude Desktop or Claude Code:</span>
+
+<span class="str">"Build me an AR app that lets users
+ place 3D furniture in their room"</span>
+
+<span class="cm">// Claude uses the SceneView MCP to generate</span>
+<span class="cm">// correct, working Compose/SwiftUI code.</span>
+<span class="cm">// Setup: add to your MCP config:</span>
+
+<span class="kw">npx</span> <span class="fn">sceneview-mcp</span></code></pre>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Token economy comparison -->
-    <div class="token-callout">
-      <div class="token-callout__inner">
-        <h3 class="token-compare__title">Few lines = few tokens</h3>
-        <p class="token-compare__subtitle">The simpler the SDK, the cheaper the AI generation. Compare what it takes to build a 3D model viewer:</p>
+  <!-- ===== USE CASES ===== -->
+  <section class="section use-cases" id="use-cases">
+    <div class="container">
+      <h2 class="section__title">Built for real products</h2>
+      <p class="section__subtitle">Interact with these 3D models &mdash; orbit, zoom, rotate. This is what your users get.</p>
 
-        <div class="token-compare__grid">
-          <!-- Raw Engine -->
-          <div class="token-compare__card token-compare__card--bad">
-            <div class="token-compare__card-header">
-              <span class="token-compare__card-icon">&#x26A0;&#xFE0F;</span>
-              <span class="token-compare__card-label">Raw Engine</span>
-            </div>
-            <div class="token-compare__card-engine">OpenGL / Metal / Three.js</div>
-            <div class="token-compare__card-stats">
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number">2,000+</span>
-                <span class="token-compare__metric-label">lines of code</span>
-              </div>
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number">~25,000</span>
-                <span class="token-compare__metric-label">tokens to generate</span>
-              </div>
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number">3-5</span>
-                <span class="token-compare__metric-label">AI iterations needed</span>
-              </div>
-            </div>
-            <div class="token-compare__card-total">
-              <span class="token-compare__total-label">Total cost per app</span>
-              <span class="token-compare__total-number token-compare__total--bad">~100k tokens</span>
-            </div>
+      <div class="showcase-grid">
+
+        <!-- E-commerce -->
+        <div class="showcase-item">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/MaterialsVariantsShoe/glTF-Binary/MaterialsVariantsShoe.glb"
+              alt="3D sneaker product viewer"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="1"
+              exposure="0.8"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
           </div>
-
-          <!-- SceneView -->
-          <div class="token-compare__card token-compare__card--good">
-            <div class="token-compare__card-header">
-              <span class="token-compare__card-icon">&#x2705;</span>
-              <span class="token-compare__card-label">SceneView</span>
-            </div>
-            <div class="token-compare__card-engine">Jetpack Compose / SwiftUI</div>
-            <div class="token-compare__card-stats">
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number token-compare__metric--highlight">15</span>
-                <span class="token-compare__metric-label">lines of code</span>
-              </div>
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number token-compare__metric--highlight">~200</span>
-                <span class="token-compare__metric-label">tokens to generate</span>
-              </div>
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number token-compare__metric--highlight">1</span>
-                <span class="token-compare__metric-label">AI iteration (first try)</span>
-              </div>
-            </div>
-            <div class="token-compare__card-total">
-              <span class="token-compare__total-label">Total cost per app</span>
-              <span class="token-compare__total-number token-compare__total--good">~500 tokens</span>
-            </div>
-          </div>
-
-          <!-- SceneView + MCP -->
-          <div class="token-compare__card token-compare__card--best">
-            <div class="token-compare__card-ribbon">Recommended</div>
-            <div class="token-compare__card-header">
-              <span class="token-compare__card-icon">&#x1F680;</span>
-              <span class="token-compare__card-label">SceneView + MCP</span>
-            </div>
-            <div class="token-compare__card-engine">Claude with SceneView MCP</div>
-            <div class="token-compare__card-stats">
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number token-compare__metric--best">0</span>
-                <span class="token-compare__metric-label">lines you write</span>
-              </div>
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number token-compare__metric--best">~150</span>
-                <span class="token-compare__metric-label">tokens (with API context)</span>
-              </div>
-              <div class="token-compare__metric">
-                <span class="token-compare__metric-number token-compare__metric--best">1</span>
-                <span class="token-compare__metric-label">prompt &rarr; working app</span>
-              </div>
-            </div>
-            <div class="token-compare__card-total">
-              <span class="token-compare__total-label">Total cost per app</span>
-              <span class="token-compare__total-number token-compare__total--best">~300 tokens</span>
-            </div>
-            <div class="token-compare__card-cta">
-              <code>npx sceneview-mcp</code>
-            </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">E-commerce</div>
+            <h3 class="showcase-item__title">3D Product Viewer</h3>
+            <p class="showcase-item__text">Replace flat product photos with interactive 3D. Customers orbit, zoom, and inspect every angle. AR lets them place products in their space before buying &mdash; boosting conversion by up to 94%.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("sneaker.glb")
+}</code></pre>
           </div>
         </div>
 
-        <p class="token-compare__bottom">
-          <strong>200x fewer tokens.</strong> Every developer who asks Claude "build me a 3D app" gets working code on the first try &mdash; no back-and-forth, no wasted tokens, no debugging boilerplate.
-        </p>
+        <!-- Furniture AR -->
+        <div class="showcase-item showcase-item--reverse">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb"
+              alt="3D chair for AR furniture placement"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="1.2"
+              exposure="0.9"
+              camera-orbit="30deg 75deg 2m"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Furniture &amp; AR</div>
+            <h3 class="showcase-item__title">AR Room Staging</h3>
+            <p class="showcase-item__text">Let customers place furniture in their real room using AR. Anchor 3D models to detected surfaces with a single tap. Accurate scale, real-time shadows, physics-aware placement.</p>
+            <pre class="showcase-item__code"><code>ARScene {
+  AnchorNode {
+    ModelNode("chair.glb")
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Luxury product -->
+        <div class="showcase-item">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/IridescentDishWithOlives/glTF-Binary/IridescentDishWithOlives.glb"
+              alt="Iridescent luxury product detail"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="1"
+              exposure="1"
+              environment-image="neutral"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Luxury &amp; Detail</div>
+            <h3 class="showcase-item__title">PBR Material Showcase</h3>
+            <p class="showcase-item__text">Physically-based rendering with iridescence, sheen, and clearcoat. Filament renders materials indistinguishable from photography &mdash; perfect for luxury goods, jewelry, and collectibles.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("product.glb",
+    autoAnimate = true)
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Animated character -->
+        <div class="showcase-item showcase-item--reverse">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/glTF-Binary/Fox.glb"
+              alt="Animated 3D fox character"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              autoplay
+              shadow-intensity="1"
+              exposure="0.8"
+              camera-orbit="20deg 75deg 120"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Gaming &amp; Entertainment</div>
+            <h3 class="showcase-item__title">Animated Characters</h3>
+            <p class="showcase-item__text">Skeletal animation, blend shapes, physics simulation. Build character-driven experiences with Compose state management. Spring animations, procedural geometry &mdash; no game engine required.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("fox.glb",
+    autoAnimate = true)
+}</code></pre>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -519,7 +689,7 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
           <div class="stat__label">PBR on mobile</div>
         </div>
         <div class="stat">
-          <div class="stat__number">22</div>
+          <div class="stat__number">18</div>
           <div class="stat__label">AI MCP tools</div>
         </div>
         <div class="stat">
@@ -583,200 +753,52 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
     </div>
   </section>
 
-  <!-- ===== USE CASES ===== -->
-  <section class="section use-cases" id="use-cases">
-    <div class="container">
-      <h2 class="section__title">Just describe what you want</h2>
-      <p class="section__subtitle">Tell Claude what to build. Get a working app. No 3D experience needed.</p>
-
-      <div class="use-cases__grid">
-        <div class="use-case-card">
-          <div class="use-case-card__emoji">&#x1F6CD;</div>
-          <h3 class="use-case-card__title">E-commerce</h3>
-          <div class="use-case-card__prompt">&ldquo;Build me a product viewer where customers can rotate a shoe in 3D and see it in AR in their room&rdquo;</div>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-card__emoji">&#x1F3D7;</div>
-          <h3 class="use-case-card__title">Real Estate</h3>
-          <div class="use-case-card__prompt">&ldquo;I need an AR app that places 3D furniture in empty rooms. Camera should detect the floor automatically&rdquo;</div>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-card__emoji">&#x1F9EC;</div>
-          <h3 class="use-case-card__title">Education</h3>
-          <div class="use-case-card__prompt">&ldquo;Create a 3D anatomy viewer where students can rotate a human heart and play the beating animation&rdquo;</div>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-card__emoji">&#x1F4CA;</div>
-          <h3 class="use-case-card__title">Data Viz</h3>
-          <div class="use-case-card__prompt">&ldquo;Show my sales data as a 3D bar chart that updates in real-time. I want orbit camera and hover tooltips&rdquo;</div>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-card__emoji">&#x1F3AE;</div>
-          <h3 class="use-case-card__title">Gaming</h3>
-          <div class="use-case-card__prompt">&ldquo;Build a casual 3D game with physics. Balls fall and bounce, the player tilts the phone to control gravity&rdquo;</div>
-        </div>
-
-        <div class="use-case-card">
-          <div class="use-case-card__emoji">&#x1F697;</div>
-          <h3 class="use-case-card__title">Automotive</h3>
-          <div class="use-case-card__prompt">&ldquo;Car configurator where users pick paint color, wheels, and interior. Show the car in AR in their driveway&rdquo;</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== EXPLORE ===== -->
+  <!-- ===== LIVE DEMOS ===== -->
   <section class="section demos" id="demos">
     <div class="container">
-      <h2 class="section__title">Explore</h2>
-      <p class="section__subtitle">Live demos, sample apps, and real-world showcases &mdash; all in one place.</p>
-
-      <!-- Filter tabs -->
-      <div class="explore-filters" style="display:flex;justify-content:center;gap:8px;margin-bottom:var(--space-xl);flex-wrap:wrap">
-        <button class="explore-filter explore-filter--active" data-filter="all">All</button>
-        <button class="explore-filter" data-filter="demo">Live Demos</button>
-        <button class="explore-filter" data-filter="app">Sample Apps</button>
-        <button class="explore-filter" data-filter="showcase">Showcase</button>
-      </div>
+      <h2 class="section__title">Try it live</h2>
+      <p class="section__subtitle">Interactive demos running in your browser &mdash; powered by Filament.js WASM.</p>
 
       <div class="demos__grid">
-        <a href="/playground.html" class="demo-card demo-card--featured" data-category="demo">
-          <div class="demo-card__visual demo-card__visual--playground">
-            <div class="demo-card__mini-ide">
-              <div class="demo-card__mini-line"><span style="color:#569cd6">Scene</span> {</div>
-              <div class="demo-card__mini-line">&nbsp;&nbsp;<span style="color:#dcdcaa">ModelNode</span>(model)</div>
-              <div class="demo-card__mini-line">}</div>
-            </div>
-            <div class="demo-card__mini-3d">
-              <svg viewBox="0 0 80 80" width="60" height="60"><polygon points="40,8 72,24 72,56 40,72 8,56 8,24" fill="none" stroke="rgba(66,133,244,0.6)" stroke-width="2"/><polygon points="40,20 60,30 60,50 40,60 20,50 20,30" fill="rgba(66,133,244,0.15)" stroke="rgba(66,133,244,0.4)" stroke-width="1.5"/></svg>
-            </div>
-          </div>
+        <a href="/playground.html" class="demo-card demo-card--featured">
           <div class="demo-card__badge">Interactive</div>
           <h3 class="demo-card__title">3D Playground</h3>
           <p class="demo-card__text">Write SceneView code and see it render live. Orbit, zoom, switch models.</p>
         </a>
-        <a href="/geometry-demo.html" class="demo-card" data-category="demo">
-          <div class="demo-card__visual demo-card__visual--geometry">
-            <svg viewBox="0 0 160 90" width="100%"><rect x="20" y="30" width="30" height="30" rx="2" fill="rgba(52,168,83,0.3)" stroke="rgba(52,168,83,0.6)" stroke-width="1.5"/><polygon points="90,15 115,55 65,55" fill="rgba(52,168,83,0.2)" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><circle cx="135" cy="40" r="18" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
-          </div>
+        <a href="/geometry-demo.html" class="demo-card">
           <div class="demo-card__badge demo-card__badge--geo">Geometry</div>
           <h3 class="demo-card__title">Procedural Geometry</h3>
           <p class="demo-card__text">Generate shapes, buildings, and scenes at runtime with Filament.</p>
         </a>
-        <a href="/sceneview-demo.html" class="demo-card" data-category="demo">
-          <div class="demo-card__visual demo-card__visual--viewer">
-            <svg viewBox="0 0 160 90" width="100%"><ellipse cx="80" cy="50" rx="50" ry="25" fill="none" stroke="rgba(234,67,53,0.3)" stroke-width="1" stroke-dasharray="4,3"/><path d="M60,25 Q80,10 100,25 Q110,40 100,55 Q80,70 60,55 Q50,40 60,25Z" fill="rgba(234,67,53,0.15)" stroke="rgba(234,67,53,0.5)" stroke-width="1.5"/><circle cx="80" cy="40" r="8" fill="rgba(234,67,53,0.3)"/></svg>
-          </div>
+        <a href="/sceneview-demo.html" class="demo-card">
           <div class="demo-card__badge demo-card__badge--web">Web</div>
           <h3 class="demo-card__title">Model Viewer</h3>
           <p class="demo-card__text">Load and switch between PBR models. DamagedHelmet, Lantern, Fox, Avocado.</p>
         </a>
-        <a href="/filament-chart.html" class="demo-card" data-category="demo">
-          <div class="demo-card__visual demo-card__visual--charts">
-            <svg viewBox="0 0 160 90" width="100%"><rect x="20" y="50" width="18" height="30" rx="3" fill="rgba(251,188,4,0.4)"/><rect x="45" y="30" width="18" height="50" rx="3" fill="rgba(251,188,4,0.5)"/><rect x="70" y="15" width="18" height="65" rx="3" fill="rgba(251,188,4,0.6)"/><rect x="95" y="35" width="18" height="45" rx="3" fill="rgba(251,188,4,0.45)"/><rect x="120" y="20" width="18" height="60" rx="3" fill="rgba(251,188,4,0.55)"/></svg>
-          </div>
+        <a href="/filament-chart.html" class="demo-card">
           <div class="demo-card__badge demo-card__badge--data">Data</div>
           <h3 class="demo-card__title">3D Charts</h3>
           <p class="demo-card__text">Animated bar charts and data visualization with Filament.js rendering.</p>
         </a>
-        <a href="/demo-dashboard.html" class="demo-card" data-category="demo">
-          <div class="demo-card__visual demo-card__visual--dashboard">
-            <svg viewBox="0 0 160 90" width="100%"><rect x="10" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="85" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(52,168,83,0.4)" stroke-width="1"/><rect x="10" y="52" width="140" height="30" rx="4" fill="none" stroke="rgba(251,188,4,0.4)" stroke-width="1"/><circle cx="42" cy="27" r="10" fill="rgba(66,133,244,0.2)" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="95" y="18" width="8" height="20" rx="2" fill="rgba(52,168,83,0.3)"/><rect x="108" y="22" width="8" height="16" rx="2" fill="rgba(52,168,83,0.4)"/><rect x="121" y="14" width="8" height="24" rx="2" fill="rgba(52,168,83,0.5)"/><polyline points="20,72 50,62 80,67 110,58 140,65" fill="none" stroke="rgba(251,188,4,0.5)" stroke-width="1.5"/></svg>
-          </div>
+        <a href="/showcase.html" class="demo-card">
+          <div class="demo-card__badge">Showcase</div>
+          <h3 class="demo-card__title">Project Showcase</h3>
+          <p class="demo-card__text">Gallery of real-world apps and projects built with SceneView across platforms.</p>
+        </a>
+        <a href="/platforms-showcase.html" class="demo-card">
+          <div class="demo-card__badge demo-card__badge--web">Platforms</div>
+          <h3 class="demo-card__title">Platform Demos</h3>
+          <p class="demo-card__text">See SceneView in action on Android, iOS, Web, TV, Flutter, and React Native.</p>
+        </a>
+        <a href="/demo-dashboard.html" class="demo-card">
           <div class="demo-card__badge demo-card__badge--data">Dashboard</div>
           <h3 class="demo-card__title">3D Dashboard</h3>
           <p class="demo-card__text">Interactive 3D data dashboard with real-time metrics and visual analytics.</p>
         </a>
-        <a href="/demo-ar-staging.html" class="demo-card" data-category="demo">
-          <div class="demo-card__visual demo-card__visual--ar">
-            <svg viewBox="0 0 160 90" width="100%"><rect x="30" y="55" width="100" height="2" rx="1" fill="rgba(52,168,83,0.3)"/><line x1="30" y1="55" x2="10" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><line x1="130" y1="55" x2="150" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><rect x="55" y="20" width="30" height="35" rx="2" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.4)" stroke-width="1.5"/><rect x="60" y="25" width="20" height="20" rx="1" fill="rgba(52,168,83,0.1)"/><rect x="35" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="117" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
-          </div>
+        <a href="/demo-ar-staging.html" class="demo-card">
           <div class="demo-card__badge demo-card__badge--geo">AR</div>
           <h3 class="demo-card__title">AR Staging</h3>
           <p class="demo-card__text">Augmented reality object placement and staging demo powered by ARCore.</p>
-        </a>
-
-        <!-- Sample Apps (merged from old section) -->
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="demo-card" data-category="app">
-          <div class="demo-card__badge">Android</div>
-          <h3 class="demo-card__title">Model Viewer</h3>
-          <p class="demo-card__text">3D model, HDR environment, orbit camera</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="demo-card" data-category="app">
-          <div class="demo-card__badge demo-card__badge--geo">AR</div>
-          <h3 class="demo-card__title">AR Model Viewer</h3>
-          <p class="demo-card__text">Tap-to-place, plane detection, pinch/rotate</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="demo-card" data-category="app">
-          <div class="demo-card__badge demo-card__badge--web">Demo</div>
-          <h3 class="demo-card__title">SceneView Demo</h3>
-          <p class="demo-card__text">Play Store demo, 4-tab Material 3 Expressive</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/ios-demo" class="demo-card" data-category="app">
-          <div class="demo-card__badge demo-card__badge--data">iOS</div>
-          <h3 class="demo-card__title">iOS Demo</h3>
-          <p class="demo-card__text">SwiftUI 3-tab app for App Store</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-tv-demo" class="demo-card" data-category="app">
-          <div class="demo-card__badge demo-card__badge--web">TV</div>
-          <h3 class="demo-card__title">TV Model Viewer</h3>
-          <p class="demo-card__text">Android TV, D-pad controls, auto-rotation</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/web-demo" class="demo-card" data-category="app">
-          <div class="demo-card__badge demo-card__badge--web">Web</div>
-          <h3 class="demo-card__title">Web Demo</h3>
-          <p class="demo-card__text">Browser-based 3D with Filament.js (WASM) + WebXR</p>
-        </a>
-
-        <!-- Showcase -->
-        <a href="/showcase.html" class="demo-card" data-category="showcase">
-          <div class="demo-card__visual demo-card__visual--showcase">
-            <div class="demo-card__mini-grid">
-              <div style="background:rgba(66,133,244,0.2);border:1px solid rgba(66,133,244,0.3);border-radius:6px"></div>
-              <div style="background:rgba(234,67,53,0.2);border:1px solid rgba(234,67,53,0.3);border-radius:6px"></div>
-              <div style="background:rgba(52,168,83,0.2);border:1px solid rgba(52,168,83,0.3);border-radius:6px"></div>
-              <div style="background:rgba(251,188,4,0.2);border:1px solid rgba(251,188,4,0.3);border-radius:6px"></div>
-              <div style="background:rgba(156,39,176,0.2);border:1px solid rgba(156,39,176,0.3);border-radius:6px"></div>
-              <div style="background:rgba(0,150,136,0.2);border:1px solid rgba(0,150,136,0.3);border-radius:6px"></div>
-            </div>
-          </div>
-          <div class="demo-card__badge">Showcase</div>
-          <h3 class="demo-card__title">Project Showcase</h3>
-          <p class="demo-card__text">Real-world apps built with SceneView across platforms.</p>
-        </a>
-        <a href="/platforms-showcase.html" class="demo-card" data-category="showcase">
-          <div class="demo-card__visual demo-card__visual--platforms">
-            <div class="demo-card__device-row">
-              <div class="demo-card__mini-phone" style="border-color:rgba(52,168,83,0.5)"><div style="background:rgba(52,168,83,0.15);width:100%;height:100%;border-radius:3px"></div></div>
-              <div class="demo-card__mini-phone" style="border-color:rgba(66,133,244,0.5);width:22px;height:38px"><div style="background:rgba(66,133,244,0.15);width:100%;height:100%;border-radius:3px"></div></div>
-              <div class="demo-card__mini-desktop" style="border-color:rgba(234,67,53,0.5)"><div style="background:rgba(234,67,53,0.15);width:100%;height:100%;border-radius:2px"></div></div>
-            </div>
-          </div>
-          <div class="demo-card__badge demo-card__badge--web">Platforms</div>
-          <h3 class="demo-card__title">Platform Demos</h3>
-          <p class="demo-card__text">SceneView on Android, iOS, Web, TV, Flutter, React Native, Claude.</p>
-        </a>
-      </div>
-
-      <!-- Store badges -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:var(--space-xl);flex-wrap:wrap">
-        <a href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener" style="display:inline-block;height:40px">
-          <img src="badges/google-play-badge.png" alt="Get it on Google Play" height="60" style="margin:-10px 0">
-        </a>
-        <a href="https://apps.apple.com/app/sceneview/id6743425102" target="_blank" rel="noopener" style="display:inline-block;height:40px">
-          <img src="badges/app-store-badge.svg" alt="Download on the App Store" height="40">
-        </a>
-        <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:linear-gradient(135deg,#d97756,#c4704b);border:none;border-radius:8px;color:#fff;font-weight:600;font-size:0.85rem;text-decoration:none;box-shadow:0 2px 8px rgba(217,119,86,0.3)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#fff"/></svg>
-          Try with Claude
-        </a>
-        <a href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:var(--color-surface-container);border:1px solid var(--color-outline);border-radius:8px;color:var(--color-on-surface);font-weight:600;font-size:0.85rem;text-decoration:none">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          Star on GitHub
         </a>
       </div>
     </div>
@@ -846,221 +868,48 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
     </div>
   </section>
 
-  <!-- ===== INSTALL ===== -->
-  <section class="section install" id="install">
+  <!-- ===== SAMPLES ===== -->
+  <section class="section samples" id="samples">
     <div class="container">
-      <h2 class="section__title">Quick install</h2>
-      <p class="section__subtitle">Add SceneView to your project in seconds.</p>
+      <h2 class="section__title">Sample apps</h2>
+      <p class="section__subtitle">Explore working demos across every supported platform.</p>
 
-      <div class="tabs" data-tabs="install">
-        <div class="tabs__nav">
-          <button class="tabs__btn tabs__btn--active" data-tab="android">Android</button>
-          <button class="tabs__btn" data-tab="ios">iOS</button>
-          <button class="tabs__btn" data-tab="web">Web</button>
-          <button class="tabs__btn" data-tab="flutter">Flutter</button>
-          <button class="tabs__btn" data-tab="reactnative">React Native</button>
-          <button class="tabs__btn" data-tab="claude">Claude</button>
-          <button class="tabs__btn" data-tab="desktop">Desktop</button>
-        </div>
-        <div class="tabs__panels">
-          <div class="tabs__panel tabs__panel--active" data-panel="android">
-            <pre class="code-block"><code><span class="cm">// build.gradle.kts</span>
-<span class="kw">dependencies</span> {
-    <span class="cm">// 3D only</span>
-    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview:3.4.7"</span>)
-    <span class="cm">// 3D + AR</span>
-    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:arsceneview:3.4.7"</span>)
-}</code></pre>
-          </div>
-          <div class="tabs__panel" data-panel="ios">
-            <pre class="code-block"><code><span class="cm">// Swift Package Manager</span>
-<span class="cm">// Add in Xcode: File &rarr; Add Package Dependencies</span>
-
-<span class="str">"https://github.com/sceneview/sceneview-swift"</span>
-<span class="cm">// Version: 3.4.7</span>
-
-<span class="kw">import</span> SceneViewSwift</code></pre>
-          </div>
-          <div class="tabs__panel" data-panel="web">
-            <pre class="code-block"><code><span class="cm">// build.gradle.kts (Kotlin/JS)</span>
-<span class="kw">dependencies</span> {
-    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview-web:3.4.7"</span>)
-}
-
-<span class="cm">// Or use Filament.js directly in HTML</span>
-<span class="cm">// See samples/web-demo for a full example</span></code></pre>
-          </div>
-          <div class="tabs__panel" data-panel="flutter">
-            <pre class="code-block"><code><span class="cm"># pubspec.yaml (coming soon on pub.dev)</span>
-<span class="kw">dependencies</span>:
-  <span class="fn">sceneview_flutter</span>:
-    <span class="kw">git</span>:
-      <span class="fn">url</span>: <span class="str">https://github.com/sceneview/sceneview</span>
-      <span class="fn">path</span>: <span class="str">flutter</span>
-
-<span class="cm"># Then run:</span>
-<span class="kw">flutter</span> pub get</code></pre>
-          </div>
-          <div class="tabs__panel" data-panel="reactnative">
-            <pre class="code-block"><code><span class="cm">// React Native (Fabric / Turbo Module)</span>
-<span class="cm">// Clone the repo and link the native module:</span>
-
-<span class="kw">npm</span> install <span class="str">react-native-sceneview</span>
-<span class="cm">// or from source:</span>
-<span class="kw">git</span> clone <span class="str">https://github.com/sceneview/sceneview</span>
-<span class="kw">cd</span> sceneview/react-native
-<span class="kw">npm</span> install</code></pre>
-          </div>
-          <div class="tabs__panel" data-panel="claude">
-            <pre class="code-block"><code><span class="cm"># Use SceneView MCP with Claude Desktop or Claude.ai</span>
-<span class="cm"># Add to your claude_desktop_config.json:</span>
-
-{
-  <span class="str">"mcpServers"</span>: {
-    <span class="str">"sceneview"</span>: {
-      <span class="str">"command"</span>: <span class="str">"npx"</span>,
-      <span class="str">"args"</span>: [<span class="str">"sceneview-mcp@latest"</span>]
-    }
-  }
-}
-
-<span class="cm"># Then ask Claude: "Build me a 3D app with SceneView"</span></code></pre>
-          </div>
-          <div class="tabs__panel" data-panel="desktop">
-            <pre class="code-block"><code><span class="cm">// Compose Desktop (alpha &mdash; software renderer)</span>
-<span class="cm">// Clone the repo and run the desktop sample:</span>
-
-<span class="kw">git</span> clone <span class="str">https://github.com/sceneview/sceneview</span>
-<span class="kw">cd</span> sceneview/samples/desktop-demo
-<span class="kw">./gradlew</span> run</code></pre>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Old SAMPLES section removed — merged into EXPLORE above -->
-
-  <!-- ===== AI / MCP ===== -->
-  <section class="section ai-section" id="ai">
-    <div class="container">
-      <div class="ai-section__header">
-        <div class="ai-section__badge">AI-first SDK</div>
-        <h2 class="section__title">Built for AI assistants</h2>
-        <p class="section__subtitle">Tell Claude what to build. Watch it come to life in real time. SceneView + MCP gives AI full access to API references, samples, and best practices.</p>
-      </div>
-
-      <!-- macOS Desktop Mockup -->
-      <div class="desktop-mockup">
-        <div class="desktop-mockup__wallpaper">
-
-          <!-- Left window: SceneView Preview -->
-          <div class="desktop-mockup__window desktop-mockup__window--preview">
-            <div class="desktop-mockup__titlebar">
-              <div class="desktop-mockup__dots">
-                <span class="desktop-mockup__dot desktop-mockup__dot--red"></span>
-                <span class="desktop-mockup__dot desktop-mockup__dot--yellow"></span>
-                <span class="desktop-mockup__dot desktop-mockup__dot--green"></span>
-              </div>
-              <span class="desktop-mockup__title">SceneView Preview</span>
-              <div class="desktop-mockup__dots" style="visibility:hidden">
-                <span class="desktop-mockup__dot"></span>
-                <span class="desktop-mockup__dot"></span>
-                <span class="desktop-mockup__dot"></span>
-              </div>
-            </div>
-            <div class="desktop-mockup__viewport">
-              <!-- 3D Scene CSS art -->
-              <div class="scene3d">
-                <div class="scene3d__grid"></div>
-                <div class="scene3d__chair">
-                  <!-- Chair seat -->
-                  <div class="scene3d__chair-seat"></div>
-                  <!-- Chair back -->
-                  <div class="scene3d__chair-back"></div>
-                  <!-- Chair legs -->
-                  <div class="scene3d__chair-leg scene3d__chair-leg--fl"></div>
-                  <div class="scene3d__chair-leg scene3d__chair-leg--fr"></div>
-                  <div class="scene3d__chair-leg scene3d__chair-leg--bl"></div>
-                  <div class="scene3d__chair-leg scene3d__chair-leg--br"></div>
-                  <!-- Shadow -->
-                  <div class="scene3d__shadow"></div>
-                </div>
-                <!-- Gizmo -->
-                <div class="scene3d__gizmo">
-                  <div class="scene3d__gizmo-x">X</div>
-                  <div class="scene3d__gizmo-y">Y</div>
-                  <div class="scene3d__gizmo-z">Z</div>
-                </div>
-              </div>
-              <div class="desktop-mockup__viewport-footer">Rendered by SceneView Web</div>
-            </div>
-          </div>
-
-          <!-- Right window: Claude -->
-          <div class="desktop-mockup__window desktop-mockup__window--claude">
-            <div class="desktop-mockup__titlebar desktop-mockup__titlebar--claude">
-              <div class="desktop-mockup__dots">
-                <span class="desktop-mockup__dot desktop-mockup__dot--red"></span>
-                <span class="desktop-mockup__dot desktop-mockup__dot--yellow"></span>
-                <span class="desktop-mockup__dot desktop-mockup__dot--green"></span>
-              </div>
-              <span class="desktop-mockup__title">
-                <svg class="desktop-mockup__claude-icon" viewBox="0 0 24 24" width="14" height="14" fill="#d97706">
-                  <circle cx="12" cy="12" r="10"/>
-                </svg>
-                Claude
-              </span>
-              <div class="desktop-mockup__dots" style="visibility:hidden">
-                <span class="desktop-mockup__dot"></span>
-                <span class="desktop-mockup__dot"></span>
-                <span class="desktop-mockup__dot"></span>
-              </div>
-            </div>
-            <div class="desktop-mockup__chat">
-              <!-- Message 1: User -->
-              <div class="chat-msg chat-msg--user">
-                <div class="chat-msg__avatar chat-msg__avatar--user">T</div>
-                <div class="chat-msg__bubble chat-msg__bubble--user">Add a 3D chair to my AR app</div>
-              </div>
-              <!-- Message 2: Claude -->
-              <div class="chat-msg chat-msg--claude">
-                <div class="chat-msg__avatar chat-msg__avatar--claude">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#d97706"><circle cx="12" cy="12" r="8"/></svg>
-                </div>
-                <div class="chat-msg__bubble chat-msg__bubble--claude">
-                  <p>Done! I've added a <code>ModelNode</code> with your <code>chair.glb</code> model. It loads asynchronously and places at the detected surface.</p>
-                  <div class="chat-msg__code">rememberModelInstance(modelLoader, "models/chair.glb")</div>
-                </div>
-              </div>
-              <!-- Message 3: User -->
-              <div class="chat-msg chat-msg--user">
-                <div class="chat-msg__avatar chat-msg__avatar--user">T</div>
-                <div class="chat-msg__bubble chat-msg__bubble--user">Now add shadows and make it rotate</div>
-              </div>
-              <!-- Message 4: Claude -->
-              <div class="chat-msg chat-msg--claude">
-                <div class="chat-msg__avatar chat-msg__avatar--claude">
-                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#d97706"><circle cx="12" cy="12" r="8"/></svg>
-                </div>
-                <div class="chat-msg__bubble chat-msg__bubble--claude">
-                  <p>Added shadow plane and continuous Y-axis rotation. The chair now casts a soft shadow and spins at 45&deg;/s.</p>
-                  <div class="chat-msg__code">LightNode(apply = { intensity(100_000f) })<br>// + autoRotate animation</div>
-                </div>
-              </div>
-              <!-- Input bar -->
-              <div class="chat-input">
-                <span class="chat-input__text">Ask Claude about SceneView...</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="ai-section__footer">
-        <pre class="code-block code-block--compact"><code><span class="kw">npx</span> <span class="str">sceneview-mcp</span></code></pre>
-        <p class="ai-section__hint">Add to your MCP config for instant AI-powered 3D &amp; AR development.</p>
+      <div class="samples__grid">
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="sample-card">
+          <div class="sample-card__badge">Android</div>
+          <h3 class="sample-card__title">Model Viewer</h3>
+          <p class="sample-card__text">3D model, HDR environment, orbit camera</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="sample-card">
+          <div class="sample-card__badge sample-card__badge--ar">AR</div>
+          <h3 class="sample-card__title">AR Model Viewer</h3>
+          <p class="sample-card__text">Tap-to-place, plane detection, pinch/rotate</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="sample-card">
+          <div class="sample-card__badge sample-card__badge--demo">Demo</div>
+          <h3 class="sample-card__title">SceneView Demo</h3>
+          <p class="sample-card__text">Play Store demo, 4-tab Material 3 Expressive</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/ios-demo" class="sample-card">
+          <div class="sample-card__badge sample-card__badge--ios">iOS</div>
+          <h3 class="sample-card__title">iOS Demo</h3>
+          <p class="sample-card__text">SwiftUI 3-tab app for App Store</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-tv-demo" class="sample-card">
+          <div class="sample-card__badge sample-card__badge--tv">TV</div>
+          <h3 class="sample-card__title">TV Model Viewer</h3>
+          <p class="sample-card__text">Android TV, D-pad controls, auto-rotation</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/web-demo" class="sample-card">
+          <div class="sample-card__badge sample-card__badge--web">Web</div>
+          <h3 class="sample-card__title">Web Demo</h3>
+          <p class="sample-card__text">Browser-based 3D with Filament.js (WASM) + WebXR</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/desktop-demo" class="sample-card">
+          <div class="sample-card__badge sample-card__badge--demo">Desktop</div>
+          <h3 class="sample-card__title">Desktop Demo</h3>
+          <p class="sample-card__text">Compose Desktop with software 3D renderer</p>
+        </a>
       </div>
     </div>
   </section>
@@ -1096,7 +945,7 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
           <p class="involved-card__text">Chat with developers, get help, share your projects.</p>
         </a>
 
-        <a href="#pro" class="involved-card involved-card--sponsor">
+        <a href="https://github.com/sponsors/sceneview" class="involved-card involved-card--sponsor">
           <div class="involved-card__icon">
             <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -1169,28 +1018,6 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
 
   <!-- Hero 3D renderer — powered by SceneView Web (sceneview.js) -->
   <script>
-  // Explore filter logic
-  (function() {
-    var filters = document.querySelectorAll('.explore-filter');
-    var cards = document.querySelectorAll('.demo-card[data-category]');
-    filters.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        filters.forEach(function(b) { b.classList.remove('explore-filter--active'); });
-        btn.classList.add('explore-filter--active');
-        var filter = btn.getAttribute('data-filter');
-        cards.forEach(function(card) {
-          if (filter === 'all' || card.getAttribute('data-category') === filter) {
-            card.classList.remove('hidden');
-          } else {
-            card.classList.add('hidden');
-          }
-        });
-      });
-    });
-  })();
-  </script>
-
-  <script>
   (function() {
     var canvas = document.getElementById('hero-canvas');
     if (!canvas) return;
@@ -1209,7 +1036,8 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
       lightIntensity: 150000,
       fov: 35
     }).then(function(viewer) {
-      // Hide loading indicator, show badge
+      // Smooth fade-in: reveal canvas, hide loader
+      canvas.style.opacity = '1';
       if (loader) {
         loader.style.opacity = '0';
         setTimeout(function() { loader.style.display = 'none'; }, 500);

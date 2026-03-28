@@ -25,7 +25,8 @@
   <script src="js/filament/filament.js"></script>
   <!-- SceneView Web — our 3D library built on Filament.js -->
   <script src="js/sceneview.js?v=1.3.3"></script>
-  <!-- All 3D viewers now use SceneView Web (Filament.js) — no model-viewer dependency -->
+  <!-- model-viewer web component (kept for platform grid thumbnails) -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
   <style>
     /* ===== SHOWCASE-SPECIFIC STYLES ===== */
@@ -108,7 +109,6 @@
     .badge--medical { background: rgba(66,133,244,0.12); color: #4285f4; }
     .badge--luxury { background: rgba(171,71,188,0.12); color: #ab47bc; }
     .badge--multi { background: rgba(26,115,232,0.12); color: var(--color-primary); }
-    .badge--dashboard { background: rgba(6,182,212,0.12); color: #0891b2; }
 
     [data-theme="dark"] .badge--ecommerce { background: rgba(52,168,83,0.2); color: #81c995; }
     [data-theme="dark"] .badge--ar { background: rgba(234,67,53,0.2); color: #f28b82; }
@@ -116,7 +116,6 @@
     [data-theme="dark"] .badge--medical { background: rgba(66,133,244,0.2); color: #8ab4f8; }
     [data-theme="dark"] .badge--luxury { background: rgba(171,71,188,0.2); color: #d59fe8; }
     [data-theme="dark"] .badge--multi { background: rgba(138,180,248,0.15); color: #8ab4f8; }
-    [data-theme="dark"] .badge--dashboard { background: rgba(6,182,212,0.2); color: #22d3ee; }
 
     .showcase-section__title {
       font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -176,10 +175,11 @@
       z-index: 10;
     }
 
-    .device-frame canvas {
+    .device-frame model-viewer {
       width: 100%;
       height: 100%;
       display: block;
+      --poster-color: transparent;
     }
 
     /* ===== DEMO LAYOUTS ===== */
@@ -245,18 +245,13 @@
       backdrop-filter: blur(8px);
       display: flex; align-items: center; justify-content: center;
     }
-    [data-theme="light"] .ecom-app__top-icon {
-      background: rgba(0,0,0,0.08);
-    }
-    [data-theme="light"] .ecom-app__top-icon svg {
-      stroke: #374151;
-    }
 
     .ecom-app__viewer {
       flex: 1;
       position: relative;
     }
 
+    .ecom-app__viewer model-viewer,
     .ecom-app__viewer canvas {
       width: 100%;
       height: 100%;
@@ -330,6 +325,7 @@
       height: 100%;
     }
 
+    .ar-scene model-viewer,
     .ar-scene canvas {
       width: 100%;
       height: 100%;
@@ -402,10 +398,8 @@
       height: 100%;
       background: radial-gradient(ellipse at 50% 60%, #1a1a2e 0%, #0a0a0f 100%);
     }
-    [data-theme="light"] .auto-studio {
-      background: radial-gradient(ellipse at 50% 60%, #e2e8f0 0%, #cbd5e1 100%);
-    }
 
+    .auto-studio model-viewer,
     .auto-studio canvas {
       width: 100%;
       height: 100%;
@@ -418,9 +412,6 @@
       height: 30%;
       background: linear-gradient(to top, rgba(255,255,255,0.03) 0%, transparent 100%);
       pointer-events: none;
-    }
-    [data-theme="light"] .auto-studio__floor {
-      background: linear-gradient(to top, rgba(0,0,0,0.04) 0%, transparent 100%);
     }
 
     .auto-studio__controls {
@@ -452,17 +443,6 @@
       color: #fdd663;
     }
 
-    [data-theme="light"] .auto-chip {
-      background: rgba(0,0,0,0.06);
-      border-color: rgba(0,0,0,0.12);
-      color: #374151;
-    }
-    [data-theme="light"] .auto-chip--active {
-      background: rgba(251,188,4,0.15);
-      border-color: rgba(202,138,4,0.5);
-      color: #92400e;
-    }
-
     .auto-studio__label {
       position: absolute;
       top: 40px;
@@ -474,9 +454,6 @@
       letter-spacing: 0.1em;
       z-index: 5;
     }
-    [data-theme="light"] .auto-studio__label {
-      color: rgba(0,0,0,0.5);
-    }
 
     /* Medical / Education */
     .edu-viewer {
@@ -484,10 +461,8 @@
       height: 100%;
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     }
-    [data-theme="light"] .edu-viewer {
-      background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
-    }
 
+    .edu-viewer model-viewer,
     .edu-viewer canvas {
       width: 100%;
       height: 100%;
@@ -513,11 +488,6 @@
       white-space: nowrap;
       backdrop-filter: blur(4px);
     }
-    [data-theme="light"] .edu-label {
-      color: #1a73e8;
-      background: rgba(255,255,255,0.85);
-      border-color: rgba(26,115,232,0.3);
-    }
 
     .edu-label::before {
       content: '';
@@ -526,10 +496,6 @@
       border-radius: 50%;
       background: #8ab4f8;
       box-shadow: 0 0 6px rgba(138,180,248,0.6);
-    }
-    [data-theme="light"] .edu-label::before {
-      background: #1a73e8;
-      box-shadow: 0 0 6px rgba(26,115,232,0.5);
     }
 
     .edu-label--1 { top: 25%; left: 15%; }
@@ -554,10 +520,6 @@
       padding: 4px;
       backdrop-filter: blur(8px);
     }
-    [data-theme="light"] .edu-viewer__toolbar {
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
 
     .edu-tool {
       width: 32px; height: 32px;
@@ -570,17 +532,10 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    [data-theme="light"] .edu-tool {
-      color: rgba(0,0,0,0.4);
-    }
 
     .edu-tool--active {
       background: rgba(138,180,248,0.2);
       color: #8ab4f8;
-    }
-    [data-theme="light"] .edu-tool--active {
-      background: rgba(26,115,232,0.12);
-      color: #1a73e8;
     }
 
     /* Luxury/Watch */
@@ -589,10 +544,8 @@
       height: 100%;
       background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     }
-    [data-theme="light"] .luxury-viewer {
-      background: linear-gradient(145deg, #e8eaf6 0%, #c5cae9 50%, #9fa8da 100%);
-    }
 
+    .luxury-viewer model-viewer,
     .luxury-viewer canvas {
       width: 100%;
       height: 100%;
@@ -610,9 +563,6 @@
       letter-spacing: 0.2em;
       color: rgba(255,255,255,0.4);
       z-index: 5;
-    }
-    [data-theme="light"] .luxury-viewer__brand {
-      color: rgba(0,0,0,0.4);
     }
 
     .luxury-viewer__price-tag {
@@ -634,17 +584,11 @@
       color: rgba(255,255,255,0.9);
       margin-bottom: 2px;
     }
-    [data-theme="light"] .luxury-viewer__product-name {
-      color: rgba(0,0,0,0.85);
-    }
 
     .luxury-viewer__product-price {
       font-size: 0.7rem;
       color: rgba(213,159,232,0.8);
       font-weight: 500;
-    }
-    [data-theme="light"] .luxury-viewer__product-price {
-      color: rgba(124,58,237,0.8);
     }
 
     .luxury-viewer__options {
@@ -664,17 +608,10 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    [data-theme="light"] .luxury-opt {
-      border-color: rgba(0,0,0,0.15);
-    }
 
     .luxury-opt--active {
       border-color: rgba(255,255,255,0.8);
       box-shadow: 0 0 8px rgba(255,255,255,0.3);
-    }
-    [data-theme="light"] .luxury-opt--active {
-      border-color: rgba(0,0,0,0.6);
-      box-shadow: 0 0 8px rgba(0,0,0,0.15);
     }
 
     /* ===== MULTI-PLATFORM GRID ===== */
@@ -705,7 +642,7 @@
       background: var(--color-surface-dim);
     }
 
-    .platform-card__viewer canvas {
+    .platform-card__viewer model-viewer {
       width: 100%;
       height: 100%;
     }
@@ -786,209 +723,6 @@
     .demo-code .fn { color: #61afef; }
     .demo-code .str { color: #98c379; }
     .demo-code .cm { color: #5c6370; font-style: italic; }
-
-    /* ===== DATA DASHBOARD ===== */
-    .dash-mock {
-      position: relative;
-      height: 100%;
-      background: linear-gradient(145deg, #0f1623 0%, #1a2233 100%);
-      display: flex;
-      flex-direction: column;
-      padding: 16px;
-      gap: 10px;
-    }
-    [data-theme="light"] .dash-mock {
-      background: linear-gradient(145deg, #eef2f7 0%, #e2e8f0 100%);
-    }
-
-    .dash-mock__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .dash-mock__title {
-      font-size: 0.55rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.9);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-    [data-theme="light"] .dash-mock__title {
-      color: rgba(0,0,0,0.8);
-    }
-
-    .dash-mock__badge {
-      font-size: 0.45rem;
-      font-weight: 600;
-      color: #22d3ee;
-      background: rgba(6,182,212,0.15);
-      border: 1px solid rgba(6,182,212,0.3);
-      border-radius: 20px;
-      padding: 2px 6px;
-    }
-    [data-theme="light"] .dash-mock__badge {
-      color: #0891b2;
-      background: rgba(6,182,212,0.1);
-      border-color: rgba(6,182,212,0.25);
-    }
-
-    .dash-mock__metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 6px;
-    }
-
-    .dash-metric {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 6px;
-      padding: 6px;
-    }
-    [data-theme="light"] .dash-metric {
-      background: rgba(255,255,255,0.7);
-      border-color: rgba(0,0,0,0.08);
-    }
-
-    .dash-metric__val {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
-    }
-    [data-theme="light"] .dash-metric__val {
-      color: #1f2937;
-    }
-
-    .dash-metric__val--up { color: #4ade80; }
-    .dash-metric__val--down { color: #f87171; }
-
-    .dash-metric__label {
-      font-size: 0.4rem;
-      color: rgba(255,255,255,0.4);
-      margin-top: 2px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    [data-theme="light"] .dash-metric__label {
-      color: rgba(0,0,0,0.45);
-    }
-
-    .dash-mock__chart {
-      flex: 1;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 8px;
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    [data-theme="light"] .dash-mock__chart {
-      background: rgba(255,255,255,0.6);
-      border-color: rgba(0,0,0,0.08);
-    }
-
-    .dash-chart__label {
-      font-size: 0.42rem;
-      color: rgba(255,255,255,0.35);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-    [data-theme="light"] .dash-chart__label {
-      color: rgba(0,0,0,0.4);
-    }
-
-    .dash-bars {
-      flex: 1;
-      display: flex;
-      align-items: flex-end;
-      gap: 5px;
-      padding-top: 4px;
-    }
-
-    .dash-bar-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
-    }
-
-    .dash-bar {
-      width: 100%;
-      border-radius: 3px 3px 0 0;
-      background: linear-gradient(to top, #1a73e8, #60a5fa);
-      transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .dash-bar--cyan { background: linear-gradient(to top, #0891b2, #22d3ee); }
-    .dash-bar--purple { background: linear-gradient(to top, #7c3aed, #c084fc); }
-    .dash-bar--amber { background: linear-gradient(to top, #d97706, #fbbf24); }
-
-    .dash-bar__month {
-      font-size: 0.38rem;
-      color: rgba(255,255,255,0.25);
-      text-transform: uppercase;
-    }
-    [data-theme="light"] .dash-bar__month {
-      color: rgba(0,0,0,0.35);
-    }
-
-    .dash-mock__bottom {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-    }
-
-    /* Light mode: platform card device badge */
-    [data-theme="light"] .platform-card__device-badge {
-      background: rgba(255,255,255,0.85);
-      color: #374151;
-    }
-
-    .dash-mini-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 6px;
-      padding: 6px 8px;
-    }
-    [data-theme="light"] .dash-mini-card {
-      background: rgba(255,255,255,0.7);
-      border-color: rgba(0,0,0,0.08);
-    }
-
-    .dash-mini-card__label {
-      font-size: 0.4rem;
-      color: rgba(255,255,255,0.3);
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-    [data-theme="light"] .dash-mini-card__label {
-      color: rgba(0,0,0,0.4);
-    }
-
-    .dash-mini-card__val {
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: rgba(255,255,255,0.85);
-    }
-    [data-theme="light"] .dash-mini-card__val {
-      color: rgba(0,0,0,0.8);
-    }
-
-    .dash-spark {
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      margin-top: 4px;
-    }
-
-    .dash-spark__bar {
-      width: 4px;
-      border-radius: 1px;
-      background: rgba(34, 211, 238, 0.5);
-    }
 
     /* ===== CTA SECTION ===== */
     .showcase-cta {
@@ -1532,7 +1266,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">Android</div>
-            <canvas id="platform-android" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/DamagedHelmet.glb"
+              alt="Android 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="45deg 75deg 2.5m"
+              shadow-intensity="0.8" exposure="0.8"
+              style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">Android Phone</div>
@@ -1544,7 +1286,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">iOS</div>
-            <canvas id="platform-ios" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/MaterialsVariantsShoe.glb"
+              alt="iOS 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="150deg 75deg auto"
+              shadow-intensity="0.8" exposure="0.8"
+              style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">iPhone</div>
@@ -1556,7 +1306,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">iPadOS</div>
-            <canvas id="platform-ipad" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/SheenChair.glb"
+              alt="iPad 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="30deg 75deg auto"
+              shadow-intensity="1.2" exposure="0.8"
+              style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">iPad</div>
@@ -1568,7 +1326,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">visionOS</div>
-            <canvas id="platform-visionos" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/MosquitoInAmber.glb"
+              alt="Vision Pro 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="30deg 70deg auto"
+              shadow-intensity="0.8" exposure="1.0"
+              style="background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">Apple Vision Pro</div>
@@ -1580,7 +1346,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">TV</div>
-            <canvas id="platform-tv" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/CarConcept.glb"
+              alt="Android TV 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="30deg 70deg auto"
+              shadow-intensity="0.8" exposure="0.8"
+              style="background: linear-gradient(135deg, #1b1b1b 0%, #2d2d2d 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">Android TV</div>
@@ -1592,7 +1366,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">Web</div>
-            <canvas id="platform-web" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/BoomBox.glb"
+              alt="Web 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="-60deg 80deg auto"
+              shadow-intensity="0.8" exposure="0.8"
+              style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">Web Browser</div>
@@ -1604,7 +1386,15 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">Flutter</div>
-            <canvas id="platform-flutter" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/ChronographWatch.glb"
+              alt="Flutter 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="30deg 75deg auto"
+              shadow-intensity="0.8" exposure="0.8"
+              style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">Flutter</div>
@@ -1616,155 +1406,20 @@
         <div class="platform-card">
           <div class="platform-card__viewer">
             <div class="platform-card__device-badge">React Native</div>
-            <canvas id="platform-reactnative" style="width:100%;height:100%"></canvas>
+            <model-viewer
+              src="models/platforms/AntiqueCamera.glb"
+              alt="React Native 3D viewer"
+              auto-rotate camera-controls
+              camera-orbit="30deg 75deg auto"
+              shadow-intensity="0.8" exposure="0.8"
+              style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);"
+              interaction-prompt="none" loading="lazy"
+            ></model-viewer>
           </div>
           <div class="platform-card__label">
             <div class="platform-card__name">React Native</div>
             <div class="platform-card__tech">Fabric Bridge</div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 7. DATA DASHBOARD ===== -->
-  <section class="showcase-section" id="dashboard">
-    <div class="container">
-      <div class="showcase-section__header">
-        <span class="showcase-section__badge badge--dashboard">Data Visualization</span>
-        <h2 class="showcase-section__title">3D Data Dashboards</h2>
-        <p class="showcase-section__subtitle">Live Compose State drives 3D bar charts, globes, and network graphs. Update the data, the scene reacts instantly.</p>
-      </div>
-
-      <div class="demo-layout">
-        <!-- Tablet mockup showing dashboard -->
-        <div class="device-frame device-frame--wide">
-          <div class="device-frame__screen">
-            <div class="dash-mock">
-              <div class="dash-mock__header">
-                <span class="dash-mock__title">SceneView Analytics</span>
-                <span class="dash-mock__badge">LIVE</span>
-              </div>
-
-              <!-- KPIs -->
-              <div class="dash-mock__metrics">
-                <div class="dash-metric">
-                  <div class="dash-metric__val dash-metric__val--up">+94%</div>
-                  <div class="dash-metric__label">Conversions</div>
-                </div>
-                <div class="dash-metric">
-                  <div class="dash-metric__val">50k</div>
-                  <div class="dash-metric__label">Downloads</div>
-                </div>
-                <div class="dash-metric">
-                  <div class="dash-metric__val dash-metric__val--up">3.4.7</div>
-                  <div class="dash-metric__label">Release</div>
-                </div>
-              </div>
-
-              <!-- 3D Bar Chart simulation -->
-              <div class="dash-mock__chart">
-                <div class="dash-chart__label">Monthly SDK usage (3D Scenes rendered)</div>
-                <div class="dash-bars">
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar" style="height:35%"></div>
-                    <div class="dash-bar__month">Jan</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar dash-bar--cyan" style="height:52%"></div>
-                    <div class="dash-bar__month">Feb</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar" style="height:44%"></div>
-                    <div class="dash-bar__month">Mar</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar dash-bar--purple" style="height:68%"></div>
-                    <div class="dash-bar__month">Apr</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar dash-bar--cyan" style="height:73%"></div>
-                    <div class="dash-bar__month">May</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar dash-bar--amber" style="height:82%"></div>
-                    <div class="dash-bar__month">Jun</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar" style="height:91%"></div>
-                    <div class="dash-bar__month">Jul</div>
-                  </div>
-                  <div class="dash-bar-wrap">
-                    <div class="dash-bar dash-bar--cyan" style="height:100%"></div>
-                    <div class="dash-bar__month">Aug</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Bottom mini cards -->
-              <div class="dash-mock__bottom">
-                <div class="dash-mini-card">
-                  <div class="dash-mini-card__label">Avg render time</div>
-                  <div class="dash-mini-card__val">16ms <span style="font-size:0.45rem;color:#4ade80">60fps</span></div>
-                  <div class="dash-spark">
-                    <div class="dash-spark__bar" style="height:8px"></div>
-                    <div class="dash-spark__bar" style="height:12px"></div>
-                    <div class="dash-spark__bar" style="height:10px"></div>
-                    <div class="dash-spark__bar" style="height:14px"></div>
-                    <div class="dash-spark__bar" style="height:16px"></div>
-                    <div class="dash-spark__bar" style="height:12px"></div>
-                  </div>
-                </div>
-                <div class="dash-mini-card">
-                  <div class="dash-mini-card__label">Platforms live</div>
-                  <div class="dash-mini-card__val">Android · iOS · Web</div>
-                  <div class="dash-spark">
-                    <div class="dash-spark__bar" style="height:6px;background:rgba(52,168,83,0.6)"></div>
-                    <div class="dash-spark__bar" style="height:10px;background:rgba(0,122,255,0.6)"></div>
-                    <div class="dash-spark__bar" style="height:8px;background:rgba(251,188,4,0.6)"></div>
-                    <div class="dash-spark__bar" style="height:12px;background:rgba(52,168,83,0.6)"></div>
-                    <div class="dash-spark__bar" style="height:14px;background:rgba(0,122,255,0.6)"></div>
-                    <div class="dash-spark__bar" style="height:16px;background:rgba(251,188,4,0.6)"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Info -->
-        <div class="demo-info">
-          <h3 class="demo-info__title">Compose State drives your 3D data</h3>
-          <p class="demo-info__desc">SceneView nodes are just Composable functions. Connect them to your ViewModel's StateFlow and every data update re-renders instantly — no imperative scene graph manipulation, no separate rendering loop.</p>
-          <div class="feature-pills">
-            <span class="pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              Real-time Data
-            </span>
-            <span class="pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-              Compose State
-            </span>
-            <span class="pill">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              60fps Animations
-            </span>
-          </div>
-          <div class="demo-code"><span class="cm">// Data updates → 3D reacts instantly</span>
-<span class="kw">val</span> sales <span class="kw">by</span> <span class="fn">viewModel</span>.salesFlow.<span class="fn">collectAsState</span>()
-
-<span class="fn">Scene</span> {
-    sales.<span class="fn">forEachIndexed</span> { i, value -&gt;
-        <span class="fn">CubeNode</span>(
-            size = <span class="fn">Position</span>(<span class="str">0.4f</span>, value, <span class="str">0.4f</span>),
-            color = <span class="fn">Color</span>(<span class="str">0.1f</span>, <span class="str">0.5f</span>, <span class="str">1f</span>)
-        ) { <span class="fn">position</span>(x = i * <span class="str">0.6f</span>) }
-    }
-}</div>
-          <a href="/filament-chart.html" class="btn btn--outline" style="margin-top:var(--space-md);display:inline-flex;align-items:center;gap:8px">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-            Open Live Chart Demo
-          </a>
         </div>
       </div>
     </div>
@@ -1806,16 +1461,7 @@
       { id: 'showcase-chair',  model: 'models/platforms/SheenChair.glb',            bg: [0.91, 0.92, 0.93, 1] },
       { id: 'showcase-car',    model: 'models/platforms/ToyCar.glb',                bg: [0.10, 0.10, 0.12, 1] },
       { id: 'showcase-helmet', model: 'models/platforms/DamagedHelmet.glb',         bg: [0.06, 0.09, 0.17, 1] },
-      { id: 'showcase-lamp',   model: 'models/platforms/IridescenceLamp.glb',       bg: [0.10, 0.10, 0.18, 1] },
-      // Platform grid viewers (replaced model-viewer)
-      { id: 'platform-android',     model: 'models/platforms/DamagedHelmet.glb',         bg: [0.91, 0.96, 0.91, 1] },
-      { id: 'platform-ios',         model: 'models/platforms/MaterialsVariantsShoe.glb', bg: [0.89, 0.95, 0.99, 1] },
-      { id: 'platform-ipad',        model: 'models/platforms/SheenChair.glb',            bg: [0.95, 0.90, 0.96, 1] },
-      { id: 'platform-visionos',    model: 'models/platforms/MosquitoInAmber.glb',       bg: [0.04, 0.04, 0.06, 1] },
-      { id: 'platform-tv',          model: 'models/platforms/CarConcept.glb',            bg: [0.11, 0.11, 0.11, 1] },
-      { id: 'platform-web',         model: 'models/platforms/BoomBox.glb',               bg: [1.00, 0.95, 0.88, 1] },
-      { id: 'platform-flutter',     model: 'models/platforms/ChronographWatch.glb',      bg: [0.91, 0.92, 0.96, 1] },
-      { id: 'platform-reactnative', model: 'models/platforms/AntiqueCamera.glb',         bg: [0.88, 0.97, 0.98, 1] }
+      { id: 'showcase-lamp',   model: 'models/platforms/IridescenceLamp.glb',       bg: [0.10, 0.10, 0.18, 1] }
     ];
 
     if (typeof SceneView === 'undefined') return;

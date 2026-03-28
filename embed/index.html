@@ -7,10 +7,8 @@
   <meta name="robots" content="noindex">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
-  <!-- Filament.js v1.70.1 WASM engine (required by SceneView Web) -->
-  <script src="/js/filament/filament.js"></script>
-  <!-- SceneView Web — our 3D library built on Filament.js -->
-  <script src="/js/sceneview.js?v=1.3.3"></script>
+  <!-- model-viewer web component -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,10 +33,10 @@
       min-height: 0;
     }
 
-    #viewer {
+    model-viewer {
       width: 100%;
       height: 100%;
-      display: block;
+      --poster-color: transparent;
     }
 
     /* Loading state */
@@ -163,8 +161,17 @@
       </div>
     </div>
 
-    <!-- 3D viewer canvas -->
-    <canvas id="viewer" style="display:none;"></canvas>
+    <!-- 3D viewer — attributes set by JS -->
+    <model-viewer
+      id="viewer"
+      camera-controls
+      touch-action="pan-y"
+      interaction-prompt="none"
+      shadow-intensity="0.6"
+      environment-image="neutral"
+      loading="eager"
+      style="display:none;"
+    ></model-viewer>
 
     <!-- Watermark -->
     <a class="watermark" href="https://sceneview.github.io" target="_blank" rel="noopener" title="SceneView — 3D & AR SDK">
@@ -180,19 +187,22 @@
 
   <script>
     (function () {
-      var params = new URLSearchParams(window.location.search);
-      var modelUrl = params.get('model');
-      var bg = params.get('bg');
-      var nofooter = params.has('nofooter');
+      const params = new URLSearchParams(window.location.search);
+      const modelUrl = params.get('model');
+      const autorotate = params.get('autorotate') !== 'false'; // default true
+      const ar = params.get('ar') === 'true';
+      const bg = params.get('bg');
+      const nofooter = params.has('nofooter');
+      const poster = params.get('poster');
 
-      var canvas = document.getElementById('viewer');
-      var loading = document.getElementById('loading');
-      var error = document.getElementById('error');
-      var footer = document.getElementById('footer');
+      const viewer = document.getElementById('viewer');
+      const loading = document.getElementById('loading');
+      const error = document.getElementById('error');
+      const footer = document.getElementById('footer');
 
       // Background color
       if (bg) {
-        var color = bg.startsWith('#') ? bg : '#' + bg;
+        const color = bg.startsWith('#') ? bg : '#' + bg;
         document.body.style.setProperty('--bg-color', color);
         document.body.style.background = color;
       }
@@ -207,31 +217,31 @@
         return;
       }
 
-      // Show canvas and init SceneView
-      canvas.style.display = 'block';
+      // Configure viewer
+      viewer.setAttribute('src', modelUrl);
+      viewer.style.display = 'block';
 
-      // Parse bg color to RGBA array for SceneView
-      var bgColor = [0.1, 0.1, 0.18, 1.0]; // default dark
-      if (bg) {
-        var hex = bg.replace('#', '');
-        if (hex.length === 6) {
-          bgColor = [
-            parseInt(hex.substring(0, 2), 16) / 255,
-            parseInt(hex.substring(2, 4), 16) / 255,
-            parseInt(hex.substring(4, 6), 16) / 255,
-            1.0
-          ];
-        }
+      if (autorotate) {
+        viewer.setAttribute('auto-rotate', '');
+        viewer.setAttribute('auto-rotate-delay', '0');
       }
 
-      SceneView.modelViewer('viewer', modelUrl, {
-        backgroundColor: bgColor,
-        lightIntensity: 150000,
-        fov: 35
-      }).then(function () {
+      if (ar) {
+        viewer.setAttribute('ar', '');
+        viewer.setAttribute('ar-modes', 'webxr scene-viewer quick-look');
+      }
+
+      if (poster) {
+        viewer.setAttribute('poster', poster);
+      }
+
+      // Hide loading when model is ready
+      viewer.addEventListener('load', function () {
         loading.classList.add('hidden');
-      }).catch(function (e) {
-        console.error('SceneView embed error:', e);
+      });
+
+      // Also hide on error (show the model-viewer default error)
+      viewer.addEventListener('error', function () {
         loading.classList.add('hidden');
       });
 
