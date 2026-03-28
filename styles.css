@@ -881,8 +881,11 @@ button {
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
   font-weight: 600;
-  color: #1a1a2e;
+  color: #1f2937;
   box-shadow: var(--shadow-sm);
+}
+[data-theme="dark"] .samples__mini-card {
+  color: #1f2937;
 }
 
 @media (max-width: 768px) {
