@@ -13,8 +13,10 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- Google model-viewer for 3D rendering -->
-  <script type="module" src="js/model-viewer.min.js"></script>
+  <!-- Filament.js v1.70.1 WASM engine (local) -->
+  <script src="js/filament/filament.js"></script>
+  <!-- SceneView Web (local, uses Filament loaded above) -->
+  <script src="js/sceneview.js?v=1.3.3"></script>
 
   <style>
     /* ===== PAGE-SPECIFIC STYLES ===== */
@@ -286,12 +288,14 @@
       color: rgba(0,0,0,0.3);
     }
 
-    .preview-panel model-viewer {
+    .preview-panel canvas.sv-canvas {
       flex: 1;
       width: 100%;
       min-height: 420px;
-      --poster-color: transparent;
+      display: block;
+      cursor: grab;
     }
+    .preview-panel canvas.sv-canvas:active { cursor: grabbing; }
 
     .preview-badge {
       position: absolute;
@@ -345,11 +349,13 @@
       background: #f0f0f4;
     }
 
-    .example-card__3d model-viewer {
+    .example-card__3d canvas.sv-canvas {
       width: 100%;
       height: 100%;
-      --poster-color: transparent;
+      display: block;
+      cursor: grab;
     }
+    .example-card__3d canvas.sv-canvas:active { cursor: grabbing; }
 
     .example-card__body {
       padding: var(--space-lg);
@@ -518,7 +524,7 @@
         border-bottom: 1px solid rgba(0,0,0,0.08);
       }
 
-      .preview-panel model-viewer {
+      .preview-panel canvas.sv-canvas {
         min-height: 320px;
       }
 
@@ -635,22 +641,8 @@
             <!-- Preview Side -->
             <div class="preview-panel">
               <div class="preview-label">Preview</div>
-              <model-viewer
-                id="heroModel"
-                src="models/SheenChair.glb"
-                alt="3D Chair preview"
-                camera-controls
-                auto-rotate
-                shadow-intensity="1.2"
-                shadow-softness="0.8"
-                environment-image="neutral"
-                exposure="1.0"
-                camera-orbit="30deg 75deg 2.5m"
-                style="background-color: transparent"
-                loading="eager"
-                reveal="auto"
-              ></model-viewer>
-              <div class="preview-badge">Rendered by model-viewer + SceneView</div>
+              <canvas id="heroModel" class="sv-canvas" data-model="models/SheenChair.glb" style="width:100%;height:100%"></canvas>
+              <div class="preview-badge">Rendered by SceneView + Filament.js</div>
             </div>
           </div>
         </div>
@@ -668,17 +660,7 @@
           <!-- Example 1: Product -->
           <div class="example-card">
             <div class="example-card__3d">
-              <model-viewer
-                src="models/WaterBottle.glb"
-                alt="3D water bottle product"
-                camera-controls
-                auto-rotate
-                shadow-intensity="1"
-                environment-image="neutral"
-                camera-orbit="25deg 70deg 1.8m"
-                style="background-color: transparent"
-                loading="lazy"
-              ></model-viewer>
+              <canvas class="sv-canvas" data-model="models/WaterBottle.glb" style="width:100%;height:100%"></canvas>
             </div>
             <div class="example-card__body">
               <div class="example-card__prompt">
@@ -719,17 +701,7 @@
           <!-- Example 2: Sneakers / Product -->
           <div class="example-card">
             <div class="example-card__3d">
-              <model-viewer
-                src="models/MaterialsVariantsShoe.glb"
-                alt="3D sneaker"
-                camera-controls
-                auto-rotate
-                shadow-intensity="1.2"
-                environment-image="neutral"
-                camera-orbit="45deg 65deg 0.4m"
-                style="background-color: transparent"
-                loading="lazy"
-              ></model-viewer>
+              <canvas class="sv-canvas" data-model="models/MaterialsVariantsShoe.glb" style="width:100%;height:100%"></canvas>
             </div>
             <div class="example-card__body">
               <div class="example-card__prompt">
@@ -771,18 +743,7 @@
           <!-- Example 3: Animated Character -->
           <div class="example-card">
             <div class="example-card__3d">
-              <model-viewer
-                src="models/Fox.glb"
-                alt="3D animated fox"
-                camera-controls
-                auto-rotate
-                autoplay
-                shadow-intensity="1"
-                environment-image="neutral"
-                camera-orbit="30deg 75deg 150"
-                style="background-color: transparent"
-                loading="lazy"
-              ></model-viewer>
+              <canvas class="sv-canvas" data-model="models/Fox.glb" style="width:100%;height:100%"></canvas>
             </div>
             <div class="example-card__body">
               <div class="example-card__prompt">
@@ -821,19 +782,7 @@
           <!-- Example 4: Furniture / AR -->
           <div class="example-card">
             <div class="example-card__3d">
-              <model-viewer
-                src="models/SheenChair.glb"
-                alt="3D furniture for AR placement"
-                camera-controls
-                auto-rotate
-                ar
-                shadow-intensity="1.5"
-                shadow-softness="1"
-                environment-image="neutral"
-                camera-orbit="210deg 70deg 2.5m"
-                style="background-color: transparent"
-                loading="lazy"
-              ></model-viewer>
+              <canvas class="sv-canvas" data-model="models/SheenChair.glb" style="width:100%;height:100%"></canvas>
             </div>
             <div class="example-card__body">
               <div class="example-card__prompt">
@@ -949,5 +898,44 @@
   </footer>
 
   <script src="script.js"></script>
+  <!-- Lazy SceneView loader -->
+  <script>
+  (function() {
+    var viewers = document.querySelectorAll('.sv-viewer');
+    if (!viewers.length) return;
+    var initialized = new Set();
+    function getThemeBg() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
+    }
+    function initViewer(canvas) {
+      if (initialized.has(canvas)) return;
+      initialized.add(canvas);
+      var model = canvas.dataset.model;
+      var light = parseInt(canvas.dataset.light) || 120000;
+      if (!model) return;
+      var bg = getThemeBg();
+      SceneView.modelViewer(canvas, model, {
+        backgroundColor: bg, lightIntensity: light, fov: 35
+      }).then(function(instance) {
+        canvas.style.opacity = '1';
+        new MutationObserver(function() {
+          var colors = getThemeBg();
+          instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      }).catch(function(e) {
+        console.warn('SceneView: ' + model + ' — ' + e.message);
+        initialized.delete(canvas);
+      });
+    }
+    viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) initViewer(entry.target);
+      });
+    }, { rootMargin: '300px 0px' });
+    viewers.forEach(function(canvas) { observer.observe(canvas); });
+  })();
+  </script>
 </body>
 </html>
