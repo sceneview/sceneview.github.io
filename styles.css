@@ -1108,7 +1108,7 @@ button {
 .showcase-item__viewer {
   position: relative;
   height: 380px;
-  background: #eef0f3;
+  background: var(--color-surface-dim);
   overflow: hidden;
 }
 

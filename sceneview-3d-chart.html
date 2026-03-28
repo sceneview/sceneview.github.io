@@ -62,7 +62,7 @@
 </div>
 <div id="tooltip"></div>
 
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="importmap">{"imports":{"three":"js/three/three.module.js","three/addons/environments/RoomEnvironment.js":"js/three/RoomEnvironment.js","three/addons/loaders/RGBELoader.js":"js/three/RGBELoader.js"}}</script>
 <script type="module">
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -170,13 +170,10 @@ async function init() {
     const skyTexture = await new Promise((res, rej) => {
       loader.load('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/citrus_orchard_road_puresky_1k.hdr', res, undefined, rej);
     });
-    scene.background = pmremGenerator.fromEquirectangular(skyTexture).texture;
+    const envMap = pmremGenerator.fromEquirectangular(skyTexture).texture;
+    scene.background = envMap;
+    scene.environment = envMap;
     skyTexture.dispose();
-    const officeTexture = await new Promise((res, rej) => {
-      loader.load('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/unfinished_office_night_1k.hdr', res, undefined, rej);
-    });
-    scene.environment = pmremGenerator.fromEquirectangular(officeTexture).texture;
-    officeTexture.dispose();
   } catch(e) {
     scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
   }
@@ -194,28 +191,15 @@ async function init() {
   key.shadow.radius = 8; key.shadow.bias = -0.001;
   scene.add(key);
 
-  // Ground
+  // Reflective ground — mirrors the sky
   const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(40, 30),
-    new THREE.MeshStandardMaterial({ color: 0x2a2a38, roughness: 0.25, metalness: 0.15, envMapIntensity: 1.0 })
+    new THREE.PlaneGeometry(60, 40),
+    new THREE.MeshStandardMaterial({ color: 0x445566, roughness: 0.15, metalness: 0.4, envMapIntensity: 1.5 })
   );
   ground.rotation.x = -Math.PI / 2;
   ground.position.y = -0.01;
   ground.receiveShadow = true;
   scene.add(ground);
-
-  // Dot grid
-  for (let x = -7; x <= 7; x++) {
-    for (let z = -5; z <= 5; z++) {
-      const dot = new THREE.Mesh(
-        new THREE.CircleGeometry(0.025, 8),
-        new THREE.MeshBasicMaterial({ color: 0x404060, transparent: true, opacity: 0.4, side: THREE.DoubleSide })
-      );
-      dot.rotation.x = -Math.PI / 2;
-      dot.position.set(x * 1.4, 0.005, z * 1.4);
-      scene.add(dot);
-    }
-  }
 
   // Scene dots UI
   const dotsEl = document.getElementById('dots');
@@ -257,7 +241,7 @@ function buildScene(sceneData) {
     const group = new THREE.Group();
     group.position.x = offset + i * spacing;
     const maxVal = Math.max(...sceneData.bars.map(b => b.value));
-    const targetH = (d.value / maxVal) * 5.0; // normalize: tallest bar = 5 units
+    const targetH = (d.value / maxVal) * 4.0; // normalize: tallest bar = 4 units
 
     // Glass bar
     const bar = new THREE.Mesh(new THREE.BoxGeometry(0.85, targetH, 0.85), glassMaterial(d.color));
@@ -333,7 +317,7 @@ function buildScene(sceneData) {
     trendGroup.userData.isTrend = true;
     const maxVal = Math.max(...sceneData.bars.map(b => b.value));
     const pts = sceneData.bars.map((d, i) => {
-      const h = (d.value / maxVal) * 5.0;
+      const h = (d.value / maxVal) * 4.0;
       return new THREE.Vector3(offset + i * spacing, h, 0);
     });
     const curve = new THREE.CatmullRomCurve3(pts);
@@ -342,7 +326,7 @@ function buildScene(sceneData) {
       new THREE.MeshPhysicalMaterial({ color: 0x3b82f6, roughness: 0.2, metalness: 0.3, transparent: true, opacity: 0, emissive: 0x3b82f6, emissiveIntensity: 0.3 })
     ));
     sceneData.bars.forEach((d, i) => {
-      const h = (d.value / maxVal) * 5.0;
+      const h = (d.value / maxVal) * 4.0;
       const sp = new THREE.Mesh(
         new THREE.SphereGeometry(0.06, 16, 16),
         new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: d.color, emissiveIntensity: 0.5, transparent: true, opacity: 0 })
@@ -395,29 +379,30 @@ function animate() {
     });
   }
 
-  // === SMOOTH CONTINUOUS CAMERA — no jumps ever ===
-  // Global orbit based on total elapsed time — never resets
-  const orbitAngle = elapsed * 0.08; // very slow continuous orbit
-  const swayX = Math.sin(orbitAngle) * 2.5;
-  const swayZ = Math.cos(orbitAngle * 0.7) * 1.5;
-  const breatheY = Math.sin(elapsed * 0.18) * 0.3;
+  // === SMOOTH CONTINUOUS CAMERA — never jumps, always moving ===
+  const globalIntro = smoothstep(0, 4.0, elapsed);
 
-  // Gentle zoom in/out per scene (smooth sine, no jumps)
-  const zoomCycle = Math.sin(elapsed * 0.12) * 1.0;
-  const baseZ = 14 + zoomCycle;
-  const baseY = 4.5 + Math.sin(elapsed * 0.1) * 0.3;
+  // Continuous slow orbit — always based on total elapsed, never resets
+  const orbitAngle = elapsed * 0.1;
+  const orbitX = Math.sin(orbitAngle) * 4.0;
+  const orbitZ = 12 + Math.cos(orbitAngle * 0.6) * 2.0;
+  const breatheY = Math.sin(elapsed * 0.15) * 0.4;
 
-  // First 3 seconds: cinematic entry from far
-  const globalIntro = smoothstep(0, 3.0, elapsed);
-  const startZ = 24, startY = 8;
-  const camZ = startZ + (baseZ - startZ) * globalIntro + swayZ * globalIntro;
+  // Camera height: stay low to see sky above bars
+  const baseY = 3.0 + Math.sin(elapsed * 0.08) * 0.5;
+
+  // Intro: start far and high, come to final position
+  const startX = -6, startY = 8, startZ = 22;
+  const camX = startX + (orbitX - startX) * globalIntro;
   const camY = startY + (baseY - startY) * globalIntro + breatheY * globalIntro;
-  const camX = swayX * globalIntro;
-  const lookY = 2.5 + (1.5 - 2.5) * globalIntro;
+  const camZ = startZ + (orbitZ - startZ) * globalIntro;
+
+  // Look at center of bars, slightly up to frame sky
+  const lookY = 4.0 + (2.0 - 4.0) * globalIntro;
 
   camera.position.set(camX, camY, camZ);
   camera.lookAt(0, lookY, 0);
-  camera.fov = 46 - 8 * globalIntro;
+  camera.fov = 50 - 10 * globalIntro;
   camera.updateProjectionMatrix();
 
   // === BAR ANIMATIONS ===

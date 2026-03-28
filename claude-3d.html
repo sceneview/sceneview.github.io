@@ -637,7 +637,7 @@
               <div class="preview-label">Preview</div>
               <model-viewer
                 id="heroModel"
-                src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb"
+                src="models/SheenChair.glb"
                 alt="3D Chair preview"
                 camera-controls
                 auto-rotate
@@ -665,12 +665,12 @@
 
         <div class="examples-grid">
 
-          <!-- Example 1: Flowers -->
+          <!-- Example 1: Product -->
           <div class="example-card">
             <div class="example-card__3d">
               <model-viewer
-                src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/FlowerVase/glTF-Binary/FlowerVase.glb"
-                alt="3D flower vase"
+                src="models/WaterBottle.glb"
+                alt="3D water bottle product"
                 camera-controls
                 auto-rotate
                 shadow-intensity="1"
@@ -685,9 +685,9 @@
                 <div class="example-card__prompt-icon">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
                 </div>
-                <span class="example-card__prompt-text">"Draw me a flower arrangement in 3D"</span>
+                <span class="example-card__prompt-text">"Show me a 3D product viewer for a water bottle"</span>
               </div>
-              <p class="example-card__desc">Claude selects a flower vase model from glTF samples and renders it with PBR materials, soft shadows, and auto-rotation for a natural look.</p>
+              <p class="example-card__desc">Claude generates a product viewer with PBR materials, soft shadows, and auto-rotation. The model loads with camera orbit controls for a complete 360-degree view.</p>
               <button class="example-card__code-toggle" onclick="this.nextElementSibling.classList.toggle('open')">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
                 View code
@@ -708,7 +708,7 @@
     <span class="kw">ModelNode</span>(
         modelInstance = <span class="fn">rememberModelInstance</span>(
             modelLoader,
-            <span class="str">"models/flower_vase.glb"</span>
+            <span class="str">"models/water_bottle.glb"</span>
         )
     )
 }</code></pre>
@@ -720,7 +720,7 @@
           <div class="example-card">
             <div class="example-card__3d">
               <model-viewer
-                src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/MaterialsVariantsShoe/glTF-Binary/MaterialsVariantsShoe.glb"
+                src="models/MaterialsVariantsShoe.glb"
                 alt="3D sneaker"
                 camera-controls
                 auto-rotate
@@ -772,7 +772,7 @@
           <div class="example-card">
             <div class="example-card__3d">
               <model-viewer
-                src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/Fox/glTF-Binary/Fox.glb"
+                src="models/Fox.glb"
                 alt="3D animated fox"
                 camera-controls
                 auto-rotate
@@ -822,7 +822,7 @@
           <div class="example-card">
             <div class="example-card__3d">
               <model-viewer
-                src="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/SheenChair/glTF-Binary/SheenChair.glb"
+                src="models/SheenChair.glb"
                 alt="3D furniture for AR placement"
                 camera-controls
                 auto-rotate
