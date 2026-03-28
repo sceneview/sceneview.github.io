@@ -5,7 +5,10 @@
 <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SceneView — 3D Data Dashboard</title>
-<script type="module" src="js/model-viewer.min.js"></script>
+<!-- Filament.js WASM engine (required by SceneView Web) -->
+<script src="js/filament/filament.js"></script>
+<!-- SceneView Web — 3D library built on Filament.js -->
+<script src="js/sceneview.js?v=1.3.3"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -299,13 +302,15 @@
     position: relative;
   }
 
-  .viewer-container model-viewer {
+  .viewer-container canvas.sv-viewer {
     width: 100%;
     height: 100%;
     border-radius: 16px;
-    background: radial-gradient(ellipse at center, rgba(26, 115, 232, 0.08), var(--bg));
-    --poster-color: transparent;
-    outline: none;
+    display: block;
+    cursor: grab;
+  }
+  .viewer-container canvas.sv-viewer:active {
+    cursor: grabbing;
   }
 
   .viewer-container::before {
@@ -826,19 +831,7 @@
   <!-- ═══ Center: 3D Viewer ═══ -->
   <main class="viewer-area">
     <div class="viewer-container glass-card" style="padding:0;overflow:hidden">
-      <model-viewer
-        src="models/platforms/DamagedHelmet.glb"
-        alt="3D Asset Visualization"
-        auto-rotate
-        camera-controls
-        shadow-intensity="1"
-        shadow-softness="0.5"
-        exposure="1.1"
-        camera-orbit="45deg 65deg 2.5m"
-        environment-image="neutral"
-        tone-mapping="aces"
-        style="width:100%;height:100%;min-height:420px"
-      ></model-viewer>
+      <canvas class="sv-viewer" data-model="models/platforms/DamagedHelmet.glb" data-light="120000" style="width:100%;height:100%;min-height:420px;display:block;cursor:grab" aria-label="3D Asset Visualization"></canvas>
 
       <!-- Floating annotations -->
       <div class="annotation ann-tl" style="animation-delay:0.8s">
@@ -1090,6 +1083,39 @@
     updateClock();
     setInterval(updateClock, 1000);
   });
+</script>
+
+<!-- SceneView 3D viewer initialization -->
+<script>
+(function() {
+  var viewers = document.querySelectorAll('.sv-viewer');
+  if (!viewers.length) return;
+  var initialized = new Set();
+  function initViewer(canvas) {
+    if (initialized.has(canvas)) return;
+    initialized.add(canvas);
+    var model = canvas.dataset.model;
+    var light = parseInt(canvas.dataset.light) || 120000;
+    if (!model) return;
+    SceneView.modelViewer(canvas, model, {
+      backgroundColor: [0.04, 0.06, 0.10, 1.0],
+      lightIntensity: light,
+      fov: 35
+    }).then(function(instance) {
+      canvas.style.opacity = '1';
+    }).catch(function(e) {
+      console.warn('SceneView: ' + model + ' — ' + e.message);
+      initialized.delete(canvas);
+    });
+  }
+  viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) initViewer(entry.target);
+    });
+  }, { rootMargin: '300px 0px' });
+  viewers.forEach(function(canvas) { observer.observe(canvas); });
+})();
 </script>
 
 </body>

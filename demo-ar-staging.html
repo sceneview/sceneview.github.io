@@ -9,7 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script type="module" src="js/model-viewer.min.js"></script>
+    <!-- Filament.js WASM engine (required by SceneView Web) -->
+    <script src="js/filament/filament.js"></script>
+    <!-- SceneView Web — 3D library built on Filament.js -->
+    <script src="js/sceneview.js?v=1.3.3"></script>
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -157,10 +160,13 @@
             border-color: rgba(74,144,255,0.2);
             box-shadow: 0 12px 48px rgba(0,0,0,0.4);
         }
-        .furniture-card model-viewer {
+        .furniture-card canvas.sv-viewer {
             width: 100%; height: 340px;
-            background: linear-gradient(180deg, #151c2c 0%, #0d1220 100%);
-            --poster-color: transparent;
+            display: block;
+            cursor: grab;
+        }
+        .furniture-card canvas.sv-viewer:active {
+            cursor: grabbing;
         }
         .furniture-info {
             padding: 1.5rem;
@@ -231,6 +237,12 @@
         .step-icon {
             width: 48px; height: 48px; margin: 0 auto 0.8rem;
             color: var(--blue); opacity: 0.8;
+        }
+
+        .furniture-ar-badge {
+            font-size: 0.75rem; font-weight: 600; color: var(--blue);
+            background: rgba(74,144,255,0.1); border: 1px solid rgba(74,144,255,0.25);
+            padding: 4px 10px; border-radius: 6px;
         }
 
         /* ── Code Section ── */
@@ -311,7 +323,7 @@
             .hero { padding: 120px 1.5rem 60px; }
             section { padding: 60px 1.5rem; }
             .furniture-grid { grid-template-columns: 1fr; }
-            .furniture-card model-viewer { height: 280px; }
+            .furniture-card canvas.sv-viewer { height: 280px; }
             .steps { grid-template-columns: 1fr; }
             .nav-links { display: none; }
         }
@@ -383,108 +395,42 @@
         <div class="furniture-grid">
             <!-- Chair -->
             <div class="furniture-card animate">
-                <model-viewer
-                    src="models/platforms/SheenChair.glb"
-                    alt="Modern Sheen Chair"
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls
-                    auto-rotate
-                    shadow-intensity="1.2"
-                    shadow-softness="0.8"
-                    environment-image="neutral"
-                    exposure="1"
-                    camera-orbit="30deg 75deg 2.5m"
-                    interaction-prompt="auto"
-                    loading="lazy"
-                >
-                    <button slot="ar-button" class="btn-ar" style="position:absolute;bottom:16px;right:16px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                        View in AR
-                    </button>
-                </model-viewer>
+                <canvas class="sv-viewer" data-model="models/platforms/SheenChair.glb" data-light="120000" aria-label="Modern Sheen Chair"></canvas>
                 <div class="furniture-info">
                     <span class="furniture-tag">Seating</span>
                     <div class="furniture-name">Modern Sheen Chair</div>
                     <div class="furniture-desc">Fabric upholstery with sheen finish. Perfect for living rooms and offices.</div>
                     <div class="furniture-bottom">
                         <div class="furniture-price">$349 <span>USD</span></div>
-                        <button class="btn-ar" onclick="document.querySelectorAll('model-viewer')[0].activateAR()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            View in AR
-                        </button>
+                        <span class="furniture-ar-badge">3D Preview</span>
                     </div>
                 </div>
             </div>
 
             <!-- Lamp -->
             <div class="furniture-card animate delay-1">
-                <model-viewer
-                    src="models/platforms/IridescenceLamp.glb"
-                    alt="Iridescence Table Lamp"
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls
-                    auto-rotate
-                    shadow-intensity="1.2"
-                    shadow-softness="0.8"
-                    environment-image="neutral"
-                    exposure="1.1"
-                    camera-orbit="40deg 70deg 1.8m"
-                    interaction-prompt="auto"
-                    loading="lazy"
-                >
-                    <button slot="ar-button" class="btn-ar" style="position:absolute;bottom:16px;right:16px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                        View in AR
-                    </button>
-                </model-viewer>
+                <canvas class="sv-viewer" data-model="models/platforms/IridescenceLamp.glb" data-light="120000" aria-label="Iridescence Table Lamp"></canvas>
                 <div class="furniture-info">
                     <span class="furniture-tag">Lighting</span>
                     <div class="furniture-name">Iridescence Table Lamp</div>
                     <div class="furniture-desc">Stunning iridescent finish that shifts color with viewing angle. Statement piece.</div>
                     <div class="furniture-bottom">
                         <div class="furniture-price">$189 <span>USD</span></div>
-                        <button class="btn-ar" onclick="document.querySelectorAll('model-viewer')[1].activateAR()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            View in AR
-                        </button>
+                        <span class="furniture-ar-badge">3D Preview</span>
                     </div>
                 </div>
             </div>
 
             <!-- Duck -->
             <div class="furniture-card animate delay-2">
-                <model-viewer
-                    src="models/platforms/Duck.glb"
-                    alt="Classic Rubber Duck Decor"
-                    ar
-                    ar-modes="webxr scene-viewer quick-look"
-                    camera-controls
-                    auto-rotate
-                    shadow-intensity="1.2"
-                    shadow-softness="0.8"
-                    environment-image="neutral"
-                    exposure="1"
-                    camera-orbit="35deg 72deg 3m"
-                    interaction-prompt="auto"
-                    loading="lazy"
-                >
-                    <button slot="ar-button" class="btn-ar" style="position:absolute;bottom:16px;right:16px;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                        View in AR
-                    </button>
-                </model-viewer>
+                <canvas class="sv-viewer" data-model="models/platforms/Duck.glb" data-light="120000" aria-label="Classic Rubber Duck Decor"></canvas>
                 <div class="furniture-info">
                     <span class="furniture-tag">Decor</span>
                     <div class="furniture-name">Classic Duck Sculpture</div>
                     <div class="furniture-desc">Whimsical golden duck figurine. An iconic conversation starter for any shelf.</div>
                     <div class="furniture-bottom">
                         <div class="furniture-price">$49 <span>USD</span></div>
-                        <button class="btn-ar" onclick="document.querySelectorAll('model-viewer')[2].activateAR()">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
-                            View in AR
-                        </button>
+                        <span class="furniture-ar-badge">3D Preview</span>
                     </div>
                 </div>
             </div>
@@ -618,6 +564,39 @@
         el.style.animationPlayState = 'paused';
         observer.observe(el);
     });
+</script>
+
+<!-- SceneView 3D viewer initialization -->
+<script>
+(function() {
+  var viewers = document.querySelectorAll('.sv-viewer');
+  if (!viewers.length) return;
+  var initialized = new Set();
+  function initViewer(canvas) {
+    if (initialized.has(canvas)) return;
+    initialized.add(canvas);
+    var model = canvas.dataset.model;
+    var light = parseInt(canvas.dataset.light) || 120000;
+    if (!model) return;
+    SceneView.modelViewer(canvas, model, {
+      backgroundColor: [0.08, 0.11, 0.17, 1.0],
+      lightIntensity: light,
+      fov: 35
+    }).then(function(instance) {
+      canvas.style.opacity = '1';
+    }).catch(function(e) {
+      console.warn('SceneView: ' + model + ' — ' + e.message);
+      initialized.delete(canvas);
+    });
+  }
+  viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+  var svObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) initViewer(entry.target);
+    });
+  }, { rootMargin: '300px 0px' });
+  viewers.forEach(function(canvas) { svObserver.observe(canvas); });
+})();
 </script>
 
 </body>
