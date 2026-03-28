@@ -21,8 +21,10 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="styles.css">
 
-  <!-- model-viewer web component -->
-  <script type="module" src="js/model-viewer.min.js"></script>
+  <!-- Filament.js v1.70.1 WASM engine (local) -->
+  <script src="js/filament/filament.js"></script>
+  <!-- SceneView Web (local, uses Filament loaded above) -->
+  <script src="js/sceneview.js?v=1.3.3"></script>
 
   <style>
     /* ===== SHOWCASE PAGE STYLES ===== */
@@ -199,11 +201,10 @@
       background: var(--color-surface-dim);
     }
 
-    .model-card__viewer model-viewer {
+    .model-card__viewer canvas.sv-viewer {
       width: 100%;
       height: 100%;
       display: block;
-      --poster-color: transparent;
     }
 
     .model-card__info {
@@ -393,7 +394,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/Sneaker.glb" alt="Sneaker 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/Sneaker.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sneaker</span>
@@ -402,7 +403,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/MaterialsVariantsShoe.glb" alt="Running Shoe 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="150deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/MaterialsVariantsShoe.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Running Shoe</span>
@@ -411,7 +412,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/GoldenWatch.glb" alt="Golden Watch 3D" auto-rotate camera-controls shadow-intensity="1" exposure="1.0" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/GoldenWatch.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Golden Watch</span>
@@ -420,7 +421,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/DiveWatch.glb" alt="Dive Watch 3D" auto-rotate camera-controls shadow-intensity="1" exposure="1.0" camera-orbit="45deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/DiveWatch.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Dive Watch</span>
@@ -429,7 +430,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/AviatorSunglasses.glb" alt="Aviator Sunglasses 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fff8e1 0%, #ffecb3 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/AviatorSunglasses.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Aviator Sunglasses</span>
@@ -438,7 +439,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/SunglassesKhronos.glb" alt="Sunglasses 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #f3e5f5 0%, #e1bee7 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/SunglassesKhronos.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sunglasses</span>
@@ -447,7 +448,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/LeatherBag.glb" alt="Leather Bag 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #efebe9 0%, #d7ccc8 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/LeatherBag.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Leather Bag</span>
@@ -456,7 +457,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/BoseHeadphones.glb" alt="Headphones 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #eceff1 0%, #cfd8dc 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/BoseHeadphones.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Headphones</span>
@@ -465,7 +466,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/IPhone13ProMax.glb" alt="iPhone 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e3f2fd 0%, #bbdefb 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/IPhone13ProMax.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">iPhone</span>
@@ -474,7 +475,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/ChronographWatch.glb" alt="Chronograph Watch 3D" auto-rotate camera-controls shadow-intensity="1" exposure="1.0" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #1a1a2e 0%, #0f3460 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/ChronographWatch.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Chronograph Watch</span>
@@ -483,7 +484,7 @@
         </div>
         <div class="model-card" data-cat="ecommerce">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/WaterBottle.glb" alt="Water Bottle 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e0f7fa 0%, #b2ebf2 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/WaterBottle.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Water Bottle</span>
@@ -507,7 +508,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="architecture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/ModernApartment.glb" alt="Modern Apartment 3D" auto-rotate camera-controls shadow-intensity="0.8" exposure="0.9" camera-orbit="45deg 65deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fafafa 0%, #eeeeee 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/ModernApartment.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Modern Apartment</span>
@@ -516,7 +517,7 @@
         </div>
         <div class="model-card" data-cat="architecture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/ModernBedroom.glb" alt="Modern Bedroom 3D" auto-rotate camera-controls shadow-intensity="0.8" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #f5f5f5 0%, #e0e0e0 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/ModernBedroom.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Modern Bedroom</span>
@@ -525,7 +526,7 @@
         </div>
         <div class="model-card" data-cat="architecture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/SteelStair.glb" alt="Steel Staircase 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #eceff1 0%, #cfd8dc 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/SteelStair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Steel Staircase</span>
@@ -549,7 +550,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="automotive">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/McLarenP1.glb" alt="McLaren P1 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.8" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: radial-gradient(ellipse at 50% 60%, #1a1a2e 0%, #0a0a0f 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/McLarenP1.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">McLaren P1</span>
@@ -558,7 +559,7 @@
         </div>
         <div class="model-card" data-cat="automotive">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/PorscheCarreraGT.glb" alt="Porsche Carrera GT 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.8" camera-orbit="45deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: radial-gradient(ellipse at 50% 60%, #1a1a2e 0%, #0a0a0f 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/PorscheCarreraGT.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Porsche Carrera GT</span>
@@ -567,7 +568,7 @@
         </div>
         <div class="model-card" data-cat="automotive">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/ToyCar.glb" alt="Toy Car 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.8" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: radial-gradient(ellipse at 50% 60%, #1a1a2e 0%, #0a0a0f 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/ToyCar.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Toy Car</span>
@@ -576,7 +577,7 @@
         </div>
         <div class="model-card" data-cat="automotive">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/CarConcept.glb" alt="Car Concept 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.8" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: radial-gradient(ellipse at 50% 60%, #1a1a2e 0%, #0a0a0f 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/CarConcept.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Car Concept</span>
@@ -600,7 +601,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/SheenChair.glb" alt="Sheen Chair 3D" auto-rotate camera-controls shadow-intensity="1.2" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #f3e5f5 0%, #e1bee7 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/SheenChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sheen Chair</span>
@@ -609,7 +610,7 @@
         </div>
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/DesignerChair.glb" alt="Designer Chair 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fff3e0 0%, #ffe0b2 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/DesignerChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Designer Chair</span>
@@ -618,7 +619,7 @@
         </div>
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/DamaskChair.glb" alt="Damask Chair 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/DamaskChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Damask Chair</span>
@@ -627,7 +628,7 @@
         </div>
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/VelvetSofa.glb" alt="Velvet Sofa 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e8eaf6 0%, #c5cae9 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/VelvetSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Velvet Sofa</span>
@@ -636,7 +637,7 @@
         </div>
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/LeatherSofa.glb" alt="Leather Sofa 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #efebe9 0%, #d7ccc8 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/LeatherSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Leather Sofa</span>
@@ -645,7 +646,7 @@
         </div>
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/GlamVelvetSofa.glb" alt="Glam Velvet Sofa 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #ede7f6 0%, #d1c4e9 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/GlamVelvetSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Glam Velvet Sofa</span>
@@ -654,7 +655,7 @@
         </div>
         <div class="model-card" data-cat="furniture">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/SheenWoodLeatherSofa.glb" alt="Wood & Leather Sofa 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #f5f5f5 0%, #e0e0e0 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/SheenWoodLeatherSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Wood & Leather Sofa</span>
@@ -678,7 +679,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/FlowerVase.glb" alt="Flower Vase 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fce4ec 0%, #f8bbd0 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/FlowerVase.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Flower Vase</span>
@@ -687,7 +688,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/GlassVaseFlowers.glb" alt="Glass Vase with Flowers 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/GlassVaseFlowers.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Glass Vase with Flowers</span>
@@ -696,7 +697,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/Plant.glb" alt="Plant 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/Plant.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Plant</span>
@@ -705,7 +706,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/IridescentDishWithOlives.glb" alt="Iridescent Dish 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/IridescentDishWithOlives.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Iridescent Dish</span>
@@ -714,7 +715,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/DishWithOlives.glb" alt="Dish with Olives 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fff8e1 0%, #ffecb3 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/DishWithOlives.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Dish with Olives</span>
@@ -723,7 +724,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/IridescenceLamp.glb" alt="Iridescence Lamp 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/IridescenceLamp.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Iridescence Lamp</span>
@@ -732,7 +733,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/BarnLamp.glb" alt="Barn Lamp 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #efebe9 0%, #d7ccc8 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/BarnLamp.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Barn Lamp</span>
@@ -741,7 +742,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/CandleHolder.glb" alt="Candle Holder 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fff3e0 0%, #ffe0b2 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/CandleHolder.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Candle Holder</span>
@@ -750,7 +751,7 @@
         </div>
         <div class="model-card" data-cat="decoration">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/Lantern.glb" alt="Lantern 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e0f2f1 0%, #b2dfdb 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/Lantern.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Lantern</span>
@@ -774,7 +775,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="gaming">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/Fox.glb" alt="Fox 3D" auto-rotate camera-controls autoplay shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/Fox.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Fox (Animated)</span>
@@ -783,7 +784,7 @@
         </div>
         <div class="model-card" data-cat="gaming">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/BrainStem.glb" alt="BrainStem 3D" auto-rotate camera-controls autoplay shadow-intensity="0.8" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/BrainStem.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">BrainStem (Animated)</span>
@@ -792,7 +793,7 @@
         </div>
         <div class="model-card" data-cat="gaming">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/DragonAttenuation.glb" alt="Dragon 3D" auto-rotate camera-controls shadow-intensity="0.8" exposure="1.0" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/DragonAttenuation.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Dragon Attenuation</span>
@@ -816,7 +817,7 @@
       <div class="model-grid">
         <div class="model-card" data-cat="objects">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/DamagedHelmet.glb" alt="Damaged Helmet 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.8" camera-orbit="45deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #0f172a 0%, #1e293b 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/DamagedHelmet.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Damaged Helmet</span>
@@ -825,7 +826,7 @@
         </div>
         <div class="model-card" data-cat="objects">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/MosquitoInAmber.glb" alt="Mosquito in Amber 3D" auto-rotate camera-controls shadow-intensity="0.8" exposure="1.0" camera-orbit="30deg 70deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #1a1a2e 0%, #0a0a0f 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/MosquitoInAmber.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Mosquito in Amber</span>
@@ -834,7 +835,7 @@
         </div>
         <div class="model-card" data-cat="objects">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/Avocado.glb" alt="Avocado 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #e8f5e9 0%, #c8e6c9 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/Avocado.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Avocado</span>
@@ -843,7 +844,7 @@
         </div>
         <div class="model-card" data-cat="objects">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/Duck.glb" alt="Duck 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fff8e1 0%, #ffecb3 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/Duck.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Duck</span>
@@ -852,7 +853,7 @@
         </div>
         <div class="model-card" data-cat="objects">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/BoomBox.glb" alt="Boom Box 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.8" camera-orbit="-60deg 80deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #fff3e0 0%, #ffe0b2 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/BoomBox.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Boom Box</span>
@@ -861,7 +862,7 @@
         </div>
         <div class="model-card" data-cat="objects">
           <div class="model-card__viewer">
-            <model-viewer src="models/platforms/AntiqueCamera.glb" alt="Antique Camera 3D" auto-rotate camera-controls shadow-intensity="1" exposure="0.9" camera-orbit="30deg 75deg auto" interaction-prompt="none" loading="lazy" style="background: linear-gradient(145deg, #efebe9 0%, #d7ccc8 100%);"></model-viewer>
+            <canvas class="sv-viewer" data-model="models/platforms/AntiqueCamera.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Antique Camera</span>
@@ -924,6 +925,46 @@
         });
       });
     });
+  })();
+  </script>
+
+  <!-- Lazy SceneView loader -->
+  <script>
+  (function() {
+    var viewers = document.querySelectorAll('.sv-viewer');
+    if (!viewers.length) return;
+    var initialized = new Set();
+    function getThemeBg() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
+    }
+    function initViewer(canvas) {
+      if (initialized.has(canvas)) return;
+      initialized.add(canvas);
+      var model = canvas.dataset.model;
+      var light = parseInt(canvas.dataset.light) || 120000;
+      if (!model) return;
+      var bg = getThemeBg();
+      SceneView.modelViewer(canvas, model, {
+        backgroundColor: bg, lightIntensity: light, fov: 35
+      }).then(function(instance) {
+        canvas.style.opacity = '1';
+        new MutationObserver(function() {
+          var colors = getThemeBg();
+          instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+      }).catch(function(e) {
+        console.warn('SceneView: ' + model + ' — ' + e.message);
+        initialized.delete(canvas);
+      });
+    }
+    viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) initViewer(entry.target);
+      });
+    }, { rootMargin: '300px 0px' });
+    viewers.forEach(function(canvas) { observer.observe(canvas); });
   })();
   </script>
 </body>
