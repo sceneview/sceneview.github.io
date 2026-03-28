@@ -331,6 +331,14 @@ button {
   font-weight: 500;
 }
 
+.hero__langs {
+  font-size: 0.8rem;
+  color: var(--color-on-surface-faint);
+  margin-top: 4px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
 .hero__actions {
   display: flex;
   gap: var(--space-md);
