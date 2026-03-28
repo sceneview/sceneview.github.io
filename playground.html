@@ -37,8 +37,6 @@
   <script src="js/filament/filament.js"></script>
   <!-- SceneView Web — our 3D library built on Filament.js -->
   <script src="js/sceneview.js?v=1.3.3"></script>
-  <!-- model-viewer (fallback renderer option) -->
-  <script type="module" src="js/model-viewer.min.js"></script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="styles.css">
@@ -307,15 +305,10 @@
         var(--color-surface-dim) 80%);
     }
 
-    .playground__model-wrap model-viewer,
     .playground__model-wrap canvas {
       width: 100%;
       height: 100%;
-      --poster-color: transparent;
       display: block;
-    }
-
-    .playground__model-wrap canvas {
       cursor: grab;
     }
 
@@ -460,11 +453,6 @@
           <option value="custom-geometry">Custom Geometry</option>
           <option value="animation">Animation</option>
         </select>
-        <span class="playground__label" style="margin-left:16px">Renderer</span>
-        <select class="playground__select" id="rendererSelect">
-          <option value="sceneview">SceneView (Filament.js)</option>
-          <option value="model-viewer">model-viewer</option>
-        </select>
         <span class="playground__label" style="margin-left:16px">Model</span>
         <select class="playground__select" id="modelSelect">
           <optgroup label="Featured">
@@ -566,24 +554,6 @@
         </div>
         <div class="playground__model-wrap">
           <canvas id="previewCanvas" aria-label="3D model preview (SceneView Web / Filament.js)"></canvas>
-          <model-viewer
-            id="previewModel"
-            src="models/platforms/DamagedHelmet.glb"
-            alt="3D model preview"
-            auto-rotate
-            auto-rotate-delay="0"
-            rotation-per-second="30deg"
-            camera-controls
-            touch-action="pan-y"
-            interaction-prompt="none"
-            shadow-intensity="1.2"
-            shadow-softness="0.8"
-            exposure="1.1"
-            environment-image="neutral"
-            camera-orbit="45deg 70deg 2.5m"
-            loading="eager"
-            style="display:none"
-          ></model-viewer>
         </div>
         <div class="playground__description" id="description">
           <h3 id="descTitle">Model Viewer</h3>
@@ -986,14 +956,11 @@ fun AnimationScreen() {\n\
       loadExample(this.value);
     });
 
-    // ===== RENDERER SWITCHING =====
+    // ===== SCENEVIEW RENDERER =====
     var MODEL_BASE = 'models/platforms';
     var modelSelect = document.getElementById('modelSelect');
-    var rendererSelect = document.getElementById('rendererSelect');
-    var previewModel = document.getElementById('previewModel');
     var previewCanvas = document.getElementById('previewCanvas');
     var rendererBadge = document.getElementById('rendererBadge');
-    var currentRenderer = 'sceneview'; // default to SceneView
     var sceneViewInstance = null;
 
     function getModelUrl(name) {
@@ -1007,8 +974,7 @@ fun AnimationScreen() {\n\
 
     function initSceneView(modelUrl) {
       if (typeof SceneView === 'undefined') {
-        console.warn('SceneView not loaded, falling back to model-viewer');
-        switchToModelViewer();
+        console.warn('SceneView not loaded');
         return;
       }
       // Dispose previous instance
@@ -1020,57 +986,24 @@ fun AnimationScreen() {\n\
         backgroundColor: getThemeBg()
       }).then(function(instance) {
         sceneViewInstance = instance;
+        // React to theme changes
+        new MutationObserver(function() {
+          var colors = getThemeBg();
+          instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
+        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
       }).catch(function(e) {
         console.warn('SceneView init error:', e);
       });
     }
 
-    function switchToSceneView() {
-      currentRenderer = 'sceneview';
-      previewCanvas.style.display = 'block';
-      previewModel.style.display = 'none';
-      rendererBadge.textContent = 'SceneView';
-      rendererBadge.className = 'playground__renderer-badge playground__renderer-badge--sceneview';
-      var name = modelSelect.value;
-      initSceneView(getModelUrl(name));
-    }
-
-    function switchToModelViewer() {
-      currentRenderer = 'model-viewer';
-      previewCanvas.style.display = 'none';
-      previewModel.style.display = 'block';
-      rendererBadge.textContent = 'model-viewer';
-      rendererBadge.className = 'playground__renderer-badge playground__renderer-badge--modelviewer';
-      // Dispose SceneView instance
-      if (sceneViewInstance) {
-        try { sceneViewInstance.dispose(); } catch(e) {}
-        sceneViewInstance = null;
-      }
-      var name = modelSelect.value;
-      previewModel.setAttribute('src', getModelUrl(name));
-    }
-
-    rendererSelect.addEventListener('change', function() {
-      if (this.value === 'sceneview') {
-        switchToSceneView();
-      } else {
-        switchToModelViewer();
-      }
-    });
-
     // Model preset switcher
     modelSelect.addEventListener('change', function () {
       var name = this.value;
-      var url = getModelUrl(name);
-      if (currentRenderer === 'sceneview') {
-        initSceneView(url);
-      } else {
-        previewModel.setAttribute('src', url);
-      }
+      initSceneView(getModelUrl(name));
     });
 
-    // Initialize default renderer (SceneView)
-    switchToSceneView();
+    // Initialize SceneView with default model
+    initSceneView(getModelUrl(modelSelect.value));
 
     // Copy button
     copyBtn.addEventListener('click', function () {
