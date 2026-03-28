@@ -687,6 +687,8 @@
           <button class="tabs__btn" data-tab="ios">iOS</button>
           <button class="tabs__btn" data-tab="web">Web</button>
           <button class="tabs__btn" data-tab="flutter">Flutter</button>
+          <button class="tabs__btn" data-tab="reactnative">React Native</button>
+          <button class="tabs__btn" data-tab="claude">Claude</button>
           <button class="tabs__btn" data-tab="desktop">Desktop</button>
         </div>
         <div class="tabs__panels">
@@ -694,9 +696,9 @@
             <pre class="code-block"><code><span class="cm">// build.gradle.kts</span>
 <span class="kw">dependencies</span> {
     <span class="cm">// 3D only</span>
-    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview:3.3.0"</span>)
+    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview:3.4.7"</span>)
     <span class="cm">// 3D + AR</span>
-    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:arsceneview:3.3.0"</span>)
+    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:arsceneview:3.4.7"</span>)
 }</code></pre>
           </div>
           <div class="tabs__panel" data-panel="ios">
@@ -704,14 +706,14 @@
 <span class="cm">// Add in Xcode: File &rarr; Add Package Dependencies</span>
 
 <span class="str">"https://github.com/sceneview/sceneview-swift"</span>
-<span class="cm">// Version: 3.3.0</span>
+<span class="cm">// Version: 3.4.7</span>
 
 <span class="kw">import</span> SceneViewSwift</code></pre>
           </div>
           <div class="tabs__panel" data-panel="web">
             <pre class="code-block"><code><span class="cm">// build.gradle.kts (Kotlin/JS)</span>
 <span class="kw">dependencies</span> {
-    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview-web:3.3.0"</span>)
+    <span class="fn">implementation</span>(<span class="str">"io.github.sceneview:sceneview-web:3.4.7"</span>)
 }
 
 <span class="cm">// Or use Filament.js directly in HTML</span>
@@ -727,6 +729,31 @@
 
 <span class="cm"># Then run:</span>
 <span class="kw">flutter</span> pub get</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="reactnative">
+            <pre class="code-block"><code><span class="cm">// React Native (Fabric / Turbo Module)</span>
+<span class="cm">// Clone the repo and link the native module:</span>
+
+<span class="kw">npm</span> install <span class="str">react-native-sceneview</span>
+<span class="cm">// or from source:</span>
+<span class="kw">git</span> clone <span class="str">https://github.com/sceneview/sceneview</span>
+<span class="kw">cd</span> sceneview/react-native
+<span class="kw">npm</span> install</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="claude">
+            <pre class="code-block"><code><span class="cm"># Use SceneView MCP with Claude Desktop or Claude.ai</span>
+<span class="cm"># Add to your claude_desktop_config.json:</span>
+
+{
+  <span class="str">"mcpServers"</span>: {
+    <span class="str">"sceneview"</span>: {
+      <span class="str">"command"</span>: <span class="str">"npx"</span>,
+      <span class="str">"args"</span>: [<span class="str">"sceneview-mcp@latest"</span>]
+    }
+  }
+}
+
+<span class="cm"># Then ask Claude: "Build me a 3D app with SceneView"</span></code></pre>
           </div>
           <div class="tabs__panel" data-panel="desktop">
             <pre class="code-block"><code><span class="cm">// Compose Desktop (alpha &mdash; software renderer)</span>

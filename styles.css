@@ -210,16 +210,26 @@ button {
 }
 
 .nav__link--showcase {
-  color: var(--color-primary) !important;
-  font-weight: 700 !important;
-  background: var(--color-primary-light);
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(26, 115, 232, 0.2);
+  color: var(--color-on-surface) !important;
+  font-weight: 600 !important;
+  position: relative;
+}
+
+.nav__link--showcase::after {
+  content: "NEW";
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: #fff;
+  background: #e53935;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+  vertical-align: super;
+  letter-spacing: 0.05em;
 }
 
 .nav__link--showcase:hover {
-  background: var(--color-primary-subtle) !important;
+  color: var(--color-primary) !important;
 }
 
 .nav__theme-toggle {
