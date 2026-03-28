@@ -1406,42 +1406,25 @@ button {
   transform: translateY(-2px);
 }
 
-.use-case-card__icon {
-  margin-bottom: var(--space-md);
-}
-
-.use-case-card__icon svg {
-  display: inline-block;
+.use-case-card__emoji {
+  font-size: 2rem;
+  margin-bottom: var(--space-sm);
 }
 
 .use-case-card__title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   margin-bottom: var(--space-sm);
   color: var(--color-on-surface);
 }
 
-.use-case-card__text {
+.use-case-card__prompt {
   font-size: 0.9rem;
   color: var(--color-on-surface-dim);
   line-height: 1.6;
-  margin-bottom: var(--space-md);
-}
-
-.use-case-card__snippet {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  background: var(--color-code-bg);
-  color: var(--color-primary);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-xs);
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-[data-theme="dark"] .use-case-card__snippet {
-  color: var(--color-primary);
+  font-style: italic;
+  border-left: 3px solid rgba(217,119,86,0.4);
+  padding-left: var(--space-md);
 }
 
 @media (max-width: 900px) {

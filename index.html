@@ -587,62 +587,44 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
   <!-- ===== USE CASES ===== -->
   <section class="section use-cases" id="use-cases">
     <div class="container">
-      <h2 class="section__title">Built for real products</h2>
-      <p class="section__subtitle">From e-commerce to healthcare, SceneView powers production 3D experiences.</p>
+      <h2 class="section__title">Just describe what you want</h2>
+      <p class="section__subtitle">Tell Claude what to build. Get a working app. No 3D experience needed.</p>
 
       <div class="use-cases__grid">
         <div class="use-case-card">
-          <div class="use-case-card__icon">
-            <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><path d="M8 40V18l16-10 16 10v22H28V30h-8v10H8z" stroke="var(--color-primary)" stroke-width="2.5" fill="var(--color-primary)" fill-opacity=".08"/></svg>
-          </div>
-          <h3 class="use-case-card__title">E-commerce & Retail</h3>
-          <p class="use-case-card__text">3D product viewers that boost conversion. Replace static images with interactive models. AR try-before-you-buy for furniture, fashion, and accessories.</p>
-          <code class="use-case-card__snippet">Scene { ModelNode("shoe.glb") }</code>
+          <div class="use-case-card__emoji">&#x1F6CD;</div>
+          <h3 class="use-case-card__title">E-commerce</h3>
+          <div class="use-case-card__prompt">&ldquo;Build me a product viewer where customers can rotate a shoe in 3D and see it in AR in their room&rdquo;</div>
         </div>
 
         <div class="use-case-card">
-          <div class="use-case-card__icon">
-            <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><path d="M24 4L4 14v20l20 10 20-10V14L24 4z" stroke="var(--color-primary)" stroke-width="2.5" fill="var(--color-primary)" fill-opacity=".08"/><path d="M4 14l20 10 20-10M24 24v20" stroke="var(--color-primary)" stroke-width="2"/></svg>
-          </div>
-          <h3 class="use-case-card__title">Architecture & Real Estate</h3>
-          <p class="use-case-card__text">Walk through 3D floor plans. AR-stage empty rooms with furniture. Visualize buildings at scale before construction starts.</p>
-          <code class="use-case-card__snippet">ARScene { AnchorNode { ModelNode("building.glb") } }</code>
+          <div class="use-case-card__emoji">&#x1F3D7;</div>
+          <h3 class="use-case-card__title">Real Estate</h3>
+          <div class="use-case-card__prompt">&ldquo;I need an AR app that places 3D furniture in empty rooms. Camera should detect the floor automatically&rdquo;</div>
         </div>
 
         <div class="use-case-card">
-          <div class="use-case-card__icon">
-            <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><circle cx="24" cy="20" r="12" stroke="var(--color-primary)" stroke-width="2.5" fill="var(--color-primary)" fill-opacity=".08"/><path d="M24 8v12l8 4" stroke="var(--color-primary)" stroke-width="2"/><path d="M12 38h24" stroke="var(--color-primary)" stroke-width="2.5"/></svg>
-          </div>
-          <h3 class="use-case-card__title">Education & Training</h3>
-          <p class="use-case-card__text">Interactive 3D anatomy, molecular structures, mechanical assemblies. Students manipulate models controlled by standard Compose state.</p>
-          <code class="use-case-card__snippet">Scene { ModelNode("anatomy.glb", autoAnimate = true) }</code>
+          <div class="use-case-card__emoji">&#x1F9EC;</div>
+          <h3 class="use-case-card__title">Education</h3>
+          <div class="use-case-card__prompt">&ldquo;Create a 3D anatomy viewer where students can rotate a human heart and play the beating animation&rdquo;</div>
         </div>
 
         <div class="use-case-card">
-          <div class="use-case-card__icon">
-            <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><rect x="8" y="8" width="32" height="32" rx="6" stroke="var(--color-primary)" stroke-width="2.5" fill="var(--color-primary)" fill-opacity=".08"/><path d="M18 28l4-12 4 8 4-4" stroke="var(--color-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3 class="use-case-card__title">Data Visualization</h3>
-          <p class="use-case-card__text">3D bar charts, globes, network graphs. Data is Compose State &mdash; update it and the visualization reacts instantly. No separate rendering loop.</p>
-          <code class="use-case-card__snippet">Scene { CubeNode(size = dataPoint) }</code>
+          <div class="use-case-card__emoji">&#x1F4CA;</div>
+          <h3 class="use-case-card__title">Data Viz</h3>
+          <div class="use-case-card__prompt">&ldquo;Show my sales data as a 3D bar chart that updates in real-time. I want orbit camera and hover tooltips&rdquo;</div>
         </div>
 
         <div class="use-case-card">
-          <div class="use-case-card__icon">
-            <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><circle cx="24" cy="18" r="10" stroke="var(--color-primary)" stroke-width="2.5" fill="var(--color-primary)" fill-opacity=".08"/><path d="M14 42c0-5.52 4.48-10 10-10s10 4.48 10 10" stroke="var(--color-primary)" stroke-width="2.5"/></svg>
-          </div>
-          <h3 class="use-case-card__title">Social & Face Filters</h3>
-          <p class="use-case-card__text">AugmentedFaceNode for face filters and effects. Apply materials to the face mesh, attach 3D objects to landmarks. Front-camera AR.</p>
-          <code class="use-case-card__snippet">ARScene { AugmentedFaceNode(material = mask) }</code>
+          <div class="use-case-card__emoji">&#x1F3AE;</div>
+          <h3 class="use-case-card__title">Gaming</h3>
+          <div class="use-case-card__prompt">&ldquo;Build a casual 3D game with physics. Balls fall and bounce, the player tilts the phone to control gravity&rdquo;</div>
         </div>
 
         <div class="use-case-card">
-          <div class="use-case-card__icon">
-            <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><path d="M10 38V10h28v28H10z" stroke="var(--color-primary)" stroke-width="2.5" fill="var(--color-primary)" fill-opacity=".08"/><circle cx="18" cy="20" r="3" fill="var(--color-primary)"/><circle cx="30" cy="20" r="3" fill="var(--color-primary)"/><path d="M16 30c2 3 6 5 8 5s6-2 8-5" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round"/></svg>
-          </div>
-          <h3 class="use-case-card__title">Gaming & Entertainment</h3>
-          <p class="use-case-card__text">Physics simulation, spring animations, procedural geometry. Build casual 3D games with Compose state management &mdash; no game engine needed.</p>
-          <code class="use-case-card__snippet">Scene { PhysicsNode { SphereNode(radius = 0.1f) } }</code>
+          <div class="use-case-card__emoji">&#x1F697;</div>
+          <h3 class="use-case-card__title">Automotive</h3>
+          <div class="use-case-card__prompt">&ldquo;Car configurator where users pick paint color, wheels, and interior. Show the car in AR in their driveway&rdquo;</div>
         </div>
       </div>
     </div>
