@@ -464,6 +464,7 @@
               touch-action="pan-y"
               shadow-intensity="1"
               exposure="0.8"
+              environment-image="neutral"
               style="width:100%;height:100%;--poster-color:transparent;"
               loading="lazy"
               poster=""
@@ -474,10 +475,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">E-commerce</div>
             <h3 class="showcase-item__title">3D Product Viewer</h3>
-            <p class="showcase-item__text">Replace flat product photos with interactive 3D. Customers orbit, zoom, and inspect every angle. AR lets them place products in their space before buying &mdash; boosting conversion by up to 94%.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("sneaker.glb")
-}</code></pre>
+            <p class="showcase-item__text">Interactive 3D replaces flat photos. Customers orbit, zoom, and inspect every angle before buying.</p>
           </div>
         </div>
 
@@ -493,6 +491,7 @@
               shadow-intensity="1.2"
               exposure="0.9"
               camera-orbit="30deg 75deg 2m"
+              environment-image="neutral"
               style="width:100%;height:100%;--poster-color:transparent;"
               loading="lazy"
               poster=""
@@ -503,12 +502,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Furniture &amp; AR</div>
             <h3 class="showcase-item__title">AR Room Staging</h3>
-            <p class="showcase-item__text">Let customers place furniture in their real room using AR. Anchor 3D models to detected surfaces with a single tap. Accurate scale, real-time shadows, physics-aware placement.</p>
-            <pre class="showcase-item__code"><code>ARScene {
-  AnchorNode {
-    ModelNode("chair.glb")
-  }
-}</code></pre>
+            <p class="showcase-item__text">Place furniture in your real room with AR. Tap to anchor, pinch to resize, real-time shadows.</p>
           </div>
         </div>
 
@@ -534,11 +528,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Luxury &amp; Detail</div>
             <h3 class="showcase-item__title">PBR Material Showcase</h3>
-            <p class="showcase-item__text">Physically-based rendering with iridescence, sheen, and clearcoat. Filament renders materials indistinguishable from photography &mdash; perfect for luxury goods, jewelry, and collectibles.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("product.glb",
-    autoAnimate = true)
-}</code></pre>
+            <p class="showcase-item__text">Iridescence, sheen, clearcoat &mdash; physically-based rendering indistinguishable from photography.</p>
           </div>
         </div>
 
@@ -555,6 +545,7 @@
               shadow-intensity="1"
               exposure="0.8"
               camera-orbit="20deg 75deg 120"
+              environment-image="neutral"
               style="width:100%;height:100%;--poster-color:transparent;"
               loading="lazy"
               poster=""
@@ -565,11 +556,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Gaming &amp; Entertainment</div>
             <h3 class="showcase-item__title">Animated Characters</h3>
-            <p class="showcase-item__text">Skeletal animation, blend shapes, physics simulation. Build character-driven experiences with Compose state management. Spring animations, procedural geometry &mdash; no game engine required.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("fox.glb",
-    autoAnimate = true)
-}</code></pre>
+            <p class="showcase-item__text">Skeletal animation, blend shapes, and physics. Character-driven experiences without a game engine.</p>
           </div>
         </div>
 
@@ -583,7 +570,7 @@
               camera-controls
               touch-action="pan-y"
               shadow-intensity="1.2"
-              exposure="0.9"
+              exposure="1"
               camera-orbit="220deg 70deg auto"
               environment-image="neutral"
               style="width:100%;height:100%;--poster-color:transparent;"
@@ -596,13 +583,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Automotive</div>
             <h3 class="showcase-item__title">Vehicle Configurator</h3>
-            <p class="showcase-item__text">Photorealistic vehicle visualization with PBR materials, environment reflections, and studio lighting. Build showroom-quality configurators for dealerships and automotive brands.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("car.glb")
-  LightNode(apply = {
-    intensity(150_000f)
-  })
-}</code></pre>
+            <p class="showcase-item__text">Showroom-quality 3D with PBR materials, reflections, and studio lighting.</p>
           </div>
         </div>
 
@@ -616,8 +597,9 @@
               camera-controls
               touch-action="pan-y"
               shadow-intensity="1"
-              exposure="0.85"
+              exposure="1.2"
               camera-orbit="30deg 80deg auto"
+              environment-image="neutral"
               style="width:100%;height:100%;--poster-color:transparent;"
               loading="lazy"
               poster=""
@@ -628,10 +610,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Electronics</div>
             <h3 class="showcase-item__title">Consumer Electronics</h3>
-            <p class="showcase-item__text">Showcase tech products in stunning 3D. Customers inspect every detail &mdash; materials, ports, buttons &mdash; before buying. Perfect for electronics brands, unboxing experiences, and retail apps.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("headphones.glb")
-}</code></pre>
+            <p class="showcase-item__text">Every detail inspectable in 3D &mdash; materials, ports, buttons. Perfect for retail apps.</p>
           </div>
         </div>
 
@@ -639,14 +618,15 @@
         <div class="showcase-item">
           <div class="showcase-item__viewer">
             <model-viewer
-              src="models/platforms/ModernBedroom.glb"
-              alt="3D modern bedroom interior architecture"
+              src="models/platforms/ModernApartment.glb"
+              alt="3D modern apartment interior architecture"
               auto-rotate
               camera-controls
               touch-action="pan-y"
               shadow-intensity="0.8"
-              exposure="1"
+              exposure="1.2"
               camera-orbit="150deg 80deg auto"
+              environment-image="neutral"
               style="width:100%;height:100%;--poster-color:transparent;"
               loading="lazy"
               poster=""
@@ -657,11 +637,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Architecture</div>
             <h3 class="showcase-item__title">Interior Design</h3>
-            <p class="showcase-item__text">Walk through rooms and interiors in 3D. Architects and designers present projects with realistic materials, lighting, and furniture. Clients experience spaces before construction begins.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("room.glb")
-  CameraNode(smooth = true)
-}</code></pre>
+            <p class="showcase-item__text">Walk through rooms in 3D. Clients experience spaces before construction begins.</p>
           </div>
         </div>
 
@@ -688,11 +664,7 @@
           <div class="showcase-item__info">
             <div class="showcase-item__label">Luxury &amp; Watches</div>
             <h3 class="showcase-item__title">High-End Product Detail</h3>
-            <p class="showcase-item__text">Luxury brands demand pixel-perfect detail. Gold reflections, crystal textures, intricate engravings &mdash; PBR rendering captures every nuance. Let customers examine craftsmanship up close.</p>
-            <pre class="showcase-item__code"><code>Scene {
-  ModelNode("watch.glb",
-    autoAnimate = true)
-}</code></pre>
+            <p class="showcase-item__text">Gold reflections, crystal textures, intricate engravings &mdash; examine craftsmanship up close.</p>
           </div>
         </div>
 
@@ -788,37 +760,6 @@
     </div>
   </section>
 
-  <!-- ===== STATS ===== -->
-  <section class="section stats" id="stats">
-    <div class="container">
-      <div class="stats__grid">
-        <div class="stat">
-          <div class="stat__number">26+</div>
-          <div class="stat__label">Composable node types</div>
-        </div>
-        <div class="stat">
-          <div class="stat__number">9</div>
-          <div class="stat__label">Platforms supported</div>
-        </div>
-        <div class="stat">
-          <div class="stat__number">5</div>
-          <div class="stat__label">Lines for a 3D viewer</div>
-        </div>
-        <div class="stat">
-          <div class="stat__number">60fps</div>
-          <div class="stat__label">PBR on mobile</div>
-        </div>
-        <div class="stat">
-          <div class="stat__number">18</div>
-          <div class="stat__label">AI MCP tools</div>
-        </div>
-        <div class="stat">
-          <div class="stat__number">0</div>
-          <div class="stat__label">Boilerplate needed</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== 3D VISUAL BREAK ===== -->
   <section class="visual-break" aria-hidden="true">
@@ -830,8 +771,9 @@
         camera-controls
         touch-action="pan-y"
         shadow-intensity="1"
-        exposure="1"
+        exposure="1.2"
         camera-orbit="30deg 75deg auto"
+        environment-image="neutral"
         style="width:100%;height:100%;--poster-color:transparent;"
         loading="lazy"
         poster=""
@@ -891,48 +833,6 @@
     </div>
   </section>
 
-  <!-- ===== TESTIMONIALS ===== -->
-  <section class="section testimonials" id="testimonials">
-    <div class="container">
-      <h2 class="section__title">What developers say</h2>
-      <p class="section__subtitle">Developers building production apps with SceneView.</p>
-
-      <div class="testimonials__grid">
-        <div class="testimonial-card">
-          <blockquote class="testimonial-card__quote">"We replaced our entire custom OpenGL pipeline with SceneView in two days. The Compose integration is seamless &mdash; our 3D product viewer now shares state with the rest of the UI naturally."</blockquote>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar">MK</div>
-            <div>
-              <div class="testimonial-card__name">M. Kowalski</div>
-              <div class="testimonial-card__role">Senior Android Developer</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <blockquote class="testimonial-card__quote">"SceneViewSwift gave us AR on iOS without fighting RealityKit boilerplate. The SwiftUI-native API means our designers can read the code and understand what each node does."</blockquote>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar">SL</div>
-            <div>
-              <div class="testimonial-card__name">S. Larsson</div>
-              <div class="testimonial-card__role">iOS Lead, AR Studio</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <blockquote class="testimonial-card__quote">"As a startup, we needed 3D without the 30 MB Unity tax. SceneView added only 3 MB to our APK and we shipped AR try-on in a week. The MCP integration with Claude is a game changer for velocity."</blockquote>
-          <div class="testimonial-card__author">
-            <div class="testimonial-card__avatar">RP</div>
-            <div>
-              <div class="testimonial-card__name">R. Patel</div>
-              <div class="testimonial-card__role">Startup CTO</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== 3D VISUAL BREAK 2 ===== -->
   <section class="visual-break" aria-hidden="true">
@@ -944,8 +844,9 @@
         camera-controls
         touch-action="pan-y"
         shadow-intensity="1.2"
-        exposure="0.9"
+        exposure="1"
         camera-orbit="150deg 70deg auto"
+        environment-image="neutral"
         style="width:100%;height:100%;--poster-color:transparent;"
         loading="lazy"
         poster=""
