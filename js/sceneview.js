@@ -439,7 +439,8 @@
   global.SceneView = {
     version: '1.3.3',
     create: create,
-    modelViewer: modelViewer
+    modelViewer: modelViewer,
+    _activeCanvases: _activeCanvases
   };
 
 })(typeof globalThis !== 'undefined' ? globalThis : window);

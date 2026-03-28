@@ -1132,42 +1132,114 @@
   })();
   </script>
 
-  <!-- Lazy SceneView loader -->
+  <!-- Lazy SceneView loader with WebGL context pooling -->
   <script>
   (function() {
     var viewers = document.querySelectorAll('.sv-viewer');
     if (!viewers.length) return;
-    var initialized = new Set();
+
+    // WebGL context limit: browsers allow ~8-16 contexts.
+    // We pool active viewers and dispose off-screen ones.
+    var MAX_ACTIVE = 6;
+    var activeViewers = []; // { canvas, instance, model, light }
+    var pendingInit = new Set();
+
     function getThemeBg() {
       var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
     }
+
+    function disposeViewer(entry) {
+      if (entry.instance) {
+        try { entry.instance.dispose(); } catch (e) { /* ignore */ }
+        entry.instance = null;
+      }
+      if (entry.observer) {
+        try { entry.observer.disconnect(); } catch (e) { /* ignore */ }
+        entry.observer = null;
+      }
+      entry.canvas.style.opacity = '0';
+      // Remove from SceneView internal tracking so it can be re-initialized
+      if (typeof SceneView !== 'undefined' && SceneView._activeCanvases) {
+        SceneView._activeCanvases.delete(entry.canvas);
+      }
+    }
+
+    function evictFarthest(priorityCanvas) {
+      // Find the active viewer farthest from viewport center to evict
+      var vpCenter = window.innerHeight / 2;
+      var farthest = null;
+      var farthestDist = 0;
+      for (var i = 0; i < activeViewers.length; i++) {
+        var av = activeViewers[i];
+        if (av.canvas === priorityCanvas) continue;
+        var rect = av.canvas.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var dist = Math.abs(center - vpCenter);
+        if (dist > farthestDist) { farthestDist = dist; farthest = i; }
+      }
+      if (farthest !== null) {
+        disposeViewer(activeViewers[farthest]);
+        activeViewers.splice(farthest, 1);
+      }
+    }
+
     function initViewer(canvas) {
-      if (initialized.has(canvas)) return;
-      initialized.add(canvas);
+      if (pendingInit.has(canvas)) return;
+      // Already active?
+      for (var i = 0; i < activeViewers.length; i++) {
+        if (activeViewers[i].canvas === canvas) return;
+      }
+
+      // Evict if at capacity
+      while (activeViewers.length >= MAX_ACTIVE) {
+        evictFarthest(canvas);
+      }
+
+      pendingInit.add(canvas);
       var model = canvas.dataset.model;
       var light = parseInt(canvas.dataset.light) || 120000;
-      if (!model) return;
+      if (!model) { pendingInit.delete(canvas); return; }
+
       var bg = getThemeBg();
       SceneView.modelViewer(canvas, model, {
         backgroundColor: bg, lightIntensity: light, fov: 35
       }).then(function(instance) {
+        pendingInit.delete(canvas);
         canvas.style.opacity = '1';
-        new MutationObserver(function() {
+        var themeObs = new MutationObserver(function() {
           var colors = getThemeBg();
-          instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
-        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+          try { instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]); } catch (e) { /* disposed */ }
+        });
+        themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        activeViewers.push({ canvas: canvas, instance: instance, model: model, light: light, observer: themeObs });
       }).catch(function(e) {
+        pendingInit.delete(canvas);
         console.warn('SceneView: ' + model + ' — ' + e.message);
-        initialized.delete(canvas);
       });
     }
+
+    // Fade-in transition
     viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+
+    // Use IntersectionObserver to lazy-init and also dispose off-screen viewers
     var observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting) initViewer(entry.target);
+        if (entry.isIntersecting) {
+          initViewer(entry.target);
+        } else {
+          // Dispose when scrolled far off-screen to free WebGL context
+          for (var i = 0; i < activeViewers.length; i++) {
+            if (activeViewers[i].canvas === entry.target) {
+              disposeViewer(activeViewers[i]);
+              activeViewers.splice(i, 1);
+              break;
+            }
+          }
+        }
       });
-    }, { rootMargin: '300px 0px' });
+    }, { rootMargin: '200px 0px' });
+
     viewers.forEach(function(canvas) { observer.observe(canvas); });
   })();
   </script>
