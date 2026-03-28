@@ -568,41 +568,84 @@
 
       <div class="demos__grid">
         <a href="/playground.html" class="demo-card demo-card--featured">
+          <div class="demo-card__visual demo-card__visual--playground">
+            <div class="demo-card__mini-ide">
+              <div class="demo-card__mini-line"><span style="color:#569cd6">Scene</span> {</div>
+              <div class="demo-card__mini-line">&nbsp;&nbsp;<span style="color:#dcdcaa">ModelNode</span>(model)</div>
+              <div class="demo-card__mini-line">}</div>
+            </div>
+            <div class="demo-card__mini-3d">
+              <svg viewBox="0 0 80 80" width="60" height="60"><polygon points="40,8 72,24 72,56 40,72 8,56 8,24" fill="none" stroke="rgba(66,133,244,0.6)" stroke-width="2"/><polygon points="40,20 60,30 60,50 40,60 20,50 20,30" fill="rgba(66,133,244,0.15)" stroke="rgba(66,133,244,0.4)" stroke-width="1.5"/></svg>
+            </div>
+          </div>
           <div class="demo-card__badge">Interactive</div>
           <h3 class="demo-card__title">3D Playground</h3>
           <p class="demo-card__text">Write SceneView code and see it render live. Orbit, zoom, switch models.</p>
         </a>
         <a href="/geometry-demo.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--geometry">
+            <svg viewBox="0 0 160 90" width="100%"><rect x="20" y="30" width="30" height="30" rx="2" fill="rgba(52,168,83,0.3)" stroke="rgba(52,168,83,0.6)" stroke-width="1.5"/><polygon points="90,15 115,55 65,55" fill="rgba(52,168,83,0.2)" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><circle cx="135" cy="40" r="18" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
+          </div>
           <div class="demo-card__badge demo-card__badge--geo">Geometry</div>
           <h3 class="demo-card__title">Procedural Geometry</h3>
           <p class="demo-card__text">Generate shapes, buildings, and scenes at runtime with Filament.</p>
         </a>
         <a href="/sceneview-demo.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--viewer">
+            <svg viewBox="0 0 160 90" width="100%"><ellipse cx="80" cy="50" rx="50" ry="25" fill="none" stroke="rgba(234,67,53,0.3)" stroke-width="1" stroke-dasharray="4,3"/><path d="M60,25 Q80,10 100,25 Q110,40 100,55 Q80,70 60,55 Q50,40 60,25Z" fill="rgba(234,67,53,0.15)" stroke="rgba(234,67,53,0.5)" stroke-width="1.5"/><circle cx="80" cy="40" r="8" fill="rgba(234,67,53,0.3)"/></svg>
+          </div>
           <div class="demo-card__badge demo-card__badge--web">Web</div>
           <h3 class="demo-card__title">Model Viewer</h3>
           <p class="demo-card__text">Load and switch between PBR models. DamagedHelmet, Lantern, Fox, Avocado.</p>
         </a>
         <a href="/filament-chart.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--charts">
+            <svg viewBox="0 0 160 90" width="100%"><rect x="20" y="50" width="18" height="30" rx="3" fill="rgba(251,188,4,0.4)"/><rect x="45" y="30" width="18" height="50" rx="3" fill="rgba(251,188,4,0.5)"/><rect x="70" y="15" width="18" height="65" rx="3" fill="rgba(251,188,4,0.6)"/><rect x="95" y="35" width="18" height="45" rx="3" fill="rgba(251,188,4,0.45)"/><rect x="120" y="20" width="18" height="60" rx="3" fill="rgba(251,188,4,0.55)"/></svg>
+          </div>
           <div class="demo-card__badge demo-card__badge--data">Data</div>
           <h3 class="demo-card__title">3D Charts</h3>
           <p class="demo-card__text">Animated bar charts and data visualization with Filament.js rendering.</p>
         </a>
         <a href="/showcase.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--showcase">
+            <div class="demo-card__mini-grid">
+              <div style="background:rgba(66,133,244,0.2);border:1px solid rgba(66,133,244,0.3);border-radius:6px"></div>
+              <div style="background:rgba(234,67,53,0.2);border:1px solid rgba(234,67,53,0.3);border-radius:6px"></div>
+              <div style="background:rgba(52,168,83,0.2);border:1px solid rgba(52,168,83,0.3);border-radius:6px"></div>
+              <div style="background:rgba(251,188,4,0.2);border:1px solid rgba(251,188,4,0.3);border-radius:6px"></div>
+              <div style="background:rgba(156,39,176,0.2);border:1px solid rgba(156,39,176,0.3);border-radius:6px"></div>
+              <div style="background:rgba(0,150,136,0.2);border:1px solid rgba(0,150,136,0.3);border-radius:6px"></div>
+            </div>
+          </div>
           <div class="demo-card__badge">Showcase</div>
           <h3 class="demo-card__title">Project Showcase</h3>
           <p class="demo-card__text">Gallery of real-world apps and projects built with SceneView across platforms.</p>
         </a>
         <a href="/platforms-showcase.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--platforms">
+            <div class="demo-card__device-row">
+              <div class="demo-card__mini-phone" style="border-color:rgba(52,168,83,0.5)"><div style="background:rgba(52,168,83,0.15);width:100%;height:100%;border-radius:3px"></div></div>
+              <div class="demo-card__mini-phone" style="border-color:rgba(66,133,244,0.5);width:22px;height:38px"><div style="background:rgba(66,133,244,0.15);width:100%;height:100%;border-radius:3px"></div></div>
+              <div class="demo-card__mini-desktop" style="border-color:rgba(234,67,53,0.5)"><div style="background:rgba(234,67,53,0.15);width:100%;height:100%;border-radius:2px"></div></div>
+              <div class="demo-card__mini-phone" style="border-color:rgba(156,39,176,0.5);width:18px;height:32px;border-radius:8px"><div style="background:rgba(156,39,176,0.15);width:100%;height:100%;border-radius:6px"></div></div>
+            </div>
+          </div>
           <div class="demo-card__badge demo-card__badge--web">Platforms</div>
           <h3 class="demo-card__title">Platform Demos</h3>
-          <p class="demo-card__text">See SceneView in action on Android, iOS, Web, TV, Flutter, and React Native.</p>
+          <p class="demo-card__text">See SceneView on Android, iOS, Web, TV, Flutter, React Native, and Claude.</p>
         </a>
         <a href="/demo-dashboard.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--dashboard">
+            <svg viewBox="0 0 160 90" width="100%"><rect x="10" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="85" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(52,168,83,0.4)" stroke-width="1"/><rect x="10" y="52" width="140" height="30" rx="4" fill="none" stroke="rgba(251,188,4,0.4)" stroke-width="1"/><circle cx="42" cy="27" r="10" fill="rgba(66,133,244,0.2)" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="95" y="18" width="8" height="20" rx="2" fill="rgba(52,168,83,0.3)"/><rect x="108" y="22" width="8" height="16" rx="2" fill="rgba(52,168,83,0.4)"/><rect x="121" y="14" width="8" height="24" rx="2" fill="rgba(52,168,83,0.5)"/><polyline points="20,72 50,62 80,67 110,58 140,65" fill="none" stroke="rgba(251,188,4,0.5)" stroke-width="1.5"/></svg>
+          </div>
           <div class="demo-card__badge demo-card__badge--data">Dashboard</div>
           <h3 class="demo-card__title">3D Dashboard</h3>
           <p class="demo-card__text">Interactive 3D data dashboard with real-time metrics and visual analytics.</p>
         </a>
         <a href="/demo-ar-staging.html" class="demo-card">
+          <div class="demo-card__visual demo-card__visual--ar">
+            <svg viewBox="0 0 160 90" width="100%"><rect x="30" y="55" width="100" height="2" rx="1" fill="rgba(52,168,83,0.3)"/><line x1="30" y1="55" x2="10" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><line x1="130" y1="55" x2="150" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><rect x="55" y="20" width="30" height="35" rx="2" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.4)" stroke-width="1.5"/><rect x="60" y="25" width="20" height="20" rx="1" fill="rgba(52,168,83,0.1)"/><rect x="35" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="117" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="35" y="65" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="117" y="65" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
+          </div>
           <div class="demo-card__badge demo-card__badge--geo">AR</div>
           <h3 class="demo-card__title">AR Staging</h3>
           <p class="demo-card__text">Augmented reality object placement and staging demo powered by ARCore.</p>
