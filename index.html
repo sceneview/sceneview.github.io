@@ -150,7 +150,11 @@
           <span style="font-size:0.85rem;opacity:0.45;font-weight:500">Loading 3D engine&hellip;</span>
         </div>
         <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-        <div id="hero-badge" style="position:absolute;bottom:12px;right:14px;font-size:0.7rem;opacity:0;transition:opacity 0.5s ease;pointer-events:none;color:rgba(255,255,255,0.45);font-weight:500;letter-spacing:0.03em">Rendered by SceneView Web</div>
+        <div id="hero-badge" style="position:absolute;bottom:12px;right:14px;font-size:0.7rem;opacity:0;transition:opacity 0.5s ease;pointer-events:none;color:rgba(0,0,0,0.35);font-weight:500;letter-spacing:0.03em">Rendered by SceneView Web</div>
+        <style>
+          [data-theme="dark"] #hero-badge { color: rgba(255,255,255,0.45) !important; }
+          @media (prefers-color-scheme: dark) { :not([data-theme="light"]) #hero-badge { color: rgba(255,255,255,0.45) !important; } }
+        </style>
       </div>
     </div>
   </section>
