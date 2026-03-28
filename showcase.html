@@ -884,6 +884,10 @@
       flex-direction: column;
       gap: 6px;
     }
+    [data-theme="light"] .dash-mock__chart {
+      background: rgba(255,255,255,0.6);
+      border-color: rgba(0,0,0,0.08);
+    }
 
     .dash-chart__label {
       font-size: 0.42rem;
@@ -935,6 +939,12 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
+    }
+
+    /* Light mode: platform card device badge */
+    [data-theme="light"] .platform-card__device-badge {
+      background: rgba(255,255,255,0.85);
+      color: #374151;
     }
 
     .dash-mini-card {
