@@ -149,6 +149,9 @@
     .category-icon--furniture { background: rgba(171,71,188,0.12); color: #ab47bc; }
     .category-icon--decoration { background: rgba(234,67,53,0.12); color: #ea4335; }
     .category-icon--gaming { background: rgba(255,152,0,0.12); color: #ff9800; }
+    .category-icon--nature { background: rgba(76,175,80,0.12); color: #4caf50; }
+    .category-icon--science { background: rgba(3,169,244,0.12); color: #0288d1; }
+    .category-icon--industrial { background: rgba(158,158,158,0.12); color: #757575; }
     .category-icon--objects { background: rgba(0,150,136,0.12); color: #009688; }
 
     [data-theme="dark"] .category-icon--ecommerce { background: rgba(52,168,83,0.2); color: #81c995; }
@@ -157,6 +160,9 @@
     [data-theme="dark"] .category-icon--furniture { background: rgba(171,71,188,0.2); color: #d59fe8; }
     [data-theme="dark"] .category-icon--decoration { background: rgba(234,67,53,0.2); color: #f28b82; }
     [data-theme="dark"] .category-icon--gaming { background: rgba(255,152,0,0.2); color: #ffcc80; }
+    [data-theme="dark"] .category-icon--nature { background: rgba(76,175,80,0.2); color: #a5d6a7; }
+    [data-theme="dark"] .category-icon--science { background: rgba(3,169,244,0.2); color: #81d4fa; }
+    [data-theme="dark"] .category-icon--industrial { background: rgba(158,158,158,0.2); color: #bdbdbd; }
     [data-theme="dark"] .category-icon--objects { background: rgba(0,150,136,0.2); color: #80cbc4; }
 
     .category-info {
@@ -235,6 +241,9 @@
     .tag--furniture { background: rgba(171,71,188,0.1); color: #ab47bc; }
     .tag--decoration { background: rgba(234,67,53,0.1); color: #ea4335; }
     .tag--gaming { background: rgba(255,152,0,0.1); color: #ff9800; }
+    .tag--nature { background: rgba(76,175,80,0.1); color: #4caf50; }
+    .tag--science { background: rgba(3,169,244,0.1); color: #0288d1; }
+    .tag--industrial { background: rgba(158,158,158,0.1); color: #757575; }
     .tag--objects { background: rgba(0,150,136,0.1); color: #009688; }
 
     [data-theme="dark"] .tag--ecommerce { background: rgba(52,168,83,0.2); color: #81c995; }
@@ -243,6 +252,9 @@
     [data-theme="dark"] .tag--furniture { background: rgba(171,71,188,0.2); color: #d59fe8; }
     [data-theme="dark"] .tag--decoration { background: rgba(234,67,53,0.2); color: #f28b82; }
     [data-theme="dark"] .tag--gaming { background: rgba(255,152,0,0.2); color: #ffcc80; }
+    [data-theme="dark"] .tag--nature { background: rgba(76,175,80,0.2); color: #a5d6a7; }
+    [data-theme="dark"] .tag--science { background: rgba(3,169,244,0.2); color: #81d4fa; }
+    [data-theme="dark"] .tag--industrial { background: rgba(158,158,158,0.2); color: #bdbdbd; }
     [data-theme="dark"] .tag--objects { background: rgba(0,150,136,0.2); color: #80cbc4; }
 
     /* ===== CTA ===== */
@@ -375,6 +387,9 @@
       <button class="filter-btn" data-filter="furniture">Furniture</button>
       <button class="filter-btn" data-filter="decoration">Decoration</button>
       <button class="filter-btn" data-filter="gaming">Animation</button>
+      <button class="filter-btn" data-filter="nature">Nature</button>
+      <button class="filter-btn" data-filter="science">Science & Education</button>
+      <button class="filter-btn" data-filter="industrial">Industrial</button>
       <button class="filter-btn" data-filter="objects">Objects</button>
     </div>
   </div>
@@ -530,6 +545,24 @@
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Steel Staircase</span>
+            <span class="model-card__tag tag--architecture">Architecture</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="architecture">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/CyberpunkCity.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Cyberpunk City</span>
+            <span class="model-card__tag tag--architecture">Architecture</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="architecture">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/NightCitySkyline.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Night City Skyline</span>
             <span class="model-card__tag tag--architecture">Architecture</span>
           </div>
         </div>
@@ -798,6 +831,177 @@
           <div class="model-card__info">
             <span class="model-card__name">Dragon Attenuation</span>
             <span class="model-card__tag tag--gaming">Animation</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="gaming">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/MedievalFantasyBook.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Medieval Fantasy Book</span>
+            <span class="model-card__tag tag--gaming">Animation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== NATURE & ENVIRONMENT ===== -->
+    <section class="showcase-category" data-category="nature" id="nature">
+      <div class="category-header">
+        <div class="category-icon category-icon--nature">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"/><path d="M12 2a5 5 0 015 5c0 2-1.5 3.5-3 4.5M12 2a5 5 0 00-5 5c0 2 1.5 3.5 3 4.5"/></svg>
+        </div>
+        <div class="category-info">
+          <h2 class="category-title">Nature & Environment</h2>
+          <p class="category-desc">Trees, plants, coral reefs and natural environments for immersive 3D scenes.</p>
+        </div>
+      </div>
+      <div class="model-grid">
+        <div class="model-card" data-cat="nature">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/PalmTree.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Palm Tree</span>
+            <span class="model-card__tag tag--nature">Nature</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="nature">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/CoralReef.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Coral Reef</span>
+            <span class="model-card__tag tag--nature">Nature</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="nature">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/Crystals.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Crystals</span>
+            <span class="model-card__tag tag--nature">Nature</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="nature">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/MusicBand.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Music Band (Low Poly)</span>
+            <span class="model-card__tag tag--nature">Nature</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SCIENCE & EDUCATION ===== -->
+    <section class="showcase-category" data-category="science" id="science">
+      <div class="category-header">
+        <div class="category-icon category-icon--science">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v5.586a1 1 0 00.293.707l4.414 4.414A3 3 0 0121 15.828V19a2 2 0 01-2 2H5a2 2 0 01-2-2v-3.172a3 3 0 011.293-2.121L8.707 9.293A1 1 0 009 8.586V3z"/><circle cx="12" cy="16" r="2"/></svg>
+        </div>
+        <div class="category-info">
+          <h2 class="category-title">Science & Education</h2>
+          <p class="category-desc">Interactive 3D models for learning: anatomy, chemistry, geography and more.</p>
+        </div>
+      </div>
+      <div class="model-grid">
+        <div class="model-card" data-cat="science">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/HumanHeart.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Human Heart</span>
+            <span class="model-card__tag tag--science">Science</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="science">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/HandSkeleton.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Hand Skeleton</span>
+            <span class="model-card__tag tag--science">Science</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="science">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/Globe.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Globe</span>
+            <span class="model-card__tag tag--science">Science</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="science">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/H2OMolecule.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">H2O Molecule</span>
+            <span class="model-card__tag tag--science">Science</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="science">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/PeriodicTable.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">3D Periodic Table</span>
+            <span class="model-card__tag tag--science">Science</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== INDUSTRIAL & ROBOTICS ===== -->
+    <section class="showcase-category" data-category="industrial" id="industrial">
+      <div class="category-header">
+        <div class="category-icon category-icon--industrial">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2l6 6-8 8-6-6 8-8z"/><path d="M2 22l4-4"/><path d="M14.5 9.5L17 12"/><circle cx="18" cy="18" r="3"/></svg>
+        </div>
+        <div class="category-info">
+          <h2 class="category-title">Industrial & Robotics</h2>
+          <p class="category-desc">Robots, drones, turbines and industrial equipment in interactive 3D.</p>
+        </div>
+      </div>
+      <div class="model-grid">
+        <div class="model-card" data-cat="industrial">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/RoboticArm.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Robotic Arm</span>
+            <span class="model-card__tag tag--industrial">Industrial</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="industrial">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/WindTurbine.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Wind Turbine</span>
+            <span class="model-card__tag tag--industrial">Industrial</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="industrial">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/SciFiDrone.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Sci-Fi Drone</span>
+            <span class="model-card__tag tag--industrial">Industrial</span>
+          </div>
+        </div>
+        <div class="model-card" data-cat="industrial">
+          <div class="model-card__viewer">
+            <canvas class="sv-viewer" data-model="models/platforms/RoboticEye.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          </div>
+          <div class="model-card__info">
+            <span class="model-card__name">Robotic Eye</span>
+            <span class="model-card__tag tag--industrial">Industrial</span>
           </div>
         </div>
       </div>
