@@ -944,28 +944,123 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
   <!-- ===== AI / MCP ===== -->
   <section class="section ai-section" id="ai">
     <div class="container">
-      <div class="ai-section__inner">
-        <div class="ai-section__content">
-          <div class="ai-section__badge">AI-first SDK</div>
-          <h2 class="section__title">Built for AI assistants</h2>
-          <p class="section__subtitle">SceneView is the first 3D SDK designed so AI assistants can generate correct, working code on the first try. MCP integration gives Claude, Cursor, and Windsurf full access to the API reference, samples, and best practices.</p>
-          <pre class="code-block code-block--compact"><code><span class="kw">npx</span> <span class="str">sceneview-mcp</span></code></pre>
-          <p class="ai-section__hint">Add to your MCP config for instant AI-powered 3D & AR development.</p>
-        </div>
-        <div class="ai-section__graphic">
-          <div class="ai-section__terminal">
-            <div class="ai-section__terminal-dots">
-              <span></span><span></span><span></span>
+      <div class="ai-section__header">
+        <div class="ai-section__badge">AI-first SDK</div>
+        <h2 class="section__title">Built for AI assistants</h2>
+        <p class="section__subtitle">Tell Claude what to build. Watch it come to life in real time. SceneView + MCP gives AI full access to API references, samples, and best practices.</p>
+      </div>
+
+      <!-- macOS Desktop Mockup -->
+      <div class="desktop-mockup">
+        <div class="desktop-mockup__wallpaper">
+
+          <!-- Left window: SceneView Preview -->
+          <div class="desktop-mockup__window desktop-mockup__window--preview">
+            <div class="desktop-mockup__titlebar">
+              <div class="desktop-mockup__dots">
+                <span class="desktop-mockup__dot desktop-mockup__dot--red"></span>
+                <span class="desktop-mockup__dot desktop-mockup__dot--yellow"></span>
+                <span class="desktop-mockup__dot desktop-mockup__dot--green"></span>
+              </div>
+              <span class="desktop-mockup__title">SceneView Preview</span>
+              <div class="desktop-mockup__dots" style="visibility:hidden">
+                <span class="desktop-mockup__dot"></span>
+                <span class="desktop-mockup__dot"></span>
+                <span class="desktop-mockup__dot"></span>
+              </div>
             </div>
-            <div class="ai-section__terminal-body">
-              <p><span class="kw">$</span> Ask Claude: "Build me an AR app"</p>
-              <p class="ai-section__terminal-dim">&gt; Searching SceneView API reference...</p>
-              <p class="ai-section__terminal-dim">&gt; Loading AR best practices...</p>
-              <p class="ai-section__terminal-dim">&gt; Generating composable code...</p>
-              <p><span class="fn">Done.</span> ARScene with tap-to-place ready.</p>
+            <div class="desktop-mockup__viewport">
+              <!-- 3D Scene CSS art -->
+              <div class="scene3d">
+                <div class="scene3d__grid"></div>
+                <div class="scene3d__chair">
+                  <!-- Chair seat -->
+                  <div class="scene3d__chair-seat"></div>
+                  <!-- Chair back -->
+                  <div class="scene3d__chair-back"></div>
+                  <!-- Chair legs -->
+                  <div class="scene3d__chair-leg scene3d__chair-leg--fl"></div>
+                  <div class="scene3d__chair-leg scene3d__chair-leg--fr"></div>
+                  <div class="scene3d__chair-leg scene3d__chair-leg--bl"></div>
+                  <div class="scene3d__chair-leg scene3d__chair-leg--br"></div>
+                  <!-- Shadow -->
+                  <div class="scene3d__shadow"></div>
+                </div>
+                <!-- Gizmo -->
+                <div class="scene3d__gizmo">
+                  <div class="scene3d__gizmo-x">X</div>
+                  <div class="scene3d__gizmo-y">Y</div>
+                  <div class="scene3d__gizmo-z">Z</div>
+                </div>
+              </div>
+              <div class="desktop-mockup__viewport-footer">Rendered by SceneView Web</div>
             </div>
           </div>
+
+          <!-- Right window: Claude -->
+          <div class="desktop-mockup__window desktop-mockup__window--claude">
+            <div class="desktop-mockup__titlebar desktop-mockup__titlebar--claude">
+              <div class="desktop-mockup__dots">
+                <span class="desktop-mockup__dot desktop-mockup__dot--red"></span>
+                <span class="desktop-mockup__dot desktop-mockup__dot--yellow"></span>
+                <span class="desktop-mockup__dot desktop-mockup__dot--green"></span>
+              </div>
+              <span class="desktop-mockup__title">
+                <svg class="desktop-mockup__claude-icon" viewBox="0 0 24 24" width="14" height="14" fill="#d97706">
+                  <circle cx="12" cy="12" r="10"/>
+                </svg>
+                Claude
+              </span>
+              <div class="desktop-mockup__dots" style="visibility:hidden">
+                <span class="desktop-mockup__dot"></span>
+                <span class="desktop-mockup__dot"></span>
+                <span class="desktop-mockup__dot"></span>
+              </div>
+            </div>
+            <div class="desktop-mockup__chat">
+              <!-- Message 1: User -->
+              <div class="chat-msg chat-msg--user">
+                <div class="chat-msg__avatar chat-msg__avatar--user">T</div>
+                <div class="chat-msg__bubble chat-msg__bubble--user">Add a 3D chair to my AR app</div>
+              </div>
+              <!-- Message 2: Claude -->
+              <div class="chat-msg chat-msg--claude">
+                <div class="chat-msg__avatar chat-msg__avatar--claude">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#d97706"><circle cx="12" cy="12" r="8"/></svg>
+                </div>
+                <div class="chat-msg__bubble chat-msg__bubble--claude">
+                  <p>Done! I've added a <code>ModelNode</code> with your <code>chair.glb</code> model. It loads asynchronously and places at the detected surface.</p>
+                  <div class="chat-msg__code">rememberModelInstance(modelLoader, "models/chair.glb")</div>
+                </div>
+              </div>
+              <!-- Message 3: User -->
+              <div class="chat-msg chat-msg--user">
+                <div class="chat-msg__avatar chat-msg__avatar--user">T</div>
+                <div class="chat-msg__bubble chat-msg__bubble--user">Now add shadows and make it rotate</div>
+              </div>
+              <!-- Message 4: Claude -->
+              <div class="chat-msg chat-msg--claude">
+                <div class="chat-msg__avatar chat-msg__avatar--claude">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="#d97706"><circle cx="12" cy="12" r="8"/></svg>
+                </div>
+                <div class="chat-msg__bubble chat-msg__bubble--claude">
+                  <p>Added shadow plane and continuous Y-axis rotation. The chair now casts a soft shadow and spins at 45&deg;/s.</p>
+                  <div class="chat-msg__code">LightNode(apply = { intensity(100_000f) })<br>// + autoRotate animation</div>
+                </div>
+              </div>
+              <!-- Input bar -->
+              <div class="chat-input">
+                <span class="chat-input__text">Ask Claude about SceneView...</span>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+      <div class="ai-section__footer">
+        <pre class="code-block code-block--compact"><code><span class="kw">npx</span> <span class="str">sceneview-mcp</span></code></pre>
+        <p class="ai-section__hint">Add to your MCP config for instant AI-powered 3D &amp; AR development.</p>
       </div>
     </div>
   </section>
