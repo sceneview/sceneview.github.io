@@ -791,6 +791,92 @@ button {
 }
 
 /* ===== SAMPLES ===== */
+/* Featured showcase card */
+.samples__featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, rgba(108, 92, 231, 0.06) 100%);
+  border: 2px solid rgba(26, 115, 232, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl) var(--space-2xl);
+  margin-bottom: var(--space-xl);
+  text-decoration: none;
+  color: var(--color-on-surface);
+  transition: all var(--duration-medium) var(--ease-expressive);
+}
+
+[data-theme="dark"] .samples__featured {
+  background: linear-gradient(135deg, rgba(66, 133, 244, 0.1) 0%, rgba(108, 92, 231, 0.06) 100%);
+  border-color: rgba(66, 133, 244, 0.25);
+}
+
+.samples__featured:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.samples__featured-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-sm);
+}
+
+.samples__featured-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: var(--space-sm);
+}
+
+.samples__featured-text {
+  font-size: 0.9rem;
+  color: var(--color-on-surface-dim);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.samples__featured-cta {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.samples__featured-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+.samples__mini-card {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (max-width: 768px) {
+  .samples__featured {
+    grid-template-columns: 1fr;
+    padding: var(--space-lg);
+  }
+  .samples__featured-visual {
+    display: none;
+  }
+}
+
 .samples__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
