@@ -176,6 +176,10 @@
         <div class="tabs__nav">
           <button class="tabs__btn tabs__btn--active" data-tab="kotlin">Kotlin (Android)</button>
           <button class="tabs__btn" data-tab="swift">Swift (iOS)</button>
+          <button class="tabs__btn" data-tab="js">JavaScript (Web)</button>
+          <button class="tabs__btn" data-tab="dart">Dart (Flutter)</button>
+          <button class="tabs__btn" data-tab="ts">TypeScript (RN)</button>
+          <button class="tabs__btn" data-tab="claude">Claude AI</button>
         </div>
         <div class="tabs__panels">
           <div class="tabs__panel tabs__panel--active" data-panel="kotlin">
@@ -218,6 +222,91 @@
         }
     }
 }</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="js">
+            <pre class="code-block"><code><span class="cm">// One-liner 3D for the web — Filament.js WASM</span>
+<span class="cm">// npm install sceneview.js  OR  &lt;script src="sceneview.js"&gt;&lt;/script&gt;</span>
+<span class="kw">import</span> SceneView from <span class="str">'sceneview.js'</span>
+
+<span class="cm">// Mount a 3D model viewer on any canvas element</span>
+<span class="kw">const</span> viewer = await SceneView.<span class="fn">modelViewer</span>(<span class="str">'canvas'</span>, <span class="str">'models/helmet.glb'</span>, {
+  backgroundColor: [<span class="num">0.07</span>, <span class="num">0.07</span>, <span class="num">0.11</span>, <span class="num">1.0</span>],
+  autoRotate: <span class="kw">true</span>
+})
+
+<span class="cm">// Swap model at runtime</span>
+viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</span>)</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="dart">
+            <pre class="code-block"><code><span class="cm">// Flutter — PlatformView bridge to native SceneView</span>
+<span class="cm">// pubspec.yaml:  sceneview_flutter: ^1.0.0</span>
+<span class="kw">import</span> <span class="str">'package:sceneview_flutter/sceneview_flutter.dart'</span>;
+
+<span class="kw">class</span> ModelPage extends StatelessWidget {
+  <span class="kw">const</span> ModelPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    <span class="kw">return</span> SceneViewWidget(
+      modelPath: <span class="str">'assets/helmet.glb'</span>,
+      environment: <span class="str">'assets/envs/sky.hdr'</span>,
+      autoRotate: <span class="kw">true</span>,
+      onSceneCreated: (scene) {
+        scene.<span class="fn">addModelNode</span>(path: <span class="str">'assets/helmet.glb'</span>);
+      },
+    );
+  }
+}</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="ts">
+            <pre class="code-block"><code><span class="cm">// React Native — Fabric bridge to native SceneView</span>
+<span class="cm">// npm install react-native-sceneview</span>
+<span class="kw">import</span> { SceneView, ModelNode } from <span class="str">'react-native-sceneview'</span>
+<span class="kw">import</span> React from <span class="str">'react'</span>
+<span class="kw">import</span> { StyleSheet } from <span class="str">'react-native'</span>
+
+<span class="kw">export default function</span> App() {
+  <span class="kw">return</span> (
+    &lt;SceneView style={styles.scene}&gt;
+      &lt;ModelNode
+        modelPath=<span class="str">"models/helmet.glb"</span>
+        environment=<span class="str">"envs/sky.hdr"</span>
+        autoRotate={<span class="kw">true</span>}
+      /&gt;
+    &lt;/SceneView&gt;
+  )
+}
+
+<span class="kw">const</span> styles = StyleSheet.create({
+  scene: { flex: <span class="num">1</span> }
+})</code></pre>
+          </div>
+          <div class="tabs__panel" data-panel="claude">
+            <pre class="code-block"><code><span class="cm"># With SceneView MCP — Claude has full API knowledge</span>
+<span class="cm"># npx sceneview-mcp  (add to Claude Desktop config)</span>
+
+<span class="cm"># Ask Claude:</span>
+<span class="str">"Build an Android AR app that places a 3D chair
+on detected floor surfaces. Use ARScene with
+plane detection and tap-to-place.
+Model: assets/chair.glb"</span>
+
+<span class="cm"># Claude generates complete working Kotlin:</span>
+
+<span class="kw">ARScene</span>(
+    modifier = Modifier.<span class="fn">fillMaxSize</span>(),
+    planeRenderer = <span class="kw">true</span>,
+    onTapAR = { _, hitResult -&gt;
+        hitResult?.<span class="fn">takeIf</span> { it.trackable <span class="kw">is</span> Plane }
+            ?.<span class="fn">let</span> { hit -&gt;
+                <span class="kw">AnchorNode</span>(engine, hit.<span class="fn">createAnchor</span>()) {
+                    <span class="kw">ModelNode</span>(<span class="fn">rememberModelInstance</span>(
+                        modelLoader, <span class="str">"assets/chair.glb"</span>
+                    ))
+                }
+            }
+    }
+)</code></pre>
           </div>
         </div>
       </div>
@@ -875,20 +964,22 @@
         </a>
       </div>
 
-      <div class="store-badges" style="justify-content:center;margin-top:var(--space-xl)">
-        <a href="https://github.com/sceneview/sceneview/releases" class="badge--playstore">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734c0-.382.218-.72.609-.92zM14.852 13.06l2.36 2.36-10.848 6.164 8.488-8.524zM18.271 10.166l2.633 1.496a1 1 0 0 1 0 1.676l-2.633 1.496-2.715-2.672 2.715-2.996zM6.364 2.416l10.848 6.164-2.36 2.36L6.364 2.416z"/></svg>
-          Google Play
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:var(--space-xl);flex-wrap:wrap">
+        <!-- Google Play official badge -->
+        <a href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener" style="display:inline-block;height:40px">
+          <img src="badges/google-play-badge.png" alt="Get it on Google Play" height="60" style="margin:-10px 0">
         </a>
-        <a href="https://github.com/sceneview/sceneview/releases" class="badge--appstore">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          App Store
+        <!-- App Store official badge -->
+        <a href="https://apps.apple.com/app/sceneview/id6743425102" target="_blank" rel="noopener" style="display:inline-block;height:40px">
+          <img src="badges/app-store-badge.svg" alt="Download on the App Store" height="40">
         </a>
-        <a href="https://claude.ai" class="badge--playstore" style="background:linear-gradient(135deg,#d97756,#c4704b)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke="#d97756" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Open in Claude
+        <!-- Claude badge -->
+        <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1a1a2e;border:1px solid rgba(217,119,86,0.4);border-radius:8px;color:#d97756;font-weight:600;font-size:0.85rem;text-decoration:none;transition:all 0.2s">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#d97756"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Try with Claude
         </a>
-        <a href="https://github.com/sceneview/sceneview" class="badge--github-star">
+        <!-- GitHub Stars -->
+        <a href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:var(--color-surface-container);border:1px solid var(--color-outline);border-radius:8px;color:var(--color-on-surface);font-weight:600;font-size:0.85rem;text-decoration:none;transition:all 0.2s">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
           Star on GitHub
         </a>
