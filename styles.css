@@ -390,6 +390,69 @@ button {
   transform: translateY(-1px);
 }
 
+/* ===== BRANDED BUTTONS ===== */
+.btn--claude {
+  background: linear-gradient(135deg, #d97756, #c4704b);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(217, 119, 86, 0.3);
+}
+.btn--claude:hover {
+  background: linear-gradient(135deg, #c4704b, #b0623f);
+  box-shadow: 0 4px 16px rgba(217, 119, 86, 0.4);
+  transform: translateY(-1px);
+}
+.btn--claude svg { flex-shrink: 0; }
+
+.store-badges {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--space-md);
+}
+.store-badges a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--duration-short) var(--ease-expressive);
+}
+.store-badges a:hover {
+  transform: translateY(-1px);
+}
+.badge--playstore {
+  background: #01875f;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(1, 135, 95, 0.3);
+}
+.badge--playstore:hover {
+  background: #017a56;
+  box-shadow: 0 4px 16px rgba(1, 135, 95, 0.4);
+}
+.badge--appstore {
+  background: #007aff;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+.badge--appstore:hover {
+  background: #006ae6;
+  box-shadow: 0 4px 16px rgba(0, 122, 255, 0.4);
+}
+.badge--github-star {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  border: 1.5px solid var(--color-outline);
+}
+.badge--github-star:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+}
+
 /* ===== TABS ===== */
 .tabs__nav {
   display: flex;
@@ -462,6 +525,103 @@ button {
 /* ===== CODE SECTION ===== */
 .code-section {
   background: var(--color-surface-dim);
+}
+
+/* ===== TOKEN ECONOMY CALLOUT ===== */
+.token-callout {
+  margin-top: var(--space-3xl);
+  padding: var(--space-2xl) var(--space-xl);
+  background: linear-gradient(135deg,
+    rgba(26, 115, 232, 0.06) 0%,
+    rgba(217, 119, 86, 0.06) 100%);
+  border: 1px solid rgba(26, 115, 232, 0.15);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+[data-theme="dark"] .token-callout {
+  background: linear-gradient(135deg,
+    rgba(66, 133, 244, 0.1) 0%,
+    rgba(217, 119, 86, 0.08) 100%);
+  border-color: rgba(66, 133, 244, 0.2);
+}
+
+.token-callout__inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.token-callout__stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.token-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.token-stat__number {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.token-stat__number--accent {
+  background: linear-gradient(135deg, #d97756, #e8956d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.token-stat__label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-on-surface-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.token-stat__arrow {
+  color: var(--color-on-surface-faint);
+}
+
+.token-callout__text {
+  font-size: 1.05rem;
+  color: var(--color-on-surface);
+  line-height: 1.6;
+  margin-bottom: var(--space-sm);
+}
+
+.token-callout__text strong {
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .token-callout__text strong {
+  color: var(--color-primary);
+}
+
+.token-callout__subtext {
+  font-size: 0.9rem;
+  color: var(--color-on-surface-dim);
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .token-callout__stats {
+    gap: var(--space-md);
+  }
+  .token-stat__arrow {
+    display: none;
+  }
 }
 
 /* ===== FEATURES ===== */
