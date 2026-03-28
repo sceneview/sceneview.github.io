@@ -220,35 +220,101 @@
       </div>
     </div>
 
-    <!-- Token economy callout -->
+    <!-- Token economy comparison -->
     <div class="token-callout">
       <div class="token-callout__inner">
-        <div class="token-callout__stats">
-          <div class="token-stat">
-            <span class="token-stat__number">15</span>
-            <span class="token-stat__label">lines of code</span>
+        <h3 class="token-compare__title">Few lines = few tokens</h3>
+        <p class="token-compare__subtitle">The simpler the SDK, the cheaper the AI generation. Compare what it takes to build a 3D model viewer:</p>
+
+        <div class="token-compare__grid">
+          <!-- Raw Engine -->
+          <div class="token-compare__card token-compare__card--bad">
+            <div class="token-compare__card-header">
+              <span class="token-compare__card-icon">&#x26A0;&#xFE0F;</span>
+              <span class="token-compare__card-label">Raw Engine</span>
+            </div>
+            <div class="token-compare__card-engine">OpenGL / Metal / Three.js</div>
+            <div class="token-compare__card-stats">
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number">2,000+</span>
+                <span class="token-compare__metric-label">lines of code</span>
+              </div>
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number">~25,000</span>
+                <span class="token-compare__metric-label">tokens to generate</span>
+              </div>
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number">3-5</span>
+                <span class="token-compare__metric-label">AI iterations needed</span>
+              </div>
+            </div>
+            <div class="token-compare__card-total">
+              <span class="token-compare__total-label">Total cost per app</span>
+              <span class="token-compare__total-number token-compare__total--bad">~100k tokens</span>
+            </div>
           </div>
-          <div class="token-stat__arrow">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+
+          <!-- SceneView -->
+          <div class="token-compare__card token-compare__card--good">
+            <div class="token-compare__card-header">
+              <span class="token-compare__card-icon">&#x2705;</span>
+              <span class="token-compare__card-label">SceneView</span>
+            </div>
+            <div class="token-compare__card-engine">Jetpack Compose / SwiftUI</div>
+            <div class="token-compare__card-stats">
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number token-compare__metric--highlight">15</span>
+                <span class="token-compare__metric-label">lines of code</span>
+              </div>
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number token-compare__metric--highlight">~200</span>
+                <span class="token-compare__metric-label">tokens to generate</span>
+              </div>
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number token-compare__metric--highlight">1</span>
+                <span class="token-compare__metric-label">AI iteration (first try)</span>
+              </div>
+            </div>
+            <div class="token-compare__card-total">
+              <span class="token-compare__total-label">Total cost per app</span>
+              <span class="token-compare__total-number token-compare__total--good">~500 tokens</span>
+            </div>
           </div>
-          <div class="token-stat">
-            <span class="token-stat__number">~200</span>
-            <span class="token-stat__label">tokens to generate</span>
-          </div>
-          <div class="token-stat__arrow">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </div>
-          <div class="token-stat">
-            <span class="token-stat__number token-stat__number--accent">100x</span>
-            <span class="token-stat__label">cheaper than Unity/Three.js</span>
+
+          <!-- SceneView + MCP -->
+          <div class="token-compare__card token-compare__card--best">
+            <div class="token-compare__card-ribbon">Recommended</div>
+            <div class="token-compare__card-header">
+              <span class="token-compare__card-icon">&#x1F680;</span>
+              <span class="token-compare__card-label">SceneView + MCP</span>
+            </div>
+            <div class="token-compare__card-engine">Claude with SceneView MCP</div>
+            <div class="token-compare__card-stats">
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number token-compare__metric--best">0</span>
+                <span class="token-compare__metric-label">lines you write</span>
+              </div>
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number token-compare__metric--best">~150</span>
+                <span class="token-compare__metric-label">tokens (with API context)</span>
+              </div>
+              <div class="token-compare__metric">
+                <span class="token-compare__metric-number token-compare__metric--best">1</span>
+                <span class="token-compare__metric-label">prompt &rarr; working app</span>
+              </div>
+            </div>
+            <div class="token-compare__card-total">
+              <span class="token-compare__total-label">Total cost per app</span>
+              <span class="token-compare__total-number token-compare__total--best">~300 tokens</span>
+            </div>
+            <div class="token-compare__card-cta">
+              <code>npx sceneview-mcp</code>
+            </div>
           </div>
         </div>
-        <p class="token-callout__text">
-          <strong>Few lines = few tokens.</strong> SceneView's declarative API is so concise that AI generates a complete 3D app in ~200 tokens.
-          Traditional engines need 2,000+ lines of boilerplate &mdash; that's 20,000+ tokens per generation, 100x more expensive.
-        </p>
-        <p class="token-callout__subtext">
-          The simpler the SDK, the cheaper the AI. Every developer who asks Claude "build me a 3D app" gets working code on the first try &mdash; no back-and-forth, no wasted tokens.
+
+        <p class="token-compare__bottom">
+          <strong>200x fewer tokens.</strong> Every developer who asks Claude "build me a 3D app" gets working code on the first try &mdash; no back-and-forth, no wasted tokens, no debugging boilerplate.
         </p>
       </div>
     </div>
