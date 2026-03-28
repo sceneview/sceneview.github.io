@@ -648,14 +648,22 @@ Model: assets/chair.glb"</span>
     </div>
   </section>
 
-  <!-- ===== LIVE DEMOS ===== -->
+  <!-- ===== EXPLORE ===== -->
   <section class="section demos" id="demos">
     <div class="container">
-      <h2 class="section__title">Try it live</h2>
-      <p class="section__subtitle">Interactive demos running in your browser &mdash; powered by Filament.js WASM.</p>
+      <h2 class="section__title">Explore</h2>
+      <p class="section__subtitle">Live demos, sample apps, and real-world showcases &mdash; all in one place.</p>
+
+      <!-- Filter tabs -->
+      <div class="explore-filters" style="display:flex;justify-content:center;gap:8px;margin-bottom:var(--space-xl);flex-wrap:wrap">
+        <button class="explore-filter explore-filter--active" data-filter="all">All</button>
+        <button class="explore-filter" data-filter="demo">Live Demos</button>
+        <button class="explore-filter" data-filter="app">Sample Apps</button>
+        <button class="explore-filter" data-filter="showcase">Showcase</button>
+      </div>
 
       <div class="demos__grid">
-        <a href="/playground.html" class="demo-card demo-card--featured">
+        <a href="/playground.html" class="demo-card demo-card--featured" data-category="demo">
           <div class="demo-card__visual demo-card__visual--playground">
             <div class="demo-card__mini-ide">
               <div class="demo-card__mini-line"><span style="color:#569cd6">Scene</span> {</div>
@@ -670,7 +678,7 @@ Model: assets/chair.glb"</span>
           <h3 class="demo-card__title">3D Playground</h3>
           <p class="demo-card__text">Write SceneView code and see it render live. Orbit, zoom, switch models.</p>
         </a>
-        <a href="/geometry-demo.html" class="demo-card">
+        <a href="/geometry-demo.html" class="demo-card" data-category="demo">
           <div class="demo-card__visual demo-card__visual--geometry">
             <svg viewBox="0 0 160 90" width="100%"><rect x="20" y="30" width="30" height="30" rx="2" fill="rgba(52,168,83,0.3)" stroke="rgba(52,168,83,0.6)" stroke-width="1.5"/><polygon points="90,15 115,55 65,55" fill="rgba(52,168,83,0.2)" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><circle cx="135" cy="40" r="18" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
           </div>
@@ -686,7 +694,7 @@ Model: assets/chair.glb"</span>
           <h3 class="demo-card__title">Model Viewer</h3>
           <p class="demo-card__text">Load and switch between PBR models. DamagedHelmet, Lantern, Fox, Avocado.</p>
         </a>
-        <a href="/filament-chart.html" class="demo-card">
+        <a href="/filament-chart.html" class="demo-card" data-category="demo">
           <div class="demo-card__visual demo-card__visual--charts">
             <svg viewBox="0 0 160 90" width="100%"><rect x="20" y="50" width="18" height="30" rx="3" fill="rgba(251,188,4,0.4)"/><rect x="45" y="30" width="18" height="50" rx="3" fill="rgba(251,188,4,0.5)"/><rect x="70" y="15" width="18" height="65" rx="3" fill="rgba(251,188,4,0.6)"/><rect x="95" y="35" width="18" height="45" rx="3" fill="rgba(251,188,4,0.45)"/><rect x="120" y="20" width="18" height="60" rx="3" fill="rgba(251,188,4,0.55)"/></svg>
           </div>
@@ -694,7 +702,57 @@ Model: assets/chair.glb"</span>
           <h3 class="demo-card__title">3D Charts</h3>
           <p class="demo-card__text">Animated bar charts and data visualization with Filament.js rendering.</p>
         </a>
-        <a href="/showcase.html" class="demo-card">
+        <a href="/demo-dashboard.html" class="demo-card" data-category="demo">
+          <div class="demo-card__visual demo-card__visual--dashboard">
+            <svg viewBox="0 0 160 90" width="100%"><rect x="10" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="85" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(52,168,83,0.4)" stroke-width="1"/><rect x="10" y="52" width="140" height="30" rx="4" fill="none" stroke="rgba(251,188,4,0.4)" stroke-width="1"/><circle cx="42" cy="27" r="10" fill="rgba(66,133,244,0.2)" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="95" y="18" width="8" height="20" rx="2" fill="rgba(52,168,83,0.3)"/><rect x="108" y="22" width="8" height="16" rx="2" fill="rgba(52,168,83,0.4)"/><rect x="121" y="14" width="8" height="24" rx="2" fill="rgba(52,168,83,0.5)"/><polyline points="20,72 50,62 80,67 110,58 140,65" fill="none" stroke="rgba(251,188,4,0.5)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="demo-card__badge demo-card__badge--data">Dashboard</div>
+          <h3 class="demo-card__title">3D Dashboard</h3>
+          <p class="demo-card__text">Interactive 3D data dashboard with real-time metrics and visual analytics.</p>
+        </a>
+        <a href="/demo-ar-staging.html" class="demo-card" data-category="demo">
+          <div class="demo-card__visual demo-card__visual--ar">
+            <svg viewBox="0 0 160 90" width="100%"><rect x="30" y="55" width="100" height="2" rx="1" fill="rgba(52,168,83,0.3)"/><line x1="30" y1="55" x2="10" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><line x1="130" y1="55" x2="150" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><rect x="55" y="20" width="30" height="35" rx="2" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.4)" stroke-width="1.5"/><rect x="60" y="25" width="20" height="20" rx="1" fill="rgba(52,168,83,0.1)"/><rect x="35" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="117" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
+          </div>
+          <div class="demo-card__badge demo-card__badge--geo">AR</div>
+          <h3 class="demo-card__title">AR Staging</h3>
+          <p class="demo-card__text">Augmented reality object placement and staging demo powered by ARCore.</p>
+        </a>
+
+        <!-- Sample Apps (merged from old section) -->
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="demo-card" data-category="app">
+          <div class="demo-card__badge">Android</div>
+          <h3 class="demo-card__title">Model Viewer</h3>
+          <p class="demo-card__text">3D model, HDR environment, orbit camera</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="demo-card" data-category="app">
+          <div class="demo-card__badge demo-card__badge--geo">AR</div>
+          <h3 class="demo-card__title">AR Model Viewer</h3>
+          <p class="demo-card__text">Tap-to-place, plane detection, pinch/rotate</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="demo-card" data-category="app">
+          <div class="demo-card__badge demo-card__badge--web">Demo</div>
+          <h3 class="demo-card__title">SceneView Demo</h3>
+          <p class="demo-card__text">Play Store demo, 4-tab Material 3 Expressive</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/ios-demo" class="demo-card" data-category="app">
+          <div class="demo-card__badge demo-card__badge--data">iOS</div>
+          <h3 class="demo-card__title">iOS Demo</h3>
+          <p class="demo-card__text">SwiftUI 3-tab app for App Store</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-tv-demo" class="demo-card" data-category="app">
+          <div class="demo-card__badge demo-card__badge--web">TV</div>
+          <h3 class="demo-card__title">TV Model Viewer</h3>
+          <p class="demo-card__text">Android TV, D-pad controls, auto-rotation</p>
+        </a>
+        <a href="https://github.com/sceneview/sceneview/tree/main/samples/web-demo" class="demo-card" data-category="app">
+          <div class="demo-card__badge demo-card__badge--web">Web</div>
+          <h3 class="demo-card__title">Web Demo</h3>
+          <p class="demo-card__text">Browser-based 3D with Filament.js (WASM) + WebXR</p>
+        </a>
+
+        <!-- Showcase -->
+        <a href="/showcase.html" class="demo-card" data-category="showcase">
           <div class="demo-card__visual demo-card__visual--showcase">
             <div class="demo-card__mini-grid">
               <div style="background:rgba(66,133,244,0.2);border:1px solid rgba(66,133,244,0.3);border-radius:6px"></div>
@@ -707,36 +765,37 @@ Model: assets/chair.glb"</span>
           </div>
           <div class="demo-card__badge">Showcase</div>
           <h3 class="demo-card__title">Project Showcase</h3>
-          <p class="demo-card__text">Gallery of real-world apps and projects built with SceneView across platforms.</p>
+          <p class="demo-card__text">Real-world apps built with SceneView across platforms.</p>
         </a>
-        <a href="/platforms-showcase.html" class="demo-card">
+        <a href="/platforms-showcase.html" class="demo-card" data-category="showcase">
           <div class="demo-card__visual demo-card__visual--platforms">
             <div class="demo-card__device-row">
               <div class="demo-card__mini-phone" style="border-color:rgba(52,168,83,0.5)"><div style="background:rgba(52,168,83,0.15);width:100%;height:100%;border-radius:3px"></div></div>
               <div class="demo-card__mini-phone" style="border-color:rgba(66,133,244,0.5);width:22px;height:38px"><div style="background:rgba(66,133,244,0.15);width:100%;height:100%;border-radius:3px"></div></div>
               <div class="demo-card__mini-desktop" style="border-color:rgba(234,67,53,0.5)"><div style="background:rgba(234,67,53,0.15);width:100%;height:100%;border-radius:2px"></div></div>
-              <div class="demo-card__mini-phone" style="border-color:rgba(156,39,176,0.5);width:18px;height:32px;border-radius:8px"><div style="background:rgba(156,39,176,0.15);width:100%;height:100%;border-radius:6px"></div></div>
             </div>
           </div>
           <div class="demo-card__badge demo-card__badge--web">Platforms</div>
           <h3 class="demo-card__title">Platform Demos</h3>
-          <p class="demo-card__text">See SceneView on Android, iOS, Web, TV, Flutter, React Native, and Claude.</p>
+          <p class="demo-card__text">SceneView on Android, iOS, Web, TV, Flutter, React Native, Claude.</p>
         </a>
-        <a href="/demo-dashboard.html" class="demo-card">
-          <div class="demo-card__visual demo-card__visual--dashboard">
-            <svg viewBox="0 0 160 90" width="100%"><rect x="10" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="85" y="10" width="65" height="35" rx="4" fill="none" stroke="rgba(52,168,83,0.4)" stroke-width="1"/><rect x="10" y="52" width="140" height="30" rx="4" fill="none" stroke="rgba(251,188,4,0.4)" stroke-width="1"/><circle cx="42" cy="27" r="10" fill="rgba(66,133,244,0.2)" stroke="rgba(66,133,244,0.4)" stroke-width="1"/><rect x="95" y="18" width="8" height="20" rx="2" fill="rgba(52,168,83,0.3)"/><rect x="108" y="22" width="8" height="16" rx="2" fill="rgba(52,168,83,0.4)"/><rect x="121" y="14" width="8" height="24" rx="2" fill="rgba(52,168,83,0.5)"/><polyline points="20,72 50,62 80,67 110,58 140,65" fill="none" stroke="rgba(251,188,4,0.5)" stroke-width="1.5"/></svg>
-          </div>
-          <div class="demo-card__badge demo-card__badge--data">Dashboard</div>
-          <h3 class="demo-card__title">3D Dashboard</h3>
-          <p class="demo-card__text">Interactive 3D data dashboard with real-time metrics and visual analytics.</p>
+      </div>
+
+      <!-- Store badges -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:var(--space-xl);flex-wrap:wrap">
+        <a href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener" style="display:inline-block;height:40px">
+          <img src="badges/google-play-badge.png" alt="Get it on Google Play" height="60" style="margin:-10px 0">
         </a>
-        <a href="/demo-ar-staging.html" class="demo-card">
-          <div class="demo-card__visual demo-card__visual--ar">
-            <svg viewBox="0 0 160 90" width="100%"><rect x="30" y="55" width="100" height="2" rx="1" fill="rgba(52,168,83,0.3)"/><line x1="30" y1="55" x2="10" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><line x1="130" y1="55" x2="150" y2="75" stroke="rgba(52,168,83,0.2)" stroke-width="1"/><rect x="55" y="20" width="30" height="35" rx="2" fill="rgba(52,168,83,0.15)" stroke="rgba(52,168,83,0.4)" stroke-width="1.5"/><rect x="60" y="25" width="20" height="20" rx="1" fill="rgba(52,168,83,0.1)"/><rect x="35" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="117" y="10" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="35" y="65" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/><rect x="117" y="65" width="8" height="8" rx="2" fill="none" stroke="rgba(52,168,83,0.5)" stroke-width="1.5"/></svg>
-          </div>
-          <div class="demo-card__badge demo-card__badge--geo">AR</div>
-          <h3 class="demo-card__title">AR Staging</h3>
-          <p class="demo-card__text">Augmented reality object placement and staging demo powered by ARCore.</p>
+        <a href="https://apps.apple.com/app/sceneview/id6743425102" target="_blank" rel="noopener" style="display:inline-block;height:40px">
+          <img src="badges/app-store-badge.svg" alt="Download on the App Store" height="40">
+        </a>
+        <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1a1a2e;border:1px solid rgba(217,119,86,0.4);border-radius:8px;color:#d97756;font-weight:600;font-size:0.85rem;text-decoration:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#d97756"/></svg>
+          Try with Claude
+        </a>
+        <a href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:var(--color-surface-container);border:1px solid var(--color-outline);border-radius:8px;color:var(--color-on-surface);font-weight:600;font-size:0.85rem;text-decoration:none">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          Star on GitHub
         </a>
       </div>
     </div>
@@ -899,92 +958,7 @@ Model: assets/chair.glb"</span>
     </div>
   </section>
 
-  <!-- ===== SAMPLES ===== -->
-  <section class="section samples" id="samples">
-    <div class="container">
-      <h2 class="section__title">Sample apps</h2>
-      <p class="section__subtitle">Explore working demos across every supported platform. See them in action in the <a href="/showcase.html" style="color:var(--color-primary);font-weight:600;text-decoration:underline">interactive Showcase</a>.</p>
-
-      <!-- Featured: Showcase highlight -->
-      <a href="/showcase.html" class="samples__featured">
-        <div class="samples__featured-content">
-          <div class="samples__featured-badge">Featured</div>
-          <h3 class="samples__featured-title">Interactive Showcase</h3>
-          <p class="samples__featured-text">E-commerce product viewer, AR furniture placement, automotive configurator, 3D anatomy viewer, luxury product display &mdash; all built with SceneView. See real-world use cases with live 3D and code samples.</p>
-          <span class="samples__featured-cta">Explore the Showcase &rarr;</span>
-        </div>
-        <div class="samples__featured-visual">
-          <div class="samples__featured-cards">
-            <span class="samples__mini-card" style="background:#e8f5e9">E-Commerce</span>
-            <span class="samples__mini-card" style="background:#e3f2fd">AR Preview</span>
-            <span class="samples__mini-card" style="background:#fff3e0">Automotive</span>
-            <span class="samples__mini-card" style="background:#f3e5f5">Education</span>
-            <span class="samples__mini-card" style="background:#fce4ec">Luxury</span>
-            <span class="samples__mini-card" style="background:#e0f2f1">Dashboard</span>
-          </div>
-        </div>
-      </a>
-
-      <div class="samples__grid">
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="sample-card">
-          <div class="sample-card__badge">Android</div>
-          <h3 class="sample-card__title">Model Viewer</h3>
-          <p class="sample-card__text">3D model, HDR environment, orbit camera</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="sample-card">
-          <div class="sample-card__badge sample-card__badge--ar">AR</div>
-          <h3 class="sample-card__title">AR Model Viewer</h3>
-          <p class="sample-card__text">Tap-to-place, plane detection, pinch/rotate</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-demo" class="sample-card">
-          <div class="sample-card__badge sample-card__badge--demo">Demo</div>
-          <h3 class="sample-card__title">SceneView Demo</h3>
-          <p class="sample-card__text">Play Store demo, 4-tab Material 3 Expressive</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/ios-demo" class="sample-card">
-          <div class="sample-card__badge sample-card__badge--ios">iOS</div>
-          <h3 class="sample-card__title">iOS Demo</h3>
-          <p class="sample-card__text">SwiftUI 3-tab app for App Store</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/android-tv-demo" class="sample-card">
-          <div class="sample-card__badge sample-card__badge--tv">TV</div>
-          <h3 class="sample-card__title">TV Model Viewer</h3>
-          <p class="sample-card__text">Android TV, D-pad controls, auto-rotation</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/web-demo" class="sample-card">
-          <div class="sample-card__badge sample-card__badge--web">Web</div>
-          <h3 class="sample-card__title">Web Demo</h3>
-          <p class="sample-card__text">Browser-based 3D with Filament.js (WASM) + WebXR</p>
-        </a>
-        <a href="https://github.com/sceneview/sceneview/tree/main/samples/desktop-demo" class="sample-card">
-          <div class="sample-card__badge sample-card__badge--demo">Desktop</div>
-          <h3 class="sample-card__title">Desktop Demo</h3>
-          <p class="sample-card__text">Compose Desktop with software 3D renderer</p>
-        </a>
-      </div>
-
-      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:var(--space-xl);flex-wrap:wrap">
-        <!-- Google Play official badge -->
-        <a href="https://play.google.com/store/apps/details?id=io.github.sceneview.demo" target="_blank" rel="noopener" style="display:inline-block;height:40px">
-          <img src="badges/google-play-badge.png" alt="Get it on Google Play" height="60" style="margin:-10px 0">
-        </a>
-        <!-- App Store official badge -->
-        <a href="https://apps.apple.com/app/sceneview/id6743425102" target="_blank" rel="noopener" style="display:inline-block;height:40px">
-          <img src="badges/app-store-badge.svg" alt="Download on the App Store" height="40">
-        </a>
-        <!-- Claude badge -->
-        <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:#1a1a2e;border:1px solid rgba(217,119,86,0.4);border-radius:8px;color:#d97756;font-weight:600;font-size:0.85rem;text-decoration:none;transition:all 0.2s">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#d97756"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke="#1a1a2e" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Try with Claude
-        </a>
-        <!-- GitHub Stars -->
-        <a href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;background:var(--color-surface-container);border:1px solid var(--color-outline);border-radius:8px;color:var(--color-on-surface);font-weight:600;font-size:0.85rem;text-decoration:none;transition:all 0.2s">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-          Star on GitHub
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- Old SAMPLES section removed — merged into EXPLORE above -->
 
   <!-- ===== AI / MCP ===== -->
   <section class="section ai-section" id="ai">
@@ -1180,6 +1154,28 @@ Model: assets/chair.glb"</span>
   <script src="script.js"></script>
 
   <!-- Hero 3D renderer — powered by SceneView Web (sceneview.js) -->
+  <script>
+  // Explore filter logic
+  (function() {
+    var filters = document.querySelectorAll('.explore-filter');
+    var cards = document.querySelectorAll('.demo-card[data-category]');
+    filters.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        filters.forEach(function(b) { b.classList.remove('explore-filter--active'); });
+        btn.classList.add('explore-filter--active');
+        var filter = btn.getAttribute('data-filter');
+        cards.forEach(function(card) {
+          if (filter === 'all' || card.getAttribute('data-category') === filter) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  })();
+  </script>
+
   <script>
   (function() {
     var canvas = document.getElementById('hero-canvas');
