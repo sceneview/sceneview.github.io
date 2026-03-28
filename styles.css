@@ -653,6 +653,22 @@ button {
   background: rgba(251, 191, 36, 0.15);
   color: #fbbf24;
 }
+.sample-card__badge--flutter {
+  background: rgba(2, 119, 189, 0.12);
+  color: #0277bd;
+}
+[data-theme="dark"] .sample-card__badge--flutter {
+  background: rgba(41, 182, 246, 0.15);
+  color: #29b6f6;
+}
+.sample-card__badge--rn {
+  background: rgba(97, 218, 251, 0.12);
+  color: #0288d1;
+}
+[data-theme="dark"] .sample-card__badge--rn {
+  background: rgba(97, 218, 251, 0.15);
+  color: #61dafb;
+}
 
 .sample-card__title {
   font-size: 1rem;
