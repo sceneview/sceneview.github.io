@@ -669,18 +669,6 @@
             .iphone { height: 450px; }
         }
 
-        /* ── Footer ── */
-        .plat-footer {
-            text-align: center;
-            padding: var(--space-xl) var(--space-lg) var(--space-3xl);
-            color: var(--color-on-surface-dim);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--color-outline);
-        }
-        .plat-footer a {
-            color: var(--color-primary);
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
@@ -695,12 +683,17 @@
                 <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
                 <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
             </svg>
-            SceneView
+            <span class="nav__logo-text">SceneView</span>
         </a>
-        <div class="nav__links">
+
+        <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav__links" id="navLinks">
             <a href="/showcase.html" class="nav__link" style="font-weight:600">Showcase</a>
             <a href="/claude-3d.html" class="nav__link" style="color:#d97757;font-weight:600">AI + 3D</a>
-            <a href="/platforms-showcase.html" class="nav__link" style="color: var(--color-primary); font-weight: 600;">Platforms</a>
+            <a href="/platforms-showcase.html" class="nav__link" style="color:var(--color-primary);font-weight:600">Platforms</a>
             <a href="/#demos" class="nav__link">Demos</a>
             <a href="/playground.html" class="nav__link">Playground</a>
             <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
@@ -938,13 +931,24 @@
 
 </div>
 
-<footer class="plat-footer">
-    <p>
-        <a href="/">SceneView</a> &mdash; Open-source 3D &amp; AR SDK &middot;
-        <a href="https://github.com/sceneview/sceneview">GitHub</a> &middot;
-        <a href="https://discord.gg/sceneview">Discord</a> &middot;
-        <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0</a>
-    </p>
+<footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg class="footer__logo" viewBox="0 0 32 32" width="24" height="24" fill="none">
+            <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
+            <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>SceneView</span>
+        </div>
+        <div class="footer__links">
+          <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0 License</a>
+          <a href="https://github.com/sponsors/sceneview">Sponsor</a>
+          <a href="https://github.com/sceneview/sceneview">Source Code</a>
+        </div>
+      </div>
+    </div>
 </footer>
 
 </div>

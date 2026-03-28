@@ -575,6 +575,129 @@
           </div>
         </div>
 
+        <!-- Automotive -->
+        <div class="showcase-item">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="models/platforms/McLarenP1.glb"
+              alt="McLaren P1 3D automotive configurator"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="1.2"
+              exposure="0.9"
+              camera-orbit="220deg 70deg auto"
+              environment-image="neutral"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Automotive</div>
+            <h3 class="showcase-item__title">Vehicle Configurator</h3>
+            <p class="showcase-item__text">Photorealistic vehicle visualization with PBR materials, environment reflections, and studio lighting. Build showroom-quality configurators for dealerships and automotive brands.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("car.glb")
+  LightNode(apply = {
+    intensity(150_000f)
+  })
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Electronics -->
+        <div class="showcase-item showcase-item--reverse">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="models/platforms/BoseHeadphones.glb"
+              alt="3D headphones electronics product viewer"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="1"
+              exposure="0.85"
+              camera-orbit="30deg 80deg auto"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Electronics</div>
+            <h3 class="showcase-item__title">Consumer Electronics</h3>
+            <p class="showcase-item__text">Showcase tech products in stunning 3D. Customers inspect every detail &mdash; materials, ports, buttons &mdash; before buying. Perfect for electronics brands, unboxing experiences, and retail apps.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("headphones.glb")
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="showcase-item">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="models/platforms/ModernBedroom.glb"
+              alt="3D modern bedroom interior architecture"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="0.8"
+              exposure="1"
+              camera-orbit="150deg 80deg auto"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Architecture</div>
+            <h3 class="showcase-item__title">Interior Design</h3>
+            <p class="showcase-item__text">Walk through rooms and interiors in 3D. Architects and designers present projects with realistic materials, lighting, and furniture. Clients experience spaces before construction begins.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("room.glb")
+  CameraNode(smooth = true)
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Luxury Watch -->
+        <div class="showcase-item showcase-item--reverse">
+          <div class="showcase-item__viewer">
+            <model-viewer
+              src="models/platforms/GoldenWatch.glb"
+              alt="Golden luxury watch 3D product viewer"
+              auto-rotate
+              camera-controls
+              touch-action="pan-y"
+              shadow-intensity="1.2"
+              exposure="1"
+              camera-orbit="30deg 75deg auto"
+              environment-image="neutral"
+              style="width:100%;height:100%;--poster-color:transparent;"
+              loading="lazy"
+              poster=""
+            >
+              <div class="showcase-item__badge">Drag to orbit</div>
+            </model-viewer>
+          </div>
+          <div class="showcase-item__info">
+            <div class="showcase-item__label">Luxury &amp; Watches</div>
+            <h3 class="showcase-item__title">High-End Product Detail</h3>
+            <p class="showcase-item__text">Luxury brands demand pixel-perfect detail. Gold reflections, crystal textures, intricate engravings &mdash; PBR rendering captures every nuance. Let customers examine craftsmanship up close.</p>
+            <pre class="showcase-item__code"><code>Scene {
+  ModelNode("watch.glb",
+    autoAnimate = true)
+}</code></pre>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
