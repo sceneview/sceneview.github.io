@@ -575,6 +575,7 @@
         file: 'ModelViewerScreen.kt',
         lang: 'Kotlin',
         title: 'Model Viewer',
+        model: 'DamagedHelmet',
         description: 'A basic 3D scene with a glTF model, HDR environment lighting, orbit camera controls, and shadows. This is the simplest way to display a 3D model in your app.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -623,6 +624,7 @@ fun ModelViewerScreen() {\n\
         file: 'ARPlacementScreen.kt',
         lang: 'Kotlin',
         title: 'AR Placement',
+        model: 'SheenChair',
         description: 'An AR scene with plane detection and tap-to-place. Users point their camera at a surface, then tap to place a 3D model. Supports ARCore on Android.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -687,6 +689,7 @@ fun ARPlacementScreen() {\n\
         file: 'CustomGeometryScreen.kt',
         lang: 'Kotlin',
         title: 'Custom Geometry',
+        model: 'ToyCar',
         description: 'Procedurally generated 3D geometry using MeshNode. Create cubes, spheres, cylinders, and custom shapes at runtime with material properties.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -756,6 +759,7 @@ fun CustomGeometryScreen() {\n\
         file: 'AnimationScreen.kt',
         lang: 'Kotlin',
         title: 'Animation',
+        model: 'Fox',
         description: 'A model with animation playback controls. Load an animated glTF model and control playback with play, pause, and animation switching.',
         code:
 'package com.example.sceneviewdemo\n\
@@ -903,6 +907,17 @@ fun AnimationScreen() {\n\
       editorLang.textContent = ex.lang;
       descTitle.textContent = ex.title;
       descText.textContent = ex.description;
+
+      // Sync 3D preview model with example
+      if (ex.model) {
+        modelSelect.value = ex.model;
+        var url = getModelUrl(ex.model);
+        if (currentRenderer === 'sceneview') {
+          initSceneView(url);
+        } else {
+          previewModel.setAttribute('src', url);
+        }
+      }
 
       // Update Claude link
       var prompt = encodeURIComponent(
