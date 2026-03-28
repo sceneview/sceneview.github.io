@@ -187,7 +187,7 @@ const gl = canvas.getContext('webgl2', { antialias: true, alpha: false });
 if (!gl) { document.body.innerHTML = '<p style="color:#fff;padding:40px">WebGL2 not supported</p>'; throw new Error('no webgl2'); }
 
 // ── Shaders ──────────────────────────────────────────────────────────────────
-// PBR with 3-point lighting, shadow approximation, and fog
+// Enhanced PBR with 4-point lighting, transparency, emissive, improved shadows
 
 const VS = `#version 300 es
 precision highp float;
@@ -198,9 +198,11 @@ uniform mat4 uModel;
 uniform mat3 uNormalMatrix;
 out vec3 vNormal;
 out vec3 vWorldPos;
+out vec3 vLocalPos;
 void main() {
   vec4 worldPos = uModel * vec4(aPos, 1.0);
   vWorldPos = worldPos.xyz;
+  vLocalPos = aPos;
   vNormal = normalize(uNormalMatrix * aNormal);
   gl_Position = uMVP * vec4(aPos, 1.0);
 }`;
@@ -209,28 +211,34 @@ const FS = `#version 300 es
 precision highp float;
 in vec3 vNormal;
 in vec3 vWorldPos;
+in vec3 vLocalPos;
 uniform vec3 uCamPos;
 uniform vec3 uBaseColor;
 uniform float uMetallic;
 uniform float uRoughness;
+uniform float uAlpha;
+uniform float uEmissiveIntensity;
+uniform vec3 uEmissiveColor;
 uniform float uTime;
 out vec4 fragColor;
 
 const float PI = 3.14159265;
 
-// 3-point light setup
+// 4-point studio lighting for depth and drama
 const vec3 KEY_DIR   = normalize(vec3(0.5, 0.85, 0.3));
-const vec3 KEY_COLOR = vec3(3.5, 3.2, 2.8);
+const vec3 KEY_COLOR = vec3(4.0, 3.6, 3.0);        // warm key
 const vec3 FILL_DIR  = normalize(vec3(-0.7, 0.3, -0.5));
-const vec3 FILL_COLOR = vec3(0.5, 0.6, 1.0);
+const vec3 FILL_COLOR = vec3(0.6, 0.7, 1.2);       // cool fill
 const vec3 RIM_DIR   = normalize(vec3(-0.2, -0.1, -0.9));
-const vec3 RIM_COLOR = vec3(0.4, 0.4, 0.6);
+const vec3 RIM_COLOR = vec3(0.5, 0.5, 0.8);        // rim/backlight
+const vec3 BACK_DIR  = normalize(vec3(0.0, 0.6, -0.8));
+const vec3 BACK_COLOR = vec3(0.8, 0.6, 1.0);       // purple kicker
 
 float D_GGX(float NdotH, float roughness) {
   float a = roughness * roughness;
   float a2 = a * a;
   float d = NdotH * NdotH * (a2 - 1.0) + 1.0;
-  return a2 / (PI * d * d);
+  return a2 / (PI * d * d + 0.0001);
 }
 vec3 F_Schlick(float cosTheta, vec3 F0) {
   return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
@@ -258,57 +266,148 @@ vec3 evalLight(vec3 N, vec3 V, vec3 L, vec3 lightColor, vec3 F0, float NdotV) {
   return (diffuse + spec) * lightColor * NdotL;
 }
 
+// Procedural cubemap-like environment for reflections
+vec3 envSample(vec3 R) {
+  float upness = max(R.y, 0.0);
+  float downness = max(-R.y, 0.0);
+  // Sky gradient: deep blue -> horizon pink/orange
+  vec3 sky = mix(vec3(0.15, 0.1, 0.25), vec3(0.4, 0.6, 1.0), upness);
+  sky += vec3(0.3, 0.15, 0.05) * pow(max(1.0 - abs(R.y), 0.0), 4.0); // horizon glow
+  // Ground: dark with warm bounce
+  vec3 ground = vec3(0.04, 0.03, 0.02) + vec3(0.08, 0.06, 0.03) * downness;
+  vec3 env = mix(ground, sky, smoothstep(-0.1, 0.1, R.y));
+  // Sun highlight in reflection
+  float sunDot = max(dot(R, KEY_DIR), 0.0);
+  env += vec3(5.0, 4.0, 2.5) * pow(sunDot, 64.0); // sharp sun specular
+  env += vec3(1.0, 0.8, 0.4) * pow(sunDot, 8.0) * 0.3;  // soft sun halo
+  return env;
+}
+
 void main() {
   vec3 N = normalize(vNormal);
   vec3 V = normalize(uCamPos - vWorldPos);
   float NdotV = max(dot(N, V), 0.001);
   vec3 F0 = mix(vec3(0.04), uBaseColor, uMetallic);
 
+  // For glass materials, increase F0 for stronger reflections
+  if (uAlpha < 0.95) {
+    F0 = mix(F0, vec3(0.08), 0.5);
+  }
+
   vec3 color = vec3(0.0);
   color += evalLight(N, V, KEY_DIR, KEY_COLOR, F0, NdotV);
   color += evalLight(N, V, FILL_DIR, FILL_COLOR, F0, NdotV);
   color += evalLight(N, V, RIM_DIR, RIM_COLOR, F0, NdotV);
+  color += evalLight(N, V, BACK_DIR, BACK_COLOR, F0, NdotV);
 
-  // Hemisphere ambient with ground bounce
-  vec3 skyColor = vec3(0.15, 0.18, 0.35);
-  vec3 groundColor = vec3(0.06, 0.05, 0.04);
+  // Enhanced hemisphere ambient with sky dome simulation
+  vec3 skyAmbient = vec3(0.18, 0.22, 0.4);
+  vec3 groundAmbient = vec3(0.08, 0.06, 0.04);
   float hemisphere = dot(N, vec3(0, 1, 0)) * 0.5 + 0.5;
-  vec3 ambient = mix(groundColor, skyColor, hemisphere) * uBaseColor * 0.45;
+  vec3 ambient = mix(groundAmbient, skyAmbient, hemisphere) * uBaseColor * 0.5;
 
-  // Fresnel rim
+  // Fresnel rim with color variation
   float rim = pow(1.0 - NdotV, 4.0);
-  ambient += vec3(0.1, 0.14, 0.28) * rim * 0.7;
+  vec3 rimColor = mix(vec3(0.12, 0.16, 0.35), vec3(0.3, 0.2, 0.4), rim);
+  ambient += rimColor * rim * 0.8;
 
-  // AO approximation
-  float ao = smoothstep(-0.3, 0.5, dot(N, vec3(0, 1, 0))) * 0.3 + 0.7;
+  // Multi-directional AO approximation
+  float aoUp = smoothstep(-0.3, 0.5, dot(N, vec3(0, 1, 0)));
+  float aoSide = smoothstep(-0.5, 0.3, abs(dot(N, vec3(1, 0, 0))));
+  float ao = (aoUp * 0.5 + aoSide * 0.2 + 0.3);
   ambient *= ao;
 
-  // Fake contact shadow: darken near ground
-  float contactShadow = smoothstep(0.0, 0.3, vWorldPos.y);
-  ambient *= mix(0.5, 1.0, contactShadow);
+  // Soft contact shadow: smooth gradient near ground plane
+  float groundProx = smoothstep(0.0, 0.5, vWorldPos.y);
+  float contactShadow = mix(0.35, 1.0, groundProx);
+  // Add shadow darkening from sides (simulates occlusion from nearby geometry)
+  float sideOcc = 1.0 - smoothstep(0.0, 0.15, vWorldPos.y) * 0.3;
+  ambient *= contactShadow * sideOcc;
 
   color += ambient;
 
-  // Environment reflection approximation for metallic surfaces
+  // Enhanced environment reflections for all surfaces
+  vec3 R = reflect(-V, N);
+  vec3 envColor = envSample(R);
+  float envFresnel = pow(1.0 - NdotV, 3.0);
+
   if (uMetallic > 0.3) {
-    vec3 R = reflect(-V, N);
-    float envUp = max(R.y, 0.0);
-    vec3 envColor = mix(vec3(0.08, 0.06, 0.12), vec3(0.3, 0.5, 0.9), envUp);
-    envColor += vec3(0.9, 0.8, 0.6) * pow(max(dot(R, KEY_DIR), 0.0), 16.0);
-    float envFresnel = pow(1.0 - NdotV, 3.0);
-    color += envColor * uMetallic * mix(0.15, 0.6, envFresnel) * (1.0 - uRoughness);
+    // Strong reflections for metals
+    float envStrength = mix(0.2, 0.8, envFresnel) * (1.0 - uRoughness * 0.7);
+    color += envColor * uBaseColor * uMetallic * envStrength;
+  } else {
+    // Subtle reflections for dielectrics (especially smooth ones)
+    float envStrength = envFresnel * (1.0 - uRoughness) * 0.3;
+    color += envColor * envStrength;
   }
 
-  // Distance fog
+  // Glass/transparent materials: extra env contribution + refraction hint
+  if (uAlpha < 0.95) {
+    vec3 refractDir = refract(-V, N, 0.67); // approximate glass IOR ~1.5
+    vec3 refractColor = envSample(refractDir) * uBaseColor;
+    float glassStrength = (1.0 - uAlpha) * 0.6;
+    color += refractColor * glassStrength;
+    // Stronger fresnel on glass edges
+    float glassFresnel = pow(1.0 - NdotV, 5.0);
+    color += envColor * glassFresnel * 0.5;
+  }
+
+  // Emissive glow
+  if (uEmissiveIntensity > 0.0) {
+    color += uEmissiveColor * uEmissiveIntensity;
+    // Subtle bloom halo at edges
+    float bloomRim = pow(1.0 - NdotV, 2.0);
+    color += uEmissiveColor * uEmissiveIntensity * bloomRim * 0.4;
+  }
+
+  // Distance fog with atmospheric scattering color
   float fogDist = length(vWorldPos - uCamPos);
-  float fog = 1.0 - exp(-fogDist * 0.02);
-  vec3 fogColor = vec3(0.05, 0.065, 0.09);
-  color = mix(color, fogColor, fog * 0.5);
+  float fog = 1.0 - exp(-fogDist * 0.018);
+  vec3 fogColor = vec3(0.06, 0.07, 0.11);
+  color = mix(color, fogColor, fog * 0.45);
 
   // ACES tone mapping
   color = color * (2.51 * color + 0.03) / (color * (2.43 * color + 0.59) + 0.14);
+  // Slight color grading: warm highlights, cool shadows
+  vec3 graded = color;
+  float lum = dot(color, vec3(0.2126, 0.7152, 0.0722));
+  graded = mix(graded * vec3(0.95, 0.95, 1.05), graded * vec3(1.05, 1.02, 0.95), smoothstep(0.0, 1.0, lum));
+  color = mix(color, graded, 0.3);
+
   color = pow(color, vec3(1.0 / 2.2));
-  fragColor = vec4(color, 1.0);
+  fragColor = vec4(color, uAlpha);
+}`;
+
+// ── Shadow plane shader ──────────────────────────────────────────────────────
+// Renders a soft shadow blob on the ground beneath objects
+
+const SHADOW_VS = `#version 300 es
+precision highp float;
+in vec3 aPos;
+uniform mat4 uMVP;
+uniform mat4 uModel;
+out vec3 vWorldPos;
+void main() {
+  vec4 worldPos = uModel * vec4(aPos, 1.0);
+  vWorldPos = worldPos.xyz;
+  gl_Position = uMVP * vec4(aPos, 1.0);
+}`;
+
+const SHADOW_FS = `#version 300 es
+precision highp float;
+in vec3 vWorldPos;
+uniform vec3 uShadowCenter;
+uniform float uShadowRadius;
+uniform float uShadowIntensity;
+out vec4 fragColor;
+void main() {
+  float dx = vWorldPos.x - uShadowCenter.x;
+  float dz = vWorldPos.z - uShadowCenter.z;
+  float dist = sqrt(dx * dx + dz * dz);
+  float falloff = 1.0 - smoothstep(0.0, uShadowRadius, dist);
+  falloff = falloff * falloff; // squared for softer edges
+  float alpha = falloff * uShadowIntensity;
+  fragColor = vec4(0.0, 0.0, 0.0, alpha);
 }`;
 
 // ── Grid shader ──────────────────────────────────────────────────────────────
@@ -366,12 +465,26 @@ const loc = {
   uBaseColor: gl.getUniformLocation(prog, 'uBaseColor'),
   uMetallic: gl.getUniformLocation(prog, 'uMetallic'),
   uRoughness: gl.getUniformLocation(prog, 'uRoughness'),
+  uAlpha: gl.getUniformLocation(prog, 'uAlpha'),
+  uEmissiveIntensity: gl.getUniformLocation(prog, 'uEmissiveIntensity'),
+  uEmissiveColor: gl.getUniformLocation(prog, 'uEmissiveColor'),
   uTime: gl.getUniformLocation(prog, 'uTime'),
 };
 const gridProg = createProgram(createShader(gl.VERTEX_SHADER, GRID_VS), createShader(gl.FRAGMENT_SHADER, GRID_FS));
 const gridLoc = {
   aPos: gl.getAttribLocation(gridProg, 'aPos'),
   uMVP: gl.getUniformLocation(gridProg, 'uMVP'),
+};
+
+// Shadow program
+const shadowProg = createProgram(createShader(gl.VERTEX_SHADER, SHADOW_VS), createShader(gl.FRAGMENT_SHADER, SHADOW_FS));
+const shadowLoc = {
+  aPos: gl.getAttribLocation(shadowProg, 'aPos'),
+  uMVP: gl.getUniformLocation(shadowProg, 'uMVP'),
+  uModel: gl.getUniformLocation(shadowProg, 'uModel'),
+  uShadowCenter: gl.getUniformLocation(shadowProg, 'uShadowCenter'),
+  uShadowRadius: gl.getUniformLocation(shadowProg, 'uShadowRadius'),
+  uShadowIntensity: gl.getUniformLocation(shadowProg, 'uShadowIntensity'),
 };
 
 // ── Geometry generators ──────────────────────────────────────────────────────
@@ -535,6 +648,23 @@ function createGridMesh(geom) {
   return { vao, count: geom.indices.length };
 }
 
+// Shadow plane mesh (reuses main shader's aPos location)
+function createShadowPlaneMesh() {
+  const geom = generatePlane(20, 20, 1, 1);
+  const vao = gl.createVertexArray();
+  gl.bindVertexArray(vao);
+  const posBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+  gl.bufferData(gl.ARRAY_BUFFER, geom.positions, gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(shadowLoc.aPos);
+  gl.vertexAttribPointer(shadowLoc.aPos, 3, gl.FLOAT, false, 0, 0);
+  const idxBuf = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, idxBuf);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, geom.indices, gl.STATIC_DRAW);
+  gl.bindVertexArray(null);
+  return { vao, count: geom.indices.length };
+}
+
 // ── Prototype meshes ─────────────────────────────────────────────────────────
 
 const prototypes = {
@@ -547,6 +677,7 @@ const prototypes = {
   torus: createMesh(generateTorus(0.35, 0.15, 48, 24)),
 };
 const gridMesh = createGridMesh(generateGrid(16, 32));
+const shadowPlaneMesh = createShadowPlaneMesh();
 
 // ── Math utilities ───────────────────────────────────────────────────────────
 
@@ -580,6 +711,7 @@ function vecCross(a,b) { return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*
 function vecDot(a,b) { return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
 
 // ── Scene presets ────────────────────────────────────────────────────────────
+// Each shape can now have: alpha (0-1), emissive (intensity), emissiveColor ([r,g,b])
 
 function makeBuilding(x, z, w, h, d, color, metallic, roughness) {
   return { type: 'cube', position: [x, h/2, z], scale: [w, h, d], color, metallic, roughness };
@@ -589,63 +721,72 @@ const SCENES = {
   architecture: (function() {
     const shapes = [];
 
-    // Ground plane — concrete plaza
-    shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [16, 1, 16], color: [0.18, 0.18, 0.17], metallic: 0.0, roughness: 0.85 });
+    // Ground plane — polished concrete
+    shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [16, 1, 16], color: [0.2, 0.2, 0.19], metallic: 0.05, roughness: 0.7 });
 
-    // Subtle grid overlay on ground (thin lines as cubes)
+    // Subtle grid overlay on ground
     for (let i = -6; i <= 6; i++) {
-      shapes.push({ type: 'cube', position: [i, 0.005, 0], scale: [0.02, 0.01, 14], color: [0.25, 0.25, 0.24], metallic: 0.0, roughness: 0.9 });
-      shapes.push({ type: 'cube', position: [0, 0.005, i], scale: [14, 0.01, 0.02], color: [0.25, 0.25, 0.24], metallic: 0.0, roughness: 0.9 });
+      shapes.push({ type: 'cube', position: [i, 0.005, 0], scale: [0.02, 0.01, 14], color: [0.28, 0.28, 0.26], metallic: 0.0, roughness: 0.9 });
+      shapes.push({ type: 'cube', position: [0, 0.005, i], scale: [14, 0.01, 0.02], color: [0.28, 0.28, 0.26], metallic: 0.0, roughness: 0.9 });
     }
 
-    // === Main tower — modern glass skyscraper ===
-    shapes.push({ type: 'cube', position: [0, 3.5, -1.5], scale: [2.0, 7.0, 1.8], color: [0.35, 0.55, 0.75], metallic: 1.0, roughness: 0.05 }); // Glass facade
-    // Floor lines (horizontal bands)
+    // === Main tower — glass skyscraper with transparency ===
+    shapes.push({ type: 'cube', position: [0, 3.5, -1.5], scale: [2.0, 7.0, 1.8], color: [0.3, 0.5, 0.7], metallic: 0.95, roughness: 0.03, alpha: 0.5 });
+    // Floor lines (dark metal bands)
     for (let f = 0; f < 7; f++) {
-      shapes.push({ type: 'cube', position: [0, f + 0.3, -1.5], scale: [2.05, 0.04, 1.85], color: [0.2, 0.22, 0.25], metallic: 0.8, roughness: 0.2 });
+      shapes.push({ type: 'cube', position: [0, f + 0.3, -1.5], scale: [2.05, 0.04, 1.85], color: [0.15, 0.17, 0.2], metallic: 0.9, roughness: 0.15 });
     }
-    // Roof accent
-    shapes.push({ type: 'cube', position: [0, 7.05, -1.5], scale: [2.1, 0.1, 1.9], color: [0.9, 0.9, 0.92], metallic: 1.0, roughness: 0.1 });
+    // Roof accent — bright chrome
+    shapes.push({ type: 'cube', position: [0, 7.05, -1.5], scale: [2.1, 0.1, 1.9], color: [0.95, 0.95, 0.97], metallic: 1.0, roughness: 0.05 });
+    // Rooftop beacon — emissive
+    shapes.push({ type: 'sphere', position: [0, 7.3, -1.5], scale: [0.15, 0.15, 0.15], color: [1.0, 0.3, 0.2], metallic: 0.0, roughness: 0.5, emissive: 3.0, emissiveColor: [1.0, 0.3, 0.15] });
 
-    // === Secondary building — shorter, wider ===
-    shapes.push({ type: 'cube', position: [-3.0, 2.0, 0.5], scale: [2.5, 4.0, 2.0], color: [0.6, 0.62, 0.65], metallic: 0.9, roughness: 0.08 }); // Silver glass
+    // === Secondary building — frosted glass ===
+    shapes.push({ type: 'cube', position: [-3.0, 2.0, 0.5], scale: [2.5, 4.0, 2.0], color: [0.55, 0.58, 0.62], metallic: 0.85, roughness: 0.12, alpha: 0.65 });
     for (let f = 0; f < 4; f++) {
-      shapes.push({ type: 'cube', position: [-3.0, f + 0.3, 0.5], scale: [2.55, 0.04, 2.05], color: [0.15, 0.15, 0.18], metallic: 0.7, roughness: 0.3 });
+      shapes.push({ type: 'cube', position: [-3.0, f + 0.3, 0.5], scale: [2.55, 0.04, 2.05], color: [0.12, 0.12, 0.15], metallic: 0.7, roughness: 0.25 });
     }
-    shapes.push({ type: 'cube', position: [-3.0, 4.05, 0.5], scale: [2.6, 0.1, 2.1], color: [0.85, 0.85, 0.88], metallic: 1.0, roughness: 0.1 });
+    shapes.push({ type: 'cube', position: [-3.0, 4.05, 0.5], scale: [2.6, 0.1, 2.1], color: [0.88, 0.88, 0.9], metallic: 1.0, roughness: 0.08 });
 
-    // === Third building — warm tones, mid-height ===
-    shapes.push({ type: 'cube', position: [3.2, 1.75, 1.0], scale: [1.6, 3.5, 2.2], color: [0.75, 0.65, 0.55], metallic: 0.1, roughness: 0.3 }); // Marble-like
+    // === Third building — warm marble ===
+    shapes.push({ type: 'cube', position: [3.2, 1.75, 1.0], scale: [1.6, 3.5, 2.2], color: [0.78, 0.68, 0.55], metallic: 0.08, roughness: 0.35 });
     for (let f = 0; f < 3; f++) {
       shapes.push({ type: 'cube', position: [3.2, f + 0.5, 1.0], scale: [1.65, 0.03, 2.25], color: [0.6, 0.5, 0.42], metallic: 0.05, roughness: 0.5 });
     }
 
-    // === Low building — entrance / lobby ===
-    shapes.push({ type: 'cube', position: [0.5, 0.75, 2.0], scale: [5.0, 1.5, 1.5], color: [0.85, 0.85, 0.82], metallic: 0.1, roughness: 0.3 }); // Marble lobby
-    // Glass entrance door
-    shapes.push({ type: 'cube', position: [0.5, 0.5, 2.77], scale: [1.5, 1.0, 0.04], color: [0.4, 0.6, 0.8], metallic: 0.9, roughness: 0.05 });
+    // === Low building — white marble lobby ===
+    shapes.push({ type: 'cube', position: [0.5, 0.75, 2.0], scale: [5.0, 1.5, 1.5], color: [0.9, 0.88, 0.85], metallic: 0.08, roughness: 0.25 });
+    // Glass entrance door (transparent)
+    shapes.push({ type: 'cube', position: [0.5, 0.5, 2.77], scale: [1.5, 1.0, 0.04], color: [0.35, 0.55, 0.75], metallic: 0.9, roughness: 0.03, alpha: 0.35 });
+
+    // === Interior glow visible through glass (emissive cubes inside buildings) ===
+    shapes.push({ type: 'cube', position: [0, 2.0, -1.5], scale: [1.5, 0.02, 1.2], color: [1.0, 0.95, 0.8], metallic: 0.0, roughness: 0.5, emissive: 1.5, emissiveColor: [1.0, 0.95, 0.8] });
+    shapes.push({ type: 'cube', position: [0, 4.0, -1.5], scale: [1.5, 0.02, 1.2], color: [1.0, 0.95, 0.8], metallic: 0.0, roughness: 0.5, emissive: 1.2, emissiveColor: [1.0, 0.95, 0.8] });
+    shapes.push({ type: 'cube', position: [-3.0, 1.5, 0.5], scale: [2.0, 0.02, 1.5], color: [0.8, 0.9, 1.0], metallic: 0.0, roughness: 0.5, emissive: 1.0, emissiveColor: [0.8, 0.9, 1.0] });
 
     // === Landscaping — trees ===
     const treePositions = [[-1.5, 0, 3.5], [2.5, 0, 3.5], [-5.0, 0, 3.0], [5.5, 0, -2.0], [-5.5, 0, -3.0], [5.0, 0, 3.5]];
     for (const [tx, , tz] of treePositions) {
-      // Trunk (brown wood)
       shapes.push({ type: 'cylinder', position: [tx, 0.5, tz], scale: [0.12, 1.0, 0.12], color: [0.35, 0.22, 0.1], metallic: 0.0, roughness: 0.8 });
-      // Canopy (green sphere)
       shapes.push({ type: 'sphere', position: [tx, 1.3, tz], scale: [0.8, 0.9, 0.8], color: [0.1, 0.42, 0.08], metallic: 0.0, roughness: 0.85 });
     }
 
-    // === Reflective water feature — decorative pool ===
-    shapes.push({ type: 'plane', position: [3.5, 0.02, -3.0], scale: [3.0, 1, 2.5], color: [0.08, 0.15, 0.35], metallic: 0.9, roughness: 0.05 });
-    // Pool edge
-    shapes.push({ type: 'cube', position: [3.5, 0.06, -1.76], scale: [3.1, 0.08, 0.08], color: [0.7, 0.7, 0.68], metallic: 0.1, roughness: 0.3 });
-    shapes.push({ type: 'cube', position: [3.5, 0.06, -4.26], scale: [3.1, 0.08, 0.08], color: [0.7, 0.7, 0.68], metallic: 0.1, roughness: 0.3 });
+    // === Reflective water feature — dark mirror pool ===
+    shapes.push({ type: 'plane', position: [3.5, 0.02, -3.0], scale: [3.0, 1, 2.5], color: [0.05, 0.1, 0.25], metallic: 0.95, roughness: 0.02 });
+    // Pool edge — polished stone
+    shapes.push({ type: 'cube', position: [3.5, 0.06, -1.76], scale: [3.1, 0.08, 0.08], color: [0.75, 0.73, 0.7], metallic: 0.1, roughness: 0.25 });
+    shapes.push({ type: 'cube', position: [3.5, 0.06, -4.26], scale: [3.1, 0.08, 0.08], color: [0.75, 0.73, 0.7], metallic: 0.1, roughness: 0.25 });
 
-    // === Street lamps ===
+    // === Street lamps with emissive globes ===
     const lampPositions = [[-1.0, 0, 4.5], [2.0, 0, 4.5], [5.5, 0, 0.5], [-5.5, 0, 0.5]];
     for (const [lx, , lz] of lampPositions) {
-      shapes.push({ type: 'cylinder', position: [lx, 1.2, lz], scale: [0.05, 2.4, 0.05], color: [0.25, 0.25, 0.25], metallic: 0.7, roughness: 0.3 });
-      shapes.push({ type: 'sphere', position: [lx, 2.5, lz], scale: [0.2, 0.15, 0.2], color: [1.0, 0.95, 0.7], metallic: 0.0, roughness: 0.3 });
+      shapes.push({ type: 'cylinder', position: [lx, 1.2, lz], scale: [0.05, 2.4, 0.05], color: [0.2, 0.2, 0.22], metallic: 0.8, roughness: 0.25 });
+      shapes.push({ type: 'sphere', position: [lx, 2.5, lz], scale: [0.2, 0.15, 0.2], color: [1.0, 0.95, 0.7], metallic: 0.0, roughness: 0.3, emissive: 2.5, emissiveColor: [1.0, 0.92, 0.6] });
     }
+
+    // === Glass sculpture in plaza ===
+    shapes.push({ type: 'torus', position: [-1, 0.8, -3.5], scale: [0.6, 0.6, 0.6], color: [0.4, 0.7, 0.9], metallic: 0.9, roughness: 0.02, alpha: 0.4 });
+    shapes.push({ type: 'sphere', position: [-1, 0.8, -3.5], scale: [0.25, 0.25, 0.25], color: [0.9, 0.4, 0.2], metallic: 1.0, roughness: 0.05, emissive: 1.0, emissiveColor: [0.9, 0.4, 0.2] });
 
     return shapes;
   })(),
@@ -653,42 +794,55 @@ const SCENES = {
   product: (function() {
     const shapes = [];
 
-    // Dark studio floor
-    shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [14, 1, 14], color: [0.04, 0.04, 0.05], metallic: 0.3, roughness: 0.4 });
+    // Dark studio floor — glossy black
+    shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [14, 1, 14], color: [0.02, 0.02, 0.03], metallic: 0.5, roughness: 0.15 });
 
-    // === Central pedestal — marble ===
-    shapes.push({ type: 'cylinder', position: [0, 0.4, 0], scale: [2.0, 0.8, 2.0], color: [0.88, 0.86, 0.82], metallic: 0.1, roughness: 0.3 });
-    // Pedestal top ring
-    shapes.push({ type: 'cylinder', position: [0, 0.82, 0], scale: [2.1, 0.04, 2.1], color: [0.92, 0.9, 0.86], metallic: 0.15, roughness: 0.25 });
-    // Pedestal base ring
-    shapes.push({ type: 'cylinder', position: [0, 0.02, 0], scale: [2.2, 0.04, 2.2], color: [0.8, 0.78, 0.74], metallic: 0.15, roughness: 0.35 });
+    // === Central pedestal — white marble with chrome details ===
+    shapes.push({ type: 'cylinder', position: [0, 0.4, 0], scale: [2.0, 0.8, 2.0], color: [0.92, 0.9, 0.86], metallic: 0.08, roughness: 0.2 });
+    // Chrome ring top
+    shapes.push({ type: 'cylinder', position: [0, 0.82, 0], scale: [2.1, 0.04, 2.1], color: [0.95, 0.93, 0.9], metallic: 1.0, roughness: 0.05 });
+    // Chrome ring base
+    shapes.push({ type: 'cylinder', position: [0, 0.02, 0], scale: [2.2, 0.04, 2.2], color: [0.85, 0.83, 0.8], metallic: 1.0, roughness: 0.08 });
 
-    // === Hero product — chrome torus (like a luxury ring) ===
-    shapes.push({ type: 'torus', position: [0, 1.6, 0], scale: [1.0, 1.0, 1.0], color: [0.95, 0.93, 0.88], metallic: 1.0, roughness: 0.08 });
+    // === Hero product — chrome torus (luxury ring) ===
+    shapes.push({ type: 'torus', position: [0, 1.6, 0], scale: [1.0, 1.0, 1.0], color: [0.97, 0.95, 0.9], metallic: 1.0, roughness: 0.03 });
 
-    // === Floating chrome sphere inside torus ===
-    shapes.push({ type: 'sphere', position: [0, 1.6, 0], scale: [0.5, 0.5, 0.5], color: [0.3, 0.5, 0.9], metallic: 1.0, roughness: 0.05 });
+    // === Floating glass sphere inside torus ===
+    shapes.push({ type: 'sphere', position: [0, 1.6, 0], scale: [0.5, 0.5, 0.5], color: [0.3, 0.5, 0.9], metallic: 0.9, roughness: 0.02, alpha: 0.45 });
+    // Inner glow
+    shapes.push({ type: 'sphere', position: [0, 1.6, 0], scale: [0.2, 0.2, 0.2], color: [0.4, 0.6, 1.0], metallic: 0.0, roughness: 0.5, emissive: 3.0, emissiveColor: [0.4, 0.6, 1.0] });
 
-    // === Secondary products on smaller pedestals ===
-    // Left pedestal + sphere
-    shapes.push({ type: 'cylinder', position: [-3.5, 0.25, 1.5], scale: [1.0, 0.5, 1.0], color: [0.85, 0.83, 0.8], metallic: 0.1, roughness: 0.3 });
-    shapes.push({ type: 'sphere', position: [-3.5, 0.8, 1.5], scale: [0.6, 0.6, 0.6], color: [0.9, 0.25, 0.2], metallic: 0.8, roughness: 0.12 });
+    // === Left pedestal + red metallic sphere ===
+    shapes.push({ type: 'cylinder', position: [-3.5, 0.25, 1.5], scale: [1.0, 0.5, 1.0], color: [0.88, 0.86, 0.83], metallic: 0.08, roughness: 0.25 });
+    shapes.push({ type: 'cylinder', position: [-3.5, 0.51, 1.5], scale: [1.05, 0.02, 1.05], color: [0.95, 0.93, 0.9], metallic: 1.0, roughness: 0.05 });
+    shapes.push({ type: 'sphere', position: [-3.5, 0.85, 1.5], scale: [0.6, 0.6, 0.6], color: [0.9, 0.15, 0.1], metallic: 0.95, roughness: 0.08 });
 
-    // Right pedestal + cube (gemstone style)
-    shapes.push({ type: 'cylinder', position: [3.5, 0.25, 1.5], scale: [1.0, 0.5, 1.0], color: [0.85, 0.83, 0.8], metallic: 0.1, roughness: 0.3 });
-    shapes.push({ type: 'cube', position: [3.5, 0.85, 1.5], scale: [0.5, 0.5, 0.5], color: [0.15, 0.8, 0.5], metallic: 0.9, roughness: 0.05 });
+    // === Right pedestal + emerald glass cube ===
+    shapes.push({ type: 'cylinder', position: [3.5, 0.25, 1.5], scale: [1.0, 0.5, 1.0], color: [0.88, 0.86, 0.83], metallic: 0.08, roughness: 0.25 });
+    shapes.push({ type: 'cylinder', position: [3.5, 0.51, 1.5], scale: [1.05, 0.02, 1.05], color: [0.95, 0.93, 0.9], metallic: 1.0, roughness: 0.05 });
+    shapes.push({ type: 'cube', position: [3.5, 0.85, 1.5], scale: [0.5, 0.5, 0.5], color: [0.1, 0.8, 0.4], metallic: 0.85, roughness: 0.03, alpha: 0.55 });
 
-    // Back pedestal + cone (crystal)
-    shapes.push({ type: 'cylinder', position: [0, 0.25, -3.5], scale: [1.0, 0.5, 1.0], color: [0.85, 0.83, 0.8], metallic: 0.1, roughness: 0.3 });
-    shapes.push({ type: 'cone', position: [0, 1.0, -3.5], scale: [0.6, 1.2, 0.6], color: [0.6, 0.3, 0.9], metallic: 0.95, roughness: 0.05 });
+    // === Back pedestal + purple crystal cone ===
+    shapes.push({ type: 'cylinder', position: [0, 0.25, -3.5], scale: [1.0, 0.5, 1.0], color: [0.88, 0.86, 0.83], metallic: 0.08, roughness: 0.25 });
+    shapes.push({ type: 'cylinder', position: [0, 0.51, -3.5], scale: [1.05, 0.02, 1.05], color: [0.95, 0.93, 0.9], metallic: 1.0, roughness: 0.05 });
+    shapes.push({ type: 'cone', position: [0, 1.0, -3.5], scale: [0.6, 1.2, 0.6], color: [0.55, 0.2, 0.85], metallic: 0.9, roughness: 0.02, alpha: 0.6 });
+    // Emissive glow at cone tip
+    shapes.push({ type: 'sphere', position: [0, 1.62, -3.5], scale: [0.08, 0.08, 0.08], color: [0.7, 0.3, 1.0], metallic: 0.0, roughness: 0.5, emissive: 4.0, emissiveColor: [0.7, 0.3, 1.0] });
 
-    // === Studio lighting accents (glowing spheres off-screen suggest spot lights) ===
-    shapes.push({ type: 'sphere', position: [-5.0, 5.0, -4.0], scale: [0.3, 0.3, 0.3], color: [1.0, 0.98, 0.9], metallic: 0.0, roughness: 0.2 });
-    shapes.push({ type: 'sphere', position: [5.0, 5.0, -4.0], scale: [0.3, 0.3, 0.3], color: [1.0, 0.98, 0.9], metallic: 0.0, roughness: 0.2 });
-    shapes.push({ type: 'sphere', position: [0, 6.0, 3.0], scale: [0.25, 0.25, 0.25], color: [0.9, 0.92, 1.0], metallic: 0.0, roughness: 0.2 });
+    // === Matte black accent cubes (product packaging vibe) ===
+    shapes.push({ type: 'cube', position: [-2.5, 0.3, -2.0], scale: [0.6, 0.6, 0.6], color: [0.05, 0.05, 0.05], metallic: 0.0, roughness: 0.95 });
+    shapes.push({ type: 'cube', position: [2.5, 0.2, -2.0], scale: [0.4, 0.4, 0.4], color: [0.05, 0.05, 0.05], metallic: 0.0, roughness: 0.95 });
 
-    // === Subtle floor reflection marks (very thin cubes) ===
-    shapes.push({ type: 'cube', position: [0, 0.003, 0], scale: [2.5, 0.002, 2.5], color: [0.08, 0.08, 0.1], metallic: 0.8, roughness: 0.1 });
+    // === Gold accent sphere ===
+    shapes.push({ type: 'sphere', position: [2.0, 0.25, -1.0], scale: [0.3, 0.3, 0.3], color: [0.95, 0.78, 0.3], metallic: 1.0, roughness: 0.15 });
+
+    // === Studio lighting accents (emissive) ===
+    shapes.push({ type: 'sphere', position: [-5.0, 5.0, -4.0], scale: [0.3, 0.3, 0.3], color: [1.0, 0.98, 0.9], metallic: 0.0, roughness: 0.2, emissive: 2.0, emissiveColor: [1.0, 0.98, 0.9] });
+    shapes.push({ type: 'sphere', position: [5.0, 5.0, -4.0], scale: [0.3, 0.3, 0.3], color: [1.0, 0.98, 0.9], metallic: 0.0, roughness: 0.2, emissive: 2.0, emissiveColor: [1.0, 0.98, 0.9] });
+    shapes.push({ type: 'sphere', position: [0, 6.0, 3.0], scale: [0.25, 0.25, 0.25], color: [0.9, 0.92, 1.0], metallic: 0.0, roughness: 0.2, emissive: 1.5, emissiveColor: [0.85, 0.9, 1.0] });
+
+    // === Subtle floor reflection ring (glossy spot) ===
+    shapes.push({ type: 'cylinder', position: [0, 0.003, 0], scale: [2.8, 0.002, 2.8], color: [0.06, 0.06, 0.08], metallic: 0.9, roughness: 0.05 });
 
     return shapes;
   })(),
@@ -696,67 +850,64 @@ const SCENES = {
   dataviz: (function() {
     const shapes = [];
 
-    // Ground plane — dark with grid
-    shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [14, 1, 14], color: [0.06, 0.07, 0.1], metallic: 0.2, roughness: 0.6 });
+    // Ground plane — dark with subtle sheen
+    shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [14, 1, 14], color: [0.05, 0.06, 0.09], metallic: 0.3, roughness: 0.4 });
 
-    // Grid lines on ground
+    // Grid lines on ground (emissive for neon look)
     for (let i = -5; i <= 5; i++) {
-      shapes.push({ type: 'cube', position: [i, 0.004, 0], scale: [0.015, 0.005, 10], color: [0.15, 0.2, 0.35], metallic: 0.3, roughness: 0.5 });
-      shapes.push({ type: 'cube', position: [0, 0.004, i], scale: [10, 0.005, 0.015], color: [0.15, 0.2, 0.35], metallic: 0.3, roughness: 0.5 });
+      shapes.push({ type: 'cube', position: [i, 0.004, 0], scale: [0.015, 0.005, 10], color: [0.1, 0.15, 0.3], metallic: 0.3, roughness: 0.5, emissive: 0.3, emissiveColor: [0.2, 0.35, 0.7] });
+      shapes.push({ type: 'cube', position: [0, 0.004, i], scale: [10, 0.005, 0.015], color: [0.1, 0.15, 0.3], metallic: 0.3, roughness: 0.5, emissive: 0.3, emissiveColor: [0.2, 0.35, 0.7] });
     }
 
-    // === 3D Bar chart ===
+    // === 3D Bar chart with glass-like bars ===
     const barData = [
-      { x: -3, z: -1, h: 4.5, color: [0.2, 0.55, 0.95] },  // Blue
-      { x: -1.5, z: -1, h: 3.2, color: [0.2, 0.55, 0.95] },
-      { x: 0, z: -1, h: 5.8, color: [0.2, 0.55, 0.95] },
-      { x: 1.5, z: -1, h: 2.5, color: [0.2, 0.55, 0.95] },
-      { x: 3, z: -1, h: 4.0, color: [0.2, 0.55, 0.95] },
+      { x: -3, z: -1, h: 4.5, color: [0.2, 0.55, 0.95], alpha: 0.7 },
+      { x: -1.5, z: -1, h: 3.2, color: [0.2, 0.55, 0.95], alpha: 0.7 },
+      { x: 0, z: -1, h: 5.8, color: [0.2, 0.55, 0.95], alpha: 0.7 },
+      { x: 1.5, z: -1, h: 2.5, color: [0.2, 0.55, 0.95], alpha: 0.7 },
+      { x: 3, z: -1, h: 4.0, color: [0.2, 0.55, 0.95], alpha: 0.7 },
 
-      { x: -3, z: 1, h: 3.0, color: [0.15, 0.75, 0.4] },   // Green
-      { x: -1.5, z: 1, h: 4.8, color: [0.15, 0.75, 0.4] },
-      { x: 0, z: 1, h: 2.2, color: [0.15, 0.75, 0.4] },
-      { x: 1.5, z: 1, h: 5.5, color: [0.15, 0.75, 0.4] },
-      { x: 3, z: 1, h: 3.8, color: [0.15, 0.75, 0.4] },
+      { x: -3, z: 1, h: 3.0, color: [0.15, 0.75, 0.4], alpha: 0.7 },
+      { x: -1.5, z: 1, h: 4.8, color: [0.15, 0.75, 0.4], alpha: 0.7 },
+      { x: 0, z: 1, h: 2.2, color: [0.15, 0.75, 0.4], alpha: 0.7 },
+      { x: 1.5, z: 1, h: 5.5, color: [0.15, 0.75, 0.4], alpha: 0.7 },
+      { x: 3, z: 1, h: 3.8, color: [0.15, 0.75, 0.4], alpha: 0.7 },
 
-      { x: -3, z: 3, h: 2.0, color: [0.95, 0.5, 0.15] },    // Orange
-      { x: -1.5, z: 3, h: 3.5, color: [0.95, 0.5, 0.15] },
-      { x: 0, z: 3, h: 4.2, color: [0.95, 0.5, 0.15] },
-      { x: 1.5, z: 3, h: 1.8, color: [0.95, 0.5, 0.15] },
-      { x: 3, z: 3, h: 3.0, color: [0.95, 0.5, 0.15] },
+      { x: -3, z: 3, h: 2.0, color: [0.95, 0.5, 0.15], alpha: 0.7 },
+      { x: -1.5, z: 3, h: 3.5, color: [0.95, 0.5, 0.15], alpha: 0.7 },
+      { x: 0, z: 3, h: 4.2, color: [0.95, 0.5, 0.15], alpha: 0.7 },
+      { x: 1.5, z: 3, h: 1.8, color: [0.95, 0.5, 0.15], alpha: 0.7 },
+      { x: 3, z: 3, h: 3.0, color: [0.95, 0.5, 0.15], alpha: 0.7 },
     ];
 
     for (const bar of barData) {
-      shapes.push({ type: 'cube', position: [bar.x, bar.h / 2, bar.z], scale: [0.8, bar.h, 0.8], color: bar.color, metallic: 0.4, roughness: 0.25 });
-      // Top cap (slightly brighter)
-      shapes.push({ type: 'cube', position: [bar.x, bar.h + 0.02, bar.z], scale: [0.82, 0.04, 0.82], color: [bar.color[0] + 0.1, bar.color[1] + 0.1, bar.color[2] + 0.1], metallic: 0.5, roughness: 0.2 });
+      // Glass bar body
+      shapes.push({ type: 'cube', position: [bar.x, bar.h / 2, bar.z], scale: [0.8, bar.h, 0.8], color: bar.color, metallic: 0.5, roughness: 0.1, alpha: bar.alpha });
+      // Emissive top cap (glowing edge)
+      shapes.push({ type: 'cube', position: [bar.x, bar.h + 0.02, bar.z], scale: [0.82, 0.04, 0.82],
+        color: [bar.color[0] + 0.1, bar.color[1] + 0.1, bar.color[2] + 0.1],
+        metallic: 0.6, roughness: 0.1,
+        emissive: 1.5, emissiveColor: bar.color });
+      // Inner glow line
+      shapes.push({ type: 'cube', position: [bar.x, bar.h * 0.5, bar.z], scale: [0.1, bar.h * 0.8, 0.1],
+        color: bar.color, metallic: 0.0, roughness: 0.5,
+        emissive: 2.0, emissiveColor: bar.color });
     }
 
-    // === Axes ===
-    // X axis
-    shapes.push({ type: 'cube', position: [0, 0.01, -2.5], scale: [8, 0.04, 0.04], color: [0.7, 0.7, 0.75], metallic: 0.5, roughness: 0.3 });
-    // Y axis
-    shapes.push({ type: 'cube', position: [-4.2, 3.0, -2.5], scale: [0.04, 6.0, 0.04], color: [0.7, 0.7, 0.75], metallic: 0.5, roughness: 0.3 });
-    // Z axis
-    shapes.push({ type: 'cube', position: [-4.2, 0.01, 1.0], scale: [0.04, 0.04, 7.0], color: [0.7, 0.7, 0.75], metallic: 0.5, roughness: 0.3 });
+    // === Axes (metallic) ===
+    shapes.push({ type: 'cube', position: [0, 0.01, -2.5], scale: [8, 0.04, 0.04], color: [0.75, 0.75, 0.8], metallic: 0.7, roughness: 0.2 });
+    shapes.push({ type: 'cube', position: [-4.2, 3.0, -2.5], scale: [0.04, 6.0, 0.04], color: [0.75, 0.75, 0.8], metallic: 0.7, roughness: 0.2 });
+    shapes.push({ type: 'cube', position: [-4.2, 0.01, 1.0], scale: [0.04, 0.04, 7.0], color: [0.75, 0.75, 0.8], metallic: 0.7, roughness: 0.2 });
 
     // Y-axis tick marks
     for (let y = 1; y <= 6; y++) {
       shapes.push({ type: 'cube', position: [-4.2, y, -2.5], scale: [0.2, 0.02, 0.02], color: [0.5, 0.5, 0.55], metallic: 0.3, roughness: 0.4 });
     }
 
-    // === Legend ===
-    // Blue legend
-    shapes.push({ type: 'cube', position: [5.5, 3.5, 0], scale: [0.4, 0.4, 0.4], color: [0.2, 0.55, 0.95], metallic: 0.4, roughness: 0.25 });
-    // Green legend
-    shapes.push({ type: 'cube', position: [5.5, 2.5, 0], scale: [0.4, 0.4, 0.4], color: [0.15, 0.75, 0.4], metallic: 0.4, roughness: 0.25 });
-    // Orange legend
-    shapes.push({ type: 'cube', position: [5.5, 1.5, 0], scale: [0.4, 0.4, 0.4], color: [0.95, 0.5, 0.15], metallic: 0.4, roughness: 0.25 });
-
-    // Legend label planes (colored indicators next to legend)
-    shapes.push({ type: 'plane', position: [6.2, 3.5, 0], scale: [0.8, 1, 0.15], color: [0.2, 0.55, 0.95], metallic: 0.0, roughness: 0.5 });
-    shapes.push({ type: 'plane', position: [6.2, 2.5, 0], scale: [0.8, 1, 0.15], color: [0.15, 0.75, 0.4], metallic: 0.0, roughness: 0.5 });
-    shapes.push({ type: 'plane', position: [6.2, 1.5, 0], scale: [0.8, 1, 0.15], color: [0.95, 0.5, 0.15], metallic: 0.0, roughness: 0.5 });
+    // === Legend with emissive accents ===
+    shapes.push({ type: 'sphere', position: [5.5, 3.5, 0], scale: [0.25, 0.25, 0.25], color: [0.2, 0.55, 0.95], metallic: 0.5, roughness: 0.15, emissive: 1.0, emissiveColor: [0.2, 0.55, 0.95] });
+    shapes.push({ type: 'sphere', position: [5.5, 2.5, 0], scale: [0.25, 0.25, 0.25], color: [0.15, 0.75, 0.4], metallic: 0.5, roughness: 0.15, emissive: 1.0, emissiveColor: [0.15, 0.75, 0.4] });
+    shapes.push({ type: 'sphere', position: [5.5, 1.5, 0], scale: [0.25, 0.25, 0.25], color: [0.95, 0.5, 0.15], metallic: 0.5, roughness: 0.15, emissive: 1.0, emissiveColor: [0.95, 0.5, 0.15] });
 
     return shapes;
   })(),
@@ -764,7 +915,7 @@ const SCENES = {
   landscape: (function() {
     const shapes = [];
 
-    // Ground — earthy green
+    // Ground — lush green
     shapes.push({ type: 'plane', position: [0, 0.001, 0], scale: [20, 1, 20], color: [0.22, 0.5, 0.15], metallic: 0.0, roughness: 0.9 });
 
     // === Rolling hills (half-buried scaled spheres) ===
@@ -789,30 +940,27 @@ const SCENES = {
     for (const [tx, , tz] of treePositions) {
       const h = 1.0 + Math.random() * 1.5;
       const tilt = (Math.random() - 0.5) * 0.1;
-      // Trunk (wood)
       shapes.push({ type: 'cylinder', position: [tx, h * 0.35, tz], scale: [0.1, h * 0.7, 0.1], color: [0.4, 0.25, 0.1], metallic: 0.0, roughness: 0.8 });
-      // Canopy (cone)
       shapes.push({ type: 'cone', position: [tx + tilt, h * 0.7 + 0.4, tz], scale: [0.6 + Math.random() * 0.3, h * 0.7, 0.6 + Math.random() * 0.3], color: [0.08 + Math.random() * 0.1, 0.35 + Math.random() * 0.2, 0.05], metallic: 0.0, roughness: 0.85 });
     }
 
-    // === Lake / water ===
-    shapes.push({ type: 'plane', position: [3, 0.015, 0], scale: [4.0, 1, 3.5], color: [0.08, 0.2, 0.55], metallic: 0.9, roughness: 0.05 });
-    // Shore stones
+    // === Lake / water — glossy mirror ===
+    shapes.push({ type: 'plane', position: [3, 0.015, 0], scale: [4.0, 1, 3.5], color: [0.05, 0.15, 0.45], metallic: 0.95, roughness: 0.02 });
+
+    // Shore stones — matte rock
     const stonePositions = [[1.2, 0.05, -1.5], [1.0, 0.04, 1.3], [4.8, 0.06, -1.2], [5.1, 0.05, 1.5], [1.5, 0.05, 0.5]];
     for (const [sx, sy, sz] of stonePositions) {
       const ss = 0.1 + Math.random() * 0.15;
       shapes.push({ type: 'sphere', position: [sx, sy, sz], scale: [ss, ss * 0.6, ss], color: [0.45, 0.43, 0.4], metallic: 0.0, roughness: 0.8 });
     }
 
-    // === Sun in the sky ===
-    shapes.push({ type: 'sphere', position: [-6, 8, -8], scale: [1.5, 1.5, 1.5], color: [1.0, 0.9, 0.4], metallic: 0.0, roughness: 0.2 });
+    // === Sun in the sky — emissive ===
+    shapes.push({ type: 'sphere', position: [-6, 8, -8], scale: [1.5, 1.5, 1.5], color: [1.0, 0.92, 0.5], metallic: 0.0, roughness: 0.2, emissive: 5.0, emissiveColor: [1.0, 0.9, 0.4] });
 
     // === Small bridge over water ===
     shapes.push({ type: 'cube', position: [3, 0.25, 0], scale: [0.6, 0.08, 3.8], color: [0.45, 0.28, 0.12], metallic: 0.0, roughness: 0.8 });
-    // Bridge railings
     shapes.push({ type: 'cube', position: [2.7, 0.4, 0], scale: [0.04, 0.3, 3.8], color: [0.4, 0.25, 0.1], metallic: 0.0, roughness: 0.8 });
     shapes.push({ type: 'cube', position: [3.3, 0.4, 0], scale: [0.04, 0.3, 3.8], color: [0.4, 0.25, 0.1], metallic: 0.0, roughness: 0.8 });
-    // Bridge posts
     for (let bp = -1.5; bp <= 1.5; bp += 1.0) {
       shapes.push({ type: 'cylinder', position: [2.7, 0.35, bp], scale: [0.04, 0.5, 0.04], color: [0.4, 0.25, 0.1], metallic: 0.0, roughness: 0.8 });
       shapes.push({ type: 'cylinder', position: [3.3, 0.35, bp], scale: [0.04, 0.5, 0.04], color: [0.4, 0.25, 0.1], metallic: 0.0, roughness: 0.8 });
@@ -824,11 +972,15 @@ const SCENES = {
     shapes.push({ type: 'sphere', position: [4, 6.5, -6], scale: [2.5, 0.6, 1.8], color: [0.93, 0.93, 0.96], metallic: 0.0, roughness: 0.9 });
     shapes.push({ type: 'sphere', position: [5, 6.8, -5.5], scale: [1.8, 0.4, 1.3], color: [0.9, 0.9, 0.94], metallic: 0.0, roughness: 0.9 });
 
+    // === Crystal formation by the lake (glass + emissive) ===
+    shapes.push({ type: 'cone', position: [5.5, 0.4, -0.5], scale: [0.2, 0.8, 0.2], color: [0.4, 0.7, 0.95], metallic: 0.8, roughness: 0.02, alpha: 0.55 });
+    shapes.push({ type: 'cone', position: [5.8, 0.3, -0.2], scale: [0.15, 0.6, 0.15], color: [0.5, 0.8, 1.0], metallic: 0.8, roughness: 0.02, alpha: 0.5 });
+    shapes.push({ type: 'cone', position: [5.3, 0.25, 0.1], scale: [0.12, 0.5, 0.12], color: [0.6, 0.85, 1.0], metallic: 0.8, roughness: 0.02, alpha: 0.45, emissive: 0.5, emissiveColor: [0.5, 0.8, 1.0] });
+
     // === Flowers (tiny colored spheres near ground) ===
     for (let fi = 0; fi < 20; fi++) {
       const fx = -7 + Math.random() * 14;
       const fz = -7 + Math.random() * 14;
-      // Skip if on water
       if (fx > 1 && fx < 5 && fz > -1.75 && fz < 1.75) continue;
       const fcolors = [[0.9, 0.2, 0.3], [0.95, 0.85, 0.15], [0.85, 0.4, 0.7], [0.95, 0.6, 0.1]];
       const fc = fcolors[fi % fcolors.length];
@@ -854,9 +1006,9 @@ function hslToRgb(h, s, l) {
 
 let sceneShapes = [];
 let currentPreset = 'architecture';
-let animatedShapes = []; // indices of shapes that should animate
+let animatedShapes = [];
 
-// Camera orbit state (must be declared before loadScene uses them)
+// Camera orbit state
 let orbitTheta = 0.5, orbitPhi = 0.6, orbitDist = 12;
 let targetTheta = orbitTheta, targetPhi = orbitPhi, targetDist = orbitDist;
 let autoRotate = true;
@@ -864,14 +1016,12 @@ let isDragging = false, lastX = 0, lastY = 0;
 
 function loadScene(name) {
   currentPreset = name;
-  sceneShapes = JSON.parse(JSON.stringify(SCENES[name] || SCENES.city));
+  sceneShapes = JSON.parse(JSON.stringify(SCENES[name] || SCENES.architecture));
   animatedShapes = [];
   updateShapeCount();
-  // Update preset buttons
   document.querySelectorAll('.presets button').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.scene === name);
   });
-  // Reset camera for different scenes
   if (name === 'product') { targetDist = 10; targetPhi = 0.7; targetTheta = 0.4; }
   else if (name === 'dataviz') { targetDist = 14; targetPhi = 0.55; targetTheta = -0.3; }
   else if (name === 'landscape') { targetDist = 14; targetPhi = 0.6; targetTheta = 0.5; }
@@ -895,7 +1045,6 @@ function addUserShape() {
   const metallic = document.getElementById('metalSlider').value / 100;
   const roughness = document.getElementById('roughSlider').value / 100;
 
-  // Place shape at a random position near center, slightly above ground
   const x = (Math.random() - 0.5) * 6;
   const z = (Math.random() - 0.5) * 6;
   const s = 0.5 + Math.random() * 0.8;
@@ -918,7 +1067,6 @@ function openClaude() {
   window.open('https://claude.ai/new?q=' + prompt, '_blank');
 }
 
-// Initialize with architecture scene
 loadScene('architecture');
 
 // ── Camera orbit controls ────────────────────────────────────────────────────
@@ -1003,25 +1151,69 @@ function render(time) {
   gl.bindVertexArray(gridMesh.vao);
   gl.drawElements(gl.LINES, gridMesh.count, gl.UNSIGNED_SHORT, 0);
 
-  // Draw each shape
+  // Draw soft shadows on ground plane
+  gl.useProgram(shadowProg);
+  gl.depthMask(false); // Don't write to depth for shadow blending
+  const shadowModel = mat4Translate(0, 0.002, 0);
+  gl.uniformMatrix4fv(shadowLoc.uMVP, false, mat4Multiply(vp, shadowModel));
+  gl.uniformMatrix4fv(shadowLoc.uModel, false, shadowModel);
+  gl.bindVertexArray(shadowPlaneMesh.vao);
+
+  for (let si = 0; si < sceneShapes.length; si++) {
+    const shape = sceneShapes[si];
+    const p = shape.position || [0, 0, 0];
+    const s = shape.scale || [1, 1, 1];
+    // Only cast shadows for objects above ground
+    if (p[1] > 0.05 && shape.type !== 'plane') {
+      const shadowRadius = Math.max(s[0], s[2]) * 0.8 + p[1] * 0.3;
+      const shadowIntensity = Math.min(0.35, 0.15 + (1.0 / (1.0 + p[1] * 0.5)) * 0.2);
+      gl.uniform3fv(shadowLoc.uShadowCenter, [p[0], 0, p[2]]);
+      gl.uniform1f(shadowLoc.uShadowRadius, shadowRadius);
+      gl.uniform1f(shadowLoc.uShadowIntensity, shadowIntensity * (shape.alpha != null && shape.alpha < 0.5 ? 0.3 : 1.0));
+      gl.drawElements(gl.TRIANGLES, shadowPlaneMesh.count, gl.UNSIGNED_SHORT, 0);
+    }
+  }
+  gl.depthMask(true);
+
+  // Separate opaque and transparent shapes for proper rendering order
+  const opaqueShapes = [];
+  const transparentShapes = [];
+  for (let si = 0; si < sceneShapes.length; si++) {
+    const shape = sceneShapes[si];
+    if (shape.alpha != null && shape.alpha < 0.95) {
+      transparentShapes.push(si);
+    } else {
+      opaqueShapes.push(si);
+    }
+  }
+
+  // Sort transparent shapes back-to-front
+  transparentShapes.sort((a, b) => {
+    const pa = sceneShapes[a].position || [0,0,0];
+    const pb = sceneShapes[b].position || [0,0,0];
+    const da = (pa[0]-camX)**2 + (pa[1]-camY)**2 + (pa[2]-camZ)**2;
+    const db = (pb[0]-camX)**2 + (pb[1]-camY)**2 + (pb[2]-camZ)**2;
+    return db - da;
+  });
+
+  // Draw shapes helper
   gl.useProgram(prog);
   gl.uniform3fv(loc.uCamPos, camPos);
   gl.uniform1f(loc.uTime, t);
 
-  for (let si = 0; si < sceneShapes.length; si++) {
+  function drawShape(si) {
     const shape = sceneShapes[si];
     const mesh = prototypes[shape.type];
-    if (!mesh) continue;
+    if (!mesh) return;
 
     let p = shape.position || [0, 0, 0];
     const s = shape.scale || [1, 1, 1];
 
-    // Animate newly added shapes (drop in from above)
     const anim = animatedShapes.find(a => a.idx === si);
     if (anim) {
       const elapsed = t - anim.startTime;
       if (elapsed < 1.0) {
-        const ease = 1 - Math.pow(1 - elapsed, 3); // ease-out cubic
+        const ease = 1 - Math.pow(1 - elapsed, 3);
         const bounce = Math.sin(elapsed * Math.PI * 2) * 0.1 * (1 - elapsed);
         p = [p[0], anim.fromY + (p[1] - anim.fromY) * ease + bounce, p[2]];
       }
@@ -1037,10 +1229,18 @@ function render(time) {
     gl.uniform3fv(loc.uBaseColor, shape.color || [0.8, 0.8, 0.8]);
     gl.uniform1f(loc.uMetallic, shape.metallic ?? 0.0);
     gl.uniform1f(loc.uRoughness, shape.roughness ?? 0.5);
+    gl.uniform1f(loc.uAlpha, shape.alpha ?? 1.0);
+    gl.uniform1f(loc.uEmissiveIntensity, shape.emissive ?? 0.0);
+    gl.uniform3fv(loc.uEmissiveColor, shape.emissiveColor || [0, 0, 0]);
 
     gl.bindVertexArray(mesh.vao);
     gl.drawElements(mesh.mode, mesh.count, gl.UNSIGNED_SHORT, 0);
   }
+
+  // Draw opaque shapes first
+  for (const si of opaqueShapes) drawShape(si);
+  // Then transparent shapes (back to front)
+  for (const si of transparentShapes) drawShape(si);
 
   if (!loadingHidden) {
     loadingHidden = true;
