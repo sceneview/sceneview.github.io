@@ -1,18 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SceneView — One SDK, Every Screen</title>
-    <meta name="description" content="SceneView renders 3D natively on Android, iOS, macOS, visionOS, Web, TV, Flutter, and React Native — one API, every platform.">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sceneview.github.io/platforms-showcase.html">
-    <meta property="og:title" content="SceneView — One SDK, Every Screen">
-    <meta property="og:description" content="Native 3D rendering on Android, iOS, macOS, visionOS, Web, TV, Flutter, React Native.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sceneview.github.io/platforms-showcase.html">
-    <meta property="og:image" content="https://sceneview.github.io/favicon.svg">
-    <meta name="twitter:card" content="summary">
+    <meta name="description" content="SceneView renders 3D natively on Android, iOS, macOS, visionOS, Web, TV, Flutter, React Native, and Claude.">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,54 +14,13 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --blue: #1565C0;
-            --blue-light: #1E88E5;
-            --blue-glow: rgba(21, 101, 192, 0.2);
-            --bg: #f5f7fa;
-            --bg-card: #ffffff;
-            --text: #1a1a2e;
-            --text-dim: #64748b;
-            --text-muted: #94a3b8;
-            --bezel: #e2e8f0;
-            --bezel-edge: #cbd5e1;
-            --border: rgba(0,0,0,0.08);
-            --radius: 16px;
-            --shadow: 0 4px 24px rgba(0,0,0,0.08);
-            --shadow-lg: 0 12px 48px rgba(0,0,0,0.12);
-        }
-
-        [data-theme="dark"] {
-            --blue: #4285f4;
-            --blue-light: #5e9cff;
-            --blue-glow: rgba(66, 133, 244, 0.3);
             --bg: #0a0e1a;
-            --bg-card: #12172a;
+            --surface: #12172a;
+            --border: rgba(255,255,255,0.06);
             --text: #e8eaf6;
             --text-dim: #8892b0;
-            --text-muted: #5a6580;
-            --bezel: #1c2033;
-            --bezel-edge: #2a3050;
-            --border: rgba(255,255,255,0.06);
-            --shadow: 0 4px 24px rgba(0,0,0,0.3);
-            --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) {
-                --blue: #4285f4;
-                --blue-light: #5e9cff;
-                --blue-glow: rgba(66, 133, 244, 0.3);
-                --bg: #0a0e1a;
-                --bg-card: #12172a;
-                --text: #e8eaf6;
-                --text-dim: #8892b0;
-                --text-muted: #5a6580;
-                --bezel: #1c2033;
-                --bezel-edge: #2a3050;
-                --border: rgba(255,255,255,0.06);
-                --shadow: 0 4px 24px rgba(0,0,0,0.3);
-                --shadow-lg: 0 12px 48px rgba(0,0,0,0.5);
-            }
+            --blue: #4285f4;
+            --amber: #d97756;
         }
 
         html { scroll-behavior: smooth; }
@@ -79,82 +30,96 @@
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
-            overflow-x: hidden;
         }
+
+        /* ── Nav ── */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            border-bottom: 1px solid var(--border);
+        }
+        nav a { color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+        nav a:hover { color: var(--text); }
+        .nav-logo { color: var(--text); font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .nav-links { display: flex; gap: 24px; }
 
         /* ── Hero ── */
         .hero {
             text-align: center;
-            padding: 120px 24px 40px;
-            position: relative;
+            padding: 60px 24px 20px;
         }
         .hero h1 {
-            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-size: clamp(2rem, 4vw, 3rem);
             font-weight: 900;
             letter-spacing: -0.03em;
-            color: var(--text);
-            margin-bottom: 16px;
         }
-        .hero h1 span {
-            color: var(--blue);
-        }
+        .hero h1 span { color: var(--blue); }
         .hero p {
-            font-size: clamp(1rem, 2vw, 1.25rem);
             color: var(--text-dim);
-            font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto;
+            margin-top: 12px;
+            font-size: 1rem;
         }
 
-        /* ── Grid ── */
-        .grid {
+        /* ── Main shelf — all devices on one "table" ── */
+        .shelf {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px;
+        }
+
+        /* Row 1: phones side by side */
+        .shelf__phones {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        /* Row 2: wide devices */
+        .shelf__wide {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 48px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 32px 100px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-bottom: 48px;
         }
 
-        /* ── Device card ── */
-        .device-card {
+        /* ── Device wrapper ── */
+        .device {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 10px;
         }
-        .device-label {
-            font-size: 0.85rem;
+
+        .device__label {
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--text);
+            color: var(--text-dim);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
-        .device-label .icon {
-            font-size: 1.1rem;
-        }
-        .device-label .badge {
-            font-size: 0.6rem;
-            background: rgba(21,101,192,0.1);
-            border: 1px solid rgba(21,101,192,0.2);
-            padding: 2px 8px;
-            border-radius: 999px;
-            color: var(--blue);
-            text-transform: uppercase;
+
+        .device__badge {
+            font-size: 0.55rem;
+            padding: 1px 6px;
+            border-radius: 4px;
             font-weight: 600;
+            text-transform: uppercase;
         }
-        [data-theme="dark"] .device-label .badge {
-            background: rgba(66,133,244,0.15);
-            border-color: rgba(66,133,244,0.3);
-            color: var(--blue-light);
-        }
-        .device-sublabel {
-            font-size: 0.8rem;
+        .device__badge--stable { background: rgba(66,133,244,0.15); color: var(--blue); }
+        .device__badge--alpha { background: rgba(255,255,255,0.08); color: var(--text-dim); }
+        .device__badge--ai { background: rgba(217,119,86,0.15); color: var(--amber); }
+
+        .device__tech {
+            font-size: 0.7rem;
             color: var(--text-dim);
-            font-weight: 500;
+            opacity: 0.7;
         }
 
         model-viewer {
@@ -165,808 +130,401 @@
         }
 
         /* ══════════════════════════
-           DEVICE FRAMES
+           COMPACT DEVICE FRAMES
            ══════════════════════════ */
 
-        /* ── Android Phone ── */
-        .android-phone {
-            width: 260px;
-            height: 520px;
-            background: #1a1a2e;
-            border-radius: 28px;
-            padding: 8px;
+        /* ── Phone (shared) ── */
+        .phone {
+            width: 160px;
+            height: 320px;
+            border-radius: 24px;
+            padding: 6px;
             position: relative;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
         }
-        .android-phone .screen {
+        .phone .screen {
             width: 100%;
             height: 100%;
-            background: #000;
-            border-radius: 20px;
+            border-radius: 18px;
             overflow: hidden;
-            position: relative;
+            background: #000;
             display: flex;
             flex-direction: column;
         }
-        .android-phone .status-bar {
-            height: 28px;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            font-size: 10px;
-            color: #fff;
-            flex-shrink: 0;
-            z-index: 2;
-        }
-        .android-phone .status-bar .time { font-weight: 600; }
-        .android-phone .status-icons {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
-        .android-phone .status-icons .dot {
-            width: 4px; height: 4px;
-            background: #fff;
-            border-radius: 50%;
-        }
-        .android-phone .status-icons .battery {
-            width: 16px; height: 8px;
-            border: 1.5px solid #fff;
-            border-radius: 2px;
-            position: relative;
-        }
-        .android-phone .status-icons .battery::after {
-            content: '';
-            position: absolute;
-            left: 2px; top: 2px;
-            width: 8px; height: 2px;
-            background: #4caf50;
-            border-radius: 1px;
-        }
-        .android-phone .mv-wrap {
+        .phone .screen model-viewer {
             flex: 1;
-            position: relative;
-        }
-        .android-phone .nav-pills {
-            height: 24px;
-            background: rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            z-index: 2;
-        }
-        .android-phone .nav-pills .pill {
-            width: 40px; height: 4px;
-            background: rgba(255,255,255,0.5);
-            border-radius: 2px;
+            background: linear-gradient(180deg, #1a1a2e, #0d0d1a);
         }
 
-        /* ── iPhone ── */
-        .iphone {
-            width: 260px;
-            height: 530px;
-            background: #2c2c2e;
-            border-radius: 40px;
-            padding: 8px;
-            position: relative;
-            box-shadow: var(--shadow-lg);
-        }
-        .iphone .screen {
-            width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 32px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-        .iphone .dynamic-island {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 28px;
-            background: #000;
-            border-radius: 14px;
-            z-index: 10;
-        }
-        .iphone .status-bar {
-            height: 44px;
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            padding: 0 24px 6px;
-            font-size: 11px;
+        .phone--android { background: #1a1a2e; }
+        .phone--ios { background: #2c2c2e; }
+
+        /* Tiny status bar */
+        .phone .sbar {
+            height: 20px;
+            font-size: 8px;
             font-weight: 600;
             color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
             flex-shrink: 0;
-            z-index: 5;
         }
-        .iphone .mv-wrap {
-            flex: 1;
-            position: relative;
+
+        /* Dynamic Island */
+        .phone--ios .di {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 18px;
+            background: #000;
+            border-radius: 9px;
+            z-index: 10;
         }
-        .iphone .home-indicator {
-            height: 24px;
+        .phone--ios .sbar { height: 32px; padding-top: 8px; }
+
+        /* Nav pill */
+        .phone .nav-pill {
+            height: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            z-index: 5;
         }
-        .iphone .home-indicator .pill {
-            width: 100px; height: 4px;
+        .phone .nav-pill span {
+            width: 32px;
+            height: 3px;
             background: rgba(255,255,255,0.4);
             border-radius: 2px;
         }
 
-        /* ── macOS / Claude Desktop ── */
-        .macos-window {
-            width: 480px;
-            height: 340px;
-            background: var(--bg-card);
+        /* ── Browser window ── */
+        .browser {
+            width: 100%;
+            background: var(--surface);
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
-        .macos-window .titlebar {
-            height: 38px;
-            background: linear-gradient(180deg, #f6f6f6 0%, #e8e8e8 100%);
-            display: flex;
-            align-items: center;
-            padding: 0 14px;
-            gap: 8px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            position: relative;
-        }
-        [data-theme="dark"] .macos-window .titlebar {
-            background: linear-gradient(180deg, #3a3a3c 0%, #2c2c2e 100%);
-            border-bottom-color: rgba(0,0,0,0.3);
-        }
-        .macos-window .dots {
-            display: flex;
-            gap: 6px;
-        }
-        .macos-window .dots span {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        .macos-window .dots .d-close { background: #ff5f57; }
-        .macos-window .dots .d-min { background: #febc2e; }
-        .macos-window .dots .d-max { background: #28c840; }
-        .macos-window .titlebar-text {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-dim);
-        }
-        .macos-window .viewport {
-            height: calc(100% - 38px);
-            background: #000;
-            position: relative;
-        }
-
-        /* Claude Desktop specific */
-        .claude-window .titlebar {
-            background: linear-gradient(180deg, #fef3e6 0%, #fde8d0 100%);
-        }
-        [data-theme="dark"] .claude-window .titlebar {
-            background: linear-gradient(180deg, #2d2520 0%, #231d18 100%);
-        }
-        .claude-window .titlebar-text {
-            color: #c4704b;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .claude-window .claude-icon {
-            width: 16px;
-            height: 16px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .claude-window .viewport {
-            background: #1a1520;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            font-size: 13px;
-            color: #d4c8b8;
-            gap: 12px;
-            overflow: hidden;
-        }
-        .claude-window .claude-msg {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-        }
-        .claude-window .claude-avatar {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, #d97756, #c4704b);
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: white;
-            font-weight: 700;
-        }
-        .claude-window .claude-bubble {
-            background: rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 12px 16px;
-            line-height: 1.5;
-            max-width: 380px;
-        }
-        .claude-window .claude-bubble code {
+        .browser .toolbar {
+            height: 32px;
             background: rgba(0,0,0,0.3);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            color: #e8b87a;
-        }
-        .claude-window .code-block {
-            background: rgba(0,0,0,0.4);
-            border-radius: 8px;
-            padding: 12px 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            line-height: 1.6;
-            color: #c8d4e0;
-            overflow: hidden;
-        }
-        .claude-window .code-block .kw { color: #c792ea; }
-        .claude-window .code-block .fn { color: #82aaff; }
-        .claude-window .code-block .str { color: #c3e88d; }
-        .claude-window .code-block .cmt { color: #546e7a; }
-
-        /* ── Vision Pro ── */
-        .vision-pro {
-            width: 440px;
-            height: 260px;
-            background: linear-gradient(
-                135deg,
-                rgba(200,200,210,0.3) 0%,
-                rgba(180,180,190,0.15) 50%,
-                rgba(200,200,210,0.25) 100%
-            );
-            border-radius: 50px;
-            padding: 16px;
-            position: relative;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid rgba(0,0,0,0.08);
-        }
-        [data-theme="dark"] .vision-pro {
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0.12) 0%,
-                rgba(255,255,255,0.04) 50%,
-                rgba(255,255,255,0.08) 100%
-            );
-            border-color: rgba(255,255,255,0.15);
-        }
-        .vision-pro .screen {
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            border-radius: 36px;
-            overflow: hidden;
-            position: relative;
-        }
-        .vision-pro .window-controls {
-            position: absolute;
-            bottom: 10px; left: 50%;
-            transform: translateX(-50%);
             display: flex;
-            gap: 16px;
-            z-index: 5;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
         }
-        .vision-pro .window-controls .ctl {
-            width: 6px; height: 6px;
-            background: rgba(255,255,255,0.3);
+        .browser .dots { display: flex; gap: 5px; }
+        .browser .dots span {
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
+        }
+        .browser .dots .r { background: #ff5f57; }
+        .browser .dots .y { background: #ffbd2e; }
+        .browser .dots .g { background: #28c940; }
+        .browser .url {
+            flex: 1;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            background: rgba(255,255,255,0.05);
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+        .browser .viewport {
+            height: 180px;
+            position: relative;
+        }
+        .browser .viewport model-viewer {
+            background: linear-gradient(180deg, #12172a, #0a0e1a);
         }
 
         /* ── TV ── */
-        .tv {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .tv .frame {
-            width: 480px;
-            height: 280px;
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 10px;
-            position: relative;
-            box-shadow: var(--shadow-lg);
-        }
-        .tv .screen {
+        .tv-frame {
             width: 100%;
-            height: 100%;
-            background: #000;
-            border-radius: 4px;
+            background: #1c2033;
+            border-radius: 8px;
             overflow: hidden;
-            position: relative;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            border: 2px solid #2a3050;
         }
-        .tv .stand {
-            width: 180px;
+        .tv-frame .screen {
+            height: 180px;
+        }
+        .tv-frame model-viewer {
+            background: linear-gradient(180deg, #0d1a2a, #060d1a);
+        }
+        .tv-stand {
+            width: 60px;
             height: 4px;
-            background: linear-gradient(180deg, #333, #1a1a1a);
+            background: #2a3050;
+            margin: 0 auto;
             border-radius: 0 0 4px 4px;
-            margin-top: -1px;
-        }
-        .tv .stand-leg {
-            width: 260px;
-            height: 6px;
-            background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
-            border-radius: 3px;
-            margin-top: 2px;
-        }
-        .tv .logo-dot {
-            position: absolute;
-            bottom: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 5px;
-            height: 5px;
-            background: var(--blue);
-            border-radius: 50%;
-            z-index: 3;
-            box-shadow: 0 0 6px var(--blue-glow);
         }
 
-        /* ── Desktop Browser ── */
-        .browser {
-            width: 480px;
-            height: 340px;
-            background: var(--bg-card);
+        /* ── Claude Desktop ── */
+        .claude-win {
+            width: 100%;
+            background: var(--surface);
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(217,119,86,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
-        .browser .toolbar {
-            height: 38px;
-            background: linear-gradient(180deg, #f6f6f6 0%, #e8e8e8 100%);
+        .claude-win .toolbar {
+            height: 32px;
+            background: rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
-            padding: 0 14px;
+            padding: 0 12px;
             gap: 8px;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(217,119,86,0.15);
         }
-        [data-theme="dark"] .browser .toolbar {
-            background: linear-gradient(180deg, #2a2f42 0%, #1a1f33 100%);
-            border-bottom-color: rgba(255,255,255,0.06);
+        .claude-win .claude-title {
+            font-size: 0.75rem;
+            color: var(--amber);
+            font-weight: 600;
         }
-        .browser .dots {
+        .claude-win .chat {
+            padding: 16px;
+            height: 180px;
             display: flex;
-            gap: 6px;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.75rem;
+            line-height: 1.5;
         }
-        .browser .dots span {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .claude-msg {
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
         }
-        .browser .dots .d-close { background: #ff5f57; }
-        .browser .dots .d-min { background: #febc2e; }
-        .browser .dots .d-max { background: #28c840; }
-        .browser .tab {
-            background: rgba(0,0,0,0.05);
-            padding: 4px 14px;
-            border-radius: 6px 6px 0 0;
-            font-size: 10px;
-            color: var(--text-dim);
-            margin-left: 8px;
-        }
-        [data-theme="dark"] .browser .tab {
-            background: rgba(255,255,255,0.06);
-        }
-        .browser .address-bar {
-            flex: 1;
-            margin-left: 12px;
-            height: 24px;
-            background: rgba(0,0,0,0.06);
+        .claude-avatar {
+            width: 22px;
+            height: 22px;
+            background: var(--amber);
             border-radius: 6px;
             display: flex;
             align-items: center;
-            padding: 0 10px;
-            font-size: 10px;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .claude-bubble {
+            background: rgba(217,119,86,0.08);
+            border: 1px solid rgba(217,119,86,0.15);
+            border-radius: 8px;
+            padding: 8px 12px;
             color: var(--text-dim);
         }
-        [data-theme="dark"] .browser .address-bar {
-            background: rgba(0,0,0,0.3);
+        .claude-bubble code {
+            color: var(--amber);
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
         }
-        .browser .address-bar .lock {
-            margin-right: 6px;
-            font-size: 8px;
+        .claude-code {
+            background: rgba(0,0,0,0.4);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.65rem;
+            line-height: 1.6;
+            color: #d4d4d4;
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        .browser .viewport {
-            height: calc(100% - 38px);
-            background: #000;
+        .claude-code .kw { color: #569cd6; }
+        .claude-code .fn { color: #dcdcaa; }
+        .claude-code .str { color: #ce9178; }
+
+        /* ── Vision Pro ── */
+        .visionpro {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(30,30,60,0.8), rgba(10,10,30,0.95));
+            border-radius: 40px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             position: relative;
         }
-
-        /* ── Wide cards span 2 columns ── */
-        .wide { grid-column: span 2; }
-
-        @media (max-width: 900px) {
-            .wide { grid-column: span 1; }
-            .vision-pro, .tv .frame, .browser, .macos-window {
-                width: 100%;
-                max-width: 480px;
-            }
-            .grid { gap: 40px; padding: 24px 16px 80px; }
+        .visionpro model-viewer {
+            background: transparent !important;
         }
 
-        @media (max-width: 600px) {
-            .android-phone, .iphone {
-                width: 220px;
-            }
-            .android-phone { height: 440px; }
-            .iphone { height: 450px; }
-        }
-
-        /* ── Footer ── */
-        .footer {
+        /* ── Back link ── */
+        .back {
             text-align: center;
-            padding: 40px 24px 60px;
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border);
+            padding: 0 24px 60px;
         }
-        .footer a {
+        .back a {
             color: var(--blue);
             text-decoration: none;
-        }
-
-        /* ── Navigation ── */
-        .top-nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 64px;
-            z-index: 100;
-            background: rgba(245, 247, 250, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
-        [data-theme="dark"] .top-nav {
-            background: rgba(10, 14, 26, 0.85);
-        }
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme="light"]) .top-nav {
-                background: rgba(10, 14, 26, 0.85);
-            }
-        }
-        .top-nav__inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .top-nav__logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--blue);
-            font-weight: 700;
-            font-size: 1.125rem;
-            text-decoration: none;
-        }
-        .top-nav__links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-        .top-nav__links a {
-            color: var(--text-dim);
-            text-decoration: none;
+            font-weight: 600;
             font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
         }
-        .top-nav__links a:hover { color: var(--text); }
-        .top-nav__links a.active { color: var(--blue); font-weight: 600; }
-        .top-nav__links a.pro { color: #34a853; font-weight: 600; }
-        @media (max-width: 768px) {
-            .top-nav__links { display: none; }
+        .back a:hover { text-decoration: underline; }
+
+        /* ── Responsive ── */
+        @media (max-width: 700px) {
+            .shelf__phones { flex-direction: column; align-items: center; gap: 32px; }
+            .phone { width: 140px; height: 280px; }
         }
 
         /* ── Theme toggle ── */
-        .theme-toggle {
-            width: 36px; height: 36px;
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            background: var(--bg-card);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: var(--text-dim);
-            transition: all 0.2s;
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #f5f7fa;
+                --surface: #ffffff;
+                --border: rgba(0,0,0,0.08);
+                --text: #1a1a2e;
+                --text-dim: #64748b;
+            }
+            .phone--android { background: #e2e8f0; }
+            .phone--ios { background: #d1d5db; }
+            .tv-frame { background: #e2e8f0; border-color: #cbd5e1; }
+            .tv-stand { background: #cbd5e1; }
         }
-        .theme-toggle:hover { border-color: var(--blue); color: var(--blue); }
     </style>
 </head>
 <body>
 
-<nav class="top-nav">
-    <div class="top-nav__inner">
-        <a href="/" class="top-nav__logo">
-            <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
-                <rect width="32" height="32" rx="8" fill="currentColor"/>
-                <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-            </svg>
-            SceneView
-        </a>
-        <div class="top-nav__links">
-            <a href="/showcase.html">Showcase</a>
-            <a href="/platforms-showcase.html" class="active">Platforms</a>
-            <a href="/#demos">Demos</a>
-            <a href="/playground.html">Playground</a>
-            <a href="https://github.com/sceneview/sceneview#readme">Docs</a>
-            <a href="https://github.com/sceneview/sceneview">GitHub</a>
-            <a href="https://discord.gg/sceneview">Discord</a>
-            <a href="/#pro" class="pro">Pro</a>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" id="themeBtn"></button>
-        </div>
+<!-- Nav -->
+<nav>
+    <a href="/" class="nav-logo">
+        <img src="favicon.svg" width="28" height="28" alt="SceneView">
+        SceneView
+    </a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/showcase.html">Showcase</a>
+        <a href="/playground.html">Playground</a>
+        <a href="https://github.com/sceneview/sceneview">GitHub</a>
     </div>
 </nav>
 
+<!-- Hero -->
 <section class="hero">
     <h1>One SDK, <span>Every Screen</span></h1>
     <p>Native 3D rendering on 7 platforms &mdash; interact with each device below</p>
 </section>
 
-<div class="grid">
+<!-- Shelf: all devices together -->
+<section class="shelf">
 
-    <!-- ── Android Phone ── -->
-    <div class="device-card">
-        <div class="device-label">
-            <span class="icon">&#x1F4F1;</span> Android
-            <span class="badge">Stable</span>
-        </div>
-        <div class="android-phone">
-            <div class="screen">
-                <div class="status-bar">
-                    <span class="time">9:41</span>
-                    <div class="status-icons">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="battery"></div>
-                    </div>
-                </div>
-                <div class="mv-wrap">
-                    <model-viewer
-                        src="models/platforms/DamagedHelmet.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1"
-                        environment-image="neutral"
-                        camera-orbit="30deg 75deg auto"
-                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
-                    ></model-viewer>
-                </div>
-                <div class="nav-pills">
-                    <div class="pill"></div>
-                </div>
-            </div>
-        </div>
-        <div class="device-sublabel">Jetpack Compose + Filament</div>
-    </div>
-
-    <!-- ── iPhone ── -->
-    <div class="device-card">
-        <div class="device-label">
-            <span class="icon">&#x1F4F1;</span> iPhone
-            <span class="badge">Alpha</span>
-        </div>
-        <div class="iphone">
-            <div class="screen">
-                <div class="dynamic-island"></div>
-                <div class="status-bar">
-                    <span>9:41</span>
-                    <span></span>
-                </div>
-                <div class="mv-wrap">
-                    <model-viewer
-                        src="models/platforms/SunglassesKhronos.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1"
-                        environment-image="neutral"
-                        camera-orbit="20deg 80deg auto"
-                        style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"
-                    ></model-viewer>
-                </div>
-                <div class="home-indicator">
-                    <div class="pill"></div>
-                </div>
-            </div>
-        </div>
-        <div class="device-sublabel">SwiftUI + RealityKit</div>
-    </div>
-
-    <!-- ── Claude Desktop (macOS) ── -->
-    <div class="device-card wide">
-        <div class="device-label">
-            <span class="icon" style="color:#d97756">&#x2728;</span> Claude Desktop
-            <span class="badge" style="background:rgba(217,119,86,0.1);border-color:rgba(217,119,86,0.25);color:#d97756">AI</span>
-        </div>
-        <div class="macos-window claude-window">
-            <div class="titlebar">
-                <div class="dots">
-                    <span class="d-close"></span>
-                    <span class="d-min"></span>
-                    <span class="d-max"></span>
-                </div>
-                <div class="titlebar-text">
-                    <span class="claude-icon">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#d97756"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </span>
-                    Claude
-                </div>
-            </div>
-            <div class="viewport">
-                <div class="claude-msg">
-                    <div class="claude-avatar">C</div>
-                    <div class="claude-bubble">
-                        I'll create a 3D AR app with SceneView. Here's the code using <code>ARScene { }</code>:
-                    </div>
-                </div>
-                <div class="code-block">
-                    <span class="kw">@Composable fun</span> <span class="fn">MyARApp</span>() {<br>
-                    &nbsp;&nbsp;<span class="fn">ARScene</span> {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">val</span> model = <span class="fn">rememberModelInstance</span>(<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modelLoader, <span class="str">"chair.glb"</span><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;)<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> (model != <span class="kw">null</span>) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">ModelNode</span>(modelInstance = model)<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-                    &nbsp;&nbsp;}<br>
-                    }
-                </div>
-            </div>
-        </div>
-        <div class="device-sublabel">AI generates SceneView code &mdash; your first 3D app in seconds</div>
-    </div>
-
-    <!-- ── Apple Vision Pro ── -->
-    <div class="device-card wide">
-        <div class="device-label">
-            <span class="icon">&#x1F453;</span> Apple Vision Pro
-            <span class="badge">Alpha</span>
-        </div>
-        <div class="vision-pro">
-            <div class="screen">
-                <model-viewer
-                    src="models/platforms/MosquitoInAmber.glb"
-                    camera-controls touch-action="pan-y"
-                    auto-rotate shadow-intensity="1"
-                    environment-image="neutral"
-                    camera-orbit="30deg 70deg auto"
-                    style="background: linear-gradient(135deg, rgba(30,30,60,0.8) 0%, rgba(10,10,30,0.9) 100%);"
-                ></model-viewer>
-                <div class="window-controls">
-                    <div class="ctl"></div>
-                    <div class="ctl"></div>
-                    <div class="ctl"></div>
-                </div>
-            </div>
-        </div>
-        <div class="device-sublabel">SwiftUI + RealityKit (visionOS)</div>
-    </div>
-
-    <!-- ── Android TV ── -->
-    <div class="device-card wide">
-        <div class="device-label">
-            <span class="icon">&#x1F4FA;</span> Android TV
-            <span class="badge">Alpha</span>
-        </div>
-        <div class="tv">
-            <div class="frame">
+    <!-- Row 1: Phones -->
+    <div class="shelf__phones">
+        <div class="device">
+            <div class="device__label">Android <span class="device__badge device__badge--stable">Stable</span></div>
+            <div class="phone phone--android">
                 <div class="screen">
-                    <model-viewer
-                        src="models/platforms/CarConcept.glb"
-                        camera-controls touch-action="pan-y"
-                        auto-rotate shadow-intensity="1"
-                        environment-image="neutral"
-                        camera-orbit="30deg 70deg auto"
-                        style="background: linear-gradient(180deg, #0d1a2a 0%, #060d1a 100%);"
-                    ></model-viewer>
+                    <div class="sbar"><span>9:41</span><span>&#9679;&#9679;&#9679;</span></div>
+                    <model-viewer src="models/platforms/DamagedHelmet.glb" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" environment-image="neutral" camera-orbit="30deg 75deg auto"></model-viewer>
+                    <div class="nav-pill"><span></span></div>
                 </div>
-                <div class="logo-dot"></div>
             </div>
-            <div class="stand"></div>
-            <div class="stand-leg"></div>
+            <div class="device__tech">Jetpack Compose + Filament</div>
         </div>
-        <div class="device-sublabel">Compose TV + Filament</div>
+
+        <div class="device">
+            <div class="device__label">iPhone <span class="device__badge device__badge--alpha">Alpha</span></div>
+            <div class="phone phone--ios">
+                <div class="di"></div>
+                <div class="screen">
+                    <div class="sbar"><span>9:41</span><span></span></div>
+                    <model-viewer src="models/platforms/SunglassesKhronos.glb" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" environment-image="neutral" camera-orbit="20deg 80deg auto"></model-viewer>
+                    <div class="nav-pill"><span></span></div>
+                </div>
+            </div>
+            <div class="device__tech">SwiftUI + RealityKit</div>
+        </div>
     </div>
 
-    <!-- ── Desktop Browser ── -->
-    <div class="device-card wide">
-        <div class="device-label">
-            <span class="icon">&#x1F310;</span> Web Browser
-            <span class="badge">Alpha</span>
-        </div>
-        <div class="browser">
-            <div class="toolbar">
-                <div class="dots">
-                    <span class="d-close"></span>
-                    <span class="d-min"></span>
-                    <span class="d-max"></span>
+    <!-- Row 2: Wide devices -->
+    <div class="shelf__wide">
+        <!-- Claude Desktop -->
+        <div class="device">
+            <div class="device__label">Claude Desktop <span class="device__badge device__badge--ai">AI</span></div>
+            <div class="claude-win">
+                <div class="toolbar">
+                    <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+                    <div class="claude-title">Claude</div>
                 </div>
-                <div class="tab">SceneView Demo</div>
-                <div class="address-bar">
-                    <span class="lock">&#128274;</span>
-                    sceneview.github.io/playground
+                <div class="chat">
+                    <div class="claude-msg">
+                        <div class="claude-avatar">C</div>
+                        <div class="claude-bubble">I'll create a 3D AR app with SceneView using <code>ARScene { }</code>:</div>
+                    </div>
+                    <div class="claude-code">
+                        <span class="kw">@Composable fun</span> <span class="fn">MyARApp</span>() {<br>
+                        &nbsp;&nbsp;<span class="fn">ARScene</span> {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="fn">ModelNode</span>(model = <span class="fn">rememberModelInstance</span>(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modelLoader, <span class="str">"chair.glb"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;))<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
                 </div>
             </div>
-            <div class="viewport">
-                <model-viewer
-                    src="models/platforms/BoomBox.glb"
-                    camera-controls touch-action="pan-y"
-                    auto-rotate shadow-intensity="1"
-                    environment-image="neutral"
-                    camera-orbit="-30deg 80deg auto"
-                    style="background: linear-gradient(180deg, #12172a 0%, #0a0e1a 100%);"
-                ></model-viewer>
-            </div>
+            <div class="device__tech">SceneView MCP &mdash; npx sceneview-mcp</div>
         </div>
-        <div class="device-sublabel">Kotlin/JS + Filament.js (WASM, WebGL2)</div>
+
+        <!-- Web Browser -->
+        <div class="device">
+            <div class="device__label">Web <span class="device__badge device__badge--alpha">Alpha</span></div>
+            <div class="browser">
+                <div class="toolbar">
+                    <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+                    <div class="url">sceneview.github.io/playground</div>
+                </div>
+                <div class="viewport">
+                    <model-viewer src="models/platforms/BoomBox.glb" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" environment-image="neutral" camera-orbit="-30deg 80deg auto"></model-viewer>
+                </div>
+            </div>
+            <div class="device__tech">Kotlin/JS + Filament.js (WASM)</div>
+        </div>
     </div>
 
+    <div class="shelf__wide">
+        <!-- Apple Vision Pro -->
+        <div class="device">
+            <div class="device__label">Apple Vision Pro <span class="device__badge device__badge--alpha">Alpha</span></div>
+            <div class="visionpro">
+                <model-viewer src="models/platforms/MosquitoInAmber.glb" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" environment-image="neutral" camera-orbit="30deg 70deg auto"></model-viewer>
+            </div>
+            <div class="device__tech">SwiftUI + RealityKit (visionOS)</div>
+        </div>
+
+        <!-- Android TV -->
+        <div class="device">
+            <div class="device__label">Android TV <span class="device__badge device__badge--alpha">Alpha</span></div>
+            <div class="tv-frame">
+                <div class="screen">
+                    <model-viewer src="models/platforms/CarConcept.glb" camera-controls touch-action="pan-y" auto-rotate shadow-intensity="1" environment-image="neutral" camera-orbit="30deg 70deg auto"></model-viewer>
+                </div>
+            </div>
+            <div class="tv-stand"></div>
+            <div class="device__tech">Compose TV + Filament</div>
+        </div>
+    </div>
+
+</section>
+
+<div class="back">
+    <a href="/">&larr; Back to SceneView</a>
 </div>
 
-<footer class="footer">
-    <p>
-        <a href="/">SceneView</a> &mdash; Open-source 3D &amp; AR SDK &middot;
-        <a href="https://github.com/sceneview/sceneview">GitHub</a> &middot;
-        <a href="https://discord.gg/sceneview">Discord</a> &middot;
-        <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0</a>
-    </p>
-</footer>
-
+<!-- Theme: respect system preference -->
 <script>
-    // Theme: follow system, allow toggle
-    function getSystemTheme() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        document.documentElement.style.setProperty('--bg', '#f5f7fa');
     }
-    function applyTheme(t) {
-        document.documentElement.setAttribute('data-theme', t);
-        var btn = document.getElementById('themeBtn');
-        if (btn) btn.textContent = t === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-    }
-    function toggleTheme() {
-        var current = document.documentElement.getAttribute('data-theme') || getSystemTheme();
-        var next = current === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
-    }
-    // Init
-    applyTheme(getSystemTheme());
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-        applyTheme(e.matches ? 'dark' : 'light');
-    });
 </script>
 
 </body>
