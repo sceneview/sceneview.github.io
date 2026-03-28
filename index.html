@@ -37,7 +37,6 @@
   <!-- Preconnect hints for external resources -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -88,7 +87,7 @@
   }
   </script>
   <!-- model-viewer for interactive 3D -->
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script type="module" src="js/model-viewer.min.js"></script>
 </head>
 <body>
 
@@ -112,7 +111,7 @@
         <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
         <a href="https://github.com/sceneview/sceneview" class="nav__link">GitHub</a>
         <a href="https://discord.gg/sceneview" class="nav__link">Discord</a>
-        <!-- Pro link hidden for now -->
+        <!-- Pro link removed -->
         <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -168,7 +167,7 @@
           <span style="font-size:0.85rem;opacity:0.45;font-weight:500">Loading 3D engine&hellip;</span>
         </div>
         <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-        <div id="hero-badge" style="position:absolute;bottom:12px;right:14px;font-size:0.7rem;opacity:0;transition:opacity 0.5s ease;pointer-events:none;color:rgba(255,255,255,0.45);font-weight:500;letter-spacing:0.03em">Rendered by SceneView Web</div>
+        <div id="hero-badge" class="hero-badge">Rendered by SceneView Web</div>
       </div>
     </div>
   </section>
@@ -914,7 +913,7 @@
     </div>
   </section>
 
-  <!-- ===== PRO PRODUCTS (hidden for now — Thomas decision, re-evaluate later) ===== -->
+  <!-- Pro section removed -->
 
   <!-- ===== GET INVOLVED ===== -->
   <section class="section get-involved" id="get-involved">
@@ -1006,7 +1005,6 @@
         </div>
         <div class="footer__links">
           <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0 License</a>
-          <a href="https://github.com/sponsors/sceneview">Sponsor</a>
           <a href="https://github.com/sponsors/sceneview">Sponsor</a>
           <a href="https://github.com/sceneview/sceneview">Source Code</a>
         </div>
