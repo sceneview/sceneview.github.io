@@ -513,8 +513,8 @@ button {
 
 .code-block--compact {
   padding: var(--space-md) var(--space-lg);
-  max-width: 480px;
-  text-align: center;
+  max-width: 520px;
+  text-align: left;
   margin: var(--space-lg) auto;
 }
 
@@ -1448,17 +1448,15 @@ button {
   transform: translateY(-2px);
 }
 
-.testimonial-card__stars {
-  display: flex;
-  gap: 2px;
-}
-
 .testimonial-card__quote {
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--color-on-surface);
   font-style: italic;
   flex: 1;
+  position: relative;
+  padding-left: var(--space-lg);
+  border-left: 3px solid var(--color-primary);
 }
 
 .testimonial-card__author {
@@ -1817,5 +1815,53 @@ button {
 @media (max-width: 500px) {
   .involved__grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 3D VISUAL BREAKS ===== */
+.visual-break {
+  position: relative;
+  padding: 0;
+  background: var(--color-surface);
+  overflow: hidden;
+}
+
+.visual-break__inner {
+  max-width: 900px;
+  height: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.visual-break__inner model-viewer {
+  display: block;
+}
+
+.visual-break__caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-on-surface-faint);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .visual-break__inner {
+    height: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .visual-break__inner {
+    height: 280px;
+  }
+
+  .visual-break__caption {
+    font-size: 0.7rem;
   }
 }
