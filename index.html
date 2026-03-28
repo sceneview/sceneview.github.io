@@ -175,15 +175,15 @@
 
       <div class="tabs" data-tabs="code">
         <div class="tabs__nav">
-          <button class="tabs__btn tabs__btn--active" data-tab="kotlin">Kotlin (Android)</button>
+          <button class="tabs__btn tabs__btn--active" data-tab="claude">Claude AI</button>
+          <button class="tabs__btn" data-tab="kotlin">Kotlin (Android)</button>
           <button class="tabs__btn" data-tab="swift">Swift (iOS)</button>
           <button class="tabs__btn" data-tab="js">JavaScript (Web)</button>
           <button class="tabs__btn" data-tab="dart">Dart (Flutter)</button>
           <button class="tabs__btn" data-tab="ts">TypeScript (RN)</button>
-          <button class="tabs__btn" data-tab="claude">Claude AI</button>
         </div>
         <div class="tabs__panels">
-          <div class="tabs__panel tabs__panel--active" data-panel="kotlin">
+          <div class="tabs__panel" data-panel="kotlin">
             <pre class="code-block"><code><span class="kw">Scene</span>(
     modifier = Modifier.<span class="fn">fillMaxSize</span>(),
     engine = <span class="fn">rememberEngine</span>(),
@@ -282,32 +282,30 @@ viewer.<span class="fn">loadModel</span>(<span class="str">'models/shoe.glb'</sp
   scene: { flex: <span class="num">1</span> }
 })</code></pre>
           </div>
-          <div class="tabs__panel" data-panel="claude">
-            <pre class="code-block"><code><span class="cm"># With SceneView MCP — Claude has full API knowledge</span>
-<span class="cm"># npx sceneview-mcp  (add to Claude Desktop config)</span>
-
-<span class="cm"># Ask Claude:</span>
-<span class="str">"Build an Android AR app that places a 3D chair
-on detected floor surfaces. Use ARScene with
-plane detection and tap-to-place.
-Model: assets/chair.glb"</span>
-
-<span class="cm"># Claude generates complete working Kotlin:</span>
-
-<span class="kw">ARScene</span>(
-    modifier = Modifier.<span class="fn">fillMaxSize</span>(),
-    planeRenderer = <span class="kw">true</span>,
-    onTapAR = { _, hitResult -&gt;
-        hitResult?.<span class="fn">takeIf</span> { it.trackable <span class="kw">is</span> Plane }
-            ?.<span class="fn">let</span> { hit -&gt;
-                <span class="kw">AnchorNode</span>(engine, hit.<span class="fn">createAnchor</span>()) {
-                    <span class="kw">ModelNode</span>(<span class="fn">rememberModelInstance</span>(
-                        modelLoader, <span class="str">"assets/chair.glb"</span>
-                    ))
-                }
-            }
-    }
-)</code></pre>
+          <div class="tabs__panel tabs__panel--active" data-panel="claude">
+            <div style="background:var(--color-surface-container);border:1px solid var(--color-outline);border-radius:var(--radius-md);padding:var(--space-xl);max-width:700px;margin:0 auto">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:var(--space-md)">
+                <div style="width:28px;height:28px;background:linear-gradient(135deg,#d97756,#c4704b);border-radius:8px;display:flex;align-items:center;justify-content:center">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#fff"/></svg>
+                </div>
+                <span style="font-weight:700;font-size:0.95rem">Just ask Claude</span>
+                <span style="font-size:0.75rem;color:var(--color-on-surface-faint);margin-left:auto">No coding experience needed</span>
+              </div>
+              <div style="background:rgba(217,119,86,0.06);border:1px solid rgba(217,119,86,0.15);border-radius:12px;padding:var(--space-lg);font-size:1.05rem;line-height:1.6;color:var(--color-on-surface)">
+                <span style="color:#d97756;font-weight:600">&ldquo;</span>Build me an Android AR app that places a 3D chair on the floor when I tap. I want plane detection, realistic shadows, and pinch-to-resize.<span style="color:#d97756;font-weight:600">&rdquo;</span>
+              </div>
+              <div style="margin-top:var(--space-md);display:flex;align-items:center;gap:12px;font-size:0.8rem;color:var(--color-on-surface-faint)">
+                <span style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ~150 tokens</span>
+                <span style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Working app in seconds</span>
+                <span style="display:inline-flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Zero boilerplate</span>
+              </div>
+              <div style="margin-top:var(--space-lg);text-align:center">
+                <a href="https://claude.ai/new?q=Using%20SceneView%20SDK%20(io.github.sceneview%3Asceneview%3A3.4.7)%2C%20build%20a%20Jetpack%20Compose%20app%20that%20displays%20DamagedHelmet.glb%20with%20orbit%20camera%20and%20HDR%20lighting.%20Use%20Scene%20%7B%20ModelNode()%20%7D.%20NOT%20Three.js." target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:linear-gradient(135deg,#d97756,#c4704b);color:#fff;font-size:0.85rem;font-weight:600;border-radius:999px;text-decoration:none;box-shadow:0 4px 16px rgba(217,119,86,0.3)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 8.5L21 9.5L16 14L17.5 21L12 17.5L6.5 21L8 14L3 9.5L9.5 8.5L12 2Z" fill="#fff"/></svg>
+                  Try it now
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
