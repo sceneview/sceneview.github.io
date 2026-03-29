@@ -263,7 +263,7 @@
     "url": "https://sceneview.github.io/web.html",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "Web",
-    "softwareVersion": "1.2.0",
+    "softwareVersion": "3.5.2",
     "license": "https://github.com/sceneview/sceneview/blob/main/LICENSE",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "author": {
@@ -279,7 +279,7 @@
 <body>
 
   <!-- ===== NAV ===== -->
-  <nav class="nav" id="nav">
+  <nav class="nav">
     <div class="nav__container">
       <a href="/" class="nav__logo">
         <svg class="nav__logo-icon" viewBox="0 0 32 32" width="32" height="32" fill="none">
@@ -303,6 +303,7 @@
         <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
         <a href="https://github.com/sceneview/sceneview" class="nav__link">GitHub</a>
         <a href="https://discord.gg/sceneview" class="nav__link">Discord</a>
+        <!-- Pro link hidden for now -->
         <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -339,7 +340,7 @@
         <!-- Two-line code example -->
         <div class="hero-code">
 <span class="cm">&lt;!-- That's it. Two lines. --&gt;</span>
-&lt;script src="<span class="str">https://cdn.jsdelivr.net/npm/sceneview-web@1.2.0/sceneview.js</span>"&gt;&lt;/script&gt;
+&lt;script src="<span class="str">https://cdn.jsdelivr.net/npm/sceneview-web@3.5.2/sceneview.js</span>"&gt;&lt;/script&gt;
 &lt;script&gt; <span class="fn">SceneView.modelViewer</span>(<span class="str">"canvas"</span>, <span class="str">"model.glb"</span>) &lt;/script&gt;
         </div>
       </div>
@@ -447,7 +448,7 @@
       <div class="install-methods">
         <div class="install-card">
           <div class="install-card__label">CDN (fastest)</div>
-          <div class="install-card__code">&lt;script src="https://cdn.jsdelivr.net/npm/sceneview-web@1.2.0/sceneview.js"&gt;&lt;/script&gt;</div>
+          <div class="install-card__code">&lt;script src="https://cdn.jsdelivr.net/npm/sceneview-web@3.5.2/sceneview.js"&gt;&lt;/script&gt;</div>
         </div>
 
         <div class="install-card">
@@ -463,7 +464,7 @@
         <div class="install-card">
           <div class="install-card__label">Script tag + init</div>
           <div class="install-card__code">&lt;canvas id="viewer"&gt;&lt;/canvas&gt;
-&lt;script src="https://cdn.jsdelivr.net/npm/sceneview-web@1.2.0/sceneview.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/sceneview-web@3.5.2/sceneview.js"&gt;&lt;/script&gt;
 &lt;script&gt;
   SceneView.modelViewer("viewer", "model.glb", {
     autoRotate: true
@@ -579,17 +580,19 @@
     <div class="container">
       <div class="footer__inner">
         <div class="footer__brand">
-          <svg class="footer__logo" viewBox="0 0 32 32" width="24" height="24" fill="none">
+          <svg viewBox="0 0 32 32" width="20" height="20" fill="none">
             <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
             <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
             <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
           </svg>
-          <span>SceneView</span>
+          SceneView Web v3.5.2
         </div>
         <div class="footer__links">
-          <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0 License</a>
+          <a href="/">Home</a>
+          <a href="https://github.com/sceneview/sceneview">GitHub</a>
+          <a href="https://www.npmjs.com/package/sceneview-web">npm</a>
+          <a href="https://discord.gg/sceneview">Discord</a>
           <a href="https://github.com/sponsors/sceneview">Sponsor</a>
-          <a href="https://github.com/sceneview/sceneview">Source Code</a>
         </div>
       </div>
     </div>
@@ -598,8 +601,8 @@
   <!-- ===== SCRIPTS ===== -->
   <!-- Filament.js v1.70.1 WASM engine (local) -->
   <script src="js/filament/filament.js"></script>
-  <!-- SceneView Web v1.3.3 (local, uses Filament loaded above) -->
-  <script src="js/sceneview.js?v=1.3.3"></script>
+  <!-- SceneView Web v3.5.2 (local, uses Filament loaded above) -->
+  <script src="js/sceneview.js?v=3.5.2"></script>
   <script>
     // Theme toggle
     (function() {

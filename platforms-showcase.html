@@ -12,16 +12,18 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sceneview.github.io/platforms-showcase.html">
     <meta property="og:image" content="https://sceneview.github.io/favicon.svg">
-    <meta name="twitter:card" content="summary">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta property="og:image:alt" content="SceneView — one SDK, every screen">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SceneView — One SDK, Every Screen">
+    <meta name="twitter:description" content="Native 3D rendering on Android, iOS, macOS, visionOS, Web, TV, Flutter, React Native.">
+    <meta name="twitter:image" content="https://sceneview.github.io/favicon.svg">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <!-- Filament.js v1.70.1 WASM engine (local) -->
     <script src="js/filament/filament.js"></script>
-    <!-- SceneView Web (local, uses Filament loaded above) -->
-    <script src="js/sceneview.js?v=1.3.3"></script>
+    <script src="js/sceneview.js?v=3.5.1"></script>
     <style>
         /* ── Page layout ── */
         .page-platforms {
@@ -134,10 +136,11 @@
             color: var(--color-primary);
         }
 
-        canvas.sv-viewer {
+        .sv-canvas {
             width: 100%;
             height: 100%;
             background: transparent;
+            display: block;
         }
 
         /* ── Shared screen background ── */
@@ -635,7 +638,7 @@
         [data-theme="light"] .claude-desktop .preview-side {
             background: #f0f0f4;
         }
-        .claude-desktop .preview-side canvas.sv-viewer {
+        .claude-desktop .preview-side canvas {
             width: 100%;
             height: 100%;
         }
@@ -671,6 +674,18 @@
             .iphone { height: 450px; }
         }
 
+        /* ── Footer ── */
+        .plat-footer {
+            text-align: center;
+            padding: var(--space-xl) var(--space-lg) var(--space-3xl);
+            color: var(--color-on-surface-dim);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--color-outline);
+        }
+        .plat-footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -685,17 +700,12 @@
                 <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
                 <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
             </svg>
-            <span class="nav__logo-text">SceneView</span>
+            SceneView
         </a>
-
-        <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
-            <span></span><span></span><span></span>
-        </button>
-
-        <div class="nav__links" id="navLinks">
+        <div class="nav__links">
             <a href="/showcase.html" class="nav__link" style="font-weight:600">Showcase</a>
             <a href="/claude-3d.html" class="nav__link" style="color:#d97757;font-weight:600">AI + 3D</a>
-            <a href="/platforms-showcase.html" class="nav__link" style="color:var(--color-primary);font-weight:600">Platforms</a>
+            <a href="/platforms-showcase.html" class="nav__link" style="color: var(--color-primary); font-weight: 600;">Platforms</a>
             <a href="/#demos" class="nav__link">Demos</a>
             <a href="/playground.html" class="nav__link">Playground</a>
             <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
@@ -740,7 +750,7 @@
                     SceneView Demo
                 </div>
                 <div class="mv-wrap">
-                    <canvas class="sv-viewer" data-model="models/platforms/DamagedHelmet.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+                    <canvas id="sv-viewer-1" class="sv-canvas" style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"></canvas>
                 </div>
                 <div class="bottom-nav">
                     <div class="nav-pill"></div>
@@ -765,7 +775,7 @@
                     <span></span>
                 </div>
                 <div class="mv-wrap">
-                    <canvas class="sv-viewer" data-model="models/platforms/SunglassesKhronos.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+                    <canvas id="sv-viewer-2" class="sv-canvas" style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"></canvas>
                 </div>
                 <div class="home-indicator">
                     <div class="pill"></div>
@@ -785,7 +795,7 @@
         <div class="vision-pro">
             <div class="screen">
                 <div class="visionos-label">visionOS</div>
-                <canvas class="sv-viewer" data-model="models/platforms/MosquitoInAmber.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+                <canvas id="sv-viewer-3" class="sv-canvas" style="background: linear-gradient(135deg, rgba(30,30,60,0.8) 0%, rgba(10,10,30,0.9) 100%);"></canvas>
                 <div class="window-controls">
                     <div class="ctl"></div>
                     <div class="ctl"></div>
@@ -807,7 +817,7 @@
             <div class="frame">
                 <div class="screen">
                     <div class="tv-overlay">Google TV</div>
-                    <canvas class="sv-viewer" data-model="models/platforms/CarConcept.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+                    <canvas id="sv-viewer-4" class="sv-canvas" style="background: linear-gradient(180deg, #0d1a2a 0%, #060d1a 100%);"></canvas>
                 </div>
                 <div class="logo-dot"></div>
             </div>
@@ -838,7 +848,7 @@
                 </div>
             </div>
             <div class="viewport">
-                <canvas class="sv-viewer" data-model="models/platforms/BoomBox.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+                <canvas id="sv-viewer-5" class="sv-canvas" style="background: linear-gradient(180deg, #12172a 0%, #0a0e1a 100%);"></canvas>
             </div>
         </div>
         <div class="device-sublabel">Kotlin/JS + Filament.js &mdash; <code>WebGL2 + WASM</code></div>
@@ -881,7 +891,7 @@
                     </div>
                 </div>
                 <div class="preview-side">
-                    <canvas class="sv-viewer" data-model="models/platforms/SheenChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+                    <canvas id="sv-viewer-6" class="sv-canvas" style="background: linear-gradient(180deg, #1a1a2e 0%, #0d0d1a 100%);"></canvas>
                     <div class="preview-badge">3D Preview</div>
                 </div>
             </div>
@@ -891,68 +901,25 @@
 
 </div>
 
-<footer class="footer">
-    <div class="container">
-      <div class="footer__inner">
-        <div class="footer__brand">
-          <svg class="footer__logo" viewBox="0 0 32 32" width="24" height="24" fill="none">
-            <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
-            <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-          <span>SceneView</span>
-        </div>
-        <div class="footer__links">
-          <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0 License</a>
-          <a href="https://github.com/sponsors/sceneview">Sponsor</a>
-          <a href="https://github.com/sceneview/sceneview">Source Code</a>
-        </div>
-      </div>
-    </div>
+<footer class="plat-footer">
+    <p>
+        <a href="/">SceneView</a> &mdash; Open-source 3D &amp; AR SDK &middot;
+        <a href="https://github.com/sceneview/sceneview">GitHub</a> &middot;
+        <a href="https://discord.gg/sceneview">Discord</a> &middot;
+        <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0</a>
+    </p>
 </footer>
 
 </div>
 
-<script src="script.js"></script>
-
-<!-- Lazy SceneView loader -->
 <script>
-(function() {
-  var viewers = document.querySelectorAll('.sv-viewer');
-  if (!viewers.length) return;
-  var initialized = new Set();
-  function getThemeBg() {
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
-  }
-  function initViewer(canvas) {
-    if (initialized.has(canvas)) return;
-    initialized.add(canvas);
-    var model = canvas.dataset.model;
-    var light = parseInt(canvas.dataset.light) || 120000;
-    if (!model) return;
-    var bg = getThemeBg();
-    SceneView.modelViewer(canvas, model, {
-      backgroundColor: bg, lightIntensity: light, fov: 35
-    }).then(function(instance) {
-      canvas.style.opacity = '1';
-      new MutationObserver(function() {
-        var colors = getThemeBg();
-        instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
-      }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    }).catch(function(e) {
-      console.warn('SceneView: ' + model + ' — ' + e.message);
-      initialized.delete(canvas);
-    });
-  }
-  viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) initViewer(entry.target);
-    });
-  }, { rootMargin: '300px 0px' });
-  viewers.forEach(function(canvas) { observer.observe(canvas); });
-})();
+    SceneView.modelViewer('sv-viewer-1', 'models/platforms/DamagedHelmet.glb');
+    SceneView.modelViewer('sv-viewer-2', 'models/platforms/SunglassesKhronos.glb');
+    SceneView.modelViewer('sv-viewer-3', 'models/platforms/MosquitoInAmber.glb');
+    SceneView.modelViewer('sv-viewer-4', 'models/platforms/CarConcept.glb');
+    SceneView.modelViewer('sv-viewer-5', 'models/platforms/BoomBox.glb');
+    SceneView.modelViewer('sv-viewer-6', 'models/platforms/SheenChair.glb');
 </script>
+<script src="script.js"></script>
 </body>
 </html>

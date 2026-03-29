@@ -4,28 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SceneView 3D</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <script src="../js/filament/filament.js"></script>
-  <script src="../js/sceneview.js?v=1.3.3"></script>
+  <script src="../js/sceneview.js?v=3.5.2"></script>
   <style>
     * { margin: 0; padding: 0; }
     body { background: transparent; overflow: hidden; }
-    canvas { width: 100vw; height: 100vh; display: block; cursor: grab; }
-    canvas:active { cursor: grabbing; }
+    canvas { width: 100vw !important; height: 100vh !important; display: block; }
   </style>
 </head>
 <body>
+  <canvas id="viewer"></canvas>
   <script>
     var params = new URLSearchParams(window.location.search);
     var model = params.get('model');
     if (model && /^https?:\/\/.+\.(glb|gltf|usdz)(\?.*)?$/i.test(model)) {
-      var canvas = document.createElement('canvas');
-      canvas.style.cssText = 'width:100%;height:100%';
-      document.body.appendChild(canvas);
-      function init() {
-        if (typeof SceneView === 'undefined') { setTimeout(init, 200); return; }
-        SceneView.modelViewer(canvas, model);
-      }
-      init();
+      SceneView.modelViewer('viewer', model);
     }
   </script>
 </body>

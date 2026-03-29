@@ -36,7 +36,8 @@
   <!-- Filament.js v1.70.1 WASM engine (local) -->
   <script src="js/filament/filament.js"></script>
   <!-- SceneView Web — our 3D library built on Filament.js -->
-  <script src="js/sceneview.js?v=1.3.3"></script>
+  <script src="js/sceneview.js?v=3.5.2"></script>
+  <!-- All 3D powered by SceneView (Filament.js WASM) -->
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="styles.css">
@@ -308,7 +309,11 @@
     .playground__model-wrap canvas {
       width: 100%;
       height: 100%;
+      --poster-color: transparent;
       display: block;
+    }
+
+    .playground__model-wrap canvas {
       cursor: grab;
     }
 
@@ -420,15 +425,12 @@
       </button>
 
       <div class="nav__links" id="navLinks">
-        <a href="/showcase.html" class="nav__link" style="font-weight:600">Showcase</a>
-        <a href="/claude-3d.html" class="nav__link" style="color:#d97757;font-weight:600">AI + 3D</a>
-        <a href="/platforms-showcase.html" class="nav__link">Platforms</a>
-        <a href="/#demos" class="nav__link">Demos</a>
+        <a href="/showcase.html" class="nav__link">Showcase</a>
         <a href="/playground.html" class="nav__link" style="color:var(--color-primary);font-weight:600">Playground</a>
-        <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
-        <a href="https://github.com/sceneview/sceneview" class="nav__link">GitHub</a>
-        <a href="https://discord.gg/sceneview" class="nav__link">Discord</a>
-        <!-- Pro link hidden for now -->
+        <a href="/docs.html" class="nav__link">Docs</a>
+        <a href="/#features" class="nav__link">Features</a>
+        <a href="https://github.com/sceneview/sceneview" class="nav__link" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/sceneview" class="nav__link" target="_blank" rel="noopener">Discord</a>
         <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -453,6 +455,10 @@
           <option value="custom-geometry">Custom Geometry</option>
           <option value="animation">Animation</option>
         </select>
+        <span class="playground__label" style="margin-left:16px">Renderer</span>
+        <select class="playground__select" id="rendererSelect">
+          <option value="sceneview">SceneView (Filament.js WASM)</option>
+        </select>
         <span class="playground__label" style="margin-left:16px">Model</span>
         <select class="playground__select" id="modelSelect">
           <optgroup label="Featured">
@@ -461,35 +467,12 @@
             <option value="Avocado">Avocado</option>
             <option value="Lantern">Lantern</option>
           </optgroup>
-          <optgroup label="Automotive">
-            <option value="McLarenP1">McLaren P1</option>
-            <option value="PorscheCarreraGT">Porsche Carrera GT</option>
-            <option value="ToyCar">Toy Car</option>
-            <option value="CarConcept">Car Concept</option>
-          </optgroup>
-          <optgroup label="Electronics">
-            <option value="BoseHeadphones">Bose Headphones</option>
-            <option value="IPhone13ProMax">iPhone 13 Pro Max</option>
-            <option value="BoomBox">Boom Box</option>
-          </optgroup>
           <optgroup label="Furniture">
-            <option value="DesignerChair">Designer Chair</option>
             <option value="SheenChair">Sheen Chair</option>
             <option value="DamaskChair">Damask Chair</option>
             <option value="LeatherSofa">Leather Sofa</option>
             <option value="VelvetSofa">Velvet Sofa</option>
             <option value="BarnLamp">Barn Lamp</option>
-          </optgroup>
-          <optgroup label="Architecture">
-            <option value="ModernBedroom">Modern Bedroom</option>
-            <option value="ModernApartment">Modern Apartment</option>
-            <option value="SteelStair">Steel Staircase</option>
-          </optgroup>
-          <optgroup label="Luxury">
-            <option value="GoldenWatch">Golden Watch</option>
-            <option value="DiveWatch">Dive Watch</option>
-            <option value="LeatherBag">Leather Bag</option>
-            <option value="AviatorSunglasses">Aviator Sunglasses</option>
           </optgroup>
           <optgroup label="Accessories">
             <option value="SunglassesKhronos">Sunglasses</option>
@@ -498,7 +481,6 @@
             <option value="MaterialsVariantsShoe">Shoe (Variants)</option>
           </optgroup>
           <optgroup label="Decor">
-            <option value="FlowerVase">Flower Vase</option>
             <option value="GlassVaseFlowers">Glass Vase with Flowers</option>
             <option value="CandleHolder">Candle Holder</option>
             <option value="Plant">Plant</option>
@@ -506,6 +488,9 @@
             <option value="IridescenceLamp">Iridescent Lamp</option>
           </optgroup>
           <optgroup label="Objects">
+            <option value="ToyCar">Toy Car</option>
+            <option value="CarConcept">Car Concept</option>
+            <option value="BoomBox">Boom Box</option>
             <option value="AntiqueCamera">Antique Camera</option>
             <option value="WaterBottle">Water Bottle</option>
             <option value="Duck">Duck</option>
@@ -517,13 +502,19 @@
         </select>
       </div>
       <div class="playground__toolbar-right">
+        <button class="playground__btn" id="shareBtn" title="Share this scene (copy URL)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span id="shareLabel">Share</span>
+        </button>
         <button class="playground__btn" id="copyBtn" title="Copy code to clipboard">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
           </svg>
           <span id="copyLabel">Copy code</span>
         </button>
-        <a class="playground__btn playground__btn--primary" id="claudeLink" href="#" target="_blank" rel="noopener" title="Open in Claude with this code as context">
+        <a class="playground__btn playground__btn--primary" id="claudeLink" href="https://claude.ai/new" target="_blank" rel="noopener" title="Open in Claude with this code as context">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
           </svg>
@@ -554,6 +545,7 @@
         </div>
         <div class="playground__model-wrap">
           <canvas id="previewCanvas" aria-label="3D model preview (SceneView Web / Filament.js)"></canvas>
+          <!-- All rendering handled by SceneView (Filament.js WASM) -->
         </div>
         <div class="playground__description" id="description">
           <h3 id="descTitle">Model Viewer</h3>
@@ -956,7 +948,7 @@ fun AnimationScreen() {\n\
       loadExample(this.value);
     });
 
-    // ===== SCENEVIEW RENDERER =====
+    // ===== RENDERER — SceneView (Filament.js WASM) =====
     var MODEL_BASE = 'models/platforms';
     var modelSelect = document.getElementById('modelSelect');
     var previewCanvas = document.getElementById('previewCanvas');
@@ -977,7 +969,6 @@ fun AnimationScreen() {\n\
         console.warn('SceneView not loaded');
         return;
       }
-      // Dispose previous instance
       if (sceneViewInstance) {
         try { sceneViewInstance.dispose(); } catch(e) {}
         sceneViewInstance = null;
@@ -986,11 +977,6 @@ fun AnimationScreen() {\n\
         backgroundColor: getThemeBg()
       }).then(function(instance) {
         sceneViewInstance = instance;
-        // React to theme changes
-        new MutationObserver(function() {
-          var colors = getThemeBg();
-          instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]);
-        }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
       }).catch(function(e) {
         console.warn('SceneView init error:', e);
       });
@@ -998,11 +984,13 @@ fun AnimationScreen() {\n\
 
     // Model preset switcher
     modelSelect.addEventListener('change', function () {
-      var name = this.value;
-      initSceneView(getModelUrl(name));
+      initSceneView(getModelUrl(this.value));
     });
 
-    // Initialize SceneView with default model
+    // Initialize SceneView
+    previewCanvas.style.display = 'block';
+    rendererBadge.textContent = 'SceneView';
+    rendererBadge.className = 'playground__renderer-badge playground__renderer-badge--sceneview';
     initSceneView(getModelUrl(modelSelect.value));
 
     // Copy button
@@ -1019,6 +1007,41 @@ fun AnimationScreen() {\n\
         }, 2000);
       });
     });
+
+    // Share button — creates URL with scene config params
+    var shareBtn = document.getElementById('shareBtn');
+    var shareLabel = document.getElementById('shareLabel');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', function() {
+        var params = new URLSearchParams();
+        params.set('example', currentExample);
+        params.set('model', modelSelect.value);
+        var url = window.location.origin + window.location.pathname + '?' + params.toString();
+        navigator.clipboard.writeText(url).then(function() {
+          shareBtn.classList.add('playground__btn--copied');
+          shareLabel.textContent = 'URL Copied!';
+          setTimeout(function() {
+            shareBtn.classList.remove('playground__btn--copied');
+            shareLabel.textContent = 'Share';
+          }, 2000);
+        });
+      });
+    }
+
+    // Restore from URL params
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      var ex = params.get('example');
+      var model = params.get('model');
+      if (ex && examples[ex]) {
+        exampleSelect.value = ex;
+        loadExample(ex);
+      }
+      if (model) {
+        modelSelect.value = model;
+        initSceneView(getModelUrl(model));
+      }
+    })();
   </script>
 </body>
 </html>

@@ -4,15 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Showcase — SceneView 3D & AR SDK</title>
-  <meta name="description" content="Interactive showcase of SceneView capabilities: e-commerce product viewers, architecture, automotive, furniture, decoration, and more. 30+ interactive 3D models.">
+  <meta name="description" content="Interactive showcase of SceneView capabilities: e-commerce product viewers, AR furniture preview, automotive configurators, medical visualization, and multi-platform 3D.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://sceneview.github.io/showcase.html">
   <meta property="og:title" content="Showcase — SceneView 3D & AR SDK">
-  <meta property="og:description" content="Interactive showcase: 30+ 3D models across e-commerce, architecture, automotive, furniture, decoration, and more.">
+  <meta property="og:description" content="Interactive showcase: e-commerce, AR furniture, automotive configurators, medical visualization, multi-platform 3D.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sceneview.github.io/showcase.html">
   <meta property="og:image" content="https://sceneview.github.io/favicon.svg">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image:alt" content="SceneView 3D &amp; AR SDK showcase">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Showcase — SceneView 3D &amp; AR SDK">
+  <meta name="twitter:description" content="Interactive showcase: e-commerce, AR furniture, automotive configurators, medical visualization, multi-platform 3D.">
+  <meta name="twitter:image" content="https://sceneview.github.io/favicon.svg">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,15 +27,16 @@
 
   <!-- Filament.js v1.70.1 WASM engine (local) -->
   <script src="js/filament/filament.js"></script>
-  <!-- SceneView Web (local, uses Filament loaded above) -->
-  <script src="js/sceneview.js?v=1.3.3"></script>
+  <!-- SceneView Web — our 3D library built on Filament.js -->
+  <script src="js/sceneview.js?v=3.5.1"></script>
+  <!-- All 3D powered by SceneView (Filament.js WASM) -->
 
   <style>
-    /* ===== SHOWCASE PAGE STYLES ===== */
+    /* ===== SHOWCASE-SPECIFIC STYLES ===== */
 
     .showcase-hero {
       padding-top: calc(var(--nav-height) + var(--space-3xl));
-      padding-bottom: var(--space-2xl);
+      padding-bottom: var(--space-3xl);
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -70,125 +75,552 @@
     .showcase-hero__sub {
       font-size: clamp(1.1rem, 2.5vw, 1.35rem);
       color: var(--color-on-surface-dim);
-      max-width: 700px;
+      max-width: 640px;
       margin: 0 auto;
       line-height: 1.7;
     }
 
-    /* ===== CATEGORY FILTER ===== */
-    .showcase-filters {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      padding: var(--space-lg) 0 var(--space-xl);
+    /* ===== SHOWCASE SECTIONS ===== */
+    .showcase-section {
+      padding: var(--space-4xl) 0;
+      position: relative;
     }
 
-    .filter-btn {
-      padding: 8px 20px;
+    .showcase-section:nth-child(even) {
+      background: var(--color-surface-dim);
+    }
+
+    .showcase-section__header {
+      text-align: center;
+      margin-bottom: var(--space-2xl);
+    }
+
+    .showcase-section__badge {
+      display: inline-block;
+      padding: 4px 14px;
       border-radius: var(--radius-full);
-      border: 1px solid var(--color-outline);
-      background: var(--color-surface-container);
-      color: var(--color-on-surface-dim);
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s var(--ease-expressive);
-      font-family: var(--font-body);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-sm);
     }
 
-    .filter-btn:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-    }
+    .badge--ecommerce { background: rgba(52,168,83,0.12); color: #34a853; }
+    .badge--ar { background: rgba(234,67,53,0.12); color: #ea4335; }
+    .badge--auto { background: rgba(251,188,4,0.12); color: #c8960a; }
+    .badge--medical { background: rgba(66,133,244,0.12); color: #4285f4; }
+    .badge--luxury { background: rgba(171,71,188,0.12); color: #ab47bc; }
+    .badge--multi { background: rgba(26,115,232,0.12); color: var(--color-primary); }
 
-    .filter-btn--active {
-      background: var(--color-primary);
-      color: #fff;
-      border-color: var(--color-primary);
-    }
+    [data-theme="dark"] .badge--ecommerce { background: rgba(52,168,83,0.2); color: #81c995; }
+    [data-theme="dark"] .badge--ar { background: rgba(234,67,53,0.2); color: #f28b82; }
+    [data-theme="dark"] .badge--auto { background: rgba(251,188,4,0.2); color: #fdd663; }
+    [data-theme="dark"] .badge--medical { background: rgba(66,133,244,0.2); color: #8ab4f8; }
+    [data-theme="dark"] .badge--luxury { background: rgba(171,71,188,0.2); color: #d59fe8; }
+    [data-theme="dark"] .badge--multi { background: rgba(138,180,248,0.15); color: #8ab4f8; }
 
-    .filter-btn--active:hover {
-      color: #fff;
-    }
-
-    /* ===== CATEGORY SECTIONS ===== */
-    .showcase-category {
-      padding: var(--space-2xl) 0;
-    }
-
-    .showcase-category + .showcase-category {
-      border-top: 1px solid var(--color-outline-subtle);
-    }
-
-    .category-header {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-      margin-bottom: var(--space-xl);
-    }
-
-    .category-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .category-icon svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .category-icon--ecommerce { background: rgba(52,168,83,0.12); color: #34a853; }
-    .category-icon--architecture { background: rgba(66,133,244,0.12); color: #4285f4; }
-    .category-icon--automotive { background: rgba(251,188,4,0.12); color: #c8960a; }
-    .category-icon--furniture { background: rgba(171,71,188,0.12); color: #ab47bc; }
-    .category-icon--decoration { background: rgba(234,67,53,0.12); color: #ea4335; }
-    .category-icon--gaming { background: rgba(255,152,0,0.12); color: #ff9800; }
-    .category-icon--nature { background: rgba(76,175,80,0.12); color: #4caf50; }
-    .category-icon--science { background: rgba(3,169,244,0.12); color: #0288d1; }
-    .category-icon--industrial { background: rgba(158,158,158,0.12); color: #757575; }
-    .category-icon--objects { background: rgba(0,150,136,0.12); color: #009688; }
-
-    [data-theme="dark"] .category-icon--ecommerce { background: rgba(52,168,83,0.2); color: #81c995; }
-    [data-theme="dark"] .category-icon--architecture { background: rgba(66,133,244,0.2); color: #8ab4f8; }
-    [data-theme="dark"] .category-icon--automotive { background: rgba(251,188,4,0.2); color: #fdd663; }
-    [data-theme="dark"] .category-icon--furniture { background: rgba(171,71,188,0.2); color: #d59fe8; }
-    [data-theme="dark"] .category-icon--decoration { background: rgba(234,67,53,0.2); color: #f28b82; }
-    [data-theme="dark"] .category-icon--gaming { background: rgba(255,152,0,0.2); color: #ffcc80; }
-    [data-theme="dark"] .category-icon--nature { background: rgba(76,175,80,0.2); color: #a5d6a7; }
-    [data-theme="dark"] .category-icon--science { background: rgba(3,169,244,0.2); color: #81d4fa; }
-    [data-theme="dark"] .category-icon--industrial { background: rgba(158,158,158,0.2); color: #bdbdbd; }
-    [data-theme="dark"] .category-icon--objects { background: rgba(0,150,136,0.2); color: #80cbc4; }
-
-    .category-info {
-      flex: 1;
-    }
-
-    .category-title {
-      font-size: 1.5rem;
+    .showcase-section__title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 2px;
+      letter-spacing: -0.025em;
+      margin-bottom: var(--space-sm);
     }
 
-    .category-desc {
-      font-size: 0.9rem;
+    .showcase-section__subtitle {
+      font-size: 1.05rem;
       color: var(--color-on-surface-dim);
+      max-width: 560px;
+      margin: 0 auto;
     }
 
-    /* ===== MODEL GRID ===== */
-    .model-grid {
+    /* ===== DEVICE MOCKUP ===== */
+    .device-frame {
+      position: relative;
+      border-radius: 36px;
+      background: #000;
+      padding: 12px;
+      box-shadow: 0 25px 80px rgba(0,0,0,0.25), 0 8px 24px rgba(0,0,0,0.15);
+      max-width: 380px;
+      margin: 0 auto;
+      aspect-ratio: 9 / 18;
+      overflow: hidden;
+    }
+
+    .device-frame--wide {
+      max-width: 520px;
+      aspect-ratio: 4 / 3;
+      border-radius: 20px;
+    }
+
+    .device-frame__screen {
+      border-radius: 24px;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: var(--color-surface-dim);
+    }
+
+    .device-frame--wide .device-frame__screen {
+      border-radius: 12px;
+    }
+
+    .device-frame__notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 28px;
+      background: #000;
+      border-radius: 0 0 16px 16px;
+      z-index: 10;
+    }
+
+    .device-frame canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ===== DEMO LAYOUTS ===== */
+    .demo-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-3xl);
+      align-items: center;
+    }
+
+    .demo-layout--reverse {
+      direction: rtl;
+    }
+
+    .demo-layout--reverse > * {
+      direction: ltr;
+    }
+
+    .demo-info {
+      display: flex;
+      flex-direction: column;
       gap: var(--space-lg);
     }
 
-    .model-card {
+    .demo-info__title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .demo-info__desc {
+      color: var(--color-on-surface-dim);
+      line-height: 1.7;
+    }
+
+    /* ===== FAKE UI OVERLAYS ===== */
+    .app-overlay {
+      position: absolute;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Ecommerce app UI */
+    .ecom-app {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ecom-app__top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 36px 16px 8px;
+      z-index: 5;
+      position: relative;
+    }
+
+    .ecom-app__top-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .ecom-app__viewer {
+      flex: 1;
+      position: relative;
+    }
+
+    .ecom-app__viewer canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ecom-app__bottom {
+      background: var(--color-surface-container);
+      border-radius: 24px 24px 0 0;
+      padding: 20px 16px 16px;
+      z-index: 5;
+      position: relative;
+    }
+
+    .ecom-app__name {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .ecom-app__price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+
+    .ecom-app__swatches {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .swatch {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .swatch--active {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 2px var(--color-primary);
+    }
+
+    .ecom-app__cart-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--radius-lg);
+      background: var(--color-primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .ecom-app__cart-btn:hover {
+      background: var(--color-primary-hover);
+    }
+
+    /* AR Scene */
+    .ar-scene {
+      position: relative;
+      height: 100%;
+    }
+
+    .ar-scene canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .ar-scene__grid {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(26,115,232,0.08) 0%, transparent 100%);
+      background-image:
+        linear-gradient(to top, rgba(26,115,232,0.08) 0%, transparent 100%),
+        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(26,115,232,0.15) 19px, rgba(26,115,232,0.15) 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(26,115,232,0.15) 19px, rgba(26,115,232,0.15) 20px);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .ar-scene__badge {
+      position: absolute;
+      top: 40px;
+      left: 16px;
+      background: rgba(234,67,53,0.9);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(6px);
+    }
+
+    .ar-scene__controls {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+
+    .ar-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.9);
+      color: #1f2937;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    [data-theme="dark"] .ar-btn {
+      background: rgba(31,41,55,0.9);
+      color: #f3f4f6;
+    }
+
+    /* Auto studio */
+    .auto-studio {
+      position: relative;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 60%, #1a1a2e 0%, #0a0a0f 100%);
+    }
+
+    .auto-studio canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .auto-studio__floor {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to top, rgba(255,255,255,0.03) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .auto-studio__controls {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      z-index: 5;
+      display: flex;
+      gap: 6px;
+    }
+
+    .auto-chip {
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #e5e7eb;
+      font-size: 0.7rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .auto-chip--active {
+      background: rgba(251,188,4,0.2);
+      border-color: rgba(251,188,4,0.5);
+      color: #fdd663;
+    }
+
+    .auto-studio__label {
+      position: absolute;
+      top: 40px;
+      left: 16px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      z-index: 5;
+    }
+
+    /* Medical / Education */
+    .edu-viewer {
+      position: relative;
+      height: 100%;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    }
+
+    .edu-viewer canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .edu-viewer__labels {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .edu-label {
+      position: absolute;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: #8ab4f8;
+      padding: 3px 8px;
+      background: rgba(13,17,23,0.8);
+      border-radius: 6px;
+      border: 1px solid rgba(138,180,248,0.3);
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+    }
+
+    .edu-label::before {
+      content: '';
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #8ab4f8;
+      box-shadow: 0 0 6px rgba(138,180,248,0.6);
+    }
+
+    .edu-label--1 { top: 25%; left: 15%; }
+    .edu-label--1::before { right: -10px; top: 50%; transform: translateY(-50%); }
+    .edu-label--2 { top: 40%; right: 12%; }
+    .edu-label--2::before { left: -10px; top: 50%; transform: translateY(-50%); }
+    .edu-label--3 { bottom: 30%; left: 20%; }
+    .edu-label--3::before { right: -10px; top: 50%; transform: translateY(-50%); }
+    .edu-label--4 { top: 55%; right: 18%; }
+    .edu-label--4::before { left: -10px; top: 50%; transform: translateY(-50%); }
+
+    .edu-viewer__toolbar {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 4px;
+      z-index: 5;
+      background: rgba(13,17,23,0.85);
+      border-radius: var(--radius-full);
+      padding: 4px;
+      backdrop-filter: blur(8px);
+    }
+
+    .edu-tool {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .edu-tool--active {
+      background: rgba(138,180,248,0.2);
+      color: #8ab4f8;
+    }
+
+    /* Luxury/Watch */
+    .luxury-viewer {
+      position: relative;
+      height: 100%;
+      background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    .luxury-viewer canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .luxury-viewer__brand {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      z-index: 5;
+    }
+
+    .luxury-viewer__price-tag {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 5;
+    }
+
+    .luxury-viewer__price-tag span {
+      display: block;
+    }
+
+    .luxury-viewer__product-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 2px;
+    }
+
+    .luxury-viewer__product-price {
+      font-size: 0.7rem;
+      color: rgba(213,159,232,0.8);
+      font-weight: 500;
+    }
+
+    .luxury-viewer__options {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+
+    .luxury-opt {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .luxury-opt--active {
+      border-color: rgba(255,255,255,0.8);
+      box-shadow: 0 0 8px rgba(255,255,255,0.3);
+    }
+
+    /* ===== MULTI-PLATFORM GRID ===== */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-lg);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .platform-card {
       background: var(--color-surface-container);
       border-radius: var(--radius-md);
       border: 1px solid var(--color-outline);
@@ -196,194 +628,100 @@
       transition: transform 0.3s var(--ease-expressive), box-shadow 0.3s var(--ease-expressive);
     }
 
-    .model-card:hover {
+    .platform-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-lg);
     }
 
-    .model-card__viewer {
-      height: 280px;
+    .platform-card__viewer {
+      aspect-ratio: 1;
       position: relative;
       background: var(--color-surface-dim);
-      cursor: pointer;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .model-card__viewer::after {
-      content: 'Click to view in 3D';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 12px;
-      background: linear-gradient(transparent, rgba(0,0,0,0.6));
-      color: #fff;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .model-card:hover .model-card__viewer::after {
-      opacity: 1;
-    }
-
-    .model-card__viewer .card-3d-icon {
-      width: 80px;
-      height: 80px;
-      opacity: 0.15;
-      color: var(--color-primary);
-      transition: transform 0.4s ease, opacity 0.4s ease;
-    }
-
-    .model-card:hover .model-card__viewer .card-3d-icon {
-      transform: scale(1.15) rotateY(15deg);
-      opacity: 0.25;
-    }
-
-    /* ===== 3D VIEWER MODAL ===== */
-    .viewer-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 10000;
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    .viewer-modal.active { display: flex; flex-direction: column; }
-
-    .viewer-modal__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 24px;
-      color: #fff;
-    }
-
-    .viewer-modal__title {
-      font-size: 1.2rem;
-      font-weight: 700;
-    }
-
-    .viewer-modal__close {
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: #fff;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-
-    .viewer-modal__close:hover { background: rgba(255,255,255,0.25); }
-
-    .viewer-modal__canvas-wrap {
-      flex: 1;
-      position: relative;
-      margin: 0 24px 24px;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-
-    .viewer-modal__canvas-wrap canvas {
+    .platform-card__viewer canvas {
       width: 100%;
       height: 100%;
-      display: block;
-      cursor: grab;
     }
 
-    .viewer-modal__hint {
+    .platform-card__device-badge {
       position: absolute;
-      bottom: 16px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.5);
+      top: 8px;
+      left: 8px;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      font-size: 0.6rem;
+      font-weight: 600;
+      background: rgba(0,0,0,0.6);
       color: #fff;
-      padding: 8px 20px;
+      z-index: 5;
+      backdrop-filter: blur(4px);
+    }
+
+    .platform-card__label {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .platform-card__name {
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+
+    .platform-card__tech {
+      font-size: 0.7rem;
+      color: var(--color-on-surface-dim);
+    }
+
+    /* ===== FEATURE PILLS (UI elements around demos) ===== */
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
       border-radius: var(--radius-full);
       font-size: 0.8rem;
-      pointer-events: none;
+      font-weight: 500;
+      background: var(--color-primary-light);
+      color: var(--color-primary);
+      border: 1px solid rgba(26,115,232,0.15);
     }
 
-    .viewer-modal__loading {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
+    [data-theme="dark"] .pill {
+      border-color: rgba(138,180,248,0.2);
     }
 
-    .viewer-modal__loading .spinner {
-      width: 28px;
-      height: 28px;
-      border: 3px solid rgba(255,255,255,0.2);
-      border-top-color: var(--color-primary);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-right: 12px;
+    .pill svg {
+      width: 14px; height: 14px;
+      flex-shrink: 0;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .model-card__info {
-      padding: var(--space-md) var(--space-lg);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    /* ===== CODE SNIPPET INLINE ===== */
+    .demo-code {
+      background: var(--color-code-bg);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: var(--color-code-text);
+      overflow-x: auto;
+      white-space: pre;
     }
 
-    .model-card__name {
-      font-weight: 700;
-      font-size: 1rem;
-    }
+    .demo-code .kw { color: #c678dd; }
+    .demo-code .fn { color: #61afef; }
+    .demo-code .str { color: #98c379; }
+    .demo-code .cm { color: #5c6370; font-style: italic; }
 
-    .model-card__tag {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: var(--radius-full);
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .tag--ecommerce { background: rgba(52,168,83,0.1); color: #34a853; }
-    .tag--architecture { background: rgba(66,133,244,0.1); color: #4285f4; }
-    .tag--automotive { background: rgba(251,188,4,0.1); color: #c8960a; }
-    .tag--furniture { background: rgba(171,71,188,0.1); color: #ab47bc; }
-    .tag--decoration { background: rgba(234,67,53,0.1); color: #ea4335; }
-    .tag--gaming { background: rgba(255,152,0,0.1); color: #ff9800; }
-    .tag--nature { background: rgba(76,175,80,0.1); color: #4caf50; }
-    .tag--science { background: rgba(3,169,244,0.1); color: #0288d1; }
-    .tag--industrial { background: rgba(158,158,158,0.1); color: #757575; }
-    .tag--objects { background: rgba(0,150,136,0.1); color: #009688; }
-
-    [data-theme="dark"] .tag--ecommerce { background: rgba(52,168,83,0.2); color: #81c995; }
-    [data-theme="dark"] .tag--architecture { background: rgba(66,133,244,0.2); color: #8ab4f8; }
-    [data-theme="dark"] .tag--automotive { background: rgba(251,188,4,0.2); color: #fdd663; }
-    [data-theme="dark"] .tag--furniture { background: rgba(171,71,188,0.2); color: #d59fe8; }
-    [data-theme="dark"] .tag--decoration { background: rgba(234,67,53,0.2); color: #f28b82; }
-    [data-theme="dark"] .tag--gaming { background: rgba(255,152,0,0.2); color: #ffcc80; }
-    [data-theme="dark"] .tag--nature { background: rgba(76,175,80,0.2); color: #a5d6a7; }
-    [data-theme="dark"] .tag--science { background: rgba(3,169,244,0.2); color: #81d4fa; }
-    [data-theme="dark"] .tag--industrial { background: rgba(158,158,158,0.2); color: #bdbdbd; }
-    [data-theme="dark"] .tag--objects { background: rgba(0,150,136,0.2); color: #80cbc4; }
-
-    /* ===== CTA ===== */
+    /* ===== CTA SECTION ===== */
     .showcase-cta {
       padding: var(--space-4xl) 0;
       text-align: center;
@@ -420,38 +758,86 @@
       flex-wrap: wrap;
     }
 
+    /* ===== STATS ROW ===== */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-3xl);
+      padding: var(--space-2xl) 0;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat__number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat__label {
+      font-size: 0.85rem;
+      color: var(--color-on-surface-dim);
+      font-weight: 500;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
-      .model-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      .demo-layout {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
       }
 
-      .model-card__viewer {
-        height: 300px;
+      .demo-layout--reverse {
+        direction: ltr;
+      }
+
+      .platform-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .device-frame {
+        max-width: 300px;
+      }
+
+      .device-frame--wide {
+        max-width: 400px;
+      }
+
+      .stats-row {
+        gap: var(--space-xl);
       }
     }
 
     @media (max-width: 600px) {
-      .model-grid {
-        grid-template-columns: 1fr;
+      .platform-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-md);
       }
 
-      .model-card__viewer {
-        height: 320px;
+      .device-frame {
+        max-width: 260px;
       }
 
-      .showcase-filters {
-        gap: 6px;
+      .ecom-app__bottom {
+        padding: 14px 12px 12px;
       }
 
-      .filter-btn {
-        padding: 6px 14px;
-        font-size: 0.8rem;
+      .demo-code {
+        font-size: 0.65rem;
+        padding: 12px;
       }
 
-      .category-header {
-        flex-direction: column;
-        text-align: center;
+      .stats-row {
+        gap: var(--space-lg);
+      }
+
+      .stat__number {
+        font-size: 2rem;
       }
     }
   </style>
@@ -476,13 +862,11 @@
 
       <div class="nav__links" id="navLinks">
         <a href="/showcase.html" class="nav__link" style="color:var(--color-primary);font-weight:600">Showcase</a>
-        <a href="/claude-3d.html" class="nav__link" style="color:#d97757;font-weight:600">AI + 3D</a>
-        <a href="/platforms-showcase.html" class="nav__link">Platforms</a>
-        <a href="/#demos" class="nav__link">Demos</a>
         <a href="/playground.html" class="nav__link">Playground</a>
-        <a href="https://github.com/sceneview/sceneview#readme" class="nav__link">Docs</a>
-        <a href="https://github.com/sceneview/sceneview" class="nav__link">GitHub</a>
-        <a href="https://discord.gg/sceneview" class="nav__link">Discord</a>
+        <a href="/docs.html" class="nav__link">Docs</a>
+        <a href="/#features" class="nav__link">Features</a>
+        <a href="https://github.com/sceneview/sceneview" class="nav__link" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://discord.gg/sceneview" class="nav__link" target="_blank" rel="noopener">Discord</a>
         <button class="nav__theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
           <svg class="icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -498,769 +882,479 @@
   <!-- ===== HERO ===== -->
   <section class="showcase-hero">
     <div class="container">
-      <h1 class="showcase-hero__title">3D Model Showcase</h1>
-      <p class="showcase-hero__sub">Explore 30+ interactive 3D models rendered with SceneView. Drag to rotate, scroll to zoom, and see what you can build.</p>
+      <h1 class="showcase-hero__title">Built with SceneView</h1>
+      <p class="showcase-hero__sub">Interactive 3D experiences across every industry. Drag, rotate, and explore what's possible with a few lines of code.</p>
+
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat__number">10+</div>
+          <div class="stat__label">Platforms</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">50k+</div>
+          <div class="stat__label">Downloads</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">3.5.1</div>
+          <div class="stat__label">Latest Release</div>
+        </div>
+        <div class="stat">
+          <div class="stat__number">9</div>
+          <div class="stat__label">MCP Servers</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== CATEGORY FILTERS ===== -->
-  <div class="container">
-    <div class="showcase-filters">
-      <button class="filter-btn filter-btn--active" data-filter="all">All Models</button>
-      <button class="filter-btn" data-filter="ecommerce">E-Commerce</button>
-      <button class="filter-btn" data-filter="architecture">Architecture</button>
-      <button class="filter-btn" data-filter="automotive">Automotive</button>
-      <button class="filter-btn" data-filter="furniture">Furniture</button>
-      <button class="filter-btn" data-filter="decoration">Decoration</button>
-      <button class="filter-btn" data-filter="gaming">Animation</button>
-      <button class="filter-btn" data-filter="nature">Nature</button>
-      <button class="filter-btn" data-filter="science">Science & Education</button>
-      <button class="filter-btn" data-filter="industrial">Industrial</button>
-      <button class="filter-btn" data-filter="objects">Objects</button>
+  <!-- ===== 1. E-COMMERCE PRODUCT VIEWER ===== -->
+  <section class="showcase-section" id="ecommerce">
+    <div class="container">
+      <div class="showcase-section__header">
+        <span class="showcase-section__badge badge--ecommerce">E-Commerce</span>
+        <h2 class="showcase-section__title">Product Viewer</h2>
+        <p class="showcase-section__subtitle">Let customers interact with products in 3D before buying. Increase conversions by up to 94%.</p>
+      </div>
+
+      <div class="demo-layout">
+        <!-- Phone mockup -->
+        <div class="device-frame">
+          <div class="device-frame__screen">
+            <div class="device-frame__notch"></div>
+            <div class="ecom-app">
+              <div class="ecom-app__top-bar">
+                <div class="ecom-app__top-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                </div>
+                <div class="ecom-app__top-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                </div>
+              </div>
+              <div class="ecom-app__viewer">
+                <canvas id="showcase-shoe" style="cursor:grab;" aria-label="3D Sneaker rendered by SceneView Web (Filament.js)"></canvas>
+              </div>
+              <div class="ecom-app__bottom">
+                <div class="ecom-app__name">Air Max Pulse</div>
+                <div style="font-size:0.7rem;color:var(--color-on-surface-dim);margin-bottom:6px;">
+                  <span style="color:#fbbc04;">&#9733;&#9733;&#9733;&#9733;&#9733;</span> 4.8 (2,847 reviews)
+                </div>
+                <div class="ecom-app__price">$159.99</div>
+                <div class="ecom-app__swatches">
+                  <div class="swatch swatch--active" style="background:#1f2937;"></div>
+                  <div class="swatch" style="background:#dc2626;"></div>
+                  <div class="swatch" style="background:#2563eb;"></div>
+                  <div class="swatch" style="background:#f5f5f4;border:1px solid #d1d5db;"></div>
+                </div>
+                <button class="ecom-app__cart-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="demo-info">
+          <h3 class="demo-info__title">Boost conversions with interactive 3D</h3>
+          <p class="demo-info__desc">Replace flat product images with fully interactive 3D models. Customers can rotate, zoom, and examine products from every angle. Material variants let them switch colors and finishes in real time.</p>
+          <div class="feature-pills">
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+              360&deg; View
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              Material Variants
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+              Shadow & Lighting
+            </span>
+          </div>
+          <div class="demo-code"><span class="fn">Scene</span> {
+    <span class="fn">ModelNode</span>(
+        model = <span class="fn">rememberModelInstance</span>(
+            modelLoader, <span class="str">"models/shoe.glb"</span>
+        )
+    )
+}</div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ===== E-COMMERCE ===== -->
-  <div class="container">
-    <section class="showcase-category" data-category="ecommerce" id="ecommerce">
-      <div class="category-header">
-        <div class="category-icon category-icon--ecommerce">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+  <!-- ===== 2. FURNITURE AR PREVIEW ===== -->
+  <section class="showcase-section" id="furniture">
+    <div class="container">
+      <div class="showcase-section__header">
+        <span class="showcase-section__badge badge--ar">Augmented Reality</span>
+        <h2 class="showcase-section__title">Furniture AR Preview</h2>
+        <p class="showcase-section__subtitle">Place furniture in your room with AR. See how it fits before you buy.</p>
+      </div>
+
+      <div class="demo-layout demo-layout--reverse">
+        <!-- Phone mockup -->
+        <div class="device-frame">
+          <div class="device-frame__screen">
+            <div class="device-frame__notch"></div>
+            <div class="ar-scene">
+              <div class="ar-scene__badge">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
+                AR LIVE
+              </div>
+              <canvas id="showcase-chair" style="cursor:grab;" aria-label="3D Chair rendered by SceneView Web (Filament.js)"></canvas>
+              <div class="ar-scene__grid"></div>
+              <div class="ar-scene__controls">
+                <button class="ar-btn">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
+                  Place
+                </button>
+                <button class="ar-btn">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  Snap
+                </button>
+                <button class="ar-btn">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg>
+                  Scale
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="category-info">
-          <h2 class="category-title">E-Commerce</h2>
-          <p class="category-desc">Interactive product viewers that boost conversions. Let customers explore products in 3D before buying.</p>
+
+        <!-- Info -->
+        <div class="demo-info">
+          <h3 class="demo-info__title">Try before you buy, right in your space</h3>
+          <p class="demo-info__desc">ARCore plane detection places furniture on real surfaces. Customers can walk around, resize, and reposition items. Reduces returns by letting people verify fit and style in their actual room.</p>
+          <div class="feature-pills">
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+              ARCore / ARKit
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Plane Detection
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Real-World Scale
+            </span>
+          </div>
+          <div class="demo-code"><span class="fn">ARScene</span>(
+    sessionConfiguration = <span class="fn">ARSession</span>.<span class="fn">Config</span>(
+        planeDetection = listOf(Plane.Type.Horizontal)
+    )
+) {
+    <span class="fn">AnchorNode</span>(anchor) {
+        <span class="fn">ModelNode</span>(model = chairModel)
+    }
+}</div>
         </div>
       </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/Sneaker.glb">
+    </div>
+  </section>
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Sneaker</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
+  <!-- ===== 3. AUTOMOTIVE CONFIGURATOR ===== -->
+  <section class="showcase-section" id="automotive">
+    <div class="container">
+      <div class="showcase-section__header">
+        <span class="showcase-section__badge badge--auto">Automotive</span>
+        <h2 class="showcase-section__title">Vehicle Configurator</h2>
+        <p class="showcase-section__subtitle">Stunning studio-quality 3D visualization for automotive experiences.</p>
+      </div>
+
+      <div class="demo-layout">
+        <!-- Wide device frame -->
+        <div class="device-frame device-frame--wide">
+          <div class="device-frame__screen">
+            <div class="auto-studio">
+              <div class="auto-studio__label">Studio Mode</div>
+              <canvas id="showcase-car" style="cursor:grab;" aria-label="3D car rendered by SceneView Web (Filament.js)"></canvas>
+              <div class="auto-studio__floor"></div>
+              <div class="auto-studio__controls">
+                <span class="auto-chip auto-chip--active">Exterior</span>
+                <span class="auto-chip">Interior</span>
+                <span class="auto-chip">Wheels</span>
+                <span class="auto-chip">Colors</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/MaterialsVariantsShoe.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- Info -->
+        <div class="demo-info">
+          <h3 class="demo-info__title">Photorealistic vehicle presentation</h3>
+          <p class="demo-info__desc">PBR materials deliver showroom-quality rendering. Studio lighting, environment reflections, and real-time shadows make the model indistinguishable from a photo. Perfect for dealership apps and configurators.</p>
+          <div class="feature-pills">
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+              PBR Materials
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m-8-9H3m18 0h-1m-2.636-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707"/><circle cx="12" cy="12" r="4"/></svg>
+              HDR Lighting
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+              Configurator Ready
+            </span>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Running Shoe</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/GoldenWatch.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Golden Watch</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/DiveWatch.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Dive Watch</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/AviatorSunglasses.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Aviator Sunglasses</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/SunglassesKhronos.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Sunglasses</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/LeatherBag.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Leather Bag</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/BoseHeadphones.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Headphones</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/IPhone13ProMax.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">iPhone</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/ChronographWatch.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Chronograph Watch</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer" data-model="models/platforms/WaterBottle.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Water Bottle</span>
-            <span class="model-card__tag tag--ecommerce">E-Commerce</span>
-          </div>
+          <div class="demo-code"><span class="fn">Scene</span>(
+    environment = <span class="fn">rememberEnvironment</span>(
+        environmentLoader, <span class="str">"studio_hdr.ktx"</span>
+    )
+) {
+    <span class="fn">ModelNode</span>(model = carModel) {
+        <span class="fn">LightNode</span>(apply = { <span class="fn">intensity</span>(<span class="str">150_000f</span>) })
+    }
+}</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== ARCHITECTURE & INTERIOR ===== -->
-    <section class="showcase-category" data-category="architecture" id="architecture">
-      <div class="category-header">
-        <div class="category-icon category-icon--architecture">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 7v14M21 7v14M6 21V10M18 21V10M9 21V14h6v7M12 7V3"/><path d="M3 7l9-4 9 4"/></svg>
+  <!-- ===== 4. MEDICAL / EDUCATION ===== -->
+  <section class="showcase-section" id="education">
+    <div class="container">
+      <div class="showcase-section__header">
+        <span class="showcase-section__badge badge--medical">Education</span>
+        <h2 class="showcase-section__title">3D Anatomy Viewer</h2>
+        <p class="showcase-section__subtitle">Interactive 3D models with annotations for immersive learning experiences.</p>
+      </div>
+
+      <div class="demo-layout demo-layout--reverse">
+        <!-- Phone mockup -->
+        <div class="device-frame">
+          <div class="device-frame__screen">
+            <div class="device-frame__notch"></div>
+            <div class="edu-viewer">
+              <canvas id="showcase-helmet" style="cursor:grab;" aria-label="3D anatomy viewer rendered by SceneView Web (Filament.js)"></canvas>
+              <div class="edu-viewer__labels">
+                <div class="edu-label edu-label--1">Frontal Cortex</div>
+                <div class="edu-label edu-label--2">Visor Assembly</div>
+                <div class="edu-label edu-label--3">Ventilation</div>
+                <div class="edu-label edu-label--4">Comm Module</div>
+              </div>
+              <div class="edu-viewer__toolbar">
+                <div class="edu-tool edu-tool--active" title="Rotate">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+                </div>
+                <div class="edu-tool" title="Labels">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                </div>
+                <div class="edu-tool" title="Explode">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <div class="edu-tool" title="Measure">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 2h20v20H2z"/><path d="M6 2v4M10 2v2M14 2v4M18 2v2M2 6h4M2 10h2M2 14h4M2 18h2"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="category-info">
-          <h2 class="category-title">Architecture & Interior</h2>
-          <p class="category-desc">Walk through spaces and visualize architectural designs in interactive 3D.</p>
+
+        <!-- Info -->
+        <div class="demo-info">
+          <h3 class="demo-info__title">Interactive learning with 3D annotations</h3>
+          <p class="demo-info__desc">Overlay labels, hotspots, and annotations on 3D models for immersive education. Students can rotate, zoom, and explore complex structures. Works for anatomy, engineering, architecture, and scientific visualization.</p>
+          <div class="feature-pills">
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              Hotspot Labels
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+              Zoom to Detail
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+              Cross-Platform
+            </span>
+          </div>
+          <div class="demo-code"><span class="fn">Scene</span> {
+    <span class="fn">ModelNode</span>(model = anatomyModel) {
+        <span class="fn">OverlayNode</span>(
+            position = <span class="fn">Float3</span>(<span class="str">0.5f</span>, <span class="str">1.2f</span>, <span class="str">0f</span>),
+            content = { <span class="fn">AnnotationCard</span>(<span class="str">"Frontal Lobe"</span>) }
+        )
+    }
+}</div>
         </div>
       </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer" data-model="models/platforms/ModernApartment.glb">
+    </div>
+  </section>
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Modern Apartment</span>
-            <span class="model-card__tag tag--architecture">Architecture</span>
+  <!-- ===== 5. LUXURY / WATCH CONFIGURATOR ===== -->
+  <section class="showcase-section" id="luxury">
+    <div class="container">
+      <div class="showcase-section__header">
+        <span class="showcase-section__badge badge--luxury">Luxury</span>
+        <h2 class="showcase-section__title">Premium Product Showcase</h2>
+        <p class="showcase-section__subtitle">High-end rendering for luxury brands. Iridescence, transparency, and studio lighting.</p>
+      </div>
+
+      <div class="demo-layout">
+        <!-- Phone mockup -->
+        <div class="device-frame">
+          <div class="device-frame__screen">
+            <div class="device-frame__notch"></div>
+            <div class="luxury-viewer">
+              <div class="luxury-viewer__brand">Maison SceneView</div>
+              <canvas id="showcase-lamp" style="cursor:grab;" aria-label="Luxury product rendered by SceneView Web (Filament.js)"></canvas>
+              <div class="luxury-viewer__price-tag">
+                <span class="luxury-viewer__product-name">Iridescence Lamp</span>
+                <span class="luxury-viewer__product-price">Limited Edition</span>
+              </div>
+              <div class="luxury-viewer__options">
+                <div class="luxury-opt luxury-opt--active" style="background: linear-gradient(135deg, #e8d5b7, #c4a882);"></div>
+                <div class="luxury-opt" style="background: linear-gradient(135deg, #2c3e50, #4a6741);"></div>
+                <div class="luxury-opt" style="background: linear-gradient(135deg, #c0392b, #8e44ad);"></div>
+                <div class="luxury-opt" style="background: linear-gradient(135deg, #1a1a2e, #16213e);"></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer" data-model="models/platforms/ModernBedroom.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- Info -->
+        <div class="demo-info">
+          <h3 class="demo-info__title">Elevate luxury experiences</h3>
+          <p class="demo-info__desc">Advanced PBR extensions like iridescence, sheen, and clearcoat deliver the visual fidelity luxury brands demand. Studio-quality environment lighting makes every material shine. Perfect for jewelry, watches, and high-end design.</p>
+          <div class="feature-pills">
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Iridescence
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1m-8-9H3m18 0h-1"/><circle cx="12" cy="12" r="4"/></svg>
+              Studio Lighting
+            </span>
+            <span class="pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+              Sheen & Clearcoat
+            </span>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Modern Bedroom</span>
-            <span class="model-card__tag tag--architecture">Architecture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer" data-model="models/platforms/SteelStair.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Steel Staircase</span>
-            <span class="model-card__tag tag--architecture">Architecture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer" data-model="models/platforms/CyberpunkCity.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Cyberpunk City</span>
-            <span class="model-card__tag tag--architecture">Architecture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer" data-model="models/platforms/NightCitySkyline.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Night City Skyline</span>
-            <span class="model-card__tag tag--architecture">Architecture</span>
-          </div>
+          <div class="demo-code"><span class="fn">Scene</span>(
+    environment = <span class="fn">rememberEnvironment</span>(
+        environmentLoader, <span class="str">"studio_soft.ktx"</span>
+    )
+) {
+    <span class="fn">ModelNode</span>(model = luxuryModel)
+    <span class="cm">// Iridescence, sheen, clearcoat</span>
+    <span class="cm">// handled automatically by glTF PBR</span>
+}</div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ===== AUTOMOTIVE ===== -->
-    <section class="showcase-category" data-category="automotive" id="automotive">
-      <div class="category-header">
-        <div class="category-icon category-icon--automotive">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17h14M5 17a2 2 0 01-2-2V9a2 2 0 012-2h1l2-3h8l2 3h1a2 2 0 012 2v6a2 2 0 01-2 2M5 17a2 2 0 100 4 2 2 0 000-4zM19 17a2 2 0 100 4 2 2 0 000-4z"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Automotive</h2>
-          <p class="category-desc">Studio-quality vehicle visualization with PBR materials and HDR lighting.</p>
-        </div>
+  <!-- ===== 6. MULTI-PLATFORM GRID ===== -->
+  <section class="showcase-section" id="multiplatform">
+    <div class="container">
+      <div class="showcase-section__header">
+        <span class="showcase-section__badge badge--multi">Multi-Platform</span>
+        <h2 class="showcase-section__title">One SDK, Every Screen</h2>
+        <p class="showcase-section__subtitle">The same 3D content rendered natively on every device and platform.</p>
       </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer" data-model="models/platforms/McLarenP1.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+      <div class="platform-grid">
+        <!-- Android Phone -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">Android</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/DamagedHelmet.glb" aria-label="Android 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">McLaren P1</span>
-            <span class="model-card__tag tag--automotive">Automotive</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">Android Phone</div>
+            <div class="platform-card__tech">Jetpack Compose + Filament</div>
           </div>
         </div>
-        <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer" data-model="models/platforms/PorscheCarreraGT.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- iPhone -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">iOS</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/MaterialsVariantsShoe.glb" aria-label="iOS 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Porsche Carrera GT</span>
-            <span class="model-card__tag tag--automotive">Automotive</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">iPhone</div>
+            <div class="platform-card__tech">SwiftUI + RealityKit</div>
           </div>
         </div>
-        <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer" data-model="models/platforms/ToyCar.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- iPad -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">iPadOS</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/SheenChair.glb" aria-label="iPad 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Toy Car</span>
-            <span class="model-card__tag tag--automotive">Automotive</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">iPad</div>
+            <div class="platform-card__tech">SwiftUI + RealityKit</div>
           </div>
         </div>
-        <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer" data-model="models/platforms/CarConcept.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- Vision Pro -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">visionOS</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/MosquitoInAmber.glb" aria-label="Vision Pro 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Car Concept</span>
-            <span class="model-card__tag tag--automotive">Automotive</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">Apple Vision Pro</div>
+            <div class="platform-card__tech">SwiftUI + RealityKit</div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- ===== FURNITURE ===== -->
-    <section class="showcase-category" data-category="furniture" id="furniture">
-      <div class="category-header">
-        <div class="category-icon category-icon--furniture">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/><path d="M2 11v5a2 2 0 002 2h16a2 2 0 002-2v-5a2 2 0 00-4 0v2H6v-2a2 2 0 00-4 0z"/><path d="M4 18v2M20 18v2"/></svg>
+        <!-- Android TV -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">TV</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/CarConcept.glb" aria-label="Android TV 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
+          </div>
+          <div class="platform-card__label">
+            <div class="platform-card__name">Android TV</div>
+            <div class="platform-card__tech">Compose TV + Filament</div>
+          </div>
         </div>
-        <div class="category-info">
-          <h2 class="category-title">Furniture</h2>
-          <p class="category-desc">Preview furniture in 3D before buying. Perfect for AR try-before-you-buy experiences.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/SheenChair.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- Web -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">Web</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/BoomBox.glb" aria-label="Web 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Sheen Chair</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">Web Browser</div>
+            <div class="platform-card__tech">Kotlin/JS + Filament.js</div>
           </div>
         </div>
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/DesignerChair.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- Flutter -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">Flutter</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/ChronographWatch.glb" aria-label="Flutter 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Designer Chair</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">Flutter</div>
+            <div class="platform-card__tech">PlatformView Bridge</div>
           </div>
         </div>
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/DamaskChair.glb">
 
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        <!-- React Native -->
+        <div class="platform-card">
+          <div class="platform-card__viewer">
+            <div class="platform-card__device-badge">React Native</div>
+            <canvas class="sv-showcase-canvas" data-model="models/platforms/AntiqueCamera.glb" aria-label="React Native 3D viewer" style="width:100%;height:100%;display:block;cursor:grab"></canvas>
           </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Damask Chair</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/VelvetSofa.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Velvet Sofa</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/LeatherSofa.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Leather Sofa</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/GlamVelvetSofa.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Glam Velvet Sofa</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer" data-model="models/platforms/SheenWoodLeatherSofa.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Wood & Leather Sofa</span>
-            <span class="model-card__tag tag--furniture">Furniture</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== DECORATION ===== -->
-    <section class="showcase-category" data-category="decoration" id="decoration">
-      <div class="category-header">
-        <div class="category-icon category-icon--decoration">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Decoration & Lighting</h2>
-          <p class="category-desc">Vases, lamps, plants, and decorative objects with realistic materials.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/FlowerVase.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Flower Vase</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/GlassVaseFlowers.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Glass Vase with Flowers</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/Plant.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Plant</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/IridescentDishWithOlives.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Iridescent Dish</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/DishWithOlives.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Dish with Olives</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/IridescenceLamp.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Iridescence Lamp</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/BarnLamp.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Barn Lamp</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/CandleHolder.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Candle Holder</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer" data-model="models/platforms/Lantern.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Lantern</span>
-            <span class="model-card__tag tag--decoration">Decoration</span>
+          <div class="platform-card__label">
+            <div class="platform-card__name">React Native</div>
+            <div class="platform-card__tech">Fabric Bridge</div>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- ===== ANIMATION / GAMING ===== -->
-    <section class="showcase-category" data-category="gaming" id="gaming">
-      <div class="category-header">
-        <div class="category-icon category-icon--gaming">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Animation & Characters</h2>
-          <p class="category-desc">Animated 3D characters and gaming assets with skeletal animation support.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer" data-model="models/platforms/Fox.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Fox (Animated)</span>
-            <span class="model-card__tag tag--gaming">Animation</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer" data-model="models/platforms/BrainStem.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">BrainStem (Animated)</span>
-            <span class="model-card__tag tag--gaming">Animation</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer" data-model="models/platforms/DragonAttenuation.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Dragon Attenuation</span>
-            <span class="model-card__tag tag--gaming">Animation</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer" data-model="models/platforms/MedievalFantasyBook.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Medieval Fantasy Book</span>
-            <span class="model-card__tag tag--gaming">Animation</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== NATURE & ENVIRONMENT ===== -->
-    <section class="showcase-category" data-category="nature" id="nature">
-      <div class="category-header">
-        <div class="category-icon category-icon--nature">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V8M5 12H2a10 10 0 0020 0h-3"/><path d="M12 2a5 5 0 015 5c0 2-1.5 3.5-3 4.5M12 2a5 5 0 00-5 5c0 2 1.5 3.5 3 4.5"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Nature & Environment</h2>
-          <p class="category-desc">Trees, plants, coral reefs and natural environments for immersive 3D scenes.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer" data-model="models/platforms/PalmTree.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Palm Tree</span>
-            <span class="model-card__tag tag--nature">Nature</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer" data-model="models/platforms/CoralReef.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Coral Reef</span>
-            <span class="model-card__tag tag--nature">Nature</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer" data-model="models/platforms/Crystals.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Crystals</span>
-            <span class="model-card__tag tag--nature">Nature</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer" data-model="models/platforms/MusicBand.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Music Band (Low Poly)</span>
-            <span class="model-card__tag tag--nature">Nature</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== SCIENCE & EDUCATION ===== -->
-    <section class="showcase-category" data-category="science" id="science">
-      <div class="category-header">
-        <div class="category-icon category-icon--science">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v5.586a1 1 0 00.293.707l4.414 4.414A3 3 0 0121 15.828V19a2 2 0 01-2 2H5a2 2 0 01-2-2v-3.172a3 3 0 011.293-2.121L8.707 9.293A1 1 0 009 8.586V3z"/><circle cx="12" cy="16" r="2"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Science & Education</h2>
-          <p class="category-desc">Interactive 3D models for learning: anatomy, chemistry, geography and more.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="science">
-          <div class="model-card__viewer" data-model="models/platforms/HumanHeart.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Human Heart</span>
-            <span class="model-card__tag tag--science">Science</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="science">
-          <div class="model-card__viewer" data-model="models/platforms/HandSkeleton.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Hand Skeleton</span>
-            <span class="model-card__tag tag--science">Science</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="science">
-          <div class="model-card__viewer" data-model="models/platforms/Globe.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Globe</span>
-            <span class="model-card__tag tag--science">Science</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="science">
-          <div class="model-card__viewer" data-model="models/platforms/H2OMolecule.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">H2O Molecule</span>
-            <span class="model-card__tag tag--science">Science</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="science">
-          <div class="model-card__viewer" data-model="models/platforms/PeriodicTable.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">3D Periodic Table</span>
-            <span class="model-card__tag tag--science">Science</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== INDUSTRIAL & ROBOTICS ===== -->
-    <section class="showcase-category" data-category="industrial" id="industrial">
-      <div class="category-header">
-        <div class="category-icon category-icon--industrial">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2l6 6-8 8-6-6 8-8z"/><path d="M2 22l4-4"/><path d="M14.5 9.5L17 12"/><circle cx="18" cy="18" r="3"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Industrial & Robotics</h2>
-          <p class="category-desc">Robots, drones, turbines and industrial equipment in interactive 3D.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer" data-model="models/platforms/RoboticArm.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Robotic Arm</span>
-            <span class="model-card__tag tag--industrial">Industrial</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer" data-model="models/platforms/WindTurbine.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Wind Turbine</span>
-            <span class="model-card__tag tag--industrial">Industrial</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer" data-model="models/platforms/SciFiDrone.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Sci-Fi Drone</span>
-            <span class="model-card__tag tag--industrial">Industrial</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer" data-model="models/platforms/RoboticEye.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Robotic Eye</span>
-            <span class="model-card__tag tag--industrial">Industrial</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== OBJECTS & COLLECTIBLES ===== -->
-    <section class="showcase-category" data-category="objects" id="objects">
-      <div class="category-header">
-        <div class="category-icon category-icon--objects">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-        </div>
-        <div class="category-info">
-          <h2 class="category-title">Objects & Collectibles</h2>
-          <p class="category-desc">Miscellaneous 3D objects showcasing advanced PBR materials and rendering quality.</p>
-        </div>
-      </div>
-      <div class="model-grid">
-        <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer" data-model="models/platforms/DamagedHelmet.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Damaged Helmet</span>
-            <span class="model-card__tag tag--objects">Object</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer" data-model="models/platforms/MosquitoInAmber.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Mosquito in Amber</span>
-            <span class="model-card__tag tag--objects">Object</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer" data-model="models/platforms/Avocado.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Avocado</span>
-            <span class="model-card__tag tag--objects">Object</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer" data-model="models/platforms/Duck.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Duck</span>
-            <span class="model-card__tag tag--objects">Object</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer" data-model="models/platforms/BoomBox.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Boom Box</span>
-            <span class="model-card__tag tag--objects">Object</span>
-          </div>
-        </div>
-        <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer" data-model="models/platforms/AntiqueCamera.glb">
-
-            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
-          </div>
-          <div class="model-card__info">
-            <span class="model-card__name">Antique Camera</span>
-            <span class="model-card__tag tag--objects">Object</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <!-- ===== CTA ===== -->
   <section class="showcase-cta">
@@ -1279,141 +1373,81 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer style="padding: var(--space-xl) 0; text-align: center; color: var(--color-on-surface-faint); font-size: 0.85rem; border-top: 1px solid var(--color-outline);">
+  <footer class="footer">
     <div class="container">
-      SceneView &mdash; Open-source 3D & AR SDK &middot;
-      <a href="https://github.com/sceneview/sceneview" style="color: var(--color-primary);">GitHub</a> &middot;
-      <a href="https://discord.gg/sceneview" style="color: var(--color-primary);">Discord</a> &middot;
-      <a href="/" style="color: var(--color-primary);">Home</a>
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg class="footer__logo" viewBox="0 0 32 32" width="24" height="24" fill="none">
+            <rect width="32" height="32" rx="8" fill="var(--color-primary)"/>
+            <path d="M8 22V10l8-4 8 4v12l-8 4-8-4z" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M8 10l8 4 8-4M16 14v12" stroke="#fff" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>SceneView</span>
+        </div>
+        <div class="footer__links">
+          <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0 License</a>
+          <a href="https://github.com/sponsors/sceneview">Sponsor</a>
+          <a href="https://github.com/sceneview/sceneview">Source Code</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <!-- ===== 3D VIEWER MODAL ===== -->
-  <div class="viewer-modal" id="viewerModal">
-    <div class="viewer-modal__header">
-      <span class="viewer-modal__title" id="viewerTitle">3D Model</span>
-      <button class="viewer-modal__close" id="viewerClose" aria-label="Close">&times;</button>
-    </div>
-    <div class="viewer-modal__canvas-wrap">
-      <canvas id="viewerCanvas"></canvas>
-      <div class="viewer-modal__loading" id="viewerLoading">
-        <div class="spinner"></div>
-        Loading 3D model...
-      </div>
-      <div class="viewer-modal__hint" id="viewerHint">Drag to rotate &middot; Scroll to zoom</div>
-    </div>
-  </div>
-
   <script src="script.js"></script>
 
-  <!-- Category filter logic -->
+  <!-- SceneView Web — initialize all showcase 3D viewers with lazy loading -->
   <script>
   (function() {
-    var filterBtns = document.querySelectorAll('.filter-btn');
-    var categories = document.querySelectorAll('.showcase-category');
+    // Initialize existing id-based canvases
+    var models = [
+      { id: 'showcase-shoe',   model: 'models/platforms/MaterialsVariantsShoe.glb', bg: [0.97, 0.97, 0.98, 1] },
+      { id: 'showcase-chair',  model: 'models/platforms/SheenChair.glb',            bg: [0.91, 0.92, 0.93, 1] },
+      { id: 'showcase-car',    model: 'models/platforms/ToyCar.glb',                bg: [0.10, 0.10, 0.12, 1] },
+      { id: 'showcase-helmet', model: 'models/platforms/DamagedHelmet.glb',         bg: [0.06, 0.09, 0.17, 1] },
+      { id: 'showcase-lamp',   model: 'models/platforms/IridescenceLamp.glb',       bg: [0.10, 0.10, 0.18, 1] }
+    ];
 
-    filterBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var filter = this.getAttribute('data-filter');
-        filterBtns.forEach(function(b) { b.classList.remove('filter-btn--active'); });
-        this.classList.add('filter-btn--active');
-        categories.forEach(function(cat) {
-          if (filter === 'all' || cat.getAttribute('data-category') === filter) {
-            cat.style.display = '';
-          } else {
-            cat.style.display = 'none';
-          }
-        });
+    if (typeof SceneView === 'undefined') return;
+
+    models.forEach(function(cfg) {
+      var canvas = document.getElementById(cfg.id);
+      if (!canvas) return;
+      SceneView.modelViewer(cfg.id, cfg.model, {
+        backgroundColor: cfg.bg
+      }).catch(function(e) {
+        console.warn('SceneView showcase [' + cfg.id + ']:', e.message || e);
       });
     });
-  })();
-  </script>
 
-  <!-- Single-canvas modal viewer — 1 WebGL context for all 59 models -->
-  <script>
-  (function() {
-    var modal = document.getElementById('viewerModal');
-    var canvas = document.getElementById('viewerCanvas');
-    var title = document.getElementById('viewerTitle');
-    var loading = document.getElementById('viewerLoading');
-    var hint = document.getElementById('viewerHint');
-    var closeBtn = document.getElementById('viewerClose');
-
-    var instance = null; // Single SceneView instance, reused
-    var isLoading = false;
-
+    // Lazy-load platform grid canvases
     function getThemeBg() {
       var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      return isDark ? [0.12, 0.12, 0.16, 1.0] : [0.94, 0.95, 0.96, 1.0];
+      return isDark ? [0.09, 0.09, 0.13, 1.0] : [0.94, 0.95, 0.96, 1.0];
     }
-
-    function openViewer(modelUrl, modelName) {
-      title.textContent = modelName;
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-      loading.style.display = 'flex';
-      hint.style.display = '';
-      isLoading = true;
-
-      var bg = getThemeBg();
-
-      if (!instance) {
-        // First time: create SceneView instance
-        SceneView.modelViewer(canvas, modelUrl, {
-          backgroundColor: bg, lightIntensity: 120000, fov: 35, autoRotate: true
-        }).then(function(inst) {
-          instance = inst;
-          loading.style.display = 'none';
-          isLoading = false;
-          // Hide hint after 4 seconds
-          setTimeout(function() { hint.style.display = 'none'; }, 4000);
-        }).catch(function(e) {
-          loading.innerHTML = 'Failed to load model';
-          isLoading = false;
-          console.error('SceneView modal:', e);
-        });
-      } else {
-        // Reuse existing instance — just load new model
-        instance.setBackgroundColor(bg[0], bg[1], bg[2], bg[3]);
-        instance.loadModel(modelUrl).then(function() {
-          loading.style.display = 'none';
-          isLoading = false;
-          setTimeout(function() { hint.style.display = 'none'; }, 4000);
-        }).catch(function(e) {
-          loading.innerHTML = 'Failed to load model';
-          isLoading = false;
-          console.error('SceneView modal:', e);
-        });
-      }
-    }
-
-    function closeViewer() {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    // Click handler on all model cards
-    document.querySelectorAll('.model-card__viewer[data-model]').forEach(function(viewer) {
-      viewer.addEventListener('click', function() {
-        var modelUrl = this.dataset.model;
-        var card = this.closest('.model-card');
-        var nameEl = card ? card.querySelector('.model-card__name') : null;
-        var modelName = nameEl ? nameEl.textContent : 'Model';
-        openViewer(modelUrl, modelName);
+    var lazyCanvases = document.querySelectorAll('.sv-showcase-canvas');
+    if (!lazyCanvases.length) return;
+    var loaded = new Set();
+    var viewers = [];
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting && !loaded.has(entry.target)) {
+          loaded.add(entry.target);
+          var c = entry.target;
+          var model = c.getAttribute('data-model');
+          if (!model) return;
+          SceneView.modelViewer(c, model, {
+            backgroundColor: getThemeBg(),
+            lightIntensity: 120000,
+            fov: 38
+          }).then(function(v) { viewers.push(v); }).catch(function(e) { console.warn('Lazy load:', e); });
+        }
       });
-    });
-
-    closeBtn.addEventListener('click', closeViewer);
-
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.classList.contains('active')) closeViewer();
-    });
-
-    // Close on backdrop click (but not on canvas interaction)
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) closeViewer();
-    });
+    }, { rootMargin: '300px' });
+    lazyCanvases.forEach(function(c) { observer.observe(c); });
+    new MutationObserver(function() {
+      var bg = getThemeBg();
+      viewers.forEach(function(v) { v.setBackgroundColor(bg[0], bg[1], bg[2], bg[3]); });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   })();
   </script>
 </body>

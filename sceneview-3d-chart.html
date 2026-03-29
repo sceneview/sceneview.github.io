@@ -2,454 +2,598 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SceneView 3D Chart</title>
+<title>SceneView 3D Chart — Apex Ventures Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #1a1a2e; overflow: hidden; font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif; }
-  canvas { display: block; }
-  #header { position: absolute; top: 20px; left: 28px; z-index: 10; pointer-events: none; }
-  #header h1 { font-size: 1.6rem; font-weight: 700; color: #f1f5f9; transition: opacity 0.6s; letter-spacing: -0.01em; }
-  #header p { font-size: 0.9rem; color: #94a3b8; margin-top: 4px; transition: opacity 0.6s; }
+  body {
+    overflow: hidden; font-family: -apple-system, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+    height: 100vh; background: #000;
+  }
+  /* Polyhaven HDRI sky background */
+  #sky {
+    position: fixed; inset: 0; z-index: 0;
+    background: url('environments/sky/citrus_2k.jpg') center/cover no-repeat;
+    filter: brightness(0.3) saturate(1.3) contrast(1.1);
+    transition: filter 1.5s ease;
+  }
+  canvas {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%; display: block; cursor: grab;
+    background: transparent;
+  }
+  canvas:active { cursor: grabbing; }
+
+  /* Header glassmorphism */
+  #header {
+    position: absolute; top: 24px; left: 28px; z-index: 10; pointer-events: none;
+    animation: fadeSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #header .card {
+    background: rgba(8,12,22,0.55); backdrop-filter: blur(24px) saturate(1.5);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 16px; padding: 18px 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  #header .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  #header .brand svg { width: 30px; height: 30px; }
+  #header .brand span {
+    font-size: 0.85rem; font-weight: 600; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  #header h1 {
+    font-size: 1.5rem; font-weight: 700; color: #fff;
+    transition: opacity 0.6s, transform 0.6s; letter-spacing: -0.02em;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  }
+  #header p {
+    font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 5px;
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  /* KPI strip */
+  #kpi-strip {
+    position: absolute; top: 24px; right: 28px; z-index: 10; pointer-events: none;
+    display: flex; gap: 8px;
+    animation: fadeSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  }
+  .kpi-card {
+    background: rgba(8,12,22,0.55); backdrop-filter: blur(24px) saturate(1.5);
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 12px 16px;
+    text-align: center; min-width: 85px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .kpi-card .kpi-val { font-size: 1.2rem; font-weight: 800; color: #fff; }
+  .kpi-card .kpi-delta { font-size: 0.6rem; font-weight: 700; margin-top: 2px; }
+  .kpi-card .kpi-delta.up { color: #4ade80; }
+  .kpi-card .kpi-delta.down { color: #f87171; }
+  .kpi-card .kpi-label {
+    font-size: 0.5rem; color: rgba(255,255,255,0.3); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-top: 3px;
+  }
+
+  /* Badge */
   #badge {
-    position: absolute; bottom: 20px; right: 24px; z-index: 10;
-    display: flex; align-items: center; gap: 7px;
-    background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 8px; padding: 7px 14px; backdrop-filter: blur(8px);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    position: absolute; bottom: 24px; right: 24px; z-index: 10;
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(8,12,22,0.5); backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    animation: fadeSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
   }
-  #badge svg { width: 16px; height: 16px; }
-  #badge .rendered { color: #94a3b8; font-size: 0.65rem; margin-right: 2px; }
-  #tooltip {
-    position: absolute; display: none; background: rgba(255,255,255,0.97);
-    border: 1px solid rgba(0,0,0,0.06); border-radius: 12px;
-    padding: 14px 18px; color: #1e293b; pointer-events: none; z-index: 20;
-    backdrop-filter: blur(16px); min-width: 170px; box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  #badge .rendered { color: rgba(255,255,255,0.35); font-size: 0.6rem; letter-spacing: 0.04em; }
+  #badge .sv-name { color: rgba(255,255,255,0.85); font-weight: 600; font-size: 0.75rem; }
+  #badge .sv-version { color: rgba(96,165,250,0.7); font-size: 0.55rem; font-weight: 500; margin-left: 2px; }
+
+  /* Scene nav dots */
+  #scene-nav {
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+    z-index: 10; display: flex; gap: 8px;
+    animation: fadeSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
   }
-  #tooltip .label { color: #64748b; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
-  #tooltip .value { font-size: 1.6rem; font-weight: 700; margin-top: 3px; color: #0f172a; }
-  #tooltip .sub { color: #22c55e; font-size: 0.75rem; margin-top: 4px; font-weight: 600; }
-  #scene-label {
-    position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
-    z-index: 10; pointer-events: none; text-align: center;
+  #scene-nav .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
   }
-  #scene-label .num { font-size: 0.65rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.1em; }
-  #scene-label .dots { display: flex; gap: 6px; justify-content: center; margin-top: 6px; }
-  #scene-label .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: all 0.4s; }
-  #scene-label .dot.active { background: rgba(255,255,255,0.7); width: 18px; border-radius: 3px; }
+  #scene-nav .dot:hover { background: rgba(255,255,255,0.35); }
+  #scene-nav .dot.active {
+    background: rgba(96,165,250,0.9); width: 28px; border-radius: 4px;
+    box-shadow: 0 0 12px rgba(96,165,250,0.4);
+    border-color: rgba(96,165,250,0.3);
+  }
+
+  /* Legend bar */
+  #legend {
+    position: absolute; bottom: 24px; left: 28px; z-index: 10;
+    display: flex; gap: 6px; transition: opacity 0.6s;
+    animation: fadeSlideIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  }
+  .legend-item {
+    background: rgba(8,12,22,0.55); backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 12px;
+    padding: 10px 14px; text-align: center; min-width: 90px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s;
+  }
+  .legend-item:hover { transform: translateY(-2px); }
+  .legend-item .val { font-size: 1.05rem; font-weight: 700; color: #fff; }
+  .legend-item .growth { font-size: 0.58rem; font-weight: 600; color: #4ade80; margin-top: 2px; }
+  .legend-item .name {
+    font-size: 0.52rem; color: rgba(255,255,255,0.3); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-top: 3px; white-space: nowrap;
+  }
+  .legend-item .swatch {
+    width: 8px; height: 8px; border-radius: 3px;
+    display: inline-block; margin-right: 4px; vertical-align: middle;
+    box-shadow: 0 0 6px currentColor;
+  }
+
+  /* Scene transition overlay */
+  #transition-overlay {
+    position: fixed; inset: 0; z-index: 5; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%);
+  }
+
+  @keyframes fadeSlideIn {
+    0% { opacity: 0; transform: translateY(-12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    #header h1 { font-size: 1.1rem; }
+    #kpi-strip { display: none; }
+    .legend-item { min-width: 70px; padding: 8px 10px; }
+    .legend-item .val { font-size: 0.85rem; }
+  }
 </style>
 </head>
 <body>
+<div id="sky"></div>
+<div id="transition-overlay"></div>
+
 <div id="header">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
-    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-      <rect width="32" height="32" rx="7" fill="#1e3a5f"/>
-      <path d="M8 16h4l3-6 4 12 3-6h4" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="16" cy="8" r="2.5" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
-      <circle cx="16" cy="8" r="1" fill="#60a5fa"/>
-    </svg>
-    <span style="font-size:1rem;font-weight:700;color:#e2e8f0;">Apex Ventures</span>
+  <div class="card">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="7" fill="rgba(30,58,95,0.8)"/>
+        <path d="M8 16h4l3-6 4 12 3-6h4" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="16" cy="8" r="2.5" fill="none" stroke="#60a5fa" stroke-width="1.5"/>
+        <circle cx="16" cy="8" r="1" fill="#60a5fa"/>
+      </svg>
+      <span>Apex Ventures</span>
+    </div>
+    <h1 id="title">Q1 2026 Revenue by Region</h1>
+    <p id="subtitle">Year-over-year performance</p>
   </div>
-  <h1 id="title">Q1 2026 Revenue by Region</h1>
-  <p id="subtitle">Board meeting dashboard</p>
 </div>
+
+<div id="kpi-strip"></div>
+
 <div id="badge">
   <span class="rendered">Rendered by</span>
-  <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="#3b82f6" stroke-width="1.8" fill="rgba(59,130,246,0.08)"/><path d="M12 22V12M2 7l10 5 10-5" stroke="#3b82f6" stroke-width="1.8"/></svg>
-  <span style="color:#334155;font-weight:600;font-size:0.72rem;">SceneView</span>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="#60a5fa" stroke-width="1.6" fill="rgba(96,165,250,0.1)"/><path d="M12 22V12M2 7l10 5 10-5" stroke="#60a5fa" stroke-width="1.6"/></svg>
+  <span class="sv-name">SceneView</span>
+  <span class="sv-version">v3.5.2</span>
 </div>
-<div id="scene-label">
-  <div class="dots" id="dots"></div>
-</div>
-<div id="tooltip"></div>
 
-<script type="importmap">{"imports":{"three":"js/three/three.module.js","three/addons/environments/RoomEnvironment.js":"js/three/RoomEnvironment.js","three/addons/loaders/RGBELoader.js":"js/three/RGBELoader.js"}}</script>
-<script type="module">
-import * as THREE from 'three';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+<div id="scene-nav"></div>
+<div id="legend"></div>
 
-// === SCENES DATA ===
-const scenes = [
+<canvas id="viewer"></canvas>
+
+<script src="js/filament/filament.js"></script>
+<script src="js/sceneview.js?v=3.5.2"></script>
+<script>
+// ================================================================
+// SceneView 3D Business Charts v2 — Full v3.5.2 Feature Showcase
+// Bloom, Vignette, animateCamera, Point Lights, Orbit Controls
+// ================================================================
+
+var scenes = [
   {
     title: "Q1 2026 Revenue by Region",
-    subtitle: "Year-over-year performance",
+    subtitle: "Year-over-year performance across 5 markets",
     bars: [
-      { label: "North America", value: 4.2, growth: "+12%", color: 0x2563eb },
-      { label: "Europe", value: 3.1, growth: "+8%", color: 0x4f46e5 },
-      { label: "Asia Pacific", value: 2.8, growth: "+22%", color: 0x7c3aed },
-      { label: "Latin America", value: 1.4, growth: "+15%", color: 0x9333ea },
-      { label: "Middle East", value: 0.9, growth: "+31%", color: 0xc026d3 },
+      { label: "North America", value: 4.2, growth: "+12%", color: 0x3b82f6, glow: [0.23, 0.51, 0.96] },
+      { label: "Europe",        value: 3.1, growth: "+8%",  color: 0x6366f1, glow: [0.39, 0.40, 0.95] },
+      { label: "Asia Pacific",  value: 2.8, growth: "+22%", color: 0x8b5cf6, glow: [0.55, 0.36, 0.96] },
+      { label: "Latin America", value: 1.4, growth: "+15%", color: 0xa855f7, glow: [0.66, 0.33, 0.97] },
+      { label: "Middle East",   value: 0.9, growth: "+31%", color: 0xd946ef, glow: [0.85, 0.27, 0.94] },
     ],
     prefix: "$", suffix: "M",
+    kpis: [
+      { val: "$12.4M", delta: "+16%", dir: "up", label: "Total Rev" },
+      { val: "847", delta: "+23%", dir: "up", label: "New Deals" },
+      { val: "94%", delta: "+2%", dir: "up", label: "Retention" },
+    ],
+    camera: { distance: 14, height: 5.5, angle: 0.6, target: [0, 1.8, 0] },
   },
   {
-    title: "Quarterly Revenue Trend",
-    subtitle: "Consistent growth trajectory",
+    title: "Product Line Growth",
+    subtitle: "SaaS platform leading with +28% YoY",
     bars: [
-      { label: "Q1 2025", value: 8.2, growth: "", color: 0x475569 },
-      { label: "Q2 2025", value: 9.1, growth: "+11%", color: 0x6366f1 },
-      { label: "Q3 2025", value: 10.8, growth: "+19%", color: 0x818cf8 },
-      { label: "Q4 2025", value: 11.5, growth: "+6%", color: 0xa78bfa },
-      { label: "Q1 2026", value: 12.4, growth: "+8%", color: 0x2563eb },
+      { label: "SaaS Platform",  value: 5.8, growth: "+28%", color: 0x0ea5e9, glow: [0.05, 0.65, 0.91] },
+      { label: "Consulting",     value: 3.2, growth: "+5%",  color: 0x6366f1, glow: [0.39, 0.40, 0.95] },
+      { label: "Data Analytics",value: 2.1, growth: "+42%", color: 0x8b5cf6, glow: [0.55, 0.36, 0.96] },
+      { label: "Cloud Infra",    value: 1.3, growth: "+18%", color: 0xd946ef, glow: [0.85, 0.27, 0.94] },
     ],
     prefix: "$", suffix: "M",
+    kpis: [
+      { val: "$12.4M", delta: "+19%", dir: "up", label: "Product Rev" },
+      { val: "4.2x", delta: "+0.8", dir: "up", label: "LTV:CAC" },
+      { val: "142%", delta: "+12%", dir: "up", label: "NRR" },
+    ],
+    camera: { distance: 13, height: 4.5, angle: -0.4, target: [0, 1.6, 0] },
   },
   {
-    title: "Product Line Breakdown",
-    subtitle: "SaaS platform leading growth",
+    title: "Team Performance Index",
+    subtitle: "Engineering velocity at all-time high",
     bars: [
-      { label: "SaaS Platform", value: 5.8, growth: "+28%", color: 0x0ea5e9 },
-      { label: "Consulting", value: 3.2, growth: "+5%", color: 0x6366f1 },
-      { label: "Data Analytics", value: 2.1, growth: "+42%", color: 0x8b5cf6 },
-      { label: "Cloud Infra", value: 1.3, growth: "+18%", color: 0xd946ef },
+      { label: "Engineering", value: 96, growth: "+8%",  color: 0x06b6d4, glow: [0.02, 0.71, 0.83] },
+      { label: "Sales",       value: 88, growth: "+12%", color: 0x3b82f6, glow: [0.23, 0.51, 0.96] },
+      { label: "Marketing",   value: 82, growth: "+15%", color: 0x8b5cf6, glow: [0.55, 0.36, 0.96] },
+      { label: "Support",     value: 91, growth: "+6%",  color: 0x10b981, glow: [0.06, 0.73, 0.51] },
+      { label: "Product",     value: 94, growth: "+10%", color: 0xf59e0b, glow: [0.96, 0.62, 0.04] },
     ],
-    prefix: "$", suffix: "M",
+    prefix: "", suffix: "",
+    kpis: [
+      { val: "92", delta: "+9%", dir: "up", label: "Avg Score" },
+      { val: "4.8", delta: "+0.3", dir: "up", label: "ESAT" },
+      { val: "12%", delta: "-3%", dir: "down", label: "Attrition" },
+    ],
+    camera: { distance: 15, height: 6, angle: 0.9, target: [0, 2.0, 0] },
   },
   {
-    title: "2026 Annual Forecast",
-    subtitle: "On track to exceed targets",
+    title: "Q2 2026 Forecast",
+    subtitle: "On track to exceed annual targets by 18%",
     bars: [
-      { label: "Revenue", value: 48.6, growth: "+24%", color: 0x2563eb },
-      { label: "ARR", value: 42.0, growth: "+31%", color: 0x7c3aed },
-      { label: "Pipeline", value: 85.0, growth: "+18%", color: 0x0ea5e9 },
+      { label: "Revenue",  value: 48.6, growth: "+24%", color: 0x3b82f6, glow: [0.23, 0.51, 0.96] },
+      { label: "ARR",      value: 42.0, growth: "+31%", color: 0x8b5cf6, glow: [0.55, 0.36, 0.96] },
+      { label: "Pipeline", value: 85.0, growth: "+18%", color: 0x06b6d4, glow: [0.02, 0.71, 0.83] },
     ],
     prefix: "$", suffix: "M",
+    kpis: [
+      { val: "$175M", delta: "+18%", dir: "up", label: "Forecast" },
+      { val: "2.1x", delta: "+0.4", dir: "up", label: "Pipeline" },
+      { val: "$48.6M", delta: "+24%", dir: "up", label: "Q2 Target" },
+    ],
+    camera: { distance: 12, height: 4, angle: -0.2, target: [0, 1.5, 0] },
   },
 ];
 
-const SCENE_DURATION = 8.0; // seconds per scene
-const TRANSITION_DURATION = 1.0;
+var SCENE_DURATION = 10.0;
+var TRANSITION_DURATION = 1800;
 
-let scene, camera, renderer;
-let currentBars = [];
-let animStartTime = 0;
-let currentSceneIndex = -1;
+function hexToRGB(hex) {
+  return [((hex >> 16) & 0xFF) / 255, ((hex >> 8) & 0xFF) / 255, (hex & 0xFF) / 255];
+}
+function hexToCSS(hex) { return '#' + hex.toString(16).padStart(6, '0'); }
 
-function glassMaterial(color) {
-  return new THREE.MeshPhysicalMaterial({
-    color,
-    roughness: 0.05,
-    metalness: 0.0,
-    clearcoat: 1.0,
-    clearcoatRoughness: 0.02,
-    transparent: true,
-    opacity: 1.0,
-    envMapIntensity: 2.5,
-    reflectivity: 1.0,
-    ior: 2.0,
-    thickness: 3.0,
-    transmission: 0.85,
-    specularIntensity: 1.0,
-    specularColor: new THREE.Color(0xffffff),
-    attenuationColor: new THREE.Color(color),
-    attenuationDistance: 0.8,
-    sheen: 0.4,
-    sheenColor: new THREE.Color(color),
-    sheenRoughness: 0.15,
+// === GLB BUILDER ===
+
+var CUBE_POS = new Float32Array([
+  -0.5,-0.5, 0.5,  0.5,-0.5, 0.5,  0.5, 0.5, 0.5, -0.5, 0.5, 0.5,
+   0.5,-0.5,-0.5, -0.5,-0.5,-0.5, -0.5, 0.5,-0.5,  0.5, 0.5,-0.5,
+  -0.5, 0.5, 0.5,  0.5, 0.5, 0.5,  0.5, 0.5,-0.5, -0.5, 0.5,-0.5,
+  -0.5,-0.5,-0.5,  0.5,-0.5,-0.5,  0.5,-0.5, 0.5, -0.5,-0.5, 0.5,
+   0.5,-0.5, 0.5,  0.5,-0.5,-0.5,  0.5, 0.5,-0.5,  0.5, 0.5, 0.5,
+  -0.5,-0.5,-0.5, -0.5,-0.5, 0.5, -0.5, 0.5, 0.5, -0.5, 0.5,-0.5,
+]);
+var CUBE_NRM = new Float32Array([
+  0,0,1, 0,0,1, 0,0,1, 0,0,1,  0,0,-1, 0,0,-1, 0,0,-1, 0,0,-1,
+  0,1,0, 0,1,0, 0,1,0, 0,1,0,  0,-1,0, 0,-1,0, 0,-1,0, 0,-1,0,
+  1,0,0, 1,0,0, 1,0,0, 1,0,0,  -1,0,0, -1,0,0, -1,0,0, -1,0,0,
+]);
+var CUBE_IDX = new Uint16Array([
+  0,1,2, 0,2,3,     4,5,6, 4,6,7,
+  8,9,10, 8,10,11,  12,13,14, 12,14,15,
+  16,17,18, 16,18,19, 20,21,22, 20,22,23,
+]);
+
+function createChartGLB(barData) {
+  var posBytes = CUBE_POS.byteLength;
+  var nrmBytes = CUBE_NRM.byteLength;
+  var idxBytes = CUBE_IDX.byteLength;
+  var totalBin = posBytes + nrmBytes + idxBytes;
+  var bin = new Uint8Array(totalBin);
+  bin.set(new Uint8Array(CUBE_POS.buffer), 0);
+  bin.set(new Uint8Array(CUBE_NRM.buffer), posBytes);
+  bin.set(new Uint8Array(CUBE_IDX.buffer), posBytes + nrmBytes);
+
+  // Bar materials — high metallic PBR with slight emissive tint for bloom pickup
+  var materials = barData.map(function(b, i) {
+    return {
+      name: "bar" + i,
+      pbrMetallicRoughness: {
+        baseColorFactor: [b.color[0], b.color[1], b.color[2], 1.0],
+        metallicFactor: 0.92,
+        roughnessFactor: 0.04,
+      },
+      emissiveFactor: [b.color[0] * 0.15, b.color[1] * 0.15, b.color[2] * 0.15],
+    };
+  });
+  // Ground — dark mirror surface
+  materials.push({
+    name: "ground",
+    pbrMetallicRoughness: {
+      baseColorFactor: [0.02, 0.025, 0.04, 1.0],
+      metallicFactor: 0.98,
+      roughnessFactor: 0.02,
+    },
+  });
+
+  var meshes = barData.map(function(b, i) {
+    return { primitives: [{ attributes: { POSITION: 0, NORMAL: 1 }, indices: 2, material: i }] };
+  });
+  meshes.push({ primitives: [{ attributes: { POSITION: 0, NORMAL: 1 }, indices: 2, material: barData.length }] });
+
+  var children = [];
+  var barNodes = barData.map(function(b, i) {
+    children.push(i + 1);
+    return {
+      mesh: i, name: "bar" + i,
+      translation: [b.x, b.height / 2, 0],
+      scale: [b.width, b.height, b.depth],
+    };
+  });
+  children.push(barData.length + 1);
+  var nodes = [{ children: children, name: "root" }]
+    .concat(barNodes)
+    .concat([{ mesh: barData.length, name: "ground", translation: [0, -0.01, 0], scale: [35, 0.02, 18] }]);
+
+  var json = {
+    asset: { version: "2.0", generator: "SceneView 3D Charts" },
+    scene: 0, scenes: [{ nodes: [0] }],
+    nodes: nodes, meshes: meshes, materials: materials,
+    accessors: [
+      { bufferView: 0, componentType: 5126, count: 24, type: "VEC3", min: [-0.5,-0.5,-0.5], max: [0.5,0.5,0.5] },
+      { bufferView: 1, componentType: 5126, count: 24, type: "VEC3" },
+      { bufferView: 2, componentType: 5123, count: 36, type: "SCALAR" },
+    ],
+    bufferViews: [
+      { buffer: 0, byteOffset: 0, byteLength: posBytes, target: 34962 },
+      { buffer: 0, byteOffset: posBytes, byteLength: nrmBytes, target: 34962 },
+      { buffer: 0, byteOffset: posBytes + nrmBytes, byteLength: idxBytes, target: 34963 },
+    ],
+    buffers: [{ byteLength: totalBin }],
+  };
+  return buildGLB(json, bin);
+}
+
+function buildGLB(json, binBuf) {
+  var js = JSON.stringify(json);
+  var jb = new TextEncoder().encode(js);
+  var jp = (4 - jb.length % 4) % 4;
+  var jc = new Uint8Array(jb.length + jp);
+  jc.set(jb);
+  for (var i = 0; i < jp; i++) jc[jb.length + i] = 0x20;
+  var bp = (4 - binBuf.length % 4) % 4;
+  var bc = new Uint8Array(binBuf.length + bp);
+  bc.set(binBuf);
+  var tot = 12 + 8 + jc.length + 8 + bc.length;
+  var glb = new ArrayBuffer(tot);
+  var dv = new DataView(glb);
+  var out = new Uint8Array(glb);
+  dv.setUint32(0, 0x46546C67, true); dv.setUint32(4, 2, true); dv.setUint32(8, tot, true);
+  dv.setUint32(12, jc.length, true); dv.setUint32(16, 0x4E4F534A, true); out.set(jc, 20);
+  var off = 20 + jc.length;
+  dv.setUint32(off, bc.length, true); dv.setUint32(off + 4, 0x004E4942, true); out.set(bc, off + 8);
+  return new Uint8Array(glb);
+}
+
+function buildBarData(sd) {
+  var maxVal = Math.max.apply(null, sd.bars.map(function(b) { return b.value; }));
+  var n = sd.bars.length;
+  var spacing = n <= 3 ? 3.0 : (n <= 4 ? 2.2 : 1.8);
+  var barWidth = n <= 3 ? 1.1 : (n <= 4 ? 0.95 : 0.85);
+  var offset = -(n - 1) * spacing / 2;
+  return sd.bars.map(function(b, i) {
+    return {
+      x: offset + i * spacing,
+      height: (b.value / maxVal) * 5.0,
+      width: barWidth,
+      depth: barWidth,
+      color: hexToRGB(b.color),
+      glow: b.glow,
+    };
   });
 }
 
-async function init() {
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, 0.1, 100);
+// === UI UPDATES ===
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.0;
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  document.body.appendChild(renderer.domElement);
-
-  // Load HDRs
-  const pmremGenerator = new THREE.PMREMGenerator(renderer);
-  pmremGenerator.compileEquirectangularShader();
-  try {
-    const loader = new RGBELoader();
-    const skyTexture = await new Promise((res, rej) => {
-      loader.load('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/citrus_orchard_road_puresky_1k.hdr', res, undefined, rej);
-    });
-    const envMap = pmremGenerator.fromEquirectangular(skyTexture).texture;
-    scene.background = envMap;
-    scene.environment = envMap;
-    skyTexture.dispose();
-  } catch(e) {
-    scene.environment = pmremGenerator.fromScene(new RoomEnvironment()).texture;
-  }
-  pmremGenerator.dispose();
-
-  // Lighting
-  scene.add(new THREE.AmbientLight(0xd0d8e8, 0.2));
-  const key = new THREE.DirectionalLight(0xfff8f0, 0.6);
-  key.position.set(5, 12, 7);
-  key.castShadow = true;
-  key.shadow.mapSize.set(2048, 2048);
-  key.shadow.camera.near = 0.5; key.shadow.camera.far = 40;
-  key.shadow.camera.left = -12; key.shadow.camera.right = 12;
-  key.shadow.camera.top = 12; key.shadow.camera.bottom = -4;
-  key.shadow.radius = 8; key.shadow.bias = -0.001;
-  scene.add(key);
-
-  // Reflective ground — mirrors the sky
-  const ground = new THREE.Mesh(
-    new THREE.PlaneGeometry(60, 40),
-    new THREE.MeshStandardMaterial({ color: 0x445566, roughness: 0.15, metalness: 0.4, envMapIntensity: 1.5 })
-  );
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.y = -0.01;
-  ground.receiveShadow = true;
-  scene.add(ground);
-
-  // Scene dots UI
-  const dotsEl = document.getElementById('dots');
-  scenes.forEach((_, i) => {
-    const d = document.createElement('div');
+function initDots() {
+  var nav = document.getElementById('scene-nav');
+  scenes.forEach(function(_, i) {
+    var d = document.createElement('div');
     d.className = 'dot' + (i === 0 ? ' active' : '');
     d.id = 'dot-' + i;
-    dotsEl.appendChild(d);
+    d.onclick = function() { jumpToScene(i); };
+    nav.appendChild(d);
   });
-
-  // Interaction
-  renderer.domElement.addEventListener('wheel', e => {
-    camera.position.z = Math.max(10, Math.min(24, camera.position.z + e.deltaY * 0.008));
-  });
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  animStartTime = performance.now() / 1000;
-  animate();
 }
 
-function clearBars() {
-  currentBars.forEach(b => {
-    scene.remove(b.group);
-    b.group.traverse(c => { if (c.geometry) c.geometry.dispose(); if (c.material) c.material.dispose(); });
+function updateDots(idx) {
+  scenes.forEach(function(_, i) {
+    document.getElementById('dot-' + i).className = 'dot' + (i === idx ? ' active' : '');
   });
-  currentBars = [];
 }
 
-function buildScene(sceneData) {
-  clearBars();
-  const spacing = sceneData.bars.length <= 3 ? 2.4 : 1.9;
-  const offset = -(sceneData.bars.length - 1) * spacing / 2;
+function updateLegend(sd) {
+  var el = document.getElementById('legend');
+  el.style.opacity = '0';
+  setTimeout(function() {
+    el.innerHTML = sd.bars.map(function(b, i) {
+      var delay = i * 0.08;
+      return '<div class="legend-item" style="animation:fadeSlideIn 0.5s cubic-bezier(0.22,1,0.36,1) ' + delay + 's both">' +
+        '<div class="val"><span class="swatch" style="background:' + hexToCSS(b.color) +
+        ';box-shadow:0 0 8px ' + hexToCSS(b.color) + '"></span>' +
+        sd.prefix + b.value + sd.suffix + '</div>' +
+        (b.growth ? '<div class="growth">' + b.growth + '</div>' : '') +
+        '<div class="name">' + b.label + '</div></div>';
+    }).join('');
+    el.style.opacity = '1';
+  }, 400);
+}
 
-  sceneData.bars.forEach((d, i) => {
-    const group = new THREE.Group();
-    group.position.x = offset + i * spacing;
-    const maxVal = Math.max(...sceneData.bars.map(b => b.value));
-    const targetH = (d.value / maxVal) * 4.0; // normalize: tallest bar = 4 units
+function updateHeader(sd) {
+  var t = document.getElementById('title');
+  var s = document.getElementById('subtitle');
+  t.style.opacity = '0'; t.style.transform = 'translateY(-4px)';
+  s.style.opacity = '0'; s.style.transform = 'translateY(-4px)';
+  setTimeout(function() {
+    t.textContent = sd.title; s.textContent = sd.subtitle;
+    t.style.opacity = '1'; t.style.transform = 'translateY(0)';
+    s.style.opacity = '1'; s.style.transform = 'translateY(0)';
+  }, 400);
+}
 
-    // Glass bar
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.85, targetH, 0.85), glassMaterial(d.color));
-    bar.position.y = targetH / 2;
-    bar.castShadow = true;
-    bar.receiveShadow = true;
-    bar.userData = d;
-    group.add(bar);
+function updateKPIs(sd) {
+  var el = document.getElementById('kpi-strip');
+  var kpis = sd.kpis || [];
+  el.innerHTML = kpis.map(function(k, i) {
+    var delay = i * 0.1 + 0.2;
+    return '<div class="kpi-card" style="animation:fadeSlideIn 0.5s cubic-bezier(0.22,1,0.36,1) ' + delay + 's both">' +
+      '<div class="kpi-val">' + k.val + '</div>' +
+      '<div class="kpi-delta ' + k.dir + '">' + k.delta + '</div>' +
+      '<div class="kpi-label">' + k.label + '</div></div>';
+  }).join('');
+}
 
-    // Glow
-    const glow = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.8, 1.8),
-      new THREE.MeshBasicMaterial({ color: d.color, transparent: true, opacity: 0.08, side: THREE.DoubleSide })
-    );
-    glow.rotation.x = -Math.PI / 2;
-    glow.position.y = 0.006;
-    group.add(glow);
+// === POINT LIGHTS PER SCENE ===
 
-    // Value label
-    const vc = document.createElement('canvas');
-    vc.width = 200; vc.height = 56;
-    const vx = vc.getContext('2d');
-    vx.fillStyle = '#f1f5f9';
-    vx.font = '700 28px -apple-system, SF Pro Display, sans-serif';
-    vx.textAlign = 'center';
-    vx.fillText(sceneData.prefix + d.value + sceneData.suffix, 100, 36);
-    const valSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(vc), transparent: true, opacity: 0 }));
-    valSprite.position.y = targetH + 0.5;
-    valSprite.scale.set(2.0, 0.6, 1);
-    group.add(valSprite);
+function addBarLights(instance, barData) {
+  barData.forEach(function(b) {
+    // Light above each bar, colored to match
+    instance.addLight('point', {
+      color: b.glow,
+      intensity: 280000,
+      position: [b.x, b.height + 1.5, 1.5],
+      falloff: 8,
+    });
+    // Subtle ground reflection light below
+    instance.addLight('point', {
+      color: b.glow,
+      intensity: 80000,
+      position: [b.x, 0.3, -1.0],
+      falloff: 5,
+    });
+  });
+}
 
-    // Growth badge
-    if (d.growth) {
-      const gc = document.createElement('canvas');
-      gc.width = 96; gc.height = 40;
-      const gx = gc.getContext('2d');
-      gx.fillStyle = 'rgba(34,197,94,0.2)';
-      gx.beginPath(); gx.roundRect(8,4,80,32,12); gx.fill();
-      gx.fillStyle = '#4ade80';
-      gx.font = '700 17px -apple-system, sans-serif';
-      gx.textAlign = 'center';
-      gx.fillText(d.growth, 48, 26);
-      const growthSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(gc), transparent: true, opacity: 0 }));
-      growthSprite.position.y = targetH + 0.95;
-      growthSprite.scale.set(0.9, 0.38, 1);
-      group.add(growthSprite);
-      currentBars.push({ group, targetH, valSprite, growthSprite, bar });
-    } else {
-      currentBars.push({ group, targetH, valSprite, growthSprite: null, bar });
+// === MAIN ===
+
+initDots();
+var currentAsset = null;
+var currentSceneIdx = -1;
+var sceneTimer = 0;
+var isTransitioning = false;
+var svInstance = null;
+
+function jumpToScene(idx) {
+  if (isTransitioning || idx === currentSceneIdx || !svInstance) return;
+  sceneTimer = 0;
+  loadScene(svInstance, idx);
+}
+
+SceneView.create("viewer", {
+  backgroundColor: [0.01, 0.015, 0.025, 1.0],
+  autoRotate: false,
+  fov: 32,
+  iblIntensity: 55000,
+  skybox: false,
+}).then(function(instance) {
+  svInstance = instance;
+  console.log("SceneView 3D Charts v2 — v3.5.2 Feature Showcase");
+
+  // === Camera setup ===
+
+  // Initial camera — far away for dramatic intro
+  instance._angle = 0;
+  instance._orbitRadius = 28;
+  instance._orbitHeight = 10;
+  instance._orbitTarget = [0, 2, 0];
+  instance._autoRotate = false;
+  instance._wantsAutoRotate = false;
+
+  // Load first scene
+  loadSceneImmediate(instance, 0);
+  currentSceneIdx = 0;
+
+  // Set initial camera to first scene position
+  var firstScene = scenes[0].camera;
+  setTimeout(function() {
+    instance._orbitRadius = firstScene.distance;
+    instance._orbitHeight = firstScene.height;
+    instance._angle = firstScene.angle;
+    if (firstScene.target) instance._orbitTarget = firstScene.target;
+    instance.setAutoRotate(true);
+  }, 300);
+
+  // Scene cycling
+  var lastTime = performance.now();
+  function tick() {
+    requestAnimationFrame(tick);
+    var now = performance.now();
+    var dt = (now - lastTime) / 1000;
+    lastTime = now;
+    sceneTimer += dt;
+    if (sceneTimer >= SCENE_DURATION && !isTransitioning) {
+      sceneTimer = 0;
+      var next = (currentSceneIdx + 1) % scenes.length;
+      loadScene(instance, next);
     }
-
-    // Name
-    const nc = document.createElement('canvas');
-    nc.width = 256; nc.height = 48;
-    const nx = nc.getContext('2d');
-    nx.fillStyle = '#94a3b8';
-    nx.font = '500 17px -apple-system, SF Pro Display, sans-serif';
-    nx.textAlign = 'center';
-    nx.fillText(d.label, 128, 30);
-    const nameSprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(nc), transparent: true, opacity: 0 }));
-    nameSprite.position.set(0, -0.5, 1.1);
-    nameSprite.scale.set(2.1, 0.4, 1);
-    group.add(nameSprite);
-    currentBars[currentBars.length - 1].nameSprite = nameSprite;
-
-    group.scale.y = 0.001;
-    scene.add(group);
-  });
-
-  // Trend line
-  if (sceneData.bars.length >= 3) {
-    const trendGroup = new THREE.Group();
-    trendGroup.userData.isTrend = true;
-    const maxVal = Math.max(...sceneData.bars.map(b => b.value));
-    const pts = sceneData.bars.map((d, i) => {
-      const h = (d.value / maxVal) * 4.0;
-      return new THREE.Vector3(offset + i * spacing, h, 0);
-    });
-    const curve = new THREE.CatmullRomCurve3(pts);
-    trendGroup.add(new THREE.Mesh(
-      new THREE.TubeGeometry(curve, 32, 0.02, 6, false),
-      new THREE.MeshPhysicalMaterial({ color: 0x3b82f6, roughness: 0.2, metalness: 0.3, transparent: true, opacity: 0, emissive: 0x3b82f6, emissiveIntensity: 0.3 })
-    ));
-    sceneData.bars.forEach((d, i) => {
-      const h = (d.value / maxVal) * 4.0;
-      const sp = new THREE.Mesh(
-        new THREE.SphereGeometry(0.06, 16, 16),
-        new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: d.color, emissiveIntensity: 0.5, transparent: true, opacity: 0 })
-      );
-      sp.position.set(offset + i * spacing, h, 0);
-      trendGroup.add(sp);
-    });
-    scene.add(trendGroup);
-    currentBars.trendGroup = trendGroup;
   }
-}
+  tick();
 
-function smoothstep(a, b, t) {
-  t = Math.max(0, Math.min(1, (t - a) / (b - a)));
-  return t * t * (3 - 2 * t);
-}
+}).catch(function(err) { console.error("SceneView init:", err); });
 
-function easeOutElastic(t) {
-  if (t === 0 || t === 1) return t;
-  return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * (2 * Math.PI) / 3) + 1;
-}
-
-function animate() {
-  requestAnimationFrame(animate);
-  const now = performance.now() / 1000;
-  const elapsed = now - animStartTime;
-
-  const totalDuration = SCENE_DURATION + TRANSITION_DURATION;
-  const loopTime = elapsed % (scenes.length * totalDuration);
-  const newSceneIndex = Math.floor(loopTime / totalDuration) % scenes.length;
-  const sceneTime = loopTime - newSceneIndex * totalDuration;
-
-  // Switch scene
-  if (newSceneIndex !== currentSceneIndex) {
-    currentSceneIndex = newSceneIndex;
-    const sd = scenes[currentSceneIndex];
-    // Fade out title, change, fade in
-    const titleEl = document.getElementById('title');
-    const subEl = document.getElementById('subtitle');
-    titleEl.style.opacity = '0'; subEl.style.opacity = '0';
-    setTimeout(() => {
-      titleEl.textContent = sd.title;
-      subEl.textContent = sd.subtitle;
-      titleEl.style.opacity = '1'; subEl.style.opacity = '1';
-    }, 400);
-    buildScene(sd);
-    // Update dots
-    scenes.forEach((_, i) => {
-      document.getElementById('dot-' + i).className = 'dot' + (i === currentSceneIndex ? ' active' : '');
-    });
+function loadSceneImmediate(instance, idx) {
+  // Remove old asset
+  if (currentAsset) {
+    try {
+      currentAsset.getRenderableEntities().forEach(function(e) { instance._scene.remove(e); });
+      instance._scene.remove(currentAsset.getRoot());
+    } catch(e) {}
+    currentAsset = null;
   }
-
-  // === SMOOTH CONTINUOUS CAMERA — never jumps, always moving ===
-  const globalIntro = smoothstep(0, 4.0, elapsed);
-
-  // Continuous slow orbit — always based on total elapsed, never resets
-  const orbitAngle = elapsed * 0.1;
-  const orbitX = Math.sin(orbitAngle) * 4.0;
-  const orbitZ = 12 + Math.cos(orbitAngle * 0.6) * 2.0;
-  const breatheY = Math.sin(elapsed * 0.15) * 0.4;
-
-  // Camera height: stay low to see sky above bars
-  const baseY = 3.0 + Math.sin(elapsed * 0.08) * 0.5;
-
-  // Intro: start far and high, come to final position
-  const startX = -6, startY = 8, startZ = 22;
-  const camX = startX + (orbitX - startX) * globalIntro;
-  const camY = startY + (baseY - startY) * globalIntro + breatheY * globalIntro;
-  const camZ = startZ + (orbitZ - startZ) * globalIntro;
-
-  // Look at center of bars, slightly up to frame sky
-  const lookY = 4.0 + (2.0 - 4.0) * globalIntro;
-
-  camera.position.set(camX, camY, camZ);
-  camera.lookAt(0, lookY, 0);
-  camera.fov = 50 - 10 * globalIntro;
-  camera.updateProjectionMatrix();
-
-  // === BAR ANIMATIONS ===
-  const barAnimDuration = 1.0;
-  currentBars.forEach((b, i) => {
-    if (!b || !b.group) return;
-    const delay = 0.3 + i * 0.1;
-    const t = Math.max(0, Math.min(1, (sceneTime - delay) / barAnimDuration));
-    const ease = easeOutElastic(t);
-    b.group.scale.y = Math.max(0.001, ease);
-
-    // Labels
-    const lT = Math.max(0, Math.min(1, (sceneTime - delay - barAnimDuration * 0.3) / 0.5));
-    if (b.valSprite) b.valSprite.material.opacity = lT;
-    if (b.nameSprite) b.nameSprite.material.opacity = lT;
-    if (b.growthSprite) b.growthSprite.material.opacity = Math.max(0, Math.min(1, (sceneTime - delay - barAnimDuration * 0.6) / 0.4));
-
-    // Exit animation before scene change
-    const exitStart = SCENE_DURATION - 0.8;
-    const exitT = smoothstep(exitStart, exitStart + 0.6, sceneTime);
-    if (exitT > 0) {
-      b.group.scale.y *= (1 - exitT);
-      if (b.valSprite) b.valSprite.material.opacity *= (1 - exitT);
-      if (b.nameSprite) b.nameSprite.material.opacity *= (1 - exitT);
-      if (b.growthSprite) b.growthSprite.material.opacity *= (1 - exitT);
+  var sd = scenes[idx];
+  var barData = buildBarData(sd);
+  var glb = createChartGLB(barData);
+  try {
+    var asset = instance._loader.createAsset(glb);
+    if (asset) {
+      asset.loadResources();
+      instance._scene.addEntity(asset.getRoot());
+      instance._scene.addEntities(asset.getRenderableEntities());
+      currentAsset = asset;
     }
+  } catch(e) { console.error("Chart GLB error:", e); }
 
-    // Pulse when settled
-    if (t >= 1 && exitT === 0) {
-      b.group.scale.y = 1 + Math.sin(elapsed * 1.2 + i * 0.9) * 0.005;
-    }
-  });
-
-  // Trend line
-  if (currentBars.trendGroup) {
-    const tT = smoothstep(1.5, 2.5, sceneTime);
-    const exitStart = SCENE_DURATION - 0.8;
-    const exitT = smoothstep(exitStart, exitStart + 0.6, sceneTime);
-    currentBars.trendGroup.traverse(o => {
-      if (o.material && o !== currentBars.trendGroup) o.material.opacity = tT * 0.6 * (1 - exitT);
-    });
-  }
-
-  renderer.render(scene, camera);
+  updateHeader(sd);
+  updateLegend(sd);
+  updateKPIs(sd);
+  updateDots(idx);
 }
 
-init();
+function loadScene(instance, idx) {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  var sd = scenes[idx];
+  var cam = sd.camera;
+
+  // Swap scene content and set camera position
+  loadSceneImmediate(instance, idx);
+  currentSceneIdx = idx;
+  instance._orbitRadius = cam.distance;
+  instance._orbitHeight = cam.height;
+  instance._angle = cam.angle;
+  if (cam.target) instance._orbitTarget = cam.target;
+  instance.setAutoRotate(true);
+  isTransitioning = false;
+}
 </script>
 </body>
 </html>
