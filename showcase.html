@@ -202,16 +202,142 @@
     }
 
     .model-card__viewer {
-      height: 360px;
+      height: 280px;
       position: relative;
       background: var(--color-surface-dim);
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .model-card__viewer canvas.sv-viewer {
+    .model-card__viewer::after {
+      content: 'Click to view in 3D';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.6));
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .model-card:hover .model-card__viewer::after {
+      opacity: 1;
+    }
+
+    .model-card__viewer .card-3d-icon {
+      width: 80px;
+      height: 80px;
+      opacity: 0.15;
+      color: var(--color-primary);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .model-card:hover .model-card__viewer .card-3d-icon {
+      transform: scale(1.15) rotateY(15deg);
+      opacity: 0.25;
+    }
+
+    /* ===== 3D VIEWER MODAL ===== */
+    .viewer-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .viewer-modal.active { display: flex; flex-direction: column; }
+
+    .viewer-modal__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      color: #fff;
+    }
+
+    .viewer-modal__title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .viewer-modal__close {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .viewer-modal__close:hover { background: rgba(255,255,255,0.25); }
+
+    .viewer-modal__canvas-wrap {
+      flex: 1;
+      position: relative;
+      margin: 0 24px 24px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .viewer-modal__canvas-wrap canvas {
       width: 100%;
       height: 100%;
       display: block;
+      cursor: grab;
     }
+
+    .viewer-modal__hint {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      pointer-events: none;
+    }
+
+    .viewer-modal__loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .viewer-modal__loading .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-top-color: var(--color-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .model-card__info {
       padding: var(--space-md) var(--space-lg);
@@ -408,8 +534,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Sneaker.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Sneaker.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sneaker</span>
@@ -417,8 +544,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/MaterialsVariantsShoe.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/MaterialsVariantsShoe.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Running Shoe</span>
@@ -426,8 +554,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/GoldenWatch.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/GoldenWatch.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Golden Watch</span>
@@ -435,8 +564,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/DiveWatch.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/DiveWatch.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Dive Watch</span>
@@ -444,8 +574,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/AviatorSunglasses.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/AviatorSunglasses.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Aviator Sunglasses</span>
@@ -453,8 +584,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/SunglassesKhronos.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/SunglassesKhronos.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sunglasses</span>
@@ -462,8 +594,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/LeatherBag.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/LeatherBag.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Leather Bag</span>
@@ -471,8 +604,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/BoseHeadphones.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/BoseHeadphones.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Headphones</span>
@@ -480,8 +614,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/IPhone13ProMax.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/IPhone13ProMax.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">iPhone</span>
@@ -489,8 +624,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/ChronographWatch.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/ChronographWatch.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Chronograph Watch</span>
@@ -498,8 +634,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="ecommerce">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/WaterBottle.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/WaterBottle.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Water Bottle</span>
@@ -522,8 +659,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/ModernApartment.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/ModernApartment.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Modern Apartment</span>
@@ -531,8 +669,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/ModernBedroom.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/ModernBedroom.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Modern Bedroom</span>
@@ -540,8 +679,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/SteelStair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/SteelStair.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Steel Staircase</span>
@@ -549,8 +689,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/CyberpunkCity.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/CyberpunkCity.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Cyberpunk City</span>
@@ -558,8 +699,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="architecture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/NightCitySkyline.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/NightCitySkyline.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Night City Skyline</span>
@@ -582,8 +724,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/McLarenP1.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/McLarenP1.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">McLaren P1</span>
@@ -591,8 +734,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/PorscheCarreraGT.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/PorscheCarreraGT.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Porsche Carrera GT</span>
@@ -600,8 +744,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/ToyCar.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/ToyCar.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Toy Car</span>
@@ -609,8 +754,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="automotive">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/CarConcept.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/CarConcept.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Car Concept</span>
@@ -633,8 +779,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/SheenChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/SheenChair.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sheen Chair</span>
@@ -642,8 +789,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/DesignerChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/DesignerChair.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Designer Chair</span>
@@ -651,8 +799,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/DamaskChair.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/DamaskChair.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Damask Chair</span>
@@ -660,8 +809,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/VelvetSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/VelvetSofa.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Velvet Sofa</span>
@@ -669,8 +819,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/LeatherSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/LeatherSofa.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Leather Sofa</span>
@@ -678,8 +829,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/GlamVelvetSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/GlamVelvetSofa.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Glam Velvet Sofa</span>
@@ -687,8 +839,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="furniture">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/SheenWoodLeatherSofa.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/SheenWoodLeatherSofa.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Wood & Leather Sofa</span>
@@ -711,8 +864,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/FlowerVase.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/FlowerVase.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Flower Vase</span>
@@ -720,8 +874,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/GlassVaseFlowers.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/GlassVaseFlowers.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Glass Vase with Flowers</span>
@@ -729,8 +884,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Plant.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Plant.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Plant</span>
@@ -738,8 +894,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/IridescentDishWithOlives.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/IridescentDishWithOlives.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Iridescent Dish</span>
@@ -747,8 +904,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/DishWithOlives.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/DishWithOlives.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Dish with Olives</span>
@@ -756,8 +914,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/IridescenceLamp.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/IridescenceLamp.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Iridescence Lamp</span>
@@ -765,8 +924,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/BarnLamp.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/BarnLamp.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Barn Lamp</span>
@@ -774,8 +934,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/CandleHolder.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/CandleHolder.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Candle Holder</span>
@@ -783,8 +944,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="decoration">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Lantern.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Lantern.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Lantern</span>
@@ -807,8 +969,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Fox.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Fox.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Fox (Animated)</span>
@@ -816,8 +979,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/BrainStem.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/BrainStem.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">BrainStem (Animated)</span>
@@ -825,8 +989,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/DragonAttenuation.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/DragonAttenuation.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Dragon Attenuation</span>
@@ -834,8 +999,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="gaming">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/MedievalFantasyBook.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/MedievalFantasyBook.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Medieval Fantasy Book</span>
@@ -858,8 +1024,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/PalmTree.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/PalmTree.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Palm Tree</span>
@@ -867,8 +1034,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/CoralReef.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/CoralReef.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Coral Reef</span>
@@ -876,8 +1044,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Crystals.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Crystals.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Crystals</span>
@@ -885,8 +1054,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="nature">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/MusicBand.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/MusicBand.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Music Band (Low Poly)</span>
@@ -909,8 +1079,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="science">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/HumanHeart.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/HumanHeart.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Human Heart</span>
@@ -918,8 +1089,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="science">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/HandSkeleton.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/HandSkeleton.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Hand Skeleton</span>
@@ -927,8 +1099,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="science">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Globe.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Globe.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Globe</span>
@@ -936,8 +1109,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="science">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/H2OMolecule.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/H2OMolecule.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">H2O Molecule</span>
@@ -945,8 +1119,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="science">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/PeriodicTable.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/PeriodicTable.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">3D Periodic Table</span>
@@ -969,8 +1144,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/RoboticArm.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/RoboticArm.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Robotic Arm</span>
@@ -978,8 +1154,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/WindTurbine.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/WindTurbine.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Wind Turbine</span>
@@ -987,8 +1164,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/SciFiDrone.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/SciFiDrone.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Sci-Fi Drone</span>
@@ -996,8 +1174,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="industrial">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/RoboticEye.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/RoboticEye.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Robotic Eye</span>
@@ -1020,8 +1199,9 @@
       </div>
       <div class="model-grid">
         <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/DamagedHelmet.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/DamagedHelmet.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Damaged Helmet</span>
@@ -1029,8 +1209,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/MosquitoInAmber.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/MosquitoInAmber.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Mosquito in Amber</span>
@@ -1038,8 +1219,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Avocado.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Avocado.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Avocado</span>
@@ -1047,8 +1229,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/Duck.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/Duck.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Duck</span>
@@ -1056,8 +1239,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/BoomBox.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/BoomBox.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Boom Box</span>
@@ -1065,8 +1249,9 @@
           </div>
         </div>
         <div class="model-card" data-cat="objects">
-          <div class="model-card__viewer">
-            <canvas class="sv-viewer" data-model="models/platforms/AntiqueCamera.glb" style="width:100%;height:100%;cursor:grab;display:block"></canvas>
+          <div class="model-card__viewer" data-model="models/platforms/AntiqueCamera.glb">
+
+            <svg class="card-3d-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
           </div>
           <div class="model-card__info">
             <span class="model-card__name">Antique Camera</span>
@@ -1103,6 +1288,22 @@
     </div>
   </footer>
 
+  <!-- ===== 3D VIEWER MODAL ===== -->
+  <div class="viewer-modal" id="viewerModal">
+    <div class="viewer-modal__header">
+      <span class="viewer-modal__title" id="viewerTitle">3D Model</span>
+      <button class="viewer-modal__close" id="viewerClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="viewer-modal__canvas-wrap">
+      <canvas id="viewerCanvas"></canvas>
+      <div class="viewer-modal__loading" id="viewerLoading">
+        <div class="spinner"></div>
+        Loading 3D model...
+      </div>
+      <div class="viewer-modal__hint" id="viewerHint">Drag to rotate &middot; Scroll to zoom</div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 
   <!-- Category filter logic -->
@@ -1114,12 +1315,8 @@
     filterBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
         var filter = this.getAttribute('data-filter');
-
-        // Update active button
         filterBtns.forEach(function(b) { b.classList.remove('filter-btn--active'); });
         this.classList.add('filter-btn--active');
-
-        // Show/hide categories
         categories.forEach(function(cat) {
           if (filter === 'all' || cat.getAttribute('data-category') === filter) {
             cat.style.display = '';
@@ -1132,115 +1329,91 @@
   })();
   </script>
 
-  <!-- Lazy SceneView loader with WebGL context pooling -->
+  <!-- Single-canvas modal viewer — 1 WebGL context for all 59 models -->
   <script>
   (function() {
-    var viewers = document.querySelectorAll('.sv-viewer');
-    if (!viewers.length) return;
+    var modal = document.getElementById('viewerModal');
+    var canvas = document.getElementById('viewerCanvas');
+    var title = document.getElementById('viewerTitle');
+    var loading = document.getElementById('viewerLoading');
+    var hint = document.getElementById('viewerHint');
+    var closeBtn = document.getElementById('viewerClose');
 
-    // WebGL context limit: browsers allow ~8-16 contexts.
-    // We pool active viewers and dispose off-screen ones.
-    var MAX_ACTIVE = 6;
-    var activeViewers = []; // { canvas, instance, model, light }
-    var pendingInit = new Set();
+    var instance = null; // Single SceneView instance, reused
+    var isLoading = false;
 
     function getThemeBg() {
       var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      return isDark ? [0.07, 0.07, 0.11, 1.0] : [0.96, 0.97, 0.98, 1.0];
+      return isDark ? [0.12, 0.12, 0.16, 1.0] : [0.94, 0.95, 0.96, 1.0];
     }
 
-    function disposeViewer(entry) {
-      if (entry.instance) {
-        try { entry.instance.dispose(); } catch (e) { /* ignore */ }
-        entry.instance = null;
-      }
-      if (entry.observer) {
-        try { entry.observer.disconnect(); } catch (e) { /* ignore */ }
-        entry.observer = null;
-      }
-      entry.canvas.style.opacity = '0';
-      // Remove from SceneView internal tracking so it can be re-initialized
-      if (typeof SceneView !== 'undefined' && SceneView._activeCanvases) {
-        SceneView._activeCanvases.delete(entry.canvas);
-      }
-    }
-
-    function evictFarthest(priorityCanvas) {
-      // Find the active viewer farthest from viewport center to evict
-      var vpCenter = window.innerHeight / 2;
-      var farthest = null;
-      var farthestDist = 0;
-      for (var i = 0; i < activeViewers.length; i++) {
-        var av = activeViewers[i];
-        if (av.canvas === priorityCanvas) continue;
-        var rect = av.canvas.getBoundingClientRect();
-        var center = rect.top + rect.height / 2;
-        var dist = Math.abs(center - vpCenter);
-        if (dist > farthestDist) { farthestDist = dist; farthest = i; }
-      }
-      if (farthest !== null) {
-        disposeViewer(activeViewers[farthest]);
-        activeViewers.splice(farthest, 1);
-      }
-    }
-
-    function initViewer(canvas) {
-      if (pendingInit.has(canvas)) return;
-      // Already active?
-      for (var i = 0; i < activeViewers.length; i++) {
-        if (activeViewers[i].canvas === canvas) return;
-      }
-
-      // Evict if at capacity
-      while (activeViewers.length >= MAX_ACTIVE) {
-        evictFarthest(canvas);
-      }
-
-      pendingInit.add(canvas);
-      var model = canvas.dataset.model;
-      var light = parseInt(canvas.dataset.light) || 120000;
-      if (!model) { pendingInit.delete(canvas); return; }
+    function openViewer(modelUrl, modelName) {
+      title.textContent = modelName;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      loading.style.display = 'flex';
+      hint.style.display = '';
+      isLoading = true;
 
       var bg = getThemeBg();
-      SceneView.modelViewer(canvas, model, {
-        backgroundColor: bg, lightIntensity: light, fov: 35
-      }).then(function(instance) {
-        pendingInit.delete(canvas);
-        canvas.style.opacity = '1';
-        var themeObs = new MutationObserver(function() {
-          var colors = getThemeBg();
-          try { instance.setBackgroundColor(colors[0], colors[1], colors[2], colors[3]); } catch (e) { /* disposed */ }
+
+      if (!instance) {
+        // First time: create SceneView instance
+        SceneView.modelViewer(canvas, modelUrl, {
+          backgroundColor: bg, lightIntensity: 120000, fov: 35, autoRotate: true
+        }).then(function(inst) {
+          instance = inst;
+          loading.style.display = 'none';
+          isLoading = false;
+          // Hide hint after 4 seconds
+          setTimeout(function() { hint.style.display = 'none'; }, 4000);
+        }).catch(function(e) {
+          loading.innerHTML = 'Failed to load model';
+          isLoading = false;
+          console.error('SceneView modal:', e);
         });
-        themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-        activeViewers.push({ canvas: canvas, instance: instance, model: model, light: light, observer: themeObs });
-      }).catch(function(e) {
-        pendingInit.delete(canvas);
-        console.warn('SceneView: ' + model + ' — ' + e.message);
-      });
+      } else {
+        // Reuse existing instance — just load new model
+        instance.setBackgroundColor(bg[0], bg[1], bg[2], bg[3]);
+        instance.loadModel(modelUrl).then(function() {
+          loading.style.display = 'none';
+          isLoading = false;
+          setTimeout(function() { hint.style.display = 'none'; }, 4000);
+        }).catch(function(e) {
+          loading.innerHTML = 'Failed to load model';
+          isLoading = false;
+          console.error('SceneView modal:', e);
+        });
+      }
     }
 
-    // Fade-in transition
-    viewers.forEach(function(c) { c.style.opacity = '0'; c.style.transition = 'opacity 0.6s ease'; });
+    function closeViewer() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
-    // Use IntersectionObserver to lazy-init and also dispose off-screen viewers
-    var observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          initViewer(entry.target);
-        } else {
-          // Dispose when scrolled far off-screen to free WebGL context
-          for (var i = 0; i < activeViewers.length; i++) {
-            if (activeViewers[i].canvas === entry.target) {
-              disposeViewer(activeViewers[i]);
-              activeViewers.splice(i, 1);
-              break;
-            }
-          }
-        }
+    // Click handler on all model cards
+    document.querySelectorAll('.model-card__viewer[data-model]').forEach(function(viewer) {
+      viewer.addEventListener('click', function() {
+        var modelUrl = this.dataset.model;
+        var card = this.closest('.model-card');
+        var nameEl = card ? card.querySelector('.model-card__name') : null;
+        var modelName = nameEl ? nameEl.textContent : 'Model';
+        openViewer(modelUrl, modelName);
       });
-    }, { rootMargin: '200px 0px' });
+    });
 
-    viewers.forEach(function(canvas) { observer.observe(canvas); });
+    closeBtn.addEventListener('click', closeViewer);
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) closeViewer();
+    });
+
+    // Close on backdrop click (but not on canvas interaction)
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeViewer();
+    });
   })();
   </script>
 </body>
