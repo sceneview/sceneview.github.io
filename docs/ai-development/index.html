@@ -670,8 +670,6 @@
       
         
       
-        
-      
     
     
     
@@ -977,34 +975,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../formats/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Model Formats
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
       
@@ -1035,10 +1005,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
         
           
-          <label class="md-nav__link" for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
             
   
   
@@ -1056,8 +1026,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_11">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1873,21 +1843,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#use-with-chatgpt-codex" class="md-nav__link">
+  <a href="#use-with-chatgpt-claude-web" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use with ChatGPT / Codex
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-with-claude-web-any-chat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use with Claude web / any chat
+        Use with ChatGPT / Claude web
       
     </span>
   </a>
@@ -2763,21 +2722,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#use-with-chatgpt-codex" class="md-nav__link">
+  <a href="#use-with-chatgpt-claude-web" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use with ChatGPT / Codex
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#use-with-claude-web-any-chat" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use with Claude web / any chat
+        Use with ChatGPT / Claude web
       
     </span>
   </a>
@@ -2912,8 +2860,7 @@
 <ol>
 <li><strong><code>llms.txt</code></strong> — a machine-readable API reference at the repo root</li>
 <li><strong><code>sceneview-mcp</code></strong> — an MCP server that gives AI tools full API context</li>
-<li><strong>Skills</strong> — the same API contract packaged for Claude Code and for the
-   ChatGPT / Codex plugin directory</li>
+<li><strong>Claude Code skills</strong> — guided workflows for contributing, reviewing, and documenting</li>
 </ol>
 <hr />
 <h2 id="for-app-developers">For app developers<a class="headerlink" href="#for-app-developers" title="Permanent link">&para;</a></h2>
@@ -2943,23 +2890,7 @@
 <p>The AI will generate correct SceneView code — no hallucinated methods, no outdated patterns.</p>
 <h3 id="use-with-cursor-windsurf-other-editors">Use with Cursor / Windsurf / other editors<a class="headerlink" href="#use-with-cursor-windsurf-other-editors" title="Permanent link">&para;</a></h3>
 <p>Copy <code>llms.txt</code> from the SceneView repo into your project root, or add the MCP server to your editor's MCP config. The AI tools will pick it up automatically.</p>
-<h3 id="use-with-chatgpt-codex">Use with ChatGPT / Codex<a class="headerlink" href="#use-with-chatgpt-codex" title="Permanent link">&para;</a></h3>
-<p>The SceneView repository <em>is</em> an OpenAI plugin: <code>.codex-plugin/plugin.json</code> at its root
-points at the three skills under <code>agents/</code> — <code>sceneview</code> (Compose), <code>sceneview-ios</code>
-(SwiftUI) and <code>sceneview-web</code> (Filament.js / WebXR). From a checkout:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>codex<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">"</span><span class="w">    </span><span class="c1"># an absolute path — a relative one does not resolve</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>codex<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>sceneview@sceneview-local
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>codex<span class="w"> </span>plugin<span class="w"> </span>list
-</span></code></pre></div>
-<p>Codex also picks the skills up on its own from <code>.agents/skills/</code> inside a checkout.</p>
-<p>For ChatGPT, the same MCP server speaks the <strong>Streamable HTTP</strong> transport — a hosted
-process, not a spawned one:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>npx<span class="w"> </span>sceneview-mcp<span class="w"> </span>--http<span class="w">        </span><span class="c1"># MCP at /mcp, health at /health</span>
-</span></code></pre></div>
-<p>It exposes the free tools plus <code>view_3d_model</code>, an MCP Apps widget that renders a public
-GLB/glTF URL inline in the conversation. Package, listing copy and submission notes live in
-<a href="https://github.com/sceneview/sceneview/blob/main/agents/OPENAI-PLUGIN.md"><code>agents/OPENAI-PLUGIN.md</code></a>.</p>
-<h3 id="use-with-claude-web-any-chat">Use with Claude web / any chat<a class="headerlink" href="#use-with-claude-web-any-chat" title="Permanent link">&para;</a></h3>
+<h3 id="use-with-chatgpt-claude-web">Use with ChatGPT / Claude web<a class="headerlink" href="#use-with-chatgpt-claude-web" title="Permanent link">&para;</a></h3>
 <p>Paste the contents of <a href="https://github.com/sceneview/sceneview/blob/main/llms.txt"><code>llms.txt</code></a> into your conversation, then ask your question. The AI will use the correct API.</p>
 <hr />
 <h2 id="for-sceneview-contributors">For SceneView contributors<a class="headerlink" href="#for-sceneview-contributors" title="Permanent link">&para;</a></h2>
@@ -2995,13 +2926,13 @@ GLB/glTF URL inline in the conversation. Package, listing copy and submission no
 <p><strong>Tip — namespace conflict:</strong> the bare <code>/review</code> command shadows a Claude Code built-in. With the plugin installed, prefer the prefixed form <code>/sceneview:review</code> to disambiguate.</p>
 </blockquote>
 <h3 id="example-workflow">Example workflow<a class="headerlink" href="#example-workflow" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>sceneview
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>claude
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Then in Claude Code:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>&gt;<span class="w"> </span>/contribute
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Claude walks you through understanding the codebase,</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># making changes, running checks, and preparing a PR.</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>sceneview
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>claude
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Then in Claude Code:</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>&gt;<span class="w"> </span>/contribute
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># Claude walks you through understanding the codebase,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># making changes, running checks, and preparing a PR.</span>
 </span></code></pre></div>
 <hr />
 <h2 id="whats-in-llmstxt">What's in <code>llms.txt</code><a class="headerlink" href="#whats-in-llmstxt" title="Permanent link">&para;</a></h2>
@@ -3026,14 +2957,14 @@ GLB/glTF URL inline in the conversation. Package, listing copy and submission no
 <li><strong><code>get_threading_rules</code></strong> — threading and lifecycle rules</li>
 </ul>
 <h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">      </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Works with Claude Code, Claude Desktop, Cursor, Windsurf, and any MCP-compatible tool.</p>
 <hr />

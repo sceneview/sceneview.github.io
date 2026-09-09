@@ -670,8 +670,6 @@
       
         
       
-        
-      
     
     
     
@@ -977,34 +975,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../formats/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Model Formats
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
     
     
       
@@ -1035,10 +1005,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
         
           
-          <label class="md-nav__link" for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
             
   
   
@@ -1056,8 +1026,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_11">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -2604,17 +2574,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#chatgpt-codex" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ChatGPT / Codex
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3002,17 +2961,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#chatgpt-codex" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        ChatGPT / Codex
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3383,18 +3331,6 @@ for full API context in any chat:</p>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
 </span></code></pre></div>
-<h3 id="chatgpt-codex">ChatGPT / Codex<a class="headerlink" href="#chatgpt-codex" title="Permanent link">&para;</a></h3>
-<p>The repository is also an OpenAI plugin — <code>.codex-plugin/plugin.json</code> points at the three
-skills under <a href="agents/"><code>agents/</code></a>. Install it into Codex from your checkout:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>codex<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">"</span><span class="w">    </span><span class="c1"># absolute path — a relative one does not resolve</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>codex<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>sceneview@sceneview-local
-</span></code></pre></div>
-<p><a href="AGENTS.md">AGENTS.md</a> carries the rules a delegated Codex session must respect — it
-implements, investigates and critiques, but does not own version control. Maintainers
-delegate through <code>.claude/scripts/codex-delegate.sh</code> (<code>ask</code> · <code>review</code> ·
-<code>implement --new-worktree</code>) rather than a raw <code>codex</code> invocation, so a delegation always
-lands in its own worktree with the repository conventions attached. Commits, merges and
-releases stay with the lead session.</p>
 <hr />
 <h2 id="pull-request-guidelines">Pull request guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permanent link">&para;</a></h2>
 <ol>
@@ -3465,8 +3401,8 @@ platform before requesting review.</p>
 as a small fragment file — one per PR. Add a file named
 <code>changelog.d/&lt;issue-or-pr-number&gt;-&lt;short-slug&gt;.md</code> containing your release-note
 bullet(s), prefixed with a category tag:</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&lt;!-- category: Fixed --&gt;
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Short headline ([#1234](https://github.com/sceneview/sceneview/issues/1234)).**</span> What changed and why.
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&lt;!-- category: Fixed --&gt;
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Short headline ([#1234](https://github.com/sceneview/sceneview/issues/1234)).**</span> What changed and why.
 </span></code></pre></div>
 <p>Recognised categories: <code>Added</code>, <code>Changed</code>, <code>Fixed</code>, <code>Removed</code>, <code>Tests</code>, <code>Docs</code>.
 Distinct filenames mean parallel PRs never conflict on the changelog. At release
@@ -3498,13 +3434,13 @@ Each module's public surface is dumped to a committed text file under
 <p><strong>If your change touches a public signature</strong> (adds/removes/renames a public
 class, function, property, or changes a public type), <code>apiCheck</code> will fail with
 a diff naming the offending symbol, e.g.:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&gt; API check failed for project sceneview-core.
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  + public static final fun temporaryGateProbe (J)D
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  You can run :sceneview-core:apiDump task to overwrite API declarations
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&gt; API check failed for project sceneview-core.
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>  + public static final fun temporaryGateProbe (J)D
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>  You can run :sceneview-core:apiDump task to overwrite API declarations
 </span></code></pre></div>
 <p>When the change is <strong>intentional</strong>, regenerate the dumps and commit the diff:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./gradlew<span class="w"> </span>apiDump<span class="w">          </span><span class="c1"># rewrites &lt;module&gt;/api/*.api for every module</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>git<span class="w"> </span>add<span class="w"> </span><span class="s1">'**/api/*.api'</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>./gradlew<span class="w"> </span>apiDump<span class="w">          </span><span class="c1"># rewrites &lt;module&gt;/api/*.api for every module</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>git<span class="w"> </span>add<span class="w"> </span><span class="s1">'**/api/*.api'</span>
 </span></code></pre></div>
 <p>The updated <code>.api</code> diff then rides along in your PR, so the reviewer sees the
 exact public-API delta — a new symbol, a removed one, or a changed signature —
@@ -3607,7 +3543,7 @@ filter on each workflow, not <code>cancel-in-progress</code>.</p>
 <td><code>website-static/materials/</code></td>
 <td><code>filamentWebsite</code></td>
 <td>Filament.js vendored at <code>website-static/js/filament/</code></td>
-<td>72</td>
+<td>70</td>
 </tr>
 <tr>
 <td><code>sceneview-web/materials/</code></td>
@@ -3620,19 +3556,19 @@ filter on each workflow, not <code>cancel-in-progress</code>.</p>
 <p>Wiring a group to the wrong pin is the same defect as forgetting to recompile: #2783 found the 3 <code>website-static</code> blobs at v72 (they rode the Android pin) against a v70 runtime — latent only because nothing on the site calls <code>createMaterial()</code> yet.</p>
 <p>Filament refuses any material whose binary version field does not match the runtime, with <code>Filament panic — material version N ≠ runtime M</code> on first frame. There is no compile-time check; the mismatch only manifests at runtime, demo by demo. v4.1.0 shipped with the runtime at 1.70.2 and blobs at 1.71 (two parallel branches each fixed half of the pair) — 10 demos crashed; v4.1.1 hot-fixed by realigning both sides to 1.71.</p>
 <p><strong>The 26 committed blobs that must stay in sync with their <code>.mat</code> sources</strong>, spread across three modules:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sceneview/src/main/assets/materials/     (14) — image_texture, occlusion, opaque/transparent
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>                                                colored/textured/unlit, semantics_overlay, splat,
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>                                                video_texture(_chroma_key), view_texture_lit/_unlit
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>arsceneview/src/main/assets/materials/    (9) — camera_stream_flat/_depth/_person_occlusion,
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>                                                face_mesh(_occluder), plane_renderer(_shadow)(_v2),
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                                                shadow_receiver
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>website-static/materials/                 (3) — lit_colored, transparent_colored, unlit_colored
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sceneview/src/main/assets/materials/     (14) — image_texture, occlusion, opaque/transparent
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>                                                colored/textured/unlit, semantics_overlay, splat,
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>                                                video_texture(_chroma_key), view_texture_lit/_unlit
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>arsceneview/src/main/assets/materials/    (9) — camera_stream_flat/_depth/_person_occlusion,
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>                                                face_mesh(_occluder), plane_renderer(_shadow)(_v2),
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>                                                shadow_receiver
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>website-static/materials/                 (3) — lit_colored, transparent_colored, unlit_colored
 </span></code></pre></div>
 <p><strong>The <code>tools/GenerateFilamat.sh</code> workflow.</strong> <a href="tools/GenerateFilamat.sh"><code>tools/GenerateFilamat.sh</code></a> is the single entry point for every Filament material in the repo. It auto-downloads the <code>matc</code> toolchain pinned to the Filament version in <a href="gradle/libs.versions.toml"><code>gradle/libs.versions.toml</code></a> and compiles each <code>.mat</code> to its <code>.filamat</code> blob — no manual <code>matc</code> install needed.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>bash tools/GenerateFilamat.sh                 # regenerate all 26 .filamat blobs in place
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>bash tools/GenerateFilamat.sh --check         # diff against committed blobs; exit 1 on drift
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>bash tools/GenerateFilamat.sh --mat &lt;name&gt;    # regenerate one (e.g. --mat opaque_colored)
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>bash tools/GenerateFilamat.sh --ci-tolerant   # treat a matc download failure as WARN, not FAIL
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>bash tools/GenerateFilamat.sh                 # regenerate all 26 .filamat blobs in place
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>bash tools/GenerateFilamat.sh --check         # diff against committed blobs; exit 1 on drift
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>bash tools/GenerateFilamat.sh --mat &lt;name&gt;    # regenerate one (e.g. --mat opaque_colored)
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>bash tools/GenerateFilamat.sh --ci-tolerant   # treat a matc download failure as WARN, not FAIL
 </span></code></pre></div>
 <p>The <code>matc</code> binary is cached at <code>~/.cache/sceneview/matc-&lt;version&gt;/</code> (overridable via <code>$XDG_CACHE_HOME</code>); the first run downloads it, subsequent runs reuse it. <code>--ci-tolerant</code> exists for sandboxed CI runners with no network — it lets the check pass with a WARN instead of failing the build when <code>matc</code> cannot be fetched.</p>
 <p><strong>The drift check.</strong> <code>bash tools/GenerateFilamat.sh --check</code> reports every <code>.filamat</code> blob that no longer matches its <code>.mat</code> source. Nothing runs it for you — run it yourself in the same sitting as any <code>.mat</code> edit. Shipping a <code>.mat</code> change without recompiling its blob is the v4.1.0-class mistake, and this is the check that catches it.</p>
