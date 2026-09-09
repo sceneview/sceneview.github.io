@@ -54,16 +54,6 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
-  
-
-
-  
-  
-
-<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HX1JWGSMTH"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HX1JWGSMTH",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HX1JWGSMTH",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
-  
-    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
-  
 
     
     
@@ -982,8 +972,6 @@
       
         
       
-        
-      
     
     
     
@@ -1158,34 +1146,6 @@
     
   
     Demo settings sheet
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../recipes/measure-ar-funnel/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Measure your AR funnel
   
 
     
@@ -2471,10 +2431,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#current-state-sceneviewer-on-desktop" class="md-nav__link">
+  <a href="#current-state-software-renderer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Current state: SceneViewer on desktop
+        Current state: software renderer
       
     </span>
   </a>
@@ -2596,18 +2556,12 @@
 
 
 <h1 id="filament-on-compose-desktop-status-decision">Filament on Compose Desktop — status &amp; decision<a class="headerlink" href="#filament-on-compose-desktop-status-decision" title="Permanent link">&para;</a></h1>
-<p>Decision record for hardware-accelerated 3D rendering on Desktop. <code>samples/desktop-demo</code>
-now consumes <code>SceneViewer</code>.</p>
-<p><strong>Last updated:</strong> 2026-08-19 · <strong>Decision:</strong> superseded — see
+<p>Decision record for hardware-accelerated 3D rendering on Desktop, replacing the
+wireframe placeholder in <code>samples/desktop-demo/</code>.</p>
+<p><strong>Last updated:</strong> 2026-08-03 · <strong>Decision:</strong> superseded — see
 <a href="../compose-multiplatform/">compose-multiplatform.md</a>. The offscreen architecture below
 still stands; the <em>binding supply</em> decision does not.</p>
 <blockquote>
-<p><strong>2026-08-19 update.</strong> The desktop <code>SceneViewer</code> actual is implemented. It depends on
-Maven <code>io.github.erkko68.filament:filament-compose:0.4.0</code> as <code>implementation</code> (never
-<code>api</code>) — filament-kmp already does the offscreen readback → Skia path. Not vendored.
-Requires JDK 22+ and <code>--enable-native-access=ALL-UNNAMED</code> at run. See
-<a href="../compose-multiplatform/">compose-multiplatform.md</a>. Issue
-<a href="https://github.com/sceneview/sceneview/issues/2540">#2540</a>.</p>
 <p><strong>2026-08-03 update.</strong> Desktop rendering is now delivered as the desktop <code>actual</code> of
 the <code>sceneview-compose</code> façade. The binding supply changed: instead of <em>depending on</em>
 <code>io.github.erkko68.filament-ffm</code>, its desktop path is <strong>vendored</strong> under its
@@ -2624,10 +2578,15 @@ presented Filament's desktop Java build (<code>filament-java.jar</code>, <code>F
 <code>FilamentPanel</code>) as something upstream still provides. It does not — see below.</p>
 </blockquote>
 <hr />
-<h2 id="current-state-sceneviewer-on-desktop">Current state: <code>SceneViewer</code> on desktop<a class="headerlink" href="#current-state-sceneviewer-on-desktop" title="Permanent link">&para;</a></h2>
-<p><code>samples/desktop-demo</code> consumes <code>sceneview-compose</code> <code>SceneViewer</code>. Filament is
-filament-kmp on Maven (offscreen readback → Skia). JDK 22+ and
-<code>--enable-native-access=ALL-UNNAMED</code>.</p>
+<h2 id="current-state-software-renderer">Current state: software renderer<a class="headerlink" href="#current-state-software-renderer" title="Permanent link">&para;</a></h2>
+<p>The desktop demo (<code>samples/desktop-demo/</code>) uses a pure-software approach:</p>
+<ul>
+<li><strong>Compose Desktop</strong> (JetBrains) provides the window and UI framework</li>
+<li><strong>Compose Canvas</strong> draws wireframe geometry (cube, octahedron, diamond)</li>
+<li><strong>sceneview-core</strong> KMP math is available but rendering is manual projection + line drawing</li>
+<li>No texture mapping, no PBR materials, no glTF loading, no shadows</li>
+</ul>
+<p>This is a placeholder and says so in its README/About screen.</p>
 <hr />
 <h2 id="ground-truth-what-filament-provides-on-desktop-verified-2026-07">Ground truth: what Filament provides on desktop (verified 2026-07)<a class="headerlink" href="#ground-truth-what-filament-provides-on-desktop-verified-2026-07" title="Permanent link">&para;</a></h2>
 <p><strong>Upstream removed Java/desktop support in July 2021</strong>
@@ -2805,59 +2764,7 @@ fix missing. Its own failing path is exercised on synthetic trees by
 
 
 
-  
 
-
-
-  <form class="md-feedback" name="feedback" hidden>
-    <fieldset>
-      <legend class="md-feedback__title">
-        Was this page helpful?
-      </legend>
-      <div class="md-feedback__inner">
-        <div class="md-feedback__list">
-          
-            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
-            </button>
-          
-            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
-            </button>
-          
-        </div>
-        <div class="md-feedback__note">
-          
-            <div data-md-value="1" hidden>
-              
-              
-                
-              
-              
-              
-                
-                
-              
-              Thanks for your feedback!
-            </div>
-          
-            <div data-md-value="0" hidden>
-              
-              
-                
-              
-              
-              
-                
-                
-              
-              Thanks, we'll work on improving this page.
-            </div>
-          
-        </div>
-      </div>
-    </fieldset>
-  </form>
 
 
                 

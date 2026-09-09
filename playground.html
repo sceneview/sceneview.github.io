@@ -17,9 +17,6 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Site analytics — GA4 loader shared by every static page (G-HX1JWGSMTH).
-       Synchronous on purpose: /go/* interstitials call gtag() right after it. -->
-  <script src="/assets/analytics.js"></script>
   <title>Playground — SceneView</title>
   <meta name="description" content="Interactive SceneView playground — explore, edit, and preview 3D & AR code across Android, iOS, and Web with live 3D preview.">
   <meta name="robots" content="index, follow">
@@ -62,12 +59,12 @@
   <!-- Preconnect -->
   <!-- Preload -->
   <link rel="preload" href="js/filament/filament.js" as="script">
-  <link rel="preload" href="js/sceneview.js?v=4.34.0" as="script">
+  <link rel="preload" href="js/sceneview.js?v=4.32.0" as="script">
 
   <!-- Fonts -->
   <!-- SceneView engine -->
   <script src="js/filament/filament.js"></script>
-  <script src="js/sceneview.js?v=4.34.0"></script>
+  <script src="js/sceneview.js?v=4.32.0"></script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -3498,9 +3495,9 @@
 
         var prompt = 'Build me a SceneView ' + platLabel + ' app:\n\n' + userDesc + '\n\n';
         prompt += '--- SceneView Quick Reference ---\n';
-        prompt += 'SDK: io.github.sceneview:sceneview:4.34.0 (3D) / arsceneview:4.34.0 (AR)\n';
-        prompt += 'iOS: SPM https://github.com/sceneview/sceneview.git (from: "4.34.0")\n';
-        prompt += 'Web: npm install sceneview-web@4.34.0\n\n';
+        prompt += 'SDK: io.github.sceneview:sceneview:4.32.0 (3D) / arsceneview:4.32.0 (AR)\n';
+        prompt += 'iOS: SPM https://github.com/sceneview/sceneview.git (from: "4.32.0")\n';
+        prompt += 'Web: npm install sceneview-web@4.32.0\n\n';
 
         if (plat === 'android' || plat === 'flutter' || plat === 'reactnative' || plat === 'desktop') {
           prompt += 'Key composables: SceneView { }, ARSceneView { }\n';
