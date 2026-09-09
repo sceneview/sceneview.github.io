@@ -4,9 +4,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' blob: https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://cdn.jsdelivr.net https://api.sketchfab.com https://media.sketchfab.com; frame-src https://app.rerun.io; worker-src 'self' blob:; base-uri 'self'; object-src 'none'">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Site analytics — GA4 loader shared by every static page (G-HX1JWGSMTH).
+       Synchronous on purpose: /go/* interstitials call gtag() right after it. -->
+  <script src="/assets/analytics.js"></script>
   <title>SceneView Discord</title>
   <meta name="description" content="Join the SceneView Discord community — chat with developers, ask questions, share your creations.">
-  <meta http-equiv="refresh" content="1;url=https://discord.gg/sceneview">
+  <meta http-equiv="refresh" content="1;url=https://discord.gg/UbNDDBTNqb">
   <meta property="og:title" content="SceneView Discord">
   <meta property="og:description" content="Join the SceneView community on Discord.">
   <meta property="og:url" content="https://sceneview.github.io/go/discord">
@@ -31,17 +34,42 @@
     <div class="icon">&#128172;</div>
     <h1>SceneView Discord</h1>
     <p class="desc">Chat with developers, ask questions, share your creations</p>
-    <a class="cta" href="https://discord.gg/sceneview">
+    <a class="cta" href="https://discord.gg/UbNDDBTNqb">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
       Join Discord
     </a>
     <p class="note">Redirecting...</p>
-    <p class="fallback">Not working? <a href="https://discord.gg/sceneview">Click here</a> or go <a href="/go/">back</a></p>
+    <p class="fallback">Not working? <a href="https://discord.gg/UbNDDBTNqb">Click here</a> or go <a href="/go/">back</a></p>
   </div>
   <script>
-    setTimeout(function() {
-      window.location.href = 'https://discord.gg/sceneview';
-    }, 1000);
+    // Attribute the /go/ hub before leaving. `go_redirect` is what turns
+    // "someone hit /go/discord" into a funnel step in GA4 — the interstitial used to
+    // navigate away without ever reporting itself.
+    //
+    // Ordering matters: the shared loader in <head> defines `gtag` synchronously, so the
+    // event is queued here, and `event_callback` fires the redirect the moment the hit is
+    // on the wire (`transport_type: 'beacon'` → navigator.sendBeacon, which survives the
+    // navigation). `event_timeout` bounds the wait when the tag is blocked or slow, the
+    // setTimeout below bounds it when gtag never loads at all, and the 1s
+    // `<meta http-equiv="refresh">` in <head> is the final no-JS fallback. `redirect()`
+    // is idempotent, so whichever path wins, the visitor navigates exactly once.
+    var DESTINATION = 'https://discord.gg/UbNDDBTNqb';
+    var redirected = false;
+    function redirect() {
+      if (redirected) return;
+      redirected = true;
+      window.location.href = DESTINATION;
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'go_redirect', {
+        target: 'discord',
+        destination: DESTINATION,
+        transport_type: 'beacon',
+        event_timeout: 600,
+        event_callback: redirect
+      });
+    }
+    setTimeout(redirect, 700);
   </script>
 </body>
 </html>

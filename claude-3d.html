@@ -17,6 +17,9 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Site analytics — GA4 loader shared by every static page (G-HX1JWGSMTH).
+       Synchronous on purpose: /go/* interstitials call gtag() right after it. -->
+  <script src="/assets/analytics.js"></script>
   <title>AI-Powered 3D — Claude + SceneView</title>
   <meta name="description" content="See how Claude Desktop generates interactive 3D content with SceneView. Live demos of AI-powered 3D model generation, procedural geometry, and AR experiences.">
   <meta name="robots" content="index, follow">
@@ -43,13 +46,13 @@
 
   <link rel="preload" href="styles.css" as="style">
   <link rel="preload" href="js/filament/filament.js" as="script">
-  <link rel="preload" href="js/sceneview.js?v=4.32.0" as="script">
+  <link rel="preload" href="js/sceneview.js?v=4.34.0" as="script">
 
-  <!-- Filament.js v1.70.1 WASM engine (required by SceneView Web) — version pinned by
+  <!-- Filament.js v1.72.1 WASM engine (required by SceneView Web) — version pinned by
        gradle/libs.versions.toml `filamentWebsite` + js/filament/RUNTIME.json (#2783) -->
   <script src="js/filament/filament.js"></script>
   <!-- SceneView Web library -->
-  <script src="js/sceneview.js?v=4.32.0"></script>
+  <script src="js/sceneview.js?v=4.34.0"></script>
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -1208,7 +1211,7 @@
               <div class="claude-cta__terminal-body">
                 <div><span class="claude-cta__terminal-prompt">$</span> <span class="claude-cta__terminal-cmd">npx sceneview-mcp</span></div>
                 <div><span class="claude-cta__terminal-success">SceneView MCP server started</span></div>
-                <div><span class="claude-cta__terminal-prompt">$</span> <span class="claude-cta__terminal-cmd">28 tools available</span></div>
+                <div><span class="claude-cta__terminal-prompt">$</span> <span class="claude-cta__terminal-cmd">32 tools available</span></div>
               </div>
             </div>
           </div>
@@ -1238,8 +1241,7 @@
           <h4 class="footer__col-title">Community</h4>
           <ul class="footer__col-list">
             <li><a href="https://github.com/sceneview/sceneview" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a href="https://discord.gg/sceneview" target="_blank" rel="noopener">Discord</a></li>
-            <li><a href="https://twitter.com/nicoadams_" target="_blank" rel="noopener">Twitter</a></li>
+            <li><a href="https://discord.gg/UbNDDBTNqb" target="_blank" rel="noopener">Discord</a></li>
           </ul>
         </div>
         <div class="footer__col">

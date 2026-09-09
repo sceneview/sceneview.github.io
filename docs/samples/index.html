@@ -58,6 +58,16 @@
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-HX1JWGSMTH"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-HX1JWGSMTH",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-HX1JWGSMTH",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
 
     
     
@@ -660,6 +670,8 @@
       
         
       
+        
+      
     
     
     
@@ -965,8 +977,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../formats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Formats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
     
     
+      
+        
       
         
       
@@ -993,10 +1035,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_10" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_11" >
         
           
-          <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_11" id="__nav_3_11_label" tabindex="0">
             
   
   
@@ -1014,8 +1056,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_11">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1152,6 +1194,34 @@
     
   
     Demo settings sheet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recipes/measure-ar-funnel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Measure your AR funnel
   
 
     
@@ -2726,16 +2796,23 @@
 <h2 id="platform-demos">Platform Demos<a class="headerlink" href="#platform-demos" title="Permanent link">&para;</a></h2>
 <h3 id="android-demo">Android Demo<a class="headerlink" href="#android-demo" title="Permanent link">&para;</a></h3>
 <p><strong><code>samples/android-demo/</code></strong> — Play Store ready, Material 3 Expressive</p>
-<p>4-tab showcase (<strong>Explore / AR View / Samples / About</strong>) backed by an
-append-only demo registry of <strong>53 demos</strong> (19 non-AR + 34 AR):</p>
+<p>3-tab showcase (<strong>Showcase / AR View / About</strong>) backed by an
+append-only demo registry of <strong>49 demos</strong> (18 non-AR + 31 AR), grouped into nine
+catalogue sections:</p>
 <ul>
-<li><strong>Explore tab</strong>: Featured 3D &amp; AR demos and multi-source model streaming (Sketchfab / Icosa Gallery / Poly Haven)</li>
+<li><strong>Showcase tab</strong> (home): a hero card, category filter chips and a grid of media
+  cards with a generated preview image per demo, split by a full-span section header
+  into <strong>Viewer · Geometry &amp; Materials · Rendering · Interaction · AR Placement ·
+  AR Tracking · AR Understanding · AR Anchors · Platform</strong>. The section order is
+  <code>DEMO_CATEGORIES</code> in <code>DemoRegistry.kt</code> and the chips filter down to one section.
+  The closing "Browse online models" card opens the online gallery — multi-source
+  model streaming (Sketchfab / Icosa Gallery / Poly Haven)</li>
 <li><strong>AR View tab</strong>: Live <code>ARSceneView</code> camera with plane detection and tap-to-place</li>
-<li><strong>Samples tab</strong>: The full demo catalog, grouped into six categories —
-  3D Basics, Lighting &amp; Environment, Content, Interaction, Advanced,
-  Augmented Reality</li>
 <li><strong>About tab</strong>: Platform info, version, and GitHub links</li>
 </ul>
+<p>Every demo screen shares the same glass chrome: back button, identity pill and
+overflow menu over the scene, plus a floating bottom dock whose Controls item opens
+the settings sheet.</p>
 <p>Each demo is one append-only <code>*Fragment.kt</code> under
 <code>samples/android-demo/src/main/java/io/github/sceneview/demo/fragments/</code> and is
 deep-link addressable as <code>sceneview://demo/&lt;id&gt;</code>. The collator
@@ -2758,7 +2835,7 @@ sheet, or opens a pre-filled GitHub issue in the browser. See the
 <p>4-tab SwiftUI app:</p>
 <ul>
 <li><strong>Explore tab</strong>: multi-source model streaming — Sketchfab / Icosa Gallery /
-  Poly Haven (#2700, parity with the Android Explore tab). Browse + search work
+  Poly Haven (#2700, parity with the Android online gallery). Browse + search work
   for every catalog; in-app 3D rendering is USDZ-based (Sketchfab) today — the
   glTF-native CC catalogs show an honest "3D preview coming soon" viewer state
   until RealityKit can load glTF.</li>
@@ -2773,7 +2850,7 @@ sheet, or opens a pre-filled GitHub issue in the browser. See the
 <ul>
 <li>Filament.js WASM rendering (same engine as Android)</li>
 <li>Models tab: source-agnostic multi-source catalog (#2722, parity with the
-  Android/iOS Explore) — curated SceneView samples, Icosa Gallery and
+  Android online gallery / iOS Explore) — curated SceneView samples, Icosa Gallery and
   Poly Haven (keyless CC catalogs, rendered in-app), Sketchfab when an API
   key is configured</li>
 <li>WebXR AR/VR support ("Enter AR" / "Enter VR" buttons)</li>
@@ -2785,15 +2862,12 @@ serve the folder:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npx<span class="w"> </span>http-server<span class="w"> </span>samples/web-demo/site<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>
 </span></code></pre></div>
 <h3 id="desktop-demo">Desktop Demo<a class="headerlink" href="#desktop-demo" title="Permanent link">&para;</a></h3>
-<p><strong><code>samples/desktop-demo/</code></strong> — Compose Desktop (Software Wireframe Placeholder)</p>
-<blockquote>
-<p><strong>Note:</strong> This demo does <strong>not</strong> use SceneView or Filament. It is a Compose Canvas
-wireframe renderer that serves as a UI placeholder for a future Filament JNI integration.</p>
-</blockquote>
+<p><strong><code>samples/desktop-demo/</code></strong> — Compose Desktop (<code>SceneViewer</code>)</p>
+<p><code>sceneview-compose</code> <code>SceneViewer</code> on JVM. Filament via filament-kmp (offscreen →
+Skia). <strong>JDK 22+</strong>.</p>
 <ul>
-<li>Rotating wireframe cube, octahedron, diamond (Canvas 2D drawing, not GPU-accelerated)</li>
-<li>Manual perspective projection with basic trigonometry</li>
-<li>Material 3 dark theme</li>
+<li>Loads <code>Duck.glb</code> through <code>ModelSource.Bytes</code></li>
+<li>Drag to orbit, scroll to zoom</li>
 </ul>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./gradlew<span class="w"> </span>:samples:desktop-demo:run
 </span></code></pre></div>
@@ -2894,7 +2968,59 @@ wireframe renderer that serves as a UI placeholder for a future Filament JNI int
 
 
 
+  
 
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+              
+                
+                
+              
+              Thanks, we'll work on improving this page.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
 
 
                 
