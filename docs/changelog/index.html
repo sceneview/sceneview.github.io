@@ -2504,6 +2504,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#v4360-2026-09-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.36.0 — 2026-09-11
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.36.0 — 2026-09-11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v4350-2026-09-11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2516,7 +2555,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -2538,7 +2577,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -2599,7 +2638,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -2621,7 +2660,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_1" class="md-nav__link">
+  <a href="#fixed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -2709,6 +2748,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#v4360-2026-09-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v4.36.0 — 2026-09-11
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v4.36.0 — 2026-09-11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#v4350-2026-09-11" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2721,7 +2799,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added" class="md-nav__link">
+  <a href="#added_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -2743,7 +2821,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed" class="md-nav__link">
+  <a href="#fixed_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -2804,7 +2882,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#added_1" class="md-nav__link">
+  <a href="#added_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Added
@@ -2826,7 +2904,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fixed_1" class="md-nav__link">
+  <a href="#fixed_2" class="md-nav__link">
     <span class="md-ellipsis">
       
         Fixed
@@ -2868,8 +2946,48 @@
 
 <h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">&para;</a></h1>
 <h2 id="unreleased">Unreleased<a class="headerlink" href="#unreleased" title="Permanent link">&para;</a></h2>
-<h2 id="v4350-2026-09-11">v4.35.0 — 2026-09-11<a class="headerlink" href="#v4350-2026-09-11" title="Permanent link">&para;</a></h2>
+<h2 id="v4360-2026-09-11">v4.36.0 — 2026-09-11<a class="headerlink" href="#v4360-2026-09-11" title="Permanent link">&para;</a></h2>
 <h3 id="added">Added<a class="headerlink" href="#added" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Double-tap to zoom in, two-finger tap to zoom out (<a href="https://github.com/sceneview/sceneview/issues/3608">#3608</a>).</strong> The gesture
+  convention of photo viewers and maps, on every <code>Scene</code> / <code>SceneView</code> — animated over 300 ms and
+  clamped by the same distance limits as the pinch. On by default; opt out with
+  <code>CameraGestureDetector.DefaultCameraManipulator.isDoubleTapZoomEnabled = false</code>, and re-tune with
+  <code>doubleTapZoomFactor</code> / <code>doubleTapZoomDurationSeconds</code>. A consumer's own <code>onDoubleTap</code> callback and
+  tap-to-pick still fire — the camera does not steal the event. Custom <code>CameraManipulator</code>
+  implementations opt in by overriding <code>doubleTapZoom(x, y, zoomIn)</code>; the step and the easing are
+  public (<code>zoomedDistanceForDoubleTap</code>, <code>animatedZoomDistance</code>) so they do not have to be
+  reimplemented.</li>
+</ul>
+<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Attaching a node to a live <code>Scene</code> now schedules a frame (<a href="https://github.com/sceneview/sceneview/issues/3560">#3560</a>).</strong> A <code>ModelNode</code>
+  (or any DSL child node) added to an already-running <code>Scene</code>/<code>SceneView</code> is now drawn immediately
+  instead of staying invisible until an unrelated surface resize. Attaching or detaching a node now
+  schedules a frame the same way a resize does, so a render-on-demand scene (<code>isRendering = false</code>)
+  no longer needs a workaround nudge for newly attached content to actually appear.</li>
+<li><strong><code>SurfaceMirrorer</code> recordings are no longer uniformly black (<a href="https://github.com/sceneview/sceneview/issues/3602">#3602</a>).</strong> The live
+  viewport no longer goes black while recording either. Mirroring now renders the scene a second
+  time into each mirrored surface's own swap chain, after the scene's own frame has been presented,
+  instead of calling Filament's <code>Renderer.copyFrame</code> in the middle of it — that copy left the
+  window's colour buffer undefined on drivers that discard it once it leaves the EGL draw slot, so
+  both the MP4 and the on-screen frame came out black. Wiring a <code>surfaceMirrorer</code> no longer forces
+  the window swap chain to <code>CONFIG_READABLE</code>.</li>
+<li><strong>Dokka no longer sees the Android source roots twice under AGP 9 (<a href="https://github.com/sceneview/sceneview/issues/3604">#3604</a>).</strong> The
+  javadoc jar and the API docs build again at release time.</li>
+<li><strong>The Explore tab's search field no longer breaks the macOS demo build (<a href="https://github.com/sceneview/sceneview/issues/3605">#3605</a>).</strong>
+  <code>textInputAutocapitalization</code> is iOS-only and is now behind an <code>#if os(iOS)</code> guard.</li>
+<li><strong>Materials demo labels no longer eat camera gestures (<a href="https://github.com/sceneview/sceneview/issues/3609">#3609</a>).</strong> A drag that
+  started on a material name moved nothing. The floating labels were <code>clickable</code>, and a Compose
+  node that accepts pointer input wins the hit test outright, so the <code>SceneView</code> underneath was
+  never offered the gesture. The labels are now pure decoration and the wall orbits from anywhere,
+  labels included. Tapping a sphere no longer teleports to <em>Inspect</em> either: the camera flies onto
+  the picked ball on an eased dolly and flies back out to the wall when you leave <em>Inspect</em>. The
+  sheet and the peek header now say the spheres are tappable, the tap answers with a selection
+  haptic, and the focused label lights up while the camera travels.</li>
+</ul>
+<h2 id="v4350-2026-09-11">v4.35.0 — 2026-09-11<a class="headerlink" href="#v4350-2026-09-11" title="Permanent link">&para;</a></h2>
+<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>SceneView ships as a ChatGPT / Codex plugin, and <code>sceneview-mcp</code> gains a remote transport and an inline 3D viewer (<a href="https://github.com/sceneview/sceneview/issues/3470">#3470</a>).</strong> OpenAI's Plugins Directory — one listing shared by ChatGPT and Codex — takes a manifest, skills and an optional MCP server; the repository is now that package: <code>.codex-plugin/plugin.json</code> points at the three existing skills under <code>agents/</code> (each with <code>agents/openai.yaml</code> display metadata), <code>.agents/skills/*</code> symlinks let Codex pick the skills up in any checkout, and <code>.agents/plugins/marketplace.json</code> installs the plugin locally. <code>npx sceneview-mcp --http</code> serves the MCP Streamable HTTP transport at <code>/mcp</code> (stateless), <code>/health</code> and OpenAI's <code>/.well-known/openai-apps-challenge</code> domain-verification route; the remote surface lists the free tier only and refuses Pro tool names, so it complies with the directory's no-subscription-promotion rule. The 3D-viewer widget that died with <code>mcp-gateway/</code> returns inside the free package: <code>view_3d_model</code> renders a public GLB/glTF URL with SceneView.js + Filament.js through the MCP Apps resource <code>ui://widget/3d-viewer.html</code> (<code>text/html;profile=mcp-app</code>, CSP declared in <code>_meta.ui.csp</code>), declared on the tool in <code>tools/list</code> and on the result. Listing copy, starter prompts, the 5 + 3 test cases and the owner gestures live in <code>agents/OPENAI-PLUGIN.md</code>. Motivated by GPT-6 Astra (2026-09-03), which drives 3D tools through computer use and MCP rather than generating assets itself.</li>
 <li><strong>SceneView opens <code>.3mf</code> — the format AI print flows emit, that nothing on Android or the web
@@ -3317,7 +3435,7 @@ first, GitHub Sponsors beside it — instead of one row lost in the middle of a 
   opens it on Wall), the Showcase opens on a model instead of a release note, Collaborative AR
   shows Alice and Bob as two live panes, Contact Shadows no longer hides the TV behind its
   explanation, and 2D in 3D starts on one readable, tappable card.</p>
-<h3 id="fixed">Fixed<a class="headerlink" href="#fixed" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>The <code>splat-preview</code> demo clipped its own subject (<a href="https://github.com/sceneview/sceneview/issues/2646">#2646</a>).</strong> The orbit home was a hand-picked <code>z = 1.6 m</code> against a shell whose silhouette is 0.536 m (0.5 m of centres plus one 3σ billboard disc), which in portrait left a half-width of only 0.309 m at the subject — the sphere overflowed both edges by ~1.7x, and the demo that exists to show Gaussian splats never showed the whole cloud. The distance is now computed from the projection Filament actually uses (a 35 mm-equivalent focal length against a 24 mm sensor, so <code>tan(fovV/2) = 12 / focalLength</code>, the horizontal angle scaled by the 9:20 portrait aspect) and from the tangent condition <code>d = radius / sin(halfAngle)</code> — framing on <code>tan</code> would fit the flat disc through the centre and still clip the silhouette. Covered by <code>SplatFramingTest</code>, which asserts containment and keeps the old 1.6 m as a regression witness, and the demo's render is now baselined: <code>splatpreview_default.png</code> is a real golden and the slug joined <code>BASELINED_GOLDENS</code>.</li>
 <li><strong>The <code>splat-preview</code> demo rendered unguarded, and ten doc surfaces undercounted the node inventory (<a href="https://github.com/sceneview/sceneview/issues/2646">#2646</a>).</strong> P1c proved <code>SplatNode</code> renders on the QA emulator with a one-off orbit screenrecord, but that probe was never committed — so <code>DemoRenderingScreenshotTest</code> covered 14 demo slugs and not the one whose pixels come from a custom <code>.filamat</code>. Added the <code>splat-preview</code> case (first-run path: the slug is deliberately absent from <code>BASELINED_GOLDENS</code> until a reviewed capture is promoted), which makes the suite's only runtime check of the <code>splat.filamat</code> ABI invariant — a mismatched blob blanks the viewport, and a blank viewport is what the settle probe refuses to capture. Separately, <code>README.md</code>, the doc site (<code>cheatsheet</code>, <code>manifest.json</code>, <code>platforms</code>, <code>try</code>, <code>structured-data.json</code>), <code>mcp/README.md</code>, <code>mcp/src/guides.ts</code> and <code>website-static/index.html</code> still advertised <code>46+ node types</code> while <code>.cursorrules</code> and <code>.windsurfrules</code> had been corrected to <code>48+</code> in <a href="https://github.com/sceneview/sceneview/pull/3352">#3352</a>; all twelve claims now read <code>48+</code>.</li>
@@ -3813,7 +3931,7 @@ probe, each rig disabling both system light slots so what you see is the rig and
 <li><strong>Play Store and App Store listings rewritten against the shipped app.</strong> The Android listing led with a "Dynamic Sky" demo the app no longer has and never mentioned that the app now opens a <code>.3mf</code>, <code>.glb</code> or <code>.gltf</code> handed over by another app; both listings now describe the ~50 screens that exist, resolved from <code>DemoRegistry</code>'s fragments and the iOS scene files rather than from memory.</li>
 </ul>
 <h2 id="v4340-2026-09-03">v4.34.0 — 2026-09-03<a class="headerlink" href="#v4340-2026-09-03" title="Permanent link">&para;</a></h2>
-<h3 id="added_1">Added<a class="headerlink" href="#added_1" title="Permanent link">&para;</a></h3>
+<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Opt-in on-model gesture feedback for editable nodes.</strong> New multi-consumer
   <code>Node.addEditingListener</code> / <code>NodeEditingListener</code> hook reporting move / rotate / scale
@@ -3978,7 +4096,7 @@ Rebuilt the <code>lines-paths</code> demo around real stroke geometry, and added
   first screen, which is what #3438 was filed about. <code>tools/demo-previews/gen.py</code> grew a
   <code>--kind hero</code> (<code>heroes.json</code>) so that banner has a recorded prompt like every other asset
   instead of being a one-off.</p>
-<h3 id="fixed_1">Fixed<a class="headerlink" href="#fixed_1" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>The self-hosted macOS runner now falls back to <code>macos-15</code> when the host is nearly full
   (<a href="https://github.com/sceneview/sceneview/issues/2816">#2816</a>).</strong> The runner heartbeat marked
@@ -4496,7 +4614,7 @@ section and Secondary Camera's main view.
 <code>docs/mkdocs.yml</code> declared <code>extra:</code> twice, so YAML last-key-wins silently dropped the GA4 analytics block and the "Was this page helpful?" feedback widget — the published docs site had 0 of 55 pages instrumented. The two mappings are merged; the docs site and all 16 static website pages now share one GA4 loader (<code>website-static/assets/analytics.js</code>), the <code>/go/*</code> short links report a <code>go_redirect</code> event, and the GitHub Sponsors CTA reports <code>outbound_click</code>. New recipe: <em>Measure your AR funnel</em>. The SDK and the demo apps still ship no telemetry.
 <code>tools/download-asset-by-uid.sh</code> no longer embeds a Sketchfab API token; it now requires <code>SKETCHFAB_API_KEY</code> from the environment (companion of the <code>download-assets.sh</code> fix).</p>
 <h2 id="v4330-2026-08-26">v4.33.0 — 2026-08-26<a class="headerlink" href="#v4330-2026-08-26" title="Permanent link">&para;</a></h2>
-<h3 id="added_2">Added<a class="headerlink" href="#added_2" title="Permanent link">&para;</a></h3>
+<h3 id="added_3">Added<a class="headerlink" href="#added_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Desktop <code>SceneViewer</code> via filament-kmp (<a href="https://github.com/sceneview/sceneview/issues/2540">#2540</a>).</strong> The <code>sceneview-compose</code> desktop actual loads a glTF and presents Filament frames through filament-kmp's offscreen Skia path. Public API is unchanged — no Filament type in the façade. Requires JDK 22+ (FFM). <code>samples/desktop-demo</code> consumes <code>SceneViewer</code>. A translucent <code>EnvironmentSource.Color</code> or <code>Hdr(showSkybox = false)</code> renders transparent over the Compose content behind, matching Android (filament-kmp 0.4.0).
 <code>centerOrigin</code> reaches full cross-platform parity (#2763). <code>sceneview-web</code> gains
@@ -4547,7 +4665,7 @@ Play Store tablet screenshots (7" and 10") re-captured from the redesigned demo
 app — Home showcase, Model Viewer, Lighting Lab and Materials — aligning both
 tablet classes with the phone set shipped in #3321.</li>
 </ul>
-<h3 id="fixed_2">Fixed<a class="headerlink" href="#fixed_2" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>android-demo</code>'s Lines &amp; Paths "Stroke Width" slider now visibly changes the on-screen
   stroke across its whole range (<a href="https://github.com/sceneview/sceneview/issues/1432">#1432</a>).</strong>
@@ -4656,7 +4774,7 @@ separately.
 <li><strong>The <code>placement-reticle-preview</code> card is gone from the Android demo catalogue (<a href="https://github.com/sceneview/sceneview/issues/3275">#3275</a>).</strong> "AR Placement Reticle Preview" was a developer screen shipped to users: a non-AR <code>SceneView</code> re-staging the placement reticle on a synthetic floor, with switches for <code>SEARCHING</code>/<code>READY</code> phase and <code>RING</code>/<code>DISC</code> — internal vocabulary, on the Play Store build. Its stated purpose was catching reticle regressions off-device, but no automated check ever consumed it, and its second half (a placed model with a contact shadow) is what <code>contact-shadow-preview</code> exists for. The reticle it previewed is now judged where users meet it, in the canonical tap-to-place experience (<a href="https://github.com/sceneview/sceneview/issues/2482">#2482</a>). No 3D asset was removed — every model and environment it used is still bundled and still used elsewhere.</li>
 </ul>
 <h2 id="v4320-2026-08-22">v4.32.0 — 2026-08-22<a class="headerlink" href="#v4320-2026-08-22" title="Permanent link">&para;</a></h2>
-<h3 id="added_3">Added<a class="headerlink" href="#added_3" title="Permanent link">&para;</a></h3>
+<h3 id="added_4">Added<a class="headerlink" href="#added_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>sceneview</strong>: <code>rememberCameraManipulator(orbitRadius = 2.5f)</code> — a distance-first overload (also on <code>createDefaultCameraManipulator</code> and <code>DefaultCameraManipulator</code>). The camera starts <code>orbitRadius</code> metres from <code>targetPosition</code> along the default 3/4 viewing angle, so with the default target the value <em>is</em> the camera-to-subject distance and the <code>autoCenterContent</code> vector-length trap (#2873) does not apply. Converges on the iOS <code>CameraControls.orbitRadius</code> vocabulary. The pure derivation is exposed as <code>orbitEyePosition(orbitRadius, targetPosition)</code> / <code>DEFAULT_ORBIT_DIRECTION</code> and unit-tested (#2932).
 The framing lever iOS gained with <code>.framingMargin(_:)</code> now exists at the same level on
@@ -4709,7 +4827,7 @@ text, which was hard to read over a live camera feed. Passing <code>null</code> 
 now animates the pill out, so a demo whose step is done hides it without extra code
 (#3265).</li>
 </ul>
-<h3 id="fixed_3">Fixed<a class="headerlink" href="#fixed_3" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Ensure every push to <code>main</code> evaluates CI path filters against its own parent commit.</li>
 <li><strong>android-demo</strong>: the <em>Shape Extrude</em> sub-mode of <code>custom-geometry</code> no longer clips its triangle, star and hexagon on a portrait phone. It paired <code>orbitHomePosition = (0, 0, 1.5)</code> with a target at <code>z = -1</code>, which reads as a 2.5 m camera but — with <code>autoCenterContent</code> putting the shape on the origin — framed from 1.5 m. The distance is now derived from the frustum in <code>ShapeFraming</code> and pinned by a JVM test, as #2923 did for the geometry demo (#2937).
@@ -4895,7 +5013,7 @@ instead of from the repository.</p>
 <code>.filamat</code> ABI mismatch that would have failed the first <code>createMaterial()</code> on the
 static site, a collider that never refreshed when its geometry changed, and a release
 lint that could only ever fail at deploy time.</p>
-<h3 id="added_4">Added<a class="headerlink" href="#added_4" title="Permanent link">&para;</a></h3>
+<h3 id="added_5">Added<a class="headerlink" href="#added_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>The Android demo's Samples tab opens with a "What's new" card, and shipping a release is what updates it (<a href="https://github.com/sceneview/sceneview/pull/3232">#3232</a>).</strong> Anyone opening the demo app had no way to tell a screen fixed yesterday from one untouched for a year: the grid presents every sample identically, and the only record of what changed lives in a <code>CHANGELOG.md</code> nobody reads from a phone. The card heads the grid and opens a <code>ModalBottomSheet</code> listing the last three releases' <em>Added / Fixed / Changed / Performance / Removed</em> headlines, plus every demo still marked <code>InReview</code>.</li>
 </ul>
@@ -4908,7 +5026,7 @@ lint that could only ever fail at deploy time.</p>
 <li><strong>The sample apps now share one UI vocabulary, and a gate keeps them sharing it.</strong> Every demo used to type its own controls, so the Android demo app had 37 hand-rolled sliders across 21 files — each pairing a <code>Text("Name: ${"%.2f".format(…)}")</code> with a bare <code>Slider</code>, drifting on decimal count, typography and where the unit went — and the per-category accent palette existed in three copies. One of those copies carried a <em>"keep these in sync by hand"</em> comment; another had no dark variant at all, so in dark mode the Explore grid rendered the light hues that the dark palette exists to avoid at &gt;9:1 contrast against an M3 dark <code>surfaceContainer</code>. <code>samples/common</code> now defines <code>LabeledSlider</code> (name on the leading edge, value on the trailing edge, so a column of them reads as a table instead of a stack of sentences) and <code>DemoCategoryAccent</code> (one palette, both schemes, unit-tested for key parity). All 37 sliders and all three palette copies now go through them. <code>.claude/scripts/check-demo-design-system.py</code> fails the quality gate on a demo that re-invents either — it keys on the palette's <em>shape</em> rather than its hex values, because <code>0xFF6446CD</code> is both the "3D Basics" accent and the theme's brand tertiary, and its own self-test drives the failing path, including the label that nests quotes inside a string template where a flat regex silently stops looking.</li>
 <li><strong>The iOS demos now use the same slider as the Android demos, and the design-system gate reads Swift.</strong> The iOS sample app carried one control in five mutually incompatible shapes across nine files — a label with no value shown, a label/readout row with the track below it, a value fused into its own label, a track bookended by sun glyphs, and a helper local to a single file — disagreeing on typography, on whether the readout was monospaced, on the width reserved for it, on tint (<code>.blue</code>, <code>.orange</code>, <code>.yellow</code>, picked per demo), and on whether the control was accessible at all. <code>Views/Components/LabeledSlider.swift</code> now owns it under the same contract as its Android twin: label leading, value trailing, one thin space before the unit, POSIX formatting so a readout copies straight into code, and a hidden label row so VoiceOver keeps the track's adjustable trait and announces the value once. Eight sliders across six files migrated; <code>DynamicSkyDemo</code> and <code>MovableLightDemo</code> are deliberate compositions rather than copies of the shared control and are left as they are. <code>check-demo-design-system.py</code> now refuses the two Swift shapes as well as the Kotlin one, inspecting the block above a track instead of grepping for <code>Slider(</code>, so a bespoke design is not mistaken for drift.</li>
 </ul>
-<h3 id="fixed_4">Fixed<a class="headerlink" href="#fixed_4" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>The version bumper stops rewriting the homepage's GA4 stream id (<a href="https://github.com/sceneview/sceneview/issues/3234">#3234</a>).</strong> <code>website-static/index.html</code> is the one file swept for version strings without an anchor. At v4.6.0 that sweep still used the old version as an unescaped regex, so <code>4.5.0</code> — meaning <code>4</code>+any+<code>5</code>+any+<code>0</code> — matched <code>43570</code> inside <code>Stream ID: 14357002837</code> and rewrote it to <code>14.6.002837</code>. Escaping the dots afterwards closed the entry door but not the damage: the comment now held a literal version string, so the next 25 releases faithfully re-bumped it, all the way to <code>14.31.0</code>. The id is restored to <code>14357002837</code>, the sweep skips <code>Stream ID:</code> lines by address, and a new deterministic check fails the gate if any stream id ever contains a dot again — the same guard shape the SVG path-data corruption got in <a href="https://github.com/sceneview/sceneview/issues/2562">#2562</a>, on the carrier nobody had thought to cover.</li>
 <li><strong>The deployed-site version check no longer reddens every release's pre-push gate (<a href="https://github.com/sceneview/sceneview/issues/3234">#3234</a>).</strong> <code>sceneview.github.io/index.html</code> is written by <code>docs.yml</code> <em>after</em> the tag is pushed, so during a release it correctly holds the previous version; demanding the in-flight one made <code>sync-versions.sh</code> exit non-zero on a file no human edits. It now accepts the last tag as well as the current version — and still fails on anything older, which is a stale clone or a broken deploy.</li>
@@ -5034,7 +5152,7 @@ from the false-red side; this is the false-green half, and the union of both.</l
 <li><strong>Version-bump docs now say the Flutter README's pub.dev caret range must not be bumped (<a href="https://github.com/sceneview/sceneview/issues/3149">#3149</a>).</strong> <code>sync-versions.sh</code> already enforced it, but neither the <code>versioning</code> skill nor <code>/version-bump</code> said so — a session that "fixed" the <code>WARN</code> row would point <code>flutter_sceneview: ^X.Y.Z</code> at a version pub.dev does not serve yet, which resolves to nothing and fails <code>flutter pub get</code>.</li>
 </ul>
 <h2 id="v4300-2026-08-12-cached-filament-handles-that-stop-lying-ar-depth-occlusion-that-occludes-webp-textures-on-the-web-and-a-release-that-verifies-what-it-published">v4.30.0 — 2026-08-12 — Cached Filament handles that stop lying, AR depth occlusion that occludes, WebP textures on the web, and a release that verifies what it published<a class="headerlink" href="#v4300-2026-08-12-cached-filament-handles-that-stop-lying-ar-depth-occlusion-that-occludes-webp-textures-on-the-web-and-a-release-that-verifies-what-it-published" title="Permanent link">&para;</a></h2>
-<h3 id="added_5">Added<a class="headerlink" href="#added_5" title="Permanent link">&para;</a></h3>
+<h3 id="added_6">Added<a class="headerlink" href="#added_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>Engine.destroyLight</code> / <code>Engine.safeDestroyLight</code>, and <code>Engine.renderableGeneration()</code>.</strong> Destroying a light component through the <code>Engine</code> helper (rather than <code>lightManager.destroy</code> directly) is what keeps every cached <code>LightManager</code> handle honest. <code>renderableGeneration()</code> exposes the renderable-side invalidation counter for code outside <code>sceneview</code> that caches a <code>RenderableInstance</code> of its own — read it before serving the cache and re-resolve whenever it changed.</li>
 </ul>
@@ -5045,7 +5163,7 @@ from the false-red side; this is the false-green half, and the union of both.</l
 <li><strong>The version reaches each verify step through <code>env:</code>, never through <code>${{ }}</code> inside <code>run:</code>.</strong> An expression substituted into the script text is code before bash parses it; bound to an environment variable it is data. The gate requires the binding to be <em>read</em> by the command as well, so a step cannot carry a correct <code>env:</code> block above a call that verifies a literal.</li>
 <li><strong>Two ways the check could itself lie are handled explicitly.</strong> An unreachable registry is reported as <code>UNREACHABLE</code>, never as "the package is absent" — a network outage must not become a confident claim about what shipped. And Maven Central, which served 404 on the POM for roughly half an hour after a green publish at v4.26.0, gets a propagation budget and an honest <code>INCONCLUSIVE</code> when it lapses, rather than manufacturing a red release out of an OSSRH sync delay.</li>
 </ul>
-<h3 id="fixed_5">Fixed<a class="headerlink" href="#fixed_5" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Depth occlusion had no visible effect at all (<a href="https://github.com/sceneview/sceneview/issues/1617">#1617</a>).</strong> <code>ARCameraStream</code> built its depth texture with no <code>width</code>/<code>height</code>, so Filament defaulted it to <strong>1×1</strong> and every per-frame upload wrote a single texel. The occlusion material read one constant depth for the whole screen, leaving virtual objects drawn on top of the real world however close it was. The texture is now sized from the ARCore depth image and rebuilt when the depth resolution changes.</li>
 <li><strong>Padded depth rows were sheared (<a href="https://github.com/sceneview/sceneview/issues/1617">#1617</a>).</strong> The same upload passed ARCore's <code>Plane.rowStride</code> — a <strong>byte</strong> count — as <code>PixelBufferDescriptor</code>'s stride, which Filament reads in <strong>texels</strong>. RG8 is 2 bytes per texel, so the stride is now converted before upload.</li>
@@ -5093,7 +5211,7 @@ from the false-red side; this is the false-green half, and the union of both.</l
   camera instance handle.</li>
 </ul>
 <h2 id="v4290-2026-08-12-an-idle-scene-that-stops-rendering-projections-that-admit-what-they-cannot-answer-and-a-tap-name-that-no-longer-leaks-a-url">v4.29.0 — 2026-08-12 — An idle scene that stops rendering, projections that admit what they cannot answer, and a tap name that no longer leaks a URL<a class="headerlink" href="#v4290-2026-08-12-an-idle-scene-that-stops-rendering-projections-that-admit-what-they-cannot-answer-and-a-tap-name-that-no-longer-leaks-a-url" title="Permanent link">&para;</a></h2>
-<h3 id="added_6">Added<a class="headerlink" href="#added_6" title="Permanent link">&para;</a></h3>
+<h3 id="added_7">Added<a class="headerlink" href="#added_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>SceneView(isRendering = false)</code> parks the frame loop on an idle scene (<a href="https://github.com/sceneview/sceneview/issues/3108">#3108</a>).</strong> A static 3D screen kept calling <code>withFrameNanos</code> at display rate forever, because Compose's frame clock does not idle on its own — on devices whose Choreographer keeps ticking a visually static UI (Samsung foldables in the report) that is a continuously rendered frame per vsync with nothing to show, and it reads to the user as battery drain and thermal throttling. The new parameter defaults to <code>true</code>, so no <em>source</em> change is needed at a named call site; pre-compiled consumers must recompile, and a caller passing nine or more positional arguments gets a loud type error at slot 9, never a silent behaviour change.</li>
 <li>The paused loop <strong>suspends rather than spins</strong>: it waits on the snapshot rather than polling on a timer, so an idle scene schedules no work at all instead of trading 60 GPU frames a second for 60 CPU wake-ups a second — and rendering resumes on the snapshot apply itself, not on the next poll tick. <code>SceneIsRenderingTest</code> discriminates the two on virtual time, which is the only way to tell them apart from the outside.</li>
@@ -5129,7 +5247,7 @@ The Claude Code statusline now shows unsafe work: <code>●n</code> uncommitted 
 unpushed commits, both silent when zero. These are the two signals that answer "is
 anything still stranded?" — previously that question cost a full model turn to answer.</li>
 </ul>
-<h3 id="fixed_6">Fixed<a class="headerlink" href="#fixed_6" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_7">Fixed<a class="headerlink" href="#fixed_7" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>CI Gate</code> went red on roughly one PR run in four, with nothing failing (<a href="https://github.com/sceneview/sceneview/issues/3005">#3005</a>).</strong> <code>ci.yml</code>'s <code>Detect changed paths</code> job checked out the repo before running the path filter, and that checkout was bimodal — 26–36 s or exactly the 5-minute timeout, never in between. A timed-out job reports <code>cancelled</code>, the eight jobs gated on it report <code>skipped</code>, and the run read as "the path filter matched nothing" on the one required check on <code>main</code>. The checkout now runs only on <code>push</code>, where the filter actually needs git; on a pull request it reads the diff from the API and never touches the working tree. A new assertion fails the job if any filter reports something other than <code>true</code>/<code>false</code>, so a blank verdict can no longer skip every job and pass as green.</li>
 <li><code>check-doc-drift.sh</code> no longer reports a false "no public declaration was added/removed/retyped" for an uncommitted public-API change. The changed-file list unioned the working tree while the public-declaration delta was computed from a commit range only, so the gate was blind in the local pre-commit case a developer actually runs by hand.</li>
@@ -5243,7 +5361,7 @@ now kept and marked unverified, which routes the run to <code>REVIEW_INCOMPLETE<
   <code>lib/detect-filament-bg-thread.py</code> and <code>test-detect-filament-bg-thread.sh</code>.</li>
 </ul>
 <h2 id="v4280-2026-08-10">v4.28.0 — 2026-08-10<a class="headerlink" href="#v4280-2026-08-10" title="Permanent link">&para;</a></h2>
-<h3 id="added_7">Added<a class="headerlink" href="#added_7" title="Permanent link">&para;</a></h3>
+<h3 id="added_8">Added<a class="headerlink" href="#added_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>A release that ships a breaking change can no longer be tagged as a patch.</strong> <code>release.yml</code>'s <code>publish-rn</code> job derives the npm version straight from the git tag, so tagging <code>v4.26.1</code> would publish a source-breaking <code>@sceneview-sdk/react-native</code> change as a semver patch — the one version class a consumer's caret range picks up without review. <code>.claude/scripts/check-breaking-change-bump.sh</code> refuses that combination. A fragment declares a breaking change with a <code>&lt;!-- breaking --&gt;</code> line or simply by saying so in its public prose (<code>non-breaking</code> and <code>groundbreaking</code> do not count; <code>&lt;!-- breaking: false --&gt;</code> opts out). The check is category-independent — a removed public symbol is as breaking as a changed one — and runs from <code>collate-changelog.sh</code>, from <code>release-fast.yml</code> right after the version input is validated, and from <code>release-checklist.sh</code> §6 — every path that <em>creates</em> a release tag. A tag pushed by hand, bypassing collation, still reaches <code>publish-rn</code> unguarded: the guard reads the fragments, and collation is what consumes them, so there is nothing left to read afterwards.</li>
 </ul>
@@ -5256,7 +5374,7 @@ now kept and marked unverified, which routes the run to <code>REVIEW_INCOMPLETE<
   or an <code>InkWell</code> to catch taps <em>around</em> the scene will find those taps now going to
   the platform view instead. Move that handling to <code>SceneView</code>'s own <code>onTap</code>.</li>
 </ul>
-<h3 id="fixed_7">Fixed<a class="headerlink" href="#fixed_7" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_8">Fixed<a class="headerlink" href="#fixed_8" title="Permanent link">&para;</a></h3>
 <ul>
 <li>glTF/GLB models whose textures are WebP-encoded (<code>EXT_texture_webp</code>) now load <strong>with</strong> their
   textures on Android. Filament's Android prebuilt ships no <code>image/webp</code> decoder and offers no seam
@@ -5464,7 +5582,7 @@ missing half of that bridge, and the Flutter and React Native iOS bridges now re
 through it instead of each carrying its own host. The bridges' tap contract is unified
 in the same movement: a tap reports the <em>model</em>, not a mesh inside it, on every
 platform, and <code>nodeName == null</code> is now the single "hit nothing" test in React Native.</p>
-<h3 id="added_8">Added<a class="headerlink" href="#added_8" title="Permanent link">&para;</a></h3>
+<h3 id="added_9">Added<a class="headerlink" href="#added_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>SceneView.contentID(_:)</code> on Apple platforms — swap a model without
   re-creating the renderer.</strong> The content closure used to run only when the
@@ -5614,7 +5732,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
   <code>onCameraChanged</code>. A pose that cannot be honoured verbatim now says so instead of
   leaving your state and the screen disagreeing.</li>
 </ul>
-<h3 id="fixed_8">Fixed<a class="headerlink" href="#fixed_8" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_9">Fixed<a class="headerlink" href="#fixed_9" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>The release device-QA gate no longer grades every release against one frozen
   run.</strong> <code>device-qa-report.json</code> is harness <em>output</em>, but it was committed by accident
@@ -5916,7 +6034,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li><strong><code>sceneViewerModelFileName</code> no longer presents its Kotlin↔Swift divergences as a closed set of two.</strong> Measured, at least five inputs derive differently (<code>models/</code>, <code>.hidden</code>, <code>/</code>, <code>..</code>, <code>robot.</code> — the last because <code>deletingPathExtension</code> does not treat a trailing dot as an extension). None is a loadable model path; the comment now says so without claiming an exhaustiveness it cannot prove.</li>
 </ul>
 <h2 id="v4260-2026-08-04">v4.26.0 — 2026-08-04<a class="headerlink" href="#v4260-2026-08-04" title="Permanent link">&para;</a></h2>
-<h3 id="added_9">Added<a class="headerlink" href="#added_9" title="Permanent link">&para;</a></h3>
+<h3 id="added_10">Added<a class="headerlink" href="#added_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li>App Store listing drift is now visible read-only, and the assumption the
   screenshot diff rests on is measured rather than assumed. A daily
@@ -6190,7 +6308,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
   gate; <code>android-tooling</code> is driving a device by hand. Both descriptions and both
   index rows now say so.</li>
 </ul>
-<h3 id="fixed_9">Fixed<a class="headerlink" href="#fixed_9" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_10">Fixed<a class="headerlink" href="#fixed_10" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Demo: the Materials demo no longer leaks a streamed model per chip switch
   (#2459 class).</strong> The PBR section's <code>rememberFileModelInstance</code> produced a
@@ -7047,7 +7165,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
   gate's header so it is not re-proposed blind.</li>
 </ul>
 <h2 id="v4250-2026-07-21">v4.25.0 — 2026-07-21<a class="headerlink" href="#v4250-2026-07-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_10">Added<a class="headerlink" href="#added_10" title="Permanent link">&para;</a></h3>
+<h3 id="added_11">Added<a class="headerlink" href="#added_11" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Web XR: <code>XRAnchorNode.drive(node)</code> bridges a tracked anchor to the retained
   scene graph — the bound root <code>Node</code>'s <code>worldTransform</code> follows the anchor's
@@ -7126,7 +7244,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
   <code>sceneview://demo/&lt;id&gt;</code> whose id is unknown now surfaces a placeholder
   instead of being silently dropped (#2800).</li>
 </ul>
-<h3 id="fixed_10">Fixed<a class="headerlink" href="#fixed_10" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_11">Fixed<a class="headerlink" href="#fixed_11" title="Permanent link">&para;</a></h3>
 <ul>
 <li>CI now actually verifies the committed Roborazzi golden screenshots for
   <code>samples:android-demo</code> — the <code>Unit tests</code> job swaps
@@ -7252,7 +7370,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li><strong>Doc truth pass — stale demo/deep-link counts and two flatly-false CI claims corrected (<a href="https://github.com/sceneview/sceneview/issues/2807">#2807</a>, part of <a href="https://github.com/sceneview/sceneview/issues/2798">#2798</a>).</strong> "51 demos" → <strong>52</strong> (recounted at the source: 53 <code>*Fragment.kt</code> files under <code>samples/android-demo/.../fragments/</code> minus the <code>DemoFragment.kt</code> base class; breakdown corrected to 18 non-AR + 34 AR) across <code>CLAUDE.md</code>, <code>.maestro/README.md</code>, <code>docs/docs/samples.md</code>, <code>docs/docs/llms-full.txt</code>, <code>docs/docs/try.md</code>, <code>samples/README.md</code>, and <code>website-static/index.html</code>. "24 deep-linkable" → <strong>63</strong> (<code>DemoDeepLinkRegistry.allowedIds</code> counted directly) in <code>CLAUDE.md</code> and <code>.maestro/README.md</code>; the "subset of Android's 42-demo catalog" framing is corrected too — cross-checked against source, the set isn't a clean subset either way (2 iOS ids match no current Android id; 12 Android ids aren't yet reachable on iOS). Two doc claims were outright false, not just stale, and are now corrected to describe today's real state rather than nuanced: <strong>0 iOS Maestro runs have ever executed in CI</strong> (<code>device-qa.yml</code> defines no <code>ios</code> job — the leg is local-only today) and <code>render-tests.yml</code>'s "iOS screenshot tests" job <strong>captures no PNGs</strong> (it runs the existing logic-only <code>SceneViewDemoTests</code> target; no UI-testing target, no <code>XCTAttachment</code> anywhere in the iOS demo). Both corrections cite <a href="https://github.com/sceneview/sceneview/issues/2803">#2803</a>, which tracks wiring them up for real. <code>docs/docs/cheatsheet-ios.md</code> gains the missing Android-only parity rows for <code>SplatNode</code> (<a href="https://github.com/sceneview/sceneview/issues/2768">#2768</a>), Collaborative AR (<code>CollaborativeTransport</code>/<code>CollaborativeSession</code>, noting the ARKit-native <code>ARSession.collaborationData</code> advantage once a port lands), and the <code>ar-ml-object-label</code> demo, plus a demo-id cross-reference on the existing <code>ar-scene-semantics</code> row — and surfaces the honest SSAO/Bloom/MSAA render-quality gap table that was previously only in <code>RenderQuality.swift</code>'s KDoc. Docs-only — no library, test, or CI workflow code changed.</li>
 </ul>
 <h2 id="v4240-2026-07-20">v4.24.0 — 2026-07-20<a class="headerlink" href="#v4240-2026-07-20" title="Permanent link">&para;</a></h2>
-<h3 id="added_11">Added<a class="headerlink" href="#added_11" title="Permanent link">&para;</a></h3>
+<h3 id="added_12">Added<a class="headerlink" href="#added_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li>App Store screenshots can now be published from the repo instead of by hand:
   <code>.claude/scripts/store-sync/asc_listing.py --apply-screenshots</code> uploads
@@ -7271,7 +7389,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <ul>
 <li>Store publishing as code, Phase A (#2612 P2): the Play Store listing sync logic moved verbatim from <code>play-store.yml</code>'s inline heredoc into <code>.claude/scripts/store-sync/play_listing.py</code> — one code path for CI (<code>--apply</code>, unchanged behaviour: #1710 delete-then-upload, #1386 403-tolerance, caps + truncation) and local runs (<code>--dry-run</code> default: read-only live-vs-repo diff of listing text and per-image SHA-256s, probe edit abandoned). A new <code>asc_listing.py</code> diffs the live App Store listing (text fields + screenshot <code>sourceFileChecksum</code> MD5s) against <code>samples/ios-demo/distribution/app-store/</code> and <code>appstore-screenshots/</code>. Both scripts SKIP honestly without credentials and are pinned by <code>test-store-sync.sh</code>'s offline unit-test suite in <code>repo-hygiene</code>.</li>
 </ul>
-<h3 id="fixed_11">Fixed<a class="headerlink" href="#fixed_11" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_12">Fixed<a class="headerlink" href="#fixed_12" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>play_listing.py</code> accepted abbreviated flags: <code>--appl</code> expanded to <code>--apply</code>
   via argparse prefix matching and reached the Play Console write path. Both
@@ -7286,7 +7404,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li><strong>Web (breaking, Kotlin/JS DSL): <code>CameraConfig.exposure(value: Double)</code> — the relative / model-viewer-style exposure overload — is gone</strong>, along with the <code>directExposure</code> / <code>useDirectExposure</code> properties. It mapped onto Filament.js' <code>Camera.setExposureDirect</code>, which over-exposes bright albedos to a clipped white blob for every value tested, so the overload could not be given correct semantics. <code>camera { }</code> now offers only the photometric form, <code>exposure(aperture, shutterSpeed, sensitivity)</code> (default f/12, 1/200 s, ISO 200). Callers passing a relative value — e.g. <code>exposure(1.1)</code> — should drop the call to take the default, or express the intent photometrically (open the aperture / slow the shutter / raise the ISO to brighten). The JS <code>sceneview</code> namespace and the <code>SceneViewer</code> npm surface are unchanged.</li>
 </ul>
 <h2 id="v4230-gaussian-splatting-on-android-web-on-device-ai-with-point-ask-2026-07-18">v4.23.0 — Gaussian Splatting on Android &amp; Web, on-device AI with Point &amp; Ask (2026-07-18)<a class="headerlink" href="#v4230-gaussian-splatting-on-android-web-on-device-ai-with-point-ask-2026-07-18" title="Permanent link">&para;</a></h2>
-<h3 id="added_12">Added<a class="headerlink" href="#added_12" title="Permanent link">&para;</a></h3>
+<h3 id="added_13">Added<a class="headerlink" href="#added_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>samples/android-demo</strong>: new <strong>Gaussian Splatting</strong> demo (<code>splat-preview</code>, 3D Basics → Advanced) — decodes a bundled synthetic rainbow-sphere <code>.ply</code> (8 000 gaussians) with the shared <code>SplatParser</code> and renders it through <code>SplatNode</code>, with a gesture orbit that feeds the node's back-to-front painter's sort and a reveal slider driving <code>SplatNode.splatCount</code>. First on-device render of the SplatNode pipeline (P1c of #2646). Emulator QA confirmed the within-batch alpha-blend order is stable — no splat popping across a slow camera orbit (#2646).</li>
 <li><strong>sceneview-web</strong>: <strong>3D Gaussian Splatting on the web</strong> (<code>SplatNode</code>, P2 of #2646) — the same radiance-field rendering as Android, now on Kotlin/JS + Filament.js (WebGL2). <code>viewer.addSplatNode(url)</code> (plain JS) / <code>SceneView.addSplatNode(url)</code> / <code>addSplatNode(splatCloud)</code> (Kotlin/JS) fetch and render a <code>.ply</code> (INRIA) or <code>.spz</code> (Niantic) capture through the shared KMP <code>sceneview-core</code> parsers: camera-facing gaussian discs (hardware-instanced quads, per-splat data in RGBA16F textures, premultiplied-alpha blend) with a back-to-front painter's sort that re-runs on camera motion. The <code>splat_web.filamat</code> material is compiled against the web Filament runtime (new <code>filamentWeb</code> pin in <code>gradle/libs.versions.toml</code>, MATERIAL_VERSION 52) and embedded in the bundle. In-browser gate (<code>tests/splat-bundle.spec.ts</code>) confirms the cloud renders and the blend stays stable across a full camera orbit — the web port of the P1b device gate. Scope matches Android P1 (isotropic billboards, SH degree-0 colour); iOS tracked separately under #2646.</li>
@@ -7311,7 +7429,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li><strong>GPT knowledge base is now generated from <code>llms.txt</code> (<a href="https://github.com/sceneview/sceneview/issues/2724">#2724</a>).</strong> The four <code>gpt/knowledge-*.md</code> files uploaded to the "SceneView 3D &amp; AR Assistant" Custom GPT were hand-maintained copies of <code>llms.txt</code> that nothing regenerated, so they rotted (the platform table sat at 3.6.2 and the sample index claimed "39 samples" while the SDK shipped 4.22.0 with 49 demos). They are now derived deterministically from <code>llms.txt</code> by <code>tools/generate-gpt-knowledge.js</code>, and a blocking CI drift check (<code>ci.yml</code> → <code>repo-hygiene</code>) fails the build if they fall out of sync — so the AI-facing GPT surface can never silently drift again. <code>llms.txt</code> is the single source of truth; run <code>node tools/generate-gpt-knowledge.js</code> after editing it.</li>
 <li><strong>Sponsorship</strong>: GitHub Sponsors is now the single sponsorship channel — removed Open Collective and third-party pricing links from the README, FUNDING.yml, SPONSORS.md, GOVERNANCE.md, website navigation, and docs.</li>
 </ul>
-<h3 id="fixed_12">Fixed<a class="headerlink" href="#fixed_12" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_13">Fixed<a class="headerlink" href="#fixed_13" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Demo-catalog docs drift: every counter surface said <strong>50 demos (17 non-AR + 33 AR)</strong> while the registry actually ships <strong>51 (18 non-AR + 33 AR)</strong> — fixed in <code>docs/docs/samples.md</code>, <code>try.md</code>, <code>llms-full.txt</code>, <code>samples/README.md</code>, and <code>CLAUDE.md</code> (found by the #2239 Phase-0 audit).</li>
 <li>Maestro device-QA coverage gap: 5 registered demos were driven by <strong>no</strong> flow entry — <code>splat-preview</code>, <code>ar-hand-tracking</code>, <code>ar-plane-renderer-v2</code>, <code>ar-xr-face</code>, <code>placement-reticle-preview</code> now have their own legs in <code>.maestro/android/advanced.yaml</code> / <code>ar.yaml</code>, and the stale <code>catalog.yaml</code> header (58) now documents the real arithmetic: 65 flow entries covering 51 registered demos (retired-alias entries QA the merged demos' tabs).</li>
@@ -7365,7 +7483,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li><strong>AI-first docs</strong>: new <strong>Point &amp; Ask</strong> recipe — "build an AR app that explains what the camera sees" — across all three AI-facing surfaces: <code>samples/recipes/point-and-ask.md</code> (full pattern: AICore availability gating, current-frame CPU-image capture, off-main YUV→Bitmap, multimodal <code>generateContent</code>, emulator QA note), an <code>llms.txt</code> "Recipes" entry with the condensed working code and its gotchas, and agent-skill reference #14 pointing at the shipped <code>PointAndAskDemo.kt</code>. Completes item 3 of #2648 (P1 follow-up).</li>
 </ul>
 <h2 id="v4220-2026-07-12">v4.22.0 — 2026-07-12<a class="headerlink" href="#v4220-2026-07-12" title="Permanent link">&para;</a></h2>
-<h3 id="added_13">Added<a class="headerlink" href="#added_13" title="Permanent link">&para;</a></h3>
+<h3 id="added_14">Added<a class="headerlink" href="#added_14" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Store preflight — detect human-only store blockers before a deploy 403s (<a href="https://github.com/sceneview/sceneview/issues/2612">#2612</a> P1).</strong> New read-only <code>.claude/scripts/store-preflight.sh</code> probes App Store Connect for the account-side blockers that used to stall releases silently: an expired Apple Program License Agreement (<code>REQUIRED_AGREEMENTS_MISSING_OR_EXPIRED</code> canary), an App Review rejection (latest <code>appStoreVersion</code> state), and a distribution certificate / provisioning profile inside 30 days of expiry. It signs the ES256 ASC JWT with openssl only (no PyJWT), reuses <code>app-store.yml</code>'s existing ASC secrets (no new scope), and SKIPs honestly — never a fake green — when run without credentials. Advisory-first (mirrors the Android Vitals gate #1691): a real blocker is graded but only hard-blocks under <code>GATE_HARD=1</code>. Wired into <code>release-checklist.sh</code> (new §16), the <code>/store-status</code> known-gap note, and a daily <code>maintenance.yml</code> <code>store-preflight</code> job that posts to the run's step summary. Self-tested offline by <code>test-store-preflight.sh</code> (runs in <code>repo-hygiene</code>). Detection only — agreements, tax forms, and Resolution Center replies stay human-only; the script detects and deep-links, it never clears a blocker.</li>
 <li><strong>Public Surface mirroring — clean in-app video recording without MediaProjection</strong> (#2626). <code>SurfaceMirrorer</code> (<code>io.github.sceneview.utils</code>) is now public and wired into both composables via the new <code>surfaceMirrorer</code> parameter on <code>SceneView</code> and <code>ARSceneView</code> (+ <code>rememberSurfaceMirrorer()</code>). Attach a <code>MediaRecorder</code> input surface with <code>startMirroring(surface)</code> / <code>stopMirroring(surface)</code> and get an MP4 of exactly what the scene renders — in AR, camera feed + virtual content composited. No system consent dialog, no <code>mediaProjection</code> foreground service, no overlay UI in the frame. Multi-surface capable, letterboxed, <code>startMirroring</code> thread-safe/JNI-free, both calls idempotent. New <code>video-recording</code> demo + llms.txt "Record the scene to MP4" section.</li>
@@ -7382,7 +7500,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li><strong>Binary compatibility:</strong> the new <code>predicate</code> parameter added to the already-released public <code>PlacementReticle</code> composable and <code>open class PlacementReticleNode</code> is source-compatible but <strong>binary-incompatible</strong> (it changes the shipped JVM signatures / Kotlin default-args synthetic). It therefore rides a MINOR release (e.g. 4.22.0), never a patch, and binary consumers of <code>arsceneview</code> must recompile against the new artifact — a stale <code>.class</code> bound to the old signature would <code>NoSuchMethodError</code> at runtime.</li>
 <li>Reworded the <code>AssetSourceChip</code> "Bundled fallback" label to plain-language "Offline model" (demo apps only — tap-to-place unification plan item 4, #2482).</li>
 </ul>
-<h3 id="fixed_13">Fixed<a class="headerlink" href="#fixed_13" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_14">Fixed<a class="headerlink" href="#fixed_14" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>samples/ios-demo</code> (Sketchfab streaming): the live Sketchfab → USDZ → RealityKit stream never actually reached the user. <code>SketchfabService</code>'s <code>URLSessionDownloadDelegate</code> resumed its continuation with the delegate's temporary <code>location</code> URL, but only moved the file into the cache <strong>after</strong> the delegate method returned — by which point URLSession had already deleted that temp file (Apple's documented contract). Every streamed model download therefore fully transferred from the S3 CDN and was then discarded, so <code>SketchfabAssetResolver</code> silently fell back to the bundled asset and the Explore / streamed demos (SceneGallery, Materials, ModelViewer "Surprise me", etc.) only ever rendered offline copies — never the live-streamed model. The temp file is now moved to a caller-owned staged URL <strong>inside</strong> the delegate callback, before it returns. Uncovered by the #2356 keyed-QA mechanism (keyed sim run: 0 streamed / 4 fallback before, 4 streamed / 0 fallback after).</li>
 <li><strong>sceneview-web</strong>: <code>Node.parent</code> setter now guards the engine write after <code>destroy()</code> — re-parenting a retained, destroyed node no longer reaches <code>TransformManager.setParent</code> on a freed instance (a WASM use-after-free abort), closing the last unguarded hierarchy-write path (#2611 review, symmetric to the existing transform-write guard). The <code>#2024</code> P1 browser probe also asserts the detach-sentinel invariant: the sentinel entity never gains a transform component, so <code>nullParentInstance()</code> stays native instance 0.</li>
@@ -7411,7 +7529,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 <li>Fixed stale Pro-tool count in <code>mcp/mcpize.yaml</code>: the manifest claimed "35 Pro tools" in two places, but <code>PRO_TOOLS</code> in <code>mcp/src/tiers.ts</code> has 27 entries (counted programmatically by importing the module). Also dropped "multi-platform setup" from the Pro description — setup guides moved to Free in MCP 4.0.5 (follow-up to the "26 free tools" sibling drift fixed in #2675).</li>
 </ul>
 <h2 id="v4212-ar-drag-gestures-unfrozen-groundshadows-npe-centerorigin-correctness-2026-07-10">v4.21.2 — AR drag gestures unfrozen, groundShadows NPE + centerOrigin correctness (2026-07-10)<a class="headerlink" href="#v4212-ar-drag-gestures-unfrozen-groundshadows-npe-centerorigin-correctness-2026-07-10" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_14">Fixed<a class="headerlink" href="#fixed_14" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_15">Fixed<a class="headerlink" href="#fixed_15" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>GestureDetector</code>: move/rotate/scale listeners dispatched the gesture-BEGIN
   <code>MotionEvent</code> (a stale, framework-recycled reference) to nodes on every
@@ -7484,7 +7602,7 @@ platform, and <code>nodeName == null</code> is now the single "hit nothing" test
 reticle that brightens when a surface is ready, opt-in onboarding coaching, plane-grid
 fade, and contact shadows under placed models (#2241) — and sceneview-web lands the
 retained-mode <code>Node</code> transform graph reachable from plain JS via <code>NodeHandle</code> (#2024).</p>
-<h3 id="added_14">Added<a class="headerlink" href="#added_14" title="Permanent link">&para;</a></h3>
+<h3 id="added_15">Added<a class="headerlink" href="#added_15" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>sceneview-web</strong>: retained-mode <code>Node</code> transform graph (Kotlin/JS API, slice 1 of #2024) — <code>Node</code> base class implementing the shared <code>sceneview-core</code> <code>SceneNode</code> contract (pristine TRS state, parent/child hierarchy via Filament <code>TransformManager.setParent</code>, world-space getters/setters, <code>lookAt</code>/<code>lookTowards</code>, recursive idempotent <code>destroy()</code>), plus <code>SceneView.sceneGraph</code> / <code>addNode</code> / <code>removeNode</code>. Not yet reachable from plain JS — the <code>@JsExport</code> <code>NodeHandle</code> surface arrives in a later slice; the published JS API and the builder DSL are unchanged.</li>
 <li><strong>sceneview-web</strong>: <code>ModelNode</code> and <code>GeometryNode</code> (+ <code>CubeNode</code>/<code>SphereNode</code>/<code>CylinderNode</code>/<code>PlaneNode</code>) — slice 2a of the #2024 node graph. <code>SceneView.addModelNode(url)</code> / <code>addGeometryNode(config)</code> / typed primitive factories run today's pipelines (render-gate #2332, supersede #1597, auto-center intact) and re-parent the asset root under a node pivot, so content is now addressable and transformable through the retained tree; the <code>model { }</code> / <code>geometry { }</code> builder DSL delegates to nodes (identical visual result, unchanged Kotlin shape). <code>addGeometry</code> now returns the created <code>FilamentAsset?</code> (additive). <code>Node</code> transform writes after <code>destroy()</code> are guarded (no engine call on a freed entity). Still Kotlin-only — the <code>@JsExport</code> surface is untouched.</li>
@@ -7504,7 +7622,7 @@ retained-mode <code>Node</code> transform graph reachable from plain JS via <cod
 <li>Node-count claims aligned to reality: "42+ node types" → "44+" across README, website, MCP docs and doc site (PlacementReticleNode + ShadowReceiverPlaneNode joined the inventory in #2241) — impact-check.sh runs clean again (#2594).</li>
 </ul>
 <h2 id="v4200-2026-07-05">v4.20.0 — 2026-07-05<a class="headerlink" href="#v4200-2026-07-05" title="Permanent link">&para;</a></h2>
-<h3 id="added_15">Added<a class="headerlink" href="#added_15" title="Permanent link">&para;</a></h3>
+<h3 id="added_16">Added<a class="headerlink" href="#added_16" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>iOS <code>ARSceneView(showPlacementReticle:)</code></strong> — opt-in placement reticle: the tap-to-place
   raycast now runs every AR frame and drives a surface-snapped translucent disc at the screen
@@ -7520,7 +7638,7 @@ retained-mode <code>Node</code> transform graph reachable from plain JS via <cod
 <li><strong>Demo app feedback rebuilt permission-free</strong> — the MediaProjection screen + microphone recorder (foreground service, <code>RECORD_AUDIO</code> / <code>FOREGROUND_SERVICE</code> / <code>FOREGROUND_SERVICE_MEDIA_PROJECTION</code> / <code>POST_NOTIFICATIONS</code>, worker upload) is removed and replaced by a lightweight "Report a bug" bottom sheet: an optional <code>PixelCopy</code> screenshot of the app (include/exclude toggle, honest fallback note when the 3D viewport can't be captured), the app's own logcat tail, and device/app context — shared via the system share sheet or a pre-filled GitHub issue. Zero sensitive permissions, zero foreground service, and the Play Console foreground-service declaration (#2120 / #2188) is no longer required; the FGS-declaration CI steps were removed from <code>play-store.yml</code> / <code>main-internal-deploy.yml</code>.</li>
 <li><strong>CI: every push to <code>main</code> now deploys the Android demo to the Play Store internal-testing track</strong> (<a href="https://github.com/sceneview/sceneview/pull/2596">#2596</a>). New paths-filtered <code>main-internal-deploy.yml</code> (cancel-in-progress, internal track only, versionName <code>X.Y.Z-main.&lt;sha&gt;</code>) gives the maintainer a minutes-fast real-device test loop; production remains tag-only via <code>play-store.yml</code>. Both Play-uploading workflows now share a single strictly-increasing epoch-minutes <code>versionCode</code> scheme (<code>epoch_seconds / 60</code>) — required because Play versionCodes must increase across all tracks, so the release workflow migrated off <code>github.run_number</code> in the same change.</li>
 </ul>
-<h3 id="fixed_15">Fixed<a class="headerlink" href="#fixed_15" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_16">Fixed<a class="headerlink" href="#fixed_16" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>AR: placed models rendered too dark / green-tinted under <code>ENVIRONMENTAL_HDR</code> light estimation (the <code>ARSceneView</code> default)</strong> (<a href="https://github.com/sceneview/sceneview/issues/2483">#2483</a>). <code>LightEstimator</code> fed ARCore's raw main-light radiance × <code>1/ev100</code> (≈ 0.067) into the light <strong>color</strong> — the max-component normalization from the 0.9.x/SceneformMaintained lineage was dropped in the v2 rewrite (the computed <code>maxIntensity</code> had been dead code) — while <code>mainLightIntensity</code> carried the same magnitude again, so the estimate was applied ~squared and the main directional light collapsed to ~1e-4 of its baseline (effectively black). AR models were lit only by the dim estimated cubemap/SH: dark, glossy, tinted by the camera feed (green/teal indoors). The estimate is now decomposed into hue (max-normalized <code>mainLightColor</code>) × magnitude (<code>mainLightIntensity</code> = max component), applying the radiance exactly once through the baseline-multiply contract — <code>(c / max) × max == c</code>. Pinned by <code>LightEstimatorTest</code>; on-device validation (Pixel 9) due at the next device-QA pass.</li>
 <li>Demo app: added a <code>-dontwarn com.google.android.gms.nearby.**</code> ProGuard rule so the release AAB's R8 minification no longer aborts on the <code>compileOnly</code> Nearby Connections types referenced by arsceneview's <code>NearbyCollaborativeTransport</code> reference implementation. This was silently blocking the Play Store deploy of the demo (the missing-class check only runs during <code>minifyReleaseWithR8</code>, not on the CI compile/unit-test gates).</li>
@@ -7530,7 +7648,7 @@ retained-mode <code>Node</code> transform graph reachable from plain JS via <cod
 <li><code>DemoRenderingScreenshotTest</code> now FAILS (instead of silently assume-skipping) when a slug listed in <code>BASELINED_GOLDENS</code> has no committed golden — a deleted/renamed baseline can no longer disable its own regression guard unnoticed (#2323 suggestion 2). New slugs keep the quiet first-run capture flow.</li>
 </ul>
 <h2 id="v4190-2026-07-04">v4.19.0 — 2026-07-04<a class="headerlink" href="#v4190-2026-07-04" title="Permanent link">&para;</a></h2>
-<h3 id="added_16">Added<a class="headerlink" href="#added_16" title="Permanent link">&para;</a></h3>
+<h3 id="added_17">Added<a class="headerlink" href="#added_17" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>iOS Cloud Anchor lifecycle parity.</strong> <code>SceneViewSwift.CloudAnchorNode.host(ttlDays:completion:operation:)</code> / <code>.resolve(cloudAnchorId:completion:operation:)</code> return a cancellable <code>CloudAnchorFuture</code> — call <code>future.cancel()</code> from SwiftUI <code>.onDisappear</code> (the analogue of Android's <code>DisposableEffect { onDispose { future.cancel() } }</code>, <a href="https://github.com/sceneview/sceneview/issues/1768">#1768</a>) to short-circuit billed ARCore Cloud round-trips when the view goes away. Completion fires at most once and never after <code>cancel()</code> or after the handle is deallocated. To keep the core library dependency-free, the actual <code>GARSession.hostCloudAnchor</code> call (Google's <code>arcore-ios-sdk</code> Swift Package) is supplied by the app through the <code>operation</code> closure; <code>CloudAnchorFuture</code> owns only the portable, fully unit-tested cancellation gate. Mirrors Android <code>CloudAnchorNode.host</code> / <code>.resolve</code> returning <code>HostCloudAnchorFuture</code> / <code>ResolveCloudAnchorFuture</code>. Closes <a href="https://github.com/sceneview/sceneview/issues/1859">#1859</a> (tracked from the cross-platform parity umbrella <a href="https://github.com/sceneview/sceneview/issues/1813">#1813</a>).</li>
 <li><code>NearbyCollaborativeTransport</code> — a reference [<code>CollaborativeTransport</code>] implementation backed by Google <strong>Nearby Connections</strong> for offline, same-room collaborative AR (no backend). The <code>play-services-nearby</code> dependency is <code>compileOnly</code>, so it adds <strong>zero footprint and no permissions</strong> to AR apps that don't use collaboration; consumers that opt in declare the dependency and request the surfaced <code>REQUIRED_PERMISSIONS_*</code> themselves. Android-only for now; the <code>CollaborativeTransport</code> abstraction stays platform-neutral so iOS can map it onto RealityKit's <code>MultipeerConnectivityService</code> (#2008).</li>
@@ -7563,7 +7681,7 @@ retained-mode <code>Node</code> transform graph reachable from plain JS via <cod
 <li><strong>Collaborative AR hardening</strong> (<code>NearbyCollaborativeTransport</code> / <code>CollaborativeSession</code>, #2569): inbound messages are now bound to the <em>connection-bound</em> transport peer id — a message whose body claims another <code>peer</code> is rejected as spoofed, and a second live connection claiming an already-connected peer id is rejected at initiation. (Per-connection integrity: absent the <code>shouldAcceptConnection</code> out-of-band check, peer ids remain self-advertised names.) <code>CollaborativeState</code> rosters are bounded (<code>MAX_PARTICIPANTS</code> = 64, <code>MAX_NODES</code> = 1024, overridable via constructor) against forged-key memory-amplification DoS. <code>NearbyCollaborativeTransport</code> gains an optional <code>shouldAcceptConnection</code> trust gate exposing the Nearby <code>authenticationDigest</code> for out-of-band pairing, guards the <code>ConnectionsClient.MAX_BYTES_DATA_SIZE</code> BYTES payload limit, fail-closes a throwing <code>shouldAcceptConnection</code> gate, observes <code>sendPayload</code> failures, and documents the same-<code>serviceId</code> auto-accept trust boundary. Wire-format vector parsing early-bails on oversized <code>[...]</code> bodies. Adds the promised <code>NearbyPayloadFramingTest</code> / <code>NearbyPeerRegistryTest</code> plus impersonation-rejection and roster-cap tests.</li>
 <li><strong>Renamed the Android source files <code>Scene.kt</code> → <code>SceneView.kt</code> and <code>ARScene.kt</code> → <code>ARSceneView.kt</code></strong> so each file matches the primary composable it defines (<code>SceneView</code> / <code>ARSceneView</code>); the bare <code>Scene</code> / <code>ARScene</code> are deprecated backward-compat aliases. This aligns Android with the Web (<code>SceneView.kt</code>) and iOS (<code>SceneView.swift</code> / <code>ARSceneView.swift</code>) source layout — Android was the only platform still named after the deprecated symbol — and makes the primary entry point discoverable by file name (an AI-first concern). <strong>Source-only, no binary break:</strong> <code>@file:JvmName("SceneKt")</code> / <code>@file:JvmName("ARSceneKt")</code> pin the published JVM facade class names, so Kotlin consumers compiled against an earlier release keep resolving the facade in their bytecode without a recompile. No public API, signature, or behavior change.</li>
 </ul>
-<h3 id="fixed_16">Fixed<a class="headerlink" href="#fixed_16" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_17">Fixed<a class="headerlink" href="#fixed_17" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>samples/android-demo</code>: <code>ARDepthColliderDemo</code> now drops balls so they are always visible in the camera view. The previous fix anchored the spawn to the live camera but bundled the drop height into the camera transform, so aiming at the floor (as the on-screen hint instructs) rotated the height by the phone's pitch and the balls landed off in a screen corner. The forward offset is now projected through the camera pose while the horizontal scatter and drop height are applied in <strong>world</strong> space (world +Y up), so balls spawn straight ahead of the camera and fall straight down into view regardless of how the device is tilted (#1874, #2466).</li>
 <li><strong>Android demo — in-app screen recording restored on Android 14+.</strong> Re-added
@@ -7657,7 +7775,7 @@ retained-mode <code>Node</code> transform graph reachable from plain JS via <cod
 <li><strong>Fixed a non-compiling <code>FogNode</code> initializer in the iOS cheatsheets.</strong> Both <code>docs/docs/cheatsheet-ios.md</code> and the <code>sceneview-ios</code> agent skill cheatsheet documented <code>FogNode(density:color:)</code>, an initializer that does not exist on the Swift API (the init is private; only the static factories are public). They now use the real factory form <code>FogNode.linear(start:end:color:)</code> / <code>FogNode.exponential(density:color:)</code>, matching <code>llms.txt</code>, so an AI reading the cheatsheets emits compiling Swift.</li>
 </ul>
 <h2 id="v4180-cross-platform-hot-path-perf-android-render-ci-hardening-demo-quality-polish-2026-06-06">v4.18.0 — Cross-platform hot-path perf, Android render &amp; CI hardening, demo-quality polish (2026-06-06)<a class="headerlink" href="#v4180-cross-platform-hot-path-perf-android-render-ci-hardening-demo-quality-polish-2026-06-06" title="Permanent link">&para;</a></h2>
-<h3 id="added_17">Added<a class="headerlink" href="#added_17" title="Permanent link">&para;</a></h3>
+<h3 id="added_18">Added<a class="headerlink" href="#added_18" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Demo app: consolidated demos can now open directly on a specific tab via the launching alias or a <code>?tab=</code> deep-link / <code>--es tab</code> param (#2315).</strong> The #2239 demo consolidations merged several demos into one segmented-button demo each (e.g. <code>custom-mesh</code> + <code>shape</code> → <code>custom-geometry</code>), but every old alias deep link landed on the demo's default first tab — so <code>sceneview://demo/shape</code> opened the Custom Mesh tab instead of Shape. A consolidated demo opened through a retired alias now pre-selects the matching tab (<code>shape</code> → Shape, <code>physics</code> → Physics, <code>multi-model</code> → Multi-Model, <code>movable-light</code> → Movable, …), and an explicit <code>?tab=&lt;index|alias&gt;</code> deep-link query / <code>--es tab &lt;v&gt;</code> intent extra overrides it (e.g. <code>sceneview://demo/custom-geometry?tab=1</code>). The no-alias / no-param path is unchanged — demos still open on their default first tab — and an out-of-range or unparseable tab value falls back to the default rather than crashing. Pure resolution logic (<code>DeepLinkRouter.resolveInitialTab</code>) is unit-tested; the alias→tab table is asserted to stay in sync with the alias map.</li>
 <li><strong>Evidence-Stamped Claim Gate — a false "it works / QA complete / live" success-claim can no longer reach the remote (<a href="https://github.com/sceneview/sceneview/issues/2346">#2346</a>).</strong> The AI repeatedly told the maintainer something was done/working/live when it was not (iOS sat on 4.0.3 for three weeks while CI was green; demo QA reported complete on KEYLESS builds where Sketchfab/ARCore were never exercised). A new deterministic gate, <code>.claude/scripts/claim-gate.sh</code>, wires onto the existing <code>Bash(git push*)</code> pre-push hook and BLOCKS the push when the canonical <code>STATE.md</code> asserts an affirmative ✅-stamped success-claim that lacks fresh, <em>agreeing</em> evidence on disk. Verifying tools now stamp that evidence: <code>device-qa.sh</code> already writes <code>device-qa-report.json</code>, and <code>/store-status</code> (<code>store-status.js</code>) now writes <code>.claude/data/last-store-probe.json</code> (<code>{expected, iosLive, mavenHttp, npm, verdict, ts}</code>, timestamp stamped via <code>date -u</code>, never <code>Date.now()</code>). The gate FAILS a QA-complete claim when the report is missing/stale, a key-gated sub-leg (<code>sketchfab</code> / <code>arcore-cloud</code>) is <code>skipped</code> (path NOT tested, #2343), or the release verdict is <code>blocked</code>; it FAILS an all-live / "verified live" claim when the probe is missing/stale or <code>verdict != ALL_LIVE</code> (the exact iOS-stuck-on-4.0.3 trap). It fires ONLY on affirmative claims — never on honest factual lines like "iOS LIVE=4.0.3 (4.17.0 in review)" or "live on Maven Central" — and fails <strong>closed</strong> (blocks) on an unreadable evidence file rather than waving a claim through. Escape hatch for a genuine false-positive: <code>ESCG_BYPASS=1 git push …</code>. A slow human-in-the-loop loop complements the fast gate: <code>/caught &lt;class&gt; &lt;context&gt;</code> ledgers a miss the gate did not catch (<code>.claude/data/claim-ledger.tsv</code>, gitignored) and, at the 3rd occurrence of a class, promotes it to a durable <code>feedback_*.md</code> memory rule; <code>/handoff</code> runs the gate against the drafted <code>## NOW</code> and backstops the ledger promotion. Verified exhaustively against the real <code>STATE.md</code> (zero false-positive) plus a fixture matrix (skipped key-leg, missing/stale/unparseable evidence, version mismatch, honest factual lines, evidence-backed pass).</li>
@@ -7675,7 +7793,7 @@ retained-mode <code>Node</code> transform graph reachable from plain JS via <cod
 <li>Dropped per-setup micro-allocations in <code>sceneview-core</code> geometry/animation: <code>AnimationSequence.currentStepIndex</code>, <code>generateExtrude</code>, and <code>generateLathe</code> now use index loops instead of <code>withIndex()</code> (no per-step/per-point <code>IndexedValue</code> boxing), and <code>generateIcosphere</code> builds its index list directly into a pre-sized list instead of allocating a <code>List</code> per face. Behavior-preserving (geometry/animation output is byte-identical, verified by the existing test suites). Part of #2402.</li>
 <li><strong>Perf: cache <code>Node</code> parent/local-transform reads and reuse the <code>Pose.transform</code> scratch buffer — fewer Filament JNI round-trips and per-frame allocations on hot paths (#2403, #2404, #2405, #2406; audit umbrella #2402).</strong> Four behavior-preserving caching changes in the transform/parenting hot paths, mirroring the existing <code>Node._worldTransform</code> / <code>_transformInstance</code> cache pattern: <code>Node.parentEntity</code> no longer calls <code>TransformManager.getParentOrNull()</code> on every read (#2403); <code>Node.parentInstance</code> no longer calls <code>getParentOrNull()</code> + <code>getInstance()</code> on every read (#2404) — both are cached behind a validity flag (so a legitimately-<code>null</code> "no parent" is cached, not re-fetched) and invalidated on the single reparent write path. <code>Node.transform</code> no longer calls <code>TransformManager.getTransform()</code> (a JNI round-trip plus a <code>FloatArray(16)</code> + <code>Mat4</code> allocation) on every read; the cache is populated by both local-matrix write paths with the exact matrix pushed to Filament, so the per-frame <code>node.transform</code> read an animated node makes (<code>NodeAnimationDelegate.onFrame</code>) is served without JNI even while the animation writes every tick (#2405). <code>Pose.transform</code> reuses a per-thread scratch <code>FloatArray(16)</code> instead of allocating one on every access, eliminating steady GC churn for nodes that refresh a pose 60–120 Hz (#2406). No public-API, threading, or rendering-semantics change — Filament JNI still runs on the main thread; cache invalidation is proven by an engine-backed <code>androidTest</code> (equivalence-after-mutation + read-stability across reparent/detach/local writes) and pure-JVM contract tests.</li>
 </ul>
-<h3 id="fixed_17">Fixed<a class="headerlink" href="#fixed_17" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_18">Fixed<a class="headerlink" href="#fixed_18" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>iOS Explore: Sketchfab models no longer fail with "We were unable to load the model" (#2252).</strong> The Sketchfab download path requested the GLB format, but RealityKit's <code>Entity(contentsOf:)</code> can only load USDZ/<code>.reality</code> — never GLB/glTF — so tapping any streamed Sketchfab model threw and showed a "Failed to load model" error. This was the App Review Guideline 2.1(a) (App Completeness) rejection, reproduced on an iPad Air 11-inch (M3): bundled USDZ models always loaded, but the live Sketchfab feeds (only present when an API key is configured, i.e. release builds) did not. The service now requests the model's USDZ format and caches it with the correct <code>.usdz</code> extension; when a model offers no USDZ it surfaces an honest "not available in USDZ" message instead of a generic error. The demo target also pins <code>PRODUCT_MODULE_NAME</code> so the macOS <code>PRODUCT_NAME</code> rename (sibling fix) keeps the Swift module name stable for the test target.</li>
 <li><strong>macOS App Store app now installs as "SceneView", not "SceneViewDemo" (#2252).</strong> The demo target's <code>PRODUCT_NAME</code> was left at <code>$(TARGET_NAME)</code>, so the built bundle, executable and <code>CFBundleName</code> were all <code>SceneViewDemo</code> — the installed name and menu-bar name did not match the "SceneView" App Store name, and the binary carried demo-naming. App Review rejected the macOS build under Guideline 2.3.8 (Accurate Metadata) and 2.2 (Beta Testing — demo language in binary naming). <code>PRODUCT_NAME</code> is now pinned to <code>SceneView</code> for the app target (the <code>io.github.sceneview.demo</code> bundle identifier is unchanged, so existing installs upgrade in place). Completes the partial #1688 fix, which had only renamed <code>CFBundleName</code>.</li>
@@ -7771,7 +7889,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <li><strong>Batch per-frame ARCore updated-set lookups (<a href="https://github.com/sceneview/sceneview/issues/2270">#2270</a>, part of <a href="https://github.com/sceneview/sceneview/issues/2263">#2263</a>).</strong> The AR frame driver now builds the <code>getUpdatedTrackables</code> / <code>updatedAnchors</code> membership sets <strong>once per frame</strong> and shares them with every node, instead of each <code>TrackableNode</code> / <code>AnchorNode</code> calling back into ARCore independently (1 JNI thunk + a fresh JNI-allocated <code>List</code> + an O(n) linear <code>contains()</code> <em>per node</em> — O(N×M) work and N allocations every frame). Each node now does an O(1) <code>HashSet.contains()</code> lookup, collapsing the cost to O(N+M). <code>rememberDetectedPlanes</code> likewise maintains its tracked-plane set incrementally from <code>frame.getUpdatedPlanes()</code> (an ARCore delta) plus a mutable cache rather than recomputing <code>session.getAllTrackables(Plane).filter { … }.toSet()</code> every Compose frame. Pure performance refactor — identical callbacks fire for the same trackables/anchors/planes, and the public <code>update(session, frame)</code> signatures are unchanged.</li>
 <li><strong><code>ModelNode</code> no longer re-scans static renderables' bounding boxes every frame (<a href="https://github.com/sceneview/sceneview/issues/2273">#2273</a>, part of <a href="https://github.com/sceneview/sceneview/issues/2263">#2263</a>).</strong> <code>sanitizeEmptyBoundingBoxes()</code> runs from <code>onFrame</code> every frame to disable culling/shadows on empty-AABB renderables (and re-enable them once valid), which previously meant a <code>getInstance</code> + <code>getAxisAlignedBoundingBox</code> JNI call plus a <code>FloatArray(3)</code> allocation per renderable on every frame forever — ~7 200 JNI thunks/s for a 20-renderable model at 120 Hz. A renderable is now latched and skipped on subsequent frames <strong>only once it is observed valid AND its AABB cannot change at runtime</strong> — the model has no skins (<code>modelInstance.skinCount == 0</code>) and the renderable has no morph targets (<code>getMorphTargetCount == 0</code>). Skinned / morph-target renderables are never latched and keep the full per-frame valid↔empty check, so the runtime <code>valid→empty</code> collapse (degenerate bone pose, zeroed morph weights) that would otherwise crash Filament is still caught. Once every renderable of a fully-loaded static model is latched, the method early-exits with zero JNI work. Pure performance — identical visible behaviour, no API change.</li>
 </ul>
-<h3 id="fixed_18">Fixed<a class="headerlink" href="#fixed_18" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_19">Fixed<a class="headerlink" href="#fixed_19" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>AR plane renderer no longer shows an opaque white blob over bright scenes (#2224).</strong> The plane grid material used <code>blending: transparent</code> (premultiplied alpha) but emitted a straight, non-premultiplied <code>color</code>, so it composited as <code>color + (1-alpha)*background</code> — the grid colour was added at full strength and the alpha cap only controlled background bleed-through. Over a bright camera feed this read as a near-opaque white blob regardless of the cap. The fragment now premultiplies <code>baseColor.rgb *= baseColor.a</code>, so the plane composites as the intended <code>lerp(background, color, alpha)</code> — a genuine ~20 % translucent grid. Diagnosed and validated with a new non-AR <code>plane-grid-preview</code> shader-QA tool that renders the exact <code>plane_renderer.filamat</code> on a static surface (debug builds only).</li>
 <li><strong><code>Node</code> world-space TRS cache completes the #2187 fix (<a href="https://github.com/sceneview/sceneview/issues/2264">#2264</a>).</strong> <code>worldPosition</code> / <code>worldQuaternion</code> / <code>worldScale</code> / <code>worldRotation</code> getters no longer re-decompose the Filament 4×4 matrix on every read. Cached in <code>_worldTransform</code> / <code>_worldPosition</code> / <code>_worldQuaternion</code> / <code>_worldScale</code> / <code>_worldRotation</code> fields, invalidated through <code>onWorldTransformChanged()</code> propagation. <code>worldRotation</code> extracts its Euler angles directly from the matrix (not via the quaternion) to stay bit-equivalent across gimbal-lock boundaries. <code>ModelNode</code> additionally invalidates its glTF sub-nodes' world cache on move and while animations play (their Filament transforms are written outside the Node setters). Also fixed a latent bug where re-parenting a node did not invalidate the world transform of the child and its descendants.</li>
@@ -7817,7 +7935,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <li>Clarified the <code>rememberMaterialInstance</code> note in <code>llms.txt</code>, <code>gpt/knowledge-api.md</code> and the website <code>.well-known/llms.txt</code>: the flat "there is NO <code>rememberMaterialInstance</code> function" was imprecise (and contradicted the demos, which use a sample-only helper of that name in <code>samples/common</code>). Reworded to say there is none in the <em>published SDK</em> and to copy the <code>materialLoader.createColorInstance(...)</code> pattern — so an AI reading both the docs and the demos isn't confused.</li>
 </ul>
 <h2 id="v41610-lint-security-patch-2026-05-27">v4.16.10 — Lint &amp; security patch (2026-05-27)<a class="headerlink" href="#v41610-lint-security-patch-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_19">Fixed<a class="headerlink" href="#fixed_19" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_20">Fixed<a class="headerlink" href="#fixed_20" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Lint</strong>: declare <code>VIBRATE</code> permission in <code>sceneview</code> library manifest so
   <code>HapticEngine</code>'s <code>Vibrator.vibrate()</code> calls no longer generate
@@ -7827,7 +7945,7 @@ and GC at 60–120 Hz. Highlights:</p>
   <code>mcp/packages/gaming</code>, and <code>mcp-gateway</code> via npm <code>overrides</code>.</li>
 </ul>
 <h2 id="v4169-sketchfab-viewer-polish-code-quality-2026-05-27">v4.16.9 — Sketchfab viewer polish + code quality (2026-05-27)<a class="headerlink" href="#v4169-sketchfab-viewer-polish-code-quality-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_20">Fixed<a class="headerlink" href="#fixed_20" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_21">Fixed<a class="headerlink" href="#fixed_21" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Feedback flow</strong> — the confirmation Snackbar after submitting a feedback report
   now stays visible for the full <code>SnackbarDuration.Long</code> (10 s) instead of the
@@ -7844,14 +7962,14 @@ and GC at 60–120 Hz. Highlights:</p>
   cast a soft contact shadow beneath every Sketchfab model (#2235).</li>
 </ul>
 <h2 id="v4168-google-play-16-kb-page-size-plane-renderer-polish-2026-05-27">v4.16.8 — Google Play 16 KB page-size + plane renderer polish (2026-05-27)<a class="headerlink" href="#v4168-google-play-16-kb-page-size-plane-renderer-polish-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_21">Fixed<a class="headerlink" href="#fixed_21" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_22">Fixed<a class="headerlink" href="#fixed_22" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix Play Store upload rejection: enable 16 KB page-size alignment for native libraries in the demo AAB (<code>packaging.jniLibs.pageAlignSharedLibraries = true</code>, required by Google Play since January 2026 for apps targeting Android 15+).</li>
 <li><strong>Plane renderer white-blob: tighter alpha cap</strong> (<a href="https://github.com/sceneview/sceneview/issues/2224">#2224</a> — second iteration). v4.16.4 dropped the alpha hard-cap from saturation to 0.45 but on-device QA in sunny outdoor scenes still read as an opaque white blob (45 % cool-white tint on already-light camera input ≈ 80 %+ perceived white). v4.16.5 tightens to a <strong>0.20 alpha cap</strong> and caps <code>line</code> itself at <strong>0.4</strong> in <code>gridLine()</code> so the saturation is bounded at the source, not just clamped post-hoc. Grid coefficients also reduced (0.4 / 0.3 instead of 0.6 / 0.5). Industry baseline (Apple ARKit / Wayfair / ARCore Depth Lab reticle) ships plane viz at 20-30 % alpha unlit — this now matches.</li>
 <li><strong>Library 16 KB page-size alignment</strong> (<a href="https://github.com/sceneview/sceneview/issues/2226">#2226</a>): add <code>experimentalProperties["android.nativeLibraryAlignmentPageSize"] = "16k"</code> to <code>sceneview</code> and <code>arsceneview</code> library modules so Filament's prebuilt <code>.so</code> files have ELF PT_LOAD segments aligned to 16 KB at pack time. Required for consumers' APKs to pass Google Play's new enforcement (Android 15+, enforced since January 2026). Consumers must also add this property to their own app-level <code>build.gradle</code>.</li>
 </ul>
 <h2 id="v4166-2026-05-27">v4.16.6 — 2026-05-27<a class="headerlink" href="#v4166-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_22">Fixed<a class="headerlink" href="#fixed_22" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_23">Fixed<a class="headerlink" href="#fixed_23" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>macOS App Store</strong>: fixed all compile errors blocking macOS archive since #1049
   (Xcode 16.2+). Guarded <code>navigationBarTitleDisplayMode</code>, <code>CADisplayLink</code>,
@@ -7859,7 +7977,7 @@ and GC at 60–120 Hz. Highlights:</p>
   blocks. Closes <a href="https://github.com/sceneview/sceneview/issues/1794">#1794</a>.</li>
 </ul>
 <h2 id="v4165-2026-05-27">v4.16.5 — 2026-05-27<a class="headerlink" href="#v4165-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_23">Fixed<a class="headerlink" href="#fixed_23" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_24">Fixed<a class="headerlink" href="#fixed_24" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Fix opaque white plane bug</strong> (<a href="https://github.com/sceneview/sceneview/issues/2224">#2224</a>). At oblique camera angles (typical for AR floor planes) the V1 procedural grid shader's <code>fwidth(uv)</code> saturated, collapsing <code>gridLine()</code> to ~1.0 across the whole plane and turning the detected ground into an opaque white blob. Three-lever fix: cool-white tint instead of pure white (<code>MATERIAL_COLOR = Color(0.85, 0.90, 1.0)</code>), grid alpha hard-capped at 0.45, denser cells via <code>BASE_UV_SCALE = 4.0</code> (was 8.0) so <code>fwidth(uv)</code> stays in a stable range. Detected planes now read as a subtle translucent grid overlay, as intended by #1616.</li>
 <li><strong>iOS demo</strong>: fixed App Store archive crash — added <code>.gimbal</code> case to three exhaustive
@@ -7867,12 +7985,12 @@ and GC at 60–120 Hz. Highlights:</p>
   was introduced in #1049 (Xcode 16.2+ treats missing enum cases as compile errors).</li>
 </ul>
 <h2 id="v4163-2026-05-27">v4.16.3 — 2026-05-27<a class="headerlink" href="#v4163-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_24">Fixed<a class="headerlink" href="#fixed_24" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_25">Fixed<a class="headerlink" href="#fixed_25" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix iOS/macOS archive failure: <code>CameraControls.gimbal</code> is only available in the iOS 18.2+ / macOS 15.2+ SDK (Xcode 16.2+). Guard it at compile time — <code>.gimbal</code> mode falls back to the orbit gesture path on SDKs older than 16.2. Explicit <code>RealityKit.CameraControls.*</code> qualification added to all four native-mode cases to eliminate the type-inference ambiguity with <code>SceneViewSwift.CameraControls</code>.</li>
 </ul>
 <h2 id="v4162-2026-05-27">v4.16.2 — 2026-05-27<a class="headerlink" href="#v4162-2026-05-27" title="Permanent link">&para;</a></h2>
-<h3 id="added_18">Added<a class="headerlink" href="#added_18" title="Permanent link">&para;</a></h3>
+<h3 id="added_19">Added<a class="headerlink" href="#added_19" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>iOS — native camera modes</strong> (<code>CameraControlMode</code>): four new iOS-only cases
   (<code>.none</code>, <code>.tilt</code>, <code>.dolly</code>, <code>.gimbal</code>) delegate directly to Apple's
@@ -7885,7 +8003,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <ul>
 <li><code>bridge-ios-compile.yml</code> is the <strong>first workflow opted into the self-hosted macOS runner</strong> introduced in #2192. Its <code>runs-on</code> switched from <code>macos-15</code> to <code>${{ vars.SELF_HOSTED_MACOS_ONLINE == 'true' &amp;&amp; 'sceneview-mac' || 'macos-15' }}</code> — when Thomas's Mac is online the type-check runs on bare metal (faster, no <code>macos-15</code> minute spend), otherwise it falls back transparently to the GitHub-hosted runner. Picked as the pilot because of its low trigger frequency (path-gated on <code>flutter/sceneview_flutter/ios/**</code> + <code>SceneViewSwift/**</code>) — minimal blast radius if the self-hosted leg misbehaves. The PR itself touches the workflow file so the very push that lands this change validates the routing end-to-end.</li>
 </ul>
-<h3 id="fixed_25">Fixed<a class="headerlink" href="#fixed_25" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_26">Fixed<a class="headerlink" href="#fixed_26" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Fix macOS archive failure: <code>CameraControls.gimbal</code> is iOS-only — guard with <code>#elseif os(macOS)</code> and fall back to orbit gesture path on macOS (#2219 follow-up).</li>
 <li>Fix Play Store upload rejection: enable 16 KB page-size alignment for native libraries in the demo AAB (<code>packaging.jniLibs.pageAlignSharedLibraries = true</code>, required by Google Play since January 2026 for apps targeting Android 15+).</li>
@@ -7893,7 +8011,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <li><strong>Restored V1 as the default plane renderer</strong> (<a href="https://github.com/sceneview/sceneview/issues/2203">#2203</a>). v4.16.0 briefly shipped V2 (depth-driven PBR mesh + HDR reflection + type-aware shading + scan-in) as the default, but on-device QA on a Pixel 9 showed the V2 visual output not matching the design intent — a washed-out translucent grid sheet instead of the promised HDR reflection + relief. V1 is restored as the default in v4.16.1 while V2 is polished. V2 stays available behind <code>ARSceneView(planeRendererVersion = PlaneRendererBase.Version.V2)</code> as an experimental opt-in so early adopters can help shape the redesign. See <code>.claude/plans/v2-references-study.md</code> + <code>v2-google-ar-catalog.md</code> + <code>v2-non-google-catalog.md</code> for the comparative research (ARCore Depth Lab, Apple ARKit + RoomPlan, Niantic Lightship, Snap Lens Studio) that informs the next iteration.</li>
 </ul>
 <h2 id="v4160-2026-05-26">v4.16.0 — 2026-05-26<a class="headerlink" href="#v4160-2026-05-26" title="Permanent link">&para;</a></h2>
-<h3 id="added_19">Added<a class="headerlink" href="#added_19" title="Permanent link">&para;</a></h3>
+<h3 id="added_20">Added<a class="headerlink" href="#added_20" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Plane Renderer V2</strong> — detected ARCore planes now render as a depth-driven PBR mesh
   lit by ARCore's HDR estimate (<a href="https://github.com/sceneview/sceneview/issues/2203">#2203</a>).
@@ -7914,7 +8032,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <p>Until the v3 runner is reinstalled, set the repo variable <code>SELF_HOSTED_MACOS_ONLINE=false</code> (<code>gh variable set SELF_HOSTED_MACOS_ONLINE -R sceneview/sceneview --body "false"</code>) so every opted-in workflow falls back to <code>macos-15</code>. Re-running the v3 installer marks it <code>true</code> again automatically via the heartbeat.</p>
 </li>
 </ul>
-<h3 id="fixed_26">Fixed<a class="headerlink" href="#fixed_26" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_27">Fixed<a class="headerlink" href="#fixed_27" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>[Android AR]</strong> Fix <code>DepthMeshNode</code> never rendering its depth mesh — <code>lastRebuildTimestampMs</code> was
   initialised to <code>Long.MIN_VALUE</code>, causing the throttle guard (<code>now - lastRebuildTimestampMs &lt;
@@ -7931,7 +8049,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <li><strong><code>ModelLoader.createInstance()</code></strong>: Annotate with <code>@MainThread</code> — Filament's <code>AssetLoader.createInstance()</code> is a JNI call that must run on the Filament main thread; the annotation surfaces a warning in the IDE and lint when called from a background coroutine.</li>
 </ul>
 <h2 id="v4154-2026-05-26">v4.15.4 — 2026-05-26<a class="headerlink" href="#v4154-2026-05-26" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_27">Fixed<a class="headerlink" href="#fixed_27" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_28">Fixed<a class="headerlink" href="#fixed_28" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Play Store deploy:</strong> set <code>inAppUpdatePriority: 3</code> on every release upload (both <code>r0adkll/upload-google-play</code> and the Python promote / fallback paths) so the in-app <code>UpdateBanner</code> actually fires when a new release lands. Pre-fix the workflow defaulted to priority 0 ("Google's discretion") and v4.15.2 silently never prompted v4.15.1 users — <code>AppUpdateManager.appUpdateInfo</code> returned <code>UPDATE_NOT_AVAILABLE</code> for days while Play Store itself indexed the release fine. Priority 3 = "high — surface within ~24h". Crash-fix releases can edit the workflow once to bump to 5 ("immediate"). (#2209)</li>
 <li><strong>Play Store production deploy unblocked.</strong> v4.15.3 production track 403'd on <code>:commit</code> with <code>PERMISSION_DENIED — Artifact does not support 16KB page size</code>. Root cause traced via 5 redispatches + 2 diagnostic PRs to <code>libmediapipe_tasks_vision_jni.so</code> from MediaPipe <code>tasks-vision:0.10.14</code> — its arm64 ELF was 4 KB-aligned (<code>p_align = 0x1000</code>). Filament 1.71.4 + ARCore 1.54.0 + Compose were all already 16 KB-aligned. Bumped <code>mediapipe-tasks-vision</code> to <code>0.10.26</code> (the first release with "All the latest Android packages from Google Maven are now supporting the Android 16kb page size" per <a href="https://github.com/google-ai-edge/mediapipe/releases/tag/v0.10.26">MediaPipe v0.10.26 release notes</a>). Verified locally: rebuilt <code>libmediapipe_tasks_vision_jni.so</code> now reports <code>p_align = 0x4000</code>. No API changes between 0.10.14 and 0.10.26 affect SceneView demo usage — <code>compileReleaseKotlin</code> clean. (#2214)</li>
@@ -7955,7 +8073,7 @@ and GC at 60–120 Hz. Highlights:</p>
 <p>CLAUDE.md trimmed 992 → 746 lines by deleting the nested "Previous state" session-state snapshots (lines 529-779 in the old file) — they were already mirrored chronologically in <code>.claude/handoff.md</code>. CLAUDE.md now keeps only the <strong>current</strong> state + a stub pointing to <code>handoff.md</code> for everything older. Every future session loads ~250 fewer lines of dead session log.</p>
 </li>
 </ul>
-<h3 id="fixed_28">Fixed<a class="headerlink" href="#fixed_28" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_29">Fixed<a class="headerlink" href="#fixed_29" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>iOS App Store deploy:</strong> patch Swift 6 strict-concurrency error in <code>ARPlaneNodeDemo.swift:97</code> that broke the v4.15.2 <code>app-store.yml</code> archive step. The <code>private enum AssocKey { static var delegate = 0 }</code> global (used only as an <code>objc_setAssociatedObject</code> key) is now <code>nonisolated(unsafe) static var delegate: UInt8 = 0</code> — canonical opt-out for the "address-of-global as key" idiom. Fixes the v4.15.2 iOS deploy red without re-tagging.</li>
 </ul>
@@ -7977,7 +8095,7 @@ brings ARKit <code>ARMeshAnchor</code> parity to Android via ARCore StreetscapeG
 native <code>CameraControlMode</code> cases (<a href="https://github.com/sceneview/sceneview/issues/1049">#1049</a>
 Phase 2) that delegate to Apple's <code>realityViewCameraControls(_:)</code> modifier. Install on Android via
 Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
-<h3 id="added_20">Added<a class="headerlink" href="#added_20" title="Permanent link">&para;</a></h3>
+<h3 id="added_21">Added<a class="headerlink" href="#added_21" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>iOS — native camera modes</strong> (<code>CameraControlMode</code>): three new native cases
   (<code>.none</code>, <code>.tilt</code>, <code>.dolly</code>) delegate directly to Apple's
@@ -8028,7 +8146,7 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
 <li>Refresh store listing assets: update app icon (Android + iOS) to the canonical 3D isometric cube branding, regenerate feature graphic ("3D and AR for Android, iOS &amp; Web"), and replace all App Store / Play Store screenshots with fresh captures (#2180).</li>
 <li>Bump Compose BOM to <code>2026.05.01</code> (commit <code>6a2b4b4d1</code>).</li>
 </ul>
-<h3 id="fixed_29">Fixed<a class="headerlink" href="#fixed_29" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_30">Fixed<a class="headerlink" href="#fixed_30" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Xcode project registration for new AR demos.</strong> <code>ARPeopleOcclusionDemo</code>, <code>ARBodyTrackerDemo</code>, <code>ARSceneMeshDemo</code>, and their scene-registry files were not registered in the Xcode project's Sources build phase — fixed alongside the new demos so the iOS targets actually compile them. (#910)</li>
 <li><strong>CI (<code>app-store.yml</code> submit step):</strong> switch from the legacy <code>appStoreVersionSubmissions</code> API to App Store Connect's <code>reviewSubmissions</code> API v3 (2023+). The old endpoint returned <code>403 "Allowed operation is: DELETE"</code> whenever a stale submission was attached to an absorbed draft (the #1687 / #1795 retargeting pattern); the read permission needed to find that stale submission was not in scope on our deploy service account. The new flow (<code>POST /v1/reviewSubmissions</code> + <code>POST /v1/reviewSubmissionItems</code> + <code>PATCH submitted: true</code>) is independent of any legacy submission state, so the 403 class is eliminated entirely. Closes the long-running #1831 saga end-to-end (#2141 closes #1831).</li>
@@ -8085,11 +8203,11 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
   left after the iOS parity sprint (umbrella <a href="https://github.com/sceneview/sceneview/issues/910">#910</a>).</li>
 </ul>
 <h2 id="v4151-play-store-r8-deploy-fix-burn-down-sweep-black-model-ibl-sketchfab-repair-demo-hang-macos-archive-fixes-2026-05-22">v4.15.1 — Play Store R8 deploy fix + burn-down sweep: black-model IBL, Sketchfab repair, demo-hang &amp; macOS-archive fixes (2026-05-22)<a class="headerlink" href="#v4151-play-store-r8-deploy-fix-burn-down-sweep-black-model-ibl-sketchfab-repair-demo-hang-macos-archive-fixes-2026-05-22" title="Permanent link">&para;</a></h2>
-<h3 id="added_21">Added<a class="headerlink" href="#added_21" title="Permanent link">&para;</a></h3>
+<h3 id="added_22">Added<a class="headerlink" href="#added_22" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Surface AR camera-config / depth-mode downgrades (<a href="https://github.com/sceneview/sceneview/issues/2096">#2096</a>).</strong> <code>ARSceneView</code> now exposes an <code>onConfigDowngraded</code> callback that fires with a typed <code>ARConfigDowngrade</code> (<code>DepthMode</code> or <code>CameraConfig</code>) when a requested capability is unsupported on the device and is silently downgraded to a working fallback — so apps can adapt their UI instead of behaviour diverging silently across devices.</li>
 </ul>
-<h3 id="fixed_30">Fixed<a class="headerlink" href="#fixed_30" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_31">Fixed<a class="headerlink" href="#fixed_31" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>macOS demo target archives again (<a href="https://github.com/sceneview/sceneview/issues/1794">#1794</a>).</strong> Guarded iOS-only SwiftUI APIs in the shared <code>samples/ios-demo</code> Swift source so the <code>SceneViewDemo</code> macOS target compiles: added cross-platform <code>Color.systemBackground</code> / <code>secondarySystemBackground</code> / <code>tertiarySystemBackground</code> helpers and a <code>navigationBarTitleInline()</code> modifier in <code>Theme.swift</code>, <code>#if os(iOS)</code>-guarded the iOS 18 <code>.zoom(sourceID:in:)</code> navigation transition and the <code>topBarTrailing</code> toolbar placement.</li>
 <li><strong>Demo settings sheet remembers its last detent per demo (<a href="https://github.com/sceneview/sceneview/issues/2084">#2084</a>).</strong> The demo-app settings bottom sheet now reopens at the detent (partially-expanded vs fully-expanded) the user last left it at, individually for each demo. The detent is persisted in <code>SharedPreferences</code> keyed by demo title, so it survives navigating away from the demo and full process death. A demo never opened before still defaults to the partial detent.</li>
@@ -8104,7 +8222,7 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
 <li><strong>Deterministic <code>CollaborativeSessionTest</code> (<a href="https://github.com/sceneview/sceneview/issues/2091">#2091</a>).</strong> The <code>'hello propagates a participant'</code> test (and its siblings) intermittently failed on CI with a coroutine <code>TimeoutCancellationException</code>: cross-session message propagation ran on <code>Dispatchers.Default</code> while assertions polled a real <code>withTimeout</code>, so a contended runner could starve the thread pool past the deadline. <code>CollaborativeSession</code> now accepts an injectable I/O dispatcher (test-only, production unchanged) and the test drives propagation on a <code>StandardTestDispatcher</code> with <code>runTest</code> virtual time — no thread pool, no wall-clock race.</li>
 </ul>
 <h2 id="v4150-cross-platform-bridge-audit-hardening-flutterrn-ios-bridges-resource-leak-sweep-ci-drift-fixes-2026-05-22">v4.15.0 — Cross-platform bridge &amp; audit hardening: Flutter/RN iOS bridges, resource-leak sweep, CI-drift fixes (2026-05-22)<a class="headerlink" href="#v4150-cross-platform-bridge-audit-hardening-flutterrn-ios-bridges-resource-leak-sweep-ci-drift-fixes-2026-05-22" title="Permanent link">&para;</a></h2>
-<h3 id="added_22">Added<a class="headerlink" href="#added_22" title="Permanent link">&para;</a></h3>
+<h3 id="added_23">Added<a class="headerlink" href="#added_23" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>"Replay + analyse" mode in the AR Recording demo (<a href="https://github.com/sceneview/sceneview/issues/2027">#2027</a>).</strong> The android-demo AR Recording demo gains a fourth mode that replays a dataset <em>and interprets it</em>: every replayed frame is folded through the <code>ARRecordInterpreter</code> library API and the running <code>ARRecordInterpretation</code> — tracked-frame %, trajectory length, dominant <code>TrackingFailureReason</code>, plane count/area — is overlaid live on the replay. When the dataset ends (<code>rememberARPlaybackStatus == FINISHED</code>) a final report card sums up the take with a green/amber tracking verdict and a per-failure-reason breakdown.</li>
 </ul>
@@ -8112,7 +8230,7 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
 <ul>
 <li><strong>AR demos: fitting per-demo content instead of the generic Damaged Helmet (<a href="https://github.com/sceneview/sceneview/issues/2023">#2023</a>).</strong> Nine Android AR demos no longer load <code>khronos_damaged_helmet.glb</code> purely as a generic floating stand-in. The six already-bundled models are redistributed so each demo's placed object reads as intentional content grounded in the room: Image Stabilization and Cloud Anchor use the lantern, Depth of Field and Augmented Image use the toy car, Terrain Anchor and Rerun use the fox / Shiba, Record &amp; Playback uses the fox, and both placement cycles (<code>ARPlacementDemo</code>, <code>ARInstantPlacementDemo</code>) swap the helmet entry for the upright Soldier character. The helmet is kept only in the two occlusion demos (Depth Occlusion, People Occlusion), where a hard-surface PBR payload genuinely fits.</li>
 </ul>
-<h3 id="fixed_31">Fixed<a class="headerlink" href="#fixed_31" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_32">Fixed<a class="headerlink" href="#fixed_32" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>feedback-worker: minor cleanups deferred from the hardening review (<a href="https://github.com/sceneview/sceneview/issues/2028">#2028</a>).</strong> The <code>202</code> response now carries a <code>reason</code> field (<code>"quota"</code> vs <code>"github_error"</code>) so a caller can tell a deliberate issue-quota throttle from a GitHub-side failure. An empty or whitespace-only <code>Content-Length</code> header is now rejected with <code>411</code> instead of slipping through as a zero-length body (<code>Number("")</code> is <code>0</code>). The Whisper-detected transcript language is surfaced as a <code>Transcript language</code> row in the GitHub issue context table instead of being discarded. The unused <code>'purged'</code> value was dropped from the <code>feedback.status</code> CHECK constraint (media expiry is tracked by <code>media_purged</code>, never <code>status</code>).</li>
 <li><strong>android-demo: in-app feedback — lower-priority review follow-ups (<a href="https://github.com/sceneview/sceneview/issues/2030">#2030</a>).</strong> Rotating the device mid-recording no longer leaves the rest of the clip stretched — <code>FeedbackRecordingService</code> now re-fits the <code>VirtualDisplay</code> to the rotated screen aspect inside the fixed encoder surface (deliberate, centred letterboxing) on a configuration change. A <code>MediaProjection</code> revoked by the system or another app is now reported with a distinct "Recording stopped early" message instead of the generic "recording didn't work" copy. The tab-screen feedback FAB collapses to an accessible icon-only FAB on a narrow screen or at a large font scale, so the extended label can no longer overflow or crowd the navigation bar. The "My feedback" screen gains a "Refresh status" action that drops the 5-minute GitHub status cache so a user can re-check a ticket immediately.</li>
@@ -8159,7 +8277,7 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
 <li><strong>android-demo: Play Store tablet &amp; Chromebook screenshots.</strong> Added a generated set of large-screen Play Store listing assets under <code>samples/android-demo/play/listings/en-US/graphics/</code> — six 16:9 tablet screenshots (2560×1440, used for both the 7-inch and 10-inch listing slots) and three 16:9 Chromebook screenshots (2400×1350). The captures cover the headline surfaces — the Dynamic Sky, Environment Gallery, Model Viewer and Geometry Primitives demos plus the Samples and About tabs — taken on a Pixel Tablet emulator running the bundled-asset demos.</li>
 </ul>
 <h2 id="v4140-2026-05-21">v4.14.0 — 2026-05-21<a class="headerlink" href="#v4140-2026-05-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_23">Added<a class="headerlink" href="#added_23" title="Permanent link">&para;</a></h3>
+<h3 id="added_24">Added<a class="headerlink" href="#added_24" title="Permanent link">&para;</a></h3>
 <ul>
 <li>AR Record interpretation: new <code>ARRecordInterpreter</code> (+ <code>rememberARRecordInterpreter()</code>) folds every frame of a replayed AR Record dataset into an <code>ARRecordInterpretation</code> — camera trajectory length &amp; extent, tracked-frame ratio with a per-<code>TrackingFailureReason</code> breakdown, and discovered plane count &amp; area — turning a record/playback session into a quantified, CI-assertable tracking-quality report (<a href="https://github.com/sceneview/sceneview/issues/1441">#1441</a>).</li>
 <li><strong>Play Store CI observability.</strong> A new <code>play-vitals.sh</code> release-gate (wired into <code>release-checklist.sh</code> section 15) grades the real-world crash &amp; ANR rate from the Play Developer Reporting API — advisory by default, blocking under <code>PLAY_VITALS_HARD=1</code> (#1691). A new daily <code>play-reviews</code> job in <code>maintenance.yml</code> ingests Play Store ratings + reviews via the Android Publisher API and auto-opens a de-duplicated triage issue for any review matching a crash/bug signal (#1692). Both reuse the existing deploy service account read-only — no new write scope.</li>
@@ -8190,7 +8308,7 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
 <li><strong>Consolidated the two lighting demos into one (<a href="https://github.com/sceneview/sceneview/issues/1444">#1444</a>).</strong> The Android demo's <code>lighting</code> ("Light Types") and <code>movable-light</code> ("Movable Light") cards were near-identical — same helmet model, same topic — so they are merged into a single <strong>Lighting</strong> demo with an in-demo segmented-button mode switch: <em>Light Types</em> (directional / point / spot, intensity, colour) and <em>Movable Light</em> (drag to orbit the light). No feature is lost — every control from both demos is still present. The Samples tab now carries one lighting entry instead of two. The retired <code>sceneview://demo/movable-light</code> deep link keeps working: <code>DeepLinkRouter</code> aliases it to <code>lighting</code> via a new <code>DEMO_ID_ALIASES</code> table.</li>
 <li>Demo app: <code>DemoScaffold</code> now exposes an opt-in <code>onReset</code> parameter that renders a consistent, always-in-the-same-place <strong>Reset</strong> action in the demo's top app bar, giving every demo a predictable path back to its initial state and re-arming its core interaction. A brief confirmation snackbar ("Demo reset — ready to try again") tells the user the demo is ready for re-interaction. Wired into the owner-flagged AR Depth Occlusion demo. (#1966)</li>
 </ul>
-<h3 id="fixed_32">Fixed<a class="headerlink" href="#fixed_32" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_33">Fixed<a class="headerlink" href="#fixed_33" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Post-Processing demo now makes SSAO visibly flagrant (<a href="https://github.com/sceneview/sceneview/issues/1443">#1443</a>).</strong> The damaged-helmet model is staged sitting on a plain matte ground plane instead of floating in the void, and the camera is raised to an angle that frames the floor. SSAO darkens the contact zone between the helmet and the plane, so toggling the SSAO switch now makes a soft contact shadow plainly appear and disappear — the post-processing difference reads at a glance instead of being a subtle change easy to miss.</li>
 <li>Cloud Anchors demo: renamed the setup runbook <code>STREETSCAPE_SETUP.md</code> → <code>ARCORE_CLOUD_SETUP.md</code> so a <em>Cloud Anchor</em> demo no longer routes <code>ERROR_NOT_AUTHORIZED</code> users to a Streetscape-named doc, and updated all 14 references across the demos, <code>arsceneview</code>, <code>build.gradle</code> and <code>llms.txt</code> (<a href="https://github.com/sceneview/sceneview/issues/1614">#1614</a>). The on-screen Host/Resolve actions already shipped via <code>SceneActionBar</code> in #1986.</li>
@@ -8221,7 +8339,7 @@ Play Store internal track within minutes of tagging; iOS via TestFlight.</p>
 <li><code>llms.txt</code>: added an explicit <strong>"Web API model — builder DSL, NOT a Node scene-graph"</strong> section to the SceneView Web reference, with a concept-mapping table (Android/iOS <code>Node</code> ↔ Web builder DSL) and correct-vs-incorrect code examples. This stops AI assistants from generating Android-style <code>Node</code>-tree code that does not compile against <code>sceneview-web</code>, and documents that a node scene-graph for Web is a tracked v5 milestone effort (<a href="https://github.com/sceneview/sceneview/issues/895">#895</a>).</li>
 </ul>
 <h2 id="v4130-2026-05-21">v4.13.0 — 2026-05-21<a class="headerlink" href="#v4130-2026-05-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_24">Added<a class="headerlink" href="#added_24" title="Permanent link">&para;</a></h3>
+<h3 id="added_25">Added<a class="headerlink" href="#added_25" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>AR Augmented Images — on-device runtime registration.</strong> New <code>RuntimeAugmentedImageDatabase</code>
   helper (<code>rememberRuntimeAugmentedImageDatabase()</code>) lets you register a brand-new reference
@@ -8257,7 +8375,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li>Added labelled "Camera distance" sliders to the <code>CameraControlsDemo</code> and <code>ModelViewerDemo</code> Android demos (#1965): zoom was pinch-only — now discoverable and Maestro-testable (no pinch in Maestro) — and the sliders complement pinch-to-zoom rather than replacing it. <code>ModelViewerDemo</code>'s slider drives the same <code>DemoSettings.cameraDistance</code> deep-link hook (#1571).</li>
 <li>Build: <code>samples/android-demo</code>'s <code>GeneratedDemos.kt</code> is no longer committed — it is <code>.gitignore</code>d and regenerated before Kotlin compilation by the new <code>generateDemoRegistry</code> Gradle task, killing the per-PR merge-conflict class that hit every demo-adding PR (#1976).</li>
 </ul>
-<h3 id="fixed_33">Fixed<a class="headerlink" href="#fixed_33" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_34">Fixed<a class="headerlink" href="#fixed_34" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Streetscape Geometry demo now surfaces clear "go outdoors" guidance after 15 s with no geometry, instead of spinning forever on "Looking for streetscape geometry…" indoors (#1615).</li>
 <li>Depth occlusion now actually occludes (#1617): <code>ARCameraStream</code> draws the depth-aware camera quad <strong>first</strong> (Filament priority 0) when occlusion is enabled so the real-world depth written via <code>gl_FragDepth</code> primes the z-buffer before virtual geometry is depth-tested — previously the quad was always drawn last (priority 7), writing real-world depth too late to ever hide a virtual model behind real furniture.</li>
@@ -8287,7 +8405,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li>Corrected the stale node-type count across <code>README.md</code>, the website, structured data, docs, and the MCP docs to the actual 41 (24 3D + 17 AR) — previously claimed 35-39 and missed the AR <code>PointCloudNode</code>, <code>PlaneNode</code>, and <code>ReticleNode</code> additions.</li>
 </ul>
 <h2 id="v4120-2026-05-21">v4.12.0 — 2026-05-21<a class="headerlink" href="#v4120-2026-05-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_25">Added<a class="headerlink" href="#added_25" title="Permanent link">&para;</a></h3>
+<h3 id="added_26">Added<a class="headerlink" href="#added_26" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Auto-fit camera framing (#1439): a new library-level helper in <code>io.github.sceneview</code> computes the orbit distance at which a model's bounding sphere exactly fills the viewport, regardless of the model's intrinsic glTF size. <code>fitDistanceForBounds(bounds, verticalFovDegrees, aspect, padding)</code> is pure trigonometry (yaw-invariant — fits the bounding sphere, not the raw box); <code>CameraNode.frameToContent(node)</code> / <code>CameraNode.frameToBounds(aabb)</code> reposition the camera in one call; <code>verticalFovDegreesForFocalLength</code> and <code>Box.toAabb()</code> convert Filament's focal-length / <code>Box</code> types; <code>SceneAutoFitState</code> is a one-shot guard for use in a <code>SceneView</code> frame loop. The Model Viewer demo now auto-fits its orbit radius to the displayed model — a 5 cm bee and a 5 m crate are framed identically without per-demo <code>scaleToUnits</code> tuning. Android-only for now; iOS already frames from <code>visualBounds</code> (#1026 / #1391).</li>
 <li><code>arsceneview</code>: Environment-aware AR fog — <code>ARFogNode</code> (in <code>io.github.sceneview.ar.node</code>) blends the live camera passthrough toward a coloured haze using the ARCore depth image, so distant real-world surfaces fade while near ones stay crisp. Mirrors <code>FogNode</code>'s <code>density</code> / <code>color</code> / <code>enabled</code> parameters so the same numbers fog both real and virtual geometry visually consistently, plus AR-only <code>start</code> / <code>end</code> distance bounds. Inspired by ARCore Depth Lab's <em>AR Fog</em> sample. Opt-in, off by default — collapses to a no-op when <code>enabled = false</code> (zero shader cost via a branchless <code>fogEnabled</code> gate). Requires <code>Config.DepthMode.AUTOMATIC</code> (or <code>RAW_DEPTH_ONLY</code>) and <code>ARCameraStream.isDepthOcclusionEnabled = true</code>. The depth-aware camera material (<code>camera_stream_depth.mat</code>) was extended with the fog term and its <code>.filamat</code> blob recompiled with the matching matc 1.71.0 toolchain — see <a href="../CONTRIBUTING.md#filament-runtime---filamat-abi-invariant"><code>CONTRIBUTING.md</code></a>. Demo: new <code>ARFogDemo</code> in <code>samples/android-demo</code> (deep link <code>sceneview://demo/ar-fog</code>), with sliders that drive both the real-world fog and a virtual <code>FogNode</code> in lockstep so the parity is visible side-by-side (#1717).</li>
@@ -8309,7 +8427,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li>Changelog fragments gain a <code>Performance</code> category — covers pure perf wins (#1810-style) that don't fit <code>Fixed</code> or <code>Changed</code>. <code>.claude/scripts/collate-changelog.sh</code> recognises it.</li>
 <li><strong><code>mcp/src/generated/llms-txt.ts</code> is now build-generated, not committed (<a href="https://github.com/sceneview/sceneview/issues/1928">#1928</a>).</strong> The ~230 KB embedded <code>llms.txt</code> bundle is <code>.gitignore</code>d and regenerated by the <code>prebuild</code> / <code>prepare</code> / <code>test</code> npm lifecycle scripts, removing the guaranteed merge conflict every parallel PR that touched <code>llms.txt</code> used to hit. The published <code>sceneview-mcp</code> tarball still ships the compiled <code>dist/generated/llms-txt.js</code>.</li>
 </ul>
-<h3 id="fixed_34">Fixed<a class="headerlink" href="#fixed_34" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_35">Fixed<a class="headerlink" href="#fixed_35" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>AR demos render placed PBR models as flat-black silhouettes (<a href="https://github.com/sceneview/sceneview/issues/1611">#1611</a>).</strong> Two fixes to the <code>ARSceneView</code> IBL path. (1) The baseline <code>environment.indirectLight</code> is now applied via <code>LaunchedEffect(environment)</code> instead of <code>SideEffect</code> — demos that surface per-frame ARCore state to UI state (<code>latestFrame</code>, <code>isTracking</code>) used to recompose every frame and silently reset <code>scene.indirectLight</code> back to the baseline, dropping the per-frame rebuilt IBL produced by ARCore's <code>ENVIRONMENTAL_HDR</code> estimate. (2) The per-frame rebuild is now gated by <code>shouldRebuildIndirectLight(estimation, baseIndirectLight)</code> so partial estimations (e.g. reflections cubemap in flight, irradiance SH not yet stable) skip the rebuild instead of producing an IBL with empty irradiance OR empty reflections — KTX1-loaded baselines expose SH via the native handle (no <code>irradianceTexture</code>), so the legacy fallback returned a no-IBL builder and Filament collapsed diffuse PBR to black. Pinned by 4 new pure-JVM cases in <code>IndirectLightRebuildDecisionTest</code>. Verified on Pixel 9: placed Damaged Helmet, Fox, Lantern, Toy Car, Shiba and streamed Sketchfab models now render lit on first frame instead of as flat silhouettes.</li>
 <li><code>DepthMeshNode.uploadGeometry</code> no longer caches the direct <code>ByteBuffer</code> used for <code>VertexBuffer.setBufferAt</code> / <code>IndexBuffer.setBuffer</code>. Filament's JNI captures a global ref to the buffer and copies ASYNCHRONOUSLY on the render command stream; reusing the buffer across uploads (introduced by the #1810 perf opt) could clobber bytes Filament had not yet consumed → torn vertex uploads, corrupted mesh frames. Reverted to a fresh <code>ByteBuffer.allocateDirect(...).order(nativeOrder())</code> per upload — matches the standard pattern used by every other Geometry.kt caller. A follow-up issue can revisit the perf cost with a callback-based ring buffer if profiling shows the GC churn matters in practice. Closes #1841.</li>
@@ -8326,7 +8444,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li>Filament materials documentation (#1919 Part C): every <code>.mat</code> source now carries a header comment block (purpose, used-by node/loader, per-parameter contract, matc flag profile), and the <code>CONTRIBUTING.md</code> "Filament runtime ↔ .filamat ABI invariant" section is updated with the <code>tools/GenerateFilamat.sh</code> workflow, the <code>quality-gate.sh</code> drift gate, and the four A/B/C/D matc flag profiles.</li>
 </ul>
 <h2 id="v4112-2026-05-21">v4.11.2 — 2026-05-21<a class="headerlink" href="#v4112-2026-05-21" title="Permanent link">&para;</a></h2>
-<h3 id="added_26">Added<a class="headerlink" href="#added_26" title="Permanent link">&para;</a></h3>
+<h3 id="added_27">Added<a class="headerlink" href="#added_27" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>arsceneview</code>: AR depth-of-field driven by ARCore environment depth — new <code>arDepthOfField(view, camera, options)</code> composable + <code>ARDepthOfFieldOptions(focusDepth, blurStrength, enabled)</code> data class wire Filament's native DoF post-pass to the same z-buffer that <code>ARCameraStream</code>'s depth-occlusion material already writes (<code>gl_FragDepth</code> in <code>camera_stream_depth.mat</code>), so tapping a near object throws the far background out of focus and vice-versa — both the virtual scene and the camera background blur from the same focus point. No new <code>.filamat</code> required. Tap-to-focus helper <code>Frame.depthFocusDistance(xPx, yPx): Float?</code> reuses the depth hit-test added in #1712. Opt-in (off by default; zero cost on disabled frames). Requires <code>Config.DepthMode.AUTOMATIC</code>/<code>RAW_DEPTH_ONLY</code> + <code>ARCameraStream.isDepthOcclusionEnabled = true</code>. New <code>ARDepthOfFieldDemo</code> in the sample app demonstrates the canonical wiring; <code>llms.txt</code> documents the API surface (#1716).</li>
 <li><code>arsceneview</code>: Scene Semantics API — <code>Config.SemanticMode.ENABLED</code> is now support-gated via <code>ARSession.configure</code> (silently downgrades to <code>DISABLED</code> on devices without the on-device ML model, matching the depthMode / flashMode auto-fallbacks), and three new <code>Frame</code> extensions expose the per-pixel labels: <code>Frame.semanticImage(): Image?</code> (R8 label ordinal raster), <code>Frame.semanticConfidenceImage(): Image?</code> (R8 confidence raster), and <code>Frame.semanticLabelFraction(label: SemanticLabel): Float</code> (cheap GPU-backed pixel-share query, returns 0f when semantics are off / not yet available). Comes with a new <code>ARSceneSemanticsDemo</code> showing a live top-3 label HUD over the camera feed. Outdoor only — the ML model has no indoor training data. The custom <code>.filamat</code> label-overlay material is tracked separately as a follow-up (matc toolchain ABI work) (#1730).</li>
@@ -8358,7 +8476,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li><code>samples/android-demo</code>: per-demo <code>strings.xml</code> fragments. Title, subtitle, and demo-specific UI strings now live in dedicated <code>res/values/strings_demo_&lt;id&gt;.xml</code> files alongside each demo's <code>*Fragment.kt</code>, so two parallel PRs adding two different demos no longer collide on the central <code>strings.xml</code>. Android's resource merger fans every <code>res/values/*.xml</code> in at build time, so <code>R.string.demo_*</code> references resolve identically (no Kotlin / composable changes). The shared <code>strings.xml</code> keeps only app-level strings (navigation, AR launcher, About, accessibility…). Follow-up of #1797's append-only fragment registry (#1870).</li>
 <li><code>samples/android-demo</code>: <code>collate-demos.sh</code> now also rewrites the "Sample app demos (Android)" section of <code>llms.txt</code> (and its mirror <code>docs/docs/llms.txt</code>) between dedicated marker comments, sourced from the same per-demo <code>*Fragment.kt</code> files that drive <code>GeneratedDemos.kt</code>. Adding a new demo no longer touches any <code>llms.txt</code>: drop the fragment, run the collator, regenerate the MCP bundle (<code>node mcp/scripts/generate-llms-txt.js</code>), commit. <code>--check</code> mode bit-compares all three outputs and the existing <code>check-llms-drift.sh</code> + <code>quality-gate.sh</code> wiring picks the new section up unchanged (#1871, follow-up of #1797 / PR #1869).</li>
 </ul>
-<h3 id="fixed_35">Fixed<a class="headerlink" href="#fixed_35" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_36">Fixed<a class="headerlink" href="#fixed_36" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>.claude/scripts/impact-check.sh</code>: trace line per check + <code>--fail</code> flag + ERR trap so the script no longer exits 1 silently in lean / sparse clones. Each check now announces itself on stderr (the last trace line points at any unexpected failure), every path-dependent check <code>[SKIP]</code>s instead of dying when its inputs are absent (<code>sceneview/</code>, <code>arsceneview/</code>, <code>SceneViewSwift/</code>), <code>grep | wc -l</code> patterns are guarded against the <code>pipefail</code> zero-match exit, and an ERR trap names the dying check + line. Default exit is now 0 (report-only); <code>--fail</code> opts in to non-zero for the quality gate. <code>SV_IMPACT_TRACE=1</code> forces <code>set -x</code>; auto-trace fires when stdout is not a TTY (CI / agent) unless <code>SV_IMPACT_TRACE_AUTO=0</code> (#1782, #1786).</li>
 <li><code>build.gradle</code>: document that the <code>webpack &lt;5.107.0</code> Yarn resolution pin (added in #1791 for <code>:sceneview-web:jsBrowserProductionWebpack</code>) also covers <code>:sceneview-web:jsTest</code> and <code>:sceneview-web:jsBrowserDistribution</code>. The root cause is shared — <code>kotlin-web-helpers/dist/tc-log-error-webpack.js</code> still does <code>require("webpack/lib/ModuleNotFoundError")</code> after webpack 5.107.0 moved that file to <code>lib/errors/</code>, and karma surfaces the resolution failure with a misleading top-of-stack <code>karma/bin/karma</code> line. The pin already keeps fresh-clone <code>:jsTest</code> runs green; this commit just makes the comment match the actual scope so future bound-lifts don't accidentally re-break test execution. Validation on a clean clone (<code>rm -rf build/ &amp;&amp; ./gradlew :sceneview-web:jsTest</code> and <code>:jsBrowserDistribution</code>): both BUILD SUCCESSFUL with webpack 5.106.2 resolved (#1785).</li>
@@ -8387,7 +8505,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li><code>arsceneview</code>: rewrote the <code>ARSessionFailure</code> KDoc + <code>llms.txt</code> examples to use a fully exhaustive <code>when</code> (all 25 subtypes + <code>Other</code>) and removed the <code>else -&gt; showGenericRetryCta()</code> fallback that silently defeated the sealed-class compile-time-safety contract introduced by #1759. Also added a "compact" pattern showing how to dispatch many subtypes via a category-mapping helper without <code>else -&gt;</code>. AI agents copy-pasting the snippet now keep the exhaustive-<code>when</code> guarantee (#1843).</li>
 </ul>
 <h2 id="v4111-2026-05-20">v4.11.1 — 2026-05-20<a class="headerlink" href="#v4111-2026-05-20" title="Permanent link">&para;</a></h2>
-<h3 id="added_27">Added<a class="headerlink" href="#added_27" title="Permanent link">&para;</a></h3>
+<h3 id="added_28">Added<a class="headerlink" href="#added_28" title="Permanent link">&para;</a></h3>
 <p><code>rememberDepthCollider()</code> — depth-driven static physics collider so <code>PhysicsNode</code> bodies bounce off the real floor / table / wall in AR. Thin wrapper over <code>DepthMeshNode</code> (#1739): each rebuild's vertex/index buffers feed a per-frame surface lookup via the new <code>FloorProvider</code> interface on <code>PhysicsBody</code>. SceneView port of arcore-depth-lab's "Collider" scene (#1713).
 - Android demo: added an <code>ar-depth-visualization</code> AR demo that renders the ARCore environment depth image as a false-color overlay (warm = near, cool = far), with a slider that blends the live camera feed (0) and the colorized depth map (1). The colorization runs through pure-Kotlin helpers in <code>samples/android-demo/.../demos/internal/DepthVisualization.kt</code> covered by JVM unit tests, and the demo handles "depth not supported" and "depth warming up" with explicit banners — never a black screen (#1714).
 - Android demo: added an <code>ar-raw-depth-point-cloud</code> AR demo that visualizes ARCore's <code>Config.DepthMode.RAW_DEPTH_ONLY</code> output as a screen-space point cloud. The demo acquires raw depth + the companion confidence image on every frame, drops samples below a Compose-slider-driven confidence threshold, false-colors the survivors with a warm-near / cool-far ramp, and renders them over the camera feed via a <code>Canvas</code>. The filtering/sub-sampling logic is extracted as pure-Kotlin <code>internal</code> helpers in <code>samples/android-demo/.../demos/internal/RawDepthCloud.kt</code> and covered by 14 JVM unit tests. Honest unsupported / warming-up states surface explicit banners — never a black screen (#1715).
@@ -8404,7 +8522,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li>AR demos now surface ARCore tracking-failure reasons via a single <code>trackingFailureMessage(reason)</code> helper ported from arcore-android-sdk's <code>TrackingStateHelper</code>. Each <code>TrackingFailureReason</code> (<code>BAD_STATE</code>, <code>INSUFFICIENT_LIGHT</code>, <code>EXCESSIVE_MOTION</code>, <code>INSUFFICIENT_FEATURES</code>, <code>CAMERA_UNAVAILABLE</code>) maps to a localised string resource (<code>tracking_failure_*</code> in <code>strings.xml</code>), giving the user actionable guidance instead of nothing. Inlined <code>when</code> branches across 8 AR demos (Image, DepthOcclusion, ImageStabilization, InstantPlacement, Placement, Rerun, RecordPlayback, Streetscape) collapse into a 1-line helper call. Addresses the "no guidance" half of #1615 (#1735).</li>
 <li>arsceneview: threading-hardening sweep on the AR depth and cloud-anchor paths (#1811). <code>DepthMeshNode.update / latestSnapshot / currentVertexBuffer / currentIndexBuffer / onMeshRebuilt</code> now carry <code>@MainThread</code> annotations with KDoc notes spelling out "render-thread only — reading from a background coroutine is unsupported". <code>CloudAnchorNode.hostTask</code> is <code>@Volatile</code> and <code>cancelHost()</code> wraps its read-cancel-clear sequence in <code>synchronized(this)</code> so callers can safely cancel an in-flight host from <code>viewModelScope.launch { … }</code> without racing the ARCore async callback (which fires on the GL/render thread). <code>DepthCollider.setBodiesRegion</code> gains a KDoc render-thread pin matching the surrounding <code>floorYAt</code> / <code>ingestSnapshot</code> contract. A new <code>CloudAnchorNodeThreadingTest</code> reflects the <code>@Volatile</code> and exercises the synchronized contract under contention.</li>
 </ul>
-<h3 id="fixed_36">Fixed<a class="headerlink" href="#fixed_36" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_37">Fixed<a class="headerlink" href="#fixed_37" title="Permanent link">&para;</a></h3>
 <ul>
 <li>arsceneview: per-frame <code>IndirectLight</code> no longer leaks native memory across long AR sessions with intermittent light estimation. The <code>IndirectLight</code> built in <code>onARFrame</code> is now tracked via a dedicated <code>AtomicReference</code> and destroyed explicitly on every supersession or on <code>DisposableEffect</code> teardown, independent of <code>scene.indirectLight</code> mutations by third parties. The rebuild decision (estimation vs. environment baseline per channel) is extracted to a pure <code>pickIndirectLightSources</code> helper covered by JVM unit tests (#1756).</li>
 <li>arsceneview: clarify the depth <code>ByteBuffer</code> lifecycle invariant in <code>ARCameraStream</code> — the buffer borrowed from ARCore's depth <code>Image</code> is now documented as intentionally NOT cloned, with the upload-completed callback as the load-bearing synchronisation point that closes the ARCore image exactly once. Updates the previous misleading comment that claimed the buffer was cloned. Adds a pure-JVM sentinel test pinning the <code>buffer.clear()</code> metadata-only contract and the setter-doesn't-allocate invariant (#1757).</li>
@@ -8432,7 +8550,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li>llms.txt: <code>DepthHitResultNode</code> section and <code>Frame.hitTestDepth</code> <code>@return</code> KDoc clarification documenting the single-vs-list asymmetry vs <code>Frame.hitTest</code> (depth at one pixel is unique) (#1814).</li>
 </ul>
 <h2 id="v4110-2026-05-20">v4.11.0 — 2026-05-20<a class="headerlink" href="#v4110-2026-05-20" title="Permanent link">&para;</a></h2>
-<h3 id="added_28">Added<a class="headerlink" href="#added_28" title="Permanent link">&para;</a></h3>
+<h3 id="added_29">Added<a class="headerlink" href="#added_29" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Android demo: added a <code>cameraDistance</code> zoom deep-link parameter — a <code>--ef camera_distance &lt;f&gt;</code> intent extra and a <code>sceneview://demo/&lt;id&gt;?cameraDistance=&lt;f&gt;</code> query parameter that override the 3D hero-orbit camera distance. This lets the Maestro device-QA flows exercise 3D camera zoom, which Maestro cannot do by pinch; <code>.maestro/android/flows/demo.yaml</code> now captures a near + far framing for <code>model-viewer</code>. Invalid or out-of-range values fall back to the demo's default framing (#1571).</li>
 <li><code>Frame.hitTestDepth(xPx, yPx)</code> raycasts the ARCore depth image and returns a <code>DepthHitResult</code> (world position, camera-facing surface normal, distance) — placement onto <em>any</em> real-world surface, not just detected planes, inspired by <a href="https://github.com/googlesamples/arcore-depth-lab">arcore-depth-lab</a>'s "Oriented Reticle" (#1712).</li>
@@ -8444,7 +8562,7 @@ Consolidated the duplicate Play Store listing directories into a single <code>sa
 <li><code>validate-demo-assets.sh</code> now cross-checks every asset physically bundled under the demo asset roots against <code>assets/catalog.json</code> and fails CI if a bundled asset is undeclared, making catalog drift a build failure instead of a manual discovery (#1666).</li>
 <li>CI workflow hygiene: a detekt static-analysis step is wired into the <code>lint</code> job (advisory for now — detekt 1.23.8 registers no tasks on the current Kotlin 2.3 toolchain, so the step reports without gating PRs pending a detekt upgrade and baseline), <code>docs.yml</code> artifact action versions are aligned, the <code>quality-gate</code> job restores Gradle wrapper validation, and a stale Node-version comment in <code>telemetry-ci.yml</code> is corrected (#1699, #1702, #1703, #1708).</li>
 </ul>
-<h3 id="fixed_37">Fixed<a class="headerlink" href="#fixed_37" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_38">Fixed<a class="headerlink" href="#fixed_38" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Samples cleanup: dropped the stale "Coming in v1.1" version label from the iOS demo's coming-soon placeholders (now a plain "Coming soon" badge), and documented that AR demos intentionally skip the 3D first-frame loading scrim (#1361).</li>
 <li><strong>iOS</strong>: <code>FogNode.heightBased(...)</code> and <code>FogNode.heightFalloff</code> are now formally deprecated with a compile-warning instead of silently no-op'ing at runtime — RealityKit has no per-pixel height fog equivalent to Filament's <code>View.fogOptions.heightFalloff</code>. Use <code>FogNode.exponential(density:color:)</code> instead. The iOS Fog demo no longer advertises a "Height" mode. (<a href="https://github.com/sceneview/sceneview/issues/1380">#1380</a>)</li>
@@ -8468,7 +8586,7 @@ Android TV demo: D-pad controls now work on launch — the root <code>Box</code>
 <li>Refreshed the stale <code>ROADMAP.md</code> (was pinned at v4.0.9) to v4.10.0 and resolved the <code>CLAUDE.md</code> ↔ <code>sync-versions.sh</code> contradiction over <code>mcp/package.json</code> — the Version Location Map now documents <code>sceneview-mcp</code> as an independent npm version track that must NOT be synced to the SDK <code>VERSION_NAME</code> (#1701, #1705).</li>
 </ul>
 <h2 id="v4100-2026-05-17">v4.10.0 — 2026-05-17<a class="headerlink" href="#v4100-2026-05-17" title="Permanent link">&para;</a></h2>
-<h3 id="added_29">Added<a class="headerlink" href="#added_29" title="Permanent link">&para;</a></h3>
+<h3 id="added_30">Added<a class="headerlink" href="#added_30" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Web demo catalog expanded with Lighting, Animation, Text, and Environment tabs (<a href="https://github.com/sceneview/sceneview/issues/1362">#1362</a>).</strong> The <code>samples/web-demo</code> playground previously exposed only Models / Geometry / Physics / Settings — a small fraction of the SDK versus Android's ~39 demos. It now ships four new tabs in the demo app: <strong>Lighting</strong> adds and removes directional/point/spot lights, <strong>Animation</strong> loads self-hosted animated glTF models and drives keyframe playback, <strong>Text</strong> renders billboarded 3D text nodes, and <strong>Environment</strong> controls image-based lighting via spherical-harmonic presets, background color, and bloom strength. These tabs are wired against the demo's hand-vendored <code>samples/web-demo/.../js/sceneview.js</code> viewer helper — they are a web-DEMO addition and do not change the published <code>SceneViewJS</code> Kotlin/JS API surface. First slice of the cross-platform demo-parity effort; web-demo only.</li>
 <li>Auto-fit camera framing (#1439): a new library-level helper in <code>io.github.sceneview</code> computes the orbit distance at which a model's bounding sphere exactly fills the viewport, regardless of the model's intrinsic glTF size. <code>fitDistanceForBounds(bounds, verticalFovDegrees, aspect, padding)</code> is pure trigonometry (yaw-invariant — fits the bounding sphere, not the raw box); <code>CameraNode.frameToContent(node)</code> / <code>CameraNode.frameToBounds(aabb)</code> reposition the camera in one call; <code>verticalFovDegreesForFocalLength</code> and <code>Box.toAabb()</code> convert Filament's focal-length / <code>Box</code> types; <code>SceneAutoFitState</code> is a one-shot guard for use in a <code>SceneView</code> frame loop. The Model Viewer demo now auto-fits its orbit radius to the displayed model — a 5 cm bee and a 5 m crate are framed identically without per-demo <code>scaleToUnits</code> tuning. Android-only for now; iOS already frames from <code>visualBounds</code> (#1026 / #1391).</li>
@@ -8488,7 +8606,7 @@ Android TV demo: D-pad controls now work on launch — the root <code>Box</code>
 <li>device-QA harness (#1654): the emulator-selection layer is now a RAM-budgeted adaptive pool — it leases a free running emulator or boots a new one on a distinct <code>-port</code> whenever live host RAM safely allows (cap <code>floor((free_RAM − headroom) / per-emu budget)</code>, clamped <code>[1, EMU_POOL_MAX]</code>), re-gates free RAM as a hard memory-safety check before every boot, reclaims stale per-emulator leases, and pins <code>ANDROID_SERIAL</code> to the leased device — superseding the strict-single emulator of #1647 while keeping the floor at 1 on RAM-tight hosts.</li>
 <li>Repo hygiene: stale <code>claude/*</code> branches no longer pile up on the remote. The <code>Automatically delete head branches</code> setting is now enabled, so every PR branch is dropped the instant its PR merges. The <code>cleanup-branches-worktrees.sh</code> backstop was reworked to fetch PR status with two bulk <code>gh pr list</code> calls instead of one <code>gh pr view</code> per branch — the per-branch form fired hundreds of sequential API calls and timed the daily <code>branch-cleanup</code> job out before it could delete anything, which had let the remote grow to ~190 branches.</li>
 </ul>
-<h3 id="fixed_38">Fixed<a class="headerlink" href="#fixed_38" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_39">Fixed<a class="headerlink" href="#fixed_39" title="Permanent link">&para;</a></h3>
 <ul>
 <li>visionOS target of the <code>SceneViewSwift</code> Swift package now compiles (#1366): the deployment target is raised to visionOS 2.0 (RealityKit's <code>DirectionalLight</code>/<code>PointLight</code>/<code>SpotLight</code> entities and per-entity <code>shadow</code> API are <code>@available(visionOS 2.0, *)</code>), <code>SceneView</code> uses the cross-platform <code>RealityViewContent</code> initializer on visionOS instead of the <code>@available(visionOS, unavailable)</code> <code>RealityViewCameraContent</code>, light components drop the visionOS-unavailable <code>isRealWorldProxy:</code> initializer parameter, and a new <code>Build Swift Package (visionOS)</code> CI step in <code>ios.yml</code> builds the xrOS SDK on every iOS PR so this can't regress silently.</li>
 <li>iOS: the <code>Multi-Model Park</code> demo now frames all four streamed models centered and correctly sized. The previous fix translated the content root so its bounding-box centroid landed at the world origin, but <code>Multi-Model Park</code> nests its models under an <code>AnchorEntity</code> — RealityKit re-pins that anchor to its world target every frame, so the translation and the anchor fought each other and the framed centroid ran away to infinity, leaving a fully black viewport. The auto-framing pass now points the orbit camera at the content's world-space centroid instead of moving any scene node, which removes the feedback loop entirely. Framing is also computed from the union of every loaded model and re-runs until that union is stable, so partially-streamed scenes no longer latch early. Single-model demos (Model Viewer, Geometry) are unaffected (#1391, #1514, #1385).</li>
@@ -8554,7 +8672,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li>device-qa: fixed the android (maestro) leg of the device-QA CI workflow failing every run with the opaque <code>qa-android-demos.sh rc=1 (flow=3d-basics)</code>. The <code>Install Maestro</code> step (and the <code>maestro.sh</code> auto-install helper) fetched the installer from <code>get.maestro.dev</code>, which does not resolve — the canonical host is <code>get.maestro.mobile.dev</code>. Because the install ran as <code>curl … | bash</code>, the curl DNS failure was masked by the pipe and the step passed falsely-green, so Maestro was never on PATH and the flow could not run. The installer URL is corrected and the workflow step now runs under <code>set -o pipefail</code> with an explicit <code>test -x</code> on the binary, so a future install failure aborts loudly at the install step instead of surfacing as a misleading flow failure (#1560).</li>
 </ul>
 <h2 id="v490-cross-platform-demo-catalogs-web-auto-center-parity-teardown-safety-2026-05-16">v4.9.0 — Cross-platform demo catalogs, web auto-center parity &amp; teardown safety (2026-05-16)<a class="headerlink" href="#v490-cross-platform-demo-catalogs-web-auto-center-parity-teardown-safety-2026-05-16" title="Permanent link">&para;</a></h2>
-<h3 id="added_30">Added<a class="headerlink" href="#added_30" title="Permanent link">&para;</a></h3>
+<h3 id="added_31">Added<a class="headerlink" href="#added_31" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>rememberPausableHeroYaw</code> gained an opt-in <code>idleResumeMillis</code> parameter: after the user stops interacting with the viewport, the hero auto-rotation gently resumes once the idle timeout elapses. Each gesture restarts the countdown, so the spin only comes back when interaction has truly stopped. Demos that omit the parameter keep the original pause-forever behaviour. Wired into the View Node demo. (#1440)</li>
 <li>AR Orbital demo: an on-screen directional arrow now appears at the viewport edge whenever the chase target (the orbiting toy car) is outside the camera frustum, pointing the user toward it so they know which way to turn to catch it. The arrow is driven by a per-frame <code>projection · view · worldPoint</code> projection that also handles the behind-the-camera case (#1482).</li>
@@ -8565,7 +8683,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong>AR demo:</strong> Strengthened the Record &amp; Playback demo's end-of-recording UX. After Stop, the saved-recording callout now explains where the file lives and that it is a standard MP4 carrying ARCore data tracks, and offers Replay, Share, Open (play as a normal video) and Export-to-Downloads. The just-recorded file is highlighted with a "Just recorded" badge in the Playback list so it is obviously discoverable. (<a href="https://github.com/sceneview/sceneview/issues/1438">#1438</a>)</li>
 <li><strong>Double Pendulum demo reworked with an original SceneView visual identity and fixed camera framing (<a href="https://github.com/sceneview/sceneview/issues/1481">#1481</a>).</strong> The Android demo keeps the genuine shared-KMP double-pendulum physics but is restaged as a ball-and-rod "Orbital Pendulum": glossy weighted bobs drawn at each link's actual point mass, an asymmetric long-lead / short-trailing arm ratio, a SceneView brand-token palette (primary blue → gradient violet), a warm studio backdrop, and an off-axis key/rim light rig — so it reads as SceneView's own demo rather than a port. The camera now auto-frames the full reachable swing envelope (it targets the swing-disc centre and backs off proportionally to the arm reach), fixing the poorly-aimed framing flagged in QA.</li>
 </ul>
-<h3 id="fixed_39">Fixed<a class="headerlink" href="#fixed_39" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_40">Fixed<a class="headerlink" href="#fixed_40" title="Permanent link">&para;</a></h3>
 <ul>
 <li>AR camera background no longer renders washed-out / low-contrast. <code>createARView</code> was using <code>ToneMapper.Linear</code>, but the camera-stream shader's <code>inverseTonemapSRGB()</code> pre-applies an <em>inverse Filmic</em> tone-map curve (<code>Inverse_Tonemap_Filmic(pow(c, 2.2))</code>) that only round-trips back to the original camera pixels when the View re-applies the matching <strong>Filmic</strong> tone mapper. With <code>Linear</code> the inverse curve was left uncancelled, flattening the live camera feed. The AR view now uses <code>ToneMapper.Filmic</code> and keeps bloom/AO off so the background is faithful to the real camera image (#1434).</li>
 <li><strong>AR placed content no longer vanishes on transient plane loss, and placed models no longer flash black (<a href="https://github.com/sceneview/sceneview/issues/1435">#1435</a>).</strong> In the Android demo's <code>ARPlacementDemo</code> and <code>ARInstantPlacementDemo</code>, each <code>AnchorNode</code> now keeps rendering its model while the ARCore anchor is <code>PAUSED</code> (it holds its last known pose) instead of disappearing the moment the camera looks away from the plane — content only hides on a permanent <code>STOPPED</code> anchor. Newly placed models are also kept hidden for a short settle window after loading so Filament finishes uploading their textures, eliminating the black flash on placement. Behaviour is centralised in the new <code>demos/internal/ArPlacement</code> helper with JVM regression tests.</li>
@@ -8589,11 +8707,11 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong>Docs version staleness fixed (<a href="https://github.com/sceneview/sceneview/issues/1544">#1544</a>).</strong> <code>CLAUDE.md</code>'s "Latest release" block claimed <code>v4.4.0</code> and instructed AI sessions to treat it as the latest version — 4 minors stale (repo is <code>4.8.0</code>); it is now version-agnostic and points at <code>gradle.properties:VERSION_NAME</code> as the single source of truth. <code>README.md</code>'s SwiftPM install snippets (<code>from: 4.4.0</code> / <code>(SPM, from 4.4.0)</code>) are bumped to <code>4.8.0</code>, and a broken intra-repo anchor in <code>CLAUDE.md</code> is corrected. <code>sync-versions.sh</code> now also recognises the unquoted <code>from: X.Y.Z</code> SwiftPM prose form used in <code>README.md</code>, so this drift is caught automatically on future releases.</li>
 </ul>
 <h2 id="v480-bottom-sheet-settings-web-rn-bridge-fixes-2026-05-16">v4.8.0 — Bottom-sheet settings, web &amp; RN bridge fixes (2026-05-16)<a class="headerlink" href="#v480-bottom-sheet-settings-web-rn-bridge-fixes-2026-05-16" title="Permanent link">&para;</a></h2>
-<h3 id="added_31">Added<a class="headerlink" href="#added_31" title="Permanent link">&para;</a></h3>
+<h3 id="added_32">Added<a class="headerlink" href="#added_32" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Demo settings bottom sheet gains a header, "Reset" button and status-aware peek chip (<a href="https://github.com/sceneview/sceneview/issues/1154">#1154</a>).</strong> <code>DemoScaffold</code> (Android demo app) now renders a pinned sheet header; demos can opt into an <code>onResetSettings</code> callback to show a "Reset" text button that restores their defaults, and into a <code>peekHeader</code> string so the closed peek chip can surface a short live status (e.g. "3 anchors placed") instead of the generic "Settings" label. Drag-down-to-dismiss now fires a subtle haptic tick, and the previously hardcoded chip/FAB labels moved to string resources. <code>FogDemo</code> wires up the new reset button as the reference adoption. Part of the #1154 umbrella (Stage 3 polish, Android slice).</li>
 </ul>
-<h3 id="fixed_40">Fixed<a class="headerlink" href="#fixed_40" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_41">Fixed<a class="headerlink" href="#fixed_41" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Play Store listing sync no longer marks a successful deploy red (<a href="https://github.com/sceneview/sceneview/issues/1386">#1386</a>).</strong> The <code>Sync Play Store listing (en-US)</code> job in <code>play-store.yml</code> is now <code>continue-on-error: true</code> and swallows a <code>403 Forbidden</code> (missing 'Edit store listing' permission) with a warning. The AAB build/publish jobs stay strict, so the listing-text sync is best-effort and can never block a release.</li>
 <li><strong>iOS <code>SceneView</code> now frames multi-model scenes by the union of all loaded content (<a href="https://github.com/sceneview/sceneview/issues/1391">#1391</a>).</strong> The fit-to-bounds camera pass added in #1385 framed a single content entity and latched on the first model that loaded, so multi-model demos like <code>Multi-Model Park</code> rendered their streamed models bunched in a corner of an otherwise empty viewport. The pass now computes the union axis-aligned bounding box of every content entity, centres the camera on the union centre, dollies to fit the whole union, and re-frames as each streamed/async model finishes loading — latching only once the union stabilises. Single-model demos are unaffected. Part of #1373.</li>
@@ -8611,7 +8729,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong><code>VideoNode.destroy()</code> no longer risks a native SIGABRT (<a href="https://github.com/sceneview/sceneview/issues/1497">#1497</a>).</strong> <code>destroy()</code> freed the external <code>Texture</code>/<code>Stream</code> immediately after destroying the <code>MaterialInstance</code> that referenced them — the exact ordering that triggers Filament's <code>Invalid texture still bound to MaterialInstance</code> abort, since MaterialInstance reclamation is coupled to the render loop rather than to the <code>destroy()</code> call site. Teardown now drains the frame pipeline (<code>Engine.drainFramePipeline()</code>) between destroying the MaterialInstance and freeing the external texture/stream, mirroring the safe pattern documented on the sibling <code>ImageNode</code>. Adds <code>VideoNodeTest</code> pinning the teardown ordering.</li>
 </ul>
 <h2 id="v470-bridge-expansion-slimmer-apk-demo-app-polish-2026-05-16">v4.7.0 — Bridge expansion, slimmer APK &amp; demo-app polish (2026-05-16)<a class="headerlink" href="#v470-bridge-expansion-slimmer-apk-demo-app-polish-2026-05-16" title="Permanent link">&para;</a></h2>
-<h3 id="added_32">Added<a class="headerlink" href="#added_32" title="Permanent link">&para;</a></h3>
+<h3 id="added_33">Added<a class="headerlink" href="#added_33" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Animated 3D particle background on the Samples home (<a href="https://github.com/sceneview/sceneview/issues/1488">#1488</a>).</strong> The android-demo Samples tab now renders a subtle, on-brand particle field behind the demo grid — a <code>SceneView</code> scene of drifting low-poly spheres with a slow auto-orbiting camera, seeded per launch. A first visual experiment that dogfoods the SDK on the app's own home screen; tuning constants live in <code>ParticleBackground.kt</code>.</li>
 </ul>
@@ -8623,7 +8741,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong>Android demo APK slimmed ~36% (<a href="https://github.com/sceneview/sceneview/issues/934">#934</a>).</strong> Bundled demo assets are now compressed with no visible quality loss: the 7 HDR environments are downsampled 2K → 1K in linear-radiance space (energy-preserving 2×2 box average, 42 MB → 11 MB) and the 6 GLB models use <code>KHR_draco_mesh_compression</code> geometry plus <code>EXT_texture_webp</code> textures (21 MB → 9.5 MB), both decoded natively by Filament's bundled <code>gltfio</code>. <code>android-demo</code> <code>build.gradle</code> also drops duplicate transitive licence/metadata files via <code>packaging.resources.excludes</code>. Release APK: <strong>98.6 MB → 62.7 MB</strong>. No code or API change — all 37 demos load the same asset paths.</li>
 <li><strong>Playground model picker now shows thumbnails (<a href="https://github.com/sceneview/sceneview/issues/953">#953</a>).</strong> The website playground listed 30+ models in a plain <code>&lt;select&gt;</code> dropdown — a weak marketing surface next to Sketchfab/Babylon. The picker is now a visual thumbnail gallery: each model is a 256×256 self-hosted WebP preview (rendered offline, ~200 KB total for all 34, lazy-loaded), grouped by category, with light/dark styling from <code>DESIGN.md</code>. The native <code>&lt;select&gt;</code> is kept hidden as the accessible source of truth so all existing preview logic and keyboard access are unchanged. The "Open in Cursor/Windsurf/Copilot" AI links are relabelled "Open Cursor/Windsurf/Copilot" since those tools have no prompt deep-link and only open their homepage.</li>
 </ul>
-<h3 id="fixed_41">Fixed<a class="headerlink" href="#fixed_41" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_42">Fixed<a class="headerlink" href="#fixed_42" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Demo Settings sheet no longer dismisses itself instantly (<a href="https://github.com/sceneview/sceneview/issues/1420">#1420</a>).</strong> The <code>DemoSettingsLayer</code> bottom sheet treated its initial <code>SheetValue.Hidden</code> state as a dismissal, slamming the panel shut before it could animate open — making the Settings controls dead in every demo. <code>Hidden</code> is now only honoured as a dismiss once the sheet has actually settled in a shown detent.</li>
 <li><strong>Light Types demo no longer renders an empty black scene (<a href="https://github.com/sceneview/sceneview/issues/1421">#1421</a>).</strong> The demo composes a helmet, an off-centre backdrop wall, and a light-source marker; <code>autoCenterContent</code> centred the union of all three, shifting the helmet far off the hero camera's fixed orbit pivot. The demo now passes <code>autoCenterContent = false</code> so each node keeps its authored position and the camera frames the lit helmet as intended.</li>
@@ -8650,7 +8768,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong>AR placement demos no longer drop the helmet face-down (<a href="https://github.com/sceneview/sceneview/issues/1477">#1477</a>).</strong> The bundled Khronos <em>DamagedHelmet</em> GLB ships a residual +90° X root rotation from its Blender export, which landed it nose-into-the-floor when placed under an ARCore plane anchor. The Cloud Anchor, Tap to Place, and Depth Occlusion demos now apply a shared <code>-90°</code> X correcting rotation at placement time so the helmet stands upright, visor forward. Other bundled cycle models are unaffected.</li>
 <li><strong>Playground <code>Duck</code> model no longer 404s (<a href="https://github.com/sceneview/sceneview/issues/1487">#1487</a>).</strong> Added the self-hosted <code>Duck.glb</code> asset so the playground's <code>Duck</code> model option and the Spring Physics example load correctly instead of issuing a 404 for the missing file.</li>
 </ul>
-<h3 id="added_33">Added<a class="headerlink" href="#added_33" title="Permanent link">&para;</a></h3>
+<h3 id="added_34">Added<a class="headerlink" href="#added_34" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Flutter bridge: <code>addGeometry</code> / <code>addLight</code> are now rendered natively on Android (<a href="https://github.com/sceneview/sceneview/issues/909">#909</a>).</strong> These two <code>SceneViewController</code> methods previously returned <code>result.success(null)</code> without drawing anything — the Flutter demo's feature badges did not reflect that. The Android <code>SceneViewPlugin</code> now appends to reactive <code>geometryNodes</code> / <code>lightNodes</code> Compose state lists, so <code>cube</code>/<code>box</code>, <code>sphere</code>, <code>cylinder</code> and <code>plane</code> primitives and <code>directional</code>/<code>point</code>/<code>spot</code> lights render in both <code>SceneView</code> and <code>ARSceneView</code>, matching the React Native bridge. Material instances are cached per <code>(color, unlit)</code> and released on dispose. The Flutter demo's GeometryNode / LightNode feature cards are re-labelled "Android only" (the iOS RealityKit port stays tracked under the #909 umbrella). First Dart unit tests for the plugin (data-class serialization + controller attach guards) were also added.</li>
 <li><strong>Regression tests for the <code>samples/common</code> shared helpers (<a href="https://github.com/sceneview/sceneview/issues/972">#972</a>).</strong> The <code>LifecycleAwareLaunchedEffect</code> (#936) and <code>rememberMaterialInstance</code> / <code>rememberUnlitMaterialInstance</code> (#937) helpers shipped with no tests. New JVM/Robolectric suites pin their contracts: <code>LifecycleAwareLaunchedEffectTest</code> drives a real <code>TestLifecycleOwner</code> to assert the body cancels on <code>onStop</code> and re-runs from the top on <code>onStart</code>, and <code>RememberMaterialInstanceTest</code> fails if a future edit puts <code>metallic</code>/<code>roughness</code>/<code>reflectance</code> back into the <code>remember(...)</code> key (the 60 Hz <code>MaterialInstance</code> churn caught by the #937 review). <code>:samples:common:testDebugUnitTest</code> is now wired into the CI unit-test step.</li>
@@ -8660,18 +8778,18 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong>Render tests are no longer orphan <code>@Ignore</code>'d code (<a href="https://github.com/sceneview/sceneview/issues/912">#912</a>).</strong> The five headless Filament render-test classes (<code>RenderSmokeTest</code>, <code>LightingRenderTest</code>, <code>GeometryRenderTest</code>, <code>VisualVerificationTest</code>, <code>DemoParametersRenderTest</code>) were wholly class-level <code>@Ignore</code>'d — compiled but never executed, so they could never catch a regression and silently drifted. They now use a runtime capability gate (<code>RenderTestCapabilities.assumeGpuReadbackAvailable()</code>): the tests <strong>run</strong> on a hardware-GPU runner that opts in via <code>-Pandroid.testInstrumentationRunnerArguments.gpuReadback=true</code>, and cleanly <strong>skip</strong> (JUnit assumption, not orphan, not failure) on the SwiftShader / Apple-Silicon emulator where Filament's async <code>readPixels</code> callback never fires (the harness limitation tracked in <a href="https://github.com/sceneview/sceneview/issues/803">#803</a>). <code>Closes #912</code>.</li>
 </ul>
 <h2 id="v462-ci-hotfix-land-the-demo-app-on-the-play-store-api-docs-2026-05-16">v4.6.2 — CI hotfix: land the demo app on the Play Store + API docs (2026-05-16)<a class="headerlink" href="#v462-ci-hotfix-land-the-demo-app-on-the-play-store-api-docs-2026-05-16" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_42">Fixed<a class="headerlink" href="#fixed_42" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_43">Fixed<a class="headerlink" href="#fixed_43" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Play Store release deploy no longer blocked by AAB validation (<a href="https://github.com/sceneview/sceneview/issues/1416">#1416</a>).</strong> The pre-upload guard now introspects Android App Bundles with <code>bundletool dump manifest</code> (the correct tool for <code>.aab</code> files) instead of <code>aapt2</code>, which can only read APKs and was mis-reporting bundles as corrupt. The validation step is also marked <code>continue-on-error</code> so a tooling gap can never veto a release. This unblocks the demo-app Play Store deploy that missed v4.6.0 and v4.6.1.</li>
 <li><strong>API-docs deploy no longer races the website deploy on a release tag (<a href="https://github.com/sceneview/sceneview/issues/1417">#1417</a>).</strong> <code>release.yml</code>'s Dokka deploy and <code>docs.yml</code>'s site deploy both push to the external <code>sceneview.github.io</code> repo; on a release tag they ran concurrently and the second push failed non-fast-forward. A shared cross-workflow <code>concurrency</code> group now serialises the two pushes so a release reliably publishes both the API docs and the site.</li>
 </ul>
 <h2 id="v461-ci-hotfix-unblock-the-play-store-deploy-for-the-demo-app-2026-05-16">v4.6.1 — CI hotfix: unblock the Play Store deploy for the demo app (2026-05-16)<a class="headerlink" href="#v461-ci-hotfix-unblock-the-play-store-deploy-for-the-demo-app-2026-05-16" title="Permanent link">&para;</a></h2>
-<h3 id="fixed_43">Fixed<a class="headerlink" href="#fixed_43" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_44">Fixed<a class="headerlink" href="#fixed_44" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Play Store deploy no longer blocked by AAB manifest validation (<a href="https://github.com/sceneview/sceneview/issues/1413">#1413</a>).</strong> <code>validate-release-artifact.sh</code> now resolves <code>aapt2</code> from <code>$ANDROID_SDK_ROOT/build-tools/&lt;newest&gt;/</code> instead of relying on <code>PATH</code> (where it never is), and the pre-upload guard now warns and skips instead of hard-failing when the validation tooling itself is unavailable — only a genuine manifest mismatch blocks a release.</li>
 </ul>
 <h2 id="v460-demo-polish-cross-platform-parity-iosandroid-demo-unification-samples-tab-fixes-ar-screenshot-regression-pipeline-ci-hygiene-2026-05-16">v4.6.0 — Demo polish &amp; cross-platform parity: iOS/Android demo unification + Samples tab fixes + AR screenshot regression pipeline + CI hygiene (2026-05-16)<a class="headerlink" href="#v460-demo-polish-cross-platform-parity-iosandroid-demo-unification-samples-tab-fixes-ar-screenshot-regression-pipeline-ci-hygiene-2026-05-16" title="Permanent link">&para;</a></h2>
-<h3 id="added_34">Added<a class="headerlink" href="#added_34" title="Permanent link">&para;</a></h3>
+<h3 id="added_35">Added<a class="headerlink" href="#added_35" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Reusable branch + worktree cleanup task.</strong> New <code>.claude/scripts/cleanup-branches-worktrees.sh</code> deletes merged local and remote <code>claude/*</code> branches (single <code>git push --delete</code>, no bot-burst) and prunes stale <code>.claude/worktrees/*</code> directories, with current-branch / unmerged / open-PR safety guards and a <code>--dry-run</code> default. A daily <code>branch-cleanup</code> job in <code>maintenance.yml</code> prunes merged remote branches automatically.</li>
 <li><strong>AR demo screenshot regression pipeline (<a href="https://github.com/sceneview/sceneview/issues/1050">#1050</a>).</strong> New <code>ARPlaybackScreenshotTest</code> replays the bundled ARCore recording through <code>ARRecordPlaybackDemo</code> and captures the rendered AR frame at <strong>fixed ARCore frame indices</strong> (f=30/60/120/180) for golden comparison. Captures are gated on a per-frame counter (<code>DemoSettings.arPlaybackFrameCount</code>, bumped once per <code>onSessionUpdated</code>) rather than wall-clock sleeps, so they land on the same frame on every machine regardless of emulator load. Wired into <code>render-tests.yml</code> on a pinned emulator profile and documented in <code>samples/android-demo/AR_TESTING.md</code>.</li>
@@ -8686,7 +8804,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <li><strong>Added <code>jsTest</code> coverage for the <code>sceneview-web</code> core logic classes (<a href="https://github.com/sceneview/sceneview/issues/1394">#1394</a>).</strong> New unit tests pin the <code>OrbitCameraController</code> orbit/zoom/pan math (spherical-to-Cartesian eye conversion, phi/distance clamping, auto-rotate, damping), the <code>GeometryGLBBuilder</code> GLB container output (header, chunk alignment, accessors, <code>KHR_materials_unlit</code> extension, node transforms), and the auto-center one-shot gate. The <code>didCenterContent</code> flag was extracted into a testable <code>AutoCenterGate</code> so the #1357 regression — a 2nd <code>loadModel</code> must re-run content centering — is now directly covered. <code>Closes #1394</code>.</li>
 <li><strong>API docs: KDoc for the <code>sceneview</code> module geometry, texture and material helpers (<a href="https://github.com/sceneview/sceneview/issues/965">#965</a>).</strong> Added accurate KDoc to previously undocumented public declarations in the <code>sceneview</code> Android module: the six geometry builders (<code>Cube</code>, <code>Cone</code>, <code>Cylinder</code>, <code>Sphere</code>, <code>Capsule</code>, <code>Torus</code>), the texture helpers (<code>ImageTexture</code>, <code>VideoTexture</code>, <code>TextureSampler2D</code>/<code>TextureSamplerExternal</code>, <code>Texture.use</code>/<code>setBitmap</code>), <code>RenderableManager</code> extensions, <code>NodeAnimator</code>, and the ubershader <code>MaterialInstance</code> parameter setters. Documentation only — no behavior change. <code>arsceneview</code> is tracked separately.</li>
 </ul>
-<h3 id="fixed_44">Fixed<a class="headerlink" href="#fixed_44" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_45">Fixed<a class="headerlink" href="#fixed_45" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Samples cleanup (<a href="https://github.com/sceneview/sceneview/issues/1361">#1361</a>).</strong> Rewrote <code>samples/MULTIPLATFORM.md</code> so the architecture diagram and recipe list match the real tree (<code>*-demo/</code> folders, the 11 actual <code>recipes/*.md</code> files). Finished the android-demo first-frame loading-scrim rollout to the remaining 13 non-AR demos so cold starts no longer flash a black viewport (AR demos intentionally skip it — they show a live camera feed, not a black Filament viewport). Converted the dead <code>else -&gt; PlaceholderDemo</code> router fallback in <code>MainActivity.kt</code> into a debug-only drift guard that crashes loudly if a new <code>ALL_DEMOS</code> entry is added without a matching route, while still degrading gracefully in release builds.</li>
 <li><strong>iOS demo cleanup + Android parity (<a href="https://github.com/sceneview/sceneview/issues/1373">#1373</a>).</strong> Renamed the <code>Scenes</code> tab to <code>Samples</code>, aligned the Samples category taxonomy to Android, removed the <code>Auto Rotate</code> / <code>AR Record &amp; Playback</code> duplicate entries and the dead Explore buttons, fixed the <code>Settings</code> pill overlapping the controls FAB, and corrected several inaccurate demo subtitles and captions.</li>
@@ -8741,7 +8859,7 @@ CI Gate no longer fails a PR when a Device QA workflow run was manually dispatch
 <ul>
 <li><strong>Nightly full-CI safety-net workflow (<a href="https://github.com/sceneview/sceneview/issues/1324">#1324</a>).</strong> <code>nightly-ci.yml</code> runs the full heavy validation surface (compile + builds + unit tests + render tests + quality gate) against <code>main</code> HEAD once a night, reusing the existing workflows via <code>workflow_call</code>, so a path-gated-out regression still surfaces within 24h. Not a PR gate.</li>
 </ul>
-<h3 id="fixed_45">Fixed<a class="headerlink" href="#fixed_45" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_46">Fixed<a class="headerlink" href="#fixed_46" title="Permanent link">&para;</a></h3>
 <ul>
 <li>
 <p><strong>iOS <code>FogNode.heightFalloff</code> / <code>heightBased</code> are now honestly documented as a RealityKit parity gap (<a href="https://github.com/sceneview/sceneview/issues/1380">#1380</a>).</strong> the height gradient was a silent no-op — a uniform translucent sphere cannot vary opacity by world height; the parameter is kept for Android parity but now clearly documents that height-based fog renders identically to exponential fog on iOS (<a href="https://github.com/sceneview/sceneview/issues/1373">#1373</a>).</p>
@@ -9869,7 +9987,7 @@ Five low-effort high-impact fixes shipped (<code>65f6d8db</code>, <code>ea4c513e
 <li><strong>TV-only assets split</strong> (<a href="https://github.com/sceneview/sceneview/commit/9877918e"><code>9877918e</code></a>, closes <a href="https://github.com/sceneview/sceneview/issues/879">#879</a>) — moved 6 TV-exclusive models (<code>nike_air_jordan.glb</code> 30 MB, <code>khronos_iridescent_dish.glb</code>, <code>khronos_sheen_chair.glb</code>, <code>khronos_glam_velvet_sofa.glb</code>, <code>toon_cat.glb</code>, <code>khronos_duck.glb</code>) from the shared <code>android-demo/assets/</code> symlink target to a TV-demo-private folder. TV demo picks up shared assets via <code>sourceSets.main.assets.srcDirs += '../android-demo/src/main/assets'</code>. Phone APK 131 → <strong>100 MB</strong>.</li>
 <li><strong>Disabled asset-pack module dropped</strong> (<a href="https://github.com/sceneview/sceneview/commit/c2fe9010"><code>c2fe9010</code></a>) — 186 MB on-disk repo cleanup. The <code>samples/android-demo-assets/</code> <code>com.android.asset-pack</code> module was disabled (<code>assetPacks = […]</code> commented in the demo's build.gradle) but still tracked in git. None of its 25 GLBs were referenced by code.</li>
 </ul>
-<h3 id="fixed_46">Fixed<a class="headerlink" href="#fixed_46" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_47">Fixed<a class="headerlink" href="#fixed_47" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Play Store deploy workflow race</strong> (<a href="https://github.com/sceneview/sceneview/commit/f2829214"><code>f2829214</code></a>) — added <code>max-parallel: 1</code> to the publish job's matrix so the <code>internal</code> and <code>production</code> tracks upload sequentially. Before this, both jobs would grab the same Google Play Edit ID, one would finish first, and the other would fail with "This Edit has been deleted". Recurred on every tag push since v4.0.5; v4.0.9 deploy uses the new sequential path.</li>
 <li><strong>iOS demo <code>MARKETING_VERSION</code> blind spot</strong> (<a href="https://github.com/sceneview/sceneview/commit/04e75ad5"><code>04e75ad5</code></a>) — <code>samples/ios-demo/SceneViewDemo.xcodeproj/project.pbxproj</code> was missed for 8+ releases. <code>sync-versions.sh</code> now covers it (29 checks, was 28).</li>
@@ -9898,7 +10016,7 @@ Five low-effort high-impact fixes shipped (<code>65f6d8db</code>, <code>ea4c513e
 <li><strong><code>MultiModelDemo</code></strong> — refonte from a generic spread-slider carousel to a tabletop living-room display lit by <code>studio_warm_2k.hdr</code>. Front row at z=-1.3, back row at z=-1.7. Spread slider removed (the new layout is hand-tuned for the dusk-lit display).</li>
 <li><strong><code>LightingDemo</code></strong> — 3×2.4 m backdrop wall + small coloured marker sphere at the light source so directional / point / spot read distinctly. Light pinned at (0, 1.4, 1.0) with tightened spot cone and 4 m falloff.</li>
 </ul>
-<h3 id="fixed_47">Fixed<a class="headerlink" href="#fixed_47" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_48">Fixed<a class="headerlink" href="#fixed_48" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong><code>Scene.kt</code> cameraManipulator swap reactivity</strong> — <code>cameraManipulator</code> is now wrapped in <code>rememberUpdatedState</code> so the frame loop reads through a state ref. Callers that swap manipulators at runtime (e.g. <code>AnimationDemo</code>'s scripted → Free hand-off, custom mode pickers) now see <code>getTransform()</code> route to the new manipulator on the next frame instead of staying stuck on the launch-time value.</li>
 </ul>
@@ -9983,7 +10101,7 @@ now surfaced everywhere a SceneView consumer might look:</p>
 </ul>
 <h2 id="v406-streetscape-geometry-geospatial-enabled-in-production-2026-05-06">v4.0.6 — Streetscape Geometry / Geospatial enabled in production (2026-05-06)<a class="headerlink" href="#v406-streetscape-geometry-geospatial-enabled-in-production-2026-05-06" title="Permanent link">&para;</a></h2>
 <p><strong>Status:</strong> stable. Activates the AR Streetscape Geometry, Geospatial, and Cloud Anchors demos for Play Store and App Store builds. The library artefacts on Maven Central are unchanged from v4.0.5 — this release only re-builds the sample apps with the now-wired ARCore Cloud API key.</p>
-<h3 id="fixed_48">Fixed<a class="headerlink" href="#fixed_48" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_49">Fixed<a class="headerlink" href="#fixed_49" title="Permanent link">&para;</a></h3>
 <p>The v4.0.5 sample apps shipped with <code>com.google.android.ar.API_KEY</code> empty in the manifest, which left the Streetscape / Geospatial / Cloud Anchors demos disabled at runtime. The wiring landed on main <em>after</em> v4.0.5 was tagged (commit <code>b280b6d9</code> — <code>samples/android-demo/build.gradle</code> reads <code>ARCORE_API_KEY</code> from env or <code>local.properties</code>, injects it via <code>manifestPlaceholders</code>).</p>
 <p>v4.0.6 re-cuts the sample-app AAB / iOS archive with the env var supplied by CI (<code>secrets.ARCORE_API_KEY</code>, restricted to package <code>io.github.sceneview.demo</code> + the debug, upload, and Play App Signing SHA-1s). End users of the published demos can now exercise Streetscape Geometry and Geospatial on the production builds.</p>
 <h3 id="internal_1">Internal<a class="headerlink" href="#internal_1" title="Permanent link">&para;</a></h3>
@@ -9993,7 +10111,7 @@ now surfaced everywhere a SceneView consumer might look:</p>
 </ul>
 <h2 id="v405-hotfix-android-demo-compile-ios-bundle-bump-2026-05-06">v4.0.5 — hotfix: android-demo compile + iOS bundle bump (2026-05-06)<a class="headerlink" href="#v405-hotfix-android-demo-compile-ios-bundle-bump-2026-05-06" title="Permanent link">&para;</a></h2>
 <p><strong>Status:</strong> stable. Hotfix on top of v4.0.4 — that release's tag triggered Maven Central publication successfully, but the store-bound builds (Play Store APK, App Store iOS archive) failed in CI:</p>
-<h3 id="fixed_49">Fixed<a class="headerlink" href="#fixed_49" title="Permanent link">&para;</a></h3>
+<h3 id="fixed_50">Fixed<a class="headerlink" href="#fixed_50" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>samples/android-demo/MainActivity.kt</code>: <code>Unresolved reference 'initialDemo'</code> — leftover reference to the old launch-time deep-link param after the v4.0.4 conflict resolution. Replaced with a <code>remember { activity?.pendingDemoIdFlow?.value }</code> capture so the NavHost picks the right start destination on first composition without re-introducing the param.</li>
 <li><code>samples/android-demo/demos/PhysicsDemo.kt</code>: <code>Assignment type mismatch: actual type is 'Node', but 'SphereNode?' was expected.</code> — the conflict resolution wrapped the falling spheres in a <code>Node()</code> to attach a position via the wrapper, breaking <code>apply = { nodeRef = this }</code> because <code>this</code> was the wrapper Node, not the inner SphereNode. Collapsed back to <code>SphereNode(position = …, apply = { nodeRef = this })</code> since SphereNode supports both.</li>
