@@ -3473,6 +3473,14 @@ Distinct filenames mean parallel PRs never conflict on the changelog. At release
 time <code>.claude/scripts/collate-changelog.sh</code> collates all fragments into a new
 <code>## vX.Y.Z</code> section. See <a href="changelog.d/README.md"><code>changelog.d/README.md</code></a> for
 the full convention.</p>
+<p><strong>Fragments are copied verbatim, not reformatted.</strong> Write the bullet(s) exactly
+as they should read in the release notes — every non-blank line must be a
+top-level <code>-</code> bullet or an indented continuation of one, never a bare
+paragraph. <code>ci.yml</code>'s <code>changelog-lint</code> job runs
+<code>.claude/scripts/check-changelog-fragments.sh</code> on any PR touching
+<code>changelog.d/**</code> and fails on a malformed fragment; a paragraph fragment that
+slips past this check would collate cleanly but produce zero highlights in the
+demo's "What's new" card, since it only recognises lines starting with <code>-</code>.</p>
 <p>Two rules worth knowing before you write one:</p>
 <ul>
 <li><strong>HTML comments are stripped</strong>, so anything inside <code>&lt;!-- … --&gt;</code> is a
@@ -3531,7 +3539,7 @@ correct. Specifically:</p>
 <ul>
 <li><strong><code>ci.yml</code></strong> — the single consolidated PR workflow (<code>build</code>, <code>lint</code>,
   <code>unit-test</code>, <code>api-check</code>, <code>web-desktop</code>, <code>flutter-demo</code>, <code>compile-kmp</code>,
-  <code>kmp-native-test</code>). Its <code>paths-ignore</code> filter sits under the <code>push:</code>
+  <code>kmp-native-test</code>, <code>changelog-lint</code>). Its <code>paths-ignore</code> filter sits under the <code>push:</code>
   trigger only — on a pull request the skipping is done by the <code>changes</code>
   job, which detects the touched paths and gates every other job, so a
   docs-only PR runs none of them. (Before #1370 this was three separate
