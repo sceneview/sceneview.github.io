@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>rememberModelInstance</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="sceneview::io.github.sceneview//rememberModelInstance/#io.github.sceneview.loaders.ModelLoader#kotlin.String/PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../index.html">sceneview</a><span class="delimiter">/</span><a href="index.html">io.github.sceneview</a><span class="delimiter">/</span><span class="current">rememberModelInstance</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>remember</span><wbr></wbr><span>Model</span><wbr></wbr><span><span>Instance</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-model-instance.html"><span class="token function">rememberModelInstance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modelLoader<span class="token operator">: </span><a href="../io.github.sceneview.loaders/-model-loader/index.html">ModelLoader</a><span class="token punctuation">, </span></span><span class="parameter ">assetFileLocation<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a><span class="token operator">?</span></div><p class="paragraph">Asynchronously loads a glTF/GLB <a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a> from <a href="remember-model-instance.html">assetFileLocation</a>.</p><p class="paragraph">Returns <code class="lang-kotlin">null</code> while loading is in progress, then triggers recomposition once the model is ready. This makes it easy to use with conditional node declarations:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">SceneView {<br>    rememberModelInstance(modelLoader, &quot;models/helmet.glb&quot;)?.let { instance -&gt;<br>        ModelNode(modelInstance = instance, scaleToUnits = 0.5f)<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph"><strong>Lifecycle </strong>&<strong> ownership.</strong> This composable owns the <a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a> it produces (and the backing glTF <a href="../io.github.sceneview.model/-model/index.html">Model</a> — a bundle of Filament textures, vertex/index buffers and materials). When <a href="remember-model-instance.html">assetFileLocation</a> changes, the previously produced instance's <code class="lang-kotlin">Model</code> is destroyed (<code class="lang-kotlin">modelLoader.destroyModel(it.model)</code>) and the new asset is loaded; the old <code class="lang-kotlin">Model</code> is also destroyed when this composable leaves the composition. Disposal order relative to a consuming <a href="-scene-scope/-model-node.html">SceneScope.ModelNode</a> is <strong>not</strong> guaranteed: Compose forgets effects in reverse registration order only within one composition, and a node declared in a child composition (a <code class="lang-kotlin">SubcomposeLayout</code> slot such as Material3's <code class="lang-kotlin">Scaffold</code>, the common case) may detach <i>after</i> the <code class="lang-kotlin">Model</code> is destroyed. Either order is safe — <code class="lang-kotlin">Node.destroy()</code> only touches entity ids and <code class="lang-kotlin">destroyModel</code> tolerates already-freed assets — so the renderables are never left dangling. Only a model that finished loading is disposed here: a load cancelled by a key change after <code class="lang-kotlin">ModelLoader</code> registered the <code class="lang-kotlin">Model</code> but before it was produced stays resident until the loader is cleared. The <a href="../io.github.sceneview.loaders/-model-loader/index.html">ModelLoader</a> does <strong>not</strong> dedupe by path — each call creates a fresh, independent <code class="lang-kotlin">Model</code>; re-loading the same path is a new GPU allocation, not a cache hit. For a model you manage imperatively (outside this composable's keyed lifecycle), use <a href="../io.github.sceneview.loaders/-model-loader/load-model-instance-async.html">ModelLoader.loadModelInstanceAsync</a> and call <a href="../io.github.sceneview.loaders/-model-loader/destroy-model.html">ModelLoader.destroyModel</a> yourself.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph"><code class="lang-kotlin">null</code> while loading; the loaded <a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a> once ready.</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>model</span><wbr></wbr><span><span>Loader</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The <a href="../io.github.sceneview.loaders/-model-loader/index.html">ModelLoader</a> to use.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>asset</span><wbr></wbr><span>File</span><wbr></wbr><span><span>Location</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Path to the GLB/glTF file relative to the <code class="lang-kotlin">assets</code> folder.</p></div></div></div></div></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-model-instance.html"><span class="token function">rememberModelInstance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modelLoader<span class="token operator">: </span><a href="../io.github.sceneview.loaders/-model-loader/index.html">ModelLoader</a><span class="token punctuation">, </span></span><span class="parameter ">fileLocation<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">resourceResolver<span class="token operator">: </span><span class="token punctuation">(</span>resourceFileName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator"> = </span>{
+        ModelLoader.getFolderPath(fileLocation, it)
+    }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a><span class="token operator">?</span></div><p class="paragraph">Creates and remembers a <a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a> loaded from any file location including remote URLs.</p><p class="paragraph">Supports:</p><ul><li><p class="paragraph">Asset paths: <code class="lang-kotlin">&quot;models/helmet.glb&quot;</code></p></li><li><p class="paragraph">File URIs: <code class="lang-kotlin">&quot;file:///sdcard/model.glb&quot;</code></p></li><li><p class="paragraph">HTTP/HTTPS URLs: <code class="lang-kotlin">&quot;https://example.com/model.glb&quot;</code></p></li></ul><p class="paragraph">For asset paths (no scheme), delegates to the faster asset-based overload. For URLs, downloads the file on IO and creates the model on Main.</p><p class="paragraph"><strong>Lifecycle </strong>&<strong> ownership.</strong> Like the asset overload, this composable owns the produced <a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a> and its backing <a href="../io.github.sceneview.model/-model/index.html">Model</a>: the previous model is destroyed when <a href="remember-model-instance.html">fileLocation</a> changes and on leave-composition, in no guaranteed order relative to a consuming <a href="-scene-scope/-model-node.html">SceneScope.ModelNode</a> — safe either way. The <a href="../io.github.sceneview.loaders/-model-loader/index.html">ModelLoader</a> does not dedupe by path — each distinct <a href="remember-model-instance.html">fileLocation</a> is a fresh GPU allocation. See the asset-path overload for details.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph"><code class="lang-kotlin">null</code> while loading; the loaded <a href="../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a> once ready.</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>model</span><wbr></wbr><span><span>Loader</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The <a href="../io.github.sceneview.loaders/-model-loader/index.html">ModelLoader</a> to use.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>file</span><wbr></wbr><span><span>Location</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Path, URI, or URL to the GLB/glTF file.</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
