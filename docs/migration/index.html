@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="The #1 open-source 3D & AR SDK for Android and iOS. Compose-native scenes powered by Google Filament and ARCore on Android, SwiftUI and RealityKit on iOS. Drop-in SceneView{} and ARSceneView{} composables for model viewing, AR placement, physics, and immersive experiences.">
+        <meta name="description" content="Migration guides for SceneView: 3.6.x to 4.0.0 Rerun integration, 3.5.x to 3.6.0 API simplification, and 2.x to 3.x full rewrite.">
       
       
       
@@ -72,7 +72,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Migration Guide - SceneView — 3D & AR SDK" />
-<meta property="og:description" content="The #1 open-source 3D & AR SDK for Android and iOS. Compose-native scenes powered by Google Filament and ARCore on Android, SwiftUI and RealityKit on iOS. Drop-in SceneView{} and ARSceneView{} composables for model viewing, AR placement, physics, and immersive experiences." />
+<meta property="og:description" content="Migration guides for SceneView: 3.6.x to 4.0.0 Rerun integration, 3.5.x to 3.6.0 API simplification, and 2.x to 3.x full rewrite." />
 <meta property="og:image" content="https://sceneview.github.io/assets/images/social/migration.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -80,7 +80,7 @@
 <meta property="og:url" content="https://sceneview.github.io/migration/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Migration Guide - SceneView — 3D & AR SDK" />
-<meta property="twitter:description" content="The #1 open-source 3D & AR SDK for Android and iOS. Compose-native scenes powered by Google Filament and ARCore on Android, SwiftUI and RealityKit on iOS. Drop-in SceneView{} and ARSceneView{} composables for model viewing, AR placement, physics, and immersive experiences." />
+<meta property="twitter:description" content="Migration guides for SceneView: 3.6.x to 4.0.0 Rerun integration, 3.5.x to 3.6.0 API simplification, and 2.x to 3.x full rewrite." />
 <meta property="twitter:image" content="https://sceneview.github.io/assets/images/social/migration.png" />
 </head>
   
@@ -2467,6 +2467,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Migration Guide
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2483,6 +2501,490 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.14.x to 4.15.1 (iOS) — native Apple camera modes added to CameraControlMode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.14.x to 4.15.1 (iOS) — native Apple camera modes added to CameraControlMode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-new-cameracontrolmode-cases-none-tilt-dolly-1049" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three new CameraControlMode cases — .none, .tilt, .dolly (#1049)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-410x-to-4110-android-cloudanchornodehost-returns-hostcloudanchorfuture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.10.x to 4.11.0 (Android) — CloudAnchorNode.host() returns HostCloudAnchorFuture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.10.x to 4.11.0 (Android) — CloudAnchorNode.host() returns HostCloudAnchorFuture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloudanchornodehost-now-returns-the-underlying-arcore-hostcloudanchorfuture-1768" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CloudAnchorNode.host() now returns the underlying ARCore HostCloudAnchorFuture (#1768)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-43x-to-440-ios-true-camera-motion-skybox-renders-mirror-retired" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.3.x to 4.4.0 (iOS) — true camera motion + skybox renders + mirror retired
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.3.x to 4.4.0 (iOS) — true camera motion + skybox renders + mirror retired">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environmentshowskybox-true-now-actually-paints-the-hdr-as-background-pr-1215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment.showSkybox = true now actually paints the HDR as background (PR #1215)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orbit-pan-modes-now-physically-move-the-perspective-camera-pr-1215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orbit + pan modes now physically move the perspective camera (PR #1215)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cameracontrols-defaults-changed-breaking-for-direct-constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CameraControls defaults changed (BREAKING for direct constructors)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fov-no-longer-bleeds-from-firstperson-pinch-into-orbit-pan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FOV no longer bleeds from firstPerson pinch into orbit / pan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swift-package-manager-url-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swift Package Manager URL changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-42x-to-430-ios-silent-stub-modes-now-active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.2.x to 4.3.0 (iOS) — silent-stub modes now active
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.2.x to 4.3.0 (iOS) — silent-stub modes now active">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cameracontrolspan-and-cameracontrolsfirstperson-no-longer-silently-orbit-1034" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .cameraControls(.pan) and .cameraControls(.firstPerson) no longer silently orbit (#1034)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#library-level-auto-center-is-on-by-default-1026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Library-level auto-center is on by default (#1026)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-36x-to-400-release-candidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 3.6.x to 4.0.0 (Release Candidate)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 3.6.x to 4.0.0 (Release Candidate)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-new-ar-debug-rerunio-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. New: AR Debug — Rerun.io integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-new-arsceneviewonframe-hook-on-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. New: ARSceneView.onFrame hook on iOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-version-bump-just-the-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Version bump — just the number
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sceneview-mcp-gained-a-next-dist-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. sceneview-mcp gained a @next dist-tag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-35x-to-360" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 3.5.x to 3.6.0
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 3.5.x to 3.6.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-scene-composable-renamed-to-sceneview-arscene-to-arsceneview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Scene composable renamed to SceneView, ARScene to ARSceneView
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cameranode-composable-renamed-to-secondarycamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CameraNode composable renamed to SecondaryCamera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-all-geometry-nodes-now-have-uniform-transform-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. All geometry nodes now have uniform transform params
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lightnode-explicit-params-instead-of-dual-lambdas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. LightNode — explicit params instead of dual lambdas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-videonode-convenience-overload-with-asset-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. VideoNode — convenience overload with asset path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-new-composables-shapenode-and-physicsnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. New composables: ShapeNode and PhysicsNode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-swift-declarative-sceneview-with-nodebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Swift: Declarative SceneView with @NodeBuilder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-swift-nodegesture-automatic-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Swift: NodeGesture automatic cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-2x-to-3x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 2.x to 3.x
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-dependency-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Dependency version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sceneview-nodes-move-into-the-content-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SceneView — nodes move into the content block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-node-hierarchy-nodescope-replaces-addchildnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Node hierarchy — NodeScope replaces addChildNode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-arsceneview-ar-nodes-move-into-the-content-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ARSceneView — AR nodes move into the content block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-model-loading-remembermodelinstance-replaces-synchronous-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Model loading — rememberModelInstance replaces synchronous creation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-surfacetype-replaces-boolean-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. SurfaceType — replaces boolean flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-viewnode-compose-ui-as-a-3d-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. ViewNode — Compose UI as a 3D surface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-activity-fragment-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Activity / Fragment structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-sceneform-legacy-java-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Sceneform / legacy Java classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2508,6 +3010,479 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.14.x to 4.15.1 (iOS) — native Apple camera modes added to CameraControlMode
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.14.x to 4.15.1 (iOS) — native Apple camera modes added to CameraControlMode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#three-new-cameracontrolmode-cases-none-tilt-dolly-1049" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Three new CameraControlMode cases — .none, .tilt, .dolly (#1049)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-410x-to-4110-android-cloudanchornodehost-returns-hostcloudanchorfuture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.10.x to 4.11.0 (Android) — CloudAnchorNode.host() returns HostCloudAnchorFuture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.10.x to 4.11.0 (Android) — CloudAnchorNode.host() returns HostCloudAnchorFuture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cloudanchornodehost-now-returns-the-underlying-arcore-hostcloudanchorfuture-1768" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CloudAnchorNode.host() now returns the underlying ARCore HostCloudAnchorFuture (#1768)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-43x-to-440-ios-true-camera-motion-skybox-renders-mirror-retired" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.3.x to 4.4.0 (iOS) — true camera motion + skybox renders + mirror retired
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.3.x to 4.4.0 (iOS) — true camera motion + skybox renders + mirror retired">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environmentshowskybox-true-now-actually-paints-the-hdr-as-background-pr-1215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment.showSkybox = true now actually paints the HDR as background (PR #1215)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#orbit-pan-modes-now-physically-move-the-perspective-camera-pr-1215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Orbit + pan modes now physically move the perspective camera (PR #1215)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cameracontrols-defaults-changed-breaking-for-direct-constructors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CameraControls defaults changed (BREAKING for direct constructors)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fov-no-longer-bleeds-from-firstperson-pinch-into-orbit-pan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FOV no longer bleeds from firstPerson pinch into orbit / pan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swift-package-manager-url-changed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swift Package Manager URL changed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attribution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-42x-to-430-ios-silent-stub-modes-now-active" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.2.x to 4.3.0 (iOS) — silent-stub modes now active
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.2.x to 4.3.0 (iOS) — silent-stub modes now active">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cameracontrolspan-and-cameracontrolsfirstperson-no-longer-silently-orbit-1034" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .cameraControls(.pan) and .cameraControls(.firstPerson) no longer silently orbit (#1034)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#library-level-auto-center-is-on-by-default-1026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Library-level auto-center is on by default (#1026)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-36x-to-400-release-candidate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 3.6.x to 4.0.0 (Release Candidate)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 3.6.x to 4.0.0 (Release Candidate)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-new-ar-debug-rerunio-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. New: AR Debug — Rerun.io integration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-new-arsceneviewonframe-hook-on-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. New: ARSceneView.onFrame hook on iOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-version-bump-just-the-number" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Version bump — just the number
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-sceneview-mcp-gained-a-next-dist-tag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. sceneview-mcp gained a @next dist-tag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-35x-to-360" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 3.5.x to 3.6.0
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 3.5.x to 3.6.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-scene-composable-renamed-to-sceneview-arscene-to-arsceneview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Scene composable renamed to SceneView, ARScene to ARSceneView
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cameranode-composable-renamed-to-secondarycamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. CameraNode composable renamed to SecondaryCamera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-all-geometry-nodes-now-have-uniform-transform-params" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. All geometry nodes now have uniform transform params
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-lightnode-explicit-params-instead-of-dual-lambdas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. LightNode — explicit params instead of dual lambdas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-videonode-convenience-overload-with-asset-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. VideoNode — convenience overload with asset path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-new-composables-shapenode-and-physicsnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. New composables: ShapeNode and PhysicsNode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-swift-declarative-sceneview-with-nodebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Swift: Declarative SceneView with @NodeBuilder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-swift-nodegesture-automatic-cleanup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Swift: NodeGesture automatic cleanup
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sceneview-2x-to-3x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 2.x to 3.x
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-dependency-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Dependency version
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-sceneview-nodes-move-into-the-content-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. SceneView — nodes move into the content block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-node-hierarchy-nodescope-replaces-addchildnode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Node hierarchy — NodeScope replaces addChildNode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-arsceneview-ar-nodes-move-into-the-content-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ARSceneView — AR nodes move into the content block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-model-loading-remembermodelinstance-replaces-synchronous-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Model loading — rememberModelInstance replaces synchronous creation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-surfacetype-replaces-boolean-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. SurfaceType — replaces boolean flags
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-viewnode-compose-ui-as-a-3d-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. ViewNode — Compose UI as a 3D surface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-activity-fragment-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Activity / Fragment structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-sceneform-legacy-java-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Sceneform / legacy Java classes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2532,32 +3507,712 @@
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
-<p>The full SceneView migration guide lives in <strong><a href="docs/docs/migration.md"><code>docs/docs/migration.md</code></a></strong> —
-that's the canonical source consumed by the website at
-<a href="https://sceneview.github.io/migration/">https://sceneview.github.io/migration/</a>.</p>
-<p>It covers, in chronological order:</p>
+<hr />
+<h2 id="sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode">SceneView 4.14.x to 4.15.1 (iOS) — native Apple camera modes added to <code>CameraControlMode</code><a class="headerlink" href="#sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode" title="Permanent link">&para;</a></h2>
+<h3 id="three-new-cameracontrolmode-cases-none-tilt-dolly-1049">Three new <code>CameraControlMode</code> cases — <code>.none</code>, <code>.tilt</code>, <code>.dolly</code> (<a href="https://github.com/sceneview/sceneview/issues/1049">#1049</a>)<a class="headerlink" href="#three-new-cameracontrolmode-cases-none-tilt-dolly-1049" title="Permanent link">&para;</a></h3>
+<p><code>CameraControlMode</code> now exposes three <strong>native Apple</strong> cases that delegate to
+<code>realityViewCameraControls(_:)</code> introduced in iOS 18 / macOS 15:</p>
+<table>
+<thead>
+<tr>
+<th>New case</th>
+<th>Behaviour</th>
+<th>SDK requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.none</code></td>
+<td>Disables all gesture interaction</td>
+<td>iOS 18+, macOS 15+</td>
+</tr>
+<tr>
+<td><code>.tilt</code></td>
+<td>Tilt camera up/down about horizontal axis</td>
+<td>iOS 18+, macOS 15+</td>
+</tr>
+<tr>
+<td><code>.dolly</code></td>
+<td>Move camera forward/back along look direction</td>
+<td>iOS 18+, macOS 15+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>This is additive.</strong> Existing code using <code>.orbit</code>, <code>.pan</code>, or <code>.firstPerson</code>
+compiles and runs unchanged.</p>
+<p><strong>visionOS note.</strong> <code>realityViewCameraControls(_:)</code> is <code>@available(visionOS, unavailable)</code>.
+On visionOS, <code>SceneView</code> automatically falls back to its custom gesture handlers.
+No <code>#if os()</code> guards are required in app code.</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">// Before v4.15.1 — only 3 modes</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">orbit</span><span class="p">)</span><span class="w">    </span><span class="c1">// .orbit | .pan | .firstPerson</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// v4.15.1+ — 6 modes; native Apple modes available on iOS 18+ / macOS 15+</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">orbit</span><span class="p">)</span><span class="w">    </span><span class="c1">// existing modes unchanged</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="kr">none</span><span class="p">)</span><span class="w">     </span><span class="c1">// lock all camera gestures (iOS 18+ / macOS 15+)</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">tilt</span><span class="p">)</span><span class="w">     </span><span class="c1">// native tilt — Apple's realityViewCameraControls (iOS 18+ / macOS 15+)</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">dolly</span><span class="p">)</span><span class="w">    </span><span class="c1">// native dolly — Apple's realityViewCameraControls (iOS 18+ / macOS 15+)</span>
+</span></code></pre></div>
+<p><strong>Action:</strong> no migration required. If you previously worked around the absence of
+a "no gestures" mode by disabling the modifier entirely, you can now use
+<code>.cameraControls(.none)</code>.</p>
+<hr />
+<h2 id="sceneview-410x-to-4110-android-cloudanchornodehost-returns-hostcloudanchorfuture">SceneView 4.10.x to 4.11.0 (Android) — <code>CloudAnchorNode.host()</code> returns <code>HostCloudAnchorFuture</code><a class="headerlink" href="#sceneview-410x-to-4110-android-cloudanchornodehost-returns-hostcloudanchorfuture" title="Permanent link">&para;</a></h2>
+<h3 id="cloudanchornodehost-now-returns-the-underlying-arcore-hostcloudanchorfuture-1768"><code>CloudAnchorNode.host()</code> now returns the underlying ARCore <code>HostCloudAnchorFuture</code> (<a href="https://github.com/sceneview/sceneview/pull/1768">#1768</a>)<a class="headerlink" href="#cloudanchornodehost-now-returns-the-underlying-arcore-hostcloudanchorfuture-1768" title="Permanent link">&para;</a></h3>
+<p>Pre-v4.11.0, <code>CloudAnchorNode.host(session, ttlDays, onCompleted)</code> returned <code>Unit</code>
+and stored the in-flight future privately — apps had no way to cancel a pending
+host request when the UI scope was leaving. The network round-trip ran to
+completion regardless, accruing a Google Cloud billing event whether or not the
+caller was still listening.</p>
+<p>v4.11.0 surfaces the underlying ARCore <a href="https://developers.google.com/ar/reference/java/com/google/ar/core/HostCloudAnchorFuture"><code>HostCloudAnchorFuture</code></a>
+as the return value so callers can cancel via <code>future.cancel()</code> — typically from
+<code>DisposableEffect.onDispose { future?.cancel() }</code>. The same change applies to
+<code>CloudAnchorNode.resolve(...)</code>, <code>TerrainAnchorNode.resolve(...)</code>, and
+<code>RooftopAnchorNode.resolve(...)</code>.</p>
+<p><strong>Billing rationale.</strong> Each pending host/resolve future is <strong>one Google Cloud
+ARCore API request</strong>. Without explicit cancellation, the request runs to
+completion (a few seconds, sometimes longer for cross-continent resolves) and
+the billing event lands on your Google Cloud project even after the user has
+navigated away from the screen that started it. For apps that surface a "Place
+anchor" CTA inside a navigable hierarchy (Compose / Fragment / Activity stack)
+this is a measurable cost on cancelled user flows — see
+<a href="https://developers.google.com/ar/develop/cloud-anchors-faq#pricing">Google's ARCore Cloud Anchors pricing</a>.
+Cancellation does <strong>not</strong> invoke the <code>onCompleted</code> callback (matches ARCore
+semantics), so observers stay clean.</p>
+<p><strong>Action — source compatibility.</strong> Most call sites are unaffected — the new
+return type is purely additive. The only break is for callers that wrote
+<code>val unused: Unit = node.host(...)</code> or any test that asserts the return type is
+<code>Unit</code>. Adjust the local binding and (recommended) cancel the future on dispose:</p>
+<pre class="language-kotlin"><code>// pre-v4.11.0
+DisposableEffect(anchorNode) {
+    anchorNode.host(session, ttlDays = 7) { id, state -&gt; /* ... */ }
+    onDispose { /* nothing to cancel — the future was internal */ }
+}
+
+// v4.11.0 — capture the future, cancel on dispose to free the billing event
+DisposableEffect(anchorNode) {
+    val future = anchorNode.host(session, ttlDays = 7) { id, state -&gt; /* ... */ }
+    onDispose { future.cancel() }
+}</code></pre>
+<p>The same pattern applies to <code>CloudAnchorNode.resolve(engine, session, id) { ... }</code>,
+<code>TerrainAnchorNode.resolve(...)</code>, and <code>RooftopAnchorNode.resolve(...)</code>. The
+node's own <code>destroy()</code> lifecycle still calls <code>cancelHost()</code> internally, so an
+app that doesn't cancel explicitly still cleans up on scene disposal — but it
+pays the round-trip until destroy fires.</p>
+<hr />
+<h2 id="sceneview-43x-to-440-ios-true-camera-motion-skybox-renders-mirror-retired">SceneView 4.3.x to 4.4.0 (iOS) — true camera motion + skybox renders + mirror retired<a class="headerlink" href="#sceneview-43x-to-440-ios-true-camera-motion-skybox-renders-mirror-retired" title="Permanent link">&para;</a></h2>
+<h3 id="environmentshowskybox-true-now-actually-paints-the-hdr-as-background-pr-1215"><code>Environment.showSkybox = true</code> now actually paints the HDR as background (<a href="https://github.com/sceneview/sceneview/pull/1215">PR #1215</a>)<a class="headerlink" href="#environmentshowskybox-true-now-actually-paints-the-hdr-as-background-pr-1215" title="Permanent link">&para;</a></h3>
+<p>Pre-v4.4.0 the flag set up IBL lighting from the HDR but never rendered the HDR
+as the scene background — the void stayed neutral. v4.4.0 wires the HDR resource
+through <code>RealityViewContent.environment = .skybox(...)</code>.</p>
+<p><strong>Action</strong>:</p>
 <ul>
-<li><strong>3.6.x → 4.0.0</strong> — Rerun integration, top-level rename <code>Scene → SceneView</code> /
-  <code>ArScene → ARSceneView</code>, <code>MaterialLoader.createUnlitColorInstance(...)</code>,
-  <code>ARRecorder</code> async API + <code>recordFrame(session)</code> stateless overload,
-  Geospatial-anchor composables (<code>TerrainAnchorNode</code>, <code>RooftopAnchorNode</code>),
-  the <code>@MainThread</code>-annotated loader sync overloads.</li>
-<li><strong>3.5.x → 3.6.0</strong> — API simplification (<code>rememberModelInstance</code> lifecycle,
-  loader-injection composables, post-processing module split).</li>
-<li><strong>2.x → 3.x</strong> — full Compose rewrite (Sceneform deprecation, <code>ArSceneView</code> →
-  <code>ARSceneView</code>, <code>TransformableNode</code> → <code>isEditable = true</code>,
-  <code>PlacementNode</code> → <code>AnchorNode + HitResultNode</code>, <code>ViewRenderable</code> → <code>ViewNode</code>).</li>
+<li>If your app set <code>showSkybox: false</code> to <em>explicitly</em> hide a background that was
+  already invisible, you can leave the code as-is — <code>false</code> continues to render
+  the neutral default.</li>
+<li>If your app set <code>showSkybox: true</code> and was depending on the void-background
+  bug (e.g. compositing the scene over a custom SwiftUI background), explicitly
+  flip to <code>showSkybox: false</code>. The IBL still lights your scene.</li>
 </ul>
-<p>Open a PR against <code>docs/docs/migration.md</code> rather than this file — this stub
-exists only so the GitHub root view surfaces a top-level pointer (audit #900,
-canonicalisation: kept <code>docs/docs/migration.md</code>, removed <code>docs/docs/migration-v4.md</code>
-which had been superseded by the v4 section of <code>migration.md</code>).</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">// pre-v4.4.0 (the bug)</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">.</span><span class="n">environment</span><span class="p">(.</span><span class="n">custom</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"city"</span><span class="p">,</span><span class="w"> </span><span class="n">hdrFile</span><span class="p">:</span><span class="w"> </span><span class="s">"city.hdr"</span><span class="p">,</span><span class="w"> </span><span class="n">showSkybox</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1">//                                                       ^^^^ silently ignored</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1">// v4.4.0 (intended behaviour)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">.</span><span class="n">environment</span><span class="p">(.</span><span class="n">custom</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"city"</span><span class="p">,</span><span class="w"> </span><span class="n">hdrFile</span><span class="p">:</span><span class="w"> </span><span class="s">"city.hdr"</span><span class="p">,</span><span class="w"> </span><span class="n">showSkybox</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1">//                                                       ^^^^ now renders HDR as background</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">.</span><span class="n">environment</span><span class="p">(.</span><span class="n">custom</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="s">"city"</span><span class="p">,</span><span class="w"> </span><span class="n">hdrFile</span><span class="p">:</span><span class="w"> </span><span class="s">"city.hdr"</span><span class="p">,</span><span class="w"> </span><span class="n">showSkybox</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">))</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1">//                                                       ^^^^ neutral background, IBL still applies</span>
+</span></code></pre></div>
+<h3 id="orbit-pan-modes-now-physically-move-the-perspective-camera-pr-1215">Orbit + pan modes now physically move the perspective camera (<a href="https://github.com/sceneview/sceneview/pull/1215">PR #1215</a>)<a class="headerlink" href="#orbit-pan-modes-now-physically-move-the-perspective-camera-pr-1215" title="Permanent link">&para;</a></h3>
+<p>Pre-v4.4.0 <code>applyCamera()</code> rotated + scaled the scene root while the perspective
+camera stayed pinned at <code>[0, 0.3, 2]</code>. v4.4.0 positions the camera in world-space
+via <code>CameraControls.cameraPosition()</code> so the skybox correctly wraps around the
+camera as it orbits.</p>
+<p><strong>Action</strong>:</p>
+<ul>
+<li>Most apps need no code change — the apparent on-screen framing of existing
+  scenes is preserved at the new defaults (the SceneView's internal <code>CameraControls</code>
+  default <code>orbitRadius</code> was bumped from <code>5.0</code> to <code>2.0</code> to match the old camera
+  distance, so a 1m model fills the same fraction of viewport).</li>
+<li>If your code reads <code>entities.root.scale</code> / <code>.orientation</code> via reflection,
+  debug-overlay, or a custom modifier, those now stay at identity in orbit / pan
+  modes. Migrate to <code>CameraControls.cameraTransform()</code> to recover the camera
+  matrix.</li>
+</ul>
+<h3 id="cameracontrols-defaults-changed-breaking-for-direct-constructors"><code>CameraControls</code> defaults changed (BREAKING for direct constructors)<a class="headerlink" href="#cameracontrols-defaults-changed-breaking-for-direct-constructors" title="Permanent link">&para;</a></h3>
+<p>If your app constructs <code>CameraControls()</code> directly (rather than using the
+<code>.cameraControls(_:)</code> modifier):</p>
+<ul>
+<li><code>orbitRadius</code> default: <code>5.0</code> → <code>2.0</code> (camera-to-target distance, was unreachable
+  through any public modifier before so this aligns with the SceneView's
+  internal default)</li>
+<li><code>minRadius</code> default: <code>0.5</code> → <code>1.0</code> (pinch-in floor — <code>0.5</code> clipped into 1m-extent
+  models under the new true-camera path; <code>1.0</code> matches typical bundled demo content)</li>
+</ul>
+<p><strong>Action</strong>:</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">// pre-v4.4.0 implicit defaults</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">var</span><span class="w"> </span><span class="nv">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">CameraControls</span><span class="p">()</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1">// controls.orbitRadius == 5.0, controls.minRadius == 0.5</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1">// v4.4.0 — bump explicitly if you want the pre-v4.4.0 framing for non-bundled content</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="kd">var</span><span class="w"> </span><span class="nv">controls</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">CameraControls</span><span class="p">()</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">controls</span><span class="p">.</span><span class="n">orbitRadius</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">5.0</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">controls</span><span class="p">.</span><span class="n">minRadius</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5</span>
+</span></code></pre></div>
+<h3 id="fov-no-longer-bleeds-from-firstperson-pinch-into-orbit-pan">FOV no longer bleeds from <code>firstPerson</code> pinch into <code>orbit</code> / <code>pan</code><a class="headerlink" href="#fov-no-longer-bleeds-from-firstperson-pinch-into-orbit-pan" title="Permanent link">&para;</a></h3>
+<p>Pre-v4.4.0, pinching FOV down to e.g. 30° in <code>.firstPerson</code> then switching to
+<code>.orbit</code> kept the 30° pinched FOV on the perspective camera (visible as a stuck
+zoom-in). v4.4.0 writes the baseline <code>60°</code> FOV in orbit/pan regardless, and
+mirrors <code>camera.fov</code> only in <code>.firstPerson</code>. On <code>.firstPerson</code> exit, <code>camera.fov</code>
+itself is reset to <code>60</code> so the next entry starts fresh.</p>
+<p><strong>Action</strong>: no code change required — the previous behaviour was a bug.</p>
+<h3 id="swift-package-manager-url-changed">Swift Package Manager URL changed<a class="headerlink" href="#swift-package-manager-url-changed" title="Permanent link">&para;</a></h3>
+<p>The <code>sceneview/sceneview-swift</code> mirror has been archived read-only. SPM consumers
+should re-add the package in Xcode pointing at the monorepo directly:</p>
+<div class="language-diff highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gd">- .package(url: "https://github.com/sceneview/sceneview-swift.git", from: "4.0.0")</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="gi">+ .package(url: "https://github.com/sceneview/sceneview.git", from: "4.4.0")</span>
+</span></code></pre></div>
+<p>The frozen <code>v4.0.0</code> tag on the mirror still resolves for any consumer that hasn't
+migrated, but no further releases will be cut there. The root <code>Package.swift</code> in
+the monorepo (added in <a href="https://github.com/sceneview/sceneview/pull/920">#920</a>)
+declares the <code>SceneViewSwift</code> product, so the import statement
+(<code>import SceneViewSwift</code>) is unchanged.</p>
+<h3 id="attribution">Attribution<a class="headerlink" href="#attribution" title="Permanent link">&para;</a></h3>
+<p>The skybox-renders + true-orbit camera fixes were ported with <code>Co-authored-by</code>
+credit from <a href="https://github.com/radcli14">@radcli14</a>'s
+<a href="https://github.com/sceneview/sceneview-swift/pull/1">sceneview-swift PR #1</a>.</p>
+<hr />
+<h2 id="sceneview-42x-to-430-ios-silent-stub-modes-now-active">SceneView 4.2.x to 4.3.0 (iOS) — silent-stub modes now active<a class="headerlink" href="#sceneview-42x-to-430-ios-silent-stub-modes-now-active" title="Permanent link">&para;</a></h2>
+<h3 id="cameracontrolspan-and-cameracontrolsfirstperson-no-longer-silently-orbit-1034"><code>.cameraControls(.pan)</code> and <code>.cameraControls(.firstPerson)</code> no longer silently orbit (<a href="https://github.com/sceneview/sceneview/issues/1034">#1034</a>)<a class="headerlink" href="#cameracontrolspan-and-cameracontrolsfirstperson-no-longer-silently-orbit-1034" title="Permanent link">&para;</a></h3>
+<p>In v4.2.0 these two modes existed in the enum but <code>applyCamera()</code> ignored
+them — they produced orbit behaviour at runtime. v4.3.0 wires them to
+real per-mode handlers.</p>
+<p><strong>Action</strong>:</p>
+<ul>
+<li>Apps that called <code>.cameraControls(.pan)</code> <em>expecting</em> orbit behaviour
+  should switch to <code>.cameraControls(.orbit)</code> (or drop the modifier
+  entirely — orbit is the default).</li>
+<li>Apps that called <code>.cameraControls(.firstPerson)</code> get FOV-zoom pinch
+  instead of dolly. To keep the v4.2.0 orbit-with-dolly behaviour,
+  switch to <code>.orbit</code>.</li>
+</ul>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">// v4.2.0 (silent stub)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">pan</span><span class="p">)</span><span class="w">   </span><span class="c1">// actually orbited</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1">// v4.3.0 (wired)</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* ... */</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p">.</span><span class="n">cameraControls</span><span class="p">(.</span><span class="n">pan</span><span class="p">)</span><span class="w">   </span><span class="c1">// now translates target; drop modifier for orbit</span>
+</span></code></pre></div>
+<h3 id="library-level-auto-center-is-on-by-default-1026">Library-level auto-center is on by default (<a href="https://github.com/sceneview/sceneview/issues/1026">#1026</a>)<a class="headerlink" href="#library-level-auto-center-is-on-by-default-1026" title="Permanent link">&para;</a></h3>
+<p>iOS v4.3.0 introduces an intermediate <code>contentRoot</code> Entity and translates
+it on the first frame the scene's <code>visualBounds</code> is non-empty so the
+centroid lands on the world origin. Most demos benefit; scenes that rely
+on intentional off-centre placement (carousels, dioramas, story-mode)
+will see content re-centre.</p>
+<p><strong>Action</strong>: append <code>.autoCenterContent(false)</code> for off-centre-by-design
+scenes.</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">// v4.2.0 — manual per-demo centring</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">model</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ModelNode</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"hero.usdz"</span><span class="p">)</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// intentional offset</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">root</span><span class="p">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="p">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="p">}</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">// v4.3.0 — opt out of library centring to keep the offset</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="nv">model</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ModelNode</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"hero.usdz"</span><span class="p">)</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">.</span><span class="kd">init</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="n">root</span><span class="p">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="p">)</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">}</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="p">.</span><span class="n">autoCenterContent</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w">   </span><span class="c1">// ← restore strict v4.2.0 placement</span>
+</span></code></pre></div>
+<hr />
+<h2 id="sceneview-36x-to-400-release-candidate">SceneView 3.6.x to 4.0.0 (Release Candidate)<a class="headerlink" href="#sceneview-36x-to-400-release-candidate" title="Permanent link">&para;</a></h2>
+<p><strong>Status:</strong> <code>v4.0.0</code> is live as a release candidate. Maven Central and Swift Package Manager artifacts are <strong>not</strong> built from the RC tag — pin to the tag manually to test, or wait for the <code>v4.0.0</code> stable tag.</p>
+<p>4.0.0 is a <strong>strictly additive</strong> release for the SDK side. Existing 3.6.x code compiles and runs unchanged. The version bump reflects two new capabilities, not breaking changes.</p>
+<h3 id="1-new-ar-debug-rerunio-integration">1. New: AR Debug — Rerun.io integration<a class="headerlink" href="#1-new-ar-debug-rerunio-integration" title="Permanent link">&para;</a></h3>
+<p>SceneView can now stream an ARCore / ARKit session to the <a href="https://rerun.io">Rerun</a> viewer for scrub-and-replay debugging. See the full guide in the <a href="https://github.com/sceneview/sceneview/blob/main/llms.txt">llms.txt reference</a> or the <a href="https://sceneview.github.io/playground.html">AR Debug (Rerun)</a> example in the playground.</p>
+<p>Quick wire-up on Android:</p>
+<pre class="language-kotlin"><code>import io.github.sceneview.ar.rerun.rememberRerunBridge
+
+@Composable
+fun MyARScreen() {
+    val bridge = rememberRerunBridge(enabled = BuildConfig.DEBUG)
+    ARSceneView(
+        modifier = Modifier.fillMaxSize(),
+        onSessionUpdated = { session, frame -&gt;
+            bridge.logFrame(session, frame)
+        }
+    )
+}</code></pre>
+<p>And on iOS:</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">import</span><span class="w"> </span><span class="nc">SceneViewSwift</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kd">struct</span><span class="w"> </span><span class="nc">MyARView</span><span class="p">:</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="p">@</span><span class="n">StateObject</span><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">bridge</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">RerunBridge</span><span class="p">(</span><span class="n">host</span><span class="p">:</span><span class="w"> </span><span class="s">"192.168.1.42"</span><span class="p">)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">body</span><span class="p">:</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="n">View</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="n">ARSceneView</span><span class="p">()</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">            </span><span class="p">.</span><span class="n">onFrame</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="kc">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">bridge</span><span class="p">.</span><span class="n">logFrame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">            </span><span class="p">.</span><span class="n">onAppear</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bridge</span><span class="p">.</span><span class="n">connect</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">            </span><span class="p">.</span><span class="n">onDisappear</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bridge</span><span class="p">.</span><span class="n">disconnect</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>No breaking changes — this is a new <code>io.github.sceneview.ar.rerun</code> package on Android and a new <code>SceneViewSwift.RerunBridge</code> type on iOS. Nothing existing was touched.</p>
+<h3 id="2-new-arsceneviewonframe-hook-on-ios">2. New: <code>ARSceneView.onFrame</code> hook on iOS<a class="headerlink" href="#2-new-arsceneviewonframe-hook-on-ios" title="Permanent link">&para;</a></h3>
+<p><code>SceneViewSwift.ARSceneView</code> gained a new <code>onFrame(_ handler:)</code> modifier mirroring Android's <code>onSessionUpdated</code> callback. Fires from the existing <code>ARSessionDelegate.session(_:didUpdate:)</code> without adding a second delegate. Used by the Rerun bridge, but useful for any per-frame custom logic (pose streaming, custom tracking analytics, etc.).</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">ARSceneView</span><span class="p">()</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="p">.</span><span class="n">onFrame</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">frame</span><span class="p">,</span><span class="w"> </span><span class="n">arView</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">        </span><span class="c1">// runs on the ARKit delegate queue — do NOT block</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="3-version-bump-just-the-number">3. Version bump — just the number<a class="headerlink" href="#3-version-bump-just-the-number" title="Permanent link">&para;</a></h3>
+<p>Update your Gradle / SPM / pubspec / package.json references:</p>
+<pre class="language-kotlin"><code>// Before
+implementation("io.github.sceneview:sceneview:4.37.0")
+implementation("io.github.sceneview:arsceneview:4.37.0")
+
+// After (4.0.0)
+implementation("io.github.sceneview:sceneview:4.37.0")
+implementation("io.github.sceneview:arsceneview:4.37.0")</code></pre>
+<p><strong>Release candidate caveat:</strong> Maven Central does <strong>not</strong> currently ship <code>4.0.0</code>. Either build from source (<code>./gradlew :sceneview:publishToMavenLocal</code>) or wait for <code>v4.0.0</code> stable.</p>
+<h3 id="4-sceneview-mcp-gained-a-next-dist-tag">4. <code>sceneview-mcp</code> gained a <code>@next</code> dist-tag<a class="headerlink" href="#4-sceneview-mcp-gained-a-next-dist-tag" title="Permanent link">&para;</a></h3>
+<p>If you use the <a href="https://www.npmjs.com/package/sceneview-mcp"><code>sceneview-mcp</code></a> npm package in Claude Desktop / Cursor / etc., the <code>@latest</code> tag is still on <code>3.6.4</code> (unchanged, intentionally). The <code>@next</code> tag is on <code>4.0.0</code>, which includes the Rerun integration docs and v4 lite-proxy routing to the hosted gateway. Opt in with:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp@next"</span><span class="p">]</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>There is also a <strong>new</strong> <a href="https://www.npmjs.com/package/rerun-3d-mcp"><code>rerun-3d-mcp</code></a> package (<code>@latest = 1.0.0</code>) that generates the Rerun integration boilerplate on demand:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>npx<span class="w"> </span>rerun-3d-mcp
+</span></code></pre></div>
+<hr />
+<h2 id="sceneview-35x-to-360">SceneView 3.5.x to 3.6.0<a class="headerlink" href="#sceneview-35x-to-360" title="Permanent link">&para;</a></h2>
+<p>SceneView 3.6.0 simplifies the API surface so that AI assistants and developers can write correct
+code on the first try. All changes use <code>@Deprecated(replaceWith = ...)</code> — the Kotlin compiler will
+auto-suggest fixes via IDE quick actions.</p>
+<h3 id="1-scene-composable-renamed-to-sceneview-arscene-to-arsceneview">1. <code>Scene</code> composable renamed to <code>SceneView</code>, <code>ARScene</code> to <code>ARSceneView</code><a class="headerlink" href="#1-scene-composable-renamed-to-sceneview-arscene-to-arsceneview" title="Permanent link">&para;</a></h3>
+<p>The <code>Scene { }</code> composable is renamed to <code>SceneView { }</code> and <code>ARScene { }</code> is renamed to
+<code>ARSceneView { }</code>. This aligns Android naming with Apple (SwiftUI already uses <code>SceneView</code> and
+<code>ARSceneView</code>) and avoids confusion with Filament's internal <code>Scene</code> class.</p>
+<pre class="language-kotlin"><code>// Before
+Scene(modifier = Modifier.fillMaxSize()) { /* nodes */ }
+ARScene(modifier = Modifier.fillMaxSize()) { /* AR nodes */ }
+
+// After (3.6.0)
+SceneView(modifier = Modifier.fillMaxSize()) { /* nodes */ }
+ARSceneView(modifier = Modifier.fillMaxSize()) { /* AR nodes */ }</code></pre>
+<p><code>SceneScope</code> and <code>ARSceneScope</code> are <strong>unchanged</strong> — only the top-level composable names changed.</p>
+<h3 id="2-cameranode-composable-renamed-to-secondarycamera">2. <code>CameraNode</code> composable renamed to <code>SecondaryCamera</code><a class="headerlink" href="#2-cameranode-composable-renamed-to-secondarycamera" title="Permanent link">&para;</a></h3>
+<p>The <code>CameraNode { }</code> composable inside <code>SceneView { }</code> creates a non-active camera — it does NOT
+become the scene's rendering camera. The name was misleading, so it's renamed to <code>SecondaryCamera</code>.</p>
+<pre class="language-kotlin"><code>// Before
+SceneView(cameraNode = rememberCameraNode(engine)) {
+    CameraNode { /* secondary camera — name was confusing */ }
+}
+
+// After (3.6.0)
+SceneView(cameraNode = rememberCameraNode(engine)) {
+    SecondaryCamera { /* clearly named as non-primary */ }
+}</code></pre>
+<p>The scene's active camera is still set via <code>SceneView(cameraNode = rememberCameraNode(engine))</code> —
+this has NOT changed.</p>
+<h3 id="3-all-geometry-nodes-now-have-uniform-transform-params">3. All geometry nodes now have uniform transform params<a class="headerlink" href="#3-all-geometry-nodes-now-have-uniform-transform-params" title="Permanent link">&para;</a></h3>
+<p>Every geometry composable (<code>CubeNode</code>, <code>SphereNode</code>, <code>CylinderNode</code>, <code>PlaneNode</code>, <code>LineNode</code>,
+<code>PathNode</code>) now accepts the same <code>position</code>, <code>rotation</code>, <code>scale</code> trio. Previously, some were missing.</p>
+<pre class="language-kotlin"><code>// Before — SphereNode had no rotation or scale
+SphereNode(radius = 0.2f, materialInstance = mat)
+
+// After (3.6.0) — all geometry nodes have the full trio
+SphereNode(
+    radius = 0.2f,
+    materialInstance = mat,
+    position = Position(x = 1f),
+    rotation = Rotation(y = 45f),
+    scale = Scale(2f)
+)</code></pre>
+<h3 id="4-lightnode-explicit-params-instead-of-dual-lambdas">4. <code>LightNode</code> — explicit params instead of dual lambdas<a class="headerlink" href="#4-lightnode-explicit-params-instead-of-dual-lambdas" title="Permanent link">&para;</a></h3>
+<p><code>LightNode</code> now exposes <code>intensity</code>, <code>direction</code>, and <code>position</code> as direct parameters instead of
+requiring two separate <code>apply</code> / <code>nodeApply</code> lambdas.</p>
+<pre class="language-kotlin"><code>// Before
+LightNode(
+    type = LightManager.Type.DIRECTIONAL,
+    apply = { intensity(100_000f); direction(0f, -1f, 0f) },
+    nodeApply = { position = Position(0f, 5f, 0f) }
+)
+
+// After (3.6.0)
+LightNode(
+    type = LightManager.Type.DIRECTIONAL,
+    intensity = 100_000f,
+    direction = Direction(0f, -1f, 0f),
+    position = Position(0f, 5f, 0f)
+)</code></pre>
+<h3 id="5-videonode-convenience-overload-with-asset-path">5. <code>VideoNode</code> — convenience overload with asset path<a class="headerlink" href="#5-videonode-convenience-overload-with-asset-path" title="Permanent link">&para;</a></h3>
+<p>New overload that handles <code>MediaPlayer</code> lifecycle automatically:</p>
+<pre class="language-kotlin"><code>// Before — manual MediaPlayer setup
+val player = rememberMediaPlayer(context, assetFileLocation = "videos/promo.mp4")
+SceneView {
+    player?.let { VideoNode(player = it, position = Position(z = -2f)) }
+}
+
+// After (3.6.0) — one-liner
+SceneView {
+    VideoNode(videoPath = "videos/promo.mp4", position = Position(z = -2f))
+}</code></pre>
+<h3 id="6-new-composables-shapenode-and-physicsnode">6. New composables: <code>ShapeNode</code> and <code>PhysicsNode</code><a class="headerlink" href="#6-new-composables-shapenode-and-physicsnode" title="Permanent link">&para;</a></h3>
+<p>Both are now available directly in the <code>SceneView { }</code> DSL:</p>
+<pre class="language-kotlin"><code>SceneView {
+    ShapeNode(
+        polygonPath = listOf(Position2(0f, 0f), Position2(1f, 0f), Position2(0.5f, 1f)),
+        color = Color(0xFF2196F3.toInt())
+    )
+    PhysicsNode(gravity = -9.81f, floorY = 0f) {
+        SphereNode(radius = 0.1f, materialInstance = mat)
+    }
+}</code></pre>
+<h3 id="7-swift-declarative-sceneview-with-nodebuilder">7. Swift: Declarative <code>SceneView</code> with <code>@NodeBuilder</code><a class="headerlink" href="#7-swift-declarative-sceneview-with-nodebuilder" title="Permanent link">&para;</a></h3>
+<p>SwiftUI <code>SceneView</code> now supports a declarative builder matching Android's <code>SceneView { }</code>:</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">// Before — imperative</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="k">in</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="n">root</span><span class="p">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">cube</span><span class="p">.</span><span class="n">entity</span><span class="p">)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="n">root</span><span class="p">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">sphere</span><span class="p">.</span><span class="n">entity</span><span class="p">)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1">// After (3.6.0) — declarative</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">SceneView</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="n">GeometryNode</span><span class="p">.</span><span class="n">cube</span><span class="p">(</span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">red</span><span class="p">)</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">        </span><span class="p">.</span><span class="n">position</span><span class="p">(.</span><span class="kd">init</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">    </span><span class="n">GeometryNode</span><span class="p">.</span><span class="n">sphere</span><span class="p">(</span><span class="n">radius</span><span class="p">:</span><span class="w"> </span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">blue</span><span class="p">)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">        </span><span class="p">.</span><span class="n">position</span><span class="p">(.</span><span class="kd">init</span><span class="p">(</span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">z</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="p">))</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="8-swift-nodegesture-automatic-cleanup">8. Swift: <code>NodeGesture</code> automatic cleanup<a class="headerlink" href="#8-swift-nodegesture-automatic-cleanup" title="Permanent link">&para;</a></h3>
+<p><code>NodeGesture</code> now tracks entities with weak references and automatically purges stale handlers.
+Entity fluent extensions are available for cleaner syntax:</p>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">// Before — static calls only</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">NodeGesture</span><span class="p">.</span><span class="n">onTap</span><span class="p">(</span><span class="n">entity</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">print</span><span class="p">(</span><span class="s">"Tapped!"</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1">// After (3.6.0) — fluent chaining</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">entity</span><span class="p">.</span><span class="n">onTap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="bp">print</span><span class="p">(</span><span class="s">"Tapped!"</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">       </span><span class="p">.</span><span class="n">onDrag</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">translation</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">position</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">translation</span><span class="w"> </span><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="sceneview-2x-to-3x">SceneView 2.x to 3.x<a class="headerlink" href="#sceneview-2x-to-3x" title="Permanent link">&para;</a></h2>
+<p>SceneView 3.0 is a ground-up rewrite around Jetpack Compose. The core concepts are the same
+(Filament engine, ARCore session, node graph), but the API is fully Compose-native. This guide
+walks through every breaking change with before/after examples.</p>
+<p>SceneView 3.0 is a ground-up rewrite around Jetpack Compose. The core concepts are the same
+(Filament engine, ARCore session, node graph), but the API is fully Compose-native. This guide
+walks through every breaking change with before/after examples.</p>
+<hr />
+<h2 id="1-dependency-version">1. Dependency version<a class="headerlink" href="#1-dependency-version" title="Permanent link">&para;</a></h2>
+<pre class="language-kotlin"><code>// Before
+implementation("io.github.sceneview:sceneview:2.3.0")
+implementation("io.github.sceneview:arsceneview:2.3.0")
+
+// After
+implementation("io.github.sceneview:sceneview:4.37.0")
+implementation("io.github.sceneview:arsceneview:4.37.0")</code></pre>
+<hr />
+<h2 id="2-sceneview-nodes-move-into-the-content-block">2. <code>SceneView</code> — nodes move into the content block<a class="headerlink" href="#2-sceneview-nodes-move-into-the-content-block" title="Permanent link">&para;</a></h2>
+<p>The <code>childNodes</code> parameter is gone. Declare nodes directly inside the <code>SceneView { }</code> trailing lambda.</p>
+<pre class="language-kotlin"><code>// Before — nodes passed as a list
+SceneView(
+    modifier = Modifier.fillMaxSize(),
+    engine = engine,
+    modelLoader = modelLoader,
+    childNodes = rememberNodes {
+        add(
+            ModelNode(
+                modelInstance = modelLoader.createModelInstance("models/helmet.glb"),
+                scaleToUnits = 1.0f
+            )
+        )
+        add(CylinderNode(engine = engine, radius = 0.1f, height = 1.0f))
+    },
+    cameraManipulator = rememberCameraManipulator()
+)
+
+// After — nodes declared as composables in the DSL
+val modelInstance = rememberModelInstance(modelLoader, "models/helmet.glb")
+
+SceneView(
+    modifier = Modifier.fillMaxSize(),
+    cameraManipulator = rememberCameraManipulator()
+) {
+    modelInstance?.let { instance -&gt;
+        ModelNode(modelInstance = instance, scaleToUnits = 1.0f)
+    }
+    CylinderNode(radius = 0.1f, height = 1.0f)
+}</code></pre>
+<p>Key differences:
+- <code>engine</code> and <code>modelLoader</code> parameters have sensible defaults — you only need to provide them
+  explicitly if you're sharing resources across multiple scenes.
+- <code>rememberModelInstance</code> is async and returns <code>null</code> while loading. Use <code>?.let { }</code> to show the
+  node only when ready. It triggers recomposition automatically.
+- No more <code>add()</code> calls. The Compose runtime manages the node lifecycle.</p>
+<hr />
+<h2 id="3-node-hierarchy-nodescope-replaces-addchildnode">3. Node hierarchy — <code>NodeScope</code> replaces <code>addChildNode</code><a class="headerlink" href="#3-node-hierarchy-nodescope-replaces-addchildnode" title="Permanent link">&para;</a></h2>
+<pre class="language-kotlin"><code>// Before — imperative parent/child wiring
+val parentNode = Node(engine).apply {
+    addChildNode(
+        ModelNode(modelInstance = helmet).apply {
+            position = Position(y = 0.1f)
+        }
+    )
+}
+
+// After — declarative nesting via NodeScope
+Node(position = Position(y = 0.0f)) {   // trailing lambda opens a NodeScope
+    ModelNode(modelInstance = helmet, position = Position(y = 0.1f))
+}</code></pre>
+<p>Every node composable in <code>SceneScope</code> accepts an optional <code>content</code> trailing lambda. Nodes
+declared inside that lambda are automatically parented to the enclosing node.</p>
+<hr />
+<h2 id="4-arsceneview-ar-nodes-move-into-the-content-block">4. <code>ARSceneView</code> — AR nodes move into the content block<a class="headerlink" href="#4-arsceneview-ar-nodes-move-into-the-content-block" title="Permanent link">&para;</a></h2>
+<pre class="language-kotlin"><code>// Before
+var anchor: Anchor? = null
+
+ARSceneView(
+    modifier = Modifier.fillMaxSize(),
+    childNodes = rememberNodes { /* populated imperatively in onSessionUpdated */ },
+    onSessionUpdated = { session, frame -&gt;
+        if (anchor == null) {
+            anchor = frame.hitTest(centerX, centerY)
+                .firstOrNull { it.trackable is Plane }
+                ?.createAnchor()
+                ?.also { a -&gt;
+                    childNodes.add(AnchorNode(engine, a).apply {
+                        addChildNode(ModelNode(modelInstance = helmet))
+                    })
+                }
+        }
+    }
+)
+
+// After — state drives composition
+var anchor by remember { mutableStateOf&lt;Anchor?&gt;(null) }
+
+ARSceneView(
+    modifier = Modifier.fillMaxSize(),
+    onSessionUpdated = { _, frame -&gt;
+        if (anchor == null) {
+            anchor = frame.getUpdatedPlanes()
+                .firstOrNull { it.type == Plane.Type.HORIZONTAL_UPWARD_FACING }
+                ?.let { it.createAnchorOrNull(it.centerPose) }
+        }
+    }
+) {
+    anchor?.let { a -&gt;
+        AnchorNode(anchor = a) {
+            ModelNode(modelInstance = helmet, scaleToUnits = 0.5f)
+        }
+    }
+}</code></pre>
+<p>The anchor state variable drives everything. When <code>anchor</code> becomes non-null, <code>AnchorNode</code> enters
+the composition. When it is cleared, the node is removed and destroyed automatically.</p>
+<hr />
+<h2 id="5-model-loading-remembermodelinstance-replaces-synchronous-creation">5. Model loading — <code>rememberModelInstance</code> replaces synchronous creation<a class="headerlink" href="#5-model-loading-remembermodelinstance-replaces-synchronous-creation" title="Permanent link">&para;</a></h2>
+<pre class="language-kotlin"><code>// Before — blocking, called inside rememberNodes or init
+val instance = modelLoader.createModelInstance("models/helmet.glb")
+
+// After — async, null while loading
+val instance = rememberModelInstance(modelLoader, "models/helmet.glb")
+// instance is null until the file is loaded, then recomposition fires</code></pre>
+<p><code>rememberModelInstance</code> reads the file on <code>Dispatchers.IO</code> and creates the Filament asset on the
+main thread, so it is both non-blocking and thread-safe.</p>
+<hr />
+<h2 id="6-surfacetype-replaces-boolean-flags">6. <code>SurfaceType</code> — replaces boolean flags<a class="headerlink" href="#6-surfacetype-replaces-boolean-flags" title="Permanent link">&para;</a></h2>
+<pre class="language-kotlin"><code>// Before (if the flag existed in your version)
+SceneView(isOpaque = false)
+
+// After — explicit enum
+SceneView(surfaceType = SurfaceType.TextureSurface)  // TextureView, supports alpha blending
+SceneView(surfaceType = SurfaceType.Surface)          // SurfaceView, best performance (default)</code></pre>
+<hr />
+<h2 id="7-viewnode-compose-ui-as-a-3d-surface">7. <code>ViewNode</code> — Compose UI as a 3D surface<a class="headerlink" href="#7-viewnode-compose-ui-as-a-3d-surface" title="Permanent link">&para;</a></h2>
+<p><code>ViewNode</code> is now a first-class composable in <code>SceneScope</code>. It requires a <code>WindowManager</code>
+obtained with <code>rememberViewNodeManager()</code>.</p>
+<pre class="language-kotlin"><code>// After
+val windowManager = rememberViewNodeManager()
+
+SceneView {
+    ViewNode(windowManager = windowManager) {
+        Card { Text("Hello from 3D!") }
+    }
+}</code></pre>
+<hr />
+<h2 id="8-activity-fragment-structure">8. Activity / Fragment structure<a class="headerlink" href="#8-activity-fragment-structure" title="Permanent link">&para;</a></h2>
+<p>All samples (and the recommended app structure) have moved from Fragment + XML layout to a single
+<code>ComponentActivity</code> with <code>setContent { }</code>. There is no Fragment API in 3.0.</p>
+<pre class="language-kotlin"><code>// Before — Fragment with layout inflation
+class MainFragment : Fragment() {
+    override fun onCreateView(...) = layoutInflater.inflate(R.layout.fragment_main, ...)
+    override fun onViewCreated(view: View, ...) {
+        val sceneView = view.findViewById&lt;ARSceneView&gt;(R.id.sceneView)
+        sceneView.onSessionUpdated = { ... }
+    }
+}
+
+// After — Activity with Compose
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            ARSceneView(modifier = Modifier.fillMaxSize()) {
+                // AR content here
+            }
+        }
+    }
+}</code></pre>
+<hr />
+<h2 id="9-sceneform-legacy-java-classes">9. Sceneform / legacy Java classes<a class="headerlink" href="#9-sceneform-legacy-java-classes" title="Permanent link">&para;</a></h2>
+<p>All classes that were still present under <code>com.google.ar.sceneform.*</code> and
+<code>io.github.sceneview.collision.*</code> as Java files have been converted to Kotlin. The class names
+and package paths are unchanged — only the file extension changes from <code>.java</code> to <code>.kt</code>.</p>
+<p>If you were importing these classes directly (e.g. <code>com.google.ar.sceneform.rendering.Color</code>),
+the imports continue to work. No action required.</p>
+<hr />
+<h2 id="summary-checklist">Summary checklist<a class="headerlink" href="#summary-checklist" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bump dependency to <code>4.0.0</code></td>
+<td>Update <code>build.gradle</code></td>
+</tr>
+<tr>
+<td>Remove <code>childNodes = rememberNodes { }</code></td>
+<td>Move node declarations into <code>SceneView { }</code></td>
+</tr>
+<tr>
+<td>Replace <code>add(ModelNode(...))</code></td>
+<td>Use <code>ModelNode(...)</code> composable directly</td>
+</tr>
+<tr>
+<td>Replace <code>addChildNode(...)</code></td>
+<td>Use nested <code>NodeScope</code> content lambda</td>
+</tr>
+<tr>
+<td>Replace <code>modelLoader.createModelInstance(...)</code></td>
+<td>Use <code>rememberModelInstance(modelLoader, path)</code></td>
+</tr>
+<tr>
+<td>Replace <code>isOpaque = false</code></td>
+<td>Use <code>surfaceType = SurfaceType.TextureSurface</code></td>
+</tr>
+<tr>
+<td>Replace Fragment + XML layout</td>
+<td>Use <code>ComponentActivity</code> + <code>setContent { }</code></td>
+</tr>
+<tr>
+<td>Replace imperative <code>anchor</code> node wiring</td>
+<td>Drive with <code>mutableStateOf&lt;Anchor?&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="v31x-v32x">v3.1.x → v3.2.x<a class="headerlink" href="#v31x-v32x" title="Permanent link">&para;</a></h1>
+<h2 id="new-node-types-non-breaking">New node types (non-breaking)<a class="headerlink" href="#new-node-types-non-breaking" title="Permanent link">&para;</a></h2>
+<p>v3.2.0 adds 8 new node composables in <code>SceneScope</code>. No migration required — these are additive.</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PhysicsNode</code></td>
+<td>Rigid body simulation (gravity, floor collision, sleep)</td>
+</tr>
+<tr>
+<td><code>DynamicSkyNode</code></td>
+<td>Time-of-day sun positioning and coloring</td>
+</tr>
+<tr>
+<td><code>FogNode</code></td>
+<td>Atmospheric fog (density, height, color)</td>
+</tr>
+<tr>
+<td><code>ReflectionProbeNode</code></td>
+<td>Local/global IBL override zones</td>
+</tr>
+<tr>
+<td><code>LineNode</code></td>
+<td>Single line segment between two points</td>
+</tr>
+<tr>
+<td><code>PathNode</code></td>
+<td>Polyline through ordered points</td>
+</tr>
+<tr>
+<td><code>BillboardNode</code></td>
+<td>Camera-facing image quad</td>
+</tr>
+<tr>
+<td><code>TextNode</code></td>
+<td>Camera-facing text label</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dependency-management-change">Dependency management change<a class="headerlink" href="#dependency-management-change" title="Permanent link">&para;</a></h2>
+<p>Sample apps now use the Gradle version catalog (<code>libs.*</code>) instead of hardcoded versions.
+If you copied a sample <code>build.gradle</code> as a starting point, update your dependencies:</p>
+<pre class="language-kotlin"><code>// Before (hardcoded)
+implementation "androidx.compose.ui:ui:1.10.5"
+implementation "androidx.compose.material3:material3:1.3.2"
+
+// After (version catalog)
+implementation libs.androidx.compose.ui
+implementation libs.androidx.compose.material3</code></pre>
+<p>Or if you're not using a version catalog, bump to the latest versions listed in
+<code>gradle/libs.versions.toml</code>.</p>
+<h2 id="edge-to-edge">Edge-to-edge<a class="headerlink" href="#edge-to-edge" title="Permanent link">&para;</a></h2>
+<p>All sample activities now call <code>enableEdgeToEdge()</code> before <code>setContent {}</code>. If you're
+building on a sample, add it to your <code>onCreate</code>:</p>
+<pre class="language-kotlin"><code>override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    enableEdgeToEdge()
+    setContent { /* ... */ }
+}</code></pre>
+<h2 id="16-kb-page-size-alignment-api-35-required-for-play-store">16 KB page-size alignment (API 35+, required for Play Store)<a class="headerlink" href="#16-kb-page-size-alignment-api-35-required-for-play-store" title="Permanent link">&para;</a></h2>
+<p>Google Play has enforced 16 KB ELF page-size alignment for all APKs targeting Android 15+
+(API 35) since January 2026. SceneView adds the AGP flag to its own library modules; your
+<strong>app-level</strong> <code>build.gradle</code> / <code>build.gradle.kts</code> must also opt in:</p>
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">// app/build.gradle (Groovy DSL)</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">android</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="n">experimentalProperties</span><span class="o">[</span><span class="s2">"android.nativeLibraryAlignmentPageSize"</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"16k"</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="c1">// …</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="o">}</span>
+</span></code></pre></div>
+<pre class="language-kotlin"><code>// app/build.gradle.kts (Kotlin DSL)
+android {
+    experimentalProperties["android.nativeLibraryAlignmentPageSize"] = "16k"
+    // …
+}</code></pre>
+<p>This rewrites ELF <code>PT_LOAD</code> alignment headers for <strong>all</strong> native <code>.so</code> files packaged
+into the APK/AAB at build time, including the Filament and ARCore prebuilt libraries.
+Without this flag, Play Store will reject the upload with:
+<code>Artifact does not support 16KB page size</code>.</p>
 
 
 
 
 
 
+
+  
+  
 
 
 
