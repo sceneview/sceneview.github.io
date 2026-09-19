@@ -1655,6 +1655,8 @@
       
         
       
+        
+      
     
     
     
@@ -1773,6 +1775,34 @@
     
   
     AI-Assisted Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use SceneView with AI Assistants
   
 
     
@@ -2560,22 +2590,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ai-assisted-workflow-recommended" class="md-nav__link">
+  <a href="#ai-assisted-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        AI-assisted workflow (recommended)
+        AI-assisted workflow
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="AI-assisted workflow (recommended)">
+    <nav class="md-nav" aria-label="AI-assisted workflow">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#rules-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick start
+        Rules files
       
     </span>
   </a>
@@ -2583,10 +2613,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#available-slash-commands" class="md-nav__link">
+  <a href="#mcp-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available slash commands
+        MCP server
       
     </span>
   </a>
@@ -2594,10 +2624,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mcp-server-optional" class="md-nav__link">
+  <a href="#slash-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MCP server (optional)
+        Slash commands
       
     </span>
   </a>
@@ -2605,10 +2635,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#chatgpt-codex" class="md-nav__link">
+  <a href="#codex-plugin-and-skills" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ChatGPT / Codex
+        Codex plugin and skills
       
     </span>
   </a>
@@ -2958,22 +2988,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ai-assisted-workflow-recommended" class="md-nav__link">
+  <a href="#ai-assisted-workflow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        AI-assisted workflow (recommended)
+        AI-assisted workflow
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="AI-assisted workflow (recommended)">
+    <nav class="md-nav" aria-label="AI-assisted workflow">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#quick-start" class="md-nav__link">
+  <a href="#rules-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick start
+        Rules files
       
     </span>
   </a>
@@ -2981,10 +3011,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#available-slash-commands" class="md-nav__link">
+  <a href="#mcp-server" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Available slash commands
+        MCP server
       
     </span>
   </a>
@@ -2992,10 +3022,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#mcp-server-optional" class="md-nav__link">
+  <a href="#slash-commands" class="md-nav__link">
     <span class="md-ellipsis">
       
-        MCP server (optional)
+        Slash commands
       
     </span>
   </a>
@@ -3003,10 +3033,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#chatgpt-codex" class="md-nav__link">
+  <a href="#codex-plugin-and-skills" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ChatGPT / Codex
+        Codex plugin and skills
       
     </span>
   </a>
@@ -3337,17 +3367,58 @@ screenshot scripts assume.</p>
 <p>For SDK packages, prefer <code>android sdk install</code> / <code>android sdk list</code> over the
 legacy <code>sdkmanager</code> from <code>cmdline-tools</code>.</p>
 <hr />
-<h2 id="ai-assisted-workflow-recommended">AI-assisted workflow (recommended)<a class="headerlink" href="#ai-assisted-workflow-recommended" title="Permanent link">&para;</a></h2>
-<p>SceneView ships with a full Claude Code setup so you can contribute with AI assistance
-from the first keystroke — no context-gathering needed.</p>
-<h3 id="quick-start">Quick start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Install <a href="https://claude.ai/code">Claude Code</a></li>
-<li>Clone the repo and open it: <code>claude</code> inside the project root</li>
-<li>Run <code>/contribute</code> — Claude walks you through the entire workflow</li>
-</ol>
-<p>See <a href="CLAUDE.md">CLAUDE.md</a> for the full module map, architecture overview, threading rules, and AI contributor guidelines.</p>
-<h3 id="available-slash-commands">Available slash commands<a class="headerlink" href="#available-slash-commands" title="Permanent link">&para;</a></h3>
+<h2 id="ai-assisted-workflow">AI-assisted workflow<a class="headerlink" href="#ai-assisted-workflow" title="Permanent link">&para;</a></h2>
+<p>Contribute with whichever assistant you already use. No tool is recommended over another.</p>
+<h3 id="rules-files">Rules files<a class="headerlink" href="#rules-files" title="Permanent link">&para;</a></h3>
+<p>A checkout carries the repository conventions under each of the filenames these tools
+look for, so yours picks them up with no setup (alphabetical):</p>
+<table>
+<thead>
+<tr>
+<th>Read by</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Claude Code</td>
+<td><code>CLAUDE.md</code></td>
+</tr>
+<tr>
+<td>Codex, and any agent following the AGENTS.md convention</td>
+<td><code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td><code>.cursorrules</code> — legacy single file, still read; Cursor's current mechanism is <code>.cursor/rules/*.mdc</code> plus <code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td>Devin Desktop / Windsurf</td>
+<td><code>.windsurfrules</code> — legacy single file, still read; the current mechanism is <code>.devin/rules/</code> (or <code>.windsurf/rules/</code>) plus <code>AGENTS.md</code></td>
+</tr>
+<tr>
+<td>GitHub Copilot</td>
+<td><code>.github/copilot-instructions.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>Point your assistant at <a href="AGENTS.md">AGENTS.md</a> and ask for the workflow you want.
+<a href="CLAUDE.md">CLAUDE.md</a> carries the module map, architecture overview and threading rules
+in the most detail.</p>
+<h3 id="mcp-server">MCP server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h3>
+<p>The SceneView MCP server gives any MCP client the full API context:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Where that JSON lives, and what its keys are called, differs per client — per-tool setup
+is in <a href="docs/docs/ai-development.md">docs/docs/ai-development.md</a>.</p>
+<h3 id="slash-commands">Slash commands<a class="headerlink" href="#slash-commands" title="Permanent link">&para;</a></h3>
+<p>Slash commands are a Claude Code feature, so this section is specific to it. Working in
+the repo with another assistant? <code>AGENTS.md</code> describes the same workflows in prose — ask
+for them by name.</p>
 <table>
 <thead>
 <tr>
@@ -3374,20 +3445,13 @@ from the first keystroke — no context-gathering needed.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="mcp-server-optional">MCP server (optional)<a class="headerlink" href="#mcp-server-optional" title="Permanent link">&para;</a></h3>
-<p>If you use Claude Desktop or another MCP-compatible editor, add the SceneView MCP server
-for full API context in any chat:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
-</span></code></pre></div>
-<h3 id="chatgpt-codex">ChatGPT / Codex<a class="headerlink" href="#chatgpt-codex" title="Permanent link">&para;</a></h3>
-<p>The repository is also an OpenAI plugin — <code>.codex-plugin/plugin.json</code> points at the three
-skills under <a href="agents/"><code>agents/</code></a>. Install it into Codex from your checkout:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>codex<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span><span class="s2">"</span><span class="nv">$PWD</span><span class="s2">"</span><span class="w">    </span><span class="c1"># absolute path — a relative one does not resolve</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>codex<span class="w"> </span>plugin<span class="w"> </span>add<span class="w"> </span>sceneview@sceneview-local
+<h3 id="codex-plugin-and-skills">Codex plugin and skills<a class="headerlink" href="#codex-plugin-and-skills" title="Permanent link">&para;</a></h3>
+<p>The repository is also a Codex plugin. The three skills under <a href="agents/"><code>agents/</code></a> are
+mirrored at <code>.agents/skills/</code>, which Codex scans from the working directory up to the
+repository root, and <code>.agents/plugins/marketplace.json</code> declares the local marketplace
+(<code>.codex-plugin/plugin.json</code> is kept as the compatibility fallback). To install it from
+your checkout:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>codex<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>.
 </span></code></pre></div>
 <p><a href="AGENTS.md">AGENTS.md</a> carries the rules a delegated Codex session must respect — it
 implements, investigates and critiques, but does not own version control. Maintainers

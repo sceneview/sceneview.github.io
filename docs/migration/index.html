@@ -1653,6 +1653,8 @@
       
         
       
+        
+      
     
     
     
@@ -1771,6 +1773,34 @@
     
   
     AI-Assisted Development
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-context/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use SceneView with AI Assistants
   
 
     
@@ -3779,7 +3809,7 @@ implementation("io.github.sceneview:sceneview:4.37.0")
 implementation("io.github.sceneview:arsceneview:4.37.0")</code></pre>
 <p><strong>Release candidate caveat:</strong> Maven Central does <strong>not</strong> currently ship <code>4.0.0</code>. Either build from source (<code>./gradlew :sceneview:publishToMavenLocal</code>) or wait for <code>v4.0.0</code> stable.</p>
 <h3 id="4-sceneview-mcp-gained-a-next-dist-tag">4. <code>sceneview-mcp</code> gained a <code>@next</code> dist-tag<a class="headerlink" href="#4-sceneview-mcp-gained-a-next-dist-tag" title="Permanent link">&para;</a></h3>
-<p>If you use the <a href="https://www.npmjs.com/package/sceneview-mcp"><code>sceneview-mcp</code></a> npm package in Claude Desktop / Cursor / etc., the <code>@latest</code> tag is still on <code>3.6.4</code> (unchanged, intentionally). The <code>@next</code> tag is on <code>4.0.0</code>, which includes the Rerun integration docs and v4 lite-proxy routing to the hosted gateway. Opt in with:</p>
+<p>If you use the <a href="https://www.npmjs.com/package/sceneview-mcp"><code>sceneview-mcp</code></a> npm package in your MCP client, the <code>@latest</code> tag is still on <code>3.6.4</code> (unchanged, intentionally). The <code>@next</code> tag is on <code>4.0.0</code>, which includes the Rerun integration docs and v4 lite-proxy routing to the hosted gateway. Opt in with:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp@next"</span><span class="p">]</span>
