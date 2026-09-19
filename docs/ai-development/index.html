@@ -1920,6 +1920,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#gemini-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gemini CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gemini-in-android-studio" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2926,6 +2937,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#gemini-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gemini CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#gemini-in-android-studio" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3204,27 +3226,40 @@ and <a href="https://developers.openai.com/plugins/build/plugins">developers.ope
 deeplink — is on <a href="https://sceneview.github.io/#ai-setup">the setup page</a>.
 References: <a href="https://cursor.com/docs/mcp">cursor.com/docs/mcp</a> and
 <a href="https://cursor.com/docs/mcp/install-links">cursor.com/docs/mcp/install-links</a></p>
+<h4 id="gemini-cli">Gemini CLI<a class="headerlink" href="#gemini-cli" title="Permanent link">&para;</a></h4>
+<p><code>~/.gemini/settings.json</code>, the standard <code>mcpServers</code> block:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>The repository root also carries a <code>gemini-extension.json</code>, so
+<code>gemini extensions install https://github.com/sceneview/sceneview</code> registers the
+same server with nothing to paste — at the cost of cloning the monorepo, which is
+over 2 GB of history. The settings block above is the light way in.</p>
+<p>Reference: <a href="https://google-gemini.github.io/gemini-cli/docs/tools/mcp-server.html">google-gemini.github.io/gemini-cli/docs/tools/mcp-server.html</a></p>
 <h4 id="gemini-in-android-studio">Gemini in Android Studio<a class="headerlink" href="#gemini-in-android-studio" title="Permanent link">&para;</a></h4>
 <p>Settings → Tools → AI → MCP Servers. Android Studio connects over HTTP, not
 stdio, so this entry points at the hosted server — the local
 <code>npx -y sceneview-mcp</code> command cannot be registered here:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"httpUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mcp.sceneview.dev/mcp"</span><span class="p">,</span><span class="w"> </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"httpUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://mcp.sceneview.dev/mcp"</span><span class="p">,</span><span class="w"> </span><span class="nt">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Reference: <a href="https://developer.android.com/studio/gemini/add-mcp-server">developer.android.com/studio/gemini/add-mcp-server</a></p>
 <h4 id="github-copilot">GitHub Copilot<a class="headerlink" href="#github-copilot" title="Permanent link">&para;</a></h4>
 <p><code>.vscode/mcp.json</code> — note the <code>servers</code> key, not <code>mcpServers</code>:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">"servers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stdio"</span><span class="p">,</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">      </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>For Copilot CLI: <code>copilot mcp add sceneview -- npx -y sceneview-mcp</code>. Writing
 that file by hand takes a third shape — <code>~/.copilot/mcp-config.json</code> uses
@@ -3240,11 +3275,11 @@ and <a href="https://docs.github.com/en/copilot/how-tos/configure-custom-instruc
 <h4 id="jetbrains-ai-assistant">JetBrains AI Assistant<a class="headerlink" href="#jetbrains-ai-assistant" title="Permanent link">&para;</a></h4>
 <p>Settings → Tools → AI Assistant → Model Context Protocol (MCP) → Add, then
 paste:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>The documentation lists Junie among the external clients it detects, and
 IntelliJ IDEA among the IDEs. Junie also reads the same JSON straight from a
@@ -3267,7 +3302,7 @@ config file lives.</p>
 <h3 id="no-mcp-support">No MCP support?<a class="headerlink" href="#no-mcp-support" title="Permanent link">&para;</a></h3>
 <p>Point the assistant at the plain-text reference — it is the whole SDK in one
 file, and any tool that can read a URL or a pasted block can use it:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>https://sceneview.github.io/llms.txt
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>https://sceneview.github.io/llms.txt
 </span></code></pre></div>
 <h3 id="what-to-ask-for">What to ask for<a class="headerlink" href="#what-to-ask-for" title="Permanent link">&para;</a></h3>
 <p>Once the context is in place, ask in plain language:</p>
@@ -3370,6 +3405,10 @@ check it against the version you have installed.</p>
 </thead>
 <tbody>
 <tr>
+<td>Install descriptors</td>
+<td><code>gemini-extension.json</code> at the repo root (Gemini CLI), <code>mcp/manifest.json</code> (MCP Bundle)</td>
+</tr>
+<tr>
 <td>Machine-readable API reference</td>
 <td><code>llms.txt</code>, at the repo root and at <a href="https://sceneview.github.io/llms.txt">sceneview.github.io/llms.txt</a></td>
 </tr>
@@ -3387,7 +3426,7 @@ check it against the version you have installed.</p>
 </tr>
 </tbody>
 </table>
-<p>All four are maintained alongside the source and updated with every release, so
+<p>All five are maintained alongside the source and updated with every release, so
 an assistant reading them is reading the API that actually shipped.</p>
 
 
