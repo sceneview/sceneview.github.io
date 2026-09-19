@@ -3232,20 +3232,45 @@ fun rememberModelInstance(modelLoader: ModelLoader, assetFileLocation: String): 
     }.value
 }</code></pre>
 <p><strong>The render loop</strong> runs on <code>Main</code> via Compose's <code>withFrameNanos</code>, which is backed by
-<code>Choreographer</code> frame callbacks:</p>
+<code>Choreographer</code> frame callbacks. Under the default <code>FrameRatePolicy.OnDemand</code> it has two halves —
+a parked half and a drawing half:</p>
 <pre class="language-kotlin"><code>LaunchedEffect(engine, renderer, view, scene) {
     while (true) {
-        withFrameNanos { frameTimeNanos -&gt;
-            // all of this executes on Main
-            modelLoader.updateLoad()
-            nodes.forEach { it.onFrame(frameTimeNanos) }
-            if (renderer.beginFrame(swapChain, frameTimeNanos)) {
-                renderer.render(view)
-                renderer.endFrame()
+        when {
+            // Parked: suspends on the snapshot, schedules nothing, and is resumed by the
+            // apply that publishes the next change. Not a `delay(16)` poll.
+            !shouldRender.value &amp;&amp; frameRateGate.isSettled -&gt; awaitRenderingEnabled(shouldRender)
+
+            else -&gt; withFrameNanos { frameTimeNanos -&gt;
+                // all of this executes on Main, on every tick, whatever the policy
+                modelLoader.updateLoad()
+                nodes.forEach { it.onFrame(frameTimeNanos) }
+                // only the GPU submit is gated
+                if (frameRateGate.shouldRender(active = isSceneFrameActive(/* pull sources */))) {
+                    if (renderer.beginFrame(swapChain, frameTimeNanos)) {
+                        renderer.render(view)
+                        renderer.endFrame()
+                    }
+                    frameRateGate.didRender()
+                }
             }
         }
     }
 }</code></pre>
+<p>Two kinds of source feed the gate, and the split is the whole design:</p>
+<ul>
+<li><strong>Push</strong> — one-shot events that call <code>requestRender()</code> once and are done: a touch, a node
+  transform write, a node attached or detached, a surface created or resized, a lifecycle resume,
+  a recomposition, <code>Node.requestRender()</code> / <code>RenderInvalidator.requestRender()</code>.</li>
+<li><strong>Pull</strong> — <em>states</em> that stay true across many frames and send no event of their own, asked once
+  per tick: a gesture in flight, a camera manipulator still moving or still owing frames, a playing
+  animation, a decoding video, an unfinished async load, an active mirrorer, a pending auto-fit.</li>
+</ul>
+<p>Only the gate's dirty flag is snapshot state; the settle debt is a plain counter. Making the debt
+observable too would apply a snapshot 60 times a second on every rendering scene, which is exactly
+the cost this design exists to remove.</p>
+<p><code>FrameRatePolicy.Continuous</code> short-circuits both halves — the loop never parks and the gate always
+says yes — which is the pre-4.38.0 behaviour verbatim.</p>
 <div class="admonition tip">
 <p class="admonition-title">Safe async loading for imperative code</p>
 <p>Outside of composables, use <code>modelLoader.loadModelAsync(fileLocation) { model -&gt; ... }</code>.

@@ -1888,10 +1888,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#stop-rendering-an-idle-scene" class="md-nav__link">
+  <a href="#idle-scenes-stop-rendering-by-themselves" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Stop rendering an idle scene
+        Idle scenes stop rendering by themselves
       
     </span>
   </a>
@@ -3182,10 +3182,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#stop-rendering-an-idle-scene" class="md-nav__link">
+  <a href="#idle-scenes-stop-rendering-by-themselves" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Stop rendering an idle scene
+        Idle scenes stop rendering by themselves
       
     </span>
   </a>
@@ -3803,60 +3803,80 @@ SceneView(/* ... */) {
 coroutine. <code>rememberModelInstance</code> handles this automatically. For imperative
 code, use <code>loadModelInstanceAsync</code>.</p>
 </div>
-<h3 id="stop-rendering-an-idle-scene">Stop rendering an idle scene<a class="headerlink" href="#stop-rendering-an-idle-scene" title="Permanent link">&para;</a></h3>
-<p>A <code>SceneView</code> renders every vsync for as long as it is composed, whether or not anything
-changed. Compose's frame clock does not idle on its own, so a screen showing a static model —
-a product viewer nobody is touching, a board game between turns — keeps the GPU drawing an
-identical frame 60 or 120 times a second. On devices whose Choreographer keeps ticking a
-visually static UI it is a measurable source of battery drain and thermal throttling (#3108).</p>
-<p>Pass <code>isRendering = false</code> to park the frame loop:</p>
-<pre class="language-kotlin"><code>SceneView(isRendering = sceneIsDirty) { /* … */ }</code></pre>
-<p>The loop <em>suspends</em> while paused, so an idle scene schedules no work at all — it does not
-trade GPU frames for a polling timer — and it resumes on the recomposition that passes <code>true</code>,
-with no restart. The resumed frame lands on the next vsync: <code>withFrameNanos</code> is awaited after
-the wake-up, so expect one frame of latency, not zero.</p>
+<h3 id="idle-scenes-stop-rendering-by-themselves">Idle scenes stop rendering by themselves<a class="headerlink" href="#idle-scenes-stop-rendering-by-themselves" title="Permanent link">&para;</a></h3>
+<p><strong>Since 4.38.0 this is the default and there is nothing to configure.</strong> A <code>SceneView</code> used to
+render every vsync for as long as it was composed, whether or not anything had changed: Compose's
+frame clock does not idle on its own, so a screen showing a static model — a product viewer nobody
+is touching, a board game between turns — kept the GPU drawing an identical frame 60 or 120 times
+a second. On devices whose Choreographer keeps ticking a visually static UI that is a measurable
+source of battery drain and thermal throttling (#3108).</p>
+<p><code>frameRatePolicy</code> now decides when a frame is submitted, and it defaults to
+<code>FrameRatePolicy.OnDemand()</code>:</p>
+<pre class="language-kotlin"><code>SceneView { /* … */ }                                            // OnDemand() — the default
+SceneView(frameRatePolicy = FrameRatePolicy.Continuous()) { }     // a frame every vsync
+SceneView(frameRatePolicy = FrameRatePolicy.Continuous(30)) { }   // a steady 30 fps
+SceneView(frameRatePolicy = FrameRatePolicy.OnDemand(30)) { }     // on demand, never above 30 fps</code></pre>
+<p>Under <code>OnDemand</code> the library tracks what makes the picture change, so the call site computes
+nothing. It holds full cadence while <strong>any</strong> of these is true — a touch in flight, a camera
+manipulator still coasting or easing, a playing glTF animation, a smooth transform, a <code>VideoNode</code>
+or <code>ViewNode</code> whose surface just received a frame, a sorting <code>SplatNode</code>, an async model or
+environment load
+(<code>ModelLoader.isLoading</code>), an active <code>surfaceMirrorer</code>, a pending auto-center or auto-fit —
+and it wakes on every one-shot change: a node added, moved or removed, a surface resize, a
+lifecycle resume. A <strong>recomposition is not one of them</strong>: an invalidation comes from the thing
+that changed, not from the fact that the composable ran again — so a counter that writes Compose
+state from <code>onFrame</code> recomposes once per presented frame and is measuring itself, not the scene.
+Once everything stops it draws a short tail of settle frames
+(Filament finalises texture uploads, IBL and shadow work across several frames) and then <strong>parks</strong>:
+the loop suspends on the snapshot rather than polling, so an idle scene schedules no work at all —
+no GPU frame <em>and</em> no periodic CPU wake-up.</p>
+<p>The wake-up is immediate, not one poll tick later: the snapshot apply that publishes the change
+resumes the loop directly, so a touch on a parked scene reaches the screen on the next vsync.</p>
 <div class="admonition warning">
-<p class="admonition-title">Nothing is presented while <code>isRendering = false</code></p>
-<p>A node added or moved, a camera or manipulator change and a material edit all leave the
-<strong>last drawn frame</strong> on screen until rendering resumes. <code>onFrame</code> does not fire either.</p>
-<p>Two things are <em>not</em> merely frozen:</p>
-<ul>
-<li>A <strong>new or resized surface</strong> holds no pixels of its own — first attach, app foregrounded,
-  foldable folded or unfolded, split-screen resize. Freezing there would mean a blank view,
-  so the library always presents one frame into a new or resized surface even while paused,
-  then parks again. You do not need to flip the flag on a configuration change.</li>
-<li>An <strong>async model load does not finalise</strong> while paused. Filament finishes texture uploads
-  from inside the frame loop, so a model whose load completes during a pause renders
-  <em>untextured</em> for as long as the scene stays paused. Hold <code>true</code> until
-  <code>modelLoader.progress == 1f</code>, not until the load call returns.</li>
-</ul>
-<p>So derive the flag from "is anything dirty", holding it <code>true</code> for at least one frame after
-the last mutation — <strong>not</strong> from "is an animation running". An animation flag is already
-<code>false</code> at the instant a one-shot change is published, which strands that change undrawn.
-And the dirty window itself has to be Compose state <strong>in both directions</strong>: a deadline
-compared against a clock flips <code>true</code> on the mutation that recomposes it and then never
-flips back, because time crossing a threshold invalidates no composition. The scene then
-renders forever and the parameter silently does nothing — the app looks correct, which is
-what makes this one expensive.</p>
-<pre class="language-kotlin"><code>// WRONG — a new position, a highlight, a finished load is never drawn.
-SceneView(isRendering = isAnimating) { /* … */ }
+<p class="admonition-title">Direct Filament edits are the one thing <code>OnDemand</code> cannot see</p>
+<p>Setting a <code>MaterialInstance</code> parameter, changing a light's intensity, or otherwise mutating a
+Filament object happens <strong>below</strong> the library's bookkeeping. Nothing in the scene graph
+changed, so nothing invalidates and your edit is not drawn. Say so explicitly:</p>
+<pre class="language-kotlin"><code>// From a node you already hold:
+node.requestRender()
 
-// ALSO WRONG — `System.nanoTime()` is not snapshot state. Nothing recomposes when the
-// window elapses, so this never returns to `false` after the first mutation.
-SceneView(isRendering = isAnimating || System.nanoTime() &lt; dirtyUntilNanos) { /* … */ }
-
-// RIGHT — the window is state, and the effect writes it back to false.
-var isDirty by remember { mutableStateOf(true) }
-LaunchedEffect(dirtyToken) {          // dirtyToken is bumped by every scene mutation
-    isDirty = true
-    delay(200)
-    isDirty = false
-}
-SceneView(isRendering = isAnimating || isInteracting || isDirty) { /* … */ }</code></pre>
-<p>Note the <code>mutableStateOf(true)</code> seed: a scene whose content is set once, before any
-animation runs, would never render at all if the flag started <code>false</code>.</p>
-<p>Not applicable to <code>ARSceneView</code>: a camera feed is never idle, so there is nothing to park.</p>
+// From anywhere else — and before any PixelCopy / screenshot of the surface:
+val invalidator = rememberRenderInvalidator()
+SceneView(renderInvalidator = invalidator) { /* … */ }
+// later, after the edit
+materialInstance.setParameter("baseColorFactor", 1f, 0f, 0f, 1f)
+invalidator.requestRender()</code></pre>
 </div>
+<div class="admonition warning">
+<p class="admonition-title"><code>onFrame</code> cannot be what keeps the loop awake</p>
+<p>It fires once per <strong>presented</strong> frame, right after that frame reached the surface. A callback
+that advances an animation clock or steps a simulation and relies on nothing but its own next
+invocation stops the first time the scene parks, and never restarts — the screen freezes on
+open, with a perfectly correct first frame. A screen that drives motion states it
+(<code>FrameRatePolicy.Continuous()</code> while it runs, <code>OnDemand()</code> when it pauses) and takes a rising
+edge on the flag that decides, because flipping that flag on a parked loop otherwise changes a
+value nobody is reading. A change the <em>user</em> just made is applied <strong>outside</strong> <code>onFrame</code> and
+followed by <code>requestRender()</code>: written inside, it lands in the next frame, which under
+<code>OnDemand</code> never comes.</p>
+<p>A <strong>new or resized surface</strong> is <em>not</em> one of these cases: a swap chain is created empty, so
+first attach, app foregrounded, foldable folded or unfolded and split-screen resize all
+present a frame before the loop parks again. You never have to handle a configuration change
+yourself.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Migrating from <code>isRendering</code></p>
+<p><code>isRendering: Boolean</code> is <strong>removed</strong>, with no deprecated overload.
+<code>isRendering = true</code> becomes <code>frameRatePolicy = FrameRatePolicy.Continuous()</code>. Everything
+else — the <code>isDirty</code> state, the <code>dirtyToken</code>, the <code>LaunchedEffect { delay(200) }</code> window the
+old parameter needed — is now the library's job: <strong>delete it</strong>, do not translate it.</p>
+</div>
+<p><code>ARSceneView</code> takes <strong>no</strong> <code>frameRatePolicy</code> parameter and its loop never parks: a live camera
+feed is never idle, so there is nothing to park. It gained the other half of the mechanism
+instead — the GPU submit is skipped on a vsync where ARCore hands back a duplicate
+<code>Frame.timestamp</code> <strong>and</strong> nothing in the virtual scene changed. The ARCore session is still
+updated every vsync, so tracking, anchors and plane detection are unaffected. What this removes
+is the duplicate frame drawn when ARCore returns the same image twice, which is what happens
+whenever the loop outruns the camera.</p>
 <hr />
 <h2 id="ar-specific-optimization">AR-Specific Optimization<a class="headerlink" href="#ar-specific-optimization" title="Permanent link">&para;</a></h2>
 <p>AR adds the camera feed and ARCore tracking to your frame budget, leaving less room
@@ -4000,8 +4020,8 @@ SceneView(
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Shadows</strong> — limited to 1-2 shadow-casting lights</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Post-processing</strong> — adapted to device tier, SSAO disabled on low-end</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Compose</strong> — no allocations in composition body, <code>remember</code> for stable refs</li>
-<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Idle scenes</strong> — <code>isRendering = false</code> when nothing changes, driven by a dirty
-      signal that outlives the last mutation by a frame (not by an animation flag)</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Idle scenes</strong> — leave <code>frameRatePolicy</code> at its <code>OnDemand</code> default; call
+      <code>requestRender()</code> after any direct Filament edit the scene graph cannot see</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Engine</strong> — single shared Engine, ModelLoader, and MaterialLoader</li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>AR callbacks</strong> — no allocations in <code>onSessionUpdated</code></li>
 <li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>Plane renderer</strong> — disabled after object placement</li>

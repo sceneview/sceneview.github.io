@@ -2763,10 +2763,17 @@ your tool reads, or point your assistant at <code>llms.txt</code>.</p>
 <h2 id="full-api-reference">Full API reference<a class="headerlink" href="#full-api-reference" title="Permanent link">&para;</a></h2>
 <p>For AI system prompts, use:</p>
 <ul>
-<li><strong>Compact</strong>: <code>https://sceneview.github.io/llms-full.txt</code> (fits most context windows)</li>
-<li><strong>Complete</strong>: <code>https://sceneview.github.io/llms.txt</code> (full API reference)</li>
+<li><strong>Compact</strong>: <code>https://sceneview.github.io/llms-full.txt</code> (~12 kB, fits most context windows)</li>
+<li><strong>Complete</strong>: <code>https://sceneview.github.io/llms.txt</code> (full API reference, and an index of these docs at the top)</li>
 <li><strong>MCP resource</strong>: <code>sceneview://api</code> (served by sceneview-mcp)</li>
 </ul>
+<p>Yes, the names are the reverse of the <a href="https://llmstxt.org">llmstxt.org</a>
+convention, which reserves <code>llms.txt</code> for a short linked index and
+<code>llms-full.txt</code> for the whole content. <code>/llms.txt</code> has served the full
+reference since it was first published and is what the sitemap, <code>AGENTS.md</code>,
+the per-tool rule files, the <code>sceneview-mcp</code> package and outside indexes all
+point at, so the URLs stay put; the index the convention asks for was added to
+the top of <code>/llms.txt</code> instead.</p>
 
 
 

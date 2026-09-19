@@ -2548,6 +2548,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.37.x to 4.38.0 (Android) — isRendering replaced by frameRatePolicy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.37.x to 4.38.0 (Android) — isRendering replaced by frameRatePolicy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sceneviewisrendering-is-removed-render-on-demand-is-the-default-3108" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView(isRendering:) is removed; render-on-demand is the default (#3108)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-line-is-sdk-mutators-invalidate-raw-filament-objects-do-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the line is: SDK mutators invalidate, raw Filament objects do not
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-your-app-for-heuristics-that-read-the-frame-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check your app for heuristics that read the frame rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onframe-cannot-be-what-keeps-your-loop-awake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        onFrame cannot be what keeps your loop awake
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeonframe-holds-the-loop-open-sceneviewonframe-does-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node.onFrame holds the loop open; SceneView(onFrame = …) does not
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3047,6 +3119,78 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.37.x to 4.38.0 (Android) — isRendering replaced by frameRatePolicy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.37.x to 4.38.0 (Android) — isRendering replaced by frameRatePolicy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sceneviewisrendering-is-removed-render-on-demand-is-the-default-3108" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView(isRendering:) is removed; render-on-demand is the default (#3108)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-the-line-is-sdk-mutators-invalidate-raw-filament-objects-do-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where the line is: SDK mutators invalidate, raw Filament objects do not
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#check-your-app-for-heuristics-that-read-the-frame-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Check your app for heuristics that read the frame rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onframe-cannot-be-what-keeps-your-loop-awake" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        onFrame cannot be what keeps your loop awake
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeonframe-holds-the-loop-open-sceneviewonframe-does-not" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node.onFrame holds the loop open; SceneView(onFrame = …) does not
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3537,6 +3681,202 @@
 
 
 <h1 id="migration-guide">Migration Guide<a class="headerlink" href="#migration-guide" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy">SceneView 4.37.x to 4.38.0 (Android) — <code>isRendering</code> replaced by <code>frameRatePolicy</code><a class="headerlink" href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" title="Permanent link">&para;</a></h2>
+<h3 id="sceneviewisrendering-is-removed-render-on-demand-is-the-default-3108"><code>SceneView(isRendering:)</code> is removed; render-on-demand is the default (<a href="https://github.com/sceneview/sceneview/issues/3108">#3108</a>)<a class="headerlink" href="#sceneviewisrendering-is-removed-render-on-demand-is-the-default-3108" title="Permanent link">&para;</a></h3>
+<p>A <code>SceneView</code> no longer renders every vsync for as long as it is composed. The new
+<code>frameRatePolicy</code> parameter defaults to <code>FrameRatePolicy.OnDemand()</code>: the library tracks what makes
+the picture change, holds the display's full cadence while anything is happening, then draws a
+short tail of settle frames and parks the loop.</p>
+<p><code>isRendering: Boolean</code> is <strong>removed outright — there is no deprecated overload.</strong> Keeping one
+would have meant two parameters that can disagree about the same thing, and the boolean's whole
+contract ("you work out when the scene is dirty") is precisely what the new default replaces.</p>
+<pre class="language-kotlin"><code>// Before — you computed "is anything dirty" yourself and fed it in
+var isDirty by remember { mutableStateOf(true) }
+LaunchedEffect(dirtyToken) {
+    isDirty = true
+    delay(200)
+    isDirty = false
+}
+SceneView(isRendering = isAnimating || isInteracting || isDirty) { /* … */ }
+
+// After — that is the library's job now
+SceneView { /* … */ }</code></pre>
+<p><strong>Key differences:</strong></p>
+<ul>
+<li><code>isRendering = true</code> (or omitting the parameter) becomes
+  <code>frameRatePolicy = FrameRatePolicy.Continuous()</code> if you genuinely want a frame every vsync. If you
+  never passed the parameter at all, the honest migration is usually to change <strong>nothing</strong> and take
+  the new default.</li>
+<li>The <code>isDirty</code> state, the <code>dirtyToken</code>, the <code>LaunchedEffect { delay(200) }</code> window — <strong>delete
+  them, do not translate them.</strong> Every source they were standing in for (touch, camera coast,
+  animation, smooth transform, video, <code>ViewNode</code>, splat sort, async load, mirrorer, auto-fit, node
+  added/moved/removed, visibility, geometry, material swap, surface resize, lifecycle resume) is
+  now tracked by the library.</li>
+<li><strong>Never invalidate from a recomposition, and never write Compose state from <code>onFrame</code>.</strong> The
+  library asks for a frame from the thing that changed, never from the fact that a recomposition
+  happened — and your screen should do the same. A counter that writes snapshot state on every
+  presented frame recomposes its host on every presented frame; if any of that feeds back into the
+  scene, the screen is measuring its own loop rather than the scene's. <code>DebugStats</code> holds plain
+  fields and <code>DebugOverlay</code> reads them on a 250 ms tick, which is the pattern to copy.</li>
+<li><strong>A <code>ViewNode</code> keeps the scene awake while its view is drawing, and only then.</strong> The hosted
+  Android <code>View</code> animates on its own schedule — a ripple, a spinner, a cursor, an inner fling, a
+  recomposition of hosted Compose content — and
+  the library cannot see inside it, so the node reports itself active from the one thing that is
+  observable: every buffer the view hierarchy queues onto its <code>SurfaceTexture</code>. An animating view
+  therefore holds the full cadence for as long as it animates, and a view that has finished drawing
+  parks with the rest of the scene. A <code>VideoNode</code> answers the same way, plus a direct read of
+  <code>player.isPlaying</code>.</li>
+<li>Pre-compiled consumers must recompile. A caller passing nine or more <strong>positional</strong> arguments
+  gets a type error at slot 9 rather than a silent behaviour change — the slot went from <code>Boolean</code>
+  to <code>FrameRatePolicy</code>.</li>
+<li><code>maxFps</code> is new, and it is an argument of both modes rather than a policy of its own:
+  <code>OnDemand(maxFps = 30)</code> renders on demand and, when it does render, never faster than 30 fps;
+  <code>Continuous(maxFps = 30)</code> is a steady 30 fps. Either way the display is voted <code>maxFps</code> rather
+  than the panel maximum. <code>null</code> (the default) means the display's own cadence.</li>
+<li><strong>Direct Filament edits are the one thing the default cannot see.</strong> Anything written below the
+  scene graph leaves nothing to invalidate on. The full list, and it is a list rather than an
+  example, because the cost of missing one is a frozen image:</li>
+<li>a <code>MaterialInstance</code> parameter (<code>setParameter</code>) on an instance you already hold;</li>
+<li>a light property written through <code>LightManager</code> rather than through the node;</li>
+<li>a <code>Skybox</code> or <code>IndirectLight</code> assigned straight onto the Filament <code>Scene</code>;</li>
+<li>morph-target weights and bone transforms written through <code>RenderableManager</code>;</li>
+<li>an external <code>Stream</code> — a camera or video surface — pushing new content;</li>
+<li><code>View</code> options changed at runtime (bloom, ambient occlusion, dynamic resolution, blend mode)
+    on a <code>View</code> you own.</li>
+</ul>
+<p>For all of them: call <code>node.requestRender()</code> on a node you hold, or take the new
+  <code>renderInvalidator</code> parameter with <code>rememberRenderInvalidator()</code> and call
+  <code>invalidator.requestRender()</code> after the edit. Call it on the main thread — post to it from a
+  background upload rather than calling across. Before a <code>PixelCopy</code> or a screenshot, request a
+  frame and then <strong>wait for your next <code>onFrame</code></strong>: the request is fire-and-forget, and there is no
+  "await one frame" API.
+- <strong><code>ARSceneView</code> does not take this parameter, and its loop never parks.</strong> A live camera feed is
+  never idle, so there is no idle frame to skip. What it does do is skip the <em>GPU submit</em> on a
+  vsync where ARCore hands back a duplicate <code>Frame.timestamp</code> and nothing in the scene changed —
+  <code>session.update()</code> still runs every vsync, so tracking, anchors and plane detection are
+  unaffected.</p>
+<p><strong>Action:</strong> delete the <code>isRendering</code> argument and the dirty-tracking behind it. Pass
+<code>frameRatePolicy = FrameRatePolicy.Continuous()</code> only if your scene is driven by something the
+library cannot observe — an external simulation writing into Filament each frame, a custom
+<code>Renderer</code> hook, a texture updated off-thread.</p>
+<h3 id="where-the-line-is-sdk-mutators-invalidate-raw-filament-objects-do-not">Where the line is: SDK mutators invalidate, raw Filament objects do not<a class="headerlink" href="#where-the-line-is-sdk-mutators-invalidate-raw-filament-objects-do-not" title="Permanent link">&para;</a></h3>
+<p>This is the one rule to carry out of the migration, and it is the adoption risk the whole default
+turns on — a missed invalidation does not crash, log or fail a test. It shows the previous frame,
+forever, and reads as "the slider is broken".</p>
+<p><strong>Anything you change through a SceneView type asks for its own frame.</strong> Setting
+<code>lightNode.intensity</code>, <code>lightNode.color</code>, <code>lightNode.lightDirection</code>, <code>cameraNode.setExposure(…)</code>,
+a projection, <code>focusDistance</code>, a node's transform, <code>materialInstance</code> / <code>setMaterialInstanceAt</code>,
+<code>setGeometry</code>, <code>setLayerVisible</code>, morph weights or bone matrices <em>through the node</em>, shadow flags,
+priority, culling, blend order — all of these invalidate on their own. You do not call
+<code>requestRender()</code> after them, and you do not need <code>Continuous()</code> to make them show.</p>
+<p><strong>Anything you change on a raw Filament object does not.</strong> The SDK hands these out and never sees
+them again, so nothing is left to observe the write:</p>
+<pre class="language-kotlin"><code>// Raw Filament object → the SDK cannot see this. Ask for the frame yourself.
+indirectLight.intensity = 30_000f
+indirectLight.setRotation(rotation)
+materialInstance.setParameter("baseColorFactor", color)
+view.ambientOcclusionOptions = options
+scene.skybox = skybox
+lightManager.setIntensity(instance, lux)   // through the manager, not the node
+
+renderInvalidator.requestRender()          // ← the missing line</code></pre>
+<p>Take the invalidator with <code>rememberRenderInvalidator()</code> and pass it as
+<code>SceneView(renderInvalidator = …)</code>, or call <code>requestRender()</code> on any node you hold. The rule of
+thumb that costs nothing to apply: <strong>if the type you are writing to came from <code>com.google.android
+.filament</code>, ask for a frame.</strong></p>
+<p>Measured, so it is not hypothetical: a demo screen dragging <em>Environment rotation</em> from 302° to
+100° and <em>Exposure</em> from 1.00 to 2.72 on a parked scene produced <strong>0</strong> frames and a viewport still
+lit the old way. Both writes went into an <code>IndirectLight</code>.</p>
+<h3 id="check-your-app-for-heuristics-that-read-the-frame-rate">Check your app for heuristics that read the frame rate<a class="headerlink" href="#check-your-app-for-heuristics-that-read-the-frame-rate" title="Permanent link">&para;</a></h3>
+<p>This is the failure mode that survives the mechanical migration, because it compiles, it is in
+<em>your</em> code, and it looks like it is measuring something else.</p>
+<p><strong>Any heuristic built on a run of closely spaced frames breaks under <code>OnDemand</code>.</strong> The pattern is
+always some form of "I will believe the scene is up once I have seen N frames within M
+milliseconds of each other" — a loading cover, a splash dismissal, a warm-up probe, an "is the GPU
+keeping up" check. It worked because every <code>SceneView</code> drew every vsync forever, so frames were a
+clock you could count on. They are not a clock any more. A finished scene presents a short settle
+tail and parks: our own demo app measured <strong>3 frames in 10 s</strong> on a fully drawn model, and its
+loading cover — which wanted 8 frames within 250 ms of each other — never lifted. At 12 s the
+scaffold replaced the spinner with a "Still loading…" card, over a scene that had been complete
+for ten seconds. Nudging the camera restarted the loop, satisfied the streak and dismissed the
+card, which is the tell: the signal was reading the frame rate and reporting it as progress.</p>
+<p><strong>A readiness signal must never depend on cadence — a parked scene is a ready scene.</strong> Rewrite the
+rule to count frames without looking at the intervals between them, and if what you actually need
+is "has the GPU finished", ask the GPU: <code>Engine.flushAndWait()</code> blocks until the backend has
+executed the queued work, which is the fact the timing was being used to guess. Two presented
+frames are enough to start that question, because Filament refuses a new frame while the driver is
+behind — a second accepted submission is itself the evidence that the first was drained.</p>
+<p>Do <strong>not</strong> fix this by holding the loop awake to feed the heuristic. That re-creates exactly the
+drain this release exists to remove, and hides the bug instead of closing it.</p>
+<h3 id="onframe-cannot-be-what-keeps-your-loop-awake"><code>onFrame</code> cannot be what keeps your loop awake<a class="headerlink" href="#onframe-cannot-be-what-keeps-your-loop-awake" title="Permanent link">&para;</a></h3>
+<p>The same shape, one level down, and it is the one that costs you a screen rather than a cover.</p>
+<p><code>onFrame</code> fires <strong>once per presented frame, right after that frame reached the surface</strong>. Under
+<code>Continuous</code> that was indistinguishable from "every vsync, forever", so it became the natural home
+for anything per-frame: advancing an animation clock, stepping a physics simulation, driving a
+turntable, syncing an audio listener pose. Under <code>OnDemand</code> it closes on itself. Nothing else
+invalidates the scene, so the loop settles and parks; parked means no presented frame; no presented
+frame means no <code>onFrame</code>; and the clock that was going to ask for the next frame is the one that
+just stopped running. The screen does not stutter — it freezes on open, with a fully drawn, entirely
+correct first frame, which is why it reads as "the animation is broken" and not as "the loop
+stopped".</p>
+<p>Two things to check in every per-frame callback you own:</p>
+<ul>
+<li><strong>Does it drive motion?</strong> Then say so: <code>frameRatePolicy = FrameRatePolicy.Continuous()</code> while it
+  runs, and back to <code>OnDemand()</code> when the user pauses it. This is what the mode is for, and it also
+  lets the cadence vote tell the display. A <code>RenderInvalidator.requestRender()</code> called from inside
+  <code>onFrame</code> works too — each rendered frame buys the next — but it says "one more frame" sixty times
+  a second to mean "keep going", and nothing tells the panel.</li>
+<li><strong>Does it apply a change the user just made?</strong> Then apply it <strong>outside</strong> <code>onFrame</code> and request the
+  frame after: <code>onFrame</code> runs after presentation, so a pose written there lands in the <em>next</em> frame.
+  One <code>requestRender()</code> would draw the old pose, then park one frame behind, permanently.</li>
+</ul>
+<p>The state that decides — <code>isPlaying</code>, <code>isReplaying</code>, "is this band on screen" — also needs a rising
+edge. Going from paused to playing while the loop is parked changes a flag no one is reading;
+request one frame from a <code>LaunchedEffect</code> on that flag, and the callback takes it from there.</p>
+<p>And it must follow the motion, not a flag only a gesture clears. A <code>Continuous()</code> held by
+<code>isReplaying</code>, where <code>isReplaying</code> goes false only when the user presses Reset, is the same lie as a
+loader that never resolves: the spheres stop bouncing, the flag stays true, and the screen renders a
+frozen picture at 57 fps until someone touches it. Tie the declaration to the thing that is actually
+moving.</p>
+<h3 id="nodeonframe-holds-the-loop-open-sceneviewonframe-does-not"><code>Node.onFrame</code> holds the loop open; <code>SceneView(onFrame = …)</code> does not<a class="headerlink" href="#nodeonframe-holds-the-loop-open-sceneviewonframe-does-not" title="Permanent link">&para;</a></h3>
+<p>They share a name and nothing else, and the asymmetry is deliberate:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>when it runs</th>
+<th>effect on the loop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SceneView(onFrame = …)</code></td>
+<td>after its frame was presented</td>
+<td><strong>none</strong> — it is an observer</td>
+</tr>
+<tr>
+<td><code>node.onFrame = { … }</code></td>
+<td>before the frame is drawn</td>
+<td><strong>pins</strong> — a non-null slot asks for a frame every tick</td>
+</tr>
+</tbody>
+</table>
+<p><code>Node.onFrame</code> is a <em>driver</em>: <code>PhysicsNode</code> steps its simulation there, and a driver that only runs
+when a frame happens could never produce the first one. So setting it is read as "keep rendering",
+and <code>node.onFrame = null</code> is how you stop asking. A transform written there is on screen in the same
+frame — it runs ahead of the GPU submit, not after it.</p>
+<p>Two consequences worth knowing before you go looking for a leak:</p>
+<ul>
+<li><strong>A node you hand an <code>onFrame</code> to will not let its scene park.</strong> That is the safe default, and it
+  is under your control. If the callback only <em>observes</em>, hold the value in Compose state instead.</li>
+<li><strong>The library's own per-frame work does not go through that slot</strong> and does not pin anything.
+  <code>BillboardNode</code> (and <code>TextNode</code>, which is one) re-orients only when the camera has actually moved;
+  a settled <code>PhysicsNode</code> reports itself idle; <code>rememberModelAnimationState</code> observes without
+  costing you a frame. Before 4.37 every one of them quietly held its scene at full cadence — a
+  screen with two <code>TextNode</code>s on it ran at 57 fps on a still picture. None of this needs a change in
+  your code.</li>
+</ul>
 <hr />
 <h2 id="sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode">SceneView 4.14.x to 4.15.1 (iOS) — native Apple camera modes added to <code>CameraControlMode</code><a class="headerlink" href="#sceneview-414x-to-4151-ios-native-apple-camera-modes-added-to-cameracontrolmode" title="Permanent link">&para;</a></h2>
 <h3 id="three-new-cameracontrolmode-cases-none-tilt-dolly-1049">Three new <code>CameraControlMode</code> cases — <code>.none</code>, <code>.tilt</code>, <code>.dolly</code> (<a href="https://github.com/sceneview/sceneview/issues/1049">#1049</a>)<a class="headerlink" href="#three-new-cameracontrolmode-cases-none-tilt-dolly-1049" title="Permanent link">&para;</a></h3>
