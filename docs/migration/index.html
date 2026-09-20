@@ -4141,12 +4141,12 @@ fun MyARScreen() {
 <h3 id="3-version-bump-just-the-number">3. Version bump — just the number<a class="headerlink" href="#3-version-bump-just-the-number" title="Permanent link">&para;</a></h3>
 <p>Update your Gradle / SPM / pubspec / package.json references:</p>
 <pre class="language-kotlin"><code>// Before
-implementation("io.github.sceneview:sceneview:4.37.0")
-implementation("io.github.sceneview:arsceneview:4.37.0")
+implementation("io.github.sceneview:sceneview:4.38.0")
+implementation("io.github.sceneview:arsceneview:4.38.0")
 
 // After (4.0.0)
-implementation("io.github.sceneview:sceneview:4.37.0")
-implementation("io.github.sceneview:arsceneview:4.37.0")</code></pre>
+implementation("io.github.sceneview:sceneview:4.38.0")
+implementation("io.github.sceneview:arsceneview:4.38.0")</code></pre>
 <p><strong>Release candidate caveat:</strong> Maven Central does <strong>not</strong> currently ship <code>4.0.0</code>. Either build from source (<code>./gradlew :sceneview:publishToMavenLocal</code>) or wait for <code>v4.0.0</code> stable.</p>
 <h3 id="4-sceneview-mcp-gained-a-next-dist-tag">4. <code>sceneview-mcp</code> gained a <code>@next</code> dist-tag<a class="headerlink" href="#4-sceneview-mcp-gained-a-next-dist-tag" title="Permanent link">&para;</a></h3>
 <p>If you use the <a href="https://www.npmjs.com/package/sceneview-mcp"><code>sceneview-mcp</code></a> npm package in your MCP client, the <code>@latest</code> tag is still on <code>3.6.4</code> (unchanged, intentionally). The <code>@next</code> tag is on <code>4.0.0</code>, which includes the Rerun integration docs and v4 lite-proxy routing to the hosted gateway. Opt in with:</p>
@@ -4284,8 +4284,8 @@ implementation("io.github.sceneview:sceneview:2.3.0")
 implementation("io.github.sceneview:arsceneview:2.3.0")
 
 // After
-implementation("io.github.sceneview:sceneview:4.37.0")
-implementation("io.github.sceneview:arsceneview:4.37.0")</code></pre>
+implementation("io.github.sceneview:sceneview:4.38.0")
+implementation("io.github.sceneview:arsceneview:4.38.0")</code></pre>
 <hr />
 <h2 id="2-sceneview-nodes-move-into-the-content-block">2. <code>SceneView</code> — nodes move into the content block<a class="headerlink" href="#2-sceneview-nodes-move-into-the-content-block" title="Permanent link">&para;</a></h2>
 <p>The <code>childNodes</code> parameter is gone. Declare nodes directly inside the <code>SceneView { }</code> trailing lambda.</p>
