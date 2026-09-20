@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.sceneview.ar.arcore</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    arsceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":arsceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":arsceneview/main"
+                                       data-filter=":arsceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    arsceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="arsceneview::io.github.sceneview.ar.arcore////PointingToDeclaration//-652796645">
+  <div class="breadcrumbs"><a href="../../index.html">arsceneview</a><span class="delimiter">/</span><span class="current">io.github.sceneview.ar.arcore</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="847646296%2FClasslikes%2F-652796645" anchor-label="AddImageResult" id="847646296%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-add-image-result/index.html"><span>Add</span><wbr></wbr><span>Image</span><wbr></wbr><span><span>Result</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="847646296%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="-add-image-result/index.html">AddImageResult</a></div><div class="brief "><p class="paragraph">Outcome of <a href="-runtime-augmented-image-database/add-image.html">RuntimeAugmentedImageDatabase.addImage</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1800166514%2FClasslikes%2F-652796645" anchor-label="ARSession" id="-1800166514%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-a-r-session/index.html"><span><span>ARSession</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1800166514%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-a-r-session/index.html">ARSession</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">features<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Session.Feature///PointingToDeclaration/">Session.Feature</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf()<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>onResumed<span class="token operator">: </span><span class="token punctuation">(</span>session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>onPaused<span class="token operator">: </span><span class="token punctuation">(</span>session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>onConfigChanged<span class="token operator">: </span><span class="token punctuation">(</span>session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">, </span>config<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Config///PointingToDeclaration/">Config</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2004105015%2FClasslikes%2F-652796645" anchor-label="CameraConfigFilterBuilder" id="2004105015%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-config-filter-builder/index.html"><span>Camera</span><wbr></wbr><span>Config</span><wbr></wbr><span>Filter</span><wbr></wbr><span><span>Builder</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2004105015%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-camera-config-filter-builder/index.html">CameraConfigFilterBuilder</a></div><div class="brief "><p class="paragraph">DSL builder for <span data-unresolved-link="com.google.ar.core/CameraConfigFilter///PointingToDeclaration/">CameraConfigFilter</span> (#1733, #1772).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1669223720%2FClasslikes%2F-652796645" anchor-label="CameraIntrinsicsSnapshot" id="-1669223720%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-intrinsics-snapshot/index.html"><span>Camera</span><wbr></wbr><span>Intrinsics</span><wbr></wbr><span><span>Snapshot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1669223720%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-camera-intrinsics-snapshot/index.html">CameraIntrinsicsSnapshot</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>focalLength<span class="token operator">: </span><span data-unresolved-link="dev.romainguy.kotlin.math/Float2///PointingToDeclaration/">Float2</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>principalPoint<span class="token operator">: </span><span data-unresolved-link="dev.romainguy.kotlin.math/Float2///PointingToDeclaration/">Float2</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>imageWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>imageHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">SceneView-friendly snapshot of <span data-unresolved-link="com.google.ar.core/CameraIntrinsics///PointingToDeclaration/">com.google.ar.core.CameraIntrinsics</span> — focal length, principal point and image dimensions for either the GPU texture stream or the CPU image stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1569014530%2FClasslikes%2F-652796645" anchor-label="DepthHitResult" id="1569014530%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-depth-hit-result/index.html"><span>Depth</span><wbr></wbr><span>Hit</span><wbr></wbr><span><span>Result</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1569014530%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-depth-hit-result/index.html">DepthHitResult</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>position<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>normal<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Direction///PointingToDeclaration/">Direction</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>distance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Result of a depth-based hit test — a real-world point and the orientation of the surface it sits on, sampled from the ARCore depth image rather than from a detected <span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">com.google.ar.core.Plane</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1475249607%2FClasslikes%2F-652796645" anchor-label="GeospatialPoseSnapshot" id="1475249607%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-geospatial-pose-snapshot/index.html"><span>Geospatial</span><wbr></wbr><span>Pose</span><wbr></wbr><span><span>Snapshot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1475249607%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-geospatial-pose-snapshot/index.html">GeospatialPoseSnapshot</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>latitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>longitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>altitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>heading<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>horizontalAccuracy<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>verticalAccuracy<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>orientationYawAccuracy<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Snapshot of every field a <span data-unresolved-link="com.google.ar.core/GeospatialPose///PointingToDeclaration/">GeospatialPose</span> exposes — addresses the audit finding (#1769) that the existing <code class="lang-kotlin">GeospatialPose.transform</code> extension projects only 3 of 7 fields (lat/lng/altitude) into a SceneView <span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">io.github.sceneview.math.Transform</span>, dropping the four accuracy / heading fields apps need to gate UI on signal quality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1066914995%2FClasslikes%2F-652796645" anchor-label="PlanesDiff" id="1066914995%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-planes-diff/index.html"><span>Planes</span><wbr></wbr><span><span>Diff</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1066914995%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-planes-diff/index.html">PlanesDiff</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>added<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>updated<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>removed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The three plane-lifecycle deltas between two consecutive frames (#1774) — the SceneView equivalent of AR Foundation's <code class="lang-kotlin">ARPlanesChangedEventArgs</code> (<code class="lang-kotlin">added</code> / <code class="lang-kotlin">updated</code> / <code class="lang-kotlin">removed</code>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-900711147%2FClasslikes%2F-652796645" anchor-label="RuntimeAugmentedImageDatabase" id="-900711147%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-runtime-augmented-image-database/index.html"><span>Runtime</span><wbr></wbr><span>Augmented</span><wbr></wbr><span>Image</span><wbr></wbr><span><span>Database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-900711147%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-runtime-augmented-image-database/index.html">RuntimeAugmentedImageDatabase</a></div><div class="brief "><p class="paragraph">Manages an <span data-unresolved-link="com.google.ar.core/AugmentedImageDatabase///PointingToDeclaration/">AugmentedImageDatabase</span> that grows <strong>at runtime</strong> — letting the user register a brand-new reference image on-device (e.g. from a photo they just took) without a pre-bundled <code class="lang-kotlin">arcoreimg</code> database or a trip to a desktop tool (#1553, follow-up of #1437).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="1228032298%2FProperties%2F-652796645" anchor-label="DEFAULT_JPEG_QUALITY" id="1228032298%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-d-e-f-a-u-l-t_-j-p-e-g_-q-u-a-l-i-t-y.html"><span>DEFAULT_</span><wbr></wbr><span>JPEG_</span><wbr></wbr><span>QUALITY</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1228032298%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-d-e-f-a-u-l-t_-j-p-e-g_-q-u-a-l-i-t-y.html">DEFAULT_JPEG_QUALITY</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">90</span></div><div class="brief "><p class="paragraph">Default JPEG quality for the intermediate YUV → ARGB encode in <a href="to-argb-bitmap.html">Image.toArgbBitmap</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2092567384%2FProperties%2F-652796645" anchor-label="displayOrientedPose" id="-2092567384%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="display-oriented-pose.html"><span>display</span><wbr></wbr><span>Oriented</span><wbr></wbr><span><span>Pose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2092567384%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">.</span><a href="display-oriented-pose.html">displayOrientedPose</a><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span></div><div class="brief "><p class="paragraph">Camera pose for use in <strong>rendering</strong>, accounting for current display rotation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1275668719%2FProperties%2F-652796645" anchor-label="distance" id="-1275668719%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="distance.html"><span><span>distance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1275668719%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">.</span><a href="distance.html">distance</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Distance from the camera to the hit location, in meters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1308628980%2FProperties%2F-652796645" anchor-label="isTracking" id="1308628980%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-tracking.html"><span>is</span><wbr></wbr><span><span>Tracking</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1308628980%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/AugmentedImage///PointingToDeclaration/">AugmentedImage</span><span class="token punctuation">.</span><a href="is-tracking.html">isTracking</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this <span data-unresolved-link="com.google.ar.core/AugmentedImage///PointingToDeclaration/">AugmentedImage</span> is actively being tracked with full accuracy.</p></div><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">.</span><a href="is-tracking.html">isTracking</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the AR camera is currently in <span data-unresolved-link="com.google.ar.core/TrackingState.TRACKING///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">TrackingState.TRACKING</span>.</p></div><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Trackable///PointingToDeclaration/">Trackable</span><span class="token punctuation">.</span><a href="is-tracking.html">isTracking</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether this <span data-unresolved-link="com.google.ar.core/Trackable///PointingToDeclaration/">Trackable</span> is currently in <span data-unresolved-link="com.google.ar.core/TrackingState.TRACKING///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">TrackingState.TRACKING</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1703659214%2FProperties%2F-652796645" anchor-label="polygon" id="-1703659214%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="polygon.html"><span><span>polygon</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1703659214%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token punctuation">.</span><a href="polygon.html">polygon</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/nio/FloatBuffer.html">FloatBuffer</a></div><div class="brief "><p class="paragraph">The 2D vertices of a polygon approximating the detected plane, in the form <code class="lang-kotlin">[x1, z1, x2, z2, ...]</code> in plane-local coordinates (X-Z plane, Y = 0).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-256113024%2FProperties%2F-652796645" anchor-label="position" id="-256113024%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="position.html"><span><span>position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-256113024%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="position.html">position</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span></div><div class="brief "><p class="paragraph">The translation component of this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span> as a SceneView <span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="367561525%2FProperties%2F-652796645" anchor-label="quaternion" id="367561525%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="quaternion.html"><span><span>quaternion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="367561525%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="quaternion.html">quaternion</a><span class="token operator">: </span><span data-unresolved-link="dev.romainguy.kotlin.math/Quaternion///PointingToDeclaration/">Quaternion</span></div><div class="brief "><p class="paragraph">The rotation component of this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span> as a <span data-unresolved-link="dev.romainguy.kotlin.math/Quaternion///PointingToDeclaration/">Quaternion</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1553031467%2FProperties%2F-652796645" anchor-label="rotation" id="-1553031467%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rotation.html"><span><span>rotation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1553031467%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="rotation.html">rotation</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Rotation///PointingToDeclaration/">Rotation</span></div><div class="brief "><p class="paragraph">The rotation component of this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span> as Euler angles (pitch, yaw, roll) in degrees.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1635277263%2FProperties%2F-652796645" anchor-label="subsumedBy" id="-1635277263%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="subsumed-by.html"><span>subsumed</span><wbr></wbr><span><span>By</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1635277263%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token punctuation">.</span><a href="subsumed-by.html">subsumedBy</a><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The plane that this plane has been subsumed by, or <code class="lang-kotlin">null</code> if this plane has not been subsumed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1471603527%2FProperties%2F-652796645" anchor-label="transform" id="-1471603527%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transform.html"><span><span>transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1471603527%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/GeospatialPose///PointingToDeclaration/">GeospatialPose</span><span class="token punctuation">.</span><a href="transform.html">transform</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span></div><div class="brief "><p class="paragraph">Converts this <span data-unresolved-link="com.google.ar.core/GeospatialPose///PointingToDeclaration/">GeospatialPose</span> to a 4x4 <span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span> matrix using lat/lon/alt as position.</p></div><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="transform.html">transform</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span></div><div class="brief "><p class="paragraph">Converts this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span> to a 4x4 <span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span> matrix.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="80390392%2FProperties%2F-652796645" anchor-label="viewTransform" id="80390392%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="view-transform.html"><span>view</span><wbr></wbr><span><span>Transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="80390392%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">.</span><a href="view-transform.html">viewTransform</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span></div><div class="brief "><p class="paragraph">The camera's view matrix as a <span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1119590398%2FProperties%2F-652796645" anchor-label="xDirection" id="1119590398%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="x-direction.html"><span>x</span><wbr></wbr><span><span>Direction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1119590398%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="x-direction.html">xDirection</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Direction///PointingToDeclaration/">Direction</span></div><div class="brief "><p class="paragraph">The local X axis direction of this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span>. Non-null per ARCore API contract.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-811028707%2FProperties%2F-652796645" anchor-label="yDirection" id="-811028707%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="y-direction.html"><span>y</span><wbr></wbr><span><span>Direction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-811028707%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="y-direction.html">yDirection</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Direction///PointingToDeclaration/">Direction</span></div><div class="brief "><p class="paragraph">The local Y axis direction (up) of this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span>. Non-null per ARCore API contract.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1553319484%2FProperties%2F-652796645" anchor-label="zDirection" id="1553319484%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="z-direction.html"><span>z</span><wbr></wbr><span><span>Direction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1553319484%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="z-direction.html">zDirection</a><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Direction///PointingToDeclaration/">Direction</span></div><div class="brief "><p class="paragraph">The local Z axis direction (forward) of this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span>. Non-null per ARCore API contract.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1553569818%2FFunctions%2F-652796645" anchor-label="addAugmentedImage" id="-1553569818%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-augmented-image.html"><span>add</span><wbr></wbr><span>Augmented</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1553569818%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Config///PointingToDeclaration/">Config</span><span class="token punctuation">.</span><a href="add-augmented-image.html"><span class="token function">addAugmentedImage</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">bitmap<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a><span class="token punctuation">, </span></span><span class="parameter ">widthInMeters<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a single named image with known physical size to the augmented image database from an Android bitmap, with a specified physical width in meters.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1753633284%2FFunctions%2F-652796645" anchor-label="awaitAvailability" id="-1753633284%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="await-availability.html"><span>await</span><wbr></wbr><span><span>Availability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1753633284%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/ArCoreApk///PointingToDeclaration/">ArCoreApk</span><span class="token punctuation">.</span><a href="await-availability.html"><span class="token function">awaitAvailability</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/ArCoreApk.Availability///PointingToDeclaration/">ArCoreApk.Availability</span></div><div class="brief "><p class="paragraph">Suspend-friendly version of <span data-unresolved-link="com.google.ar.core/ArCoreApk/checkAvailabilityAsync/#android.content.Context#java.util.function.Consumer[com.google.ar.core.ArCoreApk.Availability]/PointingToDeclaration/">ArCoreApk.checkAvailabilityAsync</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1477233733%2FFunctions%2F-652796645" anchor-label="awaitVpsAvailability" id="-1477233733%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="await-vps-availability.html"><span>await</span><wbr></wbr><span>Vps</span><wbr></wbr><span><span>Availability</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1477233733%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">.</span><a href="await-vps-availability.html"><span class="token function">awaitVpsAvailability</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">latitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">longitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/VpsAvailability///PointingToDeclaration/">VpsAvailability</span></div><div class="brief "><p class="paragraph">Suspend wrapper around <a href="-a-r-session/index.html#1505221260%2FFunctions%2F-652796645">Session.checkVpsAvailabilityAsync</a> (#1769).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2060292485%2FFunctions%2F-652796645" anchor-label="cameraConfigFilter" id="2060292485%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="camera-config-filter.html"><span>camera</span><wbr></wbr><span>Config</span><wbr></wbr><span><span>Filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2060292485%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="camera-config-filter.html"><span class="token function">cameraConfigFilter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="-camera-config-filter-builder/index.html">CameraConfigFilterBuilder</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span data-unresolved-link="com.google.ar.core/CameraConfig///PointingToDeclaration/">CameraConfig</span></div><div class="brief "><p class="paragraph">Builds a <span data-unresolved-link="com.google.ar.core/CameraConfig///PointingToDeclaration/">CameraConfig</span> selection function from a <a href="-camera-config-filter-builder/index.html">CameraConfigFilterBuilder</a> DSL block (#1733, #1772).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1880297913%2FFunctions%2F-652796645" anchor-label="cameraImage" id="-1880297913%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="camera-image.html"><span>camera</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1880297913%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="camera-image.html"><span class="token function">cameraImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires the <strong>CPU camera image</strong> for this frame in YUV_420_888 layout (#1733, #1737).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1860034419%2FFunctions%2F-652796645" anchor-label="canHostCloudAnchor" id="1860034419%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="can-host-cloud-anchor.html"><span>can</span><wbr></wbr><span>Host</span><wbr></wbr><span>Cloud</span><wbr></wbr><span><span>Anchor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1860034419%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">.</span><a href="can-host-cloud-anchor.html"><span class="token function">canHostCloudAnchor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cameraNode<span class="token operator">: </span><a href="../io.github.sceneview.ar.node/-a-r-camera-node/index.html">ARCameraNode</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1348390463%2FFunctions%2F-652796645" anchor-label="captureCameraBitmap" id="-1348390463%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capture-camera-bitmap.html"><span>capture</span><wbr></wbr><span>Camera</span><wbr></wbr><span><span>Bitmap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1348390463%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="capture-camera-bitmap.html"><span class="token function">captureCameraBitmap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">jpegQuality<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>DEFAULT_JPEG_QUALITY</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Captures the current AR camera frame as an upright <code class="lang-kotlin">ARGB_8888</code> <a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a> — the on-device &quot;take a photo&quot; primitive for the runtime augmented-image workflow (#1553).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-602480617%2FFunctions%2F-652796645" anchor-label="configure" id="-602480617%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="configure.html"><span><span>configure</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-602480617%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">.</span><a href="configure.html"><span class="token function">configure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">config<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="com.google.ar.core/Config///PointingToDeclaration/">Config</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Define the session config used by ARCore</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1604336329%2FFunctions%2F-652796645" anchor-label="createAnchor" id="1604336329%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-anchor.html"><span>create</span><wbr></wbr><span><span>Anchor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1604336329%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Earth///PointingToDeclaration/">Earth</span><span class="token punctuation">.</span><a href="create-anchor.html"><span class="token function">createAnchor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">latitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">longitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">altitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">rotation<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Rotation///PointingToDeclaration/">Rotation</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Anchor///PointingToDeclaration/">Anchor</span></div><div class="brief "><p class="paragraph">Creates a Geospatial anchor at the given WGS84 coordinates with Euler <span data-unresolved-link="io.github.sceneview.math/Rotation///PointingToDeclaration/">Rotation</span>.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Earth///PointingToDeclaration/">Earth</span><span class="token punctuation">.</span><a href="create-anchor.html"><span class="token function">createAnchor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">latitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">longitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">altitude<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a><span class="token punctuation">, </span></span><span class="parameter ">quaternion<span class="token operator">: </span><span data-unresolved-link="dev.romainguy.kotlin.math/Quaternion///PointingToDeclaration/">Quaternion</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Anchor///PointingToDeclaration/">Anchor</span></div><div class="brief "><p class="paragraph">Creates a Geospatial anchor at the given WGS84 coordinates with a <span data-unresolved-link="dev.romainguy.kotlin.math/Quaternion///PointingToDeclaration/">Quaternion</span> orientation.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="977724568%2FFunctions%2F-652796645" anchor-label="createAnchorOrNull" id="977724568%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-anchor-or-null.html"><span>create</span><wbr></wbr><span>Anchor</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="977724568%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">.</span><a href="create-anchor-or-null.html"><span class="token function">createAnchorOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Anchor///PointingToDeclaration/">Anchor</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Creates a new anchor at the hit location.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Trackable///PointingToDeclaration/">Trackable</span><span class="token punctuation">.</span><a href="create-anchor-or-null.html"><span class="token function">createAnchorOrNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">pose<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Anchor///PointingToDeclaration/">Anchor</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Creates an anchor that is attached to this trackable, using the given initial pose in the world coordinate space. The type of trackable will determine the semantics of attachment and how the anchor's pose will be updated to maintain this relationship. Note that the relative offset between the pose of multiple anchors attached to a trackable may adjust slightly over time as ARCore updates its model of the world.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-414458197%2FFunctions%2F-652796645" anchor-label="depthImage" id="-414458197%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="depth-image.html"><span>depth</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-414458197%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="depth-image.html"><span class="token function">depthImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires the smoothed full-resolution <strong>depth</strong> image (16-bit per pixel, ARGB_8888-packed <code class="lang-kotlin">DEPTH16</code> layout per ARCore docs) for this frame.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1281261973%2FFunctions%2F-652796645" anchor-label="diffPlanes" id="-1281261973%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="diff-planes.html"><span>diff</span><wbr></wbr><span><span>Planes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1281261973%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="diff-planes.html"><span class="token function">diffPlanes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">previous<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">current<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-planes-diff/index.html">PlanesDiff</a></div><div class="brief "><p class="paragraph">Pure-logic diff between a <a href="diff-planes.html">previous</a> and <a href="diff-planes.html">current</a> set of detected planes (#1774).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1317843920%2FFunctions%2F-652796645" anchor-label="distanceTo" id="1317843920%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="distance-to.html"><span>distance</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1317843920%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="distance-to.html"><span class="token function">distanceTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Calculate the normal distance from this to the other.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="13371758%2FFunctions%2F-652796645" anchor-label="distanceToPlane" id="13371758%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="distance-to-plane.html"><span>distance</span><wbr></wbr><span>To</span><wbr></wbr><span><span>Plane</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13371758%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="distance-to-plane.html"><span class="token function">distanceToPlane</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cameraPose<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Calculate the normal distance to plane from camera Pose</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1405147740%2FFunctions%2F-652796645" anchor-label="filterTypes" id="1405147740%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="filter-types.html"><span>filter</span><wbr></wbr><span><span>Types</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1405147740%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="filter-types.html"><span class="token function">filterTypes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">planeTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane.Type///PointingToDeclaration/">Plane.Type</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf()<span class="token punctuation">, </span></span><span class="parameter ">point<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">depthPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">instantPlacementPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">trackingStates<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/TrackingState///PointingToDeclaration/">TrackingState</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(TrackingState.TRACKING)<span class="token punctuation">, </span></span><span class="parameter ">pointOrientationModes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Point.OrientationMode///PointingToDeclaration/">Point.OrientationMode</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(OrientationMode.ESTIMATED_SURFACE_NORMAL)<span class="token punctuation">, </span></span><span class="parameter ">planePoseInPolygon<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">minCameraDistance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a list containing only elements matching the given parameters and <a href="filter-types.html">predicate</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1507719207%2FFunctions%2F-652796645" anchor-label="findByType" id="-1507719207%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="find-by-type.html"><span>find</span><wbr></wbr><span>By</span><wbr></wbr><span><span>Type</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1507719207%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="find-by-type.html"><span class="token function">findByType</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">planeTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane.Type///PointingToDeclaration/">Plane.Type</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf()<span class="token punctuation">, </span></span><span class="parameter ">point<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">depthPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">instantPlacementPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">trackingStates<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/TrackingState///PointingToDeclaration/">TrackingState</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(TrackingState.TRACKING)<span class="token punctuation">, </span></span><span class="parameter ">pointOrientationModes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Point.OrientationMode///PointingToDeclaration/">Point.OrientationMode</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(OrientationMode.ESTIMATED_SURFACE_NORMAL)<span class="token punctuation">, </span></span><span class="parameter ">planePoseInPolygon<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">minCameraDistance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the first element matching the given <a href="find-by-type.html">predicate</a>, or <code class="lang-kotlin">null</code> if element was not found.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="440635474%2FFunctions%2F-652796645" anchor-label="firstByTypeOrNull" id="440635474%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="first-by-type-or-null.html"><span>first</span><wbr></wbr><span>By</span><wbr></wbr><span>Type</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="440635474%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="first-by-type-or-null.html"><span class="token function">firstByTypeOrNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">planeTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane.Type///PointingToDeclaration/">Plane.Type</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf()<span class="token punctuation">, </span></span><span class="parameter ">point<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">depthPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">instantPlacementPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">trackingStates<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/TrackingState///PointingToDeclaration/">TrackingState</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(TrackingState.TRACKING)<span class="token punctuation">, </span></span><span class="parameter ">pointOrientationModes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Point.OrientationMode///PointingToDeclaration/">Point.OrientationMode</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(OrientationMode.ESTIMATED_SURFACE_NORMAL)<span class="token punctuation">, </span></span><span class="parameter ">planePoseInPolygon<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">minCameraDistance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the first element matching the given <a href="first-by-type-or-null.html">predicate</a>, or <code class="lang-kotlin">null</code> if element was not found.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="442531042%2FFunctions%2F-652796645" anchor-label="fps" id="442531042%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fps.html"><span><span>fps</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="442531042%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="fps.html"><span class="token function">fps</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">Returns the estimated frames per second between this frame and <a href="fps.html">other</a>. If <a href="fps.html">other</a> is <code class="lang-kotlin">null</code>, returns the FPS from timestamp 0.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-80505907%2FFunctions%2F-652796645" anchor-label="getProjectionTransform" id="-80505907%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-projection-transform.html"><span>get</span><wbr></wbr><span>Projection</span><wbr></wbr><span><span>Transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-80505907%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">.</span><a href="get-projection-transform.html"><span class="token function">getProjectionTransform</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">near<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">far<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span></div><div class="brief "><p class="paragraph">Returns the camera's projection matrix as a <span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span> for the given near/far clip planes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="889843096%2FFunctions%2F-652796645" anchor-label="getUpdatedAugmentedFaces" id="889843096%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-updated-augmented-faces.html"><span>get</span><wbr></wbr><span>Updated</span><wbr></wbr><span>Augmented</span><wbr></wbr><span><span>Faces</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="889843096%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="get-updated-augmented-faces.html"><span class="token function">getUpdatedAugmentedFaces</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/AugmentedFace///PointingToDeclaration/">AugmentedFace</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Retrieve the frame tracked Augmented Faces.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1182884378%2FFunctions%2F-652796645" anchor-label="getUpdatedAugmentedImages" id="1182884378%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-updated-augmented-images.html"><span>get</span><wbr></wbr><span>Updated</span><wbr></wbr><span>Augmented</span><wbr></wbr><span><span>Images</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1182884378%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="get-updated-augmented-images.html"><span class="token function">getUpdatedAugmentedImages</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/AugmentedImage///PointingToDeclaration/">AugmentedImage</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Retrieve the frame tracked Augmented Images.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1564589767%2FFunctions%2F-652796645" anchor-label="getUpdatedPlanes" id="1564589767%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-updated-planes.html"><span>get</span><wbr></wbr><span>Updated</span><wbr></wbr><span><span>Planes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1564589767%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="get-updated-planes.html"><span class="token function">getUpdatedPlanes</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Retrieve the frame tracked Planes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="201095407%2FFunctions%2F-652796645" anchor-label="getUpdatedStreetscapeGeometries" id="201095407%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-updated-streetscape-geometries.html"><span>get</span><wbr></wbr><span>Updated</span><wbr></wbr><span>Streetscape</span><wbr></wbr><span><span>Geometries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="201095407%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="get-updated-streetscape-geometries.html"><span class="token function">getUpdatedStreetscapeGeometries</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/StreetscapeGeometry///PointingToDeclaration/">StreetscapeGeometry</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Retrieve the frame tracked Streetscape Geometries.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="179819088%2FFunctions%2F-652796645" anchor-label="getUpdatedTrackables" id="179819088%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-updated-trackables.html"><span>get</span><wbr></wbr><span>Updated</span><wbr></wbr><span><span>Trackables</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="179819088%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="get-updated-trackables.html"><span class="token function">getUpdatedTrackables</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-collection/index.html">Collection</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Trackable///PointingToDeclaration/">Trackable</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns all updated <span data-unresolved-link="com.google.ar.core/Trackable///PointingToDeclaration/">Trackable</span>s of any type for this frame.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="56428474%2FFunctions%2F-652796645" anchor-label="hasUpdatedTrackable" id="56428474%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-updated-trackable.html"><span>has</span><wbr></wbr><span>Updated</span><wbr></wbr><span><span>Trackable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="56428474%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="has-updated-trackable.html">T</a><span class="token operator"> : </span><span data-unresolved-link="com.google.ar.core/Trackable///PointingToDeclaration/">Trackable</span><span class="token operator">&gt; </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="has-updated-trackable.html"><span class="token function">hasUpdatedTrackable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">trackable<span class="token operator">: </span><a href="has-updated-trackable.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns whether <a href="has-updated-trackable.html">trackable</a> is among the <a href="has-updated-trackable.html">T</a> trackables updated by this frame.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-645985909%2FFunctions%2F-652796645" anchor-label="hitTest" id="-645985909%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hit-test.html"><span>hit</span><wbr></wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-645985909%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="hit-test.html"><span class="token function">hitTest</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ray<span class="token operator">: </span><span data-unresolved-link="dev.romainguy.kotlin.math/Ray///PointingToDeclaration/">Ray</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Similar to <span data-unresolved-link="com.google.ar.core/Frame/hitTest/#kotlin.Float#kotlin.Float/PointingToDeclaration/">Frame.hitTest</span>, but takes an arbitrary ray in world space coordinates instead of a screen-space point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1248855866%2FFunctions%2F-652796645" anchor-label="hitTestDepth" id="1248855866%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hit-test-depth.html"><span>hit</span><wbr></wbr><span>Test</span><wbr></wbr><span><span>Depth</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1248855866%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="hit-test-depth.html"><span class="token function">hitTestDepth</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">xPx<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">yPx<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-depth-hit-result/index.html">DepthHitResult</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Raycasts the ARCore depth image at a screen pixel and returns the real-world point hit, together with the surface normal at that point.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-193132493%2FFunctions%2F-652796645" anchor-label="intervalSeconds" id="-193132493%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="interval-seconds.html"><span>interval</span><wbr></wbr><span><span>Seconds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193132493%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="interval-seconds.html"><span class="token function">intervalSeconds</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-double/index.html">Double</a></div><div class="brief "><p class="paragraph">Returns the time interval in seconds between this frame and <a href="interval-seconds.html">other</a>. If <a href="interval-seconds.html">other</a> is <code class="lang-kotlin">null</code>, returns the interval from timestamp 0.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-765422402%2FFunctions%2F-652796645" anchor-label="intrinsics" id="-765422402%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="intrinsics.html"><span><span>intrinsics</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-765422402%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">.</span><a href="intrinsics.html"><span class="token function">intrinsics</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">useTexture<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-camera-intrinsics-snapshot/index.html">CameraIntrinsicsSnapshot</a></div><div class="brief "><p class="paragraph">Returns a <a href="-camera-intrinsics-snapshot/index.html">CameraIntrinsicsSnapshot</a> for either the GPU texture stream (default) or the CPU image stream.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2027141826%2FFunctions%2F-652796645" anchor-label="isTrackingPlane" id="2027141826%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-tracking-plane.html"><span>is</span><wbr></wbr><span>Tracking</span><wbr></wbr><span><span>Plane</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2027141826%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="is-tracking-plane.html"><span class="token function">isTrackingPlane</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Retrieve if the frame is currently tracking a plane.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="887371665%2FFunctions%2F-652796645" anchor-label="isValid" id="887371665%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-valid.html"><span>is</span><wbr></wbr><span><span>Valid</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="887371665%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">.</span><a href="is-valid.html"><span class="token function">isValid</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">planeTypes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane.Type///PointingToDeclaration/">Plane.Type</span><span class="token operator">&gt;</span><span class="token operator"> = </span>Plane.Type.values().toSet()<span class="token punctuation">, </span></span><span class="parameter ">point<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">depthPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">instantPlacementPoint<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">trackingStates<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/TrackingState///PointingToDeclaration/">TrackingState</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(TrackingState.TRACKING)<span class="token punctuation">, </span></span><span class="parameter ">pointOrientationModes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Point.OrientationMode///PointingToDeclaration/">Point.OrientationMode</span><span class="token operator">&gt;</span><span class="token operator"> = </span>setOf(OrientationMode.ESTIMATED_SURFACE_NORMAL)<span class="token punctuation">, </span></span><span class="parameter ">planePoseInPolygon<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">minCameraDistance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Camera///PointingToDeclaration/">Camera</span><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><span data-unresolved-link="com.google.ar.core/HitResult///PointingToDeclaration/">HitResult</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Check for hit results first valid on provided criteria.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1058220039%2FFunctions%2F-652796645" anchor-label="rawDepthConfidenceImage" id="1058220039%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="raw-depth-confidence-image.html"><span>raw</span><wbr></wbr><span>Depth</span><wbr></wbr><span>Confidence</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1058220039%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="raw-depth-confidence-image.html"><span class="token function">rawDepthConfidenceImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires the <strong>per-pixel confidence</strong> image (<code class="lang-kotlin">Y8</code> format, 0..255) matching <a href="raw-depth-image.html">rawDepthImage</a> — higher values mean more confident depth estimate.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-296543523%2FFunctions%2F-652796645" anchor-label="rawDepthImage" id="-296543523%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="raw-depth-image.html"><span>raw</span><wbr></wbr><span>Depth</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-296543523%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="raw-depth-image.html"><span class="token function">rawDepthImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires the <strong>raw, unsmoothed</strong> depth image (16-bit per pixel) for this frame.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1960894821%2FFunctions%2F-652796645" anchor-label="rememberCameraGeospatialPose" id="1960894821%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-camera-geospatial-pose.html"><span>remember</span><wbr></wbr><span>Camera</span><wbr></wbr><span>Geospatial</span><wbr></wbr><span><span>Pose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1960894821%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-camera-geospatial-pose.html"><span class="token function">rememberCameraGeospatialPose</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/State.html">State</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/GeospatialPose///PointingToDeclaration/">GeospatialPose</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Compose <code class="lang-kotlin">State&lt;GeospatialPose?&gt;</code> that updates each frame with the live camera Geospatial pose (#1769). Returns <code class="lang-kotlin">null</code> whenever:</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1977336398%2FFunctions%2F-652796645" anchor-label="rememberDetectedPlanes" id="1977336398%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-detected-planes.html"><span>remember</span><wbr></wbr><span>Detected</span><wbr></wbr><span><span>Planes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1977336398%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-detected-planes.html"><span class="token function">rememberDetectedPlanes</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">onAdded<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">onUpdated<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">onRemoved<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/State.html">State</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Plane///PointingToDeclaration/">Plane</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Compose <code class="lang-kotlin">State&lt;List&lt;Plane&gt;&gt;</code> that tracks the live set of ARCore-detected planes and fires lifecycle callbacks as planes appear, refine, and disappear (#1774).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="490156803%2FFunctions%2F-652796645" anchor-label="rememberEarthState" id="490156803%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-earth-state.html"><span>remember</span><wbr></wbr><span>Earth</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="490156803%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-earth-state.html"><span class="token function">rememberEarthState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/State.html">State</a><span class="token operator">&lt;</span><span data-unresolved-link="com.google.ar.core/Earth.EarthState///PointingToDeclaration/">Earth.EarthState</span><span class="token operator">?</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Compose <code class="lang-kotlin">State&lt;Earth.EarthState?&gt;</code> that updates each frame with the <span data-unresolved-link="com.google.ar.core/Earth.EarthState///PointingToDeclaration/">Earth.EarthState</span> returned by <span data-unresolved-link="com.google.ar.core/Session/getEarth/#/PointingToDeclaration/">Session.getEarth</span> (#1769).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="735612889%2FFunctions%2F-652796645" anchor-label="rememberRuntimeAugmentedImageDatabase" id="735612889%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-runtime-augmented-image-database.html"><span>remember</span><wbr></wbr><span>Runtime</span><wbr></wbr><span>Augmented</span><wbr></wbr><span>Image</span><wbr></wbr><span><span>Database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="735612889%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-runtime-augmented-image-database.html"><span class="token function">rememberRuntimeAugmentedImageDatabase</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-runtime-augmented-image-database/index.html">RuntimeAugmentedImageDatabase</a></div><div class="brief "><p class="paragraph">Creates and remembers a <a href="-runtime-augmented-image-database/index.html">RuntimeAugmentedImageDatabase</a> scoped to the composable lifecycle.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1168228946%2FFunctions%2F-652796645" anchor-label="semanticConfidenceImage" id="1168228946%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="semantic-confidence-image.html"><span>semantic</span><wbr></wbr><span>Confidence</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1168228946%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="semantic-confidence-image.html"><span class="token function">semanticConfidenceImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires the <strong>per-pixel semantic-confidence image</strong> (<code class="lang-kotlin">R8</code> 8-bit per pixel, 0..255) matching <a href="semantic-image.html">semanticImage</a> — higher values mean the ML model is more confident about the label assigned to that pixel (#1730).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1014692120%2FFunctions%2F-652796645" anchor-label="semanticImage" id="-1014692120%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="semantic-image.html"><span>semantic</span><wbr></wbr><span><span>Image</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1014692120%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="semantic-image.html"><span class="token function">semanticImage</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Acquires the <strong>Scene Semantics label image</strong> (<code class="lang-kotlin">R8</code> 8-bit per pixel) for this frame — every pixel of the live camera feed is classified into one of 12 outdoor classes via ARCore's on-device ML model: <span data-unresolved-link="com.google.ar.core/SemanticLabel.SKY///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.SKY</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.BUILDING///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.BUILDING</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.TREE///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.TREE</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.ROAD///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.ROAD</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.SIDEWALK///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.SIDEWALK</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.TERRAIN///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.TERRAIN</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.STRUCTURE///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.STRUCTURE</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.OBJECT///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.OBJECT</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.VEHICLE///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.VEHICLE</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.PERSON///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.PERSON</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.WATER///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.WATER</span>, <span data-unresolved-link="com.google.ar.core/SemanticLabel.UNLABELED///PointingToDeclaration/{&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;:{&amp;quot;key&amp;quot;:&amp;quot;org.jetbrains.dokka.links.EnumEntryDRIExtra&amp;quot;}}">SemanticLabel.UNLABELED</span> (#1730).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="168072761%2FFunctions%2F-652796645" anchor-label="semanticLabelFraction" id="168072761%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="semantic-label-fraction.html"><span>semantic</span><wbr></wbr><span>Label</span><wbr></wbr><span><span>Fraction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="168072761%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span><span class="token punctuation">.</span><a href="semantic-label-fraction.html"><span class="token function">semanticLabelFraction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">label<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/SemanticLabel///PointingToDeclaration/">SemanticLabel</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Returns the fraction of pixels in the current frame classified as <a href="semantic-label-fraction.html">label</a> — a value in <code class="lang-kotlin">[0f, 1f]</code> where <code class="lang-kotlin">1f</code> means every pixel carries that label and <code class="lang-kotlin">0f</code> means none do (#1730).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="510566478%2FFunctions%2F-652796645" anchor-label="snapshot" id="510566478%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="snapshot.html"><span><span>snapshot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="510566478%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/GeospatialPose///PointingToDeclaration/">GeospatialPose</span><span class="token punctuation">.</span><a href="snapshot.html"><span class="token function">snapshot</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-geospatial-pose-snapshot/index.html">GeospatialPoseSnapshot</a></div><div class="brief "><p class="paragraph">Captures every field of this <span data-unresolved-link="com.google.ar.core/GeospatialPose///PointingToDeclaration/">GeospatialPose</span> into a <a href="-geospatial-pose-snapshot/index.html">GeospatialPoseSnapshot</a> (#1769).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="837886411%2FFunctions%2F-652796645" anchor-label="toArgbBitmap" id="837886411%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-argb-bitmap.html"><span>to</span><wbr></wbr><span>Argb</span><wbr></wbr><span><span>Bitmap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="837886411%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a><span class="token punctuation">.</span><a href="to-argb-bitmap.html"><span class="token function">toArgbBitmap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rotationDegrees<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">jpegQuality<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span>DEFAULT_JPEG_QUALITY</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Decodes a <code class="lang-kotlin">YUV_420_888</code> <a href="https://developer.android.com/reference/kotlin/android/media/Image.html">Image</a> (typically obtained from <a href="camera-image.html">cameraImage</a>) into an upright, <code class="lang-kotlin">ARGB_8888</code> <a href="https://developer.android.com/reference/kotlin/android/graphics/Bitmap.html">Bitmap</a> suitable for <code class="lang-kotlin">AugmentedImageDatabase.addImage</code> (#1553).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-322632534%2FFunctions%2F-652796645" anchor-label="toTransform" id="-322632534%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-transform.html"><span>to</span><wbr></wbr><span><span>Transform</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-322632534%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span><span class="token punctuation">.</span><a href="to-transform.html"><span class="token function">toTransform</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">out<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float-array/index.html">FloatArray</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span></div><div class="brief "><p class="paragraph">Converts this <span data-unresolved-link="com.google.ar.core/Pose///PointingToDeclaration/">Pose</span> to a 4x4 <span data-unresolved-link="io.github.sceneview.math/Transform///PointingToDeclaration/">Transform</span> matrix, writing the column-major floats into the caller-supplied <a href="to-transform.html">out</a> scratch array instead of allocating a fresh <code class="lang-kotlin">FloatArray(16)</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
