@@ -990,15 +990,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arsceneview" class="md-nav__link">
+  <a href="#automatic-placement-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ARSceneView
+        Automatic placement (recommended)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ARSceneView">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arsceneview-low-level-manual-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARSceneView (low-level / manual placement)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ARSceneView (low-level / manual placement)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2811,15 +2822,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arsceneview" class="md-nav__link">
+  <a href="#automatic-placement-recommended" class="md-nav__link">
     <span class="md-ellipsis">
       
-        ARSceneView
+        Automatic placement (recommended)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="ARSceneView">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arsceneview-low-level-manual-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ARSceneView (low-level / manual placement)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ARSceneView (low-level / manual placement)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3042,7 +3064,53 @@ val viewNodeManager = rememberViewNodeManager()</code></pre>
     // SceneScope — declare nodes here
 }</code></pre>
 <hr />
-<h2 id="arsceneview">ARSceneView<a class="headerlink" href="#arsceneview" title="Permanent link">&para;</a></h2>
+<h2 id="automatic-placement-recommended">Automatic placement (recommended)<a class="headerlink" href="#automatic-placement-recommended" title="Permanent link">&para;</a></h2>
+<p><code>AutoPlacementScene</code> is additive: one usable detected plane consumes one placement
+request. It uses normal camera tracking, upward-facing horizontal surfaces (<code>SURFACE</code>)
+or vertical planes (<code>WALL</code>), a center ray followed by visible polygon-validated plane
+centers, and a 0.25–3 m interaction range. It renders no plane grid or reticle.</p>
+<pre class="language-kotlin"><code>import io.github.sceneview.ar.*
+
+val engine = rememberEngine()
+val modelLoader = rememberModelLoader(engine)
+val model = rememberModelInstance(modelLoader, "models/khronos_toy_car.glb")
+val placement = rememberAutoPlacementState()
+AutoPlacementScene(
+    assetReady = model != null,
+    state = placement,
+    engine = engine,
+    modelLoader = modelLoader,
+    surface = PlacementSurface.SURFACE, // WALL accepts vertical planes directly
+    onPlaced = { result -&gt; /* result.anchor, result.plane, result.pose */ },
+) { result -&gt;
+    model?.let { AutoPlacementModel(result, placement, it, scaleToUnits = 0.3f) }
+}
+// Explicit reset retains the asset and the camera session:
+// placement.resetPlacement(android.os.SystemClock.uptimeMillis())</code></pre>
+<p><code>AutoPlacementModel</code> grounds the complete model bounds, preserves the contact pivot
+while rotating/scaling, and constrains dragging to supported plane geometry. Its
+0.3 m longest-dimension default is <strong>Preview size</strong>; <code>scaleToUnits = null</code> retains
+trustworthy authored units (<strong>Actual size</strong>). Scale limits are 25–400% of that base.</p>
+<p>For asynchronous selection, call <code>placement.selectModel()</code> before loading and attach
+only while <code>placement.acceptsAsset(ticket)</code> is true. Keep the previous rendered model
+until its replacement succeeds. Observe <code>placement.phase</code>; use <code>requestPlacement()</code>,
+<code>resetPlacement(nowMillis)</code> and <code>keepScanning(nowMillis)</code> for explicit actions. Reset
+removes the wrapper-owned anchor without restarting the camera. Interruption freezes
+manipulation and recovers the existing placement; it does not arm a new request.
+<code>onARCoreAvailability</code>, <code>onTrackingFailureChanged</code>, and <code>onSessionFailed</code> expose
+capability, tracking, and camera failures. Copy, permissions, asset selection and
+semantic haptics belong to the app.</p>
+<p>States match Swift's <code>ARPlacementPhase</code>: <code>INITIALIZING</code>, <code>SCANNING</code>, <code>NO_SURFACE</code>,
+<code>PLACED</code>, <code>ADJUSTING</code>, <code>TRACKING_LOST</code>, <code>RECOVERING</code>, <code>RECOVERY_FAILED</code>, <code>CAMERA_ERROR</code>.
+The no-surface and recovery deadlines are both ten seconds. A controller manages one
+object; repeated requests while placed are ignored. Multi-object hosts explicitly own
+separate requests/controllers; tapping empty space never places.</p>
+<p><strong>Manual-placement compatibility:</strong> <code>PlacementScene</code>, <code>WallPlacementScene</code>
+(<code>WallPlacement</code>), <code>onTapOnPlane</code>, <code>ReticleNode</code> and the placement-reticle options remain
+manual-placement APIs. Their published defaults and tap behavior are unchanged. Use
+them for deliberate manual interactions or diagnostics; new placement flows should
+use <code>AutoPlacementScene</code>.</p>
+<h2 id="arsceneview-low-level-manual-placement">ARSceneView (low-level / manual placement)<a class="headerlink" href="#arsceneview-low-level-manual-placement" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>ARSceneView(
     modifier = Modifier.fillMaxSize(),
     engine = engine,
