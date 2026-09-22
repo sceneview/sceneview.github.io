@@ -998,6 +998,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Automatic placement (recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-wall-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direct wall placement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2830,6 +2847,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Automatic placement (recommended)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-wall-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direct wall placement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3021,8 +3055,8 @@
 <hr />
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// build.gradle
-implementation("io.github.sceneview:sceneview:4.38.0")     // 3D
-implementation("io.github.sceneview:arsceneview:4.38.0")    // AR + 3D</code></pre>
+implementation("io.github.sceneview:sceneview:4.39.0")     // 3D
+implementation("io.github.sceneview:arsceneview:4.39.0")    // AR + 3D</code></pre>
 <hr />
 <h2 id="core-remember-hooks">Core Remember Hooks<a class="headerlink" href="#core-remember-hooks" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>val engine = rememberEngine()
@@ -3110,6 +3144,65 @@ separate requests/controllers; tapping empty space never places.</p>
 manual-placement APIs. Their published defaults and tap behavior are unchanged. Use
 them for deliberate manual interactions or diagnostics; new placement flows should
 use <code>AutoPlacementScene</code>.</p>
+<h3 id="direct-wall-placement">Direct wall placement<a class="headerlink" href="#direct-wall-placement" title="Permanent link">&para;</a></h3>
+<p>Use <code>surface = PlacementSurface.WALL</code>: detection is vertical-only, with no floor,
+seam alignment or placement tap. The first usable wall creates one real plane anchor.
+New plane detections never move a standing object; drag to a valid alternative wall or
+reset explicitly. Tracking loss retains that placement and enters recovery.</p>
+<p>Author wall models with <strong>+Y up and +Z front</strong> (or supply <code>assetRotation</code>).
+<code>AutoPlacementModel</code> puts the bounding box's back and bottom at the contact pivot and
+faces its front toward the camera side of the wall, even if the detected normal points
+away. Drag projects the grab offset into the destination wall and validates its polygon;
+twist rotates in the wall plane; pinch preserves contact at 25–400% of the base size.
+The anchor frame retains the Android surface convention: +Y is the wall normal and
+−Z points up. <code>directWallPose(point, normal, towardViewer)</code> is an additive pure helper
+returning the authored +Y-up/+Z-front frame at the exact wall point; it requires a finite
+normal with a nonzero horizontal component. Legacy <code>wallAnchorPose</code>, <code>wallFacingRotation</code>,
+<code>floorWallSeam</code> and <code>WallPlacementPhase</code> keep their floor/seam semantics unchanged.</p>
+<p>For procedural geometry, <code>AutoPlacementNode(result, placement) { opacity -&gt; … }</code> uses
+that same gesture hierarchy. Supply content already sized (demo: 0.3 m longest dimension),
+with bottom at y=0 and back at z=0. Mark selectable children editable, but disable their
+individual position/rotation/scale editing so gestures reach the contact pivot. Apply
+<code>opacity</code> to transparent materials for the 300 ms placement/tracking fade.</p>
+<p>Selected-object accessibility alternatives share the gesture constraints:
+<code>placement.moveBy(x, y)</code> moves in metres right/up on a wall, <code>rotateBy(degrees)</code> twists
+around its normal, and <code>scaleTo(factor)</code> changes its base-size multiplier.
+<code>scaleFactor</code> is observable. Keep these controls in a sheet, with <strong>Reset placement</strong>.
+<code>playbackDataset</code> is forwarded by the Android wall demo; a floor-only replay does not
+validate wall placement.</p>
+<table>
+<thead>
+<tr>
+<th>Wall-demo rendering</th>
+<th>Android</th>
+<th>iOS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TV geometry and size</td>
+<td>Two boxes, 0.3 m preview</td>
+<td>Same dimensions and material parameters</td>
+</tr>
+<tr>
+<td>Contact</td>
+<td>Back/bottom pivot on the real wall</td>
+<td>Same</td>
+</tr>
+<tr>
+<td>Wall contact shading</td>
+<td>Disabled in the demo; no procedural shadow blob</td>
+<td>No wall shadow; RealityKit grounding shadows project downward</td>
+</tr>
+<tr>
+<td>Reveal / tracking loss</td>
+<td>300 ms opacity fade</td>
+<td>300 ms opacity fade</td>
+</tr>
+</tbody>
+</table>
+<p>Native renderer lighting can differ. The demo does not claim physically identical
+wall shadows, and never substitutes a synthetic pool for renderer shading.</p>
 <h2 id="arsceneview-low-level-manual-placement">ARSceneView (low-level / manual placement)<a class="headerlink" href="#arsceneview-low-level-manual-placement" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>ARSceneView(
     modifier = Modifier.fillMaxSize(),
