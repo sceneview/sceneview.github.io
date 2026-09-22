@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, fog, reflections, and 50+ more demos.">
+        <meta name="description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 50+ more demos.">
       
       
       
@@ -74,7 +74,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Samples — SceneView for iOS, macOS, visionOS - SceneView — 3D & AR SDK" />
-<meta property="og:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, fog, reflections, and 50+ more demos." />
+<meta property="og:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 50+ more demos." />
 <meta property="og:image" content="https://sceneview.github.io/assets/images/social/samples-ios.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -82,7 +82,7 @@
 <meta property="og:url" content="https://sceneview.github.io/samples-ios/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Samples — SceneView for iOS, macOS, visionOS - SceneView — 3D & AR SDK" />
-<meta property="twitter:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, fog, reflections, and 50+ more demos." />
+<meta property="twitter:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 50+ more demos." />
 <meta property="twitter:image" content="https://sceneview.github.io/assets/images/social/samples-ios.png" />
 </head>
   
@@ -3072,11 +3072,6 @@
 <td>Time-of-day slider drives <code>DynamicSkyNode</code></td>
 </tr>
 <tr>
-<td>Fog</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/FogDemo.swift"><code>FogDemo.swift</code></a></td>
-<td>Linear / exponential / height-based atmospheric fog</td>
-</tr>
-<tr>
 <td>Environment</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/EnvironmentDemo.swift"><code>EnvironmentDemo.swift</code></a></td>
 <td>HDR environment presets (<code>.studio</code>, <code>.outdoor</code>, <code>.night</code>)</td>
@@ -3119,7 +3114,7 @@
 <td><code>VideoNode</code> — play / pause / loop video on a 3D plane</td>
 </tr>
 <tr>
-<td>Texture Streaming</td>
+<td>Material presets</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/TextureStreamingDemo.swift"><code>TextureStreamingDemo.swift</code></a></td>
 <td>Swap PBR material presets in real time — no geometry rebuild</td>
 </tr>
@@ -3226,9 +3221,9 @@
 <td>Tap-to-place USDZ on a detected plane</td>
 </tr>
 <tr>
-<td>AR Instant Placement</td>
+<td>Estimated-plane placement</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARInstantPlacementDemo.swift"><code>ARInstantPlacementDemo.swift</code></a></td>
-<td>Place without waiting for plane detection</td>
+<td>Tap-to-place on an estimated plane, before geometry converges</td>
 </tr>
 <tr>
 <td>AR Orbital</td>
@@ -3238,7 +3233,7 @@
 <tr>
 <td>AR Lighting</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARLightingDemo.swift"><code>ARLightingDemo.swift</code></a></td>
-<td>ARKit environmental lighting estimation</td>
+<td>Compare main / fill light presets on an anchored model</td>
 </tr>
 <tr>
 <td>AR Recording</td>
@@ -3251,9 +3246,9 @@
 <td>Track printed reference images</td>
 </tr>
 <tr>
-<td>Augmented Faces</td>
+<td>Face anchor accessories</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARAugmentedFacesDemo.swift"><code>ARAugmentedFacesDemo.swift</code></a></td>
-<td>Front-camera face pose tracking (<code>AnchorNode.face()</code>)</td>
+<td>Accessories pinned to a tracked face anchor — pose only, no morphable mesh</td>
 </tr>
 <tr>
 <td>AR Depth Occlusion</td>
@@ -3266,9 +3261,9 @@
 <td>Occlude AR content behind real people</td>
 </tr>
 <tr>
-<td>AR Body Tracker</td>
+<td>Body anchor tracking</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARBodyTrackerDemo.swift"><code>ARBodyTrackerDemo.swift</code></a></td>
-<td>Full-body skeleton tracking</td>
+<td>Follow a detected body anchor — anchor pose, not per-joint data</td>
 </tr>
 <tr>
 <td>AR Scene Mesh</td>
