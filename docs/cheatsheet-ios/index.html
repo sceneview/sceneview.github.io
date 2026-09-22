@@ -1015,6 +1015,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Automatic placement (recommended — iOS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-wall-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direct wall placement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3013,6 +3030,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Automatic placement (recommended — iOS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-wall-placement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direct wall placement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3568,6 +3602,29 @@ centers ranked by center proximity; every candidate must lie inside its plane po
 APIs with unchanged behavior. Android's <code>PlacementScene</code>, <code>WallPlacement</code> /
 <code>WallPlacementScene</code> and reticle are likewise manual. Prefer automatic placement in new
 examples; there is no automatic fallback to estimated-plane taps.</p>
+<h3 id="direct-wall-placement">Direct wall placement<a class="headerlink" href="#direct-wall-placement" title="Permanent link">&para;</a></h3>
+<p>Create <code>ARPlacementController(alignment: .vertical)</code> and use the same
+<code>AutoPlacementScene</code>. Only vertical planes participate; no floor classification,
+seam, mount-height calculation or tap is needed. The first usable wall consumes one
+request only after its plane-associated anchor resolves. New detections cannot move
+an existing placement. An unresolved anchor waits up to three seconds while its surface
+remains usable; failure reports neither placement nor a success haptic.</p>
+<p>Author <strong>+Y up, +Z front</strong>. <code>setModel</code> uses the complete visual hierarchy to put its
+back (<code>min.z</code>) and bottom (<code>min.y</code>) at the contact pivot. The contact transform faces
++Z toward the camera side for either detected normal sign, with gravity-up projected
+into the wall. Drag projects the grab offset onto valid wall geometry; twist rotates
+about local +Z, and uniform pinch leaves the back in contact. Tracking loss cancels
+gestures, fades content out and recovers the existing anchor without another placement.</p>
+<p><code>move(by: [x, y])</code> moves right/up in metres on walls, <code>rotate(by:)</code> uses radians about
+the surface normal, and <code>scale(to:)</code> uses a 25–400% base-size multiplier. These are the
+controls-sheet accessibility alternatives to gestures, alongside <strong>Reset placement</strong>.
+The wall demo uses the shared placement shell and a procedural TV with the same two
+boxes, physical material parameters and 0.3 m <strong>Preview size</strong> as Android.</p>
+<p><strong>Wall shading parity:</strong> neither wall demo draws a procedural shadow blob. RealityKit's
+grounding shadow is downward-only and is applied automatically only to horizontal
+placement; it is not wall contact shading. Android's wall-demo shadow receivers are
+disabled to match this scope. Native renderer lighting may differ. Both demos use an
+opacity-only 300 ms reveal/hide; neither scales the object in from zero.</p>
 <h2 id="arsceneview-low-level-manual-placement-ios-only">ARSceneView (low-level / manual placement — iOS only)<a class="headerlink" href="#arsceneview-low-level-manual-placement-ios-only" title="Permanent link">&para;</a></h2>
 <div class="language-swift highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">ARSceneView</span><span class="p">(</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="n">planeDetection</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">horizontal</span><span class="p">,</span><span class="w">       </span><span class="c1">// .horizontal, .vertical, .both, .none</span>
@@ -4128,16 +4185,28 @@ via deep-link as well as the Samples tab.</p>
 <td>Ported</td>
 </tr>
 <tr>
-<td>AR Plane Placement</td>
+<td>AR Placement</td>
 <td><code>ar-placement</code></td>
 <td><code>ARPlacementDemo.swift</code></td>
-<td>Ported (no per-model editing yet)</td>
+<td>Single automatic-placement entry; 0.3 m preview, surface-constrained drag, pinch and twist</td>
 </tr>
 <tr>
-<td>AR Instant Placement</td>
-<td>(Samples tab)</td>
-<td><code>ARInstantPlacementDemo.swift</code></td>
-<td>Ported (approximates via <code>.estimatedPlane</code> raycasts)</td>
+<td>Depth Occlusion</td>
+<td><code>ar-depth-occlusion</code></td>
+<td><code>ARDepthOcclusionDemo.swift</code></td>
+<td>Shared automatic placement of the bundled helmet; LiDAR mesh rendering toggle retains pose and scale</td>
+</tr>
+<tr>
+<td>People Occlusion</td>
+<td><code>ar-people-occlusion</code></td>
+<td><code>ARPeopleOcclusionDemo.swift</code></td>
+<td>Same subject and placement flow; person-segmentation rendering toggle retains pose and scale</td>
+</tr>
+<tr>
+<td>AR Recording</td>
+<td><code>ar-record-playback</code></td>
+<td><code>ARRecorderDemo.swift</code></td>
+<td>Shared automatic placement; explicit Record/Stop; screen video only, without deterministic AR-session playback</td>
 </tr>
 <tr>
 <td>Physics (streamed bodies)</td>

@@ -3205,7 +3205,12 @@
 </tbody>
 </table>
 <h3 id="ar-ios-only">AR (iOS only)<a class="headerlink" href="#ar-ios-only" title="Permanent link">&para;</a></h3>
-<p>AR samples require a physical device with ARKit support (A9+ chip, iOS 18+).</p>
+<p>AR samples require a physical device with ARKit support (A9+ chip, iOS 18+).
+<code>ar-placement</code> is the single placement catalogue entry. Depth occlusion requires LiDAR;
+people occlusion requires supported person segmentation. Every AR card stays in the
+catalogue on every device: opening one on a device that cannot run it shows the honest
+requirement card before any camera starts, rather than the card disappearing.
+Occlusion comparisons keep perception enabled and change only the renderer effect.</p>
 <table>
 <thead>
 <tr>
@@ -3218,12 +3223,7 @@
 <tr>
 <td>AR Placement</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARPlacementDemo.swift"><code>ARPlacementDemo.swift</code></a></td>
-<td>Tap-to-place USDZ on a detected plane</td>
-</tr>
-<tr>
-<td>Estimated-plane placement</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARInstantPlacementDemo.swift"><code>ARInstantPlacementDemo.swift</code></a></td>
-<td>Tap-to-place on an estimated plane, before geometry converges</td>
+<td>One 0.3 m preview model automatically placed on the first usable horizontal surface; drag, pinch and twist to adjust</td>
 </tr>
 <tr>
 <td>AR Orbital</td>
@@ -3238,7 +3238,7 @@
 <tr>
 <td>AR Recording</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARRecorderDemo.swift"><code>ARRecorderDemo.swift</code></a></td>
-<td>ReplayKit-backed AR session capture</td>
+<td>Automatically placed subject with explicit ReplayKit Record/Stop controls; screen video, not AR-session playback</td>
 </tr>
 <tr>
 <td>AR Image Tracking</td>
@@ -3253,12 +3253,12 @@
 <tr>
 <td>AR Depth Occlusion</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARDepthOcclusionDemo.swift"><code>ARDepthOcclusionDemo.swift</code></a></td>
-<td>LiDAR depth occlusion on supported devices</td>
+<td>Bundled helmet placed automatically; toggle LiDAR mesh occlusion without moving or rescaling it</td>
 </tr>
 <tr>
 <td>AR People Occlusion</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARPeopleOcclusionDemo.swift"><code>ARPeopleOcclusionDemo.swift</code></a></td>
-<td>Occlude AR content behind real people</td>
+<td>The same bundled helmet and placement flow; toggle person occlusion without restarting tracking</td>
 </tr>
 <tr>
 <td>Body anchor tracking</td>
