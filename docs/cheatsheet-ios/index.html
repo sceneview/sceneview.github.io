@@ -3595,7 +3595,7 @@ on first invocation per Apple's privacy policy.</p>
 <tr>
 <td><code>VideoNode</code></td>
 <td><code>VideoNode.load("clip.mp4")</code></td>
-<td><code>width:</code>, <code>height:</code>, <code>loop:</code>, <code>.play()</code>, <code>.pause()</code></td>
+<td><code>width:</code>, <code>height:</code>, <code>loop:</code>, <code>.play()</code>, <code>.pause()</code>; extensionless names try mp4/mov/m4v, <code>VideoNode.load(resource:)</code> throws instead of failing silently</td>
 </tr>
 <tr>
 <td><code>LineNode</code></td>
@@ -3620,7 +3620,7 @@ on first invocation per Apple's privacy policy.</p>
 <tr>
 <td><code>FogNode</code></td>
 <td><code>FogNode.linear(start:end:color:)</code> · <code>FogNode.exponential(density:color:)</code></td>
-<td>atmospheric fog</td>
+<td><strong>deprecated (v4.39.0+)</strong> — not fog: one translucent sphere, no distance attenuation, and it is included in automatic content framing</td>
 </tr>
 <tr>
 <td><code>ReflectionProbeNode</code></td>
@@ -4029,7 +4029,7 @@ silent stub.</p>
 <tr>
 <td><code>CameraNode.exposure(_:)</code></td>
 <td>No <code>exposureCompensation</code> on <code>PerspectiveCameraComponent</code> (verified Xcode 26.x compile failure in #1019)</td>
-<td><code>ARSceneView(cameraExposure:)</code> for AR; <code>SceneView.renderQuality(_:)</code> to tune IBL for 3D</td>
+<td><code>ARSceneView(cameraExposure:)</code> for AR — rendered-frame brightness, not capture exposure; <code>SceneView.renderQuality(_:)</code> to tune IBL for 3D</td>
 </tr>
 <tr>
 <td><code>LightNode.shadowColor(_:)</code></td>
@@ -4187,7 +4187,7 @@ Use as you would on Android; expect minor visual differences.</p>
 <tr>
 <td><code>FogNode.linear / .exponential</code></td>
 <td>Filament fog modes</td>
-<td>Translucent-sphere shader (visual approximation; same factory API). <code>FogNode.heightBased</code> is deprecated on iOS — see #1380.</td>
+<td><strong>Deprecated on iOS (v4.39.0+)</strong>: the translucent-sphere approximation is not fog — no distance attenuation, and the sphere is framed as content. Still compiles through 4.x.</td>
 </tr>
 <tr>
 <td><code>ReflectionProbeNode.box(...) / .sphere(...)</code></td>
