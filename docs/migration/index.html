@@ -2843,10 +2843,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-sceneview-mcp-gained-a-next-dist-tag" class="md-nav__link">
+  <a href="#4-sceneview-mcp-moved-to-the-4x-line" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. sceneview-mcp gained a @next dist-tag
+        4. sceneview-mcp moved to the 4.x line
       
     </span>
   </a>
@@ -3414,10 +3414,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#4-sceneview-mcp-gained-a-next-dist-tag" class="md-nav__link">
+  <a href="#4-sceneview-mcp-moved-to-the-4x-line" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. sceneview-mcp gained a @next dist-tag
+        4. sceneview-mcp moved to the 4.x line
       
     </span>
   </a>
@@ -3945,7 +3945,7 @@ the billing event lands on your Google Cloud project even after the user has
 navigated away from the screen that started it. For apps that surface a "Place
 anchor" CTA inside a navigable hierarchy (Compose / Fragment / Activity stack)
 this is a measurable cost on cancelled user flows — see
-<a href="https://developers.google.com/ar/develop/cloud-anchors-faq#pricing">Google's ARCore Cloud Anchors pricing</a>.
+<a href="https://developers.google.com/ar/develop/cloud-anchors">Google's ARCore Cloud Anchors documentation</a>.
 Cancellation does <strong>not</strong> invoke the <code>onCompleted</code> callback (matches ARCore
 semantics), so observers stay clean.</p>
 <p><strong>Action — source compatibility.</strong> Most call sites are unaffected — the new
@@ -4147,12 +4147,12 @@ implementation("io.github.sceneview:arsceneview:4.39.0")
 // After (4.0.0)
 implementation("io.github.sceneview:sceneview:4.39.0")
 implementation("io.github.sceneview:arsceneview:4.39.0")</code></pre>
-<p><strong>Release candidate caveat:</strong> Maven Central does <strong>not</strong> currently ship <code>4.0.0</code>. Either build from source (<code>./gradlew :sceneview:publishToMavenLocal</code>) or wait for <code>v4.0.0</code> stable.</p>
-<h3 id="4-sceneview-mcp-gained-a-next-dist-tag">4. <code>sceneview-mcp</code> gained a <code>@next</code> dist-tag<a class="headerlink" href="#4-sceneview-mcp-gained-a-next-dist-tag" title="Permanent link">&para;</a></h3>
-<p>If you use the <a href="https://www.npmjs.com/package/sceneview-mcp"><code>sceneview-mcp</code></a> npm package in your MCP client, the <code>@latest</code> tag is still on <code>3.6.4</code> (unchanged, intentionally). The <code>@next</code> tag is on <code>4.0.0</code>, which includes the Rerun integration docs and v4 lite-proxy routing to the hosted gateway. Opt in with:</p>
+<p><code>4.0.0</code> and every later 4.x release are on Maven Central — use the current version shown above.</p>
+<h3 id="4-sceneview-mcp-moved-to-the-4x-line">4. <code>sceneview-mcp</code> moved to the 4.x line<a class="headerlink" href="#4-sceneview-mcp-moved-to-the-4x-line" title="Permanent link">&para;</a></h3>
+<p>During the 4.0.0 release candidate, the 4.x line of the <a href="https://www.npmjs.com/package/sceneview-mcp"><code>sceneview-mcp</code></a> npm package shipped under the <code>@next</code> tag while <code>@latest</code> stayed on <code>3.6.4</code>. That is over: <code>@latest</code> is now on the 4.x line (with the Rerun integration docs), so the plain package name is all you need:</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp@next"</span><span class="p">]</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span>
 </span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>There is also a <strong>new</strong> <a href="https://www.npmjs.com/package/rerun-3d-mcp"><code>rerun-3d-mcp</code></a> package (<code>@latest = 1.0.0</code>) that generates the Rerun integration boilerplate on demand:</p>

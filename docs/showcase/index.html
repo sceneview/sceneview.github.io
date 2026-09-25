@@ -3034,9 +3034,9 @@
 <h1 id="why-sceneview">Why SceneView<a class="headerlink" href="#why-sceneview" title="Permanent link">&para;</a></h1>
 <p>SceneView is the only actively maintained, Compose-native 3D and AR library for Kotlin.
 It delivers Filament's physically-based rendering and ARCore's full AR capabilities through
-a declarative API that developers already understand. SceneViewSwift (v4.0.0 alpha) brings
-the same experience to iOS, macOS, and visionOS via RealityKit — and v4.0 will add XR headsets
-and cross-framework bridges.</p>
+a declarative API that developers already understand. SceneViewSwift (alpha) brings
+the same experience to iOS, macOS, and visionOS via RealityKit, and the web build plus the
+Flutter and React Native bridges carry it further. Android XR headsets are still on the roadmap.</p>
 <div class="showcase-gallery">
 
 <div class="showcase-item">
@@ -3123,9 +3123,10 @@ IO-to-main-thread transition automatically. You never think about it.</p>
 Orbit camera in one line:</p>
 <pre class="language-kotlin"><code>SceneView(cameraManipulator = rememberCameraManipulator()) { ... }</code></pre>
 <h3 id="multi-platform-trajectory">Multi-platform trajectory<a class="headerlink" href="#multi-platform-trajectory" title="Permanent link">&para;</a></h3>
-<p>SceneViewSwift v4.0.0 (alpha) already supports iOS, macOS, and visionOS via RealityKit.
-v4.0 will add <code>XRScene</code> for spatial computing headsets and cross-framework bridges
-(Flutter, React Native, KMP Compose). One declarative API across all target platforms.</p>
+<p>SceneViewSwift (alpha) supports iOS, macOS, and visionOS via RealityKit. Flutter and
+React Native bridges and a Compose Multiplatform viewer façade (<code>sceneview-compose</code>) ship
+alongside it; Android XR headsets are still on the roadmap. One declarative API across all
+target platforms.</p>
 <h3 id="ai-assisted-development">AI-assisted development<a class="headerlink" href="#ai-assisted-development" title="Permanent link">&para;</a></h3>
 <p>SceneView ships with an MCP server (<code>sceneview-mcp</code>) and a machine-readable <code>llms.txt</code> API
 reference. Whichever assistant you use, it has the current API — no hallucinated

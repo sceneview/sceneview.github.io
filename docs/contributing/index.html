@@ -3609,13 +3609,16 @@ correct. Specifically:</p>
   docs-only PR runs none of them. (Before #1370 this was three separate
   workflows — <code>ci.yml</code>, <code>pr-check.yml</code>, <code>quality-gate.yml</code> — each with its
   own <code>changes</code> job; they are now one workflow with one path-detection job.)</li>
-<li><strong><code>render-tests.yml</code></strong> has its own <code>pull_request</code> path filter: only a PR
-  touching <code>sceneview/**</code>, <code>sceneview-core/**</code>, <code>arsceneview/src/**</code> or the
-  Gradle build files runs it, and then only its <code>android-library-render</code> job
-  (<code>:sceneview:connectedDebugAndroidTest</code> on the emulator, #3216). The demo
-  screenshot, iOS and web legs are push-to-main + nightly + <code>workflow_dispatch</code>
-  only. A docs-only PR matches none of the paths, so the workflow does not
-  run at all.</li>
+<li><strong><code>render-tests.yml</code></strong> has its own <code>pull_request</code> path filter, and its own
+  <code>changes</code> job that gates each leg on its half of that filter. A PR touching
+  <code>sceneview/**</code>, <code>sceneview-core/**</code>, <code>arsceneview/**</code> or the Gradle build
+  files runs the <code>android-library-render</code> job
+  (<code>:sceneview:connectedDebugAndroidTest</code> on the emulator, #3216); a PR
+  touching <code>samples/web-demo/**</code> or <code>sceneview-web/**</code> runs the advisory
+  <code>web-render</code> Playwright job. The demo screenshot and iOS legs are
+  push-to-main + nightly + <code>workflow_dispatch</code> only, and on a push each leg
+  runs only when its platform's paths changed. A docs-only PR matches none of
+  the paths, so the workflow does not run at all.</li>
 <li>The <strong><code>Path filter completed</code></strong> job (<code>changes-verdict</code> in <code>ci.yml</code>) runs
   on every PR whatever it touches, and it is the required check: it resolves
   green once path detection has run. That is how a docs-only PR stays
@@ -3636,7 +3639,10 @@ were testing was never covered. The one place cancellation is still allowed
 is a pull request on <code>render-tests.yml</code>, where a new push to the same PR
 supersedes the previous SHA. The cost is GitHub-hosted minutes proportional
 to the merge rate; if the queue becomes a problem, the lever is the <code>paths:</code>
-filter on each workflow, not <code>cancel-in-progress</code>.</p>
+filter on each workflow (and <code>render-tests.yml</code>'s per-job <code>changes</code> gate),
+not <code>cancel-in-progress</code>. The web Playwright suite runs on <code>main</code> through
+<code>device-qa.yml</code>'s blocking web leg only; <code>render-tests.yml</code>'s <code>web-render</code>
+job, which cannot go red, no longer repeats it on push or at night.</p>
 <h3 id="code-style">Code style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Kotlin</strong>: follow the official <a href="https://developer.android.com/kotlin/style-guide">Kotlin style guide</a> and existing Compose API conventions (composable functions, <code>remember*</code> helpers, named parameters). The code style is stored in the repository and auto-configured by Android Studio.</li>
