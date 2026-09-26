@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Companion</title>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../../index.html" tabindex="1">
+                    arsceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":arsceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":arsceneview/main"
+                                       data-filter=":arsceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    arsceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="arsceneview::io.github.sceneview.ar.scene/PlaneRendererV2.Companion///PointingToDeclaration//-652796645">
+  <div class="breadcrumbs"><a href="../../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../../index.html">io.github.sceneview.ar.scene</a><span class="delimiter">/</span><a href="../index.html">PlaneRendererV2</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Companion</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-412532132%2FProperties%2F-652796645" anchor-label="MATERIAL_COLOR" id="-412532132%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-c-o-l-o-r.html"><span>MATERIAL_</span><wbr></wbr><span>COLOR</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-412532132%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-c-o-l-o-r.html">MATERIAL_COLOR</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float3 material parameter — legacy RGB tint kept for binary/API compatibility. PR #3 adds <a href="-m-a-t-e-r-i-a-l_-g-r-i-d_-t-i-n-t.html">MATERIAL_GRID_TINT</a> as the canonical colour knob; the shader multiplies both.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1295885034%2FProperties%2F-652796645" anchor-label="MATERIAL_GRID_ALPHA" id="-1295885034%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-g-r-i-d_-a-l-p-h-a.html"><span>MATERIAL_</span><wbr></wbr><span>GRID_</span><wbr></wbr><span>ALPHA</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1295885034%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-g-r-i-d_-a-l-p-h-a.html">MATERIAL_GRID_ALPHA</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float peak per-pixel opacity of the grid lines (PR #3).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1237782165%2FProperties%2F-652796645" anchor-label="MATERIAL_GRID_TINT" id="-1237782165%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-g-r-i-d_-t-i-n-t.html"><span>MATERIAL_</span><wbr></wbr><span>GRID_</span><wbr></wbr><span>TINT</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1237782165%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-g-r-i-d_-t-i-n-t.html">MATERIAL_GRID_TINT</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float3 cool-white tint used by the procedural grid + scan ring (PR #3).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2135859900%2FProperties%2F-652796645" anchor-label="MATERIAL_METALLIC" id="2135859900%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-m-e-t-a-l-l-i-c.html"><span>MATERIAL_</span><wbr></wbr><span>METALLIC</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2135859900%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-m-e-t-a-l-l-i-c.html">MATERIAL_METALLIC</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float PBR metallic, default <code class="lang-kotlin">0.0</code> (dielectric floor). PR #4 varies per <code class="lang-kotlin">plane.type</code> via <span data-unresolved-link="io.github.sceneview.ar.scene//planeMaterialPresetFor/#com.google.ar.core.Plane.Type/PointingToDeclaration/">planeMaterialPresetFor</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1323951405%2FProperties%2F-652796645" anchor-label="MATERIAL_REFLECTANCE" id="-1323951405%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-r-e-f-l-e-c-t-a-n-c-e.html"><span>MATERIAL_</span><wbr></wbr><span><span>REFLECTANCE</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1323951405%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-r-e-f-l-e-c-t-a-n-c-e.html">MATERIAL_REFLECTANCE</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float dielectric Fresnel reflectance, default <code class="lang-kotlin">0.5</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1036092231%2FProperties%2F-652796645" anchor-label="MATERIAL_REFLECTION_FADE_IN" id="1036092231%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-r-e-f-l-e-c-t-i-o-n_-f-a-d-e_-i-n.html"><span>MATERIAL_</span><wbr></wbr><span>REFLECTION_</span><wbr></wbr><span>FADE_</span><wbr></wbr><span>IN</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1036092231%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-r-e-f-l-e-c-t-i-o-n_-f-a-d-e_-i-n.html">MATERIAL_REFLECTION_FADE_IN</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float in <code class="lang-kotlin">[0, 1]</code> modulating the IBL contribution so the reflection fades in over the first second of the plane's life (PR #3). <code class="lang-kotlin">PlaneVisualizerV2</code> overrides this per-instance from elapsed-since-detection.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-803103025%2FProperties%2F-652796645" anchor-label="MATERIAL_ROUGHNESS" id="-803103025%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-r-o-u-g-h-n-e-s-s.html"><span>MATERIAL_</span><wbr></wbr><span>ROUGHNESS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-803103025%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-r-o-u-g-h-n-e-s-s.html">MATERIAL_ROUGHNESS</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float PBR roughness, default <code class="lang-kotlin">0.35</code> (slight gloss). PR #4 varies per <code class="lang-kotlin">plane.type</code> via <span data-unresolved-link="io.github.sceneview.ar.scene//planeMaterialPresetFor/#com.google.ar.core.Plane.Type/PointingToDeclaration/">planeMaterialPresetFor</span> (floor <code class="lang-kotlin">0.35</code>< ceiling <code class="lang-kotlin">0.65</code>< wall <code class="lang-kotlin">0.80</code>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1570564776%2FProperties%2F-652796645" anchor-label="MATERIAL_SCAN_PLANE_RADIUS" id="1570564776%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-s-c-a-n_-p-l-a-n-e_-r-a-d-i-u-s.html"><span>MATERIAL_</span><wbr></wbr><span>SCAN_</span><wbr></wbr><span>PLANE_</span><wbr></wbr><span>RADIUS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1570564776%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-s-c-a-n_-p-l-a-n-e_-r-a-d-i-u-s.html">MATERIAL_SCAN_PLANE_RADIUS</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float — max scan-ring radius in plane-local metres (≈ furthest polygon vertex from the centroid). Set per-instance by <code class="lang-kotlin">PlaneVisualizerV2</code> (PR #3).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-519436432%2FProperties%2F-652796645" anchor-label="MATERIAL_SCAN_PROGRESS" id="-519436432%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-s-c-a-n_-p-r-o-g-r-e-s-s.html"><span>MATERIAL_</span><wbr></wbr><span>SCAN_</span><wbr></wbr><span>PROGRESS</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-519436432%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-s-c-a-n_-p-r-o-g-r-e-s-s.html">MATERIAL_SCAN_PROGRESS</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float in <code class="lang-kotlin">[0, 1]</code> driving the scan-in ring expansion (PR #3). <code class="lang-kotlin">1.0</code> means the animation has completed and the ring is no longer drawn.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1610335411%2FProperties%2F-652796645" anchor-label="MATERIAL_SURFACE_ALPHA" id="1610335411%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-s-u-r-f-a-c-e_-a-l-p-h-a.html"><span>MATERIAL_</span><wbr></wbr><span>SURFACE_</span><wbr></wbr><span>ALPHA</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1610335411%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-s-u-r-f-a-c-e_-a-l-p-h-a.html">MATERIAL_SURFACE_ALPHA</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float base opacity of the lit surface between grid lines (PR #3).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2009211100%2FProperties%2F-652796645" anchor-label="MATERIAL_TEXTURE" id="-2009211100%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-t-e-x-t-u-r-e.html"><span>MATERIAL_</span><wbr></wbr><span>TEXTURE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2009211100%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-t-e-x-t-u-r-e.html">MATERIAL_TEXTURE</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Material parameter that controls what texture is being used when rendering the planes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1312877423%2FProperties%2F-652796645" anchor-label="MATERIAL_UV_SCALE" id="1312877423%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-m-a-t-e-r-i-a-l_-u-v_-s-c-a-l-e.html"><span>MATERIAL_</span><wbr></wbr><span>UV_</span><wbr></wbr><span>SCALE</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1312877423%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">const </span><span class="token keyword">val </span><a href="-m-a-t-e-r-i-a-l_-u-v_-s-c-a-l-e.html">MATERIAL_UV_SCALE</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Float2 material parameter to control the X/Y scaling of the texture's UV coordinates. Can be used to adjust for the texture's aspect ratio and control the frequency of tiling.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
