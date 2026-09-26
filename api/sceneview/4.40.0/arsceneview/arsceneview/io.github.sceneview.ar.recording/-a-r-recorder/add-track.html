@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>addTrack</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    arsceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":arsceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":arsceneview/main"
+                                       data-filter=":arsceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    arsceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="arsceneview::io.github.sceneview.ar.recording/ARRecorder/addTrack/#java.util.UUID#kotlin.String/PointingToDeclaration//-652796645">
+  <div class="breadcrumbs"><a href="../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.ar.recording</a><span class="delimiter">/</span><a href="index.html">ARRecorder</a><span class="delimiter">/</span><span class="current">addTrack</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>add</span><wbr></wbr><span><span>Track</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="add-track.html"><span class="token function">addTrack</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">uuid<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/util/UUID.html">UUID</a><span class="token punctuation">, </span></span><span class="parameter ">mimeType<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-track-handle/index.html">ARRecorder.TrackHandle</a></div><p class="paragraph">Register a custom data track to be written into the next recording's MP4 (#1770).</p><p class="paragraph">Wraps ARCore's <span data-unresolved-link="com.google.ar.core/RecordingConfig/addTrack/#com.google.ar.core.Track/PointingToDeclaration/">RecordingConfig.addTrack</span> + <span data-unresolved-link="com.google.ar.core/Frame/recordTrackData/#java.util.UUID#java.nio.ByteBuffer/PointingToDeclaration/">com.google.ar.core.Frame.recordTrackData</span> flow — the official way to ship side-channel data (ML detections, ground truth boxes, custom sensor packets) inside the recording. On playback, the data is accessible via <code class="lang-kotlin">Frame.getUpdatedTrackData(handle.uuid)</code>.</p><p class="paragraph"><strong>Call BEFORE </strong><a href="start.html"><strong>start</strong></a><strong>.</strong> ARCore rejects new tracks once a recording is in progress. Calling after <a href="start.html">start</a> returns the same handle but the track will only take effect on the next recording session. The handle is safe to retain across recordings — re-registering the same UUID/MIME pair is idempotent.</p><p class="paragraph"><strong>Bounded to </strong><a href="-companion/-m-a-x_-p-e-n-d-i-n-g_-t-r-a-c-k-s.html"><strong>MAX_PENDING_TRACKS</strong></a><strong> entries (#1845).</strong> A caller that accidentally wires <code class="lang-kotlin">addTrack(UUID.randomUUID(), …)</code> into a recomposing block would otherwise leak handle entries indefinitely — idempotent dedup is keyed on UUID equality, but unique UUIDs bypass the check. Past the limit, <a href="add-track.html">addTrack</a> raises <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-state-exception/index.html">IllegalStateException</a> so the leak surfaces at the call site instead of as a confusing native error at <a href="start.html">start</a>. Use <a href="clear-tracks.html">clearTracks</a> to drop registered tracks between recordings if your app needs a flexible track schema. The default cap of 64 is well above ARCore's practical limit (the MP4 box carries each track in its own sample-description entry — adding hundreds is a sign of a programming error, not a legitimate use case).</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">A <a href="-track-handle/index.html">TrackHandle</a> to pass to <a href="record-track.html">recordTrack</a>.</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>uuid</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The UUID that identifies this track. Must be unique within a recording. Re-use the same UUID on the playback side via <code class="lang-kotlin">Frame.getUpdatedTrackData(uuid)</code>.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>mime</span><wbr></wbr><span><span>Type</span></span></u></div></span></div><div><div class="title"><p class="paragraph">MP4 sample-description MIME type. Common choices: <code class="lang-kotlin">&quot;application/text&quot;</code> for UTF-8 JSON, <code class="lang-kotlin">&quot;application/octet-stream&quot;</code> for binary blobs.</p></div></div></div></div></div><h4 class="tableheader">Throws</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-illegal-state-exception/index.html"><span>Illegal</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Exception</span></span></a></div></span></div><div><div class="title"><p class="paragraph">if more than <a href="-companion/-m-a-x_-p-e-n-d-i-n-g_-t-r-a-c-k-s.html">MAX_PENDING_TRACKS</a> distinct UUIDs have been registered without an intervening <a href="clear-tracks.html">clearTracks</a> or <a href="stop.html">stop</a> call.</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

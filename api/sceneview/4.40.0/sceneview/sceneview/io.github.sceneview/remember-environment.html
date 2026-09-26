@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>rememberEnvironment</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="sceneview::io.github.sceneview//rememberEnvironment/#io.github.sceneview.loaders.EnvironmentLoader#kotlin.Boolean#kotlin.Any?#kotlin.Function0[io.github.sceneview.environment.Environment]/PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../index.html">sceneview</a><span class="delimiter">/</span><a href="index.html">io.github.sceneview</a><span class="delimiter">/</span><span class="current">rememberEnvironment</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>remember</span><wbr></wbr><span><span>Environment</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-environment.html"><span class="token function">rememberEnvironment</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">environmentLoader<span class="token operator">: </span><a href="../io.github.sceneview.loaders/-environment-loader/index.html">EnvironmentLoader</a><span class="token punctuation">, </span></span><span class="parameter ">isOpaque<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">environment<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../io.github.sceneview.environment/-environment/index.html">Environment</a><span class="token operator"> = </span>{
+        createEnvironment(environmentLoader, isOpaque)
+    }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../io.github.sceneview.environment/-environment/index.html">Environment</a></div><p class="paragraph">Creates and remembers an <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> from an <a href="../io.github.sceneview.loaders/-environment-loader/index.html">EnvironmentLoader</a>.</p><p class="paragraph">An <code class="lang-kotlin">Environment</code> bundles a Filament <code class="lang-kotlin">IndirectLight</code> (image-based lighting) with an optional <code class="lang-kotlin">Skybox</code>. Pass the result to <code class="lang-kotlin">SceneView(environment = ...)</code>.</p><p class="paragraph">The <a href="remember-environment.html">environment</a> factory lambda runs once and is memoised. Use it to load an HDR file:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val environment = rememberEnvironment(environmentLoader) {<br>    environmentLoader.createHDREnvironment(&quot;environments/sky_2k.hdr&quot;)<br>        ?: createEnvironment(environmentLoader)<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The <a href="remember-environment.html">environment</a> factory lambda is captured as a stable key by Compose, so a factory that closes over a changing value (e.g. an HDR path that depends on a time-of-day slider) is <strong>not</strong> re-run on its own. Pass that changing value as <a href="remember-environment.html">key</a> so the <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> is rebuilt — and the old one disposed — whenever the key changes:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val environment = rememberEnvironment(environmentLoader, key = hdrPath) {<br>    environmentLoader.createHDREnvironment(hdrPath)!!<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> destroyed on disposal.</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>environment</span><wbr></wbr><span><span>Loader</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The loader that produced the IBL textures.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>is</span><wbr></wbr><span><span>Opaque</span></span></u></div></span></div><div><div class="title"><p class="paragraph">If <code class="lang-kotlin">false</code>, the skybox is cleared so the surface background shows through.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>key</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Extra memoisation key. When it changes the <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> is rebuilt and                           the previous one destroyed. Pass the value the <a href="remember-environment.html">environment</a> factory                           depends on (e.g. the HDR file path); leave <code class="lang-kotlin">null</code> for a static environment.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>environment</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Factory that produces the <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a>. Memoised by the loader + opacity + <a href="remember-environment.html">key</a>.</p></div></div></div></div></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-environment.html"><span class="token function">rememberEnvironment</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">engine<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span><span class="token punctuation">, </span></span><span class="parameter ">isOpaque<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">environment<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../io.github.sceneview.environment/-environment/index.html">Environment</a><span class="token operator"> = </span>{
+        createEnvironment(engine, isOpaque)
+    }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../io.github.sceneview.environment/-environment/index.html">Environment</a></div><p class="paragraph">Creates and remembers an <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> directly from a Filament <span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span>.</p><p class="paragraph">Use this overload when you want to construct the <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> manually (e.g. from KTX assets) without an <a href="../io.github.sceneview.loaders/-environment-loader/index.html">EnvironmentLoader</a>.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> destroyed on disposal.</p></span><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>engine</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Filament <span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span> that owns the IBL and skybox textures.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>is</span><wbr></wbr><span><span>Opaque</span></span></u></div></span></div><div><div class="title"><p class="paragraph">If <code class="lang-kotlin">false</code>, the skybox is cleared so the surface background shows through.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>key</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Extra memoisation key. When it changes the <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a> is rebuilt and the                     previous one destroyed. Pass the value the <a href="remember-environment.html">environment</a> factory depends on;                     leave <code class="lang-kotlin">null</code> for a static environment.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>environment</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Factory that produces the <a href="../io.github.sceneview.environment/-environment/index.html">Environment</a>. Memoised by the engine + opacity + <a href="remember-environment.html">key</a>.</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
