@@ -1417,10 +1417,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#desktop-placeholder" class="md-nav__link">
+  <a href="#desktop-compose-desktop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Desktop (Placeholder)
+        Desktop (Compose Desktop)
       
     </span>
   </a>
@@ -2727,10 +2727,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#desktop-placeholder" class="md-nav__link">
+  <a href="#desktop-compose-desktop" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Desktop (Placeholder)
+        Desktop (Compose Desktop)
       
     </span>
   </a>
@@ -2898,9 +2898,10 @@
 <p><code>sceneview-compose</code> gives you one <code>SceneViewer</code> composable from <code>commonMain</code> and
 delegates to the renderers above. It covers the <strong>viewer subset</strong> only — a model, an
 orbit camera, a light, an environment, tap hit-testing. <strong>No AR</strong>, no custom
-materials, no post-processing: those stay platform-native by design. Today Android
-renders; the iOS and Desktop actuals draw a visible "not available yet" notice.
-See <a href="../compose-multiplatform/">Compose Multiplatform</a>.</p>
+materials, no post-processing: those stay platform-native by design. Android and
+Desktop render through Filament; iOS renders through RealityKit once the app
+registers the one-time host factory, and draws a visible "not available yet" notice
+until it does. See <a href="../compose-multiplatform/">Compose Multiplatform</a>.</p>
 </div>
 <hr />
 <h2 id="android">Android<a class="headerlink" href="#android" title="Permanent link">&para;</a></h2>
@@ -2933,21 +2934,20 @@ See <a href="../compose-multiplatform/">Compose Multiplatform</a>.</p>
 </ul>
 <p><a href="../quickstart-web/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Web Quickstart</a></p>
 <hr />
-<h2 id="desktop-placeholder">Desktop (Placeholder)<a class="headerlink" href="#desktop-placeholder" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p><strong>Not SceneView.</strong> The desktop demo is a Compose Canvas wireframe renderer -- it does
-not use SceneView or Filament. It exists as a UI placeholder for a future Filament JNI
-desktop integration.</p>
-</blockquote>
+<h2 id="desktop-compose-desktop">Desktop (Compose Desktop)<a class="headerlink" href="#desktop-compose-desktop" title="Permanent link">&para;</a></h2>
+<p>The desktop actual of <code>sceneview-compose</code> renders with <strong>Filament</strong>, through the
+community <a href="https://github.com/Erkko68/filament-kmp">filament-kmp</a> FFM bindings: an
+offscreen render, pipelined <code>readPixels</code>, then a Skia image in the Compose tree.</p>
 <ul>
-<li><strong>Renderer</strong>: Software wireframe (Compose Canvas 2D drawing, not GPU-accelerated)</li>
+<li><strong>3D</strong>: <code>SceneViewer(…)</code> — the same viewer subset as the other Compose Multiplatform
+  targets (glTF model, orbit camera, light, environment, tap hit-testing). <strong>No AR.</strong></li>
 <li><strong>Framework</strong>: Compose Desktop</li>
-<li><strong>Sample</strong>: <code>samples/desktop-demo/</code></li>
-<li><strong>Missing</strong>: GPU acceleration, PBR materials, glTF loading, shadows, scene graph</li>
+<li><strong>Requirements</strong>: JDK 22+ (FFM), launched with <code>--enable-native-access=ALL-UNNAMED</code></li>
+<li><strong>Install</strong>: <code>implementation("io.github.sceneview:sceneview-compose:4.39.0")</code></li>
+<li><strong>Sample</strong>: <code>samples/desktop-demo/</code> — run it with <code>./gradlew :samples:desktop-demo:run</code></li>
 </ul>
-<p>A future version would use Filament JNI for full PBR rendering. This requires building
-Filament from source with JNI enabled (estimated 18-29 days). See
-<a href="../desktop-filament/">Filament Desktop Research</a> for details.</p>
+<p><a href="../compose-multiplatform/"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.22 19.03a.75.75 0 0 1 0-1.06L18.19 13H3.75a.75.75 0 0 1 0-1.5h14.44l-4.97-4.97a.749.749 0 0 1 .326-1.275.75.75 0 0 1 .734.215l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0"/></svg></span> Compose Multiplatform</a> ·
+<a href="../desktop-filament/">Desktop Filament decision record</a></p>
 <hr />
 <h2 id="android-tv">Android TV<a class="headerlink" href="#android-tv" title="Permanent link">&para;</a></h2>
 <p>SceneView works on Android TV using the same Filament renderer as mobile. The <code>SceneView { }</code> composable renders identically -- only the input handling differs (D-pad instead of touch).</p>

@@ -2740,6 +2740,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#other-workflow-triggers-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other workflow triggers worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#code-style" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3131,6 +3142,17 @@
     <span class="md-ellipsis">
       
         Heavy suites on main: every merge reaches a verdict
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-workflow-triggers-worth-knowing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other workflow triggers worth knowing
       
     </span>
   </a>
@@ -3639,10 +3661,31 @@ were testing was never covered. The one place cancellation is still allowed
 is a pull request on <code>render-tests.yml</code>, where a new push to the same PR
 supersedes the previous SHA. The cost is GitHub-hosted minutes proportional
 to the merge rate; if the queue becomes a problem, the lever is the <code>paths:</code>
-filter on each workflow (and <code>render-tests.yml</code>'s per-job <code>changes</code> gate),
-not <code>cancel-in-progress</code>. The web Playwright suite runs on <code>main</code> through
-<code>device-qa.yml</code>'s blocking web leg only; <code>render-tests.yml</code>'s <code>web-render</code>
-job, which cannot go red, no longer repeats it on push or at night.</p>
+filter on each workflow (and the per-job <code>changes</code> gate that both
+<code>render-tests.yml</code> and <code>device-qa.yml</code> carry), not <code>cancel-in-progress</code>. The
+web Playwright suite runs on <code>main</code> through <code>device-qa.yml</code>'s blocking web leg
+only, and only when the push touched <code>samples/web-demo/**</code> (or the harness);
+the Android legs likewise need <code>samples/android-demo/**</code>, <code>.maestro/**</code> or
+their scripts. <code>render-tests.yml</code>'s <code>web-render</code> job, which cannot go red, no
+longer repeats the web suite on push or at night. On <code>workflow_dispatch</code> and
+in the nightly every leg of both workflows still runs.</p>
+<h3 id="other-workflow-triggers-worth-knowing">Other workflow triggers worth knowing<a class="headerlink" href="#other-workflow-triggers-worth-knowing" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Superseded PR runs are cancelled.</strong> <code>ci.yml</code>, <code>snippets-check.yml</code>,
+  <code>mcp-ts-check.yml</code> and <code>rn-ts-check.yml</code> key their PR concurrency group on
+  the PR number, so pushing a new commit cancels the previous run of the same
+  PR. Pushes to <code>main</code> in <code>ci.yml</code> are never cancelled.</li>
+<li><strong><code>ios.yml</code></strong> runs for <code>SceneViewSwift/**</code>, <code>samples/ios-demo/**</code> and its
+  own file — not for <code>sceneview-core/**</code>, which no Swift target links. The
+  core's iOS Kotlin/Native compile is <code>ci.yml</code>'s <code>compile-kmp</code>.</li>
+<li><strong><code>build-apks.yml</code></strong> runs on a release tag or by hand only; <code>ci.yml</code>'s
+  <code>build</code> job already assembles the same demo APKs on every push to <code>main</code>.</li>
+<li><strong><code>docs.yml</code></strong> deploys on a push to <code>main</code> that touches the site's actual
+  inputs (<code>docs/**</code>, <code>website-static/**</code>, <code>llms.txt</code>, <code>CHANGELOG.md</code>,
+  <code>CONTRIBUTING.md</code>, <code>marketing/codelabs/**</code>, <code>samples/web-demo/site/**</code>, its
+  requirements files), not on every <code>*.md</code> — a <code>changelog.d/</code> fragment alone no
+  longer redeploys the site; the generated <code>CHANGELOG.md</code> does.</li>
+</ul>
 <h3 id="code-style">Code style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Kotlin</strong>: follow the official <a href="https://developer.android.com/kotlin/style-guide">Kotlin style guide</a> and existing Compose API conventions (composable functions, <code>remember*</code> helpers, named parameters). The code style is stored in the repository and auto-configured by Android Studio.</li>
