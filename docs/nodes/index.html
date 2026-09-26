@@ -4102,8 +4102,9 @@ SceneView(
 <pre class="language-kotlin"><code>val instance = rememberModelInstance(modelLoader, "models/helmet.glb")
 instance?.let { ModelNode(modelInstance = it, scaleToUnits = 1f) }</code></pre>
 <ul>
-<li>Returns <code>null</code> while loading — <strong>always handle the null case</strong>.</li>
+<li>Returns <code>null</code> while the first load is in progress — <strong>always handle the null case</strong>.</li>
 <li>Triggers recomposition when ready.</li>
+<li>When the location changes, the <em>previous</em> instance is returned until the new one is ready (<code>produceState</code> retains its last value), so a <code>null</code>-based loading state does not fire during a switch. Wrap the call in <code>key(location) { rememberModelInstance(...) }</code> to observe <code>null</code> during the switch (<a href="https://github.com/sceneview/sceneview/issues/3900">#3900</a>).</li>
 <li>Automatically disposed when the composable leaves the tree.</li>
 <li>File path is relative to <code>src/main/assets/</code>.</li>
 <li>For remote URLs, use <code>rememberModelInstance(modelLoader, url = "https://…")</code>.</li>
@@ -4829,6 +4830,11 @@ Button(onClick = { glowing = !glowing }) { Text("Toggle glow") }</code></pre>
 <td>Not handling <code>rememberModelInstance</code> returning <code>null</code></td>
 <td>Conditional branches crash at launch</td>
 <td>Use <code>?.let { }</code> or <code>if (instance != null)</code> guards</td>
+</tr>
+<tr>
+<td>Showing a loading state on <code>null</code> and switching locations</td>
+<td>No loading gap — the previous instance is returned until the new one loads (<a href="https://github.com/sceneview/sceneview/issues/3900">#3900</a>)</td>
+<td>Wrap the call in <code>key(location) { rememberModelInstance(...) }</code> so <code>null</code> is observed during the switch</td>
 </tr>
 <tr>
 <td>glTF with WebP-encoded textures (<code>EXT_texture_webp</code>)</td>
