@@ -2930,9 +2930,10 @@ the camera moves.</p>
 parsed by the shared KMP <code>sceneview-core</code> parsers — the same code path Android
 uses. Kotlin/JS additionally exposes <code>SceneView.addSplatNode(splatCloud)</code> for an
 already-parsed <code>io.github.sceneview.core.splat.SplatCloud</code>.</p>
-<p>Current scope matches Android P1: <strong>isotropic</strong> billboards (each gaussian renders
-as the circumscribed disc of its largest axis) and SH degree-0 colour.
-Anisotropic screen-space ellipses are planned under the same epic.</p>
+<p>Current web scope: <strong>isotropic</strong> billboards (each gaussian renders as the
+circumscribed disc of its largest axis) and SH degree-0 colour. Android already
+renders oriented ellipses; the web port is tracked in
+<a href="https://github.com/sceneview/sceneview/issues/4046">#4046</a>.</p>
 <h2 id="environment-lighting">Environment Lighting<a class="headerlink" href="#environment-lighting" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>environment(
     iblUrl = "environments/pillars_2k_ibl.ktx",
