@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SurfaceMirrorer</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="sceneview::io.github.sceneview.utils/SurfaceMirrorer///PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.utils</a><span class="delimiter">/</span><span class="current">SurfaceMirrorer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Surface</span><wbr></wbr><span><span>Mirrorer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SurfaceMirrorer</a></div><p class="paragraph">Mirrors the rendered Filament frame to additional <a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a>s — the primitive behind clean <strong>in-app video recording</strong> of a <code class="lang-kotlin">SceneView</code> / <code class="lang-kotlin">ARSceneView</code>.</p><p class="paragraph">Every rendered frame is drawn again (GPU-side, letterboxed to preserve aspect ratio) onto each mirrored surface. Point it at a <a href="https://developer.android.com/reference/kotlin/android/media/MediaRecorder.html">android.media.MediaRecorder</a>'s input surface and you get an MP4 of exactly what the scene renders — camera feed and virtual content composited, <strong>without MediaProjection</strong>: no system consent dialog, no <code class="lang-kotlin">mediaProjection</code> foreground service, and no overlay UI captured in the frame (only the 3D/AR scene is mirrored, never your Compose UI).</p><h3 class="">Record the scene to MP4 (5 lines of recording logic)</h3><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val surfaceMirrorer = rememberSurfaceMirrorer()<br>SceneView(surfaceMirrorer = surfaceMirrorer, ...) // or ARSceneView(surfaceMirrorer = ...)<br><br>// Start recording:<br>val recorder = MediaRecorder(context).apply {<br>    setVideoSource(MediaRecorder.VideoSource.SURFACE)<br>    setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)<br>    setVideoEncoder(MediaRecorder.VideoEncoder.H264)<br>    setVideoSize(1280, 720)<br>    setOutputFile(outputFile.absolutePath)<br>    prepare()<br>}<br>surfaceMirrorer.startMirroring(recorder.surface, width = 1280, height = 720)<br>recorder.start()<br><br>// Stop recording:<br>surfaceMirrorer.stopMirroring(recorder.surface)<br>recorder.stop()<br>recorder.release()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">Multiple surfaces can be mirrored simultaneously — each <a href="start-mirroring.html">startMirroring</a> call adds one target.</p><h3 class="">How a frame reaches the surface</h3><p class="paragraph">Each mirrored surface gets its own Filament swap chain, and the scene is <strong>rendered a second time</strong> into it — from a dedicated <span data-unresolved-link="com.google.android.filament/Renderer///PointingToDeclaration/">Renderer</span>, right after the scene's own frame has been presented. It does <i>not</i> use <code class="lang-kotlin">Renderer.copyFrame</code>: that copy runs on Filament's legacy <code class="lang-kotlin">blitDEPRECATED</code> path and needs an <code class="lang-kotlin">eglMakeCurrent</code> with the window as EGL <i>read</i> surface and the recorder as <i>draw</i> surface, in the middle of the window's frame. Drivers that treat the window's colour buffer as undefined once it leaves the draw slot then hand back a black read <i>and</i> present a black window — a uniformly black MP4 with a blacked-out live viewport (#3602). A second render depends on no such cross-surface read, so it behaves the same everywhere, at the cost of one extra scene pass per mirrored surface per frame.</p><h3 class="">Threading</h3><p class="paragraph"><a href="start-mirroring.html">startMirroring</a> performs no Filament call and is safe from any thread — the swap chain is created lazily on the render (main) thread at the next frame. <a href="stop-mirroring.html">stopMirroring</a> destroys the swap chain immediately and <strong>must be called from the main thread</strong> (the standard Filament JNI rule). Both are idempotent: starting an already-mirrored surface or stopping a non-mirrored one is a no-op.</p><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../io.github.sceneview/remember-surface-mirrorer.html"><span>remember</span><wbr></wbr><span>Surface</span><wbr></wbr><span><span>Mirrorer</span></span></a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../io.github.sceneview/-scene-renderer/surface-mirrorer.html"><span>Scene</span><wbr></wbr><span>Renderer.</span><wbr></wbr><span>surface</span><wbr></wbr><span><span>Mirrorer</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-670508200%2FConstructors%2F-278939350" anchor-label="SurfaceMirrorer" id="-670508200%2FConstructors%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-surface-mirrorer.html"><span>Surface</span><wbr></wbr><span><span>Mirrorer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-670508200%2FConstructors%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-489875259%2FProperties%2F-278939350" anchor-label="mirroredSurfaces" id="-489875259%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="mirrored-surfaces.html"><span>mirrored</span><wbr></wbr><span><span>Surfaces</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489875259%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="mirrored-surfaces.html">mirroredSurfaces</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The <a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a>s currently being mirrored to (snapshot copy).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1519662155%2FFunctions%2F-278939350" anchor-label="isMirroring" id="-1519662155%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-mirroring.html"><span>is</span><wbr></wbr><span><span>Mirroring</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1519662155%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="is-mirroring.html"><span class="token function">isMirroring</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surface<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether <a href="is-mirroring.html">surface</a> is currently being mirrored to.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="968735025%2FFunctions%2F-278939350" anchor-label="startMirroring" id="968735025%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start-mirroring.html"><span>start</span><wbr></wbr><span><span>Mirroring</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="968735025%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword">fun </span><a href="start-mirroring.html"><span class="token function">startMirroring</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surface<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a><span class="token punctuation">, </span></span><span class="parameter ">left<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">bottom<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts mirroring the rendered scene to <a href="start-mirroring.html">surface</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1468206989%2FFunctions%2F-278939350" anchor-label="stopMirroring" id="1468206989%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stop-mirroring.html"><span>stop</span><wbr></wbr><span><span>Mirroring</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1468206989%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="stop-mirroring.html"><span class="token function">stopMirroring</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surface<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Stops mirroring to <a href="stop-mirroring.html">surface</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
