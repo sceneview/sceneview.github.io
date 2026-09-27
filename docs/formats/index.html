@@ -2767,23 +2767,43 @@ the bytes, not from the file name</strong> — a file shared into your app with 
 <tr>
 <td><strong>glTF / GLB</strong></td>
 <td><code>.gltf</code>, <code>.glb</code></td>
-<td>Android · Web · Desktop · TV · Flutter · React Native</td>
-<td>The native format across the SDK. Skeletal and morph animations, PBR materials, Draco and WebP textures.</td>
+<td>Android · Web · Desktop · TV · Flutter and React Native on Android</td>
+<td>The native format of the Filament platforms. Skeletal and morph animations, PBR materials, Draco and WebP textures. <strong>Not on Apple</strong>: RealityKit reads no glTF, so <code>SceneViewSwift</code>'s <code>ModelFormat</code> leaves <code>.gltf</code> / <code>.glb</code> out on purpose — convert with <code>tools/convert-usdz.sh</code>.</td>
 </tr>
 <tr>
-<td><strong>USDZ / Reality</strong></td>
-<td><code>.usdz</code>, <code>.reality</code></td>
-<td>Apple (iOS · macOS · visionOS)</td>
-<td>Loaded by RealityKit through <code>SceneViewSwift</code>.</td>
+<td><strong>USDZ / Reality / USD</strong></td>
+<td><code>.usdz</code>, <code>.reality</code>, <code>.usd</code>, <code>.usda</code>, <code>.usdc</code></td>
+<td>Apple (iOS · macOS · visionOS), and Flutter / React Native on iOS</td>
+<td>Loaded by RealityKit through <code>SceneViewSwift</code>, already in metres.</td>
+</tr>
+<tr>
+<td><strong>STL</strong></td>
+<td><code>.stl</code> (binary + ASCII)</td>
+<td>Android · Apple</td>
+<td>Android converts to GLB in memory; Apple reads it through ModelIO. No unit in the file: millimetres assumed.</td>
+</tr>
+<tr>
+<td><strong>OBJ</strong></td>
+<td><code>.obj</code> (+ <code>.mtl</code>)</td>
+<td>Android · Apple</td>
+<td>Android converts to GLB with material colours; Apple reads it through ModelIO with its sidecar <code>.mtl</code>.</td>
+</tr>
+<tr>
+<td><strong>PLY</strong></td>
+<td><code>.ply</code> (binary + ASCII)</td>
+<td>Android · Apple</td>
+<td>Android converts to GLB; both keep vertex colours.</td>
 </tr>
 <tr>
 <td><strong>3MF</strong></td>
 <td><code>.3mf</code></td>
-<td>Android</td>
-<td>Converted to GLB in memory. The parser lives in <code>sceneview-core</code> (Kotlin Multiplatform).</td>
+<td>Android · Apple</td>
+<td>Android converts to GLB in memory (parser in <code>sceneview-core</code>, Kotlin Multiplatform); Apple parses it in <code>SceneViewSwift</code>. Declared units are honoured on both.</td>
 </tr>
 </tbody>
 </table>
+<p>On Apple, <code>ModelFormat.sniff(contentsOf:)</code> decides the format from the bytes first and the
+extension second, and <code>MeshAsset.load(contentsOf:)</code> opens the STL / OBJ / PLY / 3MF files.</p>
 <hr />
 <h2 id="3mf-the-format-ai-print-flows-emit">3MF — the format AI print flows emit<a class="headerlink" href="#3mf-the-format-ai-print-flows-emit" title="Permanent link">&para;</a></h2>
 <p>Ask ChatGPT for a 3D print from a drawing and it hands back a <code>.3mf</code>: an OPC/ZIP package
