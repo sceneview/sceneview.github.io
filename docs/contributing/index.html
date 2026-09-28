@@ -2721,6 +2721,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#build-and-screenshot-on-ci-instead-of-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and screenshot on CI instead of locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#code-style" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3134,6 +3145,17 @@
     <span class="md-ellipsis">
       
         Other workflow triggers worth knowing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-and-screenshot-on-ci-instead-of-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build and screenshot on CI instead of locally
       
     </span>
   </a>
@@ -3678,6 +3700,51 @@ in the nightly every leg of both workflows still runs.</p>
   requirements files), not on every <code>*.md</code> — a <code>changelog.d/</code> fragment alone no
   longer redeploys the site; the generated <code>CHANGELOG.md</code> does.</li>
 </ul>
+<h3 id="build-and-screenshot-on-ci-instead-of-locally">Build and screenshot on CI instead of locally<a class="headerlink" href="#build-and-screenshot-on-ci-instead-of-locally" title="Permanent link">&para;</a></h3>
+<p><code>preview.yml</code> builds the demos and captures them, light and dark, on free
+GitHub-hosted runners: an emulator on <code>ubuntu-latest</code> with KVM for Android, a
+Simulator on <code>macos-15</code> for iOS. Use it before compiling the demo or booting an
+emulator on your own machine, agents included. It is opt-in and never a
+required check.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Any branch pushed to sceneview/sceneview (the file must be on main):</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>preview.yml<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>-f<span class="w"> </span><span class="nv">platforms</span><span class="o">=</span>android<span class="w"> </span>-f<span class="w"> </span><span class="nv">demos</span><span class="o">=</span>home,model-viewer<span class="w">    </span><span class="c1"># platforms: android | ios | both</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Or on a pull request: add the `preview` label (Android) and/or `preview-ios`.</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;pr&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--add-label<span class="w"> </span>preview
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>-w<span class="w"> </span>preview.yml<span class="w"> </span>-b<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>-L<span class="w"> </span><span class="m">1</span><span class="w">   </span><span class="c1"># get the run id</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>gh<span class="w"> </span>run<span class="w"> </span>watch<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--exit-status
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>gh<span class="w"> </span>run<span class="w"> </span>download<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>-n<span class="w"> </span>preview-android-screenshots<span class="w"> </span>-D<span class="w"> </span>/tmp/preview
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>android-demo-debug-apk</code></td>
+<td>Debug APK, install with <code>adb install -r</code></td>
+</tr>
+<tr>
+<td><code>preview-android-screenshots</code></td>
+<td><code>light/&lt;id&gt;.png</code>, <code>dark/&lt;id&gt;.png</code> at 1080x2400, 420 dpi, plus <code>summary.md</code> (an app that was gone at capture time, crash lines) and <code>logcat/&lt;theme&gt;-&lt;id&gt;.txt</code></td>
+</tr>
+<tr>
+<td><code>preview-ios</code></td>
+<td><code>SceneView-simulator.app.zip</code> (<code>xcrun simctl install booted</code>), <code>screenshots/&lt;theme&gt;/&lt;id&gt;.png</code>, <code>summary.md</code>, <code>crashes/</code> if the app crashed</td>
+</tr>
+</tbody>
+</table>
+<p><code>demos</code> takes ids from <code>DemoRegistry</code> / <code>DemoDeepLinkRegistry</code>, plus <code>home</code> for
+the launch screen. The builds are keyless: artifacts of a public repository can
+be downloaded by any signed-in user, so no store key is baked in, and the
+Sketchfab- and Geospatial-backed screens show their keyless fallback. The
+captures come from SwiftShader and the Simulator, not a phone GPU, so use them to
+check layout, theming and "does it launch", and never copy one into a render
+golden. Artifacts are kept 7 days.</p>
 <h3 id="code-style">Code style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Kotlin</strong>: follow the official <a href="https://developer.android.com/kotlin/style-guide">Kotlin style guide</a> and existing Compose API conventions (composable functions, <code>remember*</code> helpers, named parameters). The code style is stored in the repository and auto-configured by Android Studio.</li>
@@ -3733,19 +3800,19 @@ in the nightly every leg of both workflows still runs.</p>
 <p>Wiring a group to the wrong pin is the same defect as forgetting to recompile: #2783 found the 3 <code>website-static</code> blobs at v72 (they rode the Android pin) against a v70 runtime — latent only because nothing on the site calls <code>createMaterial()</code> yet.</p>
 <p>Filament refuses any material whose binary version field does not match the runtime, with <code>Filament panic — material version N ≠ runtime M</code> on first frame. There is no compile-time check; the mismatch only manifests at runtime, demo by demo. v4.1.0 shipped with the runtime at 1.70.2 and blobs at 1.71 (two parallel branches each fixed half of the pair) — 10 demos crashed; v4.1.1 hot-fixed by realigning both sides to 1.71.</p>
 <p><strong>The 26 committed blobs that must stay in sync with their <code>.mat</code> sources</strong>, spread across three modules:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sceneview/src/main/assets/materials/     (14) — image_texture, occlusion, opaque/transparent
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>                                                colored/textured/unlit, semantics_overlay, splat,
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>                                                video_texture(_chroma_key), view_texture_lit/_unlit
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>arsceneview/src/main/assets/materials/    (9) — camera_stream_flat/_depth/_person_occlusion,
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>                                                face_mesh(_occluder), plane_renderer(_shadow)(_v2),
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                                                shadow_receiver
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>website-static/materials/                 (3) — lit_colored, transparent_colored, unlit_colored
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>sceneview/src/main/assets/materials/     (14) — image_texture, occlusion, opaque/transparent
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                                                colored/textured/unlit, semantics_overlay, splat,
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>                                                video_texture(_chroma_key), view_texture_lit/_unlit
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>arsceneview/src/main/assets/materials/    (9) — camera_stream_flat/_depth/_person_occlusion,
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>                                                face_mesh(_occluder), plane_renderer(_shadow)(_v2),
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                                                shadow_receiver
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>website-static/materials/                 (3) — lit_colored, transparent_colored, unlit_colored
 </span></code></pre></div>
 <p><strong>The <code>tools/GenerateFilamat.sh</code> workflow.</strong> <a href="tools/GenerateFilamat.sh"><code>tools/GenerateFilamat.sh</code></a> is the single entry point for every Filament material in the repo. It auto-downloads the <code>matc</code> toolchain pinned to the Filament version in <a href="gradle/libs.versions.toml"><code>gradle/libs.versions.toml</code></a> and compiles each <code>.mat</code> to its <code>.filamat</code> blob — no manual <code>matc</code> install needed.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>bash tools/GenerateFilamat.sh                 # regenerate all 26 .filamat blobs in place
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>bash tools/GenerateFilamat.sh --check         # diff against committed blobs; exit 1 on drift
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>bash tools/GenerateFilamat.sh --mat &lt;name&gt;    # regenerate one (e.g. --mat opaque_colored)
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>bash tools/GenerateFilamat.sh --ci-tolerant   # treat a matc download failure as WARN, not FAIL
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>bash tools/GenerateFilamat.sh                 # regenerate all 26 .filamat blobs in place
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>bash tools/GenerateFilamat.sh --check         # diff against committed blobs; exit 1 on drift
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>bash tools/GenerateFilamat.sh --mat &lt;name&gt;    # regenerate one (e.g. --mat opaque_colored)
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>bash tools/GenerateFilamat.sh --ci-tolerant   # treat a matc download failure as WARN, not FAIL
 </span></code></pre></div>
 <p>The <code>matc</code> binary is cached at <code>~/.cache/sceneview/matc-&lt;version&gt;/</code> (overridable via <code>$XDG_CACHE_HOME</code>); the first run downloads it, subsequent runs reuse it. <code>--ci-tolerant</code> exists for sandboxed CI runners with no network — it lets the check pass with a WARN instead of failing the build when <code>matc</code> cannot be fetched.</p>
 <p><strong>The drift check.</strong> <code>bash tools/GenerateFilamat.sh --check</code> reports every <code>.filamat</code> blob that no longer matches its <code>.mat</code> source. Nothing runs it for you — run it yourself in the same sitting as any <code>.mat</code> edit. Shipping a <code>.mat</code> change without recompiling its blob is the v4.1.0-class mistake, and this is the check that catches it.</p>
