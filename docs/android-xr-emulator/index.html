@@ -2989,7 +2989,6 @@ import androidx.xr.compose.subspace.layout.height
 import androidx.xr.compose.subspace.layout.width
 import io.github.sceneview.SceneView
 import io.github.sceneview.createEnvironment
-import io.github.sceneview.node.ModelNode
 import io.github.sceneview.rememberEngine
 import io.github.sceneview.rememberEnvironment
 import io.github.sceneview.rememberEnvironmentLoader
@@ -3036,10 +3035,30 @@ class XRDemoActivity : ComponentActivity() {
     }
 }</code></pre>
 <h3 id="multi-panel-layout-with-controls">Multi-panel layout with controls<a class="headerlink" href="#multi-panel-layout-with-controls" title="Permanent link">&para;</a></h3>
-<pre class="language-kotlin"><code>import androidx.xr.compose.subspace.SpatialRow
-import androidx.xr.compose.subspace.SpatialPanel
+<pre class="language-kotlin"><code>import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.xr.compose.spatial.Orbiter
-import androidx.compose.material3.*
+import androidx.xr.compose.spatial.OrbiterPosition
+import androidx.xr.compose.spatial.Subspace
+import androidx.xr.compose.subspace.SpatialPanel
+import androidx.xr.compose.subspace.SpatialRow
+import androidx.xr.compose.subspace.layout.SubspaceModifier
+import androidx.xr.compose.subspace.layout.height
+import androidx.xr.compose.subspace.layout.width
+import io.github.sceneview.SceneView
+import io.github.sceneview.rememberEngine
+import io.github.sceneview.rememberModelInstance
+import io.github.sceneview.rememberModelLoader
 
 @Composable
 fun XRShowcase() {
@@ -3067,12 +3086,8 @@ fun XRShowcase() {
                     }
                 }
 
-                // Orbiter: floating controls anchored to the panel
-                Orbiter(
-                    position = ContentEdge.Bottom,
-                    offset = 96.dp,
-                    alignment = Alignment.CenterHorizontally
-                ) {
+                // Orbiter: floating controls anchored below the panel
+                Orbiter(position = OrbiterPosition.BottomCenter()) {
                     Surface(shape = MaterialTheme.shapes.large) {
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Button(onClick = { /* switch model */ }) {
@@ -3121,8 +3136,20 @@ in 3D space. All existing SceneView features (model loading, animation, physics,
 procedural geometry, lighting) work unchanged inside the panel.</p>
 <h2 id="7-adaptive-code-xr-phone-from-one-apk">7. Adaptive code: XR + phone from one APK<a class="headerlink" href="#7-adaptive-code-xr-phone-from-one-apk" title="Permanent link">&para;</a></h2>
 <p>Use <code>LocalSpatialCapabilities</code> to detect XR at runtime:</p>
-<pre class="language-kotlin"><code>import androidx.xr.compose.spatial.LocalSpatialCapabilities
-import androidx.xr.compose.spatial.LocalSpatialConfiguration
+<pre class="language-kotlin"><code>import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.xr.compose.platform.LocalSpatialCapabilities
+import androidx.xr.compose.spatial.Subspace
+import androidx.xr.compose.subspace.SpatialPanel
+import androidx.xr.compose.subspace.layout.SubspaceModifier
+import androidx.xr.compose.subspace.layout.height
+import androidx.xr.compose.subspace.layout.width
+import io.github.sceneview.SceneView
+import io.github.sceneview.rememberEngine
+import io.github.sceneview.rememberModelInstance
+import io.github.sceneview.rememberModelLoader
 
 @Composable
 fun AdaptiveScene() {
@@ -3187,8 +3214,8 @@ fun SceneViewContent() {
 <td>Use Android Studio Canary, or create AVD via command line (Option B above)</td>
 </tr>
 <tr>
-<td>App crashes on launch</td>
-<td>Ensure <code>compileSdk = 34</code> or higher and XR compose dependency is added</td>
+<td>Build fails: <code>minCompileSdk</code> 36</td>
+<td>The Jetpack XR AARs declare <code>minCompileSdk=36</code> (and AGP 8.9.1+) in their AAR metadata — set <code>compileSdk = 36</code> or higher</td>
 </tr>
 <tr>
 <td>Filament rendering issues</td>

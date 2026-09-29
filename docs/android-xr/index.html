@@ -3051,25 +3051,28 @@ dependencies {
     implementation("androidx.xr.compose:compose:1.0.0-beta01")
 }</code></pre>
 <pre class="language-kotlin"><code>import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.xr.compose.spatial.Subspace
-import androidx.xr.compose.spatial.SpatialPanel
-import androidx.xr.compose.subspace.SubspaceModifier
-import androidx.xr.compose.subspace.height
-import androidx.xr.compose.subspace.width
+import androidx.xr.compose.subspace.SpatialPanel
+import androidx.xr.compose.subspace.layout.SubspaceModifier
+import androidx.xr.compose.subspace.layout.height
+import androidx.xr.compose.subspace.layout.width
 import io.github.sceneview.SceneView
+import io.github.sceneview.createEnvironment
 import io.github.sceneview.rememberEngine
-import io.github.sceneview.rememberModelLoader
+import io.github.sceneview.rememberEnvironment
 import io.github.sceneview.rememberEnvironmentLoader
-import io.github.sceneview.node.ModelNode
 import io.github.sceneview.rememberModelInstance
+import io.github.sceneview.rememberModelLoader
 
 @Composable
 fun XRSceneViewPanel() {
     Subspace {
         // Place SceneView as a spatial panel in XR space
         SpatialPanel(
-            SubspaceModifier
+            modifier = SubspaceModifier
                 .width(1200.dp)
                 .height(800.dp)
         ) {
@@ -3083,7 +3086,10 @@ fun XRSceneViewPanel() {
                 modifier = Modifier.fillMaxSize(),
                 engine = engine,
                 modelLoader = modelLoader,
-                environment = environmentLoader.createHDREnvironment("environments/studio.hdr")!!,
+                environment = rememberEnvironment(environmentLoader) {
+                    environmentLoader.createHDREnvironment("environments/studio.hdr")
+                        ?: createEnvironment(environmentLoader)
+                },
             ) {
                 modelInstance?.let {
                     ModelNode(modelInstance = it)
@@ -3093,20 +3099,44 @@ fun XRSceneViewPanel() {
     }
 }</code></pre>
 <h3 id="approach-2-sceneview-ar-with-xr-passthrough">Approach 2: SceneView AR with XR passthrough<a class="headerlink" href="#approach-2-sceneview-ar-with-xr-passthrough" title="Permanent link">&para;</a></h3>
-<p>For AR experiences on XR headsets, combine SceneView's <code>ARSceneView {}</code> with XR passthrough:</p>
-<pre class="language-kotlin"><code>import androidx.xr.compose.spatial.Subspace
-import androidx.xr.compose.spatial.SpatialPanel
-import androidx.xr.scenecore.SpatialEnvironment
+<div class="admonition warning">
+<p class="admonition-title">Compiles, but not verified on a headset</p>
+<p><code>ARSceneView</code> runs <strong>phone ARCore</strong> (<code>com.google.ar.core</code>), a different runtime from
+ARCore for Jetpack XR. The snippet below compiles against the pinned Jetpack XR artifacts,
+but it has <strong>not</strong> been shown to run inside a <code>SpatialPanel</code> on an Android XR headset. For
+headset tracking today, use SceneView's Jetpack XR nodes instead: <code>XrHandNode</code> (hand
+tracking) and <code>XrFaceNode</code> (face tracking), documented in
+<a href="https://sceneview.github.io/llms.txt"><code>llms.txt</code></a> under <em>Jetpack XR Extensions</em>.</p>
+</div>
+<p>This combines SceneView's <code>ARSceneView {}</code> with XR passthrough.
+Inside a Compose for XR hierarchy the Jetpack XR <code>Session</code> is provided by <code>LocalSession</code>
+(<code>null</code> when the app is not running on an XR device):</p>
+<pre class="language-kotlin"><code>import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.xr.compose.platform.LocalSession
+import androidx.xr.compose.spatial.Subspace
+import androidx.xr.compose.subspace.SpatialPanel
+import androidx.xr.compose.subspace.layout.SubspaceModifier
+import androidx.xr.compose.subspace.layout.height
+import androidx.xr.compose.subspace.layout.width
+import androidx.xr.scenecore.scene
 import io.github.sceneview.ar.ARSceneView
+import io.github.sceneview.rememberOnGestureListener
 
 @Composable
-fun XRAugmentedView(xrSession: Session) {
-    // Enable passthrough so the real world is visible
-    xrSession.spatialEnvironment.setPassthroughEnabled(true)
+fun XRAugmentedView() {
+    val xrSession = LocalSession.current
+    LaunchedEffect(xrSession) {
+        // Show the real world: 1f = fully visible passthrough, 0f = fully virtual
+        xrSession?.scene?.spatialEnvironment?.preferredPassthroughOpacity = 1f
+    }
 
     Subspace {
         SpatialPanel(
-            SubspaceModifier
+            modifier = SubspaceModifier
                 .width(1400.dp)
                 .height(900.dp)
         ) {
@@ -3116,18 +3146,50 @@ fun XRAugmentedView(xrSession: Session) {
                 onSessionCreated = { arSession -&gt;
                     // ARCore session — planes, anchors, etc.
                 },
-                onTap = { hitResult -&gt;
-                    // Place models on detected surfaces
-                }
+                onGestureListener = rememberOnGestureListener(
+                    onSingleTapConfirmed = { event, node -&gt;
+                        // Place models on detected surfaces
+                    }
+                )
             )
         }
     }
 }</code></pre>
 <h3 id="approach-3-mixed-sceneview-panels-scenecore-native-entities">Approach 3: Mixed — SceneView panels + SceneCore native entities<a class="headerlink" href="#approach-3-mixed-sceneview-panels-scenecore-native-entities" title="Permanent link">&para;</a></h3>
 <p>Use SceneView for complex 3D viewports alongside SceneCore's native <code>GltfModelEntity</code>
-for standalone objects in the XR scene graph:</p>
-<pre class="language-kotlin"><code>@Composable
-fun MixedXRExperience(xrSession: Session) {
+for standalone objects in the XR scene graph. <code>GltfModel.create</code> is a <code>suspend</code> call, so load
+the model first, then wrap it in an entity:</p>
+<pre class="language-kotlin"><code>import android.net.Uri
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.xr.compose.platform.LocalSession
+import androidx.xr.compose.spatial.Subspace
+import androidx.xr.compose.subspace.SceneCoreEntity
+import androidx.xr.compose.subspace.SpatialPanel
+import androidx.xr.compose.subspace.SpatialRow
+import androidx.xr.compose.subspace.layout.SubspaceModifier
+import androidx.xr.compose.subspace.layout.height
+import androidx.xr.compose.subspace.layout.offset
+import androidx.xr.compose.subspace.layout.width
+import androidx.xr.scenecore.GltfModel
+import androidx.xr.scenecore.GltfModelEntity
+import io.github.sceneview.SceneView
+
+@Composable
+fun MixedXRExperience() {
+    val xrSession = LocalSession.current ?: return // null when not on an XR device
+
+    // Load the glTF once (asset path relative to src/main/assets/)
+    val gltfModel by produceState&lt;GltfModel?&gt;(initialValue = null, xrSession) {
+        value = GltfModel.create(xrSession, Uri.parse("models/simple-object.glb"))
+        // Release the native model when this composable leaves the composition
+        awaitDispose { value?.close() }
+    }
+
     Subspace {
         SpatialRow {
             // Panel 1: SceneView-powered 3D editor
@@ -3138,26 +3200,57 @@ fun MixedXRExperience(xrSession: Session) {
             }
 
             // Panel 2: Native SceneCore 3D model (lighter weight)
-            SceneCoreEntity(
-                modifier = SubspaceModifier.offset(x = 100.dp),
-                factory = {
-                    GltfModelEntity.create(
-                        session = xrSession,
-                        glbUri = Uri.parse("models/simple-object.glb")
-                    )
-                }
-            )
+            gltfModel?.let { model -&gt;
+                SceneCoreEntity(
+                    factory = { GltfModelEntity.create(xrSession, model) },
+                    modifier = SubspaceModifier.offset(x = 100.dp),
+                )
+            }
         }
     }
 }</code></pre>
 <h2 id="key-jetpack-xr-concepts">Key Jetpack XR concepts<a class="headerlink" href="#key-jetpack-xr-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="session">Session<a class="headerlink" href="#session" title="Permanent link">&para;</a></h3>
-<p>Every XR app needs a <code>Session</code> — the entry point for spatial capabilities:</p>
-<pre class="language-kotlin"><code>val session = Session.create(activity)
+<p>Every XR app needs a <code>Session</code> — the entry point for spatial capabilities. Compose for XR
+creates it for you (read it with <code>LocalSession.current</code>, or check
+<code>LocalSpatialCapabilities.current.isSpatialUiEnabled</code>). Outside Compose, <code>Session.create</code> is a
+<code>suspend</code> function that returns a <code>SessionCreateResult</code>:</p>
+<pre class="language-kotlin"><code>import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.xr.runtime.Session
+import androidx.xr.runtime.SessionCreateApkRequired
+import androidx.xr.runtime.SessionCreateSuccess
+import androidx.xr.runtime.SessionCreateUnsupportedDevice
+import androidx.xr.scenecore.SpatialCapability
+import androidx.xr.scenecore.scene
+import kotlinx.coroutines.launch
 
-// Check spatial capabilities
-if (session.spatialCapabilities.hasCapability(SpatialCapabilities.SPATIAL_UI)) {
-    // Device supports spatial panels, 3D content
+class XrActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            // Name the `context` argument: a bare Activity resolves to a deprecated overload
+            when (val result = Session.create(context = this@XrActivity)) {
+                is SessionCreateSuccess -&gt; {
+                    val session = result.session
+                    // Check spatial capabilities
+                    if (SpatialCapability.SPATIAL_UI in session.scene.spatialCapabilities) {
+                        // Device supports spatial panels, 3D content
+                    }
+                }
+                is SessionCreateApkRequired -&gt; {
+                    // result.requiredApk must be installed first
+                }
+                is SessionCreateUnsupportedDevice -&gt; {
+                    // Not an XR device — fall back to the regular phone UI
+                }
+                else -&gt; {
+                    // SessionCreateUnknownError, SessionCreateTimedOut
+                }
+            }
+        }
+    }
 }</code></pre>
 <h3 id="spatial-composables">Spatial composables<a class="headerlink" href="#spatial-composables" title="Permanent link">&para;</a></h3>
 <table>
@@ -3313,8 +3406,8 @@ dependencyResolutionManagement {
     }
 }</code></pre>
 <h3 id="android-manifest">Android manifest<a class="headerlink" href="#android-manifest" title="Permanent link">&para;</a></h3>
-<div class="language-xml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">&lt;!-- Required for XR --&gt;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.hardware.xr.headtracking"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"true"</span><span class="w"> </span><span class="nt">/&gt;</span>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">&lt;!-- Android XR Spatial APIs (Jetpack XR SDK). required="false" keeps the same APK installable on phones --&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.software.xr.api.spatial"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"false"</span><span class="w"> </span><span class="nt">/&gt;</span>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
 </span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">&lt;application&gt;</span>
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">&lt;activity</span>
