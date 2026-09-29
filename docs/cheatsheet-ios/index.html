@@ -4474,7 +4474,7 @@ the design notes live in <a href="https://github.com/sceneview/sceneview/blob/ma
 <tr>
 <td><strong>Hand tracking</strong></td>
 <td>Not available — ARCore phones have no hand perception</td>
-<td><code>XrHandNode</code> over <code>androidx.xr.arcore</code> <code>Hand</code> perception. Foundation (<code>XrFeatures</code> gate) shipped in #1738; node tracked in <a href="https://github.com/sceneview/sceneview/issues/1902">#1902</a> (preview, <code>1.0.0-alpha14</code>)</td>
+<td><code>XrHandNode</code> over <code>androidx.xr.arcore</code> <code>Hand</code> perception. Foundation (<code>XrFeatures</code> gate) shipped in #1738; node tracked in <a href="https://github.com/sceneview/sceneview/issues/1902">#1902</a> (preview, <code>1.0.0-beta02</code>)</td>
 <td>Not available on iPhone/iPad — ARKit has no hand-tracking config; hand tracking is a visionOS-only <code>ARKit</code> provider</td>
 <td>ARKit <code>HandTrackingProvider</code> + <code>ARKitSession</code> give per-joint skeletons in an <code>ImmersiveSpace</code>. <strong>Not yet wrapped</strong> by <code>SceneViewSwift</code> — tracked in <a href="https://github.com/sceneview/sceneview/issues/1902">#1902</a>; drop to raw <code>HandTrackingProvider</code> today</td>
 <td>WebXR <code>hand-tracking</code> feature — tracked in <a href="https://github.com/sceneview/sceneview/issues/1778">#1778</a></td>
@@ -4482,7 +4482,7 @@ the design notes live in <a href="https://github.com/sceneview/sceneview/blob/ma
 <tr>
 <td><strong>Face tracking</strong></td>
 <td><code>AugmentedFaceNode</code> — front-camera, stable, includes the 468-point morphing face mesh</td>
-<td><code>XrFaceNode</code> over <code>androidx.xr.arcore</code> <code>Face</code> perception (headset, alpha). Tracked in <a href="https://github.com/sceneview/sceneview/issues/1903">#1903</a> (preview, <code>1.0.0-alpha14</code>)</td>
+<td><code>XrFaceNode</code> over <code>androidx.xr.arcore</code> <code>Face</code> perception (headset, beta). Tracked in <a href="https://github.com/sceneview/sceneview/issues/1903">#1903</a> (preview, <code>1.0.0-beta02</code>)</td>
 <td><code>AnchorNode.face()</code> — <strong>shipped</strong>. Wraps RealityKit <code>AnchorEntity(.face)</code> (<code>ARFaceTrackingConfiguration</code>); provides face <em>pose</em> only, <strong>no mesh</strong>. For the morphing-mesh overlay drop to a raw <code>ARFaceAnchor</code> + custom mesh entity</td>
 <td>Same <code>AnchorNode.face()</code> path — <code>ARFaceTrackingConfiguration</code> runs on Vision Pro's front sensors</td>
 <td>Not exposed by WebXR</td>
