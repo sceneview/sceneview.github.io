@@ -4330,7 +4330,7 @@ Android API name. Implementation issues are tracked under <code>platform: ios</c
 <tbody>
 <tr>
 <td><code>DepthMeshNode</code> + <code>rememberDepthMesh</code> (renderable depth mesh)</td>
-<td><strong>Available</strong> — <code>SceneReconstructionNode.enableReconstruction(in: arView)</code> enables ARKit scene reconstruction (LiDAR). Use <code>SceneReconstructionNode.hideMeshVisualization</code> / <code>arView.debugOptions.insert(.showSceneUnderstanding)</code> to toggle the mesh overlay. LiDAR-only (iPhone 12 Pro+ / iPad Pro).</td>
+<td><strong>Available</strong> — with <code>ARSceneView</code>, pass <code>ARSessionConfiguration(sceneReconstruction: .mesh)</code>, which keeps the mesh through every re-run the view does. For a session you run yourself, <code>SceneReconstructionNode.enableReconstruction(in: arView)</code> enables ARKit scene reconstruction (LiDAR) by amending the running session — frame semantics, plane detection and anchors are kept, tracking is not reset; inside <code>ARSceneView</code> that amendment lasts only until the view re-runs its own configuration. It draws nothing: pass <code>showDebugMeshOverlay: true</code> for RealityKit's debug wireframe, <code>SceneReconstructionNode.hideMeshVisualization</code> to remove it. LiDAR-only (iPhone 12 Pro+ / iPad Pro).</td>
 <td>iOS surfaces the real-world mesh as a stream of <code>ARMeshAnchor</code>s with <code>MTLBuffer</code>-backed geometry, handled automatically by RealityKit's scene understanding pipeline. Devices without LiDAR have no equivalent — check <code>SceneReconstructionNode.isSupported</code> first.</td>
 </tr>
 <tr>
