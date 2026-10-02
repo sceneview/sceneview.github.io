@@ -3148,9 +3148,10 @@ project-scoped file named by the documentation (local and user scopes live in
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Verify with <code>claude mcp list</code> — <code>sceneview</code> should show <code>✔ Connected</code>. There is
-also a plugin that bundles the MCP server with the contributor commands below:
-<code>/plugin marketplace add sceneview/claude-marketplace</code>, then
-<code>/plugin install sceneview@sceneview</code>.
+also a plugin carrying the same three skills as the Codex plugin — <code>sceneview</code>
+(Compose), <code>sceneview-ios</code> (SwiftUI) and <code>sceneview-web</code> (Filament.js / WebXR) —
+together with the MCP server: <code>/plugin marketplace add sceneview/claude-marketplace</code>,
+then <code>/plugin install sceneview@sceneview</code>.
 References: <a href="https://code.claude.com/docs/en/mcp">code.claude.com/docs/en/mcp</a>
 and <a href="https://code.claude.com/docs/en/plugin-marketplaces">code.claude.com/docs/en/plugin-marketplaces</a></p>
 <h4 id="cline">Cline<a class="headerlink" href="#cline" title="Permanent link">&para;</a></h4>
@@ -3295,11 +3296,13 @@ alongside <code>AGENTS.md</code> in both cases. Whichever tool you run in the re
 finds its own.</p>
 <h3 id="slash-commands">Slash commands<a class="headerlink" href="#slash-commands" title="Permanent link">&para;</a></h3>
 <p>Slash commands are a Claude Code feature, so this section is specific to it.
-Working in the repo with another assistant? <code>AGENTS.md</code> describes the same
-workflows in prose — ask for them by name.</p>
-<p>Inside the SceneView repo with Claude Code (commands shown unprefixed work
-locally; with the <a href="https://github.com/sceneview/claude-marketplace">SceneView plugin</a>
-installed they are available everywhere as <code>/sceneview:*</code>):</p>
+Working in the repo with another assistant? The commands are plain Markdown
+files in the plugin's <code>commands/</code> folder, so you can point it at the same file.</p>
+<p>They ship in a separate contributor plugin, <code>sceneview-contrib</code>, kept apart from
+the <code>sceneview</code> plugin app developers install:
+<code>/plugin marketplace add sceneview/claude-marketplace</code>, then
+<code>/plugin install sceneview-contrib@sceneview</code>. Run them from a checkout of this
+repository.</p>
 <table>
 <thead>
 <tr>
@@ -3309,26 +3312,23 @@ installed they are available everywhere as <code>/sceneview:*</code>):</p>
 </thead>
 <tbody>
 <tr>
-<td><code>/contribute</code></td>
+<td><code>/sceneview-contrib:contribute</code></td>
 <td>Full guided workflow — understand the codebase, make changes, prepare a PR</td>
 </tr>
 <tr>
-<td><code>/review</code></td>
+<td><code>/sceneview-contrib:review</code></td>
 <td>Threading, Compose API, style, module boundaries — plus <code>--score</code> (weighted eval), <code>--coverage</code> (test gaps), <code>high</code> (multi-agent triptych)</td>
 </tr>
 <tr>
-<td><code>/document</code></td>
+<td><code>/sceneview-contrib:document</code></td>
 <td>Generate/update KDoc for changed public APIs, update <code>llms.txt</code></td>
 </tr>
 <tr>
-<td><code>/release</code>, <code>/quality-gate</code>, <code>/sync-check</code>, <code>/store-status</code>, <code>/version-bump</code>, <code>/maintain</code></td>
+<td><code>/sceneview-contrib:test</code>, <code>:evaluate</code>, <code>:quality-gate</code>, <code>:sync-check</code>, <code>:publish-check</code>, <code>:version-bump</code>, <code>:release</code>, <code>:maintain</code></td>
 <td>Pre-PR + release lifecycle</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><strong>Tip — namespace conflict:</strong> the bare <code>/review</code> command shadows a Claude Code built-in. With the plugin installed, prefer the prefixed form <code>/sceneview:review</code> to disambiguate.</p>
-</blockquote>
 <hr />
 <h2 id="whats-in-llmstxt">What's in <code>llms.txt</code><a class="headerlink" href="#whats-in-llmstxt" title="Permanent link">&para;</a></h2>
 <p>A machine-readable API reference covering:</p>
@@ -3376,7 +3376,7 @@ check it against the version you have installed.</p>
 <tbody>
 <tr>
 <td>Install descriptors</td>
-<td><code>gemini-extension.json</code> at the repo root (Gemini CLI), <code>mcp/manifest.json</code> (MCP Bundle)</td>
+<td><code>gemini-extension.json</code> at the repo root (Gemini CLI), <code>mcp/manifest.json</code> (MCP Bundle), <code>.codex-plugin/plugin.json</code> (ChatGPT, Codex), <a href="https://github.com/sceneview/claude-marketplace"><code>sceneview/claude-marketplace</code></a> (Claude Code)</td>
 </tr>
 <tr>
 <td>Machine-readable API reference</td>
@@ -3392,7 +3392,7 @@ check it against the version you have installed.</p>
 </tr>
 <tr>
 <td>Skills</td>
-<td><code>agents/sceneview</code>, <code>agents/sceneview-ios</code>, <code>agents/sceneview-web</code></td>
+<td><code>agents/sceneview</code>, <code>agents/sceneview-ios</code>, <code>agents/sceneview-web</code>, shipped in the Codex and Claude Code plugins</td>
 </tr>
 </tbody>
 </table>
