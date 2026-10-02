@@ -4138,7 +4138,7 @@ via deep-link as well as the Samples tab.</p>
 <tbody>
 <tr>
 <td>Animation (5-model carousel)</td>
-<td><code>animation</code></td>
+<td><code>animation-physics</code> (<code>animation</code> aliases here)</td>
 <td><code>AnimationDemo.swift</code></td>
 <td>Ported (cinematic camera shots + IBL slider are Android-only)</td>
 </tr>
@@ -4150,7 +4150,7 @@ via deep-link as well as the Samples tab.</p>
 </tr>
 <tr>
 <td>Multi-Model Park</td>
-<td><code>multi-model</code></td>
+<td><code>model-viewer</code>, Park mode (<code>multi-model</code> aliases here)</td>
 <td><code>MultiModelDemo.swift</code></td>
 <td>Ported</td>
 </tr>
@@ -4173,10 +4173,10 @@ via deep-link as well as the Samples tab.</p>
 <td>Same subject and placement flow; person-segmentation rendering toggle retains pose and scale</td>
 </tr>
 <tr>
-<td>AR Recording</td>
-<td><code>ar-record-playback</code></td>
-<td><code>ARRecorderDemo.swift</code></td>
-<td>Shared automatic placement; explicit Record/Stop; screen video only, without deterministic AR-session playback</td>
+<td>Record action</td>
+<td>every demo's sheet (<code>ar-record-playback</code> opens <code>ar-rerun</code>)</td>
+<td><code>DemoScreenRecording.swift</code></td>
+<td>Explicit Record/Stop; screen video only, without deterministic AR-session playback</td>
 </tr>
 <tr>
 <td>Rolling Balls</td>
@@ -4187,8 +4187,8 @@ via deep-link as well as the Samples tab.</p>
 </tbody>
 </table>
 <p>The pre-1194 placeholder shape — <code>model-viewer</code> / <code>multi-model</code> routing
-to <code>SceneGalleryDemo</code> — is gone. Both deep-links now land on dedicated
-SwiftUI demos.</p>
+to <code>SceneGalleryDemo</code> — is gone. Since the samples audit (step 0) both
+deep-links open the Models card, on its Models and Park modes.</p>
 <hr />
 <h2 id="ios-parity-status-1036">iOS parity status (#1036)<a class="headerlink" href="#ios-parity-status-1036" title="Permanent link">&para;</a></h2>
 <p>Some Android APIs map imperfectly to iOS because RealityKit / ARKit do

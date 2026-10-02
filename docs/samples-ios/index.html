@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 50+ more demos.">
+        <meta name="description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 30+ more demos.">
       
       
       
@@ -74,7 +74,7 @@
   
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Samples — SceneView for iOS, macOS, visionOS - SceneView — 3D & AR SDK" />
-<meta property="og:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 50+ more demos." />
+<meta property="og:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 30+ more demos." />
 <meta property="og:image" content="https://sceneview.github.io/assets/images/social/samples-ios.png" />
 <meta property="og:image:type" content="image/png" />
 <meta property="og:image:width" content="1200" />
@@ -82,7 +82,7 @@
 <meta property="og:url" content="https://sceneview.github.io/samples-ios/" />
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Samples — SceneView for iOS, macOS, visionOS - SceneView — 3D & AR SDK" />
-<meta property="twitter:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 50+ more demos." />
+<meta property="twitter:description" content="SwiftUI + RealityKit sample code for SceneViewSwift: model viewer, geometry shapes, camera controls, AR tap-to-place, physics, audio, text, reflections, and 30+ more demos." />
 <meta property="twitter:image" content="https://sceneview.github.io/assets/images/social/samples-ios.png" />
 </head>
   
@@ -2971,7 +2971,7 @@
 <p class="admonition-title">Looking for Android samples?</p>
 <p>See <a href="../samples/">Samples</a> for Jetpack Compose sample apps with source code.</p>
 </div>
-<p>These samples demonstrate SceneViewSwift capabilities using <strong>SwiftUI + RealityKit</strong> on iOS, macOS, and visionOS. The <a href="https://apps.apple.com/app/sceneview/id6761329763">iOS demo app</a> ships <strong>45 demos</strong> covering every category.</p>
+<p>These samples demonstrate SceneViewSwift capabilities using <strong>SwiftUI + RealityKit</strong> on iOS, macOS, and visionOS. The <a href="https://apps.apple.com/app/sceneview/id6761329763">iOS demo app</a> ships <strong>34 demos</strong> covering every category.</p>
 <div class="language-swift highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">.</span><span class="n">package</span><span class="p">(</span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/sceneview/sceneview.git"</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">"4.51.0"</span><span class="p">)</span>
 </span></code></pre></div>
 <p>All demo source files live in
@@ -2990,9 +2990,9 @@
 </thead>
 <tbody>
 <tr>
-<td>Model Viewer</td>
+<td>Models</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ModelViewerDemo.swift"><code>ModelViewerDemo.swift</code></a></td>
-<td>Load a USDZ with orbit camera, IBL, and animation</td>
+<td>Load a USDZ with orbit camera, IBL, and animation; a Park mode loads several models in one scene (<a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/MultiModelDemo.swift"><code>MultiModelDemo.swift</code></a>)</td>
 </tr>
 <tr>
 <td>Geometry</td>
@@ -3003,16 +3003,6 @@
 <td>Animation</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/AnimationDemo.swift"><code>AnimationDemo.swift</code></a></td>
 <td><code>playAllAnimations()</code>, <code>autoRotate</code>, timeline scrubbing</td>
-</tr>
-<tr>
-<td>Multi-Model</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/MultiModelDemo.swift"><code>MultiModelDemo.swift</code></a></td>
-<td>Multiple models loaded and placed in one scene</td>
-</tr>
-<tr>
-<td>Scene Gallery</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/SceneGalleryDemo.swift"><code>SceneGalleryDemo.swift</code></a></td>
-<td>Carousel of USDZ models with Sketchfab integration</td>
 </tr>
 </tbody>
 </table>
@@ -3028,23 +3018,8 @@
 <tbody>
 <tr>
 <td>Lighting</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/Scenes/LightTypesScene.swift"><code>LightTypesScene.swift</code></a></td>
-<td>Directional, point, and spot lights with PBR materials</td>
-</tr>
-<tr>
-<td>Movable Light</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/MovableLightDemo.swift"><code>MovableLightDemo.swift</code></a></td>
-<td>Drag a <code>LightNode</code> around the scene</td>
-</tr>
-<tr>
-<td>Dynamic Sky</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/DynamicSkyDemo.swift"><code>DynamicSkyDemo.swift</code></a></td>
-<td>Time-of-day slider drives <code>DynamicSkyNode</code></td>
-</tr>
-<tr>
-<td>Environment</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/EnvironmentDemo.swift"><code>EnvironmentDemo.swift</code></a></td>
-<td>HDR environment presets (<code>.studio</code>, <code>.outdoor</code>, <code>.night</code>)</td>
+<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/LightTypesDemo.swift"><code>LightTypesDemo.swift</code></a></td>
+<td>One card, three rigs: Image (HDR environments), Studio (key, fill, rim), Sun (time of day)</td>
 </tr>
 </tbody>
 </table>
@@ -3083,11 +3058,6 @@
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/VideoTextureDemo.swift"><code>VideoTextureDemo.swift</code></a></td>
 <td><code>VideoNode</code> — play / pause / loop video on a 3D plane</td>
 </tr>
-<tr>
-<td>Material presets</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/TextureStreamingDemo.swift"><code>TextureStreamingDemo.swift</code></a></td>
-<td>Swap PBR material presets in real time — no geometry rebuild</td>
-</tr>
 </tbody>
 </table>
 <h3 id="interaction">Interaction<a class="headerlink" href="#interaction" title="Permanent link">&para;</a></h3>
@@ -3101,19 +3071,14 @@
 </thead>
 <tbody>
 <tr>
-<td>Camera Controls</td>
+<td>Camera &amp; Gestures</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/CameraControlsDemo.swift"><code>CameraControlsDemo.swift</code></a></td>
-<td><code>.orbit</code>, <code>.pan</code>, <code>.firstPerson</code>; native Apple modes <code>.none/.tilt/.dolly</code> (iOS 18+)</td>
+<td>Camera mode: <code>.orbit</code>, <code>.pan</code>, <code>.firstPerson</code>; native Apple modes <code>.none/.tilt/.dolly</code> (iOS 18+). Gestures mode (<a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/GestureEditingDemo.swift"><code>GestureEditingDemo.swift</code></a>): drag, scale and rotate entities</td>
 </tr>
 <tr>
 <td>Collision &amp; Hit Test</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/CollisionHitTestDemo.swift"><code>CollisionHitTestDemo.swift</code></a></td>
 <td>Ray-casting against geometry, highlight on tap</td>
-</tr>
-<tr>
-<td>Gesture Editing</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/GestureEditingDemo.swift"><code>GestureEditingDemo.swift</code></a></td>
-<td>Drag, scale, and rotate entities via multi-touch gestures</td>
 </tr>
 </tbody>
 </table>
@@ -3130,12 +3095,7 @@
 <tr>
 <td>Rolling Balls</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/RollingBallsDemo.swift"><code>RollingBallsDemo.swift</code></a></td>
-<td>Drop rubber, steel and foam balls on a tray, tilt it, knock the opening pyramid over</td>
-</tr>
-<tr>
-<td>Double Pendulum</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/DoublePendulumDemo.swift"><code>DoublePendulumDemo.swift</code></a></td>
-<td>Chaotic double-pendulum physics</td>
+<td>Drop rubber, steel and foam balls on a tray, tilt it, knock the opening pyramid over; a Pendulum mode runs a chaotic double pendulum (<a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/DoublePendulumDemo.swift"><code>DoublePendulumDemo.swift</code></a>)</td>
 </tr>
 <tr>
 <td>Custom Mesh</td>
@@ -3145,7 +3105,7 @@
 <tr>
 <td>PBR Materials</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/MaterialsDemo.swift"><code>MaterialsDemo.swift</code></a></td>
-<td>Full PBR material parameter explorer</td>
+<td>Full PBR material parameter explorer; an Occlusion mode hides entities behind an occluder plane (<a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/OcclusionMaterialDemo.swift"><code>OcclusionMaterialDemo.swift</code></a>)</td>
 </tr>
 <tr>
 <td>Spatial Audio</td>
@@ -3163,11 +3123,6 @@
 <td><code>ShapeNode</code> — extrude a 2D path into a 3D solid</td>
 </tr>
 <tr>
-<td>Occlusion Material</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/OcclusionMaterialDemo.swift"><code>OcclusionMaterialDemo.swift</code></a></td>
-<td>Occluder plane that hides entities behind virtual geometry</td>
-</tr>
-<tr>
 <td>Debug Overlay</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/DebugOverlayDemo.swift"><code>DebugOverlayDemo.swift</code></a></td>
 <td>Live FPS counter + sphere stress test</td>
@@ -3180,7 +3135,9 @@
 people occlusion requires supported person segmentation. Every AR card stays in the
 catalogue on every device: opening one on a device that cannot run it shows the honest
 requirement card before any camera starts, rather than the card disappearing.
-Occlusion comparisons keep perception enabled and change only the renderer effect.</p>
+Occlusion comparisons keep perception enabled and change only the renderer effect.
+Every demo's settings sheet carries a shared <strong>Record</strong> action (ReplayKit screen video,
+not AR-session playback), which replaced the former AR Recording card.</p>
 <table>
 <thead>
 <tr>
@@ -3193,22 +3150,12 @@ Occlusion comparisons keep perception enabled and change only the renderer effec
 <tr>
 <td>AR Placement</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARPlacementDemo.swift"><code>ARPlacementDemo.swift</code></a></td>
-<td>One 0.3 m preview model automatically placed on the first usable horizontal surface; drag, pinch and twist to adjust</td>
+<td>One 0.3 m preview model automatically placed on the first usable horizontal surface; drag, pinch and twist to adjust. Modes: Place, Wall, Free pose (<a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARPoseDemo.swift"><code>ARPoseDemo.swift</code></a>), Light (<a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARLightingDemo.swift"><code>ARLightingDemo.swift</code></a>)</td>
 </tr>
 <tr>
 <td>AR Orbital</td>
 <td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/OrbitalARDemo.swift"><code>OrbitalARDemo.swift</code></a></td>
 <td>Orbit camera in AR passthrough mode</td>
-</tr>
-<tr>
-<td>AR Lighting</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARLightingDemo.swift"><code>ARLightingDemo.swift</code></a></td>
-<td>Compare main / fill light presets on an anchored model</td>
-</tr>
-<tr>
-<td>AR Recording</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/ARRecorderDemo.swift"><code>ARRecorderDemo.swift</code></a></td>
-<td>Automatically placed subject with explicit ReplayKit Record/Stop controls; screen video, not AR-session playback</td>
 </tr>
 <tr>
 <td>AR Image Tracking</td>
@@ -3241,9 +3188,9 @@ Occlusion comparisons keep perception enabled and change only the renderer effec
 <td>LiDAR scene reconstruction mesh</td>
 </tr>
 <tr>
-<td>AR Debug (Rerun)</td>
-<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/RerunDebugDemo.swift"><code>RerunDebugDemo.swift</code></a></td>
-<td>Live AR debug data streamed to <a href="https://rerun.io">Rerun.io</a> viewer</td>
+<td>Rerun AR Replay</td>
+<td><a href="https://github.com/sceneview/sceneview/blob/main/samples/ios-demo/SceneViewDemo/Views/Demos/Rerun/RerunShowcaseDemo.swift"><code>RerunShowcaseDemo.swift</code></a></td>
+<td>Record a room, replay it in 3D, and export it to <code>.rrd</code>, <code>.glb</code>, <code>.usdz</code> and <code>.ply</code></td>
 </tr>
 </tbody>
 </table>
