@@ -15,10 +15,16 @@
  *   sv.setBloom(true);
  *   sv.addLight({ type: "point", position: [2, 3, 0], color: [1, 0.9, 0.8] });
  *
+ * Transparent canvas, camera, render on demand:
+ *   const sv = await SceneView.create("canvas", { transparent: true, renderMode: "onDemand" });
+ *   await sv.loadModel("model.glb");
+ *   sv.frameModel({ fill: 0.8 }).setCameraOrbit({ angle: 0.6 });
+ *   sv.onFrame((canvas) => mirrorCtx.drawImage(canvas, 0, 0));
+ *
  * Powered by Filament.js v1.72.1 (Google's PBR renderer, WASM).
  * https://sceneview.github.io
  *
- * @version 3.6.2
+ * @version 4.52.0
  * @license MIT
  */
 (function(global) {
@@ -27,19 +33,16 @@
   // Filament.js is loaded via <script> tag in HTML (js/filament/filament.js)
   // This avoids dynamic script injection issues with WASM resolution.
 
-  // Zoom window, expressed as a multiple of the distance the model was framed
-  // at rather than in world units. A glTF may be authored in metres,
-  // centimetres or millimetres; an absolute window fits exactly one of those
-  // and throws the camera inside the mesh for the rest.
-  var MIN_ZOOM_FACTOR = 0.15;
-  var MAX_ZOOM_FACTOR = 14;
-
-  // Longest frame the self-driven motion integrates in full. Beyond it the
-  // frame is a HITCH — a model landing on the main thread, a backgrounded tab —
-  // not a frame rate, and the motion pauses for its length instead of leaping.
-  // A sustained 8 fps is a slow renderer, not a hitch, and must still turn the
-  // turntable at its stated degrees per second.
-  var MAX_FRAME_STEP = 0.25;
+  /**
+   * Info-level logging, silent in production (#2568). Opt in from the console
+   * with `window.SCENEVIEW_DEBUG = true`. Warnings/errors are NOT gated —
+   * real degradations must stay visible.
+   */
+  function _log() {
+    if (typeof global !== 'undefined' && global.SCENEVIEW_DEBUG && typeof console !== 'undefined') {
+      console.log.apply(console, arguments);
+    }
+  }
 
   /**
    * Wait for Filament to be available (loaded by the script tag).
@@ -54,6 +57,93 @@
         if (++attempts > 100) { clearInterval(check); reject(new Error('SceneView: Filament.js not loaded')); }
       }, 50);
     });
+  }
+
+  /** Resolve a canvas element from an element or an id string. */
+  function _resolveCanvas(canvasOrId) {
+    if (typeof document === 'undefined') return null;
+    return typeof canvasOrId === 'string' ? document.getElementById(canvasOrId) : canvasOrId;
+  }
+
+  /**
+   * Paint a subtle "3D preview unavailable" placeholder over a canvas (#2509,
+   * #2563). Uses the site's DESIGN.md CSS custom properties so it adapts to
+   * light/dark automatically — no hardcoded colors. Pass the previously created
+   * overlay element (or null) — the same element is reused/re-aligned so the
+   * painter stays idempotent. Returns the overlay element, or null if it could
+   * not be painted.
+   */
+  function _paintFallbackOverlay(canvas, existingEl) {
+    if (typeof document === 'undefined' || !canvas) return null;
+    var parent = canvas.parentNode;
+    if (!parent) return null;
+
+    // Ensure the overlay can position itself over the canvas box.
+    var parentPos = (window.getComputedStyle ? getComputedStyle(parent).position : '');
+    if (parentPos === 'static') parent.style.position = 'relative';
+
+    var el = existingEl;
+    if (!el) {
+      el = document.createElement('div');
+      el.className = 'sceneview-fallback';
+      el.setAttribute('role', 'img');
+      el.setAttribute('aria-label', '3D preview unavailable');
+      // Dimmed surface + subtle border + secondary text, all from design tokens
+      // (styles.css :root / [data-theme="dark"]) so it themes automatically.
+      el.style.cssText = [
+        'position:absolute',
+        'box-sizing:border-box',
+        'display:flex',
+        'align-items:center',
+        'justify-content:center',
+        'text-align:center',
+        'pointer-events:none',
+        'background:var(--color-surface-container, #1a1a2e)',
+        'color:var(--color-on-surface-variant, #9fb2dd)',
+        'border:1px solid var(--color-outline-variant, #2a3346)',
+        'font-family:var(--font-body, system-ui, -apple-system, sans-serif)',
+        'font-size:0.85rem',
+        'line-height:1.4',
+        'padding:8px 12px'
+      ].join(';');
+      var label = document.createElement('span');
+      label.textContent = '3D preview unavailable';
+      label.style.opacity = '0.75';
+      el.appendChild(label);
+      // Insert immediately after the canvas so it stacks above it.
+      if (canvas.nextSibling) parent.insertBefore(el, canvas.nextSibling);
+      else parent.appendChild(el);
+    }
+    // Align the overlay to the canvas box (handles parents with sibling content,
+    // e.g. ai-3d's label/badge, without covering them).
+    el.style.left = canvas.offsetLeft + 'px';
+    el.style.top = canvas.offsetTop + 'px';
+    el.style.width = (canvas.offsetWidth || canvas.clientWidth) + 'px';
+    el.style.height = (canvas.offsetHeight || canvas.clientHeight) + 'px';
+    // Match the canvas corner radius if the container rounds it.
+    try {
+      var br = getComputedStyle(canvas).borderRadius;
+      if (br && br !== '0px') el.style.borderRadius = br;
+      else {
+        var pbr = getComputedStyle(parent).borderRadius;
+        if (pbr && pbr !== '0px') el.style.borderRadius = pbr;
+      }
+    } catch (e) { /* ignore */ }
+    return el;
+  }
+
+  /**
+   * Paint the "3D preview unavailable" placeholder when the Filament engine
+   * itself fails to initialize (#2563) — e.g. WASM blocked by CSP, asset 404,
+   * or a stuck init. Happens before any SceneView instance exists, so the
+   * overlay is tracked on the canvas element itself (idempotent per canvas).
+   */
+  function _showInitFallback(canvasOrId) {
+    var canvas = _resolveCanvas(canvasOrId);
+    if (!canvas) return;
+    console.warn('SceneView: 3D engine failed to initialize, showing fallback');
+    var el = _paintFallbackOverlay(canvas, canvas.__sceneviewInitFallbackEl || null);
+    if (el) canvas.__sceneviewInitFallbackEl = el;
   }
 
   // ---------------------------------------------------------------
@@ -409,27 +499,29 @@
       this._angle = 0.785; // Start at ~45° like model-viewer
       this._autoRotate = true;
       this._orbitRadius = 3.5;
-      this._framedRadius = 3.5; // distance the current model was framed at
       this._orbitHeight = 0.8;
       this._orbitTarget = [0, 0, 0];
       this._running = true;
+      // Visibility gating (#2508): the render loop only draws when the canvas is
+      // both on-screen (IntersectionObserver) and in a visible tab. Off-screen or
+      // tab-hidden, the rAF loop self-suspends — no GPU/CPU/battery drain — and
+      // resumes cleanly when visibility returns. The orbit animates by fixed
+      // per-frame increments (not delta-time), so suspending simply freezes the
+      // angle; there is no time-step jump on resume.
+      this._onScreen = true;       // updated by IntersectionObserver
+      this._tabVisible = (typeof document === 'undefined') ||
+        document.visibilityState !== 'hidden';
+      this._rafId = null;          // pending requestAnimationFrame handle, if any
+      this._primeRafId = null;     // pending off-screen redraw retry (#3690), if any
+      this._listeners = [];        // {target, type, handler, options} for dispose() cleanup
+      this._intersectionObserver = null;
+      this._fallbackEl = null;     // load-failure placeholder overlay, if shown (#2509)
       this._isDragging = false;
       this._lastMouse = { x: 0, y: 0 };
-      // Inertia for smooth orbit deceleration. The velocities seed the tail a
-      // RELEASED drag coasts on; a drag under the finger is applied straight to
-      // _angle/_orbitHeight by the handlers. _dragTravel* banks what the
-      // handlers applied since the last frame, so the render loop can express
-      // it per unit TIME rather than per pointer event — a 144 Hz panel splits
-      // the same flick into more, smaller moves than a 60 Hz one and the
-      // release must hand over the same speed either way.
+      // Inertia for smooth orbit deceleration
       this._velocityAngle = 0;
       this._velocityHeight = 0;
-      this._dragTravelAngle = 0;
-      this._dragTravelHeight = 0;
-      this._lastFrameCount = 1; // most recent frame, in 1/60 s reference frames
-      this._dampingFactor = 0.95; // per 1/60 s, like the velocities above
-      this._autoRotateSpeed = 30 * Math.PI / 180; // radians per SECOND (30°/s)
-      this._lastFrameTime = 0;
+      this._dampingFactor = 0.95;
       this._wantsAutoRotate = true; // Remember initial preference for resume after drag
       this._autoRotateTimer = null;
       this._cameraMode = 'orbit'; // 'orbit', 'map', or 'freelook'
@@ -441,6 +533,17 @@
       this._lightEntities = new Set(); // light entities created via addLight()
       this._quadGLB = null; // Cached quad GLB bytes
 
+      // Per-frame allocation scratch (#2274) — eliminates the GC sawtooth, worst
+      // on iOS Safari. Filament.js reads these arrays synchronously inside the
+      // call, so mutating them in place every requestAnimationFrame tick is safe.
+      this._billboardScratch = new Array(16); // shared column-major mat4 for billboards
+      // lookAt scratch — one eye/center/up triple per camera mode, set once here
+      // and mutated in place each frame. _upMap is the constant top-down up vector.
+      this._eye = [0, 0, 0];
+      this._center = [0, 0, 0];
+      this._up = [0, 1, 0];
+      this._upMap = [0, 0, -1];
+
       // Animation state — glTF skinning / keyframe playback
       this._animator = null;
       this._animationIndex = -1;
@@ -451,8 +554,18 @@
       // Base lights created by _createEngine — tracked so clearLights() can remove them
       this._baseLights = [];
 
+      // Render on demand: 'continuous' draws every animation frame while visible (the
+      // default); 'onDemand' parks the loop once nothing moves (see _isIdle) and
+      // requestRender() wakes it. Both share the single loop below and its visibility gate.
+      this._renderMode = "continuous";
+      this._pendingLoads = 0; // glTF texture decodes still landing (loadResources)
+      this._animationDone = false; // a non-looping animation reached its last frame
+      this._frameCallbacks = new Set(); // onFrame() listeners
+      this._renderRequested = false; // requestRender() landed while the loop was live
+
       this._setupControls();
       this._setupResizeObserver();
+      this._setupVisibilityGating();
       this._startRenderLoop();
     }
 
@@ -464,20 +577,53 @@
     loadModel(url) {
       var self = this;
       return new Promise(function(resolve, reject) {
+        // On any failure (network/404, fetch error, GLB parse/decode failure),
+        // paint a graceful in-canvas fallback before rejecting (#2509). The
+        // promise still rejects so existing callers that .catch() (index.html,
+        // playground.html, web.html) keep their current behaviour — but bare
+        // callers (the two showcase pages) no longer get a dead blank canvas.
+        function fail(e) {
+          self._showLoadFallback(url);
+          reject(e);
+        }
         fetch(url)
-          .then(function(resp) { return resp.arrayBuffer(); })
+          .then(function(resp) {
+            if (!resp.ok) throw new Error('HTTP ' + resp.status + ' loading ' + url);
+            return resp.arrayBuffer();
+          })
           .then(function(buffer) {
             Filament.assets = Filament.assets || {};
             Filament.assets[url] = new Uint8Array(buffer);
             try {
               self._showModel(url);
+              self._hideLoadFallback();  // clear any prior-failure placeholder
               resolve(self);
             } catch (e) {
-              reject(e);
+              fail(e);
             }
           })
-          .catch(reject);
+          .catch(fail);
       });
+    }
+
+    /**
+     * Paint a subtle "3D preview unavailable" placeholder over the canvas when a
+     * model fails to load (#2509). Delegates to the shared module-level painter
+     * (also used for engine-init failures, #2563). Idempotent: a second failure
+     * reuses the existing overlay. Removed by dispose().
+     */
+    _showLoadFallback(url) {
+      console.warn('SceneView: model failed to load, showing fallback (' + url + ')');
+      var el = _paintFallbackOverlay(this._canvas, this._fallbackEl);
+      if (el) this._fallbackEl = el;
+    }
+
+    /** Remove the load-failure placeholder, if one is showing (#2509). */
+    _hideLoadFallback() {
+      if (this._fallbackEl && this._fallbackEl.parentNode) {
+        this._fallbackEl.parentNode.removeChild(this._fallbackEl);
+      }
+      this._fallbackEl = null;
     }
 
     _showModel(url) {
@@ -508,7 +654,16 @@
       var asset = this._loader.createAsset(data);
       if (!asset) throw new Error('Failed to parse model: ' + url);
 
-      asset.loadResources();
+      // gltfio decodes textures asynchronously, one every 30 ms, after this call
+      // returns: until onDone, a frame shows the geometry with no material
+      // (a black silhouette). Redraw once they have all landed, so a viewer
+      // parked off-screen does not keep that frame (#3690).
+      // The pending count keeps an 'onDemand' loop awake until the decode finishes.
+      this._pendingLoads++;
+      asset.loadResources(() => {
+        this._pendingLoads = Math.max(0, this._pendingLoads - 1);
+        if (this._asset === asset) this.requestRender();
+      });
       this._scene.addEntity(asset.getRoot());
       this._scene.addEntities(asset.getRenderableEntities());
       this._asset = asset;
@@ -525,68 +680,233 @@
       this._animationIndex = -1;
       this._animationPauseTime = -1;
 
-      // Auto-frame the model
-      try {
-        var bbox = asset.getBoundingBox();
-        var cx = (bbox.min[0] + bbox.max[0]) / 2;
-        var cy = (bbox.min[1] + bbox.max[1]) / 2;
-        var cz = (bbox.min[2] + bbox.max[2]) / 2;
-        var sx = bbox.max[0] - bbox.min[0];
-        var sy = bbox.max[1] - bbox.min[1];
-        var sz = bbox.max[2] - bbox.min[2];
-        var maxDim = Math.max(sx, sy, sz);
-        if (maxDim > 0) {
-          this._orbitTarget = [cx, cy, cz];
-          // Tighter framing than before (1.8x instead of 2.5x)
-          this._orbitRadius = maxDim * 1.8;
-          this._orbitHeight = cy;
-          // Remember what "framed" means for THIS model. Zoom limits and the
-          // projection frustum are both expressed against it, because a glTF
-          // may be authored in metres, centimetres or millimetres and a fixed
-          // world-space window only ever fits one of those.
-          this._framedRadius = this._orbitRadius;
-          this._applyProjection();
-          // The camera just teleported to a new framing. A velocity banked
-          // against the previous model's scale means nothing here, so the
-          // damping tail does not survive the reframe.
-          this._velocityAngle = 0;
-          this._velocityHeight = 0;
-          this._dragTravelAngle = 0;
-          this._dragTravelHeight = 0;
-        }
-      } catch (e) { /* use defaults */ }
+      this._animationDone = false;
+
+      // Auto-frame the model (default fill, unchanged since #3690)
+      this._frameAsset(asset);
+      this.requestRender();
     }
 
     /**
-     * Push a perspective projection sized for the model currently framed.
+     * Fit the orbit camera around an asset's bounding box: target its centre, set the
+     * radius, and scale the near plane and zoom limits with the model.
      *
-     * The near/far pair used to be hard-coded at 0.1 / 1000 world units, which
-     * silently assumes every model is a metre or two across. A glTF authored in
-     * millimetres frames at thousands of units, so the whole subject sat beyond
-     * the far plane and the canvas rendered empty at every orbit angle.
+     * With `fill`, the radius is the one at which the cylinder the bounding box sweeps
+     * over a full orbit (axis through the centre, radius = half the horizontal diagonal)
+     * covers `fill` of the view, in height and in width, whichever binds first. The
+     * swept volume, not the largest edge: the face nearest the camera is closer than the
+     * centre, so sizing an edge at the centre plane cropped a tall, deep model from
+     * fill ~0.7 up, and a long one on a portrait canvas.
+     * Without `fill` the historical on-load framing is kept (1.8 x the largest
+     * dimension, backed off on a portrait canvas so the width stays in frame too).
      *
-     * Small models keep exactly the previous frustum — the bounds only widen,
-     * never tighten, so nothing that renders today starts clipping.
+     * @param {Object} asset - a gltfio FilamentAsset
+     * @param {number} [fill] - largest fraction of the view the model may cover, (0, 1]
+     * @returns {boolean} true when the asset had a non-empty bounding box
+     * @private
+     */
+    _frameAsset(asset, fill) {
+      try {
+        const bbox = asset.getBoundingBox();
+        const cx = (bbox.min[0] + bbox.max[0]) / 2;
+        const cy = (bbox.min[1] + bbox.max[1]) / 2;
+        const cz = (bbox.min[2] + bbox.max[2]) / 2;
+        const dx = bbox.max[0] - bbox.min[0];
+        const dy = bbox.max[1] - bbox.min[1];
+        const dz = bbox.max[2] - bbox.min[2];
+        const maxDim = Math.max(dx, dy, dz);
+        if (!(maxDim > 0)) return false;
+        const canvas = this._canvas;
+        const aspect = canvas && canvas.clientHeight > 0
+          ? canvas.clientWidth / canvas.clientHeight : 1;
+        let radius;
+        if (fill > 0) {
+          const t = Math.min(fill, 1) * Math.tan(((this._fov || 45) * Math.PI) / 360);
+          const sweep = 0.5 * Math.hypot(dx, dz);
+          // Height: the rim nearest the camera is `sweep` closer than the centre.
+          const forHeight = sweep + dy / (2 * t);
+          // Width: the outermost view rays are tangent to the cylinder, and the
+          // horizontal half-angle is the vertical one scaled by the aspect ratio.
+          const tw = t * Math.max(0.1, aspect);
+          const forWidth = sweep * Math.sqrt(1 + 1 / (tw * tw));
+          radius = Math.max(forHeight, forWidth);
+        } else {
+          radius = (maxDim * 1.8) / Math.max(0.5, Math.min(1, aspect));
+        }
+        this._orbitTarget = [cx, cy, cz];
+        this._orbitRadius = radius;
+        this._orbitHeight = cy;
+        // Scale the near plane and zoom limits with the model, so a 5 cm part is
+        // not clipped by a 10 cm near plane and a 100 m scene can still zoom out.
+        this._nearPlane = Math.min(0.1, this._orbitRadius / 100);
+        this._minRadius = Math.min(0.5, this._orbitRadius * 0.25);
+        this._maxRadius = Math.max(50, this._orbitRadius * 5);
+        this._applyProjection();
+        return true;
+      } catch (_e) {
+        return false; // keep the current camera
+      }
+    }
+
+    /**
+     * Re-apply the vertical-FOV projection for the current canvas size, FOV and near
+     * plane. Used by resize, framing and setCameraOrbit({ fov }).
+     * @private
      */
     _applyProjection() {
-      var canvas = this._canvas;
-      if (!canvas || !canvas.width || !canvas.height) return;
-      var framed = this._framedRadius || this._orbitRadius || 3.5;
-      // Far must still cover the camera fully zoomed out (MAX_ZOOM_FACTOR x
-      // the framed distance) plus the model's own half-extent behind the
-      // target; near must survive being zoomed all the way in.
-      var near = Math.min(0.1, framed * 0.001);
-      var far = Math.max(1000, framed * (MAX_ZOOM_FACTOR + 2));
-      this._near = near;
-      this._far = far;
+      const canvas = this._canvas;
+      if (!canvas || !(canvas.height > 0)) return;
+      // The far plane only ever widens: 1000 up to a framed radius of ~133, then it
+      // follows the zoom-out limit. A model authored in millimetres is framed
+      // thousands of units away and was culled whole by a fixed 1000 (#3742).
+      const far = Math.max(1000, (this._maxRadius || 50) * 1.5);
       this._camera.setProjectionFov(
-        this._fov || 45, canvas.width / canvas.height, near, far,
+        this._fov || 45, canvas.width / canvas.height, this._nearPlane || 0.1, far,
         Filament.Camera$Fov.VERTICAL
       );
     }
 
-    setAutoRotate(enabled) { this._autoRotate = enabled; this._wantsAutoRotate = enabled; return this; }
-    setCameraDistance(d) { this._orbitRadius = d; return this; }
+    setAutoRotate(enabled) { this._autoRotate = enabled; this._wantsAutoRotate = enabled; return this.requestRender(); }
+    setCameraDistance(d) { this._orbitRadius = d; return this.requestRender(); }
+
+    /**
+     * Read the orbit camera. The eye sits at
+     * (target.x + sin(angle) * radius, height, target.z + cos(angle) * radius) and looks
+     * at `target`; `height` is an absolute world Y.
+     *
+     * @returns {{angle: number, height: number, radius: number, target: number[], fov: number}}
+     *   a copy: mutating it does not move the camera
+     */
+    getCameraOrbit() {
+      return {
+        angle: this._angle,
+        height: this._orbitHeight,
+        radius: this._orbitRadius,
+        target: this._orbitTarget.slice(),
+        fov: this._fov || 45,
+      };
+    }
+
+    /**
+     * Move the orbit camera. Every field is optional; omitted or invalid ones keep their
+     * current value. Cancels drag inertia but leaves auto-rotate as it is (call
+     * setAutoRotate(false) to hold a pose). Redraws even when the loop is parked.
+     *
+     * @param {Object} orbit
+     * @param {number} [orbit.angle] - azimuth in radians around the target's Y axis
+     * @param {number} [orbit.height] - eye height, absolute world Y
+     * @param {number} [orbit.radius] - horizontal distance from the target, > 0
+     * @param {number[]} [orbit.target] - [x, y, z] point the camera looks at
+     * @param {number} [orbit.fov] - vertical field of view in degrees, (0, 180)
+     * @returns {SceneViewInstance} this (for chaining)
+     */
+    setCameraOrbit(orbit) {
+      const o = orbit || {};
+      if (Number.isFinite(o.angle)) this._angle = o.angle;
+      if (Number.isFinite(o.height)) this._orbitHeight = o.height;
+      if (Number.isFinite(o.radius) && o.radius > 0) this._orbitRadius = o.radius;
+      if (Array.isArray(o.target) && o.target.length >= 3 && o.target.slice(0, 3).every(Number.isFinite)) {
+        this._orbitTarget = [o.target[0], o.target[1], o.target[2]];
+      }
+      if (Number.isFinite(o.fov) && o.fov > 0 && o.fov < 180) {
+        this._fov = o.fov;
+        this._applyProjection();
+      }
+      this._velocityAngle = 0;
+      this._velocityHeight = 0;
+      return this.requestRender();
+    }
+
+    /**
+     * Frame the loaded model: target its bounding-box centre and set the radius so the
+     * model covers at most `fill` of the view, in height and in width, at every angle of
+     * the orbit. The bounding box is what is measured, so a rounded model reads smaller
+     * than `fill`. The camera height goes to the model centre; angle and auto-rotate are
+     * untouched. Without `fill`, the on-load framing is reused. No-op before a model is
+     * loaded.
+     *
+     * @param {Object} [options]
+     * @param {number} [options.fill] - largest fraction of the view to cover, (0, 1]; e.g. 0.8
+     * @returns {SceneViewInstance} this (for chaining)
+     */
+    frameModel(options) {
+      const fill = options && Number.isFinite(options.fill) ? options.fill : undefined;
+      if (this._asset) this._frameAsset(this._asset, fill);
+      this._velocityAngle = 0;
+      this._velocityHeight = 0;
+      return this.requestRender();
+    }
+
+    /**
+     * Choose when frames are drawn.
+     * - 'continuous' (default): every animation frame while the canvas is visible.
+     * - 'onDemand': only while something moves (auto-rotate, drag, inertia, a playing
+     *   animation, textures still decoding, a video quad), then the loop parks until
+     *   requestRender(), an input event, a camera call or a scene change wakes it.
+     * Both modes still stop off-screen and in hidden tabs.
+     *
+     * @param {'continuous'|'onDemand'} mode
+     * @returns {SceneViewInstance} this (for chaining)
+     */
+    setRenderMode(mode) {
+      if (mode !== 'continuous' && mode !== 'onDemand') {
+        console.warn(`SceneView: unknown renderMode "${mode}", expected 'continuous' or 'onDemand'`);
+        return this;
+      }
+      this._renderMode = mode;
+      return this.requestRender();
+    }
+
+    /**
+     * Ask for a redraw. In 'onDemand' mode this wakes the parked loop for at least one
+     * frame; in 'continuous' mode it is a no-op while the loop runs. Off-screen, one
+     * frame is still drawn so the canvas is current when it scrolls back in.
+     * Coalesced: several calls in the same task draw once. Safe to call from an
+     * onFrame() callback: the frame it asks for is the next one.
+     *
+     * @returns {SceneViewInstance} this (for chaining)
+     */
+    requestRender() {
+      if (!this._running) return this;
+      if (this._rafId !== null) {
+        // The loop is live and draws the next frame anyway. A call made while a frame
+        // is being drawn (from an onFrame callback) arrives after the camera was read:
+        // flag it, so an 'onDemand' loop draws once more instead of parking on it.
+        this._renderRequested = true;
+        return this;
+      }
+      if (this._shouldRender()) this._startRenderLoop();
+      else this._primeFrame(true);
+      return this;
+    }
+
+    /**
+     * Run `callback(canvas)` after every drawn frame, synchronously, while the WebGL
+     * drawing buffer still holds the image: the place to copy the canvas elsewhere
+     * (a reflection, a thumbnail) with drawImage. Errors are caught and logged.
+     *
+     * @param {function(HTMLCanvasElement): void} callback
+     * @returns {function(): void} call it to unsubscribe
+     */
+    onFrame(callback) {
+      if (typeof callback !== 'function') return () => {};
+      this._frameCallbacks.add(callback);
+      return () => { this._frameCallbacks.delete(callback); };
+    }
+
+    /**
+     * True when an 'onDemand' loop has nothing left to animate.
+     * @private
+     */
+    _isIdle() {
+      if (this._autoRotate || this._isDragging) return false;
+      if (this._velocityAngle !== 0 || this._velocityHeight !== 0) return false;
+      if (this._pendingLoads > 0) return false;
+      // Video quads are not listed: each new video frame wakes the loop itself.
+      if (this._animator && this._animationIndex >= 0 && this._animationPauseTime < 0
+          && (this._animationLoop || !this._animationDone)) return false;
+      return true;
+    }
 
     /**
      * Set camera manipulator type.
@@ -601,7 +921,7 @@
         this._orbitHeight = this._orbitTarget[1] + this._orbitRadius;
         this._angle = 0;
       }
-      return this;
+      return this.requestRender();
     }
 
     /**
@@ -623,11 +943,11 @@
             var ibl = self._engine.createIblFromKtx1(buffer);
             ibl.setIntensity(intensity || 40000);
             self._scene.setIndirectLight(ibl);
-            console.log('SceneView: Environment loaded (' + Math.round(buffer.length / 1024) + 'KB)');
+            _log('SceneView: Environment loaded (' + Math.round(buffer.length / 1024) + 'KB)');
           } catch (e) {
             console.warn('SceneView: loadEnvironment failed', e);
           }
-          return self;
+          return self.requestRender();
         });
     }
 
@@ -648,12 +968,12 @@
       } catch (e) {
         console.warn('SceneView: setEnvironmentSH failed', e);
       }
-      return this;
+      return this.requestRender();
     }
 
     setBackgroundColor(r, g, b, a) {
       this._renderer.setClearOptions({ clearColor: [r, g, b, a !== undefined ? a : 1], clear: true });
-      return this;
+      return this.requestRender();
     }
 
     // ---------------------------------------------------------------
@@ -683,7 +1003,7 @@
           this._view.setAntiAliasing(Filament.View$AntiAliasing.FXAA);
         }
       } catch (e) { console.warn('SceneView: setQuality not supported', e); }
-      return this;
+      return this.requestRender();
     }
 
     /**
@@ -708,7 +1028,7 @@
           });
         }
       } catch (e) { console.warn('SceneView: setBloom not supported', e); }
-      return this;
+      return this.requestRender();
     }
 
     /**
@@ -721,7 +1041,7 @@
      * @param {number[]} [options.direction=[0,-1,0]] - Direction for directional/spot lights
      * @param {number[]} [options.position=[0,2,0]] - Position for point/spot lights
      * @param {number} [options.falloff=10] - Falloff radius for point/spot lights
-     * @returns {number} Entity handle (use with removeNode to delete)
+     * @returns {Object} Filament Entity handle (pass it to removeLight or removeNode to delete)
      */
     addLight(options) {
       options = options || {};
@@ -748,31 +1068,18 @@
         .intensity(intensity)
         .direction(direction);
 
+      if (type === 'point' || type === 'spot') builder.falloff(falloff);
       builder.build(this._engine, entity);
 
       if (type === 'point' || type === 'spot') {
-        // Position point/spot lights via transform. A bare light entity has
-        // no transform component, so create one before getInstance() — calling
-        // getInstance() on an entity without a transform component returns an
-        // invalid instance and setTransform() then corrupts memory (the light
-        // renders at the origin and later transform reads throw
-        // "Cannot read properties of undefined").
+        // Position point/spot lights via transform. A bare light entity has no
+        // transform component: getInstance() on an entity without one returns an
+        // invalid instance, so create the component first.
         var tm = this._engine.getTransformManager();
-        // A bare light entity has no transform component; getInstance() on an
-        // entity without one returns an invalid instance and setTransform()
-        // then corrupts memory. Create the component first.
-        var hasComp = typeof tm.hasComponent === 'function'
-          ? tm.hasComponent(entity)
-          : false;
-        if (!hasComp && typeof tm.create === 'function') {
-          tm.create(entity);
-        }
+        if (!tm.hasComponent(entity)) tm.create(entity);
         var inst = tm.getInstance(entity);
-        // Column-major 4x4 translation matrix. `Filament.mat4` does not exist
-        // (the Filament.js binding exposes glMatrix, not a `mat4` namespace) —
-        // `Filament.mat4.translation()` threw "Cannot read properties of
-        // undefined". Build the matrix as a plain array, matching how the rest
-        // of this file sets transforms.
+        // Column-major translation matrix. The Filament.js binding has no
+        // `Filament.mat4` namespace, so `Filament.mat4.translation()` threw.
         tm.setTransform(inst, [
           1, 0, 0, 0,
           0, 1, 0, 0,
@@ -783,6 +1090,7 @@
 
       this._scene.addEntity(entity);
       this._lightEntities.add(entity);
+      this.requestRender();
       return entity;
     }
 
@@ -1034,8 +1342,12 @@
             vi.ctx.putImageData(imgData, 0, 0);
           }
 
-          // Update the Filament texture
+          // Update the Filament texture, and wake an 'onDemand' loop for it. Not while
+          // the canvas is off-screen or the tab hidden: the gate (#2508) draws nothing
+          // there, and a playing video must not turn into one full render per frame.
+          // The loop redraws with the current texture when the canvas comes back.
           self._updateQuadTexture(entity, vi.canvas);
+          if (self._shouldRender()) self.requestRender();
         }
 
         // Use requestVideoFrameCallback if available (more efficient)
@@ -1119,7 +1431,7 @@
       } else {
         this._billboards.delete(entity);
       }
-      return this;
+      return this.requestRender();
     }
 
     /**
@@ -1140,22 +1452,26 @@
       var t = this._orbitTarget;
       var r = this._orbitRadius;
       var camX = t[0] + Math.sin(this._angle) * r;
-      var camY = this._orbitHeight;
       var camZ = t[2] + Math.cos(this._angle) * r;
 
       var self = this;
+      var mat = this._billboardScratch; // shared scratch — fully overwritten per billboard
+      // Batch the per-billboard setTransform calls in one local-transform
+      // transaction so the TransformManager recomputes world transforms once.
+      var inTransaction = false;
+      if (typeof tcm.openLocalTransformTransaction === 'function') {
+        tcm.openLocalTransformTransaction();
+        inTransaction = true;
+      }
       this._billboards.forEach(function(entity) {
         var nodeInfo = self._mediaNodes.get(entity);
         if (!nodeInfo || !nodeInfo.asset) return;
 
-        var rootEntity = nodeInfo.asset.getRoot();
         var pos = nodeInfo.position || [0, 0, 0];
 
         // Calculate direction from entity to camera (Y-up world)
         var dx = camX - pos[0];
-        var dy = camY - pos[1];
         var dz = camZ - pos[2];
-        var lenXZ = Math.sqrt(dx * dx + dz * dz);
 
         // Yaw angle (rotation around Y axis) to face camera
         var yaw = Math.atan2(dx, dz);
@@ -1164,24 +1480,33 @@
         var sx = nodeInfo.scaleX || 1;
         var sy = nodeInfo.scaleY || 1;
 
-        // Column-major 4x4 matrix for Filament
+        // Column-major 4x4 matrix for Filament — fully written into the shared
+        // scratch each iteration (no partial-state leak between billboards).
         var cosY = Math.cos(yaw);
         var sinY = Math.sin(yaw);
-        var mat = [
-          cosY * sx, 0, -sinY * sx, 0,
-          0, sy, 0, 0,
-          sinY, 0, cosY, 0,
-          pos[0], pos[1], pos[2], 1
-        ];
+        mat[0] = cosY * sx; mat[1] = 0;  mat[2] = -sinY * sx; mat[3] = 0;
+        mat[4] = 0;         mat[5] = sy; mat[6] = 0;          mat[7] = 0;
+        mat[8] = sinY;      mat[9] = 0;  mat[10] = cosY;      mat[11] = 0;
+        mat[12] = pos[0];   mat[13] = pos[1]; mat[14] = pos[2]; mat[15] = 1;
 
         try {
-          var inst = tcm.getInstance(rootEntity);
+          // Cache the TransformManager instance per billboard (#2274) — getInstance
+          // was previously called every frame for every billboard.
+          var inst = nodeInfo.transformInstance;
+          if (inst == null) {
+            inst = tcm.getInstance(nodeInfo.asset.getRoot());
+            nodeInfo.transformInstance = inst;
+          }
           tcm.setTransform(inst, mat);
         } catch (e) {
           // Entity may have been destroyed
+          nodeInfo.transformInstance = null;
           self._billboards.delete(entity);
         }
       });
+      if (inTransaction) {
+        tcm.commitLocalTransformTransaction();
+      }
     }
 
     // ---------------------------------------------------------------
@@ -1208,6 +1533,7 @@
      */
     updateTexture(entity, canvas) {
       this._updateQuadTexture(entity, canvas);
+      this.requestRender();
     }
 
     // ---------------------------------------------------------------
@@ -1438,6 +1764,7 @@
             self._billboards.add(entityId);
           }
 
+          self.requestRender();
           resolve(entityId);
         } catch (e) {
           reject(e);
@@ -1455,17 +1782,9 @@
      * @param {number} entity - Entity handle
      */
     removeNode(entity) {
-      // Light entities (created via addLight()) are tracked separately — they
-      // are not media nodes, so handle them before the _mediaNodes lookup.
+      // Lights created via addLight() are not media nodes: handle them first.
       if (this._lightEntities.has(entity)) {
-        try {
-          this._scene.remove(entity);
-        } catch (e) { /* ignore */ }
-        try {
-          var lm = this._engine.getLightManager();
-          if (lm && lm.hasComponent(entity)) lm.destroy(entity);
-        } catch (e) { /* ignore */ }
-        this._lightEntities.delete(entity);
+        this.removeLight(entity);
         return;
       }
 
@@ -1494,6 +1813,7 @@
       // Remove from tracking
       this._billboards.delete(entity);
       this._mediaNodes.delete(entity);
+      this.requestRender();
     }
 
     // ---------------------------------------------------------------
@@ -1502,6 +1822,16 @@
 
     dispose() {
       this._running = false;
+
+      // Stop any pending animation frame so the loop cannot draw after teardown.
+      if (this._rafId !== null) {
+        cancelAnimationFrame(this._rafId);
+        this._rafId = null;
+      }
+      if (this._primeRafId) {
+        cancelAnimationFrame(this._primeRafId);
+        this._primeRafId = null;
+      }
 
       // Clean up video elements
       var self = this;
@@ -1512,9 +1842,30 @@
       });
       this._videoElements.clear();
       this._mediaNodes.clear();
+      this._lightEntities.clear();
       this._billboards.clear();
+      // onFrame() callbacks capture page state (a mirror canvas, a component): drop them.
+      this._frameCallbacks.clear();
+      this._renderRequested = false;
 
+      // Remove every tracked event listener (#2508 / #2507 LOW) — the 11 canvas
+      // control listeners plus the document visibilitychange listener all capture
+      // `self` → the Filament engine, so leaving them attached would keep the
+      // disposed viewer (and its WebGL context) alive.
+      this._listeners.forEach(function(l) {
+        try { l.target.removeEventListener(l.type, l.handler, l.options); } catch (e) { /* ignore */ }
+      });
+      this._listeners = [];
+
+      if (this._intersectionObserver) {
+        this._intersectionObserver.disconnect();
+        this._intersectionObserver = null;
+      }
       if (this._resizeObserver) this._resizeObserver.disconnect();
+
+      // Remove any load-failure fallback overlay we painted into the DOM.
+      this._hideLoadFallback();
+
       _activeCanvases.delete(this._canvas);
       try { Filament.Engine.destroy(this._engine); } catch (e) { /* already destroyed */ }
     }
@@ -1523,127 +1874,134 @@
     // Controls (existing)
     // ---------------------------------------------------------------
 
-    // A pointer took hold of the camera: drop the previous flick's inertia so
-    // grabbing a coasting model stops it dead under the finger.
-    _beginDrag() {
-      this._isDragging = true;
-      this._velocityAngle = 0;
-      this._velocityHeight = 0;
-      this._dragTravelAngle = 0;
-      this._dragTravelHeight = 0;
-    }
-
-    // A pointer move: apply it now — the gesture's gain is the distance the
-    // finger travelled, never a function of the refresh rate — and bank it so
-    // the render loop can turn it into the velocity a release coasts on.
-    _orbitBy(dAngle, dHeight) {
-      this._angle += dAngle;
-      this._orbitHeight += dHeight;
-      this._dragTravelAngle += dAngle;
-      this._dragTravelHeight += dHeight;
-    }
-
-    // The pointer let go. Travel that arrived since the last frame — a flick
-    // ending between two rAF ticks, which is most of them — has not been turned
-    // into velocity yet; credit it at the most recent frame's length.
-    _endDrag() {
-      if (this._dragTravelAngle !== 0 || this._dragTravelHeight !== 0) {
-        this._velocityAngle = this._dragTravelAngle / this._lastFrameCount;
-        this._velocityHeight = this._dragTravelHeight / this._lastFrameCount;
-        this._dragTravelAngle = 0;
-        this._dragTravelHeight = 0;
-      }
-      this._isDragging = false;
-    }
-
-    // The user is interacting: stop the turntable and cancel any pending
-    // resume, so it cannot fire in the middle of the gesture.
-    _suspendAutoRotate() {
-      this._autoRotate = false;
-      if (this._autoRotateTimer) {
-        clearTimeout(this._autoRotateTimer);
-        this._autoRotateTimer = null;
-      }
-    }
-
-    // The interaction ended: resume the turntable after 3 s idle (like
-    // model-viewer). Every interaction restarts the countdown.
-    _scheduleAutoRotateResume() {
-      var self = this;
-      if (this._autoRotateTimer) {
-        clearTimeout(this._autoRotateTimer);
-        this._autoRotateTimer = null;
-      }
-      if (this._wantsAutoRotate) {
-        this._autoRotateTimer = setTimeout(function() { self._autoRotate = true; }, 3000);
-      }
+    /**
+     * Register an event listener and remember it so dispose() can remove it
+     * (#2508 / #2507 LOW). Without this, the anonymous control listeners capture
+     * `self` → the Filament engine and keep a disposed viewer alive.
+     */
+    _addListener(target, type, handler, options) {
+      target.addEventListener(type, handler, options);
+      this._listeners.push({ target: target, type: type, handler: handler, options: options });
     }
 
     _setupControls() {
       var canvas = this._canvas;
       var self = this;
 
-      canvas.addEventListener('mousedown', function(e) {
-        self._beginDrag();
+      this._addListener(canvas, 'mousedown', function(e) {
+        self._isDragging = true;
         self._lastMouse = { x: e.clientX, y: e.clientY };
-        self._suspendAutoRotate();
+        self._autoRotate = false;
+        self._velocityAngle = 0;
+        self._velocityHeight = 0;
+        if (self._autoRotateTimer) { clearTimeout(self._autoRotateTimer); self._autoRotateTimer = null; }
+        self.requestRender();
       });
-      canvas.addEventListener('mousemove', function(e) {
+      this._addListener(canvas, 'mousemove', function(e) {
         if (!self._isDragging) return;
         var dx = (e.clientX - self._lastMouse.x) * 0.005;
         var dy = (e.clientY - self._lastMouse.y) * 0.01;
-        self._orbitBy(-dx, dy);
+        self._velocityAngle = -dx;
+        self._velocityHeight = dy;
+        self._angle -= dx;
+        self._orbitHeight += dy;
         self._lastMouse = { x: e.clientX, y: e.clientY };
+        self.requestRender();
       });
-      canvas.addEventListener('mouseup', function() {
-        self._endDrag();
-        self._scheduleAutoRotateResume();
-      });
-      canvas.addEventListener('mouseleave', function() {
-        self._endDrag();
-        self._scheduleAutoRotateResume();
-      });
-
-      canvas.addEventListener('wheel', function(e) {
-        e.preventDefault();
-        // Zooming is interacting. Like a drag, it suspends the turntable and
-        // restarts the 3 s idle countdown — otherwise the model keeps spinning
-        // under the wheel and the camera the user just aimed drifts away on its
-        // own (the resume timer only ever watched the pointer).
-        self._suspendAutoRotate();
-        // Zoom limits are a multiple of the framed distance, not fixed world
-        // units: the old `min(50, …)` overrode the auto-framing of any model
-        // whose natural framing sits further out than 50 units (a glTF in
-        // millimetres frames at thousands), dropping the camera inside the
-        // mesh where most orbit angles see nothing at all.
-        var framed = self._framedRadius || 3.5;
-        self._orbitRadius *= (1 + e.deltaY * 0.001);
-        self._orbitRadius = Math.max(
-          framed * MIN_ZOOM_FACTOR,
-          Math.min(framed * MAX_ZOOM_FACTOR, self._orbitRadius)
-        );
-        self._scheduleAutoRotateResume();
-      }, { passive: false });
-
-      canvas.addEventListener('touchstart', function(e) {
-        if (e.touches.length === 1) {
-          self._beginDrag();
-          self._lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-          self._suspendAutoRotate();
+      this._addListener(canvas, 'mouseup', function() {
+        self._isDragging = false;
+        // Resume auto-rotate after 3s idle (like model-viewer)
+        if (self._wantsAutoRotate) {
+          self._autoRotateTimer = setTimeout(() => { self._autoRotate = true; self.requestRender(); }, 3000);
         }
       });
-      canvas.addEventListener('touchmove', function(e) {
+      this._addListener(canvas, 'mouseleave', function() {
+        self._isDragging = false;
+        if (self._wantsAutoRotate) {
+          self._autoRotateTimer = setTimeout(() => { self._autoRotate = true; self.requestRender(); }, 3000);
+        }
+      });
+
+      this._addListener(canvas, 'wheel', function(e) {
+        e.preventDefault();
+        self._orbitRadius *= (1 + e.deltaY * 0.001);
+        self._orbitRadius = Math.max(self._minRadius || 0.5, Math.min(self._maxRadius || 50, self._orbitRadius));
+        self.requestRender();
+      }, { passive: false });
+
+      this._addListener(canvas, 'touchstart', function(e) {
+        if (e.touches.length === 1) {
+          self._isDragging = true;
+          self._lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+          self._autoRotate = false;
+          self._velocityAngle = 0;
+          self._velocityHeight = 0;
+          if (self._autoRotateTimer) { clearTimeout(self._autoRotateTimer); self._autoRotateTimer = null; }
+          self.requestRender();
+        }
+      });
+      this._addListener(canvas, 'touchmove', function(e) {
         if (!self._isDragging || e.touches.length !== 1) return;
         e.preventDefault();
         var dx = (e.touches[0].clientX - self._lastMouse.x) * 0.005;
         var dy = (e.touches[0].clientY - self._lastMouse.y) * 0.01;
-        self._orbitBy(-dx, dy);
+        self._velocityAngle = -dx;
+        self._velocityHeight = dy;
+        self._angle -= dx;
+        self._orbitHeight += dy;
         self._lastMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        self.requestRender();
       }, { passive: false });
-      canvas.addEventListener('touchend', function() {
-        self._endDrag();
-        self._scheduleAutoRotateResume();
+      this._addListener(canvas, 'touchend', function() {
+        self._isDragging = false;
+        if (self._wantsAutoRotate) {
+          self._autoRotateTimer = setTimeout(() => { self._autoRotate = true; self.requestRender(); }, 3000);
+        }
       });
+    }
+
+    /**
+     * Pause the render loop when the canvas is scrolled off-screen and resume it
+     * when it returns (#2508). An IntersectionObserver per canvas gates the loop
+     * so off-screen viewers stop doing GPU/CPU work entirely; a shared
+     * `visibilitychange` listener does the same when the whole tab is hidden.
+     * The API is unchanged — pages get this for free, no call-site changes.
+     */
+    _setupVisibilityGating() {
+      var self = this;
+
+      if (typeof IntersectionObserver !== 'undefined') {
+        this._intersectionObserver = new IntersectionObserver(function(entries) {
+          for (var i = 0; i < entries.length; i++) {
+            self._onScreen = entries[i].isIntersecting;
+          }
+          self._maybeResume();
+        }, { rootMargin: '0px' });
+        this._intersectionObserver.observe(this._canvas);
+      }
+
+      // Tab-hidden gate — shared across all viewers via document. Tracked so
+      // dispose() removes it (the captured `self` would otherwise leak the engine).
+      var onVisibility = function() {
+        self._tabVisible = document.visibilityState !== 'hidden';
+        self._maybeResume();
+      };
+      this._addListener(document, 'visibilitychange', onVisibility);
+    }
+
+    /** True only when the loop is allowed to draw this frame. */
+    _shouldRender() {
+      return this._running && this._onScreen && this._tabVisible;
+    }
+
+    /**
+     * Re-arm the render loop if it suspended while it should now be running.
+     * Idempotent — never schedules a second concurrent rAF.
+     */
+    _maybeResume() {
+      if (this._rafId === null && this._shouldRender()) {
+        this._startRenderLoop();
+      }
     }
 
     _setupResizeObserver() {
@@ -1654,76 +2012,36 @@
         canvas.width = canvas.clientWidth * dpr;
         canvas.height = canvas.clientHeight * dpr;
         self._view.setViewport([0, 0, canvas.width, canvas.height]);
-        // Same frustum the current framing asked for — a resize must not
-        // silently reset near/far back to the metre-scale defaults.
         self._applyProjection();
+        // Resizing clears the drawing buffer: redraw now if the loop is parked
+        // (off-screen, or idle in 'onDemand' mode), synchronously to avoid a blank flash.
+        self._primeFrame();
       });
       this._resizeObserver.observe(this._canvas);
     }
 
     _startRenderLoop() {
       var self = this;
-      function render(timestamp) {
-        if (!self._running) return;
-
-        // Elapsed wall-clock time, not a frame count: a 120 Hz panel gets twice
-        // as many ticks as a 60 Hz one and must not spin twice as fast. The
-        // first frame has no previous timestamp and advances nothing.
-        //
-        // A frame LONGER than MAX_FRAME_STEP is a hitch, not a frame rate: the
-        // motion pauses for its length rather than leaping across it. The
-        // previous code truncated the step to 0.05 s instead of pausing, which
-        // quietly put the frame rate back into the speeds it had just taken out
-        // — on a software rasteriser holding ~8 fps every single frame was
-        // truncated, so the turntable ran at 12°/s instead of its stated 30,
-        // and a drag's banked travel was divided by 3 reference frames however
-        // long the frame really was, inflating the inertia a release hands over.
-        var now = timestamp || 0;
-        var dt = self._lastFrameTime > 0 ? (now - self._lastFrameTime) / 1000 : 0;
-        self._lastFrameTime = now;
-        if (dt < 0) dt = 0;
-        var hitch = dt > MAX_FRAME_STEP;
-
-        // Auto-rotate: 30°/sec (matches model-viewer)
-        if (self._autoRotate && !hitch) self._angle += self._autoRotateSpeed * dt;
-
-        // While the button is down, this frame's pointer travel — already
-        // applied to _angle/_orbitHeight by the handlers — becomes the velocity
-        // the release will coast on, expressed per 1/60 s. Dividing by the
-        // frame's OWN length (never a truncated stand-in) is what keeps the
-        // tail rate-independent. Travel banked across a hitch has no measurable
-        // speed, so it is dropped rather than credited at a made-up rate.
-        if (dt > 0) {
-          self._lastFrameCount = dt * 60;
-          if (self._isDragging) {
-            if (hitch) {
-              self._velocityAngle = 0;
-              self._velocityHeight = 0;
-            } else {
-              self._velocityAngle = self._dragTravelAngle / self._lastFrameCount;
-              self._velocityHeight = self._dragTravelHeight / self._lastFrameCount;
-            }
-            self._dragTravelAngle = 0;
-            self._dragTravelHeight = 0;
-          }
+      // Guard against a double-start (e.g. _maybeResume racing the initial call).
+      if (self._rafId !== null) return;
+      function render() {
+        // Suspend the loop when disposed, off-screen, or the tab is hidden
+        // (#2508). Clearing _rafId and returning (without re-arming) stops all
+        // GPU/CPU work; _maybeResume() restarts it when visibility returns.
+        if (!self._shouldRender()) {
+          self._rafId = null;
+          return;
         }
 
-        // Inertia damping after drag release. The velocities are expressed per
-        // 1/60 s, so decaying them over `dt` means raising the damping factor to
-        // the number of 60 Hz frames `dt` covers, and the distance travelled
-        // while decaying is the sum of that geometric series. At exactly 60 Hz
-        // this collapses to the single multiply it replaces. The closed form is
-        // exact for ANY dt and its total travel can never exceed
-        // velocity / (1 - damping) — the tail's whole remaining distance — so
-        // the step needs no ceiling here, even across a hitch.
-        if (!self._isDragging && dt > 0) {
-          var frames = dt * 60;
-          var decay = Math.pow(self._dampingFactor, frames);
-          var travel = (1 - decay) / (1 - self._dampingFactor);
-          self._angle += self._velocityAngle * travel;
-          self._orbitHeight += self._velocityHeight * travel;
-          self._velocityAngle *= decay;
-          self._velocityHeight *= decay;
+        // Auto-rotate: 30°/sec ÷ 60fps (matches model-viewer)
+        if (self._autoRotate) self._angle += 0.00873;
+
+        // Inertia damping after drag release
+        if (!self._isDragging) {
+          self._angle += self._velocityAngle;
+          self._orbitHeight += self._velocityHeight;
+          self._velocityAngle *= self._dampingFactor;
+          self._velocityHeight *= self._dampingFactor;
           if (Math.abs(self._velocityAngle) < 0.00005) self._velocityAngle = 0;
           if (Math.abs(self._velocityHeight) < 0.00005) self._velocityHeight = 0;
         }
@@ -1734,49 +2052,124 @@
         // Drive glTF animation playback (if any)
         self._updateAnimator();
 
-        var t = self._orbitTarget;
-        var r = self._orbitRadius;
-        var h = self._orbitHeight;
-        var mode = self._cameraMode || 'orbit';
-        if (mode === 'map') {
-          // Top-down: camera above target, looking straight down
-          self._camera.lookAt(
-            [t[0], t[1] + r * 2, t[2]],
-            t,
-            [0, 0, -1]
-          );
-        } else if (mode === 'freelook') {
-          // Freelook: camera at orbit position but height responds to vertical drag
-          var camX = t[0] + Math.sin(self._angle) * r * 0.5;
-          var camZ = t[2] + Math.cos(self._angle) * r * 0.5;
-          self._camera.lookAt(
-            [camX, h, camZ],
-            [camX + Math.sin(self._angle + Math.PI), h, camZ + Math.cos(self._angle + Math.PI)],
-            [0, 1, 0]
-          );
-        } else {
-          // Default orbit
-          self._camera.lookAt(
-            [t[0] + Math.sin(self._angle) * r, h, t[2] + Math.cos(self._angle) * r],
-            t,
-            [0, 1, 0]
-          );
+        // 'onDemand': park once a frame is on screen and nothing moves any more.
+        // requestRender() (input, camera and scene calls) re-arms the loop. A call
+        // made during the draw itself, from an onFrame callback, keeps it going one
+        // more frame: the flag is cleared here and re-read once the frame is out.
+        self._renderRequested = false;
+        if (self._drawFrame() && self._renderMode === 'onDemand' && self._isIdle()
+            && !self._renderRequested) {
+          self._rafId = null;
+          return;
         }
-
-        self._engine.execute();
-        try {
-          if (self._renderer.beginFrame(self._swapChain)) {
-            self._renderer.renderView(self._view);
-            self._renderer.endFrame();
-          }
-        } catch (e) {
-          // Filament 1.70 may need different render call
-          console.error('SceneView render error:', e.message);
-          self._running = false;
-        }
-        requestAnimationFrame(render);
+        self._rafId = requestAnimationFrame(render);
       }
-      render();
+      self._rafId = requestAnimationFrame(render);
+    }
+
+    /**
+     * Position the camera for the current mode and draw one frame. Called by the
+     * render loop every tick, and by _primeFrame() while the loop is suspended.
+     * Returns false when Filament skipped the frame (beginFrame() said no).
+     */
+    _drawFrame() {
+      var self = this;
+      var t = self._orbitTarget;
+      var r = self._orbitRadius;
+      var h = self._orbitHeight;
+      var mode = self._cameraMode || 'orbit';
+      // Mutate the reusable eye/center/up scratch arrays in place instead of
+      // allocating fresh arrays every frame (#2274). Camera.lookAt reads them
+      // synchronously, so reuse is safe.
+      var eye = self._eye;
+      var center = self._center;
+      if (mode === 'map') {
+        // Top-down: camera above target, looking straight down
+        eye[0] = t[0]; eye[1] = t[1] + r * 2; eye[2] = t[2];
+        center[0] = t[0]; center[1] = t[1]; center[2] = t[2];
+        self._camera.lookAt(eye, center, self._upMap);
+      } else if (mode === 'freelook') {
+        // Freelook: camera at orbit position but height responds to vertical drag
+        var camX = t[0] + Math.sin(self._angle) * r * 0.5;
+        var camZ = t[2] + Math.cos(self._angle) * r * 0.5;
+        eye[0] = camX; eye[1] = h; eye[2] = camZ;
+        center[0] = camX + Math.sin(self._angle + Math.PI);
+        center[1] = h;
+        center[2] = camZ + Math.cos(self._angle + Math.PI);
+        self._camera.lookAt(eye, center, self._up);
+      } else {
+        // Default orbit
+        eye[0] = t[0] + Math.sin(self._angle) * r;
+        eye[1] = h;
+        eye[2] = t[2] + Math.cos(self._angle) * r;
+        center[0] = t[0]; center[1] = t[1]; center[2] = t[2];
+        self._camera.lookAt(eye, center, self._up);
+      }
+
+      self._engine.execute();
+      try {
+        if (self._renderer.beginFrame(self._swapChain)) {
+          self._renderer.renderView(self._view);
+          self._renderer.endFrame();
+          self._emitFrame();
+          return true;
+        }
+      } catch (e) {
+        // Filament 1.70 may need different render call
+        console.error('SceneView render error:', e.message);
+        self._running = false;
+      }
+      return false;
+    }
+
+    /**
+     * Hand the just-drawn canvas to onFrame() listeners. Runs in the same task as the
+     * draw, so drawImage(canvas) still sees the frame (no preserveDrawingBuffer).
+     * @private
+     */
+    _emitFrame() {
+      if (this._frameCallbacks.size === 0) return;
+      for (const callback of this._frameCallbacks) {
+        try {
+          callback(this._canvas);
+        } catch (e) {
+          console.error('SceneView: onFrame callback failed', e);
+        }
+      }
+    }
+
+    /**
+     * Draw a single frame while the loop is suspended off-screen (#3690).
+     *
+     * The visibility gate (#2508) stops the loop before a below-the-fold viewer
+     * has ever drawn its model, so the canvas stays empty until the reader
+     * scrolls to it: a full-page capture, a print, or any compositor that reads
+     * the canvas while it is off-screen gets a blank frame, and the first real
+     * frame pays for the shader compile and texture upload at the moment the
+     * reader arrives. One frame once the model, the IBL or the canvas size
+     * changes keeps the canvas current at the cost of a single draw. It never
+     * re-arms the loop: the gate still decides when rendering runs. Also redraws a
+     * loop parked by 'onDemand' mode after a resize.
+     *
+     * @param {boolean} [deferred=false] - draw on the next animation frame instead of
+     *   now, so several requestRender() calls in one task draw once
+     */
+    _primeFrame(deferred) {
+      var self = this;
+      if (self._primeRafId) return;  // a retry is already queued
+      var attempts = 0;
+      function attempt() {
+        self._primeRafId = null;
+        // The running loop draws the next frame anyway; a disposed viewer never.
+        if (self._rafId !== null || !self._running) return;
+        // beginFrame() skips a frame while the GPU is still behind, and a parked
+        // loop would never ask again: retry on the next few animation frames.
+        if (!self._drawFrame() && ++attempts < 10) {
+          self._primeRafId = requestAnimationFrame(attempt);
+        }
+      }
+      if (deferred) self._primeRafId = requestAnimationFrame(attempt);
+      else attempt();
     }
 
     // ---------------------------------------------------------------
@@ -1819,6 +2212,7 @@
         });
         this._mediaNodes.clear();
       }
+      this.requestRender();
     }
 
     // ---------------------------------------------------------------
@@ -1852,7 +2246,8 @@
       this._animationLoop = loop !== false; // default true
       this._animationStart = performance.now();
       this._animationPauseTime = -1;
-      return this;
+      this._animationDone = false;
+      return this.requestRender();
     }
 
     /**
@@ -1862,7 +2257,7 @@
     stopAnimation() {
       this._animationIndex = -1;
       this._animationPauseTime = -1;
-      return this;
+      return this.requestRender();
     }
 
     /** @private Drive the animator from the render loop. */
@@ -1880,6 +2275,7 @@
             t = t - Math.floor(t / dur) * dur;
           } else if (t > dur) {
             t = dur;
+            this._animationDone = true; // lets an 'onDemand' loop park on the last pose
           }
         }
         this._animator.applyAnimation(this._animationIndex, t);
@@ -1897,12 +2293,18 @@
      * Remove a single light from the scene by its entity handle (as returned
      * by addLight()). Use this to clean up lights between playground previews.
      *
-     * @param {number} entity - Entity handle returned by addLight()
+     * @param {Object} entity - Filament Entity handle returned by addLight()
      * @returns {SceneViewInstance} this (for chaining)
      */
     removeLight(entity) {
       try { this._scene.remove(entity); } catch (e) { /* ignore */ }
-      return this;
+      // A light created by addLight() is owned by the viewer: untrack it and
+      // free its light and transform components. The Filament.js LightManager
+      // binding has no destroy() of its own.
+      if (this._lightEntities.delete(entity)) {
+        try { this._engine.destroyEntity(entity); } catch (e) { /* ignore */ }
+      }
+      return this.requestRender();
     }
 
     /**
@@ -1925,7 +2327,7 @@
       }
       // Also drop IBL so the user-provided lights dominate
       try { this._scene.setIndirectLight(null); } catch (e) { /* ignore */ }
-      return this;
+      return this.requestRender();
     }
 
     /**
@@ -2171,6 +2573,7 @@
         this._scene.addEntity(asset.getRoot());
         this._scene.addEntities(asset.getRenderableEntities());
         this._primitiveAssets.push(asset);
+        this.requestRender();
         return asset;
       } catch (e) {
         console.warn('SceneView: createPrimitive error', e);
@@ -2207,7 +2610,11 @@
     canvas.width = cssW * dpr;
     canvas.height = cssH * dpr;
 
-    var engine = Filament.Engine.create(canvas);
+    // transparent: an alpha WebGL context, so the page shows through cleared pixels.
+    var transparent = options.transparent === true;
+    var engine = transparent
+      ? Filament.Engine.create(canvas, { alpha: true })
+      : Filament.Engine.create(canvas);
     var scene = engine.createScene();
     var renderer = engine.createRenderer();
     var cameraEntity = Filament.EntityManager.get().create();
@@ -2218,15 +2625,17 @@
     view.setCamera(camera);
     view.setScene(scene);
     view.setViewport([0, 0, canvas.width, canvas.height]);
+    if (transparent) {
+      // Blend the view over a transparent clear instead of writing opaque pixels.
+      try { view.setBlendMode(Filament.View$BlendMode.TRANSLUCENT); } catch (_e) { /* older Filament */ }
+      // Temporal dithering writes noise into the alpha channel: a speckled halo on the page.
+      try { view.setDithering(Filament.View$Dithering.NONE); } catch (_e) { /* older Filament */ }
+    }
 
-    var bg = options.backgroundColor || [0.05, 0.06, 0.1, 1.0];
+    var bg = options.backgroundColor || (transparent ? [0, 0, 0, 0] : [0.05, 0.06, 0.1, 1.0]);
     renderer.setClearOptions({ clearColor: bg, clear: true });
 
     var fov = options.fov || 45;
-    // Provisional frustum: near/far are placeholders for the empty scene and are
-    // replaced by _applyProjection() as soon as a model is framed. Never rely on
-    // these two numbers — a model larger than 1000 units would fall behind the
-    // far plane and render nothing.
     camera.setProjectionFov(fov, canvas.width / canvas.height, 0.1, 1000, Filament.Camera$Fov.VERTICAL);
     camera.lookAt([0, 1, 5], [0, 0, 0], [0, 1, 0]);
 
@@ -2269,7 +2678,7 @@
     scene.addEntity(back);
 
     // --- IBL: load real KTX if available, fallback to synthetic SH ---
-    var iblUrl = options.iblUrl || 'environments/neutral_ibl.ktx';
+    var iblUrl = options.iblUrl || '/environments/neutral_ibl.ktx';
     fetch(iblUrl)
       .then(function(r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -2280,14 +2689,16 @@
           var ibl = engine.createIblFromKtx1(buffer);
           ibl.setIntensity(options.iblIntensity || 40000);
           scene.setIndirectLight(ibl);
-          console.log('SceneView: KTX IBL loaded (' + Math.round(buffer.length / 1024) + 'KB)');
+          _log('SceneView: KTX IBL loaded (' + Math.round(buffer.length / 1024) + 'KB)');
         } catch (e) {
           console.warn('SceneView: createIblFromKtx1 failed, using SH fallback', e);
           _applySyntheticIBL(engine, scene);
         }
+        if (instance) instance.requestRender();
       })
       .catch(function() {
         _applySyntheticIBL(engine, scene);
+        if (instance) instance.requestRender();
       });
 
     var loader = engine.createAssetLoader();
@@ -2297,6 +2708,7 @@
     instance._baseLights = [sun, fill, back];
 
     if (options.autoRotate === false) instance.setAutoRotate(false);
+    if (options.renderMode !== undefined) instance.setRenderMode(options.renderMode);
 
     return instance;
   }
@@ -2320,30 +2732,76 @@
         .intensity(45000)
         .build(engine);
       scene.setIndirectLight(ibl);
-      console.log('SceneView: Using synthetic SH IBL');
+      _log('SceneView: Using synthetic SH IBL');
     } catch (e) { /* skip */ }
   }
 
+  /**
+   * Create a viewer on a canvas.
+   *
+   * @param {string|HTMLCanvasElement} canvasOrId - canvas element or its id
+   * @param {Object} [options]
+   * @param {boolean} [options.transparent=false] - alpha canvas: cleared pixels show the
+   *   page behind it (backgroundColor defaults to [0, 0, 0, 0])
+   * @param {number[]} [options.backgroundColor] - clear colour [r, g, b, a], 0-1
+   * @param {'continuous'|'onDemand'} [options.renderMode='continuous'] - see setRenderMode()
+   * @param {boolean} [options.autoRotate=true] - orbit slowly until the user drags
+   * @param {number} [options.fov=45] - vertical field of view in degrees
+   * @param {string} [options.iblUrl] - KTX1 environment for image-based lighting
+   * @param {number} [options.iblIntensity=40000]
+   * @param {number} [options.lightIntensity=110000] - key (sun) light
+   * @param {number} [options.initTimeoutMs=15000] - engine-init watchdog, <= 0 disables it
+   * @returns {Promise<SceneViewInstance>}
+   */
   function create(canvasOrId, options) {
-    return _ensureFilament().then(function() {
-      return new Promise(function(resolve, reject) {
-        if (typeof Filament.Engine !== 'undefined') {
-          try {
-            var instance = _createEngine(canvasOrId, options);
-            if (instance) resolve(instance);
-            else reject(new Error('SceneView: Canvas already initialized'));
-          } catch (e) { reject(e); }
-          return;
-        }
-        Filament.init([], function() {
-          try {
-            var instance = _createEngine(canvasOrId, options);
-            if (instance) resolve(instance);
-            else reject(new Error('SceneView: Canvas already initialized'));
-          } catch (e) { reject(e); }
-        });
+    options = options || {};
+    // Engine-init watchdog (#2563): Filament.init only takes a success callback,
+    // so a failed WASM init (CSP-blocked eval, asset 404, OOM…) would otherwise
+    // hang every caller forever. Race init against a timeout so failure is
+    // deterministic, and paint the "3D preview unavailable" placeholder instead
+    // of leaving an infinite spinner. Override with options.initTimeoutMs
+    // (<= 0 disables the watchdog).
+    var timeoutMs = typeof options.initTimeoutMs === 'number' ? options.initTimeoutMs : 15000;
+
+    var engineReady = _ensureFilament().then(function() {
+      return new Promise(function(resolve) {
+        if (typeof Filament.Engine !== 'undefined') { resolve(); return; }
+        Filament.init([], function() { resolve(); });
       });
     });
+
+    if (timeoutMs > 0) {
+      var timer;
+      engineReady = Promise.race([
+        engineReady,
+        new Promise(function(_, reject) {
+          timer = setTimeout(function() {
+            reject(new Error('SceneView: Filament engine init timed out after ' + timeoutMs +
+              'ms — 3D disabled (WASM blocked or failed to load)'));
+          }, timeoutMs);
+        })
+      ]).then(
+        function(v) { clearTimeout(timer); return v; },
+        function(e) { clearTimeout(timer); throw e; }
+      );
+    }
+
+    return engineReady.then(
+      function() {
+        // Engine is up — instance-creation failures (canvas not found, canvas
+        // already initialized) are NOT init failures: never paint the overlay
+        // here, it could cover an already-live viewer.
+        var instance = _createEngine(canvasOrId, options);
+        if (instance) return instance;
+        throw new Error('SceneView: Canvas already initialized');
+      },
+      function(e) {
+        // Init-stage failure: degrade to the placeholder, then propagate so
+        // existing .catch() callers keep their behaviour.
+        _showInitFallback(canvasOrId);
+        throw e;
+      }
+    );
   }
 
   function modelViewer(canvasOrId, modelUrl, options) {
@@ -2353,7 +2811,7 @@
   }
 
   global.SceneView = {
-    version: '3.6.0',
+    version: '4.52.0',
     create: create,
     modelViewer: modelViewer
   };

@@ -2856,10 +2856,12 @@ sheet, or opens a pre-filled GitHub issue in the browser. See the
 <li>WebXR AR/VR support ("Enter AR" / "Enter VR" buttons)</li>
 <li>Orbit camera, auto-resize</li>
 </ul>
-<p>A plain static site (HTML + inline JS + a self-hosted <code>sceneview.js</code>) —
-not a Gradle module. Open <code>samples/web-demo/site/index.html</code> directly, or
-serve the folder:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npx<span class="w"> </span>http-server<span class="w"> </span>samples/web-demo/site<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>
+<p>A plain static site (HTML + inline JS) — not a Gradle module. It runs the
+same viewer as sceneview.dev, <code>website-static/js/sceneview.js</code>, which is not
+committed under the demo. From the repository root, stage it and serve the
+folder:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>cp<span class="w"> </span>website-static/js/sceneview.js<span class="w"> </span>samples/web-demo/site/js/sceneview.js
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>npx<span class="w"> </span>http-server<span class="w"> </span>samples/web-demo/site<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>
 </span></code></pre></div>
 <h3 id="desktop-demo">Desktop Demo<a class="headerlink" href="#desktop-demo" title="Permanent link">&para;</a></h3>
 <p><strong><code>samples/desktop-demo/</code></strong> — Compose Desktop (<code>SceneViewer</code>)</p>
