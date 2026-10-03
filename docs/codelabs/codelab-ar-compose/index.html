@@ -2954,7 +2954,7 @@ ARSceneView(
 <pre class="language-kotlin"><code>val engine = rememberEngine()
 val modelLoader = rememberModelLoader(engine)
 
-val modelInstance = rememberModelInstance(modelLoader, "models/damaged_helmet.glb")
+val modelInstance = rememberModelInstance(modelLoader, "models/toy_car.glb")
 
 var anchor by remember { mutableStateOf&lt;Anchor?&gt;(null) }
 
@@ -3053,7 +3053,7 @@ fun ARViewerScreen() {
     val modelLoader = rememberModelLoader(engine)
     val materialLoader = rememberMaterialLoader(engine)
 
-    val modelInstance = rememberModelInstance(modelLoader, "models/damaged_helmet.glb")
+    val modelInstance = rememberModelInstance(modelLoader, "models/toy_car.glb")
 
     var anchor by remember { mutableStateOf&lt;Anchor?&gt;(null) }
 
