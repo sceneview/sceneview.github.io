@@ -3004,9 +3004,9 @@
 <p>Sync Gradle.</p>
 <h3 id="add-a-3d-model-asset">Add a 3D model asset<a class="headerlink" href="#add-a-3d-model-asset" title="Permanent link">&para;</a></h3>
 <p>Create <code>app/src/main/assets/models/</code> and put a <code>.glb</code> file inside it.</p>
-<p>For this codelab, use the <strong>Damaged Helmet</strong> from the Khronos glTF sample assets:
-- Download: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/DamagedHelmet/glTF-Binary/DamagedHelmet.glb
-- Save as: <code>app/src/main/assets/models/damaged_helmet.glb</code></p>
+<p>For this codelab, use the <strong>Toy Car</strong> from the Khronos glTF sample assets (CC0):
+- Download: https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ToyCar/glTF-Binary/ToyCar.glb
+- Save as: <code>app/src/main/assets/models/toy_car.glb</code></p>
 <h3 id="add-an-hdr-environment">Add an HDR environment<a class="headerlink" href="#add-an-hdr-environment" title="Permanent link">&para;</a></h3>
 <p>Download a sky HDR for ambient lighting:
 - Download: https://polyhaven.com/a/industrial_sunset_02_puresky (2K HDR, free)
@@ -3047,7 +3047,7 @@ fun ModelViewerScreen() {
 
     // Loads asynchronously on IO, creates Filament assets on Main.
     // Returns null while loading, non-null when ready.
-    val modelInstance = rememberModelInstance(modelLoader, "models/damaged_helmet.glb")
+    val modelInstance = rememberModelInstance(modelLoader, "models/toy_car.glb")
 
     SceneView(
         modifier = Modifier.fillMaxSize(),
@@ -3161,7 +3161,7 @@ fun ModelViewerScreen() {
     val modelLoader = rememberModelLoader(engine)
     val environmentLoader = rememberEnvironmentLoader(engine)
 
-    val modelInstance = rememberModelInstance(modelLoader, "models/damaged_helmet.glb")
+    val modelInstance = rememberModelInstance(modelLoader, "models/toy_car.glb")
     val environment = rememberEnvironment(environmentLoader) {
         environmentLoader.createHDREnvironment("environments/sky_2k.hdr")
             ?: createEnvironment(environmentLoader)

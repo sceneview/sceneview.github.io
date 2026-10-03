@@ -2766,14 +2766,14 @@
 <p>Sync Gradle.</p>
 <hr />
 <h2 id="step-3-add-a-3d-model">Step 3: Add a 3D model<a class="headerlink" href="#step-3-add-a-3d-model" title="Permanent link">&para;</a></h2>
-<p>You need a glTF/GLB file in the assets folder. The <strong>Damaged Helmet</strong> from Khronos is a good first model.</p>
+<p>You need a glTF/GLB file in the assets folder. The <strong>Toy Car</strong> from the Khronos glTF Sample Assets (CC0) is a good first model.</p>
 <ol>
 <li>Create the directory <code>app/src/main/assets/models/</code>.</li>
 <li>Download the model:<ul>
-<li><a href="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/DamagedHelmet/glTF-Binary/DamagedHelmet.glb">DamagedHelmet.glb</a></li>
+<li><a href="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ToyCar/glTF-Binary/ToyCar.glb">ToyCar.glb</a></li>
 </ul>
 </li>
-<li>Save it as <code>app/src/main/assets/models/damaged_helmet.glb</code>.</li>
+<li>Save it as <code>app/src/main/assets/models/toy_car.glb</code>.</li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2810,7 +2810,7 @@ class MainActivity : ComponentActivity() {
                 modelLoader = modelLoader,
                 cameraManipulator = rememberCameraManipulator(),
             ) {
-                rememberModelInstance(modelLoader, "models/damaged_helmet.glb")
+                rememberModelInstance(modelLoader, "models/toy_car.glb")
                     ?.let { instance -&gt;
                         ModelNode(
                             modelInstance = instance,
@@ -2869,7 +2869,7 @@ class MainActivity : ComponentActivity() {
 <h2 id="step-5-run-it">Step 5: Run it<a class="headerlink" href="#step-5-run-it" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Click <strong>Run</strong> (or press <code>Shift+F10</code>).</li>
-<li>After a brief loading moment, you will see the Damaged Helmet rendered in your viewport.</li>
+<li>After a brief loading moment, you will see the Toy Car rendered in your viewport.</li>
 <li><strong>Drag</strong> to orbit around the model, <strong>pinch</strong> to zoom, and <strong>two-finger drag</strong> to pan.</li>
 </ol>
 <p>That is a production-quality, physically-based 3D viewer in under 30 lines of code.</p>
