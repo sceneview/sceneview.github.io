@@ -424,7 +424,6 @@ $dokka.location:io.github.sceneview.ar.node//computeARFogFactor/#kotlin.Float#ko
 $dokka.location:io.github.sceneview.ar.node//toMeshClassification/com.google.ar.core.StreetscapeGeometry.Type#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/to-mesh-classification.html
 $dokka.location:io.github.sceneview.ar.node/ARCameraNode///PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/-a-r-camera-node/index.html
 $dokka.location:io.github.sceneview.ar.node/ARCameraNode/ARCameraNode/#com.google.android.filament.Engine/PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/-a-r-camera-node/-a-r-camera-node.html
-$dokka.location:io.github.sceneview.ar.node/ARCameraNode/contentPadding/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/-a-r-camera-node/content-padding.html
 $dokka.location:io.github.sceneview.ar.node/ARCameraNode/frame/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/-a-r-camera-node/frame.html
 $dokka.location:io.github.sceneview.ar.node/ARCameraNode/onCameraUpdated/#com.google.ar.core.Camera/PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/-a-r-camera-node/on-camera-updated.html
 $dokka.location:io.github.sceneview.ar.node/ARCameraNode/onTrackingStateChanged/#com.google.ar.core.TrackingState/PointingToDeclaration/arsceneview/io.github.sceneview.ar.node/-a-r-camera-node/on-tracking-state-changed.html
