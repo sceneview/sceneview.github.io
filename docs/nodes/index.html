@@ -4640,21 +4640,31 @@ SceneView(engine = engine, cameraNode = cameraNode) {
 )</code></pre>
 <hr />
 <h2 id="videonode">VideoNode<a class="headerlink" href="#videonode" title="Permanent link">&para;</a></h2>
-<p>Plays a <code>MediaPlayer</code> video onto a 3D quad. Supports optional chroma keying (green-screen removal).</p>
-<pre class="language-kotlin"><code>val mediaPlayer = remember {
-    MediaPlayer.create(context, R.raw.my_video).apply { isLooping = true }
-}
-DisposableEffect(mediaPlayer) {
-    mediaPlayer.start()
-    onDispose { mediaPlayer.release() }
-}
-
-VideoNode(
-    player = mediaPlayer,
+<p>Plays a video onto a 3D quad. Supports optional chroma keying (green-screen removal).</p>
+<pre class="language-kotlin"><code>VideoNode(
+    videoPath = "videos/promo.mp4", // under assets/, or an https://, file:// or content:// location
+    autoPlay = isPlaying,           // reactive: true plays, false pauses
     size = Size(x = 1.6f, y = 0.9f),
     chromaKeyColor = android.graphics.Color.GREEN, // optional green-screen key
-    position = Position(0f, 1f, -2f)
+    position = Position(0f, 1f, -2f),
+    onError = { cause -&gt; videoError = cause }      // missing file, unsupported codec, broken stream
 )</code></pre>
+<p>The video is prepared off the main thread: the node appears once it is ready, and until then, or
+if it fails, it emits nothing. To show a placeholder and a fallback, hold the player yourself —
+<code>rememberMediaPlayer</code> returns where it stands:</p>
+<pre class="language-kotlin"><code>when (val video = rememberMediaPlayer("videos/promo.mp4")) {
+    is MediaPlayerState.Ready -&gt; VideoNode(player = video.player, position = Position(0f, 1f, -2f))
+    is MediaPlayerState.Failed -&gt; ImageNode(bitmap = unavailableStill, position = Position(0f, 1f, -2f))
+    MediaPlayerState.Preparing -&gt; ImageNode(bitmap = loadingStill, position = Position(0f, 1f, -2f))
+}</code></pre>
+<p>The player is released when the location changes and when the call leaves the composition. Both
+APIs are <code>@ExperimentalSceneViewApi</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Never prepare a player inside <code>remember { }</code></p>
+<p><code>MediaPlayer.create(…)</code> and <code>MediaPlayer.prepare()</code> parse the file on the calling thread: in
+<code>remember { }</code> that is the main thread, during composition. <code>VideoNode(player = …)</code> takes a
+player you prepared with <code>prepareAsync()</code>.</p>
+</div>
 <hr />
 <h2 id="billboardnode">BillboardNode<a class="headerlink" href="#billboardnode" title="Permanent link">&para;</a></h2>
 <p>A bitmap on a flat quad that turns toward the camera — an <a href="#imagenode">ImageNode</a> that

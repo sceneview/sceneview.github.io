@@ -2518,6 +2518,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.53.x to 4.54.0 (Android) — rememberMediaPlayer returns a MediaPlayerState
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.53.x to 4.54.0 (Android) — rememberMediaPlayer returns a MediaPlayerState">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-video-player-is-prepared-off-the-main-thread-and-says-when-it-fails-4388" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The video player is prepared off the main thread, and says when it fails (#4388)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3089,6 +3117,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 4.53.x to 4.54.0 (Android) — rememberMediaPlayer returns a MediaPlayerState
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SceneView 4.53.x to 4.54.0 (Android) — rememberMediaPlayer returns a MediaPlayerState">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-video-player-is-prepared-off-the-main-thread-and-says-when-it-fails-4388" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The video player is prepared off the main thread, and says when it fails (#4388)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3657,6 +3713,70 @@ your app uses.</p>
 <p>SceneView is open source and maintained by its community. If your app ships with it, you can
 support the project on <a href="https://opencollective.com/sceneview">Open Collective</a>.</p>
 <hr />
+<h2 id="sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate">SceneView 4.53.x to 4.54.0 (Android) — <code>rememberMediaPlayer</code> returns a <code>MediaPlayerState</code><a class="headerlink" href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate" title="Permanent link">&para;</a></h2>
+<h3 id="the-video-player-is-prepared-off-the-main-thread-and-says-when-it-fails-4388">The video player is prepared off the main thread, and says when it fails (<a href="https://github.com/sceneview/sceneview/issues/4388">#4388</a>)<a class="headerlink" href="#the-video-player-is-prepared-off-the-main-thread-and-says-when-it-fails-4388" title="Permanent link">&para;</a></h3>
+<p><code>rememberMediaPlayer</code> used to call the blocking <code>MediaPlayer.prepare()</code> during composition — a
+frozen frame for a long clip, an ANR for a slow one — and turned every failure into <code>null</code>, which
+was also what it returned for nothing at all: a missing asset and an unsupported codec looked the
+same as a video that was fine, and <code>VideoNode(videoPath = …)</code> then rendered nothing without a word.</p>
+<p>It now prepares the player with <code>prepareAsync()</code> and returns where it stands:</p>
+<pre class="language-kotlin"><code>sealed interface MediaPlayerState {
+    data object Preparing : MediaPlayerState
+    class Ready(val player: MediaPlayer) : MediaPlayerState
+    class Failed(val cause: Exception) : MediaPlayerState
+}</code></pre>
+<pre class="language-kotlin"><code>// Before
+val context = LocalContext.current
+val player = rememberMediaPlayer(context, assetFileLocation = "videos/promo.mp4", autoStart = true)
+SceneView {
+    player?.let { VideoNode(player = it, position = Position(z = -2f)) }
+}
+
+// After
+SceneView {
+    when (val video = rememberMediaPlayer("videos/promo.mp4", autoPlay = true)) {
+        is MediaPlayerState.Ready -&gt; VideoNode(player = video.player, position = Position(z = -2f))
+        is MediaPlayerState.Failed -&gt; Unit // video.cause says why: show your own fallback
+        MediaPlayerState.Preparing -&gt; Unit // not ready yet: show your own placeholder
+    }
+}</code></pre>
+<p><code>VideoNode(videoPath = …)</code> keeps its shape and gains <code>onError</code>:</p>
+<pre class="language-kotlin"><code>SceneView {
+    VideoNode(
+        videoPath = "videos/promo.mp4",
+        position = Position(z = -2f),
+        onError = { cause -&gt; videoError = cause }
+    )
+}</code></pre>
+<p><strong>Key differences:</strong></p>
+<ul>
+<li><strong><code>rememberMediaPlayer(context, assetFileLocation, isLooping, autoStart): MediaPlayer?</code> is
+  removed outright — there is no deprecated overload.</strong> Both video APIs are
+  <code>@ExperimentalSceneViewApi</code>, and a nullable player cannot tell "not ready yet" from "never will
+  be". The parameters are now <code>(fileLocation, isLooping, autoPlay)</code>: no <code>context</code> (it is read from
+  the composition), <code>assetFileLocation</code> → <code>fileLocation</code>, <code>autoStart</code> → <code>autoPlay</code> (the name
+  <code>VideoNode(videoPath, autoPlay)</code> already used).</li>
+<li><strong>The first composition never has a player.</strong> Code that read <code>player.videoWidth</code> or called
+  <code>player.seekTo(…)</code> right after <code>rememberMediaPlayer</code> must move under the
+  <code>is MediaPlayerState.Ready</code> branch.</li>
+<li><strong><code>fileLocation</code> and <code>videoPath</code> accept a URL.</strong> A location with a scheme (<code>https://</code>, <code>file://</code>,
+  <code>content://</code>, <code>android.resource://</code>) is streamed or read from there; a location without one is
+  still a path under <code>assets/</code>. A streamed URL needs the <code>android.permission.INTERNET</code> permission.</li>
+<li><strong><code>isLooping</code> and <code>autoPlay</code> are reactive.</strong> They were read once; they are now applied each time
+  they change, so <code>autoPlay = isPlaying</code> is a play/pause button. If you start and pause the player
+  yourself, pass <code>autoPlay = false</code> and leave it there.</li>
+<li><strong>A failure reaches you, once.</strong> <code>MediaPlayerState.Failed.cause</code> (or <code>onError</code>) is the exception
+  thrown while opening the source — a <code>FileNotFoundException</code> for a missing asset — or a
+  <code>MediaPlayerException(what, extra)</code> with the codes the player reported. It is also logged once,
+  at warning level, under the <code>MediaPlayerState</code> tag.</li>
+<li><strong>Do not release the player.</strong> It is released when the location changes and when the call leaves
+  the composition, as before. The asset descriptor, which used to leak, is now closed as soon as
+  the player has its source.</li>
+<li><strong>Your own <code>MediaPlayer</code></strong> still goes to <code>VideoNode(player = …)</code>. Prepare it with
+  <code>prepareAsync()</code> and hand it over from <code>setOnPreparedListener</code>; <code>MediaPlayer.create(…)</code> and
+  <code>prepare()</code> inside <code>remember { }</code> block the main thread exactly as the old helper did.</li>
+</ul>
+<hr />
 <h2 id="sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy">SceneView 4.37.x to 4.38.0 (Android) — <code>isRendering</code> replaced by <code>frameRatePolicy</code><a class="headerlink" href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" title="Permanent link">&para;</a></h2>
 <h3 id="sceneviewisrendering-is-removed-render-on-demand-is-the-default-3108"><code>SceneView(isRendering:)</code> is removed; render-on-demand is the default (<a href="https://github.com/sceneview/sceneview/issues/3108">#3108</a>)<a class="headerlink" href="#sceneviewisrendering-is-removed-render-on-demand-is-the-default-3108" title="Permanent link">&para;</a></h3>
 <p>A <code>SceneView</code> no longer renders every vsync for as long as it is composed. The new
@@ -4207,6 +4327,12 @@ SceneView {
 SceneView {
     VideoNode(videoPath = "videos/promo.mp4", position = Position(z = -2f))
 }</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Changed in 4.54.0</p>
+<p>The "Before" lines are the 3.5 API. <code>rememberMediaPlayer</code> no longer takes a <code>context</code> nor
+returns a nullable player: see
+<a href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate"><code>rememberMediaPlayer</code> returns a <code>MediaPlayerState</code></a>.</p>
+</div>
 <h3 id="6-new-composables-shapenode-and-physicsnode">6. New composables: <code>ShapeNode</code> and <code>PhysicsNode</code><a class="headerlink" href="#6-new-composables-shapenode-and-physicsnode" title="Permanent link">&para;</a></h3>
 <p>Both are now available directly in the <code>SceneView { }</code> DSL:</p>
 <pre class="language-kotlin"><code>SceneView {
