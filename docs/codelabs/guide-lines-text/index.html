@@ -2880,23 +2880,25 @@ val closedPath = remember(engine) {
 }</code></pre>
 <hr />
 <h2 id="text-labels">Text labels<a class="headerlink" href="#text-labels" title="Permanent link">&para;</a></h2>
-<p><code>TextNode</code> renders text to a bitmap and displays it as a camera-facing billboard.</p>
-<pre class="language-kotlin"><code>var cameraPos by remember { mutableStateOf(Position()) }
+<p><code>TextNode</code> renders text to a bitmap and displays it on a quad that turns toward the camera
+when it is given a <code>cameraPositionProvider</code>.</p>
+<pre class="language-kotlin"><code>val cameraNode = rememberCameraNode(engine)
 
 SceneView(
     engine = engine,
     modelLoader = modelLoader,
-    onFrame = { cameraPos = cameraNode.worldPosition }
+    cameraNode = cameraNode
 ) {
     TextNode(
-        materialLoader = materialLoader,
         text = "Hello 3D!",
         fontSize = 48f,
         textColor = android.graphics.Color.WHITE,
         backgroundColor = 0xCC000000.toInt(),
+        typeface = Typeface.DEFAULT_BOLD,
         widthMeters = 0.6f,
         heightMeters = 0.2f,
-        cameraPositionProvider = { cameraPos }
+        // Read by the node on each frame — no Compose state, no recomposition.
+        cameraPositionProvider = { cameraNode.worldPosition }
     )
 }</code></pre>
 <h3 id="parameters">Parameters<a class="headerlink" href="#parameters" title="Permanent link">&para;</a></h3>
@@ -2925,32 +2927,36 @@ SceneView(
 <td>ARGB background fill</td>
 </tr>
 <tr>
+<td><code>typeface</code></td>
+<td><code>android.graphics.Typeface</code> of the text (default <code>Typeface.DEFAULT_BOLD</code>)</td>
+</tr>
+<tr>
 <td><code>widthMeters</code> / <code>heightMeters</code></td>
-<td>Size of the quad in world space</td>
+<td>Size of the quad in world space (read once, at creation)</td>
+</tr>
+<tr>
+<td><code>position</code> / <code>scale</code></td>
+<td>Local transform of the label</td>
 </tr>
 <tr>
 <td><code>cameraPositionProvider</code></td>
-<td>Lambda returning camera position — label faces the camera</td>
-</tr>
-<tr>
-<td><code>bitmapWidth</code> / <code>bitmapHeight</code></td>
-<td>Resolution of the backing bitmap (default 512x128)</td>
+<td>Lambda returning camera position — label faces the camera. Without it the label does not turn</td>
 </tr>
 </tbody>
 </table>
+<p>The backing bitmap is 512 × 128 px. <code>bitmapWidth</code> / <code>bitmapHeight</code> are not parameters of the
+composable: they belong to the constructor of the node class, <code>io.github.sceneview.node.TextNode</code>.</p>
 <h3 id="positioning-labels">Positioning labels<a class="headerlink" href="#positioning-labels" title="Permanent link">&para;</a></h3>
 <p>Set the label's position like any node:</p>
 <pre class="language-kotlin"><code>TextNode(
-    materialLoader = materialLoader,
     text = "Earth",
-    cameraPositionProvider = { cameraPos }
-).apply {
-    position = Position(x = 0f, y = 2f, z = 0f)
-}</code></pre>
+    position = Position(x = 0f, y = 2f, z = 0f),
+    cameraPositionProvider = { cameraNode.worldPosition }
+)</code></pre>
 <hr />
 <h2 id="combining-lines-and-labels">Combining lines and labels<a class="headerlink" href="#combining-lines-and-labels" title="Permanent link">&para;</a></h2>
 <p>A common pattern is annotating a 3D scene with measurement lines and labels:</p>
-<pre class="language-kotlin"><code>SceneView(engine = engine, modelLoader = modelLoader) {
+<pre class="language-kotlin"><code>SceneView(engine = engine, modelLoader = modelLoader, cameraNode = cameraNode) {
     // Measurement line
     val measureLine = remember(engine) {
         LineNode(engine, start = Position(-1f, 0f, 0f), end = Position(1f, 0f, 0f))
@@ -2959,15 +2965,13 @@ SceneView(
 
     // Label at midpoint
     TextNode(
-        materialLoader = materialLoader,
         text = "2.0 m",
         fontSize = 36f,
         widthMeters = 0.4f,
         heightMeters = 0.15f,
-        cameraPositionProvider = { cameraPos }
-    ).apply {
-        position = Position(0f, 0.2f, 0f)
-    }
+        position = Position(0f, 0.2f, 0f),
+        cameraPositionProvider = { cameraNode.worldPosition }
+    )
 }</code></pre>
 <hr />
 <h2 id="whats-next">What's next<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>

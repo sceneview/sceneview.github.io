@@ -1425,6 +1425,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="TextNode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gotchas_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3658,6 +3697,45 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="TextNode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#signature_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signature
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gotchas_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gotchas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3999,7 +4077,7 @@
 </ul>
 <p><strong>Content nodes</strong></p>
 <ul>
-<li><a href="#textnode">TextNode</a> — SDF text</li>
+<li><a href="#textnode">TextNode</a> — camera-facing text label</li>
 <li><a href="#imagenode">ImageNode</a> — textured quad</li>
 <li><a href="#videonode">VideoNode</a> — video texture</li>
 <li><a href="#billboardnode">BillboardNode</a> — always-face-camera</li>
@@ -4327,10 +4405,16 @@ which the touch callback does not receive — do not rely on back-face interacti
     invertFrontFaceWinding: Boolean = false,
     position: Position = Position(x = 0f),
     rotation: Rotation = Rotation(x = 0f),
-    apply: ViewNodeImpl.() -&gt; Unit = {},
+    scale: Scale = Scale(1f),
+    isVisible: Boolean = true,
+    apply: ViewNode.() -&gt; Unit = {},
     content: (@Composable NodeScope.() -&gt; Unit)? = null,
     viewContent: @Composable () -&gt; Unit
 )</code></pre>
+<p><code>position</code>, <code>rotation</code>, <code>scale</code>, <code>isVisible</code> and <code>viewContent</code> follow recomposition. <code>unlit</code>
+and <code>invertFrontFaceWinding</code> are read once, when the node is created, and <code>apply</code> runs once at
+the same moment. At <code>scale = Scale(1f)</code> the quad measures 1 m per 250 px of content, so a card
+usually wants a <code>scale</code> well under 1.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <pre class="language-kotlin"><code>val windowManager = rememberViewNodeManager()
 
@@ -4507,16 +4591,45 @@ Total height = <code>height + 2 * radius</code>.</p>
 </ul>
 <hr />
 <h2 id="textnode">TextNode<a class="headerlink" href="#textnode" title="Permanent link">&para;</a></h2>
-<p>SDF-based 3D text. Crisp at any distance, scales cleanly.</p>
+<p>A one-line text label. The text is drawn with Android <code>Canvas</code> into a bitmap — centred, on a
+rounded background — and shown on a flat quad that can turn toward the camera.</p>
+<h3 id="signature_4">Signature<a class="headerlink" href="#signature_4" title="Permanent link">&para;</a></h3>
 <pre class="language-kotlin"><code>TextNode(
-    text = "Hello, SceneView!",
-    size = 0.3f,                           // character height in meters
-    position = Position(0f, 1.5f, -2f),
-    materialInstance = remember(materialLoader) {
-        materialLoader.createColorInstance(Color.White, unlit = true)
-    }
+    text: String,
+    fontSize: Float = 48f,                 // pixels in the label bitmap, not metres
+    textColor: Int = android.graphics.Color.WHITE,
+    backgroundColor: Int = 0xCC000000.toInt(),
+    typeface: android.graphics.Typeface = android.graphics.Typeface.DEFAULT_BOLD,
+    widthMeters: Float = 0.6f,
+    heightMeters: Float = 0.2f,
+    position: Position = Position(x = 0f),
+    scale: Scale = Scale(1f),
+    cameraPositionProvider: (() -&gt; Position)? = null,
+    apply: TextNode.() -&gt; Unit = {},
+    content: (@Composable NodeScope.() -&gt; Unit)? = null
 )</code></pre>
-<p>For reactive Compose-style text, prefer <a href="#viewnode">ViewNode</a> with a <code>Text()</code> inside — it supports typography, rich formatting, layout.</p>
+<h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
+<pre class="language-kotlin"><code>val cameraNode = rememberCameraNode(engine)
+
+SceneView(engine = engine, cameraNode = cameraNode) {
+    TextNode(
+        text = "Hello, SceneView!",
+        typeface = Typeface.create("serif", Typeface.ITALIC),
+        position = Position(0f, 1.5f, -2f),
+        cameraPositionProvider = { cameraNode.worldPosition }
+    )
+}</code></pre>
+<h3 id="gotchas_4">Gotchas<a class="headerlink" href="#gotchas_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>It faces the camera only when given a <code>cameraPositionProvider</code>.</strong> Without one the label
+  keeps its parent's orientation. There is no <code>rotation</code> parameter.</li>
+<li><strong><code>text</code>, <code>fontSize</code>, <code>textColor</code>, <code>backgroundColor</code>, <code>typeface</code>, <code>position</code> and <code>scale</code>
+  follow recomposition.</strong> <code>widthMeters</code>, <code>heightMeters</code> and <code>cameraPositionProvider</code> are read
+  once, when the node is created.</li>
+<li><strong>The size of the label is <code>widthMeters</code> × <code>heightMeters</code></strong>, not <code>fontSize</code>: the bitmap is
+  512 × 128 px and is stretched over the quad, so keep the 4:1 ratio or the glyphs deform.</li>
+</ul>
+<p>For multi-line or styled text, prefer <a href="#viewnode">ViewNode</a> with a <code>Text()</code> inside — it supports typography, rich formatting, layout.</p>
 <hr />
 <h2 id="imagenode">ImageNode<a class="headerlink" href="#imagenode" title="Permanent link">&para;</a></h2>
 <p>A textured quad. Three overloads exist — bitmap, URL, or already-loaded <code>Texture</code>.</p>
@@ -4544,9 +4657,19 @@ VideoNode(
 )</code></pre>
 <hr />
 <h2 id="billboardnode">BillboardNode<a class="headerlink" href="#billboardnode" title="Permanent link">&para;</a></h2>
-<p>A wrapper that makes its children always face the camera. Commonly used for in-world labels.</p>
-<pre class="language-kotlin"><code>BillboardNode(position = Position(0f, 2f, 0f)) {
-    TextNode(text = "Tap me", size = 0.15f)
+<p>A bitmap on a flat quad that turns toward the camera — an <a href="#imagenode">ImageNode</a> that
+re-orients itself every frame. It faces the camera only when given a <code>cameraPositionProvider</code>.
+<a href="#textnode">TextNode</a> is a <code>BillboardNode</code> whose bitmap is rendered from a string.</p>
+<pre class="language-kotlin"><code>val cameraNode = rememberCameraNode(engine)
+
+SceneView(engine = engine, cameraNode = cameraNode) {
+    BillboardNode(
+        bitmap = markerBitmap,
+        widthMeters = 0.4f,
+        heightMeters = 0.4f,
+        position = Position(0f, 2f, 0f),
+        cameraPositionProvider = { cameraNode.worldPosition }
+    )
 }</code></pre>
 <hr />
 <h2 id="reflectionprobenode">ReflectionProbeNode<a class="headerlink" href="#reflectionprobenode" title="Permanent link">&para;</a></h2>
@@ -4707,10 +4830,12 @@ streetscapeGeometries.forEach { geom -&gt;
         position = Position(0f, 2f, 0f),
         apply = { intensity(30_000f); color(1f, 0.8f, 0.5f) }
     )
-    // This billboard label follows the ship too.
-    BillboardNode(position = Position(0f, 2.5f, 0f)) {
-        TextNode(text = "SS SceneView", size = 0.2f)
-    }
+    // This label follows the ship too, and turns toward the camera.
+    TextNode(
+        text = "SS SceneView",
+        position = Position(0f, 2.5f, 0f),
+        cameraPositionProvider = { cameraNode.worldPosition }
+    )
 }</code></pre>
 <h3 id="coordinate-conventions">Coordinate conventions<a class="headerlink" href="#coordinate-conventions" title="Permanent link">&para;</a></h3>
 <ul>
