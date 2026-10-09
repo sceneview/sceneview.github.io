@@ -1030,11 +1030,8 @@
      */
     setEnvironmentSH(bands, intensity) {
       try {
-        var ibl = Filament.IndirectLight.Builder()
-          .irradiance(3, bands)
-          .intensity(intensity || 45000)
-          .build(this._engine);
-        this._setIndirectLight(ibl);
+        if (this._disposed) throw _disposedError();
+        this._setShEnvironment(bands, intensity || 45000);
       } catch (e) {
         console.warn('SceneView: setEnvironmentSH failed', e);
       }
@@ -2057,8 +2054,69 @@
     }
 
     /**
-     * Destroy an IndirectLight, the reflections cubemap Filament.js created for it
-     * and the Ktx1Bundle behind that cubemap.
+     * Build an IndirectLight from 3 bands of spherical harmonics and make it the scene's.
+     * @private
+     */
+    _setShEnvironment(bands, intensity) {
+      // Filament.js skips an array of any other length and builds a light with no irradiance.
+      if (!bands || bands.length !== 27) {
+        throw new Error('expected 27 coefficients (9 x RGB), got ' + (bands ? bands.length : bands));
+      }
+      var light = Filament.IndirectLight.Builder()
+        .irradianceSh(3, bands)
+        .reflections(this._createShReflections(bands))
+        .intensity(intensity)
+        .build(this._engine);
+      this._setIndirectLight(light);
+    }
+
+    /**
+     * The cubemap an SH environment reflects: the harmonics themselves, evaluated per
+     * direction. Without it the light has no specular term and a metal, which has no
+     * diffuse response, renders black. One small level is enough: 3 bands carry
+     * nothing sharper.
+     * @private
+     */
+    _createShReflections(sh) {
+      var size = 16;
+      var pixels = new Float32Array(6 * size * size * 3);
+      var o = 0;
+      for (var face = 0; face < 6; face++) {
+        for (var row = 0; row < size; row++) {
+          for (var col = 0; col < size; col++) {
+            var u = 2 * (col + 0.5) / size - 1;
+            var v = 2 * (row + 0.5) / size - 1;
+            // OpenGL cube faces, in upload order: +X, -X, +Y, -Y, +Z, -Z.
+            var d = face === 0 ? [1, -v, -u] : face === 1 ? [-1, -v, u]
+                  : face === 2 ? [u, 1, v] : face === 3 ? [u, -1, -v]
+                  : face === 4 ? [u, -v, 1] : [-u, -v, -1];
+            var length = Math.hypot(d[0], d[1], d[2]);
+            var x = d[0] / length, y = d[1] / length, z = d[2] / length;
+            for (var c = 0; c < 3; c++) {
+              // Same basis, same order as Filament's Irradiance_SphericalHarmonics().
+              pixels[o++] = Math.max(0,
+                sh[c] + sh[3 + c] * y + sh[6 + c] * z + sh[9 + c] * x +
+                sh[12 + c] * y * x + sh[15 + c] * y * z + sh[18 + c] * (3 * z * z - 1) +
+                sh[21 + c] * z * x + sh[24 + c] * (x * x - y * y));
+            }
+          }
+        }
+      }
+      var texture = Filament.Texture.Builder()
+        .width(size)
+        .height(size)
+        .levels(1)
+        .sampler(Filament.Texture$Sampler.SAMPLER_CUBEMAP)
+        .format(Filament.Texture$InternalFormat.R11F_G11F_B10F)
+        .build(this._engine);
+      texture.setImageCube(this._engine, 0,
+        Filament.PixelBuffer(pixels, Filament.PixelDataFormat.RGB, Filament.PixelDataType.FLOAT));
+      return texture;
+    }
+
+    /**
+     * Destroy an IndirectLight, its reflections cubemap and, for a KTX environment,
+     * the Ktx1Bundle behind that cubemap.
      * @private
      */
     _destroyIndirectLight(ibl) {
@@ -2103,13 +2161,13 @@
             _log('SceneView: KTX IBL loaded (' + Math.round(buffer.length / 1024) + 'KB)');
           } catch (e) {
             console.warn('SceneView: createIblFromKtx1 failed, using SH fallback', e);
-            _applySyntheticIBL(self);
+            _applySyntheticIBL(self, intensity);
           }
           self.requestRender();
         })
         .catch(function() {
           if (self._disposed) return;
-          _applySyntheticIBL(self);
+          _applySyntheticIBL(self, intensity);
           self.requestRender();
         });
     }
@@ -2120,7 +2178,9 @@
 
     /**
      * Stop the viewer and release everything it created: the fetches still in flight,
-     * its DOM listeners and elements, every Filament object, then the engine.
+     * its DOM listeners and elements, every Filament object, the engine, then the
+     * canvas's WebGL context (the canvas fires `webglcontextlost`; create() on the same
+     * canvas brings the context back).
      * Safe to call more than once. The instance cannot be used afterwards.
      */
     dispose() {
@@ -2182,6 +2242,8 @@
       this._hideLoadFallback();
 
       this._releaseNative();
+      // The engine is gone: hand the canvas's WebGL context back to the browser.
+      _releaseContext(this._canvas);
       _activeCanvases.delete(this._canvas);
     }
 
@@ -2976,6 +3038,74 @@
   // Singleton guard — prevent multiple engine creations on same canvas
   var _activeCanvases = new Set();
 
+  // Canvases whose WebGL context dispose() released, with what create() needs to bring
+  // it back: canvas -> { ext: WEBGL_lose_context, lost: Promise }.
+  var _releasedContexts = new WeakMap();
+  var CONTEXT_RESTORE_TIMEOUT_MS = 5000;
+
+  /**
+   * Give a disposed viewer's WebGL context back to the browser.
+   *
+   * Filament.js registers every context in Emscripten's GL table and never removes it,
+   * so a context outlives its engine. Browsers cap the live contexts of a page (16 in
+   * Chromium) and force-lose the least recently used one past the cap: after some 16
+   * create/dispose cycles, an idle viewer still on the page went black. Losing the
+   * context here frees its GPU memory and, in Chromium, takes it out of that count
+   * (WebKit goes on counting a lost context: Safari still evicts past 16). The canvas
+   * fires `webglcontextlost` when it happens.
+   *
+   * A canvas keeps its context for life, lost or not: create() restores it before it
+   * builds a new engine on the same canvas (see _restoreContext).
+   */
+  function _releaseContext(canvas) {
+    var gl = canvas.getContext('webgl2');
+    if (!gl || gl.isContextLost()) return;
+    // Taken now: getExtension() returns null once the context is lost.
+    var ext = gl.getExtension('WEBGL_lose_context');
+    if (!ext) return;
+    var released = { ext: ext, lost: null };
+    released.lost = new Promise(function(resolve) {
+      canvas.addEventListener('webglcontextlost', function(event) {
+        // restoreContext() is refused unless this event was cancelled, and the browser
+        // reads that once the dispatch returns: resolve in a later task, not a microtask.
+        event.preventDefault();
+        setTimeout(resolve, 0);
+      }, { once: true });
+    });
+    _releasedContexts.set(canvas, released);
+    ext.loseContext();
+  }
+
+  /**
+   * Bring back the context dispose() released on this canvas. Resolves once the
+   * browser has fired `webglcontextrestored`, rejects when it does not come in time.
+   */
+  function _restoreContext(canvas, released) {
+    return released.lost.then(function() {
+      var gl = canvas.getContext('webgl2');
+      // Already back (a restore that outlived an earlier timeout): nothing to wait for.
+      if (gl && !gl.isContextLost()) {
+        _releasedContexts.delete(canvas);
+        return;
+      }
+      return new Promise(function(resolve, reject) {
+        function onRestored() {
+          clearTimeout(timer);
+          _releasedContexts.delete(canvas);
+          resolve();
+        }
+        // A failed restore fires no event at all.
+        var timer = setTimeout(function() {
+          canvas.removeEventListener('webglcontextrestored', onRestored);
+          reject(new Error('SceneView: WebGL context not restored after ' +
+            CONTEXT_RESTORE_TIMEOUT_MS + 'ms, this canvas cannot render'));
+        }, CONTEXT_RESTORE_TIMEOUT_MS);
+        canvas.addEventListener('webglcontextrestored', onRestored, { once: true });
+        released.ext.restoreContext();
+      });
+    });
+  }
+
   /**
    * Set up Filament engine, scene, lights on a canvas.
    */
@@ -3097,26 +3227,25 @@
   }
 
   /** Fallback IBL from spherical harmonics when KTX not available */
-  function _applySyntheticIBL(instance) {
+  function _applySyntheticIBL(instance, intensity) {
     try {
-      // Studio-style IBL: warm key light from above-right, cool fill from left
-      var ibl = Filament.IndirectLight.Builder()
-        .irradiance(3, [
-           1.20,  1.15,  1.10,   // L00  — bright neutral ambient
-           0.25,  0.22,  0.18,   // L1-1 — warm fill from right
-           0.35,  0.33,  0.30,   // L10  — top light (key)
-          -0.08, -0.06, -0.04,   // L11  — slight side bias
-           0.10,  0.10,  0.12,   // L2-2 — cool accent
-           0.15,  0.14,  0.12,   // L2-1 — ground bounce
-           0.02,  0.02,  0.02,   // L20  — minimal
-          -0.04, -0.04, -0.03,   // L21
-           0.06,  0.06,  0.05    // L22
-        ])
-        .intensity(45000)
-        .build(instance._engine);
-      instance._setIndirectLight(ibl);
+      // The harmonics of /environments/neutral_ibl.ktx, the default environment: a viewer
+      // that cannot fetch it keeps the same diffuse light, with blurred reflections.
+      instance._setShEnvironment([
+         0.977,  0.977,  0.977,   // L00  — ambient
+         0.553,  0.553,  0.553,   // L1-1 — y: light from above
+         0.022,  0.022,  0.022,   // L10  — z
+        -0.032, -0.032, -0.032,   // L11  — x
+        -0.059, -0.059, -0.059,   // L2-2
+         0.063,  0.063,  0.063,   // L2-1
+         0.028,  0.028,  0.028,   // L20
+         0.178,  0.178,  0.178,   // L21
+         0.086,  0.086,  0.086    // L22
+      ], intensity);
       _log('SceneView: Using synthetic SH IBL');
-    } catch (e) { /* skip */ }
+    } catch (e) {
+      console.warn('SceneView: synthetic SH IBL failed', e);
+    }
   }
 
   /**
@@ -3175,9 +3304,22 @@
         // Engine is up — instance-creation failures (canvas not found, canvas
         // already initialized) are NOT init failures: never paint the overlay
         // here, it could cover an already-live viewer.
-        var instance = _createEngine(canvasOrId, options);
-        if (instance) return instance;
-        throw new Error('SceneView: Canvas already initialized');
+        function instantiate() {
+          var instance = _createEngine(canvasOrId, options);
+          if (instance) return instance;
+          throw new Error('SceneView: Canvas already initialized');
+        }
+        // A viewer was disposed on this canvas: its WebGL context comes back first.
+        // The canvas is held meanwhile, so a second create() fails fast, as it does
+        // on a live viewer, instead of racing this one.
+        var canvas = _resolveCanvas(canvasOrId);
+        var released = canvas && _releasedContexts.get(canvas);
+        if (!released || _activeCanvases.has(canvas)) return instantiate();
+        _activeCanvases.add(canvas);
+        return _restoreContext(canvas, released).then(
+          function() { _activeCanvases.delete(canvas); return instantiate(); },
+          function(e) { _activeCanvases.delete(canvas); throw e; }
+        );
       },
       function(e) {
         // Init-stage failure: degrade to the placeholder, then propagate so
