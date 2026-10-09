@@ -1241,6 +1241,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#facing-the-camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facing the camera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1496,6 +1507,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="BillboardNode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-facing-the-camera-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "facing the camera" means
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3513,6 +3541,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#facing-the-camera" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facing the camera
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example_1" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3768,6 +3807,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="BillboardNode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-facing-the-camera-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What "facing the camera" means
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4407,14 +4463,41 @@ which the touch callback does not receive — do not rely on back-face interacti
     rotation: Rotation = Rotation(x = 0f),
     scale: Scale = Scale(1f),
     isVisible: Boolean = true,
+    cameraPositionProvider: (() -&gt; Position)? = null,
     apply: ViewNode.() -&gt; Unit = {},
     content: (@Composable NodeScope.() -&gt; Unit)? = null,
     viewContent: @Composable () -&gt; Unit
 )</code></pre>
-<p><code>position</code>, <code>rotation</code>, <code>scale</code>, <code>isVisible</code> and <code>viewContent</code> follow recomposition. <code>unlit</code>
-and <code>invertFrontFaceWinding</code> are read once, when the node is created, and <code>apply</code> runs once at
-the same moment. At <code>scale = Scale(1f)</code> the quad measures 1 m per 250 px of content, so a card
-usually wants a <code>scale</code> well under 1.</p>
+<p><code>position</code>, <code>rotation</code>, <code>scale</code>, <code>isVisible</code>, <code>cameraPositionProvider</code> and <code>viewContent</code> follow
+recomposition. <code>unlit</code> and <code>invertFrontFaceWinding</code> are read once, when the node is created, and
+<code>apply</code> runs once at the same moment. At <code>scale = Scale(1f)</code> the quad measures 1 m per 250 px of
+content, so a card usually wants a <code>scale</code> well under 1.</p>
+<h3 id="facing-the-camera">Facing the camera<a class="headerlink" href="#facing-the-camera" title="Permanent link">&para;</a></h3>
+<p>Pass <code>cameraPositionProvider</code>, the parameter <a href="#billboardnode">BillboardNode</a> and
+<a href="#textnode">TextNode</a> take, with the same meaning: the card turns to face the position you
+return — yaw and pitch, never roll — and follows an orbiting camera, a moving card and a rotating
+parent by itself.</p>
+<pre class="language-kotlin"><code>val windowManager = rememberViewNodeManager()
+val cameraNode = rememberCameraNode(engine)
+
+SceneView(engine = engine, cameraNode = cameraNode, viewNodeWindowManager = windowManager) {
+    ViewNode(
+        windowManager = windowManager,
+        position = Position(0f, 0.4f, 0f),
+        scale = Scale(0.12f),
+        cameraPositionProvider = { cameraNode.worldPosition }
+    ) {
+        Card(Modifier.size(300.dp, 156.dp)) { Text("Visor") }
+    }
+}</code></pre>
+<p><code>rotation</code> is ignored while a provider is set and applies again when it goes back to <code>null</code>. For
+an upright card that only turns about the vertical axis, report the camera levelled with it:
+<code>{ cameraNode.worldPosition.copy(y = 0.4f) }</code>.</p>
+<p>A card beside the model, off the view axis, faces the eye at an angle to the screen and reads as
+a parallelogram. To keep it parallel to the screen — a rectangle — report a point offset from the
+card the way the camera is offset from its orbit target:
+<code>{ card.worldPosition + (cameraNode.worldPosition - target) }</code>, <code>card</code> being the node kept from
+<code>apply</code>. The 2D in 3D demo's Inspect card does this.</p>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <pre class="language-kotlin"><code>val windowManager = rememberViewNodeManager()
 
@@ -4623,8 +4706,8 @@ SceneView(engine = engine, cameraNode = cameraNode) {
 <ul>
 <li><strong>It faces the camera only when given a <code>cameraPositionProvider</code>.</strong> Without one the label
   keeps its parent's orientation. There is no <code>rotation</code> parameter.</li>
-<li><strong><code>text</code>, <code>fontSize</code>, <code>textColor</code>, <code>backgroundColor</code>, <code>typeface</code>, <code>position</code> and <code>scale</code>
-  follow recomposition.</strong> <code>widthMeters</code>, <code>heightMeters</code> and <code>cameraPositionProvider</code> are read
+<li><strong><code>text</code>, <code>fontSize</code>, <code>textColor</code>, <code>backgroundColor</code>, <code>typeface</code>, <code>position</code>, <code>scale</code> and
+  <code>cameraPositionProvider</code> follow recomposition.</strong> <code>widthMeters</code> and <code>heightMeters</code> are read
   once, when the node is created.</li>
 <li><strong>The size of the label is <code>widthMeters</code> × <code>heightMeters</code></strong>, not <code>fontSize</code>: the bitmap is
   512 × 128 px and is stretched over the quad, so keep the 4:1 ratio or the glyphs deform.</li>
@@ -4681,6 +4764,22 @@ SceneView(engine = engine, cameraNode = cameraNode) {
         cameraPositionProvider = { cameraNode.worldPosition }
     )
 }</code></pre>
+<h3 id="what-facing-the-camera-means">What "facing the camera" means<a class="headerlink" href="#what-facing-the-camera-means" title="Permanent link">&para;</a></h3>
+<p>The same on <code>BillboardNode</code>, <code>TextNode</code> and <a href="#viewnode">ViewNode</a>, which all take
+<code>cameraPositionProvider: (() -&gt; Position)? = null</code>:</p>
+<ul>
+<li><strong>A full look-at.</strong> The front of the quad points at the position you return and its top edge
+  stays toward world <code>+Y</code>: it yaws and pitches, and never rolls.</li>
+<li><strong>Yaw only</strong>, for an upright sign: report the camera levelled with the node,
+  <code>{ cameraNode.worldPosition.copy(y = signHeight) }</code>.</li>
+<li><strong>It follows the camera, the node and its parent.</strong> A label on a turntable keeps facing you.</li>
+<li><strong>It follows recomposition.</strong> Swap the provider, or pass <code>null</code> to stop turning: the node stays
+  as it was last turned. The node class exposes the same thing as a <code>cameraPositionProvider</code>
+  property.</li>
+<li><strong>While it is set, the node owns its orientation.</strong> A <code>rotation</code> or <code>quaternion</code> written by
+  hand is overwritten. Set the provider through the parameter, not inside <code>apply</code>.</li>
+<li><strong>It costs nothing while nothing moves</strong>: a <code>FrameRatePolicy.OnDemand</code> scene still parks.</li>
+</ul>
 <hr />
 <h2 id="reflectionprobenode">ReflectionProbeNode<a class="headerlink" href="#reflectionprobenode" title="Permanent link">&para;</a></h2>
 <p>A local reflection capture — adds spherical harmonics / cubemap reflections for the area around the node.</p>
