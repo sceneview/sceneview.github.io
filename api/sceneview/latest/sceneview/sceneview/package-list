@@ -2012,6 +2012,10 @@ $dokka.location:io.github.sceneview/SceneFrameActivity/SceneFrameActivity/#/Poin
 $dokka.location:io.github.sceneview/SceneFrameActivity/clear/#/PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-activity/clear.html
 $dokka.location:io.github.sceneview/SceneFrameActivity/hasActiveNode/#/PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-activity/has-active-node.html
 $dokka.location:io.github.sceneview/SceneFrameActivity/setRoots/#kotlin.collections.List[io.github.sceneview.node.Node]/PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-activity/set-roots.html
+$dokka.location:io.github.sceneview/SceneFrameDispatch///PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-dispatch/index.html
+$dokka.location:io.github.sceneview/SceneFrameDispatch/SceneFrameDispatch/#/PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-dispatch/-scene-frame-dispatch.html
+$dokka.location:io.github.sceneview/SceneFrameDispatch/clear/#/PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-dispatch/clear.html
+$dokka.location:io.github.sceneview/SceneFrameDispatch/dispatch/#kotlin.collections.List[io.github.sceneview.node.Node]#kotlin.Long/PointingToDeclaration/sceneview/io.github.sceneview/-scene-frame-dispatch/dispatch.html
 $dokka.location:io.github.sceneview/SceneNodeManager///PointingToDeclaration/sceneview/io.github.sceneview/-scene-node-manager/index.html
 $dokka.location:io.github.sceneview/SceneNodeManager/SceneNodeManager/#com.google.android.filament.Scene#io.github.sceneview.collision.CollisionSystem/PointingToDeclaration/sceneview/io.github.sceneview/-scene-node-manager/-scene-node-manager.html
 $dokka.location:io.github.sceneview/SceneNodeManager/addNode/#io.github.sceneview.node.Node/PointingToDeclaration/sceneview/io.github.sceneview/-scene-node-manager/add-node.html
