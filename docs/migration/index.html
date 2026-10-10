@@ -2540,6 +2540,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#nodeworldrotation-reads-the-same-euler-angles-as-noderotation-3745" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node.worldRotation reads the same Euler angles as Node.rotation (#3745)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3133,6 +3144,17 @@
     <span class="md-ellipsis">
       
         The video player is prepared off the main thread, and says when it fails (#4388)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodeworldrotation-reads-the-same-euler-angles-as-noderotation-3745" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node.worldRotation reads the same Euler angles as Node.rotation (#3745)
       
     </span>
   </a>
@@ -3775,6 +3797,53 @@ SceneView {
 <li><strong>Your own <code>MediaPlayer</code></strong> still goes to <code>VideoNode(player = …)</code>. Prepare it with
   <code>prepareAsync()</code> and hand it over from <code>setOnPreparedListener</code>; <code>MediaPlayer.create(…)</code> and
   <code>prepare()</code> inside <code>remember { }</code> block the main thread exactly as the old helper did.</li>
+</ul>
+<h3 id="nodeworldrotation-reads-the-same-euler-angles-as-noderotation-3745"><code>Node.worldRotation</code> reads the same Euler angles as <code>Node.rotation</code> (<a href="https://github.com/sceneview/sceneview/issues/3745">#3745</a>)<a class="headerlink" href="#nodeworldrotation-reads-the-same-euler-angles-as-noderotation-3745" title="Permanent link">&para;</a></h3>
+<p>Through 4.53.0 the two getters used two conventions. <code>rotation</code> is ZYX and reads back what was
+written; the <code>worldRotation</code> getter returned kotlin-math's <code>Mat4.rotation</code>, which is YXZ with the
+yaw sign negated. Its setter was ZYX all along, so <code>node.worldRotation = node.worldRotation</code>
+turned any node that had yaw.</p>
+<table>
+<thead>
+<tr>
+<th>Written <code>rotation</code> (no parent)</th>
+<th><code>worldRotation</code> through 4.53.0</th>
+<th><code>worldRotation</code> now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(0, 30, 0)</code></td>
+<td><code>(0, -30, 0)</code></td>
+<td><code>(0, 30, 0)</code></td>
+</tr>
+<tr>
+<td><code>(20, 30, 15)</code></td>
+<td><code>(12.05, -33.68, 13.25)</code></td>
+<td><code>(20, 30, 15)</code></td>
+</tr>
+<tr>
+<td><code>(0, 120, 0)</code></td>
+<td><code>(0, -120, 0)</code></td>
+<td><code>(180, 60, 180)</code></td>
+</tr>
+<tr>
+<td><code>(20, 0, 0)</code>, <code>(0, 0, 15)</code></td>
+<td>unchanged</td>
+<td>unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>Only the <strong><code>worldRotation</code> getter</strong> changes. <code>rotation</code>, <code>worldQuaternion</code>, <code>worldTransform</code>,
+both setters and what is drawn on screen are untouched.</p>
+<ul>
+<li><strong>If you negated <code>worldRotation.y</code></strong> to line it up with <code>rotation.y</code>, drop the negation.</li>
+<li><strong>If you read a heading from <code>worldRotation.y</code></strong>, read it from <code>worldQuaternion</code> instead. Y is
+  now the middle angle of a ZYX triple and stays within ±90°: past a quarter turn the same
+  orientation reads as <code>(180, 60, 180)</code>, exactly as <code>rotation</code> has always done.</li>
+<li><strong>If you rebuilt the orientation</strong> with
+  <code>Quaternion.fromEuler(Rotation(x, -y, z), RotationsOrder.YXZ)</code>, use
+  <code>Quaternion.fromEuler(node.worldRotation)</code> — or <code>node.worldQuaternion</code> directly.</li>
 </ul>
 <hr />
 <h2 id="sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy">SceneView 4.37.x to 4.38.0 (Android) — <code>isRendering</code> replaced by <code>frameRatePolicy</code><a class="headerlink" href="#sceneview-437x-to-4380-android-isrendering-replaced-by-frameratepolicy" title="Permanent link">&para;</a></h2>
