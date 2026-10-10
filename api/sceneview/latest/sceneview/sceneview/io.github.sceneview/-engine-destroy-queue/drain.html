@@ -108,7 +108,7 @@
   <div class="cover ">
     <h1 class="cover"><span><span>drain</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="drain.html"><span class="token function">drain</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Advances the frame counter by one and destroys every resource whose grace period has elapsed. Call exactly once per rendered frame, on the main thread.</p></div></div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="drain.html"><span class="token function">drain</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><p class="paragraph">Advances the frame counter by one, unconditionally, and destroys every resource whose grace period has elapsed. Main thread only.</p><p class="paragraph">Nothing to call when rendering through <code class="lang-kotlin">SceneView</code> or <code class="lang-kotlin">ARSceneView</code>: their <a href="../-scene-renderer/index.html">SceneRenderer</a> drives the queue. This is for code that owns the engine's frames itself, and must then be called exactly once per engine frame — every call counts as one.</p></div></div>
 </div>
     <div class="footer">
         <div class="footer--container">
