@@ -4972,7 +4972,13 @@ LightNode(
 )
 
 Button(onClick = { glowing = !glowing }) { Text("Toggle glow") }</code></pre>
-<p>Parameters that <strong>rebuild geometry</strong> (<code>size</code> on <code>CubeNode</code>, <code>radius</code> on <code>SphereNode</code>, <code>vertices</code> on <code>MeshNode</code>) also work from state — but cost a mesh rebuild each change. Keep them monotonic or use <code>derivedStateOf</code> to debounce.</p>
+<p>Procedural geometry parameters also work from state. A radius, size or centre change reuses
+its buffers. Changing tessellation (<code>SphereNode(stacks, slices)</code>, <code>CylinderNode(sideCount)</code>,
+<code>ConeNode(sideCount)</code>, <code>TorusNode(majorSegments, minorSegments)</code>,
+<code>CapsuleNode(capStacks, sideSlices)</code>), growing <code>PathNode(points)</code> or <code>TubeNode(points)</code>,
+or adding <code>ShapeNode(color)</code> rebuilds buffers when their counts or attribute layout change.
+The library rebinds every node sharing the geometry and updates primitive ranges and bounds.
+Drive these parameters directly from state; no <code>key</code> or node recreation is needed.</p>
 <hr />
 <h2 id="auto-destroy">Auto-destroy<a class="headerlink" href="#auto-destroy" title="Permanent link">&para;</a></h2>
 <p>Nodes are destroyed automatically when they leave the composition tree. You never need to call <code>node.destroy()</code> yourself.</p>
