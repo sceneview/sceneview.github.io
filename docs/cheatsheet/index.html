@@ -3486,8 +3486,12 @@ fun ARDebugScreen() {
 <p>Drop the saved <code>.rrd</code> onto <strong><a href="https://sceneview.github.io/rerun/">https://sceneview.github.io/rerun/</a></strong> to scrub
 the AR session frame-by-frame in any browser — no install required, no
 re-hosting needed for local inspection. To share with a remote teammate,
-re-host the file (R2, GitHub release, gist) and send them
-<strong><code>https://sceneview.github.io/rerun/?url=&lt;encoded-public-url&gt;</code></strong>.</p>
+host the file at an https address that ends in <code>.rrd</code> and send them
+<strong><code>https://sceneview.github.io/rerun/?url=&lt;encoded-public-url&gt;</code></strong>. The host
+has to allow cross-origin requests (CORS): a public GitHub repository's
+<code>raw.githubusercontent.com</code> link and GitHub Pages do, a GitHub release asset
+does not (checked 2026-10-13); an R2 or S3 bucket does with a CORS rule that
+allows <code>https://sceneview.github.io</code>.</p>
 <hr />
 <h2 id="spatial-audio-haptic-cross-platform-availability">Spatial Audio &amp; Haptic — cross-platform availability<a class="headerlink" href="#spatial-audio-haptic-cross-platform-availability" title="Permanent link">&para;</a></h2>
 <p>v4.12.0 shipped Spatial Audio (#1900) and Haptic Feedback (#1901). Both have
