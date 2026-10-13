@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ModelNode</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="sceneview::io.github.sceneview/SceneScope/ModelNode/#com.google.android.filament.gltfio.FilamentInstance#kotlin.Boolean#kotlin.String?#kotlin.Boolean#kotlin.Float#kotlin.Float?#dev.romainguy.kotlin.math.Float3?#dev.romainguy.kotlin.math.Float3#dev.romainguy.kotlin.math.Float3#dev.romainguy.kotlin.math.Float3#kotlin.Boolean#kotlin.Boolean#kotlin.Function1[io.github.sceneview.node.ModelNode,kotlin.Unit]#kotlin.Function1[io.github.sceneview.NodeScope,kotlin.Unit]?/PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview</a><span class="delimiter">/</span><a href="index.html">SceneScope</a><span class="delimiter">/</span><span class="current">ModelNode</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Model</span><wbr></wbr><span><span>Node</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-model-node.html"><span class="token function">ModelNode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modelInstance<span class="token operator">: </span><a href="../../io.github.sceneview.model/-model-instance/index.html">ModelInstance</a><span class="token punctuation">, </span></span><span class="parameter ">autoAnimate<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">animationName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">animationLoop<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">animationSpeed<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">1.0f</span><span class="token punctuation">, </span></span><span class="parameter ">scaleToUnits<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">centerOrigin<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">position<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span><span class="token operator"> = </span>Position(x = 0f)<span class="token punctuation">, </span></span><span class="parameter ">rotation<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Rotation///PointingToDeclaration/">Rotation</span><span class="token operator"> = </span>Rotation(x = 0f)<span class="token punctuation">, </span></span><span class="parameter ">scale<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Scale///PointingToDeclaration/">Scale</span><span class="token operator"> = </span>Scale(1f)<span class="token punctuation">, </span></span><span class="parameter ">isVisible<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">isEditable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">apply<span class="token operator">: </span><a href="../../io.github.sceneview.node/-model-node/index.html">ModelNode</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="../-node-scope/index.html">NodeScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><p class="paragraph">A node that renders a glTF/GLB 3D model.</p><p class="paragraph">Typically used in combination with <a href="../remember-model-instance.html">rememberModelInstance</a> to load a model asynchronously:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">SceneView {<br>    rememberModelInstance(modelLoader, &quot;models/helmet.glb&quot;)?.let { instance -&gt;<br>        ModelNode(modelInstance = instance, scaleToUnits = 0.5f)<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph"><strong>Reactive animation</strong> — drive animations from Compose state:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">var isWalking by remember { mutableStateOf(false) }<br><br>ModelNode(<br>    modelInstance = instance,<br>    autoAnimate = false,<br>    animationName = if (isWalking) &quot;Walk&quot; else &quot;Idle&quot;<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">When <a href="-model-node.html">animationName</a> changes the previous animation is stopped and the new one starts. When <a href="-model-node.html">animationName</a> is <code class="lang-kotlin">null</code> the <a href="-model-node.html">autoAnimate</a> behaviour applies instead.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>model</span><wbr></wbr><span><span>Instance</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The loaded model instance to render.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>auto</span><wbr></wbr><span><span>Animate</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Automatically play all animations in the model when <a href="-model-node.html">animationName</a>                        is <code class="lang-kotlin">null</code>. Default <code class="lang-kotlin">true</code>.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>animation</span><wbr></wbr><span><span>Name</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Name of the glTF animation to play. <code class="lang-kotlin">null</code> defers to <a href="-model-node.html">autoAnimate</a>.                        Changing this value from Compose state switches animations reactively.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>animation</span><wbr></wbr><span><span>Loop</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether <a href="-model-node.html">animationName</a> loops. Default <code class="lang-kotlin">true</code>.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>animation</span><wbr></wbr><span><span>Speed</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Playback speed multiplier for <a href="-model-node.html">animationName</a>. Default <code class="lang-kotlin">1f</code>.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>scale</span><wbr></wbr><span>To</span><wbr></wbr><span><span>Units</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Uniformly scales the model to fit within a cube of this size (meters).                        <strong>Note:</strong> when set, the <a href="-model-node.html">scale</a> parameter is ignored — the model's scale                        is computed from its bounding box. Use <code class="lang-kotlin">null</code> to control scale manually.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>center</span><wbr></wbr><span><span>Origin</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Origin alignment relative to the model's bounding box, applied once on                        creation: the bounding-box point selected by the normalized origin                        (<code class="lang-kotlin">-1..1</code> per axis, <code class="lang-kotlin">0</code> = AABB center) lands on the node origin. The                        resulting translation (<code class="lang-kotlin">-(center + origin * halfExtent) * scale</code>) is                        composed <strong>additively</strong> with <a href="-model-node.html">position</a> — so a non-zero <code class="lang-kotlin">centerOrigin</code>                        is honoured even when <a href="-model-node.html">position</a> keeps its default, and the two can be                        combined (e.g. bottom-align a model <i>and</i> place it at a point).                        - <code class="lang-kotlin">null</code> keeps the model's authored pivot                        - <code class="lang-kotlin">Position(0,0,0)</code> centers the bounding box on the node origin                        - <code class="lang-kotlin">Position(0,-1,0)</code> = centered horizontally, bottom-aligned (the                          model sits on the node origin)</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>position</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Local position, added on top of the <a href="-model-node.html">centerOrigin</a> offset. Defaults to                        the origin, so by default the node sits exactly where <a href="-model-node.html">centerOrigin</a>                        placed it.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>rotation</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Local rotation in Euler angles (degrees).</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>scale</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Local scale.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>is</span><wbr></wbr><span><span>Visible</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether to render the node.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>is</span><wbr></wbr><span><span>Editable</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether the node can be interactively transformed.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>apply</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Additional imperative configuration applied once on creation.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>content</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Optional child nodes declared in a <a href="../-node-scope/index.html">NodeScope</a>.</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

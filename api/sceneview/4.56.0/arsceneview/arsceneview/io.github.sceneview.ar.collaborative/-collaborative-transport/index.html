@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CollaborativeTransport</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    arsceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":arsceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":arsceneview/main"
+                                       data-filter=":arsceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    arsceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="arsceneview::io.github.sceneview.ar.collaborative/CollaborativeTransport///PointingToDeclaration//-652796645">
+  <div class="breadcrumbs"><a href="../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.ar.collaborative</a><span class="delimiter">/</span><span class="current">CollaborativeTransport</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Collaborative</span><wbr></wbr><span><span>Transport</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">CollaborativeTransport</a></div><p class="paragraph">The pluggable network layer for a collaborative (<a href="../-collaborative-session/index.html">CollaborativeSession</a>) AR experience.</p><h3 class="">Why this is an interface, not a concrete impl</h3><p class="paragraph">SceneView deliberately does <strong>not</strong> pick a networking stack for the app. Multi-user AR transport is a genuine product decision with real trade-offs:</p><ul><li><p class="paragraph"><strong>Nearby Connections</strong> — offline same-room, no backend, but Android-only and needs a pairing UX (and a Play Services dependency).</p></li><li><p class="paragraph"><strong>Firebase Realtime DB</strong> — trivial signaling but a backend dependency and API keys baked into the app.</p></li><li><p class="paragraph"><strong>WebRTC</strong> — lowest latency, cross-network, but heavy.</p></li><li><p class="paragraph"><strong>Raw sockets / your existing game backend</strong> — whatever you already run.</p></li></ul><p class="paragraph">Forcing one of those onto every SceneView app would be wrong. Instead the library ships this interface plus one always-available reference impl, <a href="../-loopback-collaborative-transport/index.html">LoopbackCollaborativeTransport</a>, which connects peers <strong>in-process</strong> (no networking) so the API is demonstrable and unit-testable out of the box. Production transports (Nearby Connections, Firebase, …) are app- or plugin-provided and implement this same contract.</p><p class="paragraph">On iOS the same abstraction maps cleanly onto RealityKit's <code class="lang-kotlin">MultipeerConnectivityService</code>, so the interface shape is kept cross-platform-friendly.</p><h3 class="">Contract</h3><ul><li><p class="paragraph"><a href="send.html">send</a> is <strong>non-blocking</strong> — <a href="../-collaborative-session/index.html">CollaborativeSession</a> may call it from the AR render callback, so an implementation must never block the caller thread on I/O. Queue and flush on your own thread.</p></li><li><p class="paragraph"><a href="incoming.html">incoming</a> handlers may be invoked on <strong>any</strong> thread. <a href="../-collaborative-session/index.html">CollaborativeSession</a> marshals everything onto its own scope, so an impl is free to dispatch from whatever I/O thread it owns.</p></li><li><p class="paragraph"><a href="peers.html">peers</a> is the set of currently-reachable remote peer ids. It does not include the local peer.</p></li><li><p class="paragraph"><a href="close.html">close</a> releases every resource; the transport is unusable afterwards.</p></li></ul><p class="paragraph">Messages are opaque byte arrays — the transport never inspects them. The serialization contract lives entirely in <a href="../-collaborative-wire-format/index.html">CollaborativeWireFormat</a>.</p><h4 class="tableheader">Inheritors</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-loopback-collaborative-transport/index.html">LoopbackCollaborativeTransport</a></div></span></div><div></div></div></div><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-nearby-collaborative-transport/index.html">NearbyCollaborativeTransport</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1977827175%2FProperties%2F-652796645" anchor-label="localPeerId" id="-1977827175%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="local-peer-id.html"><span>local</span><wbr></wbr><span>Peer</span><wbr></wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1977827175%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="local-peer-id.html">localPeerId</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">This device's stable peer id within the session. Must be unique across all connected peers and stable for the transport's lifetime.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="517605840%2FProperties%2F-652796645" anchor-label="peers" id="517605840%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="peers.html"><span><span>peers</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="517605840%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">val </span><a href="peers.html">peers</a><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines.flow/StateFlow///PointingToDeclaration/">StateFlow</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The set of remote peer ids currently reachable through this transport. Never includes <a href="local-peer-id.html">localPeerId</a>. Observed by <a href="../-collaborative-session/index.html">CollaborativeSession</a> to drop participants whose transport link died.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1092787959%2FFunctions%2F-652796645" anchor-label="close" id="-1092787959%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="close.html"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1092787959%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="close.html"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases all resources. The transport is unusable after this call.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-193067557%2FFunctions%2F-652796645" anchor-label="incoming" id="-193067557%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="incoming.html"><span><span>incoming</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-193067557%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="incoming.html"><span class="token function">incoming</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">handler<span class="token operator">: </span><span class="token punctuation">(</span>peerId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>message<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte-array/index.html">ByteArray</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-auto-closeable/index.html">AutoCloseable</a></div><div class="brief "><p class="paragraph">Registers a <a href="incoming.html">handler</a> invoked for every message received from a peer. The handler may be called on any thread.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1818671757%2FFunctions%2F-652796645" anchor-label="send" id="1818671757%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send.html"><span><span>send</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1818671757%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="send.html"><span class="token function">send</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">message<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-byte-array/index.html">ByteArray</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Broadcasts <a href="send.html">message</a> to every connected peer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
