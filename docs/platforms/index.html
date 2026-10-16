@@ -2831,7 +2831,7 @@
 <td>Filament via <code>SceneViewer</code> (filament-kmp)</td>
 <td>Compose Desktop</td>
 <td><code>samples/desktop-demo</code></td>
-<td>Alpha (JDK 22+)</td>
+<td>Alpha (JDK 21+)</td>
 </tr>
 <tr>
 <td><strong>Android TV</strong></td>
@@ -2907,13 +2907,14 @@ until it does. See <a href="../compose-multiplatform/">Compose Multiplatform</a>
 <hr />
 <h2 id="desktop-compose-desktop">Desktop (Compose Desktop)<a class="headerlink" href="#desktop-compose-desktop" title="Permanent link">&para;</a></h2>
 <p>The desktop actual of <code>sceneview-compose</code> renders with <strong>Filament</strong>, through the
-community <a href="https://github.com/Erkko68/filament-kmp">filament-kmp</a> FFM bindings: an
+community <a href="https://github.com/Erkko68/filament-kmp">filament-kmp</a> JNI bindings: an
 offscreen render, pipelined <code>readPixels</code>, then a Skia image in the Compose tree.</p>
 <ul>
 <li><strong>3D</strong>: <code>SceneViewer(…)</code> — the same viewer subset as the other Compose Multiplatform
   targets (glTF model, orbit camera, light, environment, tap hit-testing). <strong>No AR.</strong></li>
 <li><strong>Framework</strong>: Compose Desktop</li>
-<li><strong>Requirements</strong>: JDK 22+ (FFM), launched with <code>--enable-native-access=ALL-UNNAMED</code></li>
+<li><strong>Requirements</strong>: JDK 21+, no JVM flag (filament-kmp's JNI binding needs 17; the
+  <code>kotlin-math</code> dependency ships JDK 21 bytecode)</li>
 <li><strong>Install</strong>: <code>implementation("io.github.sceneview:sceneview-compose:4.57.0")</code></li>
 <li><strong>Sample</strong>: <code>samples/desktop-demo/</code> — run it with <code>./gradlew :samples:desktop-demo:run</code></li>
 </ul>
