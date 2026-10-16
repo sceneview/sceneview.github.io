@@ -3037,7 +3037,7 @@ It is a <em>viewer subset</em>, published as a <strong>separate, additive artifa
 <tr>
 <td>Desktop (JVM)</td>
 <td>offscreen render → pipelined <code>readPixels</code> → Skia image</td>
-<td>Filament, via Maven <code>filament-kmp</code> 0.4.0 (FFM, JDK 22+)</td>
+<td>Filament, via Maven <code>filament-kmp</code> 0.7.3 (FFM, JDK 22+)</td>
 <td><strong>implemented</strong> — <code>SceneViewer</code> desktop actual</td>
 </tr>
 </tbody>
@@ -3279,7 +3279,7 @@ rather than being hand-edited.</p>
    <code>SceneViewSwift</code> after all, as <code>SceneViewerHostView</code>; what changed is that nothing
    depends on it at build time — the app links it and hands it over. See
    <a href="#the-ios-uiview-wrapper">the iOS wrapper</a> below.</li>
-<li><strong>Desktop actual</strong> — shipped via Maven <code>filament-kmp</code> 0.4.0 (<code>implementation</code>, never
+<li><strong>Desktop actual</strong> — shipped via Maven <code>filament-kmp</code> 0.7.3 (<code>implementation</code>, never
    <code>api</code>), not a vendored tree. filament-kmp already owns the offscreen readback → Skia
    path; <code>SceneViewer.desktop.kt</code> is the façade. JDK 22+ and
    <code>--enable-native-access=ALL-UNNAMED</code> at run. The vendoring gates below remain the
