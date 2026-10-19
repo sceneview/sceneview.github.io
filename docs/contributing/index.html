@@ -3663,8 +3663,8 @@ the full convention.</p>
 as they should read in the release notes — every non-blank line must be a
 top-level <code>-</code> bullet or an indented continuation of one, never a bare
 paragraph. <code>ci.yml</code>'s <code>changelog-lint</code> job runs
-<code>.claude/scripts/check-changelog-fragments.sh</code> on any PR touching
-<code>changelog.d/**</code> and fails on a malformed fragment; a paragraph fragment that
+<code>.claude/scripts/check-changelog-fragments.sh</code> on the fragments a PR adds or
+modifies (diffed against the merge base) and fails on a malformed one; a paragraph fragment that
 slips past this check would collate cleanly but produce zero highlights in the
 demo's "What's new" card, since it only recognises lines starting with <code>-</code>.</p>
 <p>Two rules worth knowing before you write one:</p>
@@ -3737,9 +3737,9 @@ correct. Specifically:</p>
   files runs the <code>android-library-render</code> job
   (<code>:sceneview:connectedDebugAndroidTest</code> on the emulator, #3216); a PR
   touching <code>samples/web-demo/**</code> or <code>sceneview-web/**</code> runs the advisory
-  <code>web-render</code> Playwright job. The demo screenshot and iOS legs are
-  push-to-main + nightly + <code>workflow_dispatch</code> only, and on a push each leg
-  runs only when its platform's paths changed. A docs-only PR matches none of
+  <code>web-render</code> Playwright job. The iOS leg is push-to-main + nightly +
+  <code>workflow_dispatch</code> only, and on a push each leg runs only when its
+  platform's paths changed. A docs-only PR matches none of
   the paths, so the workflow does not run at all.</li>
 <li>The <strong><code>Path filter completed</code></strong> job (<code>changes-verdict</code> in <code>ci.yml</code>) runs
   on every PR whatever it touches, and it is the required check: it resolves
