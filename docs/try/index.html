@@ -2380,23 +2380,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Option 1 — One command (recommended)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#try-a-specific-platform-demo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Try a specific platform demo
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2694,23 +2677,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Option 1 — One command (recommended)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#try-a-specific-platform-demo" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Try a specific platform demo
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -2820,11 +2786,8 @@
   see the warning below.</li>
 </ul>
 </div>
-<h3 id="try-a-specific-platform-demo">Try a specific platform demo<a class="headerlink" href="#try-a-specific-platform-demo" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./tools/try-demo.sh<span class="w"> </span>--sample<span class="w"> </span>android-demo<span class="w">       </span><span class="c1"># Full showcase (51 demos: 20 non-AR + 31 AR)</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>./tools/try-demo.sh<span class="w"> </span>--sample<span class="w"> </span>android-tv-demo<span class="w">    </span><span class="c1"># D-pad controlled TV viewer</span>
-</span></code></pre></div>
-<p>Run <code>./tools/try-demo.sh --help</code> for the full list.</p>
+<p>The script targets the full <code>:samples:android-demo</code> showcase. Run
+<code>./tools/try-demo.sh --help</code> for its download option.</p>
 <hr />
 <h2 id="option-2-download-the-apk">Option 2 — Download the APK<a class="headerlink" href="#option-2-download-the-apk" title="Permanent link">&para;</a></h2>
 <div class="try-download-grid">
@@ -2849,11 +2812,11 @@ Browse all APKs
 </div>
 
 <h3 id="install-from-terminal">Install from terminal<a class="headerlink" href="#install-from-terminal" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Download, install and launch in one line.</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>curl<span class="w"> </span>-fSL<span class="w"> </span>-o<span class="w"> </span>/tmp/sceneview-android-demo.apk<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span>https://github.com/sceneview/sceneview/releases/latest/download/sceneview-android-demo.apk<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/tmp/sceneview-android-demo.apk<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>io.github.sceneview.demo/.MainActivity
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Download, install and launch in one line.</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>curl<span class="w"> </span>-fSL<span class="w"> </span>-o<span class="w"> </span>/tmp/sceneview-android-demo.apk<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span>https://github.com/sceneview/sceneview/releases/latest/download/sceneview-android-demo.apk<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/tmp/sceneview-android-demo.apk<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="o">&amp;&amp;</span><span class="w"> </span>adb<span class="w"> </span>shell<span class="w"> </span>am<span class="w"> </span>start<span class="w"> </span>-n<span class="w"> </span>io.github.sceneview.demo/.MainActivity
 </span></code></pre></div>
 <blockquote>
 <p>⚠️ <strong>Why not Google's <a href="https://developer.android.com/tools/agents/android-cli"><code>android</code> CLI</a>?</strong>
@@ -2865,10 +2828,10 @@ tool for screenshots and UI dumps; just not for installing.</p>
 </blockquote>
 <p>Confirm the install actually landed — an install step that reports success is
 not evidence the binary on the device is yours:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>adb<span class="w"> </span>shell<span class="w"> </span>dumpsys<span class="w"> </span>package<span class="w"> </span>io.github.sceneview.demo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>lastUpdateTime
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>adb<span class="w"> </span>shell<span class="w"> </span>dumpsys<span class="w"> </span>package<span class="w"> </span>io.github.sceneview.demo<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>lastUpdateTime
 </span></code></pre></div>
 <p>Or use the script's download mode (no build required):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./tools/try-demo.sh<span class="w"> </span>--download
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./tools/try-demo.sh<span class="w"> </span>--download
 </span></code></pre></div>
 <hr />
 <h2 id="option-3-android-studio">Option 3 — Android Studio<a class="headerlink" href="#option-3-android-studio" title="Permanent link">&para;</a></h2>
@@ -2931,18 +2894,18 @@ Filament rendering engine, optimized for mobile
 
 <hr />
 <h2 id="build-from-source">Build from source<a class="headerlink" href="#build-from-source" title="Permanent link">&para;</a></h2>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Clone</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sceneview/sceneview.git
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">cd</span><span class="w"> </span>sceneview
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># Build just the demo</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>./gradlew<span class="w"> </span>:samples:android-demo:assembleDebug
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Build all samples</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>./gradlew<span class="w"> </span>assembleDebug
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1"># Run lint</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>./gradlew<span class="w"> </span>:samples:android-demo:lint
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Clone</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sceneview/sceneview.git
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">cd</span><span class="w"> </span>sceneview
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Build just the demo</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>./gradlew<span class="w"> </span>:samples:android-demo:assembleDebug
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># Build all samples</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>./gradlew<span class="w"> </span>assembleDebug
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># Run lint</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>./gradlew<span class="w"> </span>:samples:android-demo:lint
 </span></code></pre></div>
 <p>The APK lands in <code>samples/android-demo/build/outputs/apk/debug/</code>.</p>
 
