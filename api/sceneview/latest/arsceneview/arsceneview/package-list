@@ -188,6 +188,7 @@ $dokka.location:io.github.sceneview.ar.camera//kUVTransformParameter/#/PointingT
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream.Companion///PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/-companion/index.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream.Companion/CAMERA_PRIORITY_BACKGROUND/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/-companion/-c-a-m-e-r-a_-p-r-i-o-r-i-t-y_-b-a-c-k-g-r-o-u-n-d.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream.Companion/CAMERA_PRIORITY_DEPTH_PRIME/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/-companion/-c-a-m-e-r-a_-p-r-i-o-r-i-t-y_-d-e-p-t-h_-p-r-i-m-e.html
+$dokka.location:io.github.sceneview.ar.camera/ARCameraStream.Companion/OCCLUDER_PRIORITY/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/-companion/-o-c-c-l-u-d-e-r_-p-r-i-o-r-i-t-y.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream///PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/index.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/ARCameraStream/#io.github.sceneview.loaders.MaterialLoader#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/-a-r-camera-stream.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/arFog/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/ar-fog.html
@@ -200,6 +201,7 @@ $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/destroy/#/PointingT
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/engine/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/engine.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/entity/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/entity.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/isDepthOcclusionEnabled/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/is-depth-occlusion-enabled.html
+$dokka.location:io.github.sceneview.ar.camera/ARCameraStream/isOccluderMeshEnabled/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/is-occluder-mesh-enabled.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/isPersonOcclusionEnabled/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/is-person-occlusion-enabled.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/personMaskTexture/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/person-mask-texture.html
 $dokka.location:io.github.sceneview.ar.camera/ARCameraStream/personOcclusionMaterial/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.camera/-a-r-camera-stream/person-occlusion-material.html
@@ -778,6 +780,15 @@ $dokka.location:io.github.sceneview.ar.scene////PointingToDeclaration/arscenevi
 $dokka.location:io.github.sceneview.ar.scene//destroy/com.google.ar.core.Anchor#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/destroy.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion///PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/index.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_COLOR/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-c-o-l-o-r.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_CONTRAST/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-c-o-n-t-r-a-s-t.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_FOCUS/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-f-o-c-u-s.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_GRID_ALPHA/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-g-r-i-d_-a-l-p-h-a.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_GRID_TINT/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-g-r-i-d_-t-i-n-t.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_OPACITY/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-o-p-a-c-i-t-y.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_SCAN_PLANE_RADIUS/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-s-c-a-n_-p-l-a-n-e_-r-a-d-i-u-s.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_SCAN_PROGRESS/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-s-c-a-n_-p-r-o-g-r-e-s-s.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_SURFACE_ALPHA/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-s-u-r-f-a-c-e_-a-l-p-h-a.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_SURFACE_KIND/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-s-u-r-f-a-c-e_-k-i-n-d.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_TEXTURE/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-t-e-x-t-u-r-e.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.Companion/MATERIAL_UV_SCALE/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-companion/-m-a-t-e-r-i-a-l_-u-v_-s-c-a-l-e.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer.PlaneRendererMode.RENDER_ALL///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.scene/-plane-renderer/-plane-renderer-mode/-r-e-n-d-e-r_-a-l-l/index.html
@@ -794,6 +805,7 @@ $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/isEnabled/#/PointingT
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/isShadowReceiver/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/is-shadow-receiver.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/isVisible/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/is-visible.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/maxHitTestPerSecond/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/max-hit-test-per-second.html
+$dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/maxUpdatesPerSecond/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/max-updates-per-second.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/planeMaterial/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/plane-material.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/planeRendererMode/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/plane-renderer-mode.html
 $dokka.location:io.github.sceneview.ar.scene/PlaneRenderer/planeTexture/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.scene/-plane-renderer/plane-texture.html
@@ -1294,6 +1306,7 @@ $dokka.location:io.github.sceneview.ar/AutoPlacementState.Companion/RECOVERY_TIM
 $dokka.location:io.github.sceneview.ar/AutoPlacementState///PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/index.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/AutoPlacementState/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/-auto-placement-state.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/acceptsAsset/#io.github.sceneview.ar.AssetTicket/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/accepts-asset.html
+$dokka.location:io.github.sceneview.ar/AutoPlacementState/allowsScaling/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/allows-scaling.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/beginAdjustment/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/begin-adjustment.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/cameraFailed/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/camera-failed.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/deselectPlacement/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/deselect-placement.html
@@ -1437,6 +1450,7 @@ $dokka.location:io.github.sceneview.ar/PlaneDiscoveryPhase/entries/#/PointingToD
 $dokka.location:io.github.sceneview.ar/PlaneDiscoveryPhase/valueOf/#kotlin.String/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-discovery-phase/value-of.html
 $dokka.location:io.github.sceneview.ar/PlaneDiscoveryPhase/values/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-discovery-phase/values.html
 $dokka.location:io.github.sceneview.ar/PlaneVisualizer.Companion///PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-visualizer/-companion/index.html
+$dokka.location:io.github.sceneview.ar/PlaneVisualizer.Companion/SCAN_IN_DURATION_MS/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-visualizer/-companion/-s-c-a-n_-i-n_-d-u-r-a-t-i-o-n_-m-s.html
 $dokka.location:io.github.sceneview.ar/PlaneVisualizer///PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-visualizer/index.html
 $dokka.location:io.github.sceneview.ar/PlaneVisualizer/PlaneVisualizer/#com.google.android.filament.Engine#com.google.android.filament.Scene#com.google.ar.core.Plane/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-visualizer/-plane-visualizer.html
 $dokka.location:io.github.sceneview.ar/PlaneVisualizer/destroy/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-plane-visualizer/destroy.html

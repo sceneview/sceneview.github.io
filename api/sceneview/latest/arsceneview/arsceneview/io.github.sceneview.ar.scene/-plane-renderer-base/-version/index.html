@@ -107,7 +107,7 @@
   <div class="breadcrumbs"><a href="../../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../../index.html">io.github.sceneview.ar.scene</a><span class="delimiter">/</span><a href="../index.html">PlaneRendererBase</a><span class="delimiter">/</span><span class="current">Version</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Version</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">Version</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">PlaneRendererBase.Version</a><span class="token operator">&gt; </span></div><p class="paragraph">Selects which plane-renderer implementation <code class="lang-kotlin">ARSceneView</code> instantiates.</p><p class="paragraph"><strong>Default is </strong><a href="-v1/index.html"><strong>V1</strong></a> as of v4.16.1 — the proven flat-polygon procedural-grid renderer. <a href="-v2/index.html">V2</a> is opt-in experimental pending polish work — see <a href="https://github.com/sceneview/sceneview/issues/2203">#2203</a>. Switching versions at runtime triggers a renderer rebuild (the parameter is wired into the surrounding <code class="lang-kotlin">remember(...)</code> keys), so toggling is safe but <strong>not free</strong> — pick once at composition root.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html"><strike>Version</strike></a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">PlaneRendererBase.Version</a><span class="token operator">&gt; </span></div><div class="deprecation-content"><h3 class="">Deprecated</h3><p class="paragraph">Ignored since 4.57.0: there is one plane renderer. Delete the planeRendererVersion argument.</p></div><p class="paragraph">Former selector of the plane-renderer implementation, read by <code class="lang-kotlin">ARSceneView</code>'s <code class="lang-kotlin">planeRendererVersion</code> parameter.</p><p class="paragraph"><strong>Ignored since 4.57.0</strong>: both values draw with <a href="../../-plane-renderer/index.html">PlaneRenderer</a>, the only plane renderer. Delete the <code class="lang-kotlin">planeRendererVersion</code> argument.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
@@ -124,7 +124,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><a href="-v1/index.html">V1</a></div></div><div class="brief "><p class="paragraph">Default plane renderer — flat polygon + procedural unlit grid. Battle-tested, matches every existing AR demo. Default as of v4.16.1.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><a href="-v1/index.html">V1</a></div></div><div class="brief "><p class="paragraph">Formerly the textured-grid renderer. Ignored: draws with <a href="../../-plane-renderer/index.html">PlaneRenderer</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><a href="-v2/index.html">V2</a></div></div><div class="brief "><p class="paragraph">Experimental plane renderer — depth-driven mesh, PBR materials lit by ARCore's HDR estimate, type-aware floor / ceiling / wall material identities, and an 800 ms scan-in ring on first detection.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><div class="block"><a href="-v2/index.html">V2</a></div></div><div class="brief "><p class="paragraph">Formerly the dots renderer, which became <a href="../../-plane-renderer/index.html">PlaneRenderer</a>.</p></div></div></div>
                 </div>
               </div>
             </div>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PlaneRenderer</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    arsceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":arsceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":arsceneview/main"
+                                       data-filter=":arsceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    arsceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="arsceneview::io.github.sceneview.ar.scene/PlaneRenderer///PointingToDeclaration//-652796645">
+  <div class="breadcrumbs"><a href="../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.ar.scene</a><span class="delimiter">/</span><span class="current">PlaneRenderer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Plane</span><wbr></wbr><span><span>Renderer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">PlaneRenderer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>engine<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span><span class="token punctuation">, </span></span><span class="parameter ">materialLoader<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.loaders/MaterialLoader///PointingToDeclaration/">MaterialLoader</span><span class="token punctuation">, </span></span><span class="parameter ">scene<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Scene///PointingToDeclaration/">Scene</span></span></span><span class="token punctuation">)</span> : <a href="../-plane-renderer-base/index.html">PlaneRendererBase</a></div><p class="paragraph">Draws the surfaces ARCore detects: a field of soft marks lying on each one (<a href="https://github.com/sceneview/sceneview/issues/3507">#3507</a>, <a href="https://github.com/sceneview/sceneview/issues/4307">#4307</a>).</p><p class="paragraph">This is the one plane renderer of <code class="lang-kotlin">ARSceneView</code>; <code class="lang-kotlin">ARSceneView(planeRenderer = true)</code> is all an app needs.</p><ul><li><p class="paragraph"><strong>The mark says what the surface is.</strong> Floors and tables carry round white dots, walls upright blue dashes on a staggered lattice, ceilings warm hollow rings (<span data-unresolved-link="io.github.sceneview.ar.scene//planeMaterialPresetFor/#com.google.ar.core.Plane.Type/PointingToDeclaration/">planeMaterialPresetFor</span>). The shape differs as well as the colour, so a wall reads as a wall in a dark room, in daylight and for a colour-blind user.</p></li><li><p class="paragraph"><strong>Anchored to the world.</strong> The marks stay put while ARCore re-centres and grows a plane, and fade out at the plane's edges and with distance.</p></li><li><p class="paragraph"><strong>Reveal.</strong> A new surface is revealed by a bright front sweeping out from its centre, and each extension ARCore makes is revealed the same way.</p></li><li><p class="paragraph"><strong>Focus.</strong> The floor under the centre of the screen is highlighted: brighter marks, a pool of light, a thin ring and slow ripples where the camera points — the surface itself is the reticle.</p></li><li><p class="paragraph"><strong>Only real surfaces.</strong> A plane smaller than <span data-unresolved-link="io.github.sceneview.ar.scene//isPlaneLargeEnough/#com.google.ar.core.Plane.Type#kotlin.Float#kotlin.Float/PointingToDeclaration/">isPlaneLargeEnough</span> allows is not drawn until it grows: ARCore reports many short-lived slivers on bags, door edges and furniture fronts.</p></li></ul><p class="paragraph">Setting <a href="is-enabled.html">isEnabled</a> or <a href="is-visible.html">isVisible</a> to <code class="lang-kotlin">false</code> fades the planes out instead of cutting them — <code class="lang-kotlin">ARSceneView(planeRenderer = false)</code> right after placing an object is the intended tidy exit. Plane <i>detection</i> keeps running: hit tests, anchors and gestures on the placed object work exactly as they do while the planes are drawn.</p><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../io.github.sceneview.ar/-plane-visualizer/index.html"><span>Plane</span><wbr></wbr><span><span>Visualizer</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-1185627484%2FConstructors%2F-652796645" anchor-label="PlaneRenderer" id="-1185627484%2FConstructors%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-plane-renderer.html"><span>Plane</span><wbr></wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1185627484%2FConstructors%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">engine<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span><span class="token punctuation">, </span></span><span class="parameter ">materialLoader<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.loaders/MaterialLoader///PointingToDeclaration/">MaterialLoader</span><span class="token punctuation">, </span></span><span class="parameter ">scene<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Scene///PointingToDeclaration/">Scene</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="1757768244%2FClasslikes%2F-652796645" anchor-label="Companion" id="1757768244%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1757768244%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="408683902%2FClasslikes%2F-652796645" anchor-label="PlaneRendererMode" id="408683902%2FClasslikes%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-plane-renderer-mode/index.html"><span>Plane</span><wbr></wbr><span>Renderer</span><wbr></wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="408683902%2FClasslikes%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-plane-renderer-mode/index.html">PlaneRendererMode</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-plane-renderer-mode/index.html">PlaneRenderer.PlaneRendererMode</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Which tracked planes <a href="index.html">PlaneRenderer</a> draws.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1516572533%2FProperties%2F-652796645" anchor-label="engine" id="-1516572533%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="engine.html"><span><span>engine</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1516572533%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="engine.html">engine</a><span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="726823446%2FProperties%2F-652796645" anchor-label="isEnabled" id="726823446%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-enabled.html"><span>is</span><wbr></wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="726823446%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">var </span><a href="is-enabled.html">isEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Disabling fades the planes out; enabling fades them back in.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-406330444%2FProperties%2F-652796645" anchor-label="isShadowReceiver" id="-406330444%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-shadow-receiver.html"><span>is</span><wbr></wbr><span>Shadow</span><wbr></wbr><span><span>Receiver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-406330444%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">var </span><a href="is-shadow-receiver.html">isShadowReceiver</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Control whether Renderables in the scene should cast shadows onto the planes</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="640980485%2FProperties%2F-652796645" anchor-label="isVisible" id="640980485%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-visible.html"><span>is</span><wbr></wbr><span><span>Visible</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="640980485%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">var </span><a href="is-visible.html">isVisible</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Control visibility of plane visualization.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1053534531%2FProperties%2F-652796645" anchor-label="maxHitTestPerSecond" id="-1053534531%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-hit-test-per-second.html"><span>max</span><wbr></wbr><span>Hit</span><wbr></wbr><span>Test</span><wbr></wbr><span>Per</span><wbr></wbr><span><span>Second</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1053534531%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="max-hit-test-per-second.html"><strike>maxHitTestPerSecond</strike></a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Former name of <a href="max-updates-per-second.html">maxUpdatesPerSecond</a>: reads and writes the same value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="215100290%2FProperties%2F-652796645" anchor-label="maxUpdatesPerSecond" id="215100290%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-updates-per-second.html"><span>max</span><wbr></wbr><span>Updates</span><wbr></wbr><span>Per</span><wbr></wbr><span><span>Second</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="215100290%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="max-updates-per-second.html">maxUpdatesPerSecond</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Maximum number of plane updates per second.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1116223830%2FProperties%2F-652796645" anchor-label="planeMaterial" id="-1116223830%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="plane-material.html"><span>plane</span><wbr></wbr><span><span>Material</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1116223830%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="plane-material.html">planeMaterial</a><span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Material///PointingToDeclaration/">Material</span></div><div class="brief "><p class="paragraph">The material every plane is drawn with (<code class="lang-kotlin">plane_renderer.mat</code>). Each plane gets its own instance; parameters set on <span data-unresolved-link="com.google.android.filament/Material/getDefaultInstance/#/PointingToDeclaration/">com.google.android.filament.Material.getDefaultInstance</span> here are the defaults those instances start from.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="439444907%2FProperties%2F-652796645" anchor-label="planeRendererMode" id="439444907%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="plane-renderer-mode.html"><span>plane</span><wbr></wbr><span>Renderer</span><wbr></wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="439444907%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="plane-renderer-mode.html">planeRendererMode</a><span class="token operator">: </span><a href="-plane-renderer-mode/index.html">PlaneRenderer.PlaneRendererMode</a></div><div class="brief "><p class="paragraph">Which tracked planes are drawn: every one of them (<a href="-plane-renderer-mode/-r-e-n-d-e-r_-a-l-l/index.html">PlaneRendererMode.RENDER_ALL</a>, the default) or only the one under the centre of the screen.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1275616846%2FProperties%2F-652796645" anchor-label="planeTexture" id="1275616846%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="plane-texture.html"><span>plane</span><wbr></wbr><span><span>Texture</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1275616846%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="plane-texture.html"><strike>planeTexture</strike></a><span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Texture///PointingToDeclaration/">Texture</span></div><div class="brief "><p class="paragraph">A 1 × 1 transparent texture, kept so that code written against the textured-grid renderer still compiles and never reads <code class="lang-kotlin">null</code>. The dots renderer does not sample it: the surface marks are procedural since 4.57.0 (#4307). It is created on the first read and destroyed with the renderer.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-952905977%2FProperties%2F-652796645" anchor-label="viewSize" id="-952905977%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="view-size.html"><span>view</span><wbr></wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-952905977%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">lateinit override </span><span class="token keyword">var </span><a href="view-size.html"><strike>viewSize</strike></a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/util/Size.html">Size</a></div><div class="brief "><p class="paragraph">Display size of the surface the renderer draws into, still set by <code class="lang-kotlin">ARSceneView</code> on every resize. Nothing reads it: the plane under the centre of the screen is picked from the camera pose (#3339), which needs no viewport size.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="13406771%2FFunctions%2F-652796645" anchor-label="destroy" id="13406771%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="destroy.html"><span><span>destroy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="13406771%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="destroy.html"><span class="token function">destroy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Releases every plane visualizer and the two materials. Called by <code class="lang-kotlin">ARSceneView</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="200523044%2FFunctions%2F-652796645" anchor-label="update" id="200523044%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="update.html"><span><span>update</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="200523044%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="update.html"><span class="token function">update</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">session<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Session///PointingToDeclaration/">Session</span><span class="token punctuation">, </span></span><span class="parameter ">frame<span class="token operator">: </span><span data-unresolved-link="com.google.ar.core/Frame///PointingToDeclaration/">Frame</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Called by <code class="lang-kotlin">ARSceneView</code> on every AR frame, on the render thread: refreshes the planes ARCore updated (at most <a href="max-updates-per-second.html">maxUpdatesPerSecond</a> times a second) and advances every plane's animations.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

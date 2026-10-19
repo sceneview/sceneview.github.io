@@ -152,7 +152,22 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="1515922137%2FProperties%2F-652796645" anchor-label="hasCameraFrame" id="1515922137%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+        <div class="table"><a data-name="-665894506%2FProperties%2F-652796645" anchor-label="allowsScaling" id="-665894506%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="allows-scaling.html"><span>allows</span><wbr></wbr><span><span>Scaling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-665894506%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="allows-scaling.html">allowsScaling</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Let the user resize the placed object with a pinch, <a href="scale-to.html">scaleTo</a> or the double-tap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1515922137%2FProperties%2F-652796645" anchor-label="hasCameraFrame" id="1515922137%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -571,7 +586,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale-to.html"><span class="token function">scaleTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accessibility alternative: uniform base-size multiplier, clamped to 25–400%.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale-to.html"><span class="token function">scaleTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accessibility alternative: uniform base-size multiplier, clamped to 25–400%. Ignored while <a href="allows-scaling.html">allowsScaling</a> is <code class="lang-kotlin">false</code>.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -616,7 +631,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="toggle-base-scale.html"><span class="token function">toggleBaseScale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The double-tap on the placed object: selects it, then animates it back to exactly 100 % if it was resized — or, already at 100 %, back to the size the user had pinched it to before (a toggle, not a one-way reset). Never resized, it plays the 100 % rebound so the tap is acknowledged. Wire it to <code class="lang-kotlin">onDoubleTap</code> when the tapped node is the placed model; <a href="../-auto-placement-scene.html">AutoPlacementScene</a> already does.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="toggle-base-scale.html"><span class="token function">toggleBaseScale</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">The double-tap on the placed object: selects it, then animates it back to exactly 100 % if it was resized — or, already at 100 %, back to the size the user had pinched it to before (a toggle, not a one-way reset). Never resized, it plays the 100 % rebound so the tap is acknowledged. While <a href="allows-scaling.html">allowsScaling</a> is <code class="lang-kotlin">false</code> it only selects. Wire it to <code class="lang-kotlin">onDoubleTap</code> when the tapped node is the placed model; <a href="../-auto-placement-scene.html">AutoPlacementScene</a> already does.</p></div></div></div>
                 </div>
               </div>
             </div>

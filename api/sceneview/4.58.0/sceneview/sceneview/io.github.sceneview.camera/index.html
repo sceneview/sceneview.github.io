@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.github.sceneview.camera</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="sceneview::io.github.sceneview.camera////PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../index.html">sceneview</a><span class="delimiter">/</span><span class="current">io.github.sceneview.camera</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1443025221%2FClasslikes%2F-278939350" anchor-label="CameraAnimator" id="-1443025221%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-animator/index.html"><span>Camera</span><wbr></wbr><span><span>Animator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1443025221%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-camera-animator/index.html">CameraAnimator</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">initial<span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Plays camera moves frame by frame: a <a href="-camera-transition/index.html">CameraTransition</a> (<a href="-camera-animator/fly-to.html">flyTo</a>) or a <a href="-camera-path/index.html">CameraPath</a> (<a href="-camera-animator/play.html">play</a>), one at a time, each starting from wherever the camera is now.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1362665783%2FClasslikes%2F-278939350" anchor-label="CameraEasing" id="1362665783%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-easing/index.html"><span>Camera</span><wbr></wbr><span><span>Easing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1362665783%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-camera-easing/index.html">CameraEasing</a></div><div class="brief "><p class="paragraph">The easings a camera move reads well with. Each is a <code class="lang-kotlin">(Float) -&gt; Float</code> over <code class="lang-kotlin">[0, 1]</code>, the same shape as <span data-unresolved-link="io.github.sceneview.animation/Easing///PointingToDeclaration/">io.github.sceneview.animation.Easing</span>, so any of those fits too.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1756061972%2FClasslikes%2F-278939350" anchor-label="CameraKeyframe" id="1756061972%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-keyframe/index.html"><span>Camera</span><wbr></wbr><span><span>Keyframe</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1756061972%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-camera-keyframe/index.html">CameraKeyframe</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>shot<span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seconds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A <span data-unresolved-link="io.github.sceneview.camera/CameraKeyframe//#io.github.sceneview.camera.CameraShot#kotlin.Float/PointingToCallableParameters(0)/">shot</span> the camera is on at <span data-unresolved-link="io.github.sceneview.camera/CameraKeyframe//#io.github.sceneview.camera.CameraShot#kotlin.Float/PointingToCallableParameters(1)/">seconds</span> into a <a href="-camera-path/index.html">CameraPath</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1824565181%2FClasslikes%2F-278939350" anchor-label="CameraPath" id="1824565181%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-path/index.html"><span>Camera</span><wbr></wbr><span><span>Path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824565181%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-camera-path/index.html">CameraPath</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">keyframes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-camera-keyframe/index.html">CameraKeyframe</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>easing<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>CameraEasing.Expressive<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shortestArc<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>loop<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A camera move through keyframes: the camera passes each <a href="-camera-keyframe/shot.html">CameraKeyframe.shot</a> at its time and flows between them on a cubic spline (Catmull-Rom over the orbit parameters), so its speed is continuous across a keyframe — no kink, no change of pace the eye can catch.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1979849352%2FClasslikes%2F-278939350" anchor-label="CameraShot" id="1979849352%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-shot/index.html"><span>Camera</span><wbr></wbr><span><span>Shot</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1979849352%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-camera-shot/index.html">CameraShot</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span><span class="token operator"> = </span>Position(0f, 0f, 0f)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>azimuthDegrees<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>elevationDegrees<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>distance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">1.0f</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Where a camera stands and what it looks at, as a cinematographer would call it: a <strong>shot</strong>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-224910411%2FClasslikes%2F-278939350" anchor-label="CameraShotSink" id="-224910411%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-shot-sink/index.html"><span>Camera</span><wbr></wbr><span>Shot</span><wbr></wbr><span><span>Sink</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-224910411%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-camera-shot-sink/index.html">CameraShotSink</a></div><div class="brief "><p class="paragraph">A gesture manipulator that can be handed the camera mid-move: where a cinematic stops, the gesture starts from that very shot, at that very velocity, so a drag on a turning camera keeps turning under the finger. Implement it on an orbit manipulator that keeps its own pose and inertia; <a href="-cinematic-camera-manipulator/index.html">CinematicCameraManipulator</a> calls it on the first touch of a playing move, when a move ends on its own (with <a href="-camera-shot-velocity/-companion/-zero.html">CameraShotVelocity.Zero</a>), and on <a href="-camera-animator/snap-to.html">CameraAnimator.snapTo</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-303408853%2FClasslikes%2F-278939350" anchor-label="CameraShotVelocity" id="-303408853%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-shot-velocity/index.html"><span>Camera</span><wbr></wbr><span>Shot</span><wbr></wbr><span><span>Velocity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-303408853%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-camera-shot-velocity/index.html">CameraShotVelocity</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>azimuthDegreesPerSecond<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>elevationDegreesPerSecond<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>distancePerSecond<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>targetPerSecond<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span><span class="token operator"> = </span>Position(0f, 0f, 0f)</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">How fast a <a href="-camera-shot/index.html">CameraShot</a> is changing, per second — what a cinematic that is interrupted by a touch hands the gesture, so a fling picks up at the speed the camera already had instead of stopping dead under the finger.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1906195507%2FClasslikes%2F-278939350" anchor-label="CameraTransition" id="-1906195507%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-transition/index.html"><span>Camera</span><wbr></wbr><span><span>Transition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1906195507%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-camera-transition/index.html">CameraTransition</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>from<span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>to<span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>durationSeconds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>easing<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>CameraEasing.Expressive<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>flyOver<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>DEFAULT_FLY_OVER</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">One camera move, from a shot to another over a duration.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-803663333%2FClasslikes%2F-278939350" anchor-label="CinematicCameraManipulator" id="-803663333%2FClasslikes%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-cinematic-camera-manipulator/index.html"><span>Cinematic</span><wbr></wbr><span>Camera</span><wbr></wbr><span><span>Manipulator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-803663333%2FClasslikes%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-cinematic-camera-manipulator/index.html">CinematicCameraManipulator</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>animator<span class="token operator">: </span><a href="-camera-animator/index.html">CameraAnimator</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>inner<span class="token operator">: </span><a href="../io.github.sceneview.gesture/-camera-gesture-detector/-camera-manipulator/index.html">CameraGestureDetector.CameraManipulator</a><span class="token punctuation">, </span></span><span class="parameter ">handoverSeconds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>HANDOVER_SECONDS</span></span><span class="token punctuation">)</span> : <a href="../io.github.sceneview.gesture/-camera-gesture-detector/-camera-manipulator/index.html">CameraGestureDetector.CameraManipulator</a></div><div class="brief "><p class="paragraph">Cinematic moves over a gesture camera, in one <code class="lang-kotlin">cameraManipulator</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1266412300%2FFunctions%2F-278939350" anchor-label="cameraTransition" id="-1266412300%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="camera-transition.html"><span>camera</span><wbr></wbr><span><span>Transition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1266412300%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="camera-transition.html"><span class="token function">cameraTransition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">from<span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a><span class="token punctuation">, </span></span><span class="parameter ">to<span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a><span class="token punctuation">, </span></span><span class="parameter ">progress<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">easing<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>CameraEasing.Expressive<span class="token punctuation">, </span></span><span class="parameter ">flyOver<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span>CameraTransition.DEFAULT_FLY_OVER</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-camera-shot/index.html">CameraShot</a></div><div class="brief "><p class="paragraph">The shot <a href="camera-transition.html">progress</a> (<code class="lang-kotlin">0..1</code>) of the way from <a href="camera-transition.html">from</a> to <a href="camera-transition.html">to</a> — the pure maths of <a href="-camera-transition/index.html">CameraTransition</a>, for a caller that drives progress itself (a scroll, a slider).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="93912625%2FFunctions%2F-278939350" anchor-label="rememberCinematicCameraManipulator" id="93912625%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="remember-cinematic-camera-manipulator.html"><span>remember</span><wbr></wbr><span>Cinematic</span><wbr></wbr><span>Camera</span><wbr></wbr><span><span>Manipulator</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="93912625%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="remember-cinematic-camera-manipulator.html"><span class="token function">rememberCinematicCameraManipulator</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">animator<span class="token operator">: </span><a href="-camera-animator/index.html">CameraAnimator</a><span class="token punctuation">, </span></span><span class="parameter ">inner<span class="token operator">: </span><a href="../io.github.sceneview.gesture/-camera-gesture-detector/-camera-manipulator/index.html">CameraGestureDetector.CameraManipulator</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-cinematic-camera-manipulator/index.html">CinematicCameraManipulator</a></div><div class="brief "><p class="paragraph">Remembers a <a href="-cinematic-camera-manipulator/index.html">CinematicCameraManipulator</a> over <a href="remember-cinematic-camera-manipulator.html">animator</a> and <a href="remember-cinematic-camera-manipulator.html">inner</a>, rebuilt when either changes. The render loop's camera-swap glide covers a rebuild, so neither cuts.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
