@@ -4349,7 +4349,7 @@ silent stub.</p>
 <td><strong>Not yet built on iOS.</strong> ARKit's native <code>ARSession.collaborationData</code> (or RealityKit's <code>MultipeerConnectivityService</code>) would give iOS a <em>more</em> native path than Android's bespoke wire protocol — no custom transport abstraction needed. Tracked under the iOS-parity tracker (#2798, "Wave B").</td>
 </tr>
 <tr>
-<td><code>ar-ml-object-label</code> demo — ML Kit Object Detection over <code>Frame.cameraImage()</code> (see <code>ARMLObjectLabelDemo.kt</code>)</td>
+<td>ML Kit Object Detection over <code>Frame.cameraImage()</code> (the Android demo <code>ar-ml-object-label</code>, no longer a catalogue card: Point &amp; Ask's on-device fallback, see <code>ARMLObjectLabelDemo.kt</code>)</td>
 <td>Apple ships no built-in generic object-detection model (unlike ML Kit's default on-device model)</td>
 <td>iOS-skip — no demo port yet. The raw camera-image access this would need is already available (<code>ARFrame.capturedImage</code> — see the <code>Frame.cameraImage()</code> row above); a port would pair it with Vision + a bundled Core ML detector model.</td>
 </tr>
