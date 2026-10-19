@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SceneFrameDispatch</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="sceneview::io.github.sceneview/SceneFrameDispatch///PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview</a><span class="delimiter">/</span><span class="current">SceneFrameDispatch</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Scene</span><wbr></wbr><span>Frame</span><wbr></wbr><span><span>Dispatch</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">class </span><a href="index.html">SceneFrameDispatch</a></div><p class="paragraph">Hands a frame to the nodes of one scene that have something to do with it, without walking the scene's tree on every frame (#4451).</p><p class="paragraph">The render loop used to call <code class="lang-kotlin">roots.forEach { it.onFrame(frameTimeNanos) }</code>, and <a href="../../io.github.sceneview.node/-node/on-frame.html">Node.onFrame</a> recurses into every child: one virtual call, one time-step computation and one child iteration per node and per rendered frame, for a tree where most nodes have no per-frame work at all.</p><h3 class="">A plan, replayed until the tree changes</h3><p class="paragraph">That walk is still done — once, by <a href="dispatch.html">dispatch</a>, and its outcome is kept as a <strong>plan</strong>: the steps the recursive walk would have run, in the order it would have run them, with every node that has nothing to do left out. The plan is replayed on the following frames for as long as it is known to be current, and rebuilt by a new walk when it is not.</p><p class="paragraph">&quot;Known to be current&quot; is one number, <span data-unresolved-link="io.github.sceneview/FrameDispatchEpoch///PointingToDeclaration/">FrameDispatchEpoch</span>: every write that can change what a walk would find — a <code class="lang-kotlin">childNodes</code> field, an <code class="lang-kotlin">onFrame</code> or <code class="lang-kotlin">internalOnFrame</code> slot set or cleared, a node type's own work declared or withdrawn (<code class="lang-kotlin">Node.hasOwnFrameWork</code>), a smooth transform started or finished — bumps it. A plan remembers the epoch it was built under and is thrown away on any other value. Nothing here records which node belongs to which scene, so there is no bookkeeping to get wrong: a change anywhere invalidates every plan, which costs the walk the loop used to do on every frame, and never a missed tick.</p><h3 class="">The three kinds of step, and why the order is the walk's own</h3><p class="paragraph"><a href="../../io.github.sceneview.node/-node/on-frame.html">Node.onFrame</a> does, for a node <code class="lang-kotlin">n</code>: its smooth transform, then its children, then its <code class="lang-kotlin">internalOnFrame</code> hook, its <code class="lang-kotlin">onFrame</code> callback and its type's own work (<code class="lang-kotlin">Node.onOwnFrame</code>). So a child reads a parent that has already glided, and a parent's callback reads children that have already ticked. The plan keeps exactly that: <span data-unresolved-link="io.github.sceneview//FRAME_STEP_SMOOTH/#/PointingToDeclaration/">FRAME_STEP_SMOOTH</span> for <code class="lang-kotlin">n</code> where the walk enters it, <span data-unresolved-link="io.github.sceneview//FRAME_STEP_CALLBACKS/#/PointingToDeclaration/">FRAME_STEP_CALLBACKS</span> for <code class="lang-kotlin">n</code> where the walk leaves it, and its children's steps in between, in <code class="lang-kotlin">childNodes</code> order.</p><h3 class="">Classes that override <code class="lang-kotlin">onFrame</code></h3><p class="paragraph"><code class="lang-kotlin">Node.onFrame</code> is public and <code class="lang-kotlin">open</code>. A class that overrides it — a node type of an app — may do anything there, and reaches its own children through <code class="lang-kotlin">super.onFrame</code>. Nothing can be assumed about it, so such a node is a single <span data-unresolved-link="io.github.sceneview//FRAME_STEP_OVERRIDE/#/PointingToDeclaration/">FRAME_STEP_OVERRIDE</span> step: its <code class="lang-kotlin">onFrame</code> is called on every frame, in full, and the plan does not look underneath it. The whole subtree below it is ticked by the unchanged recursive <a href="../../io.github.sceneview.node/-node/on-frame.html">Node.onFrame</a>, exactly as before. Whether a class overrides the method is read once per class, by reflection (<span data-unresolved-link="io.github.sceneview//overridesOnFrame/#java.lang.Class[*]/PointingToDeclaration/">overridesOnFrame</span>); any doubt answers &quot;it does&quot;.</p><p class="paragraph">No node type of the library is one of those any more. <code class="lang-kotlin">ModelNode</code> and <code class="lang-kotlin">SplatNode</code> were: they now declare their per-frame work with <code class="lang-kotlin">Node.hasOwnFrameWork</code>, which the plan reads like a callback, so a model at rest has no step at all and the nodes of its glTF are planned one by one like any other. Both keep an <code class="lang-kotlin">onFrame</code> override that only calls <code class="lang-kotlin">super</code> — removing a public method is a change of the binary API — and <span data-unresolved-link="io.github.sceneview//overridesOnFrame/#java.lang.Class[*]/PointingToDeclaration/">overridesOnFrame</span> knows the two by name.</p><h3 class="">A change made while a frame is being handed out</h3><p class="paragraph">A callback may attach, detach or destroy nodes, or set another node's callback. The steps left in the plan then belong to a tree that has moved on. They are still run, so that no node which was due a tick loses it, except for a node that has since been taken out of its parent (which is also what destroying it does). That is a difference from the recursive walk for one case: the walk iterated the list of children it had read on entering the parent, so a <i>sibling</i> detached or destroyed by an earlier sibling's callback was still ticked on that frame, one last time; it no longer is. A node that <i>gained</i> per-frame work during the frame — a callback set on it, a glide started, or the node itself attached — gets its first tick on the next one, when the plan is rebuilt. The recursive walk gave that first tick on the same frame when the node happened to come later in the walk, and on the next one otherwise.</p><p class="paragraph">Plumbing shared with <code class="lang-kotlin">arsceneview</code>, not API: do not call it from an app. Main thread only, as <code class="lang-kotlin">Node.onFrame</code> is.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-2010311281%2FConstructors%2F-278939350" anchor-label="SceneFrameDispatch" id="-2010311281%2FConstructors%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scene-frame-dispatch.html"><span>Scene</span><wbr></wbr><span>Frame</span><wbr></wbr><span><span>Dispatch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2010311281%2FConstructors%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1722539133%2FFunctions%2F-278939350" anchor-label="clear" id="-1722539133%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="clear.html"><span><span>clear</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1722539133%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="clear.html"><span class="token function">clear</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Lets go of every node. A node kept alive by its owner must not be kept by its old scene.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1066408476%2FFunctions%2F-278939350" anchor-label="dispatch" id="-1066408476%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dispatch.html"><span><span>dispatch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1066408476%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="dispatch.html"><span class="token function">dispatch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">roots<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../io.github.sceneview.node/-node/index.html">Node</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">frameTimeNanos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Same effect as <code class="lang-kotlin">roots.forEach { it.onFrame(frameTimeNanos) }</code>, at the cost of the nodes that have per-frame work instead of the cost of the tree.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
