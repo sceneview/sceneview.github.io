@@ -1100,10 +1100,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cameranode" class="md-nav__link">
+  <a href="#secondarycamera-formerly-cameranode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CameraNode
+        SecondaryCamera (formerly CameraNode)
       
     </span>
   </a>
@@ -3547,10 +3547,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#cameranode" class="md-nav__link">
+  <a href="#secondarycamera-formerly-cameranode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        CameraNode
+        SecondaryCamera (formerly CameraNode)
       
     </span>
   </a>
@@ -4158,7 +4158,7 @@
 <ul>
 <li><a href="#modelnode">ModelNode</a> — glTF/GLB models with animations</li>
 <li><a href="#lightnode">LightNode</a> — directional, point, spot, sun</li>
-<li><a href="#cameranode">CameraNode</a> — secondary cameras (PiP, CCTV, etc.)</li>
+<li><a href="#secondarycamera-formerly-cameranode">SecondaryCamera</a> — secondary cameras (PiP, CCTV, etc.); formerly <code>CameraNode</code></li>
 <li><a href="#viewnode">ViewNode</a> — Compose UI on a 3D plane</li>
 </ul>
 <p><strong>Procedural geometry</strong></p>
@@ -4281,7 +4281,7 @@ instance?.let { ModelNode(modelInstance = it, scaleToUnits = 1f) }</code></pre>
 <li>When the location changes, the <em>previous</em> instance is returned until the new one is ready (<code>produceState</code> retains its last value), so a <code>null</code>-based loading state does not fire during a switch. Wrap the call in <code>key(location) { rememberModelInstance(...) }</code> to observe <code>null</code> during the switch (<a href="https://github.com/sceneview/sceneview/issues/3900">#3900</a>).</li>
 <li>Automatically disposed when the composable leaves the tree.</li>
 <li>File path is relative to <code>src/main/assets/</code>.</li>
-<li>For remote URLs, use <code>rememberModelInstance(modelLoader, url = "https://…")</code>.</li>
+<li>For remote URLs (or <code>file://</code> / <code>content://</code>), use <code>rememberModelInstance(modelLoader, fileLocation = "https://…")</code>. A positional location with a scheme is routed to the same overload.</li>
 </ul>
 <hr />
 <h2 id="materialloader">materialLoader<a class="headerlink" href="#materialloader" title="Permanent link">&para;</a></h2>
@@ -4464,13 +4464,20 @@ instance?.let {
 <li><strong>No visible light = black PBR models.</strong> Either add a <code>LightNode</code>, an indirect <code>Environment</code>, or switch your material to <code>createColorInstance(..., unlit = true)</code>.</li>
 </ul>
 <hr />
-<h2 id="cameranode">CameraNode<a class="headerlink" href="#cameranode" title="Permanent link">&para;</a></h2>
-<p>Secondary cameras inside the scene (e.g. a picture-in-picture CCTV view, a mirror, a portal). The main camera is configured at <code>SceneView</code> level via <code>rememberCameraNode</code>.</p>
-<pre class="language-kotlin"><code>CameraNode(
-    position = Position(0f, 2f, 0f),
-    rotation = Rotation(x = -90f),
+<h2 id="secondarycamera-formerly-cameranode">SecondaryCamera (formerly CameraNode)<a class="headerlink" href="#secondarycamera-formerly-cameranode" title="Permanent link">&para;</a></h2>
+<p>Secondary cameras inside the scene (e.g. a picture-in-picture CCTV view, a mirror, a portal). The main camera is configured at <code>SceneView</code> level via <code>rememberCameraNode</code>. The composable takes only <code>apply</code> and <code>content</code>: set the transform and the projection inside <code>apply</code>. <code>CameraNode(apply, content)</code> still compiles but is deprecated in favour of <code>SecondaryCamera</code> — it never becomes the active rendering camera.</p>
+<pre class="language-kotlin"><code>SecondaryCamera(
     apply = {
-        projection = Projection.Perspective(fovDegrees = 60f)
+        position = Position(0f, 2f, 0f)
+        rotation = Rotation(x = -90f)
+        // Filament perspective projection: vertical FOV in degrees, aspect, near, far
+        setProjection(
+            fovInDegrees = 60.0,
+            aspect = 16.0 / 9.0,
+            near = 0.05,
+            far = 100.0,
+            direction = Camera.Fov.VERTICAL
+        )
     }
 )</code></pre>
 <hr />
@@ -4698,14 +4705,25 @@ Total height = <code>height + 2 * radius</code>.</p>
 )</code></pre>
 <hr />
 <h2 id="meshnode">MeshNode<a class="headerlink" href="#meshnode" title="Permanent link">&para;</a></h2>
-<p>Arbitrary triangle mesh from raw vertex / index buffers. Use this when none of the procedural helpers fit — e.g. loading a <code>MeshDescriptor</code> you built yourself, or generating marching-cubes output.</p>
-<pre class="language-kotlin"><code>MeshNode(
-    vertices = vertexFloatArray,           // [x,y,z, x,y,z, …]
-    normals = normalFloatArray,            // [nx,ny,nz, …] (optional — auto-computed if null)
-    uvs = uvFloatArray,                    // [u,v, u,v, …] (optional)
-    indices = indexIntArray,               // triangle indices
+<p>Arbitrary mesh from Filament vertex / index buffers. Use this when none of the procedural helpers fit — e.g. generating marching-cubes output. Build the buffers with <code>Geometry.Builder</code> from plain <code>Geometry.Vertex(position, normal, uvCoordinate, color)</code> records.</p>
+<pre class="language-kotlin"><code>val geometry = remember(engine) {
+    Geometry.Builder(RenderableManager.PrimitiveType.TRIANGLES)
+        .vertices(myVertices)                 // List&lt;Geometry.Vertex&gt;
+        .indices(myIndices)                   // List&lt;Int&gt;, 3 per triangle
+        .build(engine)
+}
+// MeshNode does NOT own buffers it was handed: free them yourself. Declare this BEFORE the
+// MeshNode so it is disposed after it.
+DisposableEffect(geometry) { onDispose { engine.safeDestroyGeometry(geometry) } }
+
+MeshNode(
+    primitiveType = RenderableManager.PrimitiveType.TRIANGLES,
+    vertexBuffer = geometry.vertexBuffer,
+    indexBuffer = geometry.indexBuffer,
+    boundingBox = geometry.boundingBox,       // without it: no culling, no shadows
     materialInstance = myMaterial
 )</code></pre>
+<p>When the vertex count changes at runtime, prefer <code>GeometryNode</code>, which owns the <code>Geometry</code> and follows its rebuilds.</p>
 <p><strong>When to use MeshNode vs CubeNode / SphereNode:</strong></p>
 <ul>
 <li>Static primitives → use the dedicated procedural nodes. They update efficiently when params change.</li>
@@ -4755,7 +4773,7 @@ SceneView(engine = engine, cameraNode = cameraNode) {
 <p>For multi-line or styled text, prefer <a href="#viewnode">ViewNode</a> with a <code>Text()</code> inside — it supports typography, rich formatting, layout.</p>
 <hr />
 <h2 id="imagenode">ImageNode<a class="headerlink" href="#imagenode" title="Permanent link">&para;</a></h2>
-<p>A textured quad. Three overloads exist — bitmap, URL, or already-loaded <code>Texture</code>.</p>
+<p>A textured quad. Three overloads exist — <code>bitmap: Bitmap</code>, <code>imageFileLocation: String</code> (path under <code>src/main/assets/</code>), or <code>@DrawableRes imageResId: Int</code>. None loads from a URL: decode remote images into a <code>Bitmap</code> yourself.</p>
 <pre class="language-kotlin"><code>ImageNode(
     bitmap = myBitmap,
     size = Size(x = 1f, y = 0.5f),
@@ -4822,11 +4840,29 @@ SceneView(engine = engine, cameraNode = cameraNode) {
 </ul>
 <hr />
 <h2 id="reflectionprobenode">ReflectionProbeNode<a class="headerlink" href="#reflectionprobenode" title="Permanent link">&para;</a></h2>
-<p>A local reflection capture — adds spherical harmonics / cubemap reflections for the area around the node.</p>
-<pre class="language-kotlin"><code>ReflectionProbeNode(
-    position = Position(0f, 1f, 0f),
-    extent = Size(x = 5f, y = 5f, z = 5f)
-)</code></pre>
+<p>Overrides the scene's indirect light (IBL) with a baked <code>Environment</code> inside a spherical zone. With <code>radius = 0f</code> (the default) the probe is global and always active; otherwise it applies only while <code>cameraPosition</code> is within <code>radius</code> metres of <code>position</code>.</p>
+<pre class="language-kotlin"><code>val scene = rememberScene(engine)
+val probeEnv = rememberEnvironment(environmentLoader) {
+    environmentLoader.createHDREnvironment("environments/office.hdr")
+        ?: createEnvironment(environmentLoader)
+}
+val cameraNode = rememberCameraNode(engine)
+var cameraPos by remember { mutableStateOf(Position()) }
+
+SceneView(
+    engine = engine,
+    scene = scene,
+    cameraNode = cameraNode,
+    onFrame = { cameraPos = cameraNode.worldPosition }
+) {
+    ReflectionProbeNode(
+        filamentScene = scene,          // the same Filament Scene passed to SceneView
+        environment = probeEnv,
+        position = Position(0f, 1f, 0f),
+        radius = 3f,
+        cameraPosition = cameraPos
+    )
+}</code></pre>
 <hr />
 <h2 id="anchornode">AnchorNode<a class="headerlink" href="#anchornode" title="Permanent link">&para;</a></h2>
 <p>Follows a fixed ARCore <code>Anchor</code>. Once placed, the node stays pinned to that real-world spot across frames, plane updates, and loop closures.</p>
@@ -4931,24 +4967,35 @@ ARSceneView(
 <p><strong>Gotcha:</strong> update <code>detected</code> only when the list <strong>actually changed</strong> (the <code>if (imgs != detected)</code> guard). Frames may re-emit the same image on every update — assigning the same value still notifies <code>State</code> observers.</p>
 <hr />
 <h2 id="augmentedfacenode">AugmentedFaceNode<a class="headerlink" href="#augmentedfacenode" title="Permanent link">&para;</a></h2>
-<p>Front-camera face tracking (iOS-like FaceID style overlays). Provides an <code>ARFaceMesh</code> with vertices, normals, and texture coords.</p>
+<p>Front-camera face tracking (iOS-like FaceID style overlays). Renders the ARCore <code>AugmentedFace</code> mesh (vertices, normals, texture coordinates), updated every frame.</p>
 <pre class="language-kotlin"><code>AugmentedFaceNode(
     augmentedFace = face,
-    faceMeshTexture = mustacheTexture  // optional overlay texture
+    meshMaterialInstance = faceMaterial,  // optional; e.g. a textured overlay material
+    computeTangents = true                // set false for an unlit material
 )</code></pre>
 <hr />
 <h2 id="cloudanchornode">CloudAnchorNode<a class="headerlink" href="#cloudanchornode" title="Permanent link">&para;</a></h2>
-<p>Hosts an anchor to the ARCore Cloud (returns a cloud anchor ID) or resolves a previously hosted one. Requires an ARCore Cloud Anchor API key.</p>
+<p>Hosts an anchor to the ARCore Cloud (returns a cloud anchor ID) or resolves a previously hosted one. Requires an ARCore Cloud Anchor API key. The composable always takes a local <code>anchor</code>; hosting is an explicit <code>host(session, ttlDays)</code> call (<code>ttlDays</code> in <code>1..365</code>), and <code>onHosted</code> receives the ID <strong>and</strong> the <code>CloudAnchorState</code>.</p>
 <pre class="language-kotlin"><code>CloudAnchorNode(
     anchor = localAnchor,
-    ttlDays = 7,
-    onHosted = { cloudId -&gt; saveCloudId(cloudId) }
+    onHosted = { cloudAnchorId, state -&gt;
+        if (cloudAnchorId != null &amp;&amp; !state.isError) saveCloudId(cloudAnchorId)
+    },
+    apply = { host(arSession, ttlDays = 7) }   // arSession: from onSessionCreated
 )</code></pre>
-<p>Or on the resolving side:</p>
-<pre class="language-kotlin"><code>CloudAnchorNode(
-    cloudAnchorId = savedCloudId,
-    onResolved = { anchor -&gt; /* place content */ }
-)</code></pre>
+<p>Or on the resolving side — resolve the ID to an <code>Anchor</code> first, then declare the node:</p>
+<pre class="language-kotlin"><code>var resolved by remember { mutableStateOf&lt;Anchor?&gt;(null) }
+DisposableEffect(arSession, savedCloudId) {
+    val future = arSession.resolveCloudAnchorAsync(savedCloudId) { anchor, state -&gt;
+        if (!state.isError) resolved = anchor
+    }
+    onDispose { future.cancel() }
+}
+// In the ARSceneView content:
+resolved?.let { anchor -&gt;
+    CloudAnchorNode(anchor = anchor, cloudAnchorId = savedCloudId) { /* place content */ }
+}</code></pre>
+<p><code>CloudAnchorNode.resolve(engine, session, cloudAnchorId) { state, node -&gt; }</code> is the imperative equivalent: it returns a ready <code>CloudAnchorNode</code> instance instead of an <code>Anchor</code>.</p>
 <hr />
 <h2 id="streetscapegeometrynode">StreetscapeGeometryNode<a class="headerlink" href="#streetscapegeometrynode" title="Permanent link">&para;</a></h2>
 <p>Geospatial building and terrain meshes from ARCore's Streetscape Geometry API. Each detected building or terrain patch becomes a node with its real-world shape.</p>
@@ -4956,7 +5003,7 @@ ARSceneView(
 streetscapeGeometries.forEach { geom -&gt;
     StreetscapeGeometryNode(
         streetscapeGeometry = geom,
-        materialInstance = buildingMaterial
+        meshMaterialInstance = buildingMaterial
     )
 }</code></pre>
 <p>Requires <code>config.streetscapeGeometryMode = StreetscapeGeometryMode.ENABLED</code> and VPS coverage.</p>
@@ -5038,11 +5085,12 @@ Drive these parameters directly from state; no <code>key</code> or node recreati
 <p>Every node composable has an <code>apply</code> parameter — a lambda with the impl class as receiver, invoked <strong>once</strong> at construction. Use it for settings that don't have a top-level composable parameter.</p>
 <pre class="language-kotlin"><code>ModelNode(
     modelInstance = ship,
+    animationName = "Idle",        // declarative: plays and loops one named animation
     apply = {
-        // Direct access to ModelNodeImpl internals
-        setReceiveShadows(true)
-        setCastShadows(true)
-        getAnimator()?.applyAnimation("Idle", 0f)
+        // Direct access to ModelNodeImpl members
+        isShadowReceiver = true
+        isShadowCaster = true
+        // `animator` (Filament gltfio Animator) and playAnimation(...) are also available here
     }
 )</code></pre>
 <p>For <code>LightNode</code>, <code>apply</code> is <code>LightManager.Builder.() -&gt; Unit</code> — you configure the Filament light at build time:</p>

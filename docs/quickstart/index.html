@@ -665,6 +665,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permissions-the-sdk-adds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permissions the SDK adds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AR manifest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-create-a-new-project" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2688,6 +2727,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#permissions-the-sdk-adds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permissions the SDK adds
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ar-manifest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AR manifest
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-create-a-new-project" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2784,10 +2862,112 @@
 <hr />
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Android Studio Ladybug</strong> (2024.2.1) or newer</li>
-<li>An Android device or emulator running <strong>API 24+</strong></li>
+<li>An Android Studio release that supports <strong>Android Gradle Plugin 9.4</strong> and <strong>JDK 21</strong></li>
+<li>An Android device or emulator running <strong>API 24+</strong> with OpenGL ES 3.0</li>
 <li>Basic familiarity with Kotlin and Jetpack Compose</li>
 </ul>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
+<p>SceneView 4.60.0 sets these floors on the app that depends on it.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compileSdk</code></td>
+<td><strong>37</strong></td>
+<td>The published AARs declare <code>minCompileSdk=37</code>; <code>checkDebugAarMetadata</code> fails below it.</td>
+</tr>
+<tr>
+<td><code>minSdk</code></td>
+<td><strong>24</strong> or higher</td>
+<td>The SDK's own <code>minSdk</code>.</td>
+</tr>
+<tr>
+<td>Android Gradle Plugin</td>
+<td><strong>9.4.0</strong> or newer</td>
+<td>The first AGP that officially supports <code>compileSdk 37</code>. SceneView itself builds with AGP 9.4.1.</td>
+</tr>
+<tr>
+<td>Kotlin</td>
+<td><strong>2.4</strong></td>
+<td>SceneView is compiled with Kotlin 2.4.21 and depends on <code>kotlin-stdlib</code> 2.4.21.</td>
+</tr>
+<tr>
+<td>JVM target (Java and Kotlin)</td>
+<td><strong>21</strong></td>
+<td>SceneView and its <code>kotlin-math</code> dependency ship Java 21 bytecode with public <code>inline</code> functions. Any <code>Position</code>/<code>Float3</code> arithmetic inlines them, and Kotlin refuses to inline JVM 21 bytecode into a lower target.</td>
+</tr>
+<tr>
+<td>JDK</td>
+<td><strong>21</strong> or newer</td>
+<td>Needed to compile Java at target 21. JVM unit tests that load SceneView classes also need a JDK 21 runtime.</td>
+</tr>
+</tbody>
+</table>
+<p>In the app module's <code>build.gradle.kts</code>:</p>
+<pre class="language-kotlin"><code>import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+android {
+    compileSdk = 37
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
+}</code></pre>
+<h3 id="permissions-the-sdk-adds">Permissions the SDK adds<a class="headerlink" href="#permissions-the-sdk-adds" title="Permanent link">&para;</a></h3>
+<p>The <code>sceneview</code> library declares <code>INTERNET</code> (to load models from a URL) and <code>VIBRATE</code> (for
+haptic feedback); both merge into your app's manifest. They are normal permissions, granted at
+install time with no prompt. An app that does not want one removes it with
+<code>tools:node="remove"</code>:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;manifest</span><span class="w"> </span><span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span><span class="nt">&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.permission.VIBRATE"</span><span class="w"> </span><span class="na">tools:node=</span><span class="s">"remove"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">&lt;/manifest&gt;</span>
+</span></code></pre></div>
+<p><code>arsceneview</code> also declares <code>CAMERA</code>, so an AR app does not need to declare it again.</p>
+<h3 id="ar-manifest">AR manifest<a class="headerlink" href="#ar-manifest" title="Permanent link">&para;</a></h3>
+<p><code>arsceneview</code> declares <code>com.google.ar.core</code> as <code>optional</code> in its own manifest. It leaves the
+camera features to the app.</p>
+<ul>
+<li><strong>AR Optional</strong> (the app also works without AR): declare the AR camera and the camera as
+  optional features. Without them, the <code>CAMERA</code> permission implies a required camera.</li>
+</ul>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&lt;manifest</span><span class="w"> </span><span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.hardware.camera.ar"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"false"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.hardware.camera"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"false"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nt">&lt;/manifest&gt;</span>
+</span></code></pre></div>
+<ul>
+<li><strong>AR Required</strong> (the app cannot run without ARCore): override the library's value with
+  <code>tools:replace</code>. Without it, the manifest merger fails.</li>
+</ul>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&lt;manifest</span><span class="w"> </span><span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span><span class="nt">&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.hardware.camera.ar"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"true"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&lt;application&gt;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="nt">&lt;meta-data</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">            </span><span class="na">android:name=</span><span class="s">"com.google.ar.core"</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">            </span><span class="na">android:value=</span><span class="s">"required"</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="na">tools:replace=</span><span class="s">"android:value"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nt">&lt;/application&gt;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="nt">&lt;/manifest&gt;</span>
+</span></code></pre></div>
 <hr />
 <h2 id="step-1-create-a-new-project">Step 1: Create a new project<a class="headerlink" href="#step-1-create-a-new-project" title="Permanent link">&para;</a></h2>
 <ol>
@@ -2795,6 +2975,8 @@
 <li>Choose the <strong>Empty Activity</strong> template (the one that generates a <code>ComponentActivity</code> with <code>setContent</code>).</li>
 <li>Set the minimum SDK to <strong>API 24</strong>.</li>
 <li>Finish the wizard and let Gradle sync.</li>
+<li>Apply the <a href="#requirements">Requirements</a> above to the app module: <code>compileSdk = 37</code> and JVM
+   target 21.</li>
 </ol>
 <p>You should have a working Compose app that displays "Hello Android" or similar.</p>
 <hr />

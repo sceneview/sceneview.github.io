@@ -2519,6 +2519,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toolchain-by-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toolchain by task
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2971,6 +2988,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#toolchain-by-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Toolchain by task
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3335,37 +3369,103 @@
 <h2 id="development-environment-setup">Development environment setup<a class="headerlink" href="#development-environment-setup" title="Permanent link">&para;</a></h2>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
 <ul>
-<li><strong>JDK 17</strong> (for Android/KMP modules)</li>
-<li><strong>Android Studio</strong> (latest stable recommended)</li>
-<li><strong>Xcode 16+</strong> (for SceneViewSwift / iOS work only — Swift 6 and the iOS 18 floor)</li>
-<li><strong>bash, python3 and curl</strong> on the <code>PATH</code> — every demo and website build runs
-  <code>tools/fetch-assets.sh</code> (see <a href="#assets">Assets</a>). On macOS they come with the
-  Command Line Tools (<code>xcode-select --install</code>); on Windows, build from WSL.</li>
+<li><strong>JDK 21</strong> for the root Gradle build. <code>sceneview</code>, <code>arsceneview</code> and the Android demos
+  it includes (<code>samples/android-demo</code>, <code>android-tv-demo</code>, <code>android-auto-demo</code>) compile to
+  Java 21 (<code>JavaVersion.VERSION_21</code>, <code>JvmTarget.JVM_21</code>, e.g. <code>sceneview/build.gradle</code>) and
+  declare no JVM toolchain, so the JDK that runs Gradle compiles them.
+  <code>sceneview-compose</code> and <code>samples/desktop-demo</code> declare <code>jvmToolchain(21)</code>: Gradle uses an
+  installed JDK 21, or downloads one through the foojay resolver in <code>settings.gradle</code>.
+  The Flutter plugin and demo and the React Native module are separate Gradle builds that
+  target Java 17 (<code>flutter/sceneview_flutter/android/build.gradle</code>,
+  <code>react-native/react-native-sceneview/android/build.gradle.kts</code>); CI builds the Flutter
+  job with JDK 17.</li>
+<li><strong>Android Studio</strong> with an Android Gradle Plugin 9.4 release (the build uses AGP 9.4.1,
+  <code>gradle/libs.versions.toml</code>)</li>
+<li><strong>Xcode 16+</strong> (for SceneViewSwift / iOS work only — Swift 6 and the iOS 18 floor).
+  CI builds with Xcode 26 (<code>.github/workflows/ios.yml:145-148</code>); no job tests Xcode 16.</li>
+<li><strong>bash, python3 and curl</strong> on the <code>PATH</code> for <code>tools/fetch-assets.sh</code>, which the Android,
+  TV and Auto demo builds and the iOS demo build run (see <a href="#assets">Assets</a>). On macOS
+  they come with the Command Line Tools (<code>xcode-select --install</code>); on Windows, build
+  from WSL.</li>
 <li>Optional but recommended: Google's <a href="https://developer.android.com/tools/agents/android-cli"><code>android</code> CLI</a>
-  for agent-driven QA. Bootstrap in one shot:
-  <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>bash<span class="w"> </span>.claude/scripts/android-env-check.sh<span class="w"> </span>--fix
-</span></code></pre></div>
-  This installs the binary to <code>~/.local/bin/android</code> and registers the SceneView
-  agent skill under <code>~/.android/cli/skills/xr/sceneview/</code>, so <code>android skills list</code>
-  exposes it to any AI agent on this host.</li>
+  for agent-driven QA.</li>
 </ul>
+<h4 id="toolchain-by-task">Toolchain by task<a class="headerlink" href="#toolchain-by-task" title="Permanent link">&para;</a></h4>
+<p>Only install what the part you work on needs.</p>
+<table>
+<thead>
+<tr>
+<th>You work on</th>
+<th>You need</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Any Android module</td>
+<td>Android SDK platform <code>platforms;android-37.0</code> (<code>compileSdk 37</code>)</td>
+<td><code>sceneview/build.gradle</code>, <code>arsceneview/build.gradle</code>, <code>samples/android-demo/build.gradle</code></td>
+</tr>
+<tr>
+<td>Android demo <strong>release</strong> build</td>
+<td>NDK <code>28.2.13676358</code> (strips native symbols)</td>
+<td><code>samples/android-demo/build.gradle</code> (<code>ndkVersion</code>)</td>
+</tr>
+<tr>
+<td><code>:sceneview-core:allTests</code>, <code>sceneview-web</code> tests</td>
+<td>Chrome or Chromium (Karma runs <code>useChromeHeadless()</code>)</td>
+<td><code>sceneview-core/build.gradle.kts:33</code>, <code>sceneview-web/build.gradle.kts:33</code></td>
+</tr>
+<tr>
+<td>Flutter plugin and demo</td>
+<td>Flutter 3.10.0 or newer; CI tests 3.41.6</td>
+<td><code>flutter/sceneview_flutter/pubspec.yaml</code> (<code>environment</code>), <code>.github/workflows/ci.yml</code> (<code>flutter-demo</code> job)</td>
+</tr>
+<tr>
+<td>MCP server, web demo (<code>npx http-server</code>), React Native</td>
+<td>Node.js 18 or newer; CI runs Node 20</td>
+<td><code>mcp/package.json</code> (<code>engines</code>), <code>.github/workflows/ci.yml</code> (<code>web-desktop</code> job)</td>
+</tr>
+</tbody>
+</table>
+<p>The demo app's Firebase setup is optional: the Google Services plugin is only applied
+when a <code>google-services.json</code> is present, so a fork builds without one
+(<code>samples/android-demo/build.gradle</code>).</p>
 <h3 id="clone-and-open">Clone and open<a class="headerlink" href="#clone-and-open" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sceneview/sceneview.git
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>sceneview
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>blob:none<span class="w"> </span>https://github.com/sceneview/sceneview.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>sceneview
 </span></code></pre></div>
+<p><code>--filter=blob:none</code> downloads the full commit history but fetches file contents only
+for the commit you check out (older blobs arrive on demand, e.g. on <code>git log -p</code>). The
+repository's history carries large binaries, so this is much faster than a full clone.
+A plain <code>git clone</code> also works.</p>
 <p>Open the project in Android Studio. Gradle sync will pull all dependencies automatically.</p>
 <h3 id="assets">Assets<a class="headerlink" href="#assets" title="Permanent link">&para;</a></h3>
 <p>The demo apps' models and HDR environments and the website's platform models are not in
 git. They live in the <code>assets-v1</code> GitHub Release, listed with their sha256 in
 <a href="assets/manifest.json"><code>assets/manifest.json</code></a>. After cloning, run once:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>bash<span class="w"> </span>tools/fetch-assets.sh
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bash<span class="w"> </span>tools/fetch-assets.sh<span class="w"> </span>--scope<span class="w"> </span>android
 </span></code></pre></div>
+<p><code>--scope android</code> fetches what the Android demo uses, about 55 MiB. Without <code>--scope</code>, the
+script fetches every platform's assets, about 780 MiB (iOS and web models included).</p>
+<p>Some builds run the script themselves, so a plain build of them also works:</p>
+<ul>
+<li><strong>Gradle</strong>: the <code>fetchAssets</code> task runs before <code>preBuild</code> and before unit tests in
+  <code>samples/android-demo</code> (<code>--scope android</code>), <code>samples/android-tv-demo</code>
+  (<code>--scope tv --scope android</code>) and <code>samples/android-auto-demo</code>
+  (<code>--scope android --scope web</code>).</li>
+<li><strong>Xcode</strong>: the iOS demo's <em>Fetch assets</em> build phase runs <code>--scope ios</code> before Copy
+  Bundle Resources (<code>samples/ios-demo/SceneViewDemo.xcodeproj</code>).</li>
+<li><strong>CI</strong>: workflows call it through <code>.github/actions/fetch-assets</code>, the website deploy
+  (<code>docs.yml</code>) included, with <code>--scope web</code>.</li>
+</ul>
+<p>Nothing runs it locally for the website (<code>--scope web</code>, <code>website-static/models/platforms</code>)
+or the web demo's splat test page (<code>--scope web-test</code>): run it by hand before serving
+them. The Flutter and React Native demos use no file from the manifest.</p>
 <p>Files are downloaded once into <code>~/.cache/sceneview-assets/</code> (shared by every clone and
 worktree, override with <code>SCENEVIEW_ASSETS_CACHE</code>), verified, then cloned (APFS / reflink)
-or copied into place. The Android and TV demo builds and the iOS demo's first build phase
-run the same script, so a plain build also works. <code>--scope android|ios|tv|web</code> limits
-the fetch, <code>--check</code> verifies what is in place. A sparse checkout must include <code>assets/</code>
-and <code>tools/</code>.</p>
+or copied into place. <code>--scope android|ios|tv|web|web-test</code> limits the fetch, <code>--check</code>
+verifies what is in place. A sparse checkout must include <code>assets/</code> and <code>tools/</code>.</p>
 <p>To add or replace an asset, put the file at its path and run
 <code>bash tools/fetch-assets.sh --register &lt;path&gt;</code>: it updates the manifest and prints the
 <code>gh release upload</code> command for any blob the release does not have yet — a maintainer
@@ -3373,11 +3473,11 @@ runs it before the PR merges. The file itself stays out of git (see <code>.gitig
 it is registered, the fetch — and therefore the demo build — fails on it: a file only
 your machine has would be missing from every other build.</p>
 <h3 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Android libraries</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>./gradlew<span class="w"> </span>assembleDebug
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Android demo app</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>./gradlew<span class="w"> </span>:samples:android-demo:assembleDebug
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Android libraries</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>./gradlew<span class="w"> </span>assembleDebug
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Android demo app</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>./gradlew<span class="w"> </span>:samples:android-demo:assembleDebug
 </span></code></pre></div>
 <p>For iOS (SceneViewSwift), open <code>SceneViewSwift/Package.swift</code> in Xcode and build from there.</p>
 <h3 id="store-secrets-and-the-release-build-guard">Store secrets and the release-build guard<a class="headerlink" href="#store-secrets-and-the-release-build-guard" title="Permanent link">&para;</a></h3>
@@ -3396,19 +3496,19 @@ only fires on the release path — it never affects <code>assembleDebug</code> o
 builds.</p>
 <p>Forks have no access to the org GitHub Secrets, so to produce a release build
 without the keys, opt out of the guard:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Android</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./gradlew<span class="w"> </span>:samples:android-demo:bundleRelease<span class="w"> </span>-PSV_ALLOW_MISSING_SECRETS<span class="o">=</span><span class="m">1</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># or export SV_ALLOW_MISSING_SECRETS=1</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># iOS</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>xcodebuild<span class="w"> </span>archive<span class="w"> </span>...<span class="w"> </span><span class="nv">SV_ALLOW_MISSING_SECRETS</span><span class="o">=</span><span class="m">1</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Android</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>./gradlew<span class="w"> </span>:samples:android-demo:bundleRelease<span class="w"> </span>-PSV_ALLOW_MISSING_SECRETS<span class="o">=</span><span class="m">1</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># or export SV_ALLOW_MISSING_SECRETS=1</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># iOS</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>xcodebuild<span class="w"> </span>archive<span class="w"> </span>...<span class="w"> </span><span class="nv">SV_ALLOW_MISSING_SECRETS</span><span class="o">=</span><span class="m">1</span>
 </span></code></pre></div>
 <h3 id="run-tests">Run tests<a class="headerlink" href="#run-tests" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># All tests</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>./gradlew<span class="w"> </span><span class="nb">test</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># KMP core tests only</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>./gradlew<span class="w"> </span>:sceneview-core:allTests
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># All tests</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>./gradlew<span class="w"> </span><span class="nb">test</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># KMP core tests only</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>./gradlew<span class="w"> </span>:sceneview-core:allTests
 </span></code></pre></div>
 <h3 id="reading-a-leak-churn-failure">Reading a leak-churn failure<a class="headerlink" href="#reading-a-leak-churn-failure" title="Permanent link">&para;</a></h3>
 <p><code>LeakChurnTest</code> (<code>sceneview/src/androidTest/.../leak/</code>, issue #2762) builds and
@@ -3419,8 +3519,8 @@ It lands in <code>render-tests.yml</code>'s <code>android-library-render</code> 
 that job reports its own verdict (a red job on the PR), but it is not a required
 check; on <code>main</code> and nightly it is <code>continue-on-error</code>, so a red run there is an
 advisory signal in the Actions tab, not a merge block.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">ANDROID_SERIAL</span><span class="o">=</span>&lt;your-emulator&gt;<span class="w"> </span>./gradlew<span class="w"> </span>:sceneview:connectedDebugAndroidTest<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span>-Pandroid.testInstrumentationRunnerArguments.class<span class="o">=</span>io.github.sceneview.leak.LeakChurnTest
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">ANDROID_SERIAL</span><span class="o">=</span>&lt;your-emulator&gt;<span class="w"> </span>./gradlew<span class="w"> </span>:sceneview:connectedDebugAndroidTest<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span>-Pandroid.testInstrumentationRunnerArguments.class<span class="o">=</span>io.github.sceneview.leak.LeakChurnTest
 </span></code></pre></div>
 <p>What a red run means, by probe:</p>
 <table>
@@ -3475,8 +3575,8 @@ Never widen an assertion to silence a red you cannot explain.</p>
 <h3 id="set-up-an-emulator">Set up an emulator<a class="headerlink" href="#set-up-an-emulator" title="Permanent link">&para;</a></h3>
 <p>Google's <code>android</code> CLI creates and boots emulators with one command — no
 sdkmanager / avdmanager dance:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>android<span class="w"> </span>emulator<span class="w"> </span>create<span class="w"> </span>medium_phone<span class="w">        </span><span class="c1"># positional &lt;profile&gt;; device auto-named from it</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>android<span class="w"> </span>emulator<span class="w"> </span>start<span class="w"> </span>medium_phone<span class="w">         </span><span class="c1"># boots, waits for ready</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>android<span class="w"> </span>emulator<span class="w"> </span>create<span class="w"> </span>medium_phone<span class="w">        </span><span class="c1"># positional &lt;profile&gt;; device auto-named from it</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>android<span class="w"> </span>emulator<span class="w"> </span>start<span class="w"> </span>medium_phone<span class="w">         </span><span class="c1"># boots, waits for ready</span>
 </span></code></pre></div>
 <p><code>android emulator create</code> takes a single positional argument — the <strong>profile</strong>
 — and the resulting device is auto-named from the profile (so <code>medium_phone</code>
@@ -3529,11 +3629,11 @@ look for, so yours picks them up with no setup (alphabetical):</p>
 in the most detail.</p>
 <h3 id="mcp-server">MCP server<a class="headerlink" href="#mcp-server" title="Permanent link">&para;</a></h3>
 <p>The SceneView MCP server gives any MCP client the full API context:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nt">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">"sceneview"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w"> </span><span class="nt">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sceneview-mcp"</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Where that JSON lives, and what its keys are called, differs per client — per-tool setup
 is in <a href="docs/docs/ai-development.md">docs/docs/ai-development.md</a>.</p>
@@ -3573,7 +3673,7 @@ mirrored at <code>.agents/skills/</code>, which Codex scans from the working dir
 repository root, and <code>.agents/plugins/marketplace.json</code> declares the local marketplace
 (<code>.codex-plugin/plugin.json</code> is kept as the compatibility fallback). To install it from
 your checkout:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>codex<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>.
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>codex<span class="w"> </span>plugin<span class="w"> </span>marketplace<span class="w"> </span>add<span class="w"> </span>.
 </span></code></pre></div>
 <p><a href="AGENTS.md">AGENTS.md</a> carries the rules a delegated Codex session must respect — it
 implements, investigates and critiques, but does not own version control. Maintainers
@@ -3651,8 +3751,8 @@ platform before requesting review.</p>
 as a small fragment file — one per PR. Add a file named
 <code>changelog.d/&lt;issue-or-pr-number&gt;-&lt;short-slug&gt;.md</code> containing your release-note
 bullet(s), prefixed with a category tag:</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&lt;!-- category: Fixed --&gt;
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Short headline ([#1234](https://github.com/sceneview/sceneview/issues/1234)).**</span> What changed and why.
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>&lt;!-- category: Fixed --&gt;
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">-</span><span class="w"> </span><span class="gs">**Short headline ([#1234](https://github.com/sceneview/sceneview/issues/1234)).**</span> What changed and why.
 </span></code></pre></div>
 <p>Recognised categories: <code>Added</code>, <code>Changed</code>, <code>Fixed</code>, <code>Removed</code>, <code>Tests</code>, <code>Docs</code>.
 Distinct filenames mean parallel PRs never conflict on the changelog. At release
@@ -3692,13 +3792,13 @@ Each module's public surface is dumped to a committed text file under
 <p><strong>If your change touches a public signature</strong> (adds/removes/renames a public
 class, function, property, or changes a public type), <code>apiCheck</code> will fail with
 a diff naming the offending symbol, e.g.:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>&gt; API check failed for project sceneview-core.
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  + public static final fun temporaryGateProbe (J)D
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>  You can run :sceneview-core:apiDump task to overwrite API declarations
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>&gt; API check failed for project sceneview-core.
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>  + public static final fun temporaryGateProbe (J)D
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>  You can run :sceneview-core:apiDump task to overwrite API declarations
 </span></code></pre></div>
 <p>When the change is <strong>intentional</strong>, regenerate the dumps and commit the diff:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./gradlew<span class="w"> </span>apiDump<span class="w">          </span><span class="c1"># rewrites &lt;module&gt;/api/*.api for every module</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>git<span class="w"> </span>add<span class="w"> </span><span class="s1">'**/api/*.api'</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./gradlew<span class="w"> </span>apiDump<span class="w">          </span><span class="c1"># rewrites &lt;module&gt;/api/*.api for every module</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>git<span class="w"> </span>add<span class="w"> </span><span class="s1">'**/api/*.api'</span>
 </span></code></pre></div>
 <p>The updated <code>.api</code> diff then rides along in your PR, so the reviewer sees the
 exact public-API delta — a new symbol, a removed one, or a changed signature —
@@ -3792,15 +3892,15 @@ GitHub-hosted runners: an emulator on <code>ubuntu-latest</code> with KVM for An
 Simulator on <code>macos-15</code> for iOS. Use it before compiling the demo or booting an
 emulator on your own machine, agents included. It is opt-in and never a
 required check.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Any branch pushed to sceneview/sceneview (the file must be on main):</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>preview.yml<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span>-f<span class="w"> </span><span class="nv">platforms</span><span class="o">=</span>android<span class="w"> </span>-f<span class="w"> </span><span class="nv">demos</span><span class="o">=</span>home,model-viewer<span class="w">    </span><span class="c1"># platforms: android | ios | both</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Or on a pull request: add the `preview` label (Android) and/or `preview-ios`.</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;pr&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--add-label<span class="w"> </span>preview
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>-w<span class="w"> </span>preview.yml<span class="w"> </span>-b<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>-L<span class="w"> </span><span class="m">1</span><span class="w">   </span><span class="c1"># get the run id</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>gh<span class="w"> </span>run<span class="w"> </span>watch<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--exit-status
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>gh<span class="w"> </span>run<span class="w"> </span>download<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>-n<span class="w"> </span>preview-android-screenshots<span class="w"> </span>-D<span class="w"> </span>/tmp/preview
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Any branch pushed to sceneview/sceneview (the file must be on main):</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>gh<span class="w"> </span>workflow<span class="w"> </span>run<span class="w"> </span>preview.yml<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--ref<span class="w"> </span>&lt;branch&gt;<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span>-f<span class="w"> </span><span class="nv">platforms</span><span class="o">=</span>android<span class="w"> </span>-f<span class="w"> </span><span class="nv">demos</span><span class="o">=</span>home,model-viewer<span class="w">    </span><span class="c1"># platforms: android | ios | both</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Or on a pull request: add the `preview` label (Android) and/or `preview-ios`.</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>gh<span class="w"> </span>pr<span class="w"> </span>edit<span class="w"> </span>&lt;pr&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--add-label<span class="w"> </span>preview
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>gh<span class="w"> </span>run<span class="w"> </span>list<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>-w<span class="w"> </span>preview.yml<span class="w"> </span>-b<span class="w"> </span>&lt;branch&gt;<span class="w"> </span>-L<span class="w"> </span><span class="m">1</span><span class="w">   </span><span class="c1"># get the run id</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>gh<span class="w"> </span>run<span class="w"> </span>watch<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>--exit-status
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>gh<span class="w"> </span>run<span class="w"> </span>download<span class="w"> </span>&lt;run-id&gt;<span class="w"> </span>-R<span class="w"> </span>sceneview/sceneview<span class="w"> </span>-n<span class="w"> </span>preview-android-screenshots<span class="w"> </span>-D<span class="w"> </span>/tmp/preview
 </span></code></pre></div>
 <table>
 <thead>
@@ -3886,19 +3986,19 @@ golden. Artifacts are kept 7 days.</p>
 <p>Wiring a group to the wrong pin is the same defect as forgetting to recompile: #2783 found the 3 <code>website-static</code> blobs at v72 (they rode the Android pin) against a v70 runtime — latent only because nothing on the site calls <code>createMaterial()</code> yet.</p>
 <p>Filament refuses any material whose binary version field does not match the runtime, with <code>Filament panic — material version N ≠ runtime M</code> on first frame. There is no compile-time check; the mismatch only manifests at runtime, demo by demo. v4.1.0 shipped with the runtime at 1.70.2 and blobs at 1.71 (two parallel branches each fixed half of the pair) — 10 demos crashed; v4.1.1 hot-fixed by realigning both sides to 1.71.</p>
 <p><strong>The 26 committed blobs that must stay in sync with their <code>.mat</code> sources</strong>, spread across three modules:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sceneview/src/main/assets/materials/     (14) — image_texture, occlusion, opaque/transparent
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>                                                colored/textured/unlit, semantics_overlay, splat,
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>                                                video_texture(_chroma_key), view_texture_lit/_unlit
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>arsceneview/src/main/assets/materials/    (9) — camera_stream_flat/_depth/_person_occlusion,
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>                                                face_mesh(_occluder), plane_renderer(_shadow)(_v2),
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>                                                shadow_receiver
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>website-static/materials/                 (3) — lit_colored, transparent_colored, unlit_colored
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>sceneview/src/main/assets/materials/     (14) — image_texture, occlusion, opaque/transparent
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>                                                colored/textured/unlit, semantics_overlay, splat,
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>                                                video_texture(_chroma_key), view_texture_lit/_unlit
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>arsceneview/src/main/assets/materials/    (9) — camera_stream_flat/_depth/_person_occlusion,
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>                                                face_mesh(_occluder), plane_renderer(_shadow)(_v2),
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>                                                shadow_receiver
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>website-static/materials/                 (3) — lit_colored, transparent_colored, unlit_colored
 </span></code></pre></div>
 <p><strong>The <code>tools/GenerateFilamat.sh</code> workflow.</strong> <a href="tools/GenerateFilamat.sh"><code>tools/GenerateFilamat.sh</code></a> is the single entry point for every Filament material in the repo. It auto-downloads the <code>matc</code> toolchain pinned to the Filament version in <a href="gradle/libs.versions.toml"><code>gradle/libs.versions.toml</code></a> and compiles each <code>.mat</code> to its <code>.filamat</code> blob — no manual <code>matc</code> install needed.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>bash tools/GenerateFilamat.sh                 # regenerate all 26 .filamat blobs in place
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>bash tools/GenerateFilamat.sh --check         # diff against committed blobs; exit 1 on drift
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>bash tools/GenerateFilamat.sh --mat &lt;name&gt;    # regenerate one (e.g. --mat opaque_colored)
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>bash tools/GenerateFilamat.sh --ci-tolerant   # treat a matc download failure as WARN, not FAIL
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>bash tools/GenerateFilamat.sh                 # regenerate all 26 .filamat blobs in place
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>bash tools/GenerateFilamat.sh --check         # diff against committed blobs; exit 1 on drift
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>bash tools/GenerateFilamat.sh --mat &lt;name&gt;    # regenerate one (e.g. --mat opaque_colored)
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>bash tools/GenerateFilamat.sh --ci-tolerant   # treat a matc download failure as WARN, not FAIL
 </span></code></pre></div>
 <p>The <code>matc</code> binary is cached at <code>~/.cache/sceneview/matc-&lt;version&gt;/</code> (overridable via <code>$XDG_CACHE_HOME</code>); the first run downloads it, subsequent runs reuse it. <code>--ci-tolerant</code> exists for sandboxed CI runners with no network — it lets the check pass with a WARN instead of failing the build when <code>matc</code> cannot be fetched.</p>
 <p><strong>The drift check.</strong> <code>bash tools/GenerateFilamat.sh --check</code> reports every <code>.filamat</code> blob that no longer matches its <code>.mat</code> source. Nothing runs it for you — run it yourself in the same sitting as any <code>.mat</code> edit. Shipping a <code>.mat</code> change without recompiling its blob is the v4.1.0-class mistake, and this is the check that catches it.</p>
@@ -3950,7 +4050,7 @@ golden. Artifacts are kept 7 days.</p>
 <p><code>GenerateFilamat.sh --check</code> and <code>check-web-filamat-abi.sh</code> catch a runtime/blob mismatch — but only if you run them. If you skip them, the first signal is a runtime crash on whichever demo loads the affected material first.</p>
 <h4 id="visual-qa-for-material-shader-changes-mac-friendly">Visual QA for material / shader changes (Mac-friendly)<a class="headerlink" href="#visual-qa-for-material-shader-changes-mac-friendly" title="Permanent link">&para;</a></h4>
 <p>A material change can compile, pass unit tests, and still render wrong (the v4.16.x plane-renderer "white blob", #2224, is the canonical example — three "fixes" shipped before the real cause was found). Compile + unit tests are <strong>not</strong> a visual gate. This is the validated flow, refined while fixing #2224.</p>
-<p><strong>1 — Diagnose &amp; iterate on the shader on a plain Mac, with no ARCore.</strong> ARCore cannot run in an Android emulator on Apple Silicon (x86 needs TCG → ARCore watchdog-timeouts; arm64 has no ARCore camera bridge — see <code>feedback_arcore_emulator_mac_dead_end</code> / issue #1645, definitively closed). <strong>But pure Filament rendering works perfectly on the standard arm64 emulator.</strong> So isolate the shader: render the exact committed <code>.filamat</code> on a static, hand-built mesh in a <strong>non-AR</strong> <code>SceneView</code>, with no ARCore session — the pattern in <a href="samples/android-demo/src/main/java/io/github/sceneview/demo/demos/PlaneGridPreviewDemo.kt"><code>PlaneGridPreviewDemo</code></a> (debug-only, <code>adb shell am start -n io.github.sceneview.demo.qa/io.github.sceneview.demo.DemoHostActivity --es demo_id plane-grid-preview</code>). Mirror the AR render pipeline: pass <code>renderQuality = RenderQuality.Performance</code> (bloom/SSAO <strong>off</strong>, like <code>ARSceneView</code>) — the default <code>SceneView</code> keeps bloom on, which washes a translucent material into a uniform blob and hides the real output.</p>
+<p><strong>1 — Diagnose &amp; iterate on the shader on a plain Mac, with no ARCore.</strong> ARCore cannot run in an Android emulator on Apple Silicon (x86 needs TCG → ARCore watchdog-timeouts; arm64 has no ARCore camera bridge — see <code>feedback_arcore_emulator_mac_dead_end</code> / issue #1645, definitively closed). <strong>But pure Filament rendering works perfectly on the standard arm64 emulator.</strong> So isolate the shader: render the exact committed <code>.filamat</code> on a static, hand-built mesh in a <strong>non-AR</strong> <code>SceneView</code>, with no ARCore session — the pattern in <a href="samples/android-demo/src/debug/java/io/github/sceneview/demo/demos/PlaneGridPreviewDemo.kt"><code>PlaneGridPreviewDemo</code></a> (debug-only, <code>adb shell am start -n io.github.sceneview.demo.qa/io.github.sceneview.demo.DemoHostActivity --es demo_id plane-grid-preview</code>). Mirror the AR render pipeline: pass <code>renderQuality = RenderQuality.Performance</code> (bloom/SSAO <strong>off</strong>, like <code>ARSceneView</code>) — the default <code>SceneView</code> keeps bloom on, which washes a translucent material into a uniform blob and hides the real output.</p>
 <p><strong>2 — Pixel-measure, don't eyeball.</strong> Capture <code>adb exec-out screencap -p</code>, convert to BMP (<code>sips -s format bmp</code>), parse pixels (no ImageMagick on most Macs). Over a known background you can read the actual composite. #2224's root cause was found this way: an unlit <code>blending: transparent</code> material that writes a straight (non-premultiplied) <code>baseColor.rgb</code> composites as <code>color + (1-α)·bg</code> (colour at full strength) instead of <code>lerp(bg, color, α)</code>, so capping <code>α</code> never reduces the colour. Fix: premultiply in the fragment — <code>material.baseColor.rgb = &lt;color&gt; * material.baseColor.a;</code>. A distinguishing test (render with two different <code>color</code> values and check the slope) tells premultiplied from straight-add unambiguously.</p>
 <p><strong>3 — Confirm on a real device (the only true AR gate).</strong> USB, not wireless — <code>adb</code>-over-Wi-Fi drops mid-transfer on a 200+ MB demo APK. The debug APK installs as its own app, <code>io.github.sceneview.demo.qa</code>, next to the Play Store one — no need to uninstall the store build. Launch an AR demo via <code>io.github.sceneview.demo.qa/io.github.sceneview.demo.DemoHostActivity</code> (<code>--es demo_id ar-placement</code>), grant <code>android.permission.CAMERA</code>, and screen-record while sweeping over varied surfaces — <strong>especially a bright/outdoor one</strong>, the condition that made the #2224 blob worst.</p>
 <p><strong>4 — Analyse the screen recording.</strong> Pull it, then: contact-sheet the frames with ffmpeg's <code>tile</code> filter (<code>-vf "fps=1/3,scale=200:-1,tile=5x4"</code> — no ImageMagick needed) for a fast overview, then extract full-res frames at the interesting timestamps for the actual judgement. If the recording has narration, transcribe with Whisper <strong>large-v3</strong> (smaller models are not reliable for this). ⚠️ A transcript that is only <code>Sous-titrage ST'…</code> / <code>Merci</code> / <code>Amara.org</code> repeated is Whisper's <strong>silence hallucination</strong> — it means there was no speech, not a real transcript.</p>

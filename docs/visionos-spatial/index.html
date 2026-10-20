@@ -3459,7 +3459,7 @@ positions at display refresh rate. Up to 27 joints per hand are available.</p>
 </ul>
 <h3 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h3>
 <ul>
-<li>visionOS 1.0+</li>
+<li>visionOS 2.0+ (the minimum <code>Package.swift</code> declares)</li>
 <li>App must be in a <strong>Full Space</strong> (not shared space) to access hand tracking data</li>
 <li><code>NSHandsTrackingUsageDescription</code> in Info.plist</li>
 <li><code>SpatialTrackingSession</code> must be configured and running</li>
@@ -3705,8 +3705,7 @@ using system gestures -- look, tap, drag, rotate, scale -- without custom gestur
 </ul>
 <h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
 <ul>
-<li>visionOS 1.0+ for volumes and basic immersive spaces</li>
-<li>visionOS 2.0+ for <code>SpatialTrackingSession</code>, enhanced hand tracking, anchor geometry</li>
+<li>visionOS 2.0+ (the package minimum) for volumes, basic immersive spaces, <code>SpatialTrackingSession</code>, enhanced hand tracking and anchor geometry</li>
 <li>visionOS 26 for <code>ManipulationComponent</code>, <code>EnvironmentBlendingComponent</code>, <code>MeshInstancesComponent</code></li>
 <li>Apple Vision Pro hardware for testing (or Xcode Simulator for basic layout)</li>
 </ul>

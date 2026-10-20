@@ -2931,16 +2931,24 @@
     implementation("io.github.sceneview:arsceneview:4.60.0")
 }</code></pre>
 <h3 id="androidmanifest-permissions">AndroidManifest permissions<a class="headerlink" href="#androidmanifest-permissions" title="Permanent link">&para;</a></h3>
-<div class="language-xml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;uses-permission</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.permission.CAMERA"</span><span class="w"> </span><span class="nt">/&gt;</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.hardware.camera.ar"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"true"</span><span class="w"> </span><span class="nt">/&gt;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">&lt;application&gt;</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="cm">&lt;!-- Required for ARCore --&gt;</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nt">&lt;meta-data</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="na">android:name=</span><span class="s">"com.google.ar.core"</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="na">android:value=</span><span class="s">"required"</span><span class="w"> </span><span class="nt">/&gt;</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">&lt;/application&gt;</span>
+<p><code>arsceneview</code> already declares the <code>CAMERA</code> permission and marks ARCore as optional. An app
+that also works without AR only declares the camera features as optional:
+<code>&lt;uses-feature android:name="android.hardware.camera.ar" android:required="false" /&gt;</code> and
+<code>&lt;uses-feature android:name="android.hardware.camera" android:required="false" /&gt;</code>.
+This codelab builds an AR Required app: it overrides the library's value with
+<code>tools:replace</code>, without which the manifest merger fails.</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;manifest</span><span class="w"> </span><span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="na">xmlns:tools=</span><span class="s">"http://schemas.android.com/tools"</span><span class="nt">&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&lt;uses-feature</span><span class="w"> </span><span class="na">android:name=</span><span class="s">"android.hardware.camera.ar"</span><span class="w"> </span><span class="na">android:required=</span><span class="s">"true"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">&lt;application&gt;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="nt">&lt;meta-data</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">            </span><span class="na">android:name=</span><span class="s">"com.google.ar.core"</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">            </span><span class="na">android:value=</span><span class="s">"required"</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">            </span><span class="na">tools:replace=</span><span class="s">"android:value"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&lt;/application&gt;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nt">&lt;/manifest&gt;</span>
 </span></code></pre></div>
 <h3 id="runtime-camera-permission">Runtime camera permission<a class="headerlink" href="#runtime-camera-permission" title="Permanent link">&para;</a></h3>
 <p>Request the camera permission before showing the AR scene. The simplest way:</p>

@@ -2770,7 +2770,7 @@
 <hr />
 <h2 id="option-1-one-command-recommended">Option 1 — One command (recommended)<a class="headerlink" href="#option-1-one-command-recommended" title="Permanent link">&para;</a></h2>
 <p>Clone the repo and run:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sceneview/sceneview.git
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>blob:none<span class="w"> </span>https://github.com/sceneview/sceneview.git
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>sceneview
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>./tools/try-demo.sh
 </span></code></pre></div>
@@ -2779,7 +2779,7 @@
 <p class="admonition-title">Requirements</p>
 <ul>
 <li>Android device with <strong>USB debugging</strong> enabled</li>
-<li><strong>Java 17+</strong> installed</li>
+<li><strong>JDK 21+</strong> installed (the demo and the libraries it builds compile to Java 21)</li>
 <li><strong>adb</strong> on your PATH (comes with Android Studio)</li>
 <li>Optional: Google's <a href="https://developer.android.com/tools/agents/android-cli"><code>android</code> CLI</a>
   for JSON UI dumps and LF/CRLF-safe screenshots. <strong>Not for installing</strong> —
@@ -2895,7 +2895,7 @@ Filament rendering engine, optimized for mobile
 <hr />
 <h2 id="build-from-source">Build from source<a class="headerlink" href="#build-from-source" title="Permanent link">&para;</a></h2>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Clone</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/sceneview/sceneview.git
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>clone<span class="w"> </span>--filter<span class="o">=</span>blob:none<span class="w"> </span>https://github.com/sceneview/sceneview.git
 </span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">cd</span><span class="w"> </span>sceneview
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Build just the demo</span>
