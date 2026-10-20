@@ -3134,7 +3134,10 @@ AutoPlacementScene(
 <p><code>AutoPlacementModel</code> grounds the complete model bounds, preserves the contact pivot
 while rotating/scaling, and constrains dragging to supported plane geometry. Its
 0.3 m longest-dimension default is <strong>Preview size</strong>; <code>scaleToUnits = null</code> retains
-trustworthy authored units (<strong>Actual size</strong>). Scale limits are 25–400% of that base.</p>
+trustworthy authored units (<strong>Actual size</strong>). Scale limits are 25–400% of that base by default;
+set <code>AutoPlacementState.scaleRange</code> (default <code>0.25f..4f</code>) to widen them, e.g. <code>0.25f..16f</code> for a
+1:16 miniature that may be pinched up to real size. <code>AutoPlacementState.cameraHeight</code> is the
+tracked camera's world height in metres (<code>null</code> until it tracks).</p>
 <p>For asynchronous selection, call <code>placement.selectModel()</code> before loading and attach
 only while <code>placement.acceptsAsset(ticket)</code> is true. Keep the previous rendered model
 until its replacement succeeds. Observe <code>placement.phase</code>; use <code>requestPlacement()</code>,
@@ -3163,7 +3166,7 @@ reset explicitly. Tracking loss retains that placement and enters recovery.</p>
 <code>AutoPlacementModel</code> puts the bounding box's back and bottom at the contact pivot and
 faces its front toward the camera side of the wall, even if the detected normal points
 away. Drag projects the grab offset into the destination wall and validates its polygon;
-twist rotates in the wall plane; pinch preserves contact at 25–400% of the base size.
+twist rotates in the wall plane; pinch preserves contact within <code>scaleRange</code> (25–400% of the base size by default).
 The anchor frame retains the Android surface convention: +Y is the wall normal and
 −Z points up. <code>directWallPose(point, normal, towardViewer)</code> is an additive pure helper
 returning the authored +Y-up/+Z-front frame at the exact wall point; it requires a finite
