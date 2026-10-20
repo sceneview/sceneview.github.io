@@ -4976,20 +4976,59 @@ ARSceneView(
 <hr />
 <h2 id="cloudanchornode">CloudAnchorNode<a class="headerlink" href="#cloudanchornode" title="Permanent link">&para;</a></h2>
 <p>Hosts an anchor to the ARCore Cloud (returns a cloud anchor ID) or resolves a previously hosted one. Requires an ARCore Cloud Anchor API key. The composable always takes a local <code>anchor</code>; hosting is an explicit <code>host(session, ttlDays)</code> call (<code>ttlDays</code> in <code>1..365</code>), and <code>onHosted</code> receives the ID <strong>and</strong> the <code>CloudAnchorState</code>.</p>
-<pre class="language-kotlin"><code>CloudAnchorNode(
+<pre class="language-kotlin"><code>import com.google.ar.core.Frame
+import com.google.ar.core.Session
+
+var arSession by remember { mutableStateOf&lt;Session?&gt;(null) }
+var latestFrame by remember { mutableStateOf&lt;Frame?&gt;(null) }
+var hostStatus by remember { mutableStateOf&lt;String?&gt;(null) }
+val cloudNode = remember {
+    java.util.concurrent.atomic.AtomicReference&lt;
+        io.github.sceneview.ar.node.CloudAnchorNode?
+    &gt;(null)
+}
+
+// ARSceneView parameter — keeps the session and the latest frame:
+//   onSessionUpdated = { session, frame -&gt; arSession = session; latestFrame = frame }
+
+// Inside ARSceneView { } (ARSceneScope):
+CloudAnchorNode(
     anchor = localAnchor,
     onHosted = { cloudAnchorId, state -&gt;
-        if (cloudAnchorId != null &amp;&amp; !state.isError) saveCloudId(cloudAnchorId)
+        hostStatus = if (cloudAnchorId != null &amp;&amp; !state.isError) {
+            saveCloudId(cloudAnchorId)
+            "Anchor hosted"
+        } else {
+            "Hosting failed: $state"
+        }
     },
-    apply = { host(arSession, ttlDays = 7) }   // arSession: from onSessionCreated
-)</code></pre>
+    apply = { cloudNode.set(this) }
+)
+
+// Regular Compose UI, outside ARSceneView (e.g. a Box overlay on top of it):
+Button(onClick = {
+    val session = arSession ?: return@Button
+    val cameraPose = latestFrame?.camera?.pose ?: return@Button
+    if (session.estimateFeatureMapQualityForHosting(cameraPose) ==
+        Session.FeatureMapQuality.INSUFFICIENT
+    ) {
+        hostStatus = "Move around to capture more of the scene"
+    } else {
+        hostStatus = "Hosting…"
+        cloudNode.get()?.host(session, ttlDays = 7)
+    }
+}) { Text("Host anchor") }
+hostStatus?.let { Text(it) }</code></pre>
+<p>Do not start hosting while feature-map quality is <code>INSUFFICIENT</code>: tell the user to move around
+instead. There is no future to keep or cancel: <code>host()</code> cancels the node's previous request, and
+the node cancels an in-flight request when it leaves composition.</p>
 <p>Or on the resolving side — resolve the ID to an <code>Anchor</code> first, then declare the node:</p>
 <pre class="language-kotlin"><code>var resolved by remember { mutableStateOf&lt;Anchor?&gt;(null) }
 DisposableEffect(arSession, savedCloudId) {
-    val future = arSession.resolveCloudAnchorAsync(savedCloudId) { anchor, state -&gt;
+    val future = arSession?.resolveCloudAnchorAsync(savedCloudId) { anchor, state -&gt;
         if (!state.isError) resolved = anchor
     }
-    onDispose { future.cancel() }
+    onDispose { future?.cancel() }
 }
 // In the ARSceneView content:
 resolved?.let { anchor -&gt;

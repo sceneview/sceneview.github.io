@@ -3417,14 +3417,34 @@ SceneView(...) {
 <h3 id="does-ar-work-on-emulators">Does AR work on emulators?<a class="headerlink" href="#does-ar-work-on-emulators" title="Permanent link">&para;</a></h3>
 <p>Partially. ARCore has limited emulator support. For reliable AR development, use a <a href="https://developers.google.com/ar/devices">physical device with ARCore support</a>.</p>
 <h3 id="how-do-i-detect-when-the-user-taps-a-plane">How do I detect when the user taps a plane?<a class="headerlink" href="#how-do-i-detect-when-the-user-taps-a-plane" title="Permanent link">&para;</a></h3>
-<pre class="language-kotlin"><code>ARSceneView(
-    onTouchEvent = { event, hitResult -&gt;
-        if (event.action == MotionEvent.ACTION_UP &amp;&amp; hitResult != null) {
-            anchor = hitResult.createAnchor()
+<p>Keep the latest ARCore <code>Frame</code>, then hit-test it on a confirmed single tap that landed on
+empty space (<code>node == null</code>). Don't place on <code>ACTION_UP</code> in <code>onTouchEvent</code>: it also fires at
+the end of every drag and pinch, and returning <code>true</code> there swallows the model's gestures.</p>
+<pre class="language-kotlin"><code>import com.google.ar.core.Anchor
+import com.google.ar.core.Frame
+import com.google.ar.core.Plane
+import io.github.sceneview.ar.arcore.createAnchorOrNull
+import io.github.sceneview.rememberOnGestureListener
+
+var anchor by remember { mutableStateOf&lt;Anchor?&gt;(null) }
+var latestFrame by remember { mutableStateOf&lt;Frame?&gt;(null) }
+
+ARSceneView(
+    onSessionUpdated = { _, frame -&gt; latestFrame = frame },
+    onGestureListener = rememberOnGestureListener(
+        onSingleTapConfirmed = { event, node -&gt;
+            if (node == null) { // empty space, not a placed model
+                latestFrame?.hitTest(event)
+                    ?.firstOrNull { (it.trackable as? Plane)?.isPoseInPolygon(it.hitPose) == true }
+                    ?.createAnchorOrNull()
+                    // Replacing the state key disposes the old AnchorNode, which detaches its anchor.
+                    ?.let { anchor = it }
+            }
         }
-        true
-    }
-) { /* ... */ }</code></pre>
+    )
+) {
+    anchor?.let { a -&gt; AnchorNode(anchor = a) { /* your ModelNode */ } }
+}</code></pre>
 <h3 id="can-i-track-real-world-images">Can I track real-world images?<a class="headerlink" href="#can-i-track-real-world-images" title="Permanent link">&para;</a></h3>
 <p>Yes — use <code>AugmentedImageNode</code> with an <code>AugmentedImageDatabase</code>. See the <a href="../samples/">Samples page</a> for an example.</p>
 <hr />

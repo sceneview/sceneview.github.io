@@ -2865,9 +2865,16 @@ fun ProductViewer(productGlb: String) {
 <hr />
 <h2 id="e-commerce-ar-try-before-you-buy">E-commerce: AR try-before-you-buy<a class="headerlink" href="#e-commerce-ar-try-before-you-buy" title="Permanent link">&para;</a></h2>
 <p>Let customers see how furniture looks in their room before purchasing.</p>
-<pre class="language-kotlin"><code>@Composable
+<pre class="language-kotlin"><code>import com.google.ar.core.Anchor
+import com.google.ar.core.Frame
+import com.google.ar.core.Plane
+import io.github.sceneview.ar.arcore.createAnchorOrNull
+import io.github.sceneview.rememberOnGestureListener
+
+@Composable
 fun ARFurniturePlacer(furnitureGlb: String) {
     var anchor by remember { mutableStateOf&lt;Anchor?&gt;(null) }
+    var latestFrame by remember { mutableStateOf&lt;Frame?&gt;(null) }
     val engine = rememberEngine()
     val modelLoader = rememberModelLoader(engine)
     val furniture = rememberModelInstance(modelLoader, furnitureGlb)
@@ -2877,12 +2884,18 @@ fun ARFurniturePlacer(furnitureGlb: String) {
         engine = engine,
         modelLoader = modelLoader,
         planeRenderer = anchor == null,  // hide planes after placement
-        onTouchEvent = { event, hitResult -&gt;
-            if (event.action == MotionEvent.ACTION_UP &amp;&amp; hitResult != null) {
-                anchor = hitResult.createAnchor()
+        onSessionUpdated = { _, frame -&gt; latestFrame = frame },
+        // A confirmed tap on empty space: the end of a pinch on the placed model must not move it.
+        onGestureListener = rememberOnGestureListener(
+            onSingleTapConfirmed = { event, node -&gt;
+                if (node == null) {
+                    latestFrame?.hitTest(event)
+                        ?.firstOrNull { (it.trackable as? Plane)?.isPoseInPolygon(it.hitPose) == true }
+                        ?.createAnchorOrNull()
+                        ?.let { anchor = it } // the old AnchorNode detaches its anchor
+                }
             }
-            true
-        }
+        )
     ) {
         anchor?.let { a -&gt;
             AnchorNode(anchor = a) {
@@ -2890,14 +2903,14 @@ fun ARFurniturePlacer(furnitureGlb: String) {
                     ModelNode(
                         modelInstance = it,
                         scaleToUnits = 0.8f,
-                        isEditable = true  // pinch to scale, drag to move
+                        isEditable = true  // pinch to scale, twist to rotate
                     )
                 }
             }
         }
     }
 }</code></pre>
-<p><strong>~25 lines.</strong> Tap to place, pinch to scale, drag to reposition. All built in.</p>
+<p><strong>~40 lines.</strong> Tap to place, pinch to scale, twist to rotate. All built in.</p>
 <hr />
 <h2 id="education-interactive-3d-anatomy">Education: interactive 3D anatomy<a class="headerlink" href="#education-interactive-3d-anatomy" title="Permanent link">&para;</a></h2>
 <p>Students can rotate and explore a 3D model with labeled parts. Tap a part to see information.</p>

@@ -3244,7 +3244,9 @@ wall shadows, and never substitutes a synthetic pool for renderer shading.</p>
             else -&gt; { /* fallback while prototyping only */ }
         }
     },
-    onTouchEvent = { event, hitResult -&gt; true }
+    // Return true only to consume the event: it then never reaches the nodes' gestures nor
+    // onGestureListener. Place models from onGestureListener's onSingleTapConfirmed instead.
+    onTouchEvent = { event, hitResult -&gt; false }
 ) {
     // ARSceneScope — declare AR nodes here
 }</code></pre>
