@@ -3382,7 +3382,9 @@
 <li><strong>Android Studio</strong> with an Android Gradle Plugin 9.4 release (the build uses AGP 9.4.1,
   <code>gradle/libs.versions.toml</code>)</li>
 <li><strong>Xcode 16+</strong> (for SceneViewSwift / iOS work only — Swift 6 and the iOS 18 floor).
-  CI builds with Xcode 26 (<code>.github/workflows/ios.yml:145-148</code>); no job tests Xcode 16.</li>
+  CI builds with Xcode 26, falling back to the runner's default <code>Xcode.app</code>
+  (<code>.github/workflows/ios.yml:145-149</code>), plus a non-blocking Xcode 27 canary job; no job
+  tests Xcode 16.</li>
 <li><strong>bash, python3 and curl</strong> on the <code>PATH</code> for <code>tools/fetch-assets.sh</code>, which the Android,
   TV and Auto demo builds and the iOS demo build run (see <a href="#assets">Assets</a>). On macOS
   they come with the Command Line Tools (<code>xcode-select --install</code>); on Windows, build
@@ -3446,8 +3448,12 @@ git. They live in the <code>assets-v1</code> GitHub Release, listed with their s
 <a href="assets/manifest.json"><code>assets/manifest.json</code></a>. After cloning, run once:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bash<span class="w"> </span>tools/fetch-assets.sh<span class="w"> </span>--scope<span class="w"> </span>android
 </span></code></pre></div>
-<p><code>--scope android</code> fetches what the Android demo uses, about 55 MiB. Without <code>--scope</code>, the
-script fetches every platform's assets, about 780 MiB (iOS and web models included).</p>
+<p><code>--scope android</code> fetches what the Android demo uses, about 55 MiB. <code>--scope ios</code> and
+<code>--scope tv</code> also pull the <code>android</code> scope (<code>needs</code> in the manifest): about 285 MiB and
+85 MiB. The Auto demo adds the <code>web</code> scope, about 465 MiB, so a root
+<code>./gradlew assembleDebug</code>, which builds every demo, downloads about 550 MiB. Without
+<code>--scope</code>, the script fetches every platform's assets, about 780 MiB (iOS and web models
+included).</p>
 <p>Some builds run the script themselves, so a plain build of them also works:</p>
 <ul>
 <li><strong>Gradle</strong>: the <code>fetchAssets</code> task runs before <code>preBuild</code> and before unit tests in
@@ -3459,9 +3465,10 @@ script fetches every platform's assets, about 780 MiB (iOS and web models includ
 <li><strong>CI</strong>: workflows call it through <code>.github/actions/fetch-assets</code>, the website deploy
   (<code>docs.yml</code>) included, with <code>--scope web</code>.</li>
 </ul>
-<p>Nothing runs it locally for the website (<code>--scope web</code>, <code>website-static/models/platforms</code>)
-or the web demo's splat test page (<code>--scope web-test</code>): run it by hand before serving
-them. The Flutter and React Native demos use no file from the manifest.</p>
+<p>The Auto demo's build is the only local run that fetches <code>--scope web</code>
+(<code>website-static/models/platforms</code>, where its Car Concept lives). Nothing runs it locally
+for the website itself or for the web demo's splat test page (<code>--scope web-test</code>): run it
+by hand before serving them. The Flutter and React Native demos use no file from the manifest.</p>
 <p>Files are downloaded once into <code>~/.cache/sceneview-assets/</code> (shared by every clone and
 worktree, override with <code>SCENEVIEW_ASSETS_CACHE</code>), verified, then cloned (APFS / reflink)
 or copied into place. <code>--scope android|ios|tv|web|web-test</code> limits the fetch, <code>--check</code>

@@ -4723,7 +4723,7 @@ MeshNode(
     boundingBox = geometry.boundingBox,       // without it: no culling, no shadows
     materialInstance = myMaterial
 )</code></pre>
-<p>When the vertex count changes at runtime, prefer <code>GeometryNode</code>, which owns the <code>Geometry</code> and follows its rebuilds.</p>
+<p><code>MeshNode</code> keeps the buffers it was given. When the vertex count changes at runtime there is no <code>GeometryNode</code> composable: use the imperative class <code>io.github.sceneview.node.GeometryNode(engine, geometry, materialInstances)</code>, which owns the <code>Geometry</code> and follows <code>updateGeometry(vertices, indices)</code> rebuilds. Attach it under a composable parent with <code>Node(apply = { addChildNode(geometryNode) })</code> and destroy it yourself (<code>geometryNode.destroy()</code> in a <code>DisposableEffect</code>).</p>
 <p><strong>When to use MeshNode vs CubeNode / SphereNode:</strong></p>
 <ul>
 <li>Static primitives → use the dedicated procedural nodes. They update efficiently when params change.</li>
@@ -4869,17 +4869,22 @@ SceneView(
 <h3 id="example-tap-a-plane-to-drop-a-model">Example — tap a plane to drop a model<a class="headerlink" href="#example-tap-a-plane-to-drop-a-model" title="Permanent link">&para;</a></h3>
 <pre class="language-kotlin"><code>var anchors by remember { mutableStateOf(listOf&lt;Anchor&gt;()) }
 val drone = rememberModelInstance(modelLoader, "models/drone.glb")
+// Latest ARCore Frame: a plain holder, not state, so it does not recompose every frame.
+val latestFrame = remember { arrayOfNulls&lt;Frame&gt;(1) }
 
 ARSceneView(
     modifier = Modifier.fillMaxSize(),
+    onSessionUpdated = { _, frame -&gt; latestFrame[0] = frame },
     onGestureListener = rememberOnGestureListener(
         onSingleTapConfirmed = { motionEvent, node -&gt;
-            val hit = sessionRef?.frame?.hitTest(motionEvent)?.firstOrNull {
-                val tr = it.trackable
-                tr is Plane &amp;&amp; tr.isPoseInPolygon(it.hitPose)
-            }
-            hit?.createAnchor()?.let { newAnchor -&gt;
-                anchors = anchors + newAnchor
+            if (node == null) { // empty space, not a placed model
+                val hit = latestFrame[0]?.hitTest(motionEvent)?.firstOrNull {
+                    val tr = it.trackable
+                    tr is Plane &amp;&amp; tr.isPoseInPolygon(it.hitPose)
+                }
+                hit?.createAnchor()?.let { newAnchor -&gt;
+                    anchors = anchors + newAnchor
+                }
             }
         }
     ),
@@ -5034,7 +5039,7 @@ DisposableEffect(arSession, savedCloudId) {
 resolved?.let { anchor -&gt;
     CloudAnchorNode(anchor = anchor, cloudAnchorId = savedCloudId) { /* place content */ }
 }</code></pre>
-<p><code>CloudAnchorNode.resolve(engine, session, cloudAnchorId) { state, node -&gt; }</code> is the imperative equivalent: it returns a ready <code>CloudAnchorNode</code> instance instead of an <code>Anchor</code>.</p>
+<p><code>CloudAnchorNode.resolve(engine, session, cloudAnchorId) { state, node -&gt; }</code> is the imperative equivalent: it returns a <code>ResolveCloudAnchorFuture</code> and delivers a ready <code>CloudAnchorNode</code> (or <code>null</code> on error) to the callback.</p>
 <hr />
 <h2 id="streetscapegeometrynode">StreetscapeGeometryNode<a class="headerlink" href="#streetscapegeometrynode" title="Permanent link">&para;</a></h2>
 <p>Geospatial building and terrain meshes from ARCore's Streetscape Geometry API. Each detected building or terrain patch becomes a node with its real-world shape.</p>
