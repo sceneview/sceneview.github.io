@@ -923,6 +923,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#session-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#recording-playback" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2889,6 +2900,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#session-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Session lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#recording-playback" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3250,6 +3272,15 @@ wall shadows, and never substitutes a synthetic pool for renderer shading.</p>
 ) {
     // ARSceneScope — declare AR nodes here
 }</code></pre>
+<h3 id="session-lifecycle">Session lifecycle<a class="headerlink" href="#session-lifecycle" title="Permanent link">&para;</a></h3>
+<p><code>ARSceneView</code> follows <code>LocalLifecycleOwner</code> by default. Inside a <code>NavHost</code> that is the
+destination, which stops the camera as soon as the exit transition starts: the last camera image
+stays frozen on screen while the screen animates out. Opt in to the host activity's lifecycle
+for an AR destination with transitions:</p>
+<pre class="language-kotlin"><code>ARSceneView(lifecycle = rememberHostLifecycle())   // camera live through enter/exit transitions</code></pre>
+<p>Keep the default where the AR screen stays composed but hidden (a <code>ViewPager2</code> page, a screen
+under a full-screen <code>dialog()</code>): with the host lifecycle the camera would stay on there. Two
+<code>ARSceneView</code>s resumed at once share the single camera: the last one to resume runs.</p>
 <h3 id="recording-playback">Recording / playback<a class="headerlink" href="#recording-playback" title="Permanent link">&para;</a></h3>
 <pre class="language-kotlin"><code>val recorder = rememberARRecorder()
 val status by rememberARPlaybackStatus(arSession)   // v4.11+: PlaybackStatus as State

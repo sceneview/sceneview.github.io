@@ -2668,15 +2668,16 @@
 <h1 id="filament-on-compose-desktop-status-decision">Filament on Compose Desktop — status &amp; decision<a class="headerlink" href="#filament-on-compose-desktop-status-decision" title="Permanent link">&para;</a></h1>
 <p>Decision record for hardware-accelerated 3D rendering on Desktop. <code>samples/desktop-demo</code>
 now consumes <code>SceneViewer</code>.</p>
-<p><strong>Last updated:</strong> 2026-10-16 · <strong>Decision:</strong> superseded — see
+<p><strong>Last updated:</strong> 2026-10-21 · <strong>Decision:</strong> superseded — see
 <a href="../compose-multiplatform/">compose-multiplatform.md</a>. The offscreen architecture below
 still stands; the <em>binding supply</em> decision does not.</p>
 <blockquote>
 <p><strong>2026-10-16 update — the binding is JNI, the floor is JDK 21.</strong> Since filament-kmp
 0.7.0 the desktop binding calls Filament through JNI instead of Project Panama (FFM),
 from <code>io.github.erkko68.filament:filament-jni-desktop</code>; filament-kmp itself needs
-only JDK 17. SceneView is on 0.7.3 since
-<a href="https://github.com/sceneview/sceneview/pull/4518">#4518</a>. The <code>sceneview-compose</code>
+only JDK 17. SceneView moved to 0.7.3 in
+<a href="https://github.com/sceneview/sceneview/pull/4518">#4518</a> and is on 0.8.0 (Filament
+1.78.0) since <a href="https://github.com/sceneview/sceneview/pull/4706">#4706</a>. The <code>sceneview-compose</code>
 desktop target now runs on <strong>JDK 21+</strong>, not 22+, and needs no
 <code>--enable-native-access=ALL-UNNAMED</code>. 21 rather than 17 because the module exposes
 <code>dev.romainguy:kotlin-math</code> (<code>Float3</code>…) as <code>api</code>, and kotlin-math 1.7.0+ ships JDK 21
@@ -2707,7 +2708,7 @@ presented Filament's desktop Java build (<code>filament-java.jar</code>, <code>F
 <hr />
 <h2 id="current-state-sceneviewer-on-desktop">Current state: <code>SceneViewer</code> on desktop<a class="headerlink" href="#current-state-sceneviewer-on-desktop" title="Permanent link">&para;</a></h2>
 <p><code>samples/desktop-demo</code> consumes <code>sceneview-compose</code> <code>SceneViewer</code>. Filament is
-filament-kmp 0.7.3 on Maven (JNI binding, offscreen readback → Skia). <strong>JDK 21+</strong>
+filament-kmp 0.8.0 on Maven (JNI binding, offscreen readback → Skia). <strong>JDK 21+</strong>
 (kotlin-math's bytecode sets it; filament-kmp alone needs 17), no JVM flag.</p>
 <hr />
 <h2 id="ground-truth-what-filament-provides-on-desktop-verified-2026-07">Ground truth: what Filament provides on desktop (verified 2026-07)<a class="headerlink" href="#ground-truth-what-filament-provides-on-desktop-verified-2026-07" title="Permanent link">&para;</a></h2>
@@ -2733,7 +2734,7 @@ distribution — so the real supply question is <em>where the desktop bindings c
 <h2 id="community-bindings-filament-kmp-the-s1-supply">Community bindings: filament-kmp (the S1 supply)<a class="headerlink" href="#community-bindings-filament-kmp-the-s1-supply" title="Permanent link">&para;</a></h2>
 <p><a href="https://github.com/Erkko68/filament-kmp">Erkko68/filament-kmp</a> — unofficial,
 Apache-2.0, actively maintained KMP wrapper around Filament, published on Maven
-Central (re-verified against <code>repo1.maven.org</code> at <code>0.7.3</code>, 2026-10-16; first written
+Central (re-verified against <code>repo1.maven.org</code> at <code>0.8.0</code>, 2026-10-21; first written
 against <code>0.3.0</code>, 2026-08-03):</p>
 <ul>
 <li><strong>Desktop/JVM via JNI (JDK 17+) since 0.7.0</strong> over one generated <code>Fila*</code> C API,
@@ -2741,8 +2742,8 @@ against <code>0.3.0</code>, 2026-08-03):</p>
   <code>filament-jni-runtime-{macos-arm64, linux-x64, linux-arm64, windows-x64, windows-arm64}</code>.
   Up to 0.6.0 it was Project Panama (FFM, JDK 22+) from
   <code>io.github.erkko68.filament-ffm:filament-ffm</code>.
-  <strong>No macos-x64 (Intel Mac) natives</strong> — re-confirmed 2026-10-16 (404 on Maven Central).</li>
-<li>Wraps <strong>Filament 1.77.3</strong> at 0.7.3; modules mirror upstream
+  <strong>No macos-x64 (Intel Mac) natives</strong> — re-confirmed 2026-10-21 at 0.8.0 (404 on Maven Central).</li>
+<li>Wraps <strong>Filament 1.78.0</strong> at 0.8.0; modules mirror upstream
   (<code>filament</code>, <code>gltfio</code>, <code>filamat</code>, <code>filament-utils</code>).</li>
 <li>It does <strong>not</strong> build Filament from source: it takes Google's official C++ prebuilts
   and generates a C API from Filament's C++ headers, which every platform calls (JNI on
