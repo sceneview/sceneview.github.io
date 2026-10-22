@@ -3239,6 +3239,11 @@ validate wall placement.</p>
 <p>Native renderer lighting can differ. The demo does not claim physically identical
 wall shadows, and never substitutes a synthetic pool for renderer shading.</p>
 <h2 id="arsceneview-low-level-manual-placement">ARSceneView (low-level / manual placement)<a class="headerlink" href="#arsceneview-low-level-manual-placement" title="Permanent link">&para;</a></h2>
+<p>Camera-image ML pipelines place a result by casting a world ray, not through the screen:
+capture <code>camera.pose</code> and <code>camera.imageIntrinsics</code> with the CPU image, map the detector's
+output pixel back to the unrotated image with
+<code>DetectorImageMapping(imageSize, rotationDegrees).detectorPixelToImagePixel(x, y)</code>, then
+<code>frame.hitTest(origin, 0, direction, 0)</code> on a later frame.</p>
 <pre class="language-kotlin"><code>ARSceneView(
     modifier = Modifier.fillMaxSize(),
     engine = engine,
