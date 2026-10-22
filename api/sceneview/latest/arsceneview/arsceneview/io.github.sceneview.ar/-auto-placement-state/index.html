@@ -167,6 +167,36 @@
               </div>
             </div>
           </div>
+<a data-name="388706491%2FProperties%2F-652796645" anchor-label="cameraHeight" id="388706491%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="camera-height.html"><span>camera</span><wbr></wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="388706491%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="camera-height.html">cameraHeight</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The camera's height in ARCore world space (metres), <code class="lang-kotlin">null</code> before the camera tracks. With <a href="floor-height.html">floorHeight</a> it tells a placement on the floor (the camera a standing person's height above it) from one on a table. <a href="../-auto-placement-scene.html">AutoPlacementScene</a> keeps it up to date, in <span data-unresolved-link="io.github.sceneview.ar/AutoPlacementState.Companion/CAMERA_STEP_M/#/PointingToDeclaration/">CAMERA_STEP_M</span> steps so walking around does not recompose whoever reads it every frame.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="71941472%2FProperties%2F-652796645" anchor-label="floorHeight" id="71941472%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="floor-height.html"><span>floor</span><wbr></wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="71941472%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="floor-height.html">floorHeight</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The floor's height in ARCore world space (metres): the lowest tracked upward-facing plane, <code class="lang-kotlin">null</code> before one is tracked; a floor that stops tracking for a while keeps its last height. <a href="../-auto-placement-scene.html">AutoPlacementScene</a> keeps it up to date. An object placed on a table that should stand on the floor instead — a scanned room at its real size — drops by <code class="lang-kotlin">floorHeight - placement.pose.ty()</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="1515922137%2FProperties%2F-652796645" anchor-label="hasCameraFrame" id="1515922137%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
@@ -298,6 +328,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="scale-factor.html">scaleFactor</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Current multiplier of the selected preview/authored base size.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1366009932%2FProperties%2F-652796645" anchor-label="scaleRange" id="-1366009932%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scale-range.html"><span>scale</span><wbr></wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1366009932%2FProperties%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="scale-range.html">scaleRange</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/-closed-floating-point-range/index.html">ClosedFloatingPointRange</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">How far the pinch, <a href="scale-to.html">scaleTo</a> and the double-tap may resize the placed object, as a multiplier of its base size: 25–400 % by default, Scene Viewer's range.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -586,7 +631,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale-to.html"><span class="token function">scaleTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accessibility alternative: uniform base-size multiplier, clamped to 25–400%. Ignored while <a href="allows-scaling.html">allowsScaling</a> is <code class="lang-kotlin">false</code>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scale-to.html"><span class="token function">scaleTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">factor<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accessibility alternative: uniform base-size multiplier, clamped to <a href="scale-range.html">scaleRange</a> (25–400 % by default). Ignored while <a href="allows-scaling.html">allowsScaling</a> is <code class="lang-kotlin">false</code>.</p></div></div></div>
                 </div>
               </div>
             </div>
