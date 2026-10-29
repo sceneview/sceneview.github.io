@@ -3182,6 +3182,19 @@ trustworthy authored units (<strong>Actual size</strong>). Scale limits are 25�
 set <code>AutoPlacementState.scaleRange</code> (default <code>0.25f..4f</code>) to widen them, e.g. <code>0.25f..16f</code> for a
 1:16 miniature that may be pinched up to real size. <code>AutoPlacementState.cameraHeight</code> is the
 tracked camera's world height in metres (<code>null</code> until it tracks).</p>
+<p>To name the choice, pass <code>size = PlacementSize.RealWorld</code> (authored metres, never rescaled:
+a 1 m cube is 1 m) or <code>size = PlacementSize.FitInto(0.3f)</code> (longest authored axis, before
+<code>assetRotation</code>, fitted into that many metres) instead of <code>scaleToUnits</code>. Either way the
+bottom-centre rests on the contact point and the model's dimensions are published in metres:
+<code>AutoPlacementState.baseSize</code> (width, height, depth at 100 % of the axis-aligned box after
+<code>assetRotation</code>, so with <code>FitInto</code> its largest side is the target only for multiples of 90°:
+a 1 m cube at <code>FitInto(1f)</code> turned 45° about Y is about 1.41 × 1 × 1.41 m; <code>null</code> until the
+frame after the model appears, and for an empty asset), <code>placedSize</code> (<code>baseSize * scaleFactor</code>,
+following the pinch) and <code>isAtRealWorldSize</code> (<code>RealWorld</code> and exactly 100 %). Let the user pick
+a size with <code>state.baseSize?.let { state.scaleTo(2f / it.y) }</code> (2 m tall). <code>scaleTo</code> clamps to
+<code>scaleRange</code> (25–400 % by default) without notice and does nothing while <code>allowsScaling</code> is
+<code>false</code>: a 0.3 m preview asked for 2 m needs ×6.7 and stops at 1.2 m, so widen <code>scaleRange</code>
+(e.g. <code>0.25f..16f</code>) first.</p>
 <p>For asynchronous selection, call <code>placement.selectModel()</code> before loading and attach
 only while <code>placement.acceptsAsset(ticket)</code> is true. Keep the previous rendered model
 until its replacement succeeds. Observe <code>placement.phase</code>; use <code>requestPlacement()</code>,
