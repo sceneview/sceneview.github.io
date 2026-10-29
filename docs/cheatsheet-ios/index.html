@@ -3598,7 +3598,7 @@ centers ranked by center proximity; every candidate must lie inside its plane po
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="nv">model</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="n">ModelNode</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">"khronos_toy_car"</span><span class="p">)</span>
 </span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">                </span><span class="k">guard</span><span class="w"> </span><span class="o">!</span><span class="n">Task</span><span class="p">.</span><span class="n">isCancelled</span><span class="p">,</span><span class="w"> </span><span class="n">placement</span><span class="p">.</span><span class="n">acceptsAsset</span><span class="p">(</span><span class="n">ticket</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span>
 </span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">                </span><span class="kc">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">withGroundingShadow</span><span class="p">()</span><span class="w"> </span><span class="c1">// explicit for asynchronously loaded content</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">                </span><span class="n">placement</span><span class="p">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="p">,</span><span class="w"> </span><span class="n">ticket</span><span class="p">:</span><span class="w"> </span><span class="n">ticket</span><span class="p">,</span><span class="w"> </span><span class="n">previewSize</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">)</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">                </span><span class="n">placement</span><span class="p">.</span><span class="n">setModel</span><span class="p">(</span><span class="n">model</span><span class="p">.</span><span class="n">entity</span><span class="p">,</span><span class="w"> </span><span class="n">ticket</span><span class="p">:</span><span class="w"> </span><span class="n">ticket</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="p">.</span><span class="n">fitInto</span><span class="p">(</span><span class="n">meters</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span><span class="p">))</span>
 </span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">                </span><span class="k">guard</span><span class="w"> </span><span class="o">!</span><span class="n">Task</span><span class="p">.</span><span class="n">isCancelled</span><span class="p">,</span><span class="w"> </span><span class="n">placement</span><span class="p">.</span><span class="n">acceptsAsset</span><span class="p">(</span><span class="n">ticket</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span>
 </span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">                </span><span class="c1">// Present a model-load error and retry; never substitute another asset.</span>
@@ -3610,9 +3610,17 @@ centers ranked by center proximity; every candidate must lie inside its plane po
 <ul>
 <li>Use <code>.vertical</code> for direct wall placement; no floor prerequisite. <code>result</code> exposes
   <code>surfaceIdentifier</code>, <code>anchorIdentifier</code>, and the oriented <code>worldTransform</code>.</li>
-<li><code>previewSize: 0.3</code> means <strong>Preview size</strong>, a 0.3 m longest dimension. Pass <code>nil</code> for
-  <strong>Actual size</strong> when the asset's authored units are trustworthy. Complete nested bounds
-  are grounded; asynchronous models receive collision shapes for selection and gestures.</li>
+<li><code>size: .fitInto(meters: 0.3)</code> (also <code>PlacementSize.preview</code>) means <strong>Preview size</strong>, a
+  0.3 m longest side. <code>size: .realWorld</code> means <strong>Actual size</strong>: authored metres, never
+  rescaled — use it when the asset's units are trustworthy. Complete nested bounds are
+  grounded with the bottom centre on the contact point; asynchronous models receive
+  collision shapes for selection and gestures.</li>
+<li><code>baseSize</code> (W, H, D in metres at 100 %), <code>placedSize</code> (<code>baseSize * scale</code>) and
+  <code>isAtRealWorldSize</code> (<code>.realWorld</code> at exactly 100 %) are observable — e.g.
+  <code>if let s = placement.placedSize { Text(String(format: "%.2f m tall", s.y)) }</code>. Once
+  placed, <code>if let b = placement.baseSize { placement.scale(to: 2 / b.y) }</code> makes it 2 m
+  tall (<code>scale(to:)</code> does nothing before <code>.placed</code>/<code>.adjusting</code>). <code>ModelNode.worldSize</code> and
+  <code>worldBoundingBox</code> give any model's dimensions in world metres.</li>
 <li><code>phase</code>: <code>.initializing</code>, <code>.scanning</code>, <code>.noSurface</code>, <code>.placed</code>, <code>.adjusting</code>,
   <code>.trackingLost</code>, <code>.recovering</code>, <code>.recoveryFailed</code>, <code>.cameraError</code>. These correspond
   directly to Kotlin's <code>PlacementPhase</code>. Search and recovery deadlines are ten seconds.</li>
@@ -3620,7 +3628,7 @@ centers ranked by center proximity; every candidate must lie inside its plane po
   the owned anchor while retaining the asset and camera; <code>keepScanning()</code> starts a new
   search interval. <code>dismiss()</code> invalidates outstanding tickets and releases resources.
   Teardown invokes dismissal automatically. A controller owns one placement.</li>
-<li><code>selectModel()</code> issues a session/selection ticket. <code>setModel(_:ticket:previewSize:)</code>
+<li><code>selectModel()</code> issues a session/selection ticket. <code>setModel(_:ticket:size:)</code>
   rejects stale tickets and invalid bounds, keeps the old entity until a successful
   replacement, and automatically requests placement when empty.</li>
 <li>Nested meshes are selectable. Drag preserves the grab offset on valid geometry and the
