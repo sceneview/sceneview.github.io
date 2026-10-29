@@ -5211,7 +5211,7 @@ Drive these parameters directly from state; no <code>key</code> or node recreati
 <tr>
 <td>glTF with WebP-encoded textures (<code>EXT_texture_webp</code>)</td>
 <td>Model loads/animates but renders untextured; Logcat shows <code>Missing texture provider for image/webp</code></td>
-<td>Android (since 4.28.0) and the web build both convert embedded WebP textures automatically — the message survives only for WebP kept in separate <code>.webp</code> files beside a <code>.gltf</code>; re-encode those to PNG/JPEG/KTX2 (<a href="https://github.com/sceneview/sceneview/issues/2305">#2305</a>, <a href="https://github.com/sceneview/sceneview/issues/3085">#3085</a>, <a href="../troubleshooting/#model-loads-but-renders-untextured-webp-textures">details</a>)</td>
+<td>Android and the web build both convert embedded WebP textures automatically, and Android also converts separate <code>.webp</code> files beside a <code>.gltf</code> — the message survives only for those on the web; re-encode them to PNG/JPEG/KTX2 (<a href="https://github.com/sceneview/sceneview/issues/2305">#2305</a>, <a href="https://github.com/sceneview/sceneview/issues/3085">#3085</a>, <a href="../troubleshooting/#model-loads-but-renders-untextured-webp-textures">details</a>)</td>
 </tr>
 <tr>
 <td>Calling <code>node.destroy()</code> manually</td>

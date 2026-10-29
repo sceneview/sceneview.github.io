@@ -3636,8 +3636,9 @@ APIs with unchanged behavior. Android's <code>PlacementScene</code>, <code>WallP
 <code>WallPlacementScene</code> and reticle are likewise manual. Prefer automatic placement in new
 examples. To show the model before a plane is detected, opt in to instant placement below.</p>
 <h3 id="instant-placement">Instant placement<a class="headerlink" href="#instant-placement" title="Permanent link">&para;</a></h3>
-<p>Off by default, as on Android's <code>AutoPlacementScene</code> (<code>InstantPlacementMode.DISABLED</code>): without
-it, nothing appears until ARKit detects a plane. Opt in when the first seconds matter more than
+<p>Off by default, and iOS only for now: Android's <code>AutoPlacementScene</code> has no instant placement
+yet (it hard-codes ARCore's <code>InstantPlacementMode.DISABLED</code>). Without it, nothing appears until
+ARKit detects a plane. Opt in when the first seconds matter more than
 the first pose:</p>
 <div class="language-swift highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">@</span><span class="n">StateObject</span><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kd">var</span><span class="w"> </span><span class="nv">placement</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">ARPlacementController</span><span class="p">(</span><span class="n">instantPlacement</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
@@ -3653,8 +3654,8 @@ the first pose:</p>
 <ul>
 <li>A detected plane places the model at once, as without instant placement. When none shows
   up, the model stands on the estimated floor after 0.6 s of tracking: the lowest horizontal
-  surface ARKit knows at least 0.4 m below the phone, else 1.3 m below it. It sits along the
-  centre ray, 1.2–4 m ahead depending on its size as shown (1.2 m at the default 0.3 m
+  surface ARKit knows at least 0.4 m below the phone, even out of view, else 1.3 m below it. It
+  sits in the centre ray's heading, 1.2–4 m ahead depending on its size as shown (1.2 m at the default 0.3 m
   preview; a 2 m sofa at real-world size, <code>previewSize: nil</code>, sits 2.9 m away), and is never
   in mid-air. A wall model waits for ARKit's estimate of the wall in view.</li>
 <li>Ten times a second, the model's own screen position is cast again. An estimated surface there becomes the

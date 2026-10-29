@@ -1078,6 +1078,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#show-load-progress-and-errors-for-large-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Show load progress and errors for large models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#switch-between-models-dynamically" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3144,6 +3155,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#show-load-progress-and-errors-for-large-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Show load progress and errors for large models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#switch-between-models-dynamically" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3711,6 +3733,36 @@ fun ModelWithLoadingIndicator() {
         }
     }
 }</code></pre>
+<h3 id="show-load-progress-and-errors-for-large-models">Show load progress and errors for large models<a class="headerlink" href="#show-load-progress-and-errors-for-large-models" title="Permanent link">&para;</a></h3>
+<p>Generated or scanned models are often 5–60 MB with 4K textures. <code>rememberModelLoadState</code> reports
+how far the load is (<code>Reading</code> the file, <code>Creating</code> the asset, decoding <code>Textures</code>) and why it
+failed, instead of a bare <code>null</code>. <code>Ready</code> normally arrives once every texture is final, so the
+model does not pop in untextured. The exception is a stall: if no texture makes progress for 10 s,
+<code>Ready</code> arrives with a texture possibly still decoding, and the stall is logged.</p>
+<pre class="language-kotlin"><code>@Composable
+fun GeneratedModel(url: String) {
+    val engine = rememberEngine()
+    val modelLoader = rememberModelLoader(engine)
+
+    when (val state = rememberModelLoadState(modelLoader, url)) {
+        is ModelLoadState.Loading -&gt; LinearProgressIndicator(
+            progress = { state.progress.fraction }
+        )
+        is ModelLoadState.Ready -&gt; SceneView(
+            modifier = Modifier.fillMaxSize(),
+            engine = engine,
+            modelLoader = modelLoader
+        ) {
+            ModelNode(modelInstance = state.instance, scaleToUnits = 1.0f)
+        }
+        is ModelLoadState.Failed -&gt; Text(
+            if (state.error is UnsupportedGltfExtensionException) "This model format is not supported"
+            else "Could not load the model"
+        )
+    }
+}</code></pre>
+<p>Outside Compose, <code>modelLoader.awaitModelInstance(location) { progress -&gt; }</code> does the same: it
+returns with the textures final (or after such a stall) and throws on failure.</p>
 <h3 id="switch-between-models-dynamically">Switch between models dynamically<a class="headerlink" href="#switch-between-models-dynamically" title="Permanent link">&para;</a></h3>
 <p>Change the asset path via Compose state. <code>rememberModelInstance</code> automatically
 loads the new model when the path changes.</p>

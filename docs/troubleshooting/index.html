@@ -1310,6 +1310,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#unsupportedgltfextensionexception-avif-textures-khr-meshopt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnsupportedGltfExtensionException (AVIF textures, KHR meshopt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#black-screen-no-rendering" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2895,6 +2906,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#unsupportedgltfextensionexception-avif-textures-khr-meshopt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UnsupportedGltfExtensionException (AVIF textures, KHR meshopt)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#black-screen-no-rendering" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3127,16 +3149,33 @@ re-encodes WebP textures to PNG with Android's own decoder before handing the as
 <code>sceneview-web</code> does the same in the browser (<code>createImageBitmap</code> → canvas → PNG) before
 <code>createAsset</code>. Either way a WebP-textured glTF loads with its textures. This costs one decode +
 PNG encode per texture at load time; a model without WebP textures is passed through untouched.</p>
-<p>One case is still <strong>not</strong> covered, and it logs an actionable <code>SceneView</code> error rather than failing
-silently: textures stored as <strong>separate <code>.webp</code> files</strong> next to a <code>.gltf</code>. Only images embedded in
-a GLB buffer view or in a <code>data:</code> URI are converted — an external URI is resolved later, by name,
-inside Filament.</p>
+<p>On Android this includes textures stored as <strong>separate <code>.webp</code> files</strong> next to a <code>.gltf</code>: the
+model declares them PNG, and <code>ModelLoader</code> converts each file's bytes once its resolver has read
+them. One that cannot be decoded is named in an actionable <code>SceneView</code> error and renders
+untextured; the rest of the model loads. On the web, separate <code>.webp</code> files are still <strong>not</strong>
+converted (logged too): only images embedded in a GLB buffer view or in a <code>data:</code> URI are. A
+resource you feed yourself later with <code>resourceLoader.addResourceData</code> is not converted either.</p>
 <p>On the web there is one more caveat: a canvas 2D context stores premultiplied colour, so a texture
 with <em>partial</em> transparency comes back with rounding error in its low-alpha texels. Fully opaque
 textures round-trip exactly.</p>
 <p><strong>Fix for both:</strong> re-encode the model's textures to PNG, JPEG, or KTX2, e.g.
 <code>npx @gltf-transform/cli optimize model.glb out.glb --texture-compress png</code>, or re-export from
 Blender with PNG/JPEG textures. PNG, JPEG, and KTX2 decode natively everywhere.</p>
+<h3 id="unsupportedgltfextensionexception-avif-textures-khr-meshopt"><code>UnsupportedGltfExtensionException</code> (AVIF textures, KHR meshopt)<a class="headerlink" href="#unsupportedgltfextensionexception-avif-textures-khr-meshopt" title="Permanent link">&para;</a></h3>
+<p>A glTF file can list extensions in <code>extensionsRequired</code>: a viewer that does not implement one of
+them must refuse the file. Filament's <code>gltfio</code> does not check that list itself, so such a model
+loads <strong>untextured or broken</strong>. <code>ModelLoader</code> now checks it before any Filament call.
+<code>awaitModelInstance</code> refuses such a model with <code>UnsupportedGltfExtensionException</code>, whose
+<code>extensions</code> names what is missing, and <code>rememberModelLoadState</code> gives <code>Failed</code>. Every other load
+(<code>createModel*</code>, <code>loadModel*</code>, the <code>load*Async</code> calls, <code>rememberModelInstance</code>) logs the
+unsupported extensions under the <code>ModelLoader</code> tag and loads the model as before.</p>
+<p>The usual culprits are <code>EXT_texture_avif</code> and <code>KHR_meshopt_compression</code> in exports from
+generation or optimisation pipelines. <code>ModelLoader.SUPPORTED_GLTF_EXTENSIONS</code> lists what works.
+gltfpack <code>-mi</code> output requires <code>EXT_mesh_gpu_instancing</code>, which gltfio does not read:
+<code>awaitModelInstance</code> and <code>rememberModelLoadState</code> refuse it, so re-export without <code>-mi</code>.
+<strong>Fix:</strong> re-export with PNG, JPEG or KTX2 textures and <code>EXT_meshopt_compression</code>, e.g.
+<code>npx @gltf-transform/cli optimize model.glb out.glb --texture-compress webp</code> (SceneView converts
+WebP for you) or <code>--texture-compress ktx2</code>.</p>
 <h3 id="black-screen-no-rendering">Black screen / no rendering<a class="headerlink" href="#black-screen-no-rendering" title="Permanent link">&para;</a></h3>
 <p>A completely black or empty viewport usually means the scene is set up but nothing is visible to
 the camera.</p>
