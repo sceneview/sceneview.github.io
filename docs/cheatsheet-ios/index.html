@@ -3727,9 +3727,11 @@ opacity-only 300 ms reveal/hide; neither scales the object in from zero.</p>
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="n">arView</span><span class="p">.</span><span class="n">scene</span><span class="p">.</span><span class="n">addAnchor</span><span class="p">(</span><span class="n">anchor</span><span class="p">.</span><span class="n">entity</span><span class="p">)</span>
 </span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">)</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="p">.</span><span class="n">onSessionStarted</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">arView</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">}</span><span class="w">       </span><span class="c1">// called when AR session begins</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">.</span><span class="n">mainLight</span><span class="p">(.</span><span class="n">systemDefault</span><span class="p">)</span><span class="w">             </span><span class="c1">// v4.3.0+ — see LightSlot (default 10 000-lux directional + shadow)</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="p">.</span><span class="n">fillLight</span><span class="p">(.</span><span class="n">systemDefault</span><span class="p">)</span><span class="w">             </span><span class="c1">// v4.3.0+ — Android-parity 3 000-lux fill on by default</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="p">.</span><span class="n">placementShadow</span><span class="p">(.</span><span class="n">contact</span><span class="p">(.</span><span class="n">floor</span><span class="p">,</span><span class="w"> </span><span class="n">intensity</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">))</span><span class="w"> </span><span class="c1">// procedural ContactShadowNode instead of</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">                                                   </span><span class="c1">// RealityKit's grounding shadow (.grounding, .none)</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="p">.</span><span class="n">onSessionStarted</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">arView</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">}</span><span class="w">       </span><span class="c1">// called when AR session begins</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="p">.</span><span class="n">mainLight</span><span class="p">(.</span><span class="n">systemDefault</span><span class="p">)</span><span class="w">             </span><span class="c1">// v4.3.0+ — see LightSlot (default 10 000-lux directional + shadow)</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="p">.</span><span class="n">fillLight</span><span class="p">(.</span><span class="n">systemDefault</span><span class="p">)</span><span class="w">             </span><span class="c1">// v4.3.0+ — Android-parity 3 000-lux fill on by default</span>
 </span></code></pre></div>
 <h3 id="session-configuration-and-lifecycle-v4390">Session configuration and lifecycle (v4.39.0+)<a class="headerlink" href="#session-configuration-and-lifecycle-v4390" title="Permanent link">&para;</a></h3>
 <p>One value describes what the session runs; the view re-runs ARKit only when that value
@@ -3917,6 +3919,11 @@ on first invocation per Apple's privacy policy.</p>
 <td><code>ReflectionProbeNode</code></td>
 <td><code>ReflectionProbeNode(position:radius:)</code></td>
 <td>zone-based IBL</td>
+</tr>
+<tr>
+<td><code>ContactShadowNode</code></td>
+<td><code>ContactShadowNode.under(model)</code> · <code>model.withContactShadow()</code> · <code>ContactShadowNode(width:length:context:plane:)</code></td>
+<td><code>context:</code> <code>.floor</code> / <code>.tableTop</code> / <code>.wall</code>, <code>intensity:</code>, <code>spread:</code> (1.6); procedural decal, needs no light, left out of framing, sizing and collision</td>
 </tr>
 </tbody>
 </table>
