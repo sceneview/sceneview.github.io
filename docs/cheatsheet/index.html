@@ -3087,8 +3087,8 @@
 <hr />
 <h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// build.gradle
-implementation("io.github.sceneview:sceneview:4.62.0")     // 3D
-implementation("io.github.sceneview:arsceneview:4.62.0")    // AR + 3D</code></pre>
+implementation("io.github.sceneview:sceneview:4.63.0")     // 3D
+implementation("io.github.sceneview:arsceneview:4.63.0")    // AR + 3D</code></pre>
 <hr />
 <h2 id="core-remember-hooks">Core Remember Hooks<a class="headerlink" href="#core-remember-hooks" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>val engine = rememberEngine()
@@ -3297,21 +3297,23 @@ ARSceneView(
 ) { /* DSL */ }</code></pre>
 <p><strong>Two different "recordings" — pick by what you capture:</strong></p>
 <ul>
-<li><strong><code>SurfaceMirrorer</code></strong> (<code>sceneview</code> <strong>and</strong> <code>arsceneview</code>) — records <strong>the rendered scene to an
-  MP4</strong>: exactly what Filament draws (in AR, camera feed + virtual content composited), no Compose
-  UI. In-app, no MediaProjection consent dialog / foreground service. Share-ready video.</li>
+<li><strong><code>SceneRecorder</code></strong> (<code>sceneview</code>, works on <code>ARSceneView</code> too) — a <strong>photo or MP4 of the rendered
+  scene</strong>: exactly what Filament draws (in AR, camera feed + virtual content composited), no Compose
+  UI. In-app, no MediaProjection consent dialog / foreground service. Share-ready.</li>
 <li><strong><code>ARRecorder</code></strong> (above, <code>arsceneview</code> only) — records an <strong>ARCore session dataset</strong> (raw sensor
   streams) for deterministic <strong>replay</strong> through <code>playbackDataset</code> — a debugging tool, not a video.</li>
 </ul>
-<pre class="language-kotlin"><code>val surfaceMirrorer = rememberSurfaceMirrorer()
-SceneView(surfaceMirrorer = surfaceMirrorer) { /* DSL */ }   // or ARSceneView(surfaceMirrorer = …)
+<pre class="language-kotlin"><code>val recorder = rememberSceneRecorder()                  // io.github.sceneview.capture
+ARSceneView(surfaceMirrorer = recorder.surfaceMirrorer) { /* DSL */ }   // or SceneView(…)
 
-// Point a MediaRecorder (SURFACE video source) at the scene; frame is letterboxed to fit.
-surfaceMirrorer.startMirroring(recorder.surface, width = 1280, height = 720)  // any thread, JNI-free
-recorder.start()
-// …record…
-surfaceMirrorer.stopMirroring(recorder.surface)                              // main thread only
-recorder.stop(); recorder.release()</code></pre>
+scope.launch { recorder.savePhoto() }                   // full-res PixelCopy → JPEG (or PNG), File?
+recorder.startRecording(                                 // H.264 MP4, 1080p30 by default, main thread
+    settings = VideoSettings(recordAudio = true, maxDurationMillis = 30_000),  // mic needs RECORD_AUDIO
+)
+recorder.stopRecording()                                 // SceneRecording? (file, size, duration)
+recorder.overlay = CaptureOverlay { canvas, width, height -&gt; /* watermark, photo + video (API 29+) */ }</code></pre>
+<p>Lower level: <code>rememberSurfaceMirrorer()</code> + <code>startMirroring(surface, width, height)</code> /
+<code>stopMirroring(surface)</code> (main thread) mirrors the frames to your own encoder surface.</p>
 <h3 id="camera-exposure-override">Camera exposure override<a class="headerlink" href="#camera-exposure-override" title="Permanent link">&para;</a></h3>
 <p><code>cameraExposure</code> is Filament's <strong>absolute exposure scale</strong> (the single-<code>Float</code> <code>setExposure</code>
 overload — <code>1.0 ≈ ISO 100 ≈ EV 0</code>). It is <strong>NOT a signed EV-stop bias</strong>: negative values clamp
