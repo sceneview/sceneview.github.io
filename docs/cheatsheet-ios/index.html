@@ -3642,7 +3642,7 @@ centers ranked by center proximity; every candidate must lie inside its plane po
   limited to 25–400%. Tracking loss cancels gestures and hides content until the existing
   anchor recovers. Empty-space taps deselect only.</li>
 <li><code>recenter()</code> brings the placed model back in front of the user: it glides (6/s) to where
-  the centre ray meets the floor, between half its reach and its reach ahead, keeping the side
+  the centre ray meets the floor, between 0.6 of its reach and its reach ahead, keeping the side
   the user sees: the twist from facing them is kept, a plane placement's own heading counting
   as twist; the pinch is kept. A wall
   model goes to the wall under the centre. It returns <code>false</code>, changing nothing, when nothing
