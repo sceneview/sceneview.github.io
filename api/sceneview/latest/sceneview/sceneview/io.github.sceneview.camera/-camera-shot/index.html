@@ -110,7 +110,7 @@
     <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">CameraShot</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>target<span class="token operator">: </span><span data-unresolved-link="io.github.sceneview.math/Position///PointingToDeclaration/">Position</span><span class="token operator"> = </span>Position(0f, 0f, 0f)<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>azimuthDegrees<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>elevationDegrees<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>distance<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">1.0f</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Where a camera stands and what it looks at, as a cinematographer would call it: a <strong>shot</strong>.</p><p class="paragraph">A shot is an orbit around its <span data-unresolved-link="io.github.sceneview.camera/CameraShot//#dev.romainguy.kotlin.math.Float3#kotlin.Float#kotlin.Float#kotlin.Float/PointingToCallableParameters(0)/">target</span> — an angle around the subject, an angle above it and a distance — rather than an eye position, so two shots of the same subject interpolate along an arc <i>around</i> it instead of a straight line <i>through</i> it, and a shot carried onto another subject keeps its angle. <a href="eye.html">eye</a> is derived. The same convention as the orbit manipulators of <code class="lang-kotlin">SceneView</code> and <code class="lang-kotlin">applyCinematicOrbit</code>: azimuth around world +Y measured from +Z towards +X, elevation positive looking <i>down</i> at the target, +Y up.</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val home = CameraShot(target = Position(0f, 0.8f, 0f), azimuthDegrees = 35f, elevationDegrees = 32f, distance = 4f)<br>val plan = home.copy(elevationDegrees = 84f)             // the same room, seen as a floor plan<br>cameraNode.transform = home.transform()                  // or drive it through CameraAnimator</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
         <h2 class="tableheader">Constructors</h2>
@@ -231,7 +231,22 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="2055547957%2FFunctions%2F-278939350" anchor-label="transform" id="2055547957%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+        <div class="table"><a data-name="-1482266888%2FFunctions%2F-278939350" anchor-label="toPose" id="-1482266888%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../to-pose.html"><span>to</span><wbr></wbr><span><span>Pose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1482266888%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">CameraShot</a><span class="token punctuation">.</span><a href="../to-pose.html"><span class="token function">toPose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-camera-pose/index.html">CameraPose</a></div><div class="brief "><p class="paragraph">This shot as a <a href="../-camera-pose/index.html">CameraPose</a>: its <a href="eye.html">CameraShot.eye</a>, looking at its target with <code class="lang-kotlin">+Y</code> up.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2055547957%2FFunctions%2F-278939350" anchor-label="transform" id="2055547957%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">

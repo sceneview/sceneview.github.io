@@ -139,8 +139,12 @@ $dokka.location:io.github.sceneview.audio/AudioListenerSource.Camera///PointingT
 $dokka.location:io.github.sceneview.audio/AudioListenerSource///PointingToDeclaration/sceneview/io.github.sceneview.audio/-audio-listener-source/index.html
 $dokka.location:io.github.sceneview.audio/AudioSource///PointingToDeclaration/sceneview/io.github.sceneview.audio/-audio-source/index.html
 $dokka.location:io.github.sceneview.camera////PointingToDeclaration/sceneview/io.github.sceneview.camera/index.html
+$dokka.location:io.github.sceneview.camera//applyCameraTimeline/io.github.sceneview.node.CameraNode#io.github.sceneview.camera.CameraTimeline#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/apply-camera-timeline.html
+$dokka.location:io.github.sceneview.camera//applyPose/io.github.sceneview.node.CameraNode#io.github.sceneview.camera.CameraPose/PointingToDeclaration/sceneview/io.github.sceneview.camera/apply-pose.html
 $dokka.location:io.github.sceneview.camera//cameraTransition/#io.github.sceneview.camera.CameraShot#io.github.sceneview.camera.CameraShot#kotlin.Float#kotlin.Function1[kotlin.Float,kotlin.Float]#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/camera-transition.html
+$dokka.location:io.github.sceneview.camera//rememberCameraPathPlayer/#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview.camera/remember-camera-path-player.html
 $dokka.location:io.github.sceneview.camera//rememberCinematicCameraManipulator/#io.github.sceneview.camera.CameraAnimator#io.github.sceneview.gesture.CameraGestureDetector.CameraManipulator/PointingToDeclaration/sceneview/io.github.sceneview.camera/remember-cinematic-camera-manipulator.html
+$dokka.location:io.github.sceneview.camera//toPose/io.github.sceneview.camera.CameraShot#/PointingToDeclaration/sceneview/io.github.sceneview.camera/to-pose.html
 $dokka.location:io.github.sceneview.camera/CameraAnimator.Companion///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-animator/-companion/index.html
 $dokka.location:io.github.sceneview.camera/CameraAnimator.Companion/FLY_TO_SECONDS/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-animator/-companion/-f-l-y_-t-o_-s-e-c-o-n-d-s.html
 $dokka.location:io.github.sceneview.camera/CameraAnimator.Companion/MAX_STEP_SECONDS/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-animator/-companion/-m-a-x_-s-t-e-p_-s-e-c-o-n-d-s.html
@@ -183,9 +187,69 @@ $dokka.location:io.github.sceneview.camera/CameraPath/end/#/PointingToDeclaratio
 $dokka.location:io.github.sceneview.camera/CameraPath/isFinishedAt/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/is-finished-at.html
 $dokka.location:io.github.sceneview.camera/CameraPath/keyframes/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/keyframes.html
 $dokka.location:io.github.sceneview.camera/CameraPath/loop/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/loop.html
+$dokka.location:io.github.sceneview.camera/CameraPath/poseAt/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/pose-at.html
 $dokka.location:io.github.sceneview.camera/CameraPath/shortestArc/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/shortest-arc.html
 $dokka.location:io.github.sceneview.camera/CameraPath/shotAt/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/shot-at.html
 $dokka.location:io.github.sceneview.camera/CameraPath/start/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path/start.html
+$dokka.location:io.github.sceneview.camera/CameraPathInterpolation.CatmullRom///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.camera/-camera-path-interpolation/-catmull-rom/index.html
+$dokka.location:io.github.sceneview.camera/CameraPathInterpolation.Linear///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.camera/-camera-path-interpolation/-linear/index.html
+$dokka.location:io.github.sceneview.camera/CameraPathInterpolation///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-interpolation/index.html
+$dokka.location:io.github.sceneview.camera/CameraPathInterpolation/entries/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-interpolation/entries.html
+$dokka.location:io.github.sceneview.camera/CameraPathInterpolation/valueOf/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-interpolation/value-of.html
+$dokka.location:io.github.sceneview.camera/CameraPathInterpolation/values/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-interpolation/values.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/index.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/CameraPathPlayer/#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/-camera-path-player.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/advance/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/advance.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/advanceFrame/#kotlin.Long/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/advance-frame.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/durationSeconds/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/duration-seconds.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/isFinished/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/is-finished.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/isPlaying/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/is-playing.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/loop/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/loop.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/pause/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/pause.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/play/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/play.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/pose/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/pose.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/progress/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/progress.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/restart/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/restart.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/seconds/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/seconds.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/seekTo/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/seek-to.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/speed/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/speed.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/timeline/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/timeline.html
+$dokka.location:io.github.sceneview.camera/CameraPathPlayer/toggle/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-path-player/toggle.html
+$dokka.location:io.github.sceneview.camera/CameraPose.Companion///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/-companion/index.html
+$dokka.location:io.github.sceneview.camera/CameraPose.Companion/lookingAt/#dev.romainguy.kotlin.math.Float3#dev.romainguy.kotlin.math.Float3#dev.romainguy.kotlin.math.Float3/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/-companion/looking-at.html
+$dokka.location:io.github.sceneview.camera/CameraPose///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/index.html
+$dokka.location:io.github.sceneview.camera/CameraPose/CameraPose/#dev.romainguy.kotlin.math.Float3#dev.romainguy.kotlin.math.Quaternion/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/-camera-pose.html
+$dokka.location:io.github.sceneview.camera/CameraPose/forward/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/forward.html
+$dokka.location:io.github.sceneview.camera/CameraPose/position/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/position.html
+$dokka.location:io.github.sceneview.camera/CameraPose/quaternion/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/quaternion.html
+$dokka.location:io.github.sceneview.camera/CameraPose/right/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/right.html
+$dokka.location:io.github.sceneview.camera/CameraPose/transform/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose/transform.html
+$dokka.location:io.github.sceneview.camera/CameraPoseKeyframe///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-keyframe/index.html
+$dokka.location:io.github.sceneview.camera/CameraPoseKeyframe/CameraPoseKeyframe/#io.github.sceneview.camera.CameraPose#kotlin.Float#kotlin.Function1[kotlin.Float,kotlin.Float]?/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-keyframe/-camera-pose-keyframe.html
+$dokka.location:io.github.sceneview.camera/CameraPoseKeyframe/easing/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-keyframe/easing.html
+$dokka.location:io.github.sceneview.camera/CameraPoseKeyframe/pose/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-keyframe/pose.html
+$dokka.location:io.github.sceneview.camera/CameraPoseKeyframe/seconds/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-keyframe/seconds.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/index.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion/DEFAULT_ORBIT_ELEVATION_DEGREES/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/-d-e-f-a-u-l-t_-o-r-b-i-t_-e-l-e-v-a-t-i-o-n_-d-e-g-r-e-e-s.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion/DEFAULT_ORBIT_SECONDS/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/-d-e-f-a-u-l-t_-o-r-b-i-t_-s-e-c-o-n-d-s.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion/ORBIT_KEYFRAMES_PER_TURN/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/-o-r-b-i-t_-k-e-y-f-r-a-m-e-s_-p-e-r_-t-u-r-n.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion/dolly/#dev.romainguy.kotlin.math.Float3#dev.romainguy.kotlin.math.Float3#kotlin.Float#kotlin.Float#kotlin.Function1[kotlin.Float,kotlin.Float]/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/dolly.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion/orbit/#io.github.sceneview.Aabb#kotlin.Double#kotlin.Double#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Boolean#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/orbit.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath.Companion/travelling/#io.github.sceneview.camera.CameraPose#kotlin.Float#kotlin.Float#kotlin.Function1[kotlin.Float,kotlin.Float]/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-companion/travelling.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/index.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/CameraPosePath/#kotlin.collections.List[io.github.sceneview.camera.CameraPoseKeyframe]#io.github.sceneview.camera.CameraPathInterpolation#kotlin.Function1[kotlin.Float,kotlin.Float]#kotlin.Function1[kotlin.Float,kotlin.Float]?#dev.romainguy.kotlin.math.Float3?#dev.romainguy.kotlin.math.Float3#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/-camera-pose-path.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/durationSeconds/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/duration-seconds.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/easing/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/easing.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/end/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/end.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/interpolation/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/interpolation.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/isFinishedAt/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/is-finished-at.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/keyframes/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/keyframes.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/lookAt/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/look-at.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/loop/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/loop.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/pathEasing/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/path-easing.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/poseAt/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/pose-at.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/start/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/start.html
+$dokka.location:io.github.sceneview.camera/CameraPosePath/up/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-pose-path/up.html
 $dokka.location:io.github.sceneview.camera/CameraShot.Companion///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-shot/-companion/index.html
 $dokka.location:io.github.sceneview.camera/CameraShot.Companion/MAX_ELEVATION/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-shot/-companion/-m-a-x_-e-l-e-v-a-t-i-o-n.html
 $dokka.location:io.github.sceneview.camera/CameraShot.Companion/lerp/#io.github.sceneview.camera.CameraShot#io.github.sceneview.camera.CameraShot#kotlin.Float#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-shot/-companion/lerp.html
@@ -212,6 +276,10 @@ $dokka.location:io.github.sceneview.camera/CameraShotVelocity/distancePerSecond/
 $dokka.location:io.github.sceneview.camera/CameraShotVelocity/elevationDegreesPerSecond/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-shot-velocity/elevation-degrees-per-second.html
 $dokka.location:io.github.sceneview.camera/CameraShotVelocity/isZero/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-shot-velocity/is-zero.html
 $dokka.location:io.github.sceneview.camera/CameraShotVelocity/targetPerSecond/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-shot-velocity/target-per-second.html
+$dokka.location:io.github.sceneview.camera/CameraTimeline///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-timeline/index.html
+$dokka.location:io.github.sceneview.camera/CameraTimeline/durationSeconds/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-timeline/duration-seconds.html
+$dokka.location:io.github.sceneview.camera/CameraTimeline/loop/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-timeline/loop.html
+$dokka.location:io.github.sceneview.camera/CameraTimeline/poseAt/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-timeline/pose-at.html
 $dokka.location:io.github.sceneview.camera/CameraTransition.Companion///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-transition/-companion/index.html
 $dokka.location:io.github.sceneview.camera/CameraTransition.Companion/DEFAULT_FLY_OVER/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-transition/-companion/-d-e-f-a-u-l-t_-f-l-y_-o-v-e-r.html
 $dokka.location:io.github.sceneview.camera/CameraTransition///PointingToDeclaration/sceneview/io.github.sceneview.camera/-camera-transition/index.html
@@ -243,6 +311,50 @@ $dokka.location:io.github.sceneview.camera/CinematicCameraManipulator/scrollUpda
 $dokka.location:io.github.sceneview.camera/CinematicCameraManipulator/setViewport/#kotlin.Int#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.camera/-cinematic-camera-manipulator/set-viewport.html
 $dokka.location:io.github.sceneview.camera/CinematicCameraManipulator/stopInertia/#/PointingToDeclaration/sceneview/io.github.sceneview.camera/-cinematic-camera-manipulator/stop-inertia.html
 $dokka.location:io.github.sceneview.camera/CinematicCameraManipulator/update/#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.camera/-cinematic-camera-manipulator/update.html
+$dokka.location:io.github.sceneview.capture////PointingToDeclaration/sceneview/io.github.sceneview.capture/index.html
+$dokka.location:io.github.sceneview.capture//rememberSceneRecorder/#androidx.lifecycle.Lifecycle/PointingToDeclaration/sceneview/io.github.sceneview.capture/remember-scene-recorder.html
+$dokka.location:io.github.sceneview.capture/CaptureOverlay///PointingToDeclaration/sceneview/io.github.sceneview.capture/-capture-overlay/index.html
+$dokka.location:io.github.sceneview.capture/CaptureOverlay/draw/#android.graphics.Canvas#kotlin.Int#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.capture/-capture-overlay/draw.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat.JPEG///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.capture/-photo-format/-j-p-e-g/index.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat.PNG///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.capture/-photo-format/-p-n-g/index.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat///PointingToDeclaration/sceneview/io.github.sceneview.capture/-photo-format/index.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat/entries/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-photo-format/entries.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat/extension/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-photo-format/extension.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat/mimeType/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-photo-format/mime-type.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat/valueOf/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.capture/-photo-format/value-of.html
+$dokka.location:io.github.sceneview.capture/PhotoFormat/values/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-photo-format/values.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder///PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/index.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/SceneRecorder/#android.content.Context#io.github.sceneview.utils.SurfaceMirrorer/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/-scene-recorder.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/elapsedMillis/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/elapsed-millis.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/isRecording/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/is-recording.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/lastError/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/last-error.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/lastRecording/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/last-recording.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/newCaptureFile/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/new-capture-file.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/onRecordingFinished/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/on-recording-finished.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/overlay/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/overlay.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/release/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/release.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/savePhoto/#java.io.File?#io.github.sceneview.capture.PhotoFormat#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/save-photo.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/startRecording/#java.io.File#io.github.sceneview.capture.VideoSettings/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/start-recording.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/stopRecording/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/stop-recording.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/surfaceMirrorer/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/surface-mirrorer.html
+$dokka.location:io.github.sceneview.capture/SceneRecorder/takePhoto/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recorder/take-photo.html
+$dokka.location:io.github.sceneview.capture/SceneRecording///PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/index.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/SceneRecording/#java.io.File#kotlin.Int#kotlin.Int#kotlin.Long#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/-scene-recording.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/durationMillis/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/duration-millis.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/file/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/file.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/hasAudio/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/has-audio.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/hasOverlay/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/has-overlay.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/height/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/height.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/reachedMaxDuration/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/reached-max-duration.html
+$dokka.location:io.github.sceneview.capture/SceneRecording/width/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-scene-recording/width.html
+$dokka.location:io.github.sceneview.capture/VideoSettings///PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/index.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/VideoSettings/#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Int#kotlin.Boolean#kotlin.Long/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/-video-settings.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/bitRate/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/bit-rate.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/frameRate/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/frame-rate.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/maxDurationMillis/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/max-duration-millis.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/maxLongEdge/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/max-long-edge.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/maxShortEdge/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/max-short-edge.html
+$dokka.location:io.github.sceneview.capture/VideoSettings/recordAudio/#/PointingToDeclaration/sceneview/io.github.sceneview.capture/-video-settings/record-audio.html
 $dokka.location:io.github.sceneview.collision////PointingToDeclaration/sceneview/io.github.sceneview.collision/index.html
 $dokka.location:io.github.sceneview.collision/Collider///PointingToDeclaration/sceneview/io.github.sceneview.collision/-collider/index.html
 $dokka.location:io.github.sceneview.collision/Collider/Collider/#io.github.sceneview.node.Node/PointingToDeclaration/sceneview/io.github.sceneview.collision/-collider/-collider.html
@@ -1021,11 +1133,24 @@ $dokka.location:io.github.sceneview.loaders/MaterialLoader/getUbershaderMaterial
 $dokka.location:io.github.sceneview.loaders/MaterialLoader/loadMaterial/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-material-loader/load-material.html
 $dokka.location:io.github.sceneview.loaders/MaterialLoader/loadMaterialAsync/#kotlin.String#kotlin.Function1[com.google.android.filament.Material?,kotlin.Unit]/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-material-loader/load-material-async.html
 $dokka.location:io.github.sceneview.loaders/MaterialLoader/ubershaderProvider/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-material-loader/ubershader-provider.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage.Creating///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/-creating/index.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage.Reading///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/-reading/index.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage.Textures///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/-textures/index.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage///PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/index.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage/entries/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/entries.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage/valueOf/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/value-of.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress.Stage/values/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/-stage/values.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress///PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/index.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress/ModelLoadProgress/#io.github.sceneview.loaders.ModelLoadProgress.Stage#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/-model-load-progress.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress/fraction/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/fraction.html
+$dokka.location:io.github.sceneview.loaders/ModelLoadProgress/stage/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-load-progress/stage.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader.Companion///PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/-companion/index.html
+$dokka.location:io.github.sceneview.loaders/ModelLoader.Companion/SUPPORTED_GLTF_EXTENSIONS/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/-companion/-s-u-p-p-o-r-t-e-d_-g-l-t-f_-e-x-t-e-n-s-i-o-n-s.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader.Companion/getFolderPath/#kotlin.String#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/-companion/get-folder-path.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader///PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/index.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/ModelLoader/#com.google.android.filament.Engine#android.content.Context#kotlinx.coroutines.CoroutineScope/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/-model-loader.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/assetLoader/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/asset-loader.html
+$dokka.location:io.github.sceneview.loaders/ModelLoader/awaitModelInstance/#kotlin.String#kotlin.Function1[kotlin.String,kotlin.String]#kotlin.Function1[io.github.sceneview.loaders.ModelLoadProgress,kotlin.Unit]/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/await-model-instance.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/clear/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/clear.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/createInstance/#com.google.android.filament.gltfio.FilamentAsset/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/create-instance.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/createInstancedModel/#java.io.File#kotlin.Int#kotlin.Function1[kotlin.String,java.nio.Buffer?]/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/create-instanced-model.html
@@ -1054,6 +1179,9 @@ $dokka.location:io.github.sceneview.loaders/ModelLoader/materialProvider/#/Point
 $dokka.location:io.github.sceneview.loaders/ModelLoader/progress/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/progress.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/resourceLoader/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/resource-loader.html
 $dokka.location:io.github.sceneview.loaders/ModelLoader/updateLoad/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-model-loader/update-load.html
+$dokka.location:io.github.sceneview.loaders/UnsupportedGltfExtensionException///PointingToDeclaration/sceneview/io.github.sceneview.loaders/-unsupported-gltf-extension-exception/index.html
+$dokka.location:io.github.sceneview.loaders/UnsupportedGltfExtensionException/UnsupportedGltfExtensionException/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-unsupported-gltf-extension-exception/-unsupported-gltf-extension-exception.html
+$dokka.location:io.github.sceneview.loaders/UnsupportedGltfExtensionException/extensions/#/PointingToDeclaration/sceneview/io.github.sceneview.loaders/-unsupported-gltf-extension-exception/extensions.html
 $dokka.location:io.github.sceneview.managers////PointingToDeclaration/sceneview/io.github.sceneview.managers/index.html
 $dokka.location:io.github.sceneview.managers//build/com.google.android.filament.LightManager.Builder#com.google.android.filament.Engine#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.managers/build.html
 $dokka.location:io.github.sceneview.managers//build/com.google.android.filament.RenderableManager.Builder#com.google.android.filament.Engine/PointingToDeclaration/sceneview/io.github.sceneview.managers/build.html
@@ -1162,6 +1290,8 @@ $dokka.location:io.github.sceneview.model//emptyNodeEntities/com.google.android.
 $dokka.location:io.github.sceneview.model//engine/com.google.android.filament.gltfio.FilamentInstance#/PointingToDeclaration/sceneview/io.github.sceneview.model/engine.html
 $dokka.location:io.github.sceneview.model//getAnimationIndex/com.google.android.filament.gltfio.Animator#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.model/get-animation-index.html
 $dokka.location:io.github.sceneview.model//getRenderableByName/com.google.android.filament.gltfio.FilamentAsset#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.model/get-renderable-by-name.html
+$dokka.location:io.github.sceneview.model//isDestroyed/com.google.android.filament.gltfio.FilamentAsset#/PointingToDeclaration/sceneview/io.github.sceneview.model/is-destroyed.html
+$dokka.location:io.github.sceneview.model//isDestroyed/com.google.android.filament.gltfio.FilamentInstance#/PointingToDeclaration/sceneview/io.github.sceneview.model/is-destroyed.html
 $dokka.location:io.github.sceneview.model//isShadowCaster/com.google.android.filament.gltfio.FilamentInstance#/PointingToDeclaration/sceneview/io.github.sceneview.model/is-shadow-caster.html
 $dokka.location:io.github.sceneview.model//isShadowReceiver/com.google.android.filament.gltfio.FilamentInstance#/PointingToDeclaration/sceneview/io.github.sceneview.model/is-shadow-receiver.html
 $dokka.location:io.github.sceneview.model//lightEntities/com.google.android.filament.gltfio.FilamentInstance#/PointingToDeclaration/sceneview/io.github.sceneview.model/light-entities.html
@@ -1340,6 +1470,7 @@ $dokka.location:io.github.sceneview.node/ModelNode.PlayingAnimation/speed/#/Poin
 $dokka.location:io.github.sceneview.node/ModelNode.PlayingAnimation/startTime/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-playing-animation/start-time.html
 $dokka.location:io.github.sceneview.node/ModelNode.RenderableNode///PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-renderable-node/index.html
 $dokka.location:io.github.sceneview.node/ModelNode.RenderableNode/axisAlignedBoundingBox/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-renderable-node/axis-aligned-bounding-box.html
+$dokka.location:io.github.sceneview.node/ModelNode.RenderableNode/getMaterialInstanceAt/#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-renderable-node/get-material-instance-at.html
 $dokka.location:io.github.sceneview.node/ModelNode.RenderableNode/modelInstance/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-renderable-node/model-instance.html
 $dokka.location:io.github.sceneview.node/ModelNode.RenderableNode/name/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-renderable-node/name.html
 $dokka.location:io.github.sceneview.node/ModelNode.RenderableNode/setGeometry/#io.github.sceneview.geometries.Geometry/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/-renderable-node/set-geometry.html
@@ -1358,6 +1489,7 @@ $dokka.location:io.github.sceneview.node/ModelNode/emptyNodes/#/PointingToDeclar
 $dokka.location:io.github.sceneview.node/ModelNode/extents/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/extents.html
 $dokka.location:io.github.sceneview.node/ModelNode/getJointCount/#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/get-joint-count.html
 $dokka.location:io.github.sceneview.node/ModelNode/halfExtent/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/half-extent.html
+$dokka.location:io.github.sceneview.node/ModelNode/isModelDestroyed/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/is-model-destroyed.html
 $dokka.location:io.github.sceneview.node/ModelNode/isShadowCaster/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/is-shadow-caster.html
 $dokka.location:io.github.sceneview.node/ModelNode/isShadowReceiver/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/is-shadow-receiver.html
 $dokka.location:io.github.sceneview.node/ModelNode/lightNodes/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/light-nodes.html
@@ -1390,6 +1522,8 @@ $dokka.location:io.github.sceneview.node/ModelNode/skinCount/#/PointingToDeclara
 $dokka.location:io.github.sceneview.node/ModelNode/skinNames/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/skin-names.html
 $dokka.location:io.github.sceneview.node/ModelNode/stopAnimation/#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/stop-animation.html
 $dokka.location:io.github.sceneview.node/ModelNode/stopAnimation/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/stop-animation.html
+$dokka.location:io.github.sceneview.node/ModelNode/worldBoundingBox/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/world-bounding-box.html
+$dokka.location:io.github.sceneview.node/ModelNode/worldSize/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-model-node/world-size.html
 $dokka.location:io.github.sceneview.node/Node///PointingToDeclaration/sceneview/io.github.sceneview.node/-node/index.html
 $dokka.location:io.github.sceneview.node/Node/Node/#com.google.android.filament.Engine#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview.node/-node/-node.html
 $dokka.location:io.github.sceneview.node/Node/addChildNode/#io.github.sceneview.node.Node/PointingToDeclaration/sceneview/io.github.sceneview.node/-node/add-child-node.html
@@ -1724,6 +1858,39 @@ $dokka.location:io.github.sceneview.node/ViewNode/texture/#/PointingToDeclaratio
 $dokka.location:io.github.sceneview.node/ViewNode/updateGeometrySize/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-view-node/update-geometry-size.html
 $dokka.location:io.github.sceneview.node/ViewNode/viewSize/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-view-node/view-size.html
 $dokka.location:io.github.sceneview.node/ViewNode/windowManager/#/PointingToDeclaration/sceneview/io.github.sceneview.node/-view-node/window-manager.html
+$dokka.location:io.github.sceneview.snapshot////PointingToDeclaration/sceneview/io.github.sceneview.snapshot/index.html
+$dokka.location:io.github.sceneview.snapshot//rememberModelSnapshot/#com.google.android.filament.Engine#kotlin.Int#io.github.sceneview.loaders.ModelLoader?/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/remember-model-snapshot.html
+$dokka.location:io.github.sceneview.snapshot//rememberModelThumbnail/#io.github.sceneview.snapshot.ModelSnapshot#kotlin.String#androidx.compose.ui.unit.Dp#io.github.sceneview.snapshot.ModelSnapshotOptions/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/remember-model-thumbnail.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot.Companion///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/-companion/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot.Companion/DEFAULT_MAX_CACHE_BYTES/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/-companion/-d-e-f-a-u-l-t_-m-a-x_-c-a-c-h-e_-b-y-t-e-s.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/ModelSnapshot/#com.google.android.filament.Engine#android.content.Context#kotlin.Int#io.github.sceneview.loaders.ModelLoader?/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/-model-snapshot.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/cached/#kotlin.String#kotlin.Int#kotlin.Int#io.github.sceneview.snapshot.ModelSnapshotOptions/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/cached.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/clearCache/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/clear-cache.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/destroy/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/destroy.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/engine/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/engine.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/maxCacheBytes/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/max-cache-bytes.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshot/snapshot/#kotlin.String#kotlin.Int#kotlin.Int#io.github.sceneview.snapshot.ModelSnapshotOptions/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot/snapshot.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions.Companion///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/-companion/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions.Companion/DEFAULT_FOCAL_LENGTH/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/-companion/-d-e-f-a-u-l-t_-f-o-c-a-l_-l-e-n-g-t-h.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions.Companion/DEFAULT_PADDING/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/-companion/-d-e-f-a-u-l-t_-p-a-d-d-i-n-g.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions.Companion/DEFAULT_PITCH_DEGREES/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/-companion/-d-e-f-a-u-l-t_-p-i-t-c-h_-d-e-g-r-e-e-s.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions.Companion/DEFAULT_YAW_DEGREES/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/-companion/-d-e-f-a-u-l-t_-y-a-w_-d-e-g-r-e-e-s.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions/ModelSnapshotOptions/#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/-model-snapshot-options.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions/focalLength/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/focal-length.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions/padding/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/padding.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions/pitchDegrees/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/pitch-degrees.html
+$dokka.location:io.github.sceneview.snapshot/ModelSnapshotOptions/yawDegrees/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-snapshot-options/yaw-degrees.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Failed///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-failed/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Failed/Failed/#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-failed/-failed.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Failed/reason/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-failed/reason.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Loading///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-loading/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Ready///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-ready/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Ready/Ready/#androidx.compose.ui.graphics.ImageBitmap/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-ready/-ready.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState.Ready/bitmap/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/-ready/bitmap.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState///PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/index.html
+$dokka.location:io.github.sceneview.snapshot/ModelThumbnailState/bitmapOrNull/#/PointingToDeclaration/sceneview/io.github.sceneview.snapshot/-model-thumbnail-state/bitmap-or-null.html
 $dokka.location:io.github.sceneview.splat////PointingToDeclaration/sceneview/io.github.sceneview.splat/index.html
 $dokka.location:io.github.sceneview.splat/SplatBuffers///PointingToDeclaration/sceneview/io.github.sceneview.splat/-splat-buffers/index.html
 $dokka.location:io.github.sceneview.splat/SplatBuffers/HALF_EXTENT_SIGMA/#/PointingToDeclaration/sceneview/io.github.sceneview.splat/-splat-buffers/-h-a-l-f_-e-x-t-e-n-t_-s-i-g-m-a.html
@@ -1887,6 +2054,7 @@ $dokka.location:io.github.sceneview//DEFAULT_IBL_INTENSITY/#/PointingToDeclarati
 $dokka.location:io.github.sceneview//DEFAULT_MAIN_LIGHT_COLOR/#/PointingToDeclaration/sceneview/io.github.sceneview/-d-e-f-a-u-l-t_-m-a-i-n_-l-i-g-h-t_-c-o-l-o-r.html
 $dokka.location:io.github.sceneview//DEFAULT_MAIN_LIGHT_COLOR_INTENSITY/#/PointingToDeclaration/sceneview/io.github.sceneview/-d-e-f-a-u-l-t_-m-a-i-n_-l-i-g-h-t_-c-o-l-o-r_-i-n-t-e-n-s-i-t-y.html
 $dokka.location:io.github.sceneview//DEFAULT_MAIN_LIGHT_COLOR_TEMPERATURE/#/PointingToDeclaration/sceneview/io.github.sceneview/-d-e-f-a-u-l-t_-m-a-i-n_-l-i-g-h-t_-c-o-l-o-r_-t-e-m-p-e-r-a-t-u-r-e.html
+$dokka.location:io.github.sceneview//DEFAULT_MAIN_LIGHT_DIRECTION/#/PointingToDeclaration/sceneview/io.github.sceneview/-d-e-f-a-u-l-t_-m-a-i-n_-l-i-g-h-t_-d-i-r-e-c-t-i-o-n.html
 $dokka.location:io.github.sceneview//DEFAULT_MAIN_LIGHT_INTENSITY/#/PointingToDeclaration/sceneview/io.github.sceneview/-d-e-f-a-u-l-t_-m-a-i-n_-l-i-g-h-t_-i-n-t-e-n-s-i-t-y.html
 $dokka.location:io.github.sceneview//DEFAULT_OBJECT_POSITION/#/PointingToDeclaration/sceneview/io.github.sceneview/-d-e-f-a-u-l-t_-o-b-j-e-c-t_-p-o-s-i-t-i-o-n.html
 $dokka.location:io.github.sceneview//NULL_ENTITY/#/PointingToDeclaration/sceneview/io.github.sceneview/-n-u-l-l_-e-n-t-i-t-y.html
@@ -1894,6 +2062,7 @@ $dokka.location:io.github.sceneview//SETTLE_DURATION_NANOS/#/PointingToDeclarati
 $dokka.location:io.github.sceneview//Scene/#androidx.compose.ui.Modifier#io.github.sceneview.SurfaceType#com.google.android.filament.Engine#io.github.sceneview.loaders.ModelLoader#io.github.sceneview.loaders.MaterialLoader#io.github.sceneview.loaders.EnvironmentLoader#com.google.android.filament.View#kotlin.Boolean#io.github.sceneview.FrameRatePolicy#io.github.sceneview.RenderQuality#kotlin.Boolean#kotlin.Boolean#kotlin.Float#androidx.compose.foundation.layout.PaddingValues#com.google.android.filament.Renderer#com.google.android.filament.Scene#io.github.sceneview.environment.Environment#io.github.sceneview.node.LightNode?#io.github.sceneview.node.LightNode?#io.github.sceneview.node.CameraNode#io.github.sceneview.collision.CollisionSystem#io.github.sceneview.gesture.CameraGestureDetector.CameraManipulator?#io.github.sceneview.node.ViewNode.WindowManager?#io.github.sceneview.gesture.GestureDetector.OnGestureListener?#kotlin.Function2[android.view.MotionEvent,io.github.sceneview.collision.HitResult?,kotlin.Boolean]?#androidx.activity.ComponentActivity?#androidx.lifecycle.Lifecycle#kotlin.Function1[kotlin.Long,kotlin.Unit]?#kotlin.Function1[io.github.sceneview.SceneScope,kotlin.Unit]?/PointingToDeclaration/sceneview/io.github.sceneview/-scene.html
 $dokka.location:io.github.sceneview//SceneView/#androidx.compose.ui.Modifier#io.github.sceneview.SurfaceType#com.google.android.filament.Engine#io.github.sceneview.loaders.ModelLoader#io.github.sceneview.loaders.MaterialLoader#io.github.sceneview.loaders.EnvironmentLoader#com.google.android.filament.View#kotlin.Boolean#io.github.sceneview.FrameRatePolicy#io.github.sceneview.RenderInvalidator?#io.github.sceneview.RenderQuality#kotlin.Boolean#kotlin.Boolean#kotlin.Float#androidx.compose.foundation.layout.PaddingValues#com.google.android.filament.Renderer#com.google.android.filament.Scene#io.github.sceneview.environment.Environment#io.github.sceneview.node.LightNode?#io.github.sceneview.node.LightNode?#io.github.sceneview.node.CameraNode#io.github.sceneview.collision.CollisionSystem#io.github.sceneview.gesture.CameraGestureDetector.CameraManipulator?#io.github.sceneview.node.ViewNode.WindowManager?#io.github.sceneview.utils.SurfaceMirrorer?#io.github.sceneview.gesture.GestureDetector.OnGestureListener?#kotlin.Function2[android.view.MotionEvent,io.github.sceneview.collision.HitResult?,kotlin.Boolean]?#androidx.activity.ComponentActivity?#androidx.lifecycle.Lifecycle#kotlin.Function1[kotlin.Long,kotlin.Unit]?#kotlin.Function1[io.github.sceneview.SceneScope,kotlin.Unit]?/PointingToDeclaration/sceneview/io.github.sceneview/-scene-view.html
 $dokka.location:io.github.sceneview//applyCinematicOrbit/#io.github.sceneview.node.CameraNode#kotlin.Float#io.github.sceneview.CinematicCameraProfile#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview/apply-cinematic-orbit.html
+$dokka.location:io.github.sceneview//applyRenderQuality/com.google.android.filament.View#io.github.sceneview.RenderQuality#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview/apply-render-quality.html
 $dokka.location:io.github.sceneview//applyRenderQuality/com.google.android.filament.View#io.github.sceneview.RenderQuality/PointingToDeclaration/sceneview/io.github.sceneview/apply-render-quality.html
 $dokka.location:io.github.sceneview//cinematicAzimuth/#kotlin.Float#io.github.sceneview.CinematicCameraProfile/PointingToDeclaration/sceneview/io.github.sceneview/cinematic-azimuth.html
 $dokka.location:io.github.sceneview//cinematicCameraEye/#kotlin.Float#io.github.sceneview.CinematicCameraProfile#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview/cinematic-camera-eye.html
@@ -1948,6 +2117,7 @@ $dokka.location:io.github.sceneview//rememberMaterialLoader/#com.google.android.
 $dokka.location:io.github.sceneview//rememberMediaPlayer/#kotlin.String#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration/sceneview/io.github.sceneview/remember-media-player.html
 $dokka.location:io.github.sceneview//rememberModelInstance/#io.github.sceneview.loaders.ModelLoader#kotlin.String#kotlin.Function1[kotlin.String,kotlin.String]/PointingToDeclaration/sceneview/io.github.sceneview/remember-model-instance.html
 $dokka.location:io.github.sceneview//rememberModelInstance/#io.github.sceneview.loaders.ModelLoader#kotlin.String/PointingToDeclaration/sceneview/io.github.sceneview/remember-model-instance.html
+$dokka.location:io.github.sceneview//rememberModelLoadState/#io.github.sceneview.loaders.ModelLoader#kotlin.String#kotlin.Function1[kotlin.String,kotlin.String]/PointingToDeclaration/sceneview/io.github.sceneview/remember-model-load-state.html
 $dokka.location:io.github.sceneview//rememberModelLoader/#com.google.android.filament.Engine#android.content.Context#kotlin.Function0[io.github.sceneview.loaders.ModelLoader]/PointingToDeclaration/sceneview/io.github.sceneview/remember-model-loader.html
 $dokka.location:io.github.sceneview//rememberNode/#com.google.android.filament.Engine#kotlin.Function1[io.github.sceneview.node.Node,kotlin.Unit]/PointingToDeclaration/sceneview/io.github.sceneview/remember-node.html
 $dokka.location:io.github.sceneview//rememberNode/#kotlin.Function0[TypeParam(bounds=[io.github.sceneview.node.Node])]/PointingToDeclaration/sceneview/io.github.sceneview/remember-node.html
@@ -2094,6 +2264,16 @@ $dokka.location:io.github.sceneview/MediaPlayerState.Ready///PointingToDeclarati
 $dokka.location:io.github.sceneview/MediaPlayerState.Ready/Ready/#android.media.MediaPlayer/PointingToDeclaration/sceneview/io.github.sceneview/-media-player-state/-ready/-ready.html
 $dokka.location:io.github.sceneview/MediaPlayerState.Ready/player/#/PointingToDeclaration/sceneview/io.github.sceneview/-media-player-state/-ready/player.html
 $dokka.location:io.github.sceneview/MediaPlayerState///PointingToDeclaration/sceneview/io.github.sceneview/-media-player-state/index.html
+$dokka.location:io.github.sceneview/ModelLoadState.Failed///PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-failed/index.html
+$dokka.location:io.github.sceneview/ModelLoadState.Failed/Failed/#kotlin.Throwable/PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-failed/-failed.html
+$dokka.location:io.github.sceneview/ModelLoadState.Failed/error/#/PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-failed/error.html
+$dokka.location:io.github.sceneview/ModelLoadState.Loading///PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-loading/index.html
+$dokka.location:io.github.sceneview/ModelLoadState.Loading/Loading/#io.github.sceneview.loaders.ModelLoadProgress/PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-loading/-loading.html
+$dokka.location:io.github.sceneview/ModelLoadState.Loading/progress/#/PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-loading/progress.html
+$dokka.location:io.github.sceneview/ModelLoadState.Ready///PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-ready/index.html
+$dokka.location:io.github.sceneview/ModelLoadState.Ready/Ready/#com.google.android.filament.gltfio.FilamentInstance/PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-ready/-ready.html
+$dokka.location:io.github.sceneview/ModelLoadState.Ready/instance/#/PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/-ready/instance.html
+$dokka.location:io.github.sceneview/ModelLoadState///PointingToDeclaration/sceneview/io.github.sceneview/-model-load-state/index.html
 $dokka.location:io.github.sceneview/NodeScope///PointingToDeclaration/sceneview/io.github.sceneview/-node-scope/index.html
 $dokka.location:io.github.sceneview/NodeScope/parentNode/#/PointingToDeclaration/sceneview/io.github.sceneview/-node-scope/parent-node.html
 $dokka.location:io.github.sceneview/RenderInvalidator///PointingToDeclaration/sceneview/io.github.sceneview/-render-invalidator/index.html
@@ -2217,6 +2397,7 @@ io.github.sceneview
 io.github.sceneview.animation
 io.github.sceneview.audio
 io.github.sceneview.camera
+io.github.sceneview.capture
 io.github.sceneview.collision
 io.github.sceneview.components
 io.github.sceneview.environment
@@ -2229,6 +2410,7 @@ io.github.sceneview.material
 io.github.sceneview.math
 io.github.sceneview.model
 io.github.sceneview.node
+io.github.sceneview.snapshot
 io.github.sceneview.splat
 io.github.sceneview.texture
 io.github.sceneview.utils
