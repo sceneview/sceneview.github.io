@@ -3924,6 +3924,16 @@ on first invocation per Apple's privacy policy.</p>
 <td><code>[SIMD3&lt;Float&gt;]</code> path</td>
 </tr>
 <tr>
+<td><code>TubeNode</code></td>
+<td><code>TubeNode(points:radius:radialSegments:closed:caps:material:)</code></td>
+<td>lit tube with a real width; <code>.updateGeometry(points:radius:)</code> in place</td>
+</tr>
+<tr>
+<td><code>MeshNode</code></td>
+<td><code>MeshNode.fromVertices(positions:normals:uvs:indices:material:)</code></td>
+<td><code>throws</code>; <code>MeshNode.wireframe(of:thickness:material:)</code> draws any mesh's edges as thin prisms (no wireframe mode in RealityKit)</td>
+</tr>
+<tr>
 <td><code>PhysicsNode</code></td>
 <td><code>.dynamic(entity, mass:restitution:)</code></td>
 <td><code>.static(entity)</code>, <code>.kinematic(entity)</code></td>
