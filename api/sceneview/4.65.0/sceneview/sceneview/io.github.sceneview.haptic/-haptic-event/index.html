@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>HapticEvent</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="sceneview::io.github.sceneview.haptic/HapticEvent///PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.haptic</a><span class="delimiter">/</span><span class="current">HapticEvent</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Haptic</span><wbr></wbr><span><span>Event</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">HapticEvent</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>intensity<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>sharpness<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>durationMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>delayMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">A single timed haptic event used as a building block for <a href="../-scene-view-haptic/pattern.html">SceneViewHaptic.pattern</a>.</p><p class="paragraph">A pattern is a list of <a href="index.html">HapticEvent</a>s, played back in order with the requested <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(3)/">delayMs</span> applied between events. Each event renders for <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(2)/">durationMs</span> at the requested <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(0)/">intensity</span> (and, where the OS supports it, the requested <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(1)/">sharpness</span>).</p><p class="paragraph">Platform behaviour:</p><ul><li><p class="paragraph"><strong>Android API 26+</strong> — events render via <a href="https://developer.android.com/reference/kotlin/android/os/VibrationEffect.html#createWaveform(kotlin.LongArray,kotlin.Int)">android.os.VibrationEffect.createWaveform</a> with per-step amplitudes scaled from <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(0)/">intensity</span> (0.0..1.0 → 1..255). The <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(1)/">sharpness</span> value is currently informational on Android; the legacy API does not expose a wave-shape knob.</p></li><li><p class="paragraph"><strong>Android API 24..25</strong> — events render via the legacy <a href="https://developer.android.com/reference/kotlin/android/os/Vibrator.html#vibrate(android.os.VibrationEffect)">android.os.Vibrator.vibrate</a> long[] overload (no amplitude control); <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(0)/">intensity</span> and <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(1)/">sharpness</span> are ignored at runtime but kept in the model so the same pattern definitions work across API levels.</p></li><li><p class="paragraph"><strong>iOS / visionOS</strong> — events render via <code class="lang-kotlin">CHHapticEngine</code> with full intensity + sharpness fidelity (Core Haptics).</p></li><li><p class="paragraph"><strong>Web</strong> — events render via <code class="lang-kotlin">navigator.vibrate(durationsMs[])</code>; <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(0)/">intensity</span> and <span data-unresolved-link="io.github.sceneview.haptic/HapticEvent//#kotlin.Float#kotlin.Float#kotlin.Int#kotlin.Int/PointingToCallableParameters(1)/">sharpness</span> are ignored (the Web Vibration API takes durations only).</p></li></ul><p class="paragraph">The field types mirror the iOS <code class="lang-kotlin">HapticEvent</code> (<code class="lang-kotlin">Int</code> milliseconds) so the same pattern definitions are byte-for-byte portable across platforms.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1674163169%2FConstructors%2F-278939350" anchor-label="HapticEvent" id="1674163169%2FConstructors%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-haptic-event.html"><span>Haptic</span><wbr></wbr><span><span>Event</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1674163169%2FConstructors%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">intensity<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">sharpness<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token punctuation">, </span></span><span class="parameter ">durationMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">delayMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1847092488%2FProperties%2F-278939350" anchor-label="delayMs" id="-1847092488%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="delay-ms.html"><span>delay</span><wbr></wbr><span><span>Ms</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1847092488%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="delay-ms.html">delayMs</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Delay before this event starts, relative to the end of the previous event (or to <code class="lang-kotlin">pattern()</code> invocation for the first event). Negative values are coerced to <code class="lang-kotlin">0</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-910123393%2FProperties%2F-278939350" anchor-label="durationMs" id="-910123393%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="duration-ms.html"><span>duration</span><wbr></wbr><span><span>Ms</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-910123393%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="duration-ms.html">durationMs</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">How long this event vibrates, in milliseconds. Negative values are coerced to <code class="lang-kotlin">0</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1948619890%2FProperties%2F-278939350" anchor-label="intensity" id="-1948619890%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="intensity.html"><span><span>intensity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1948619890%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="intensity.html">intensity</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Strength of the haptic, <code class="lang-kotlin">0.0</code> (off) .. <code class="lang-kotlin">1.0</code> (max). Values outside the range are clamped.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="459528768%2FProperties%2F-278939350" anchor-label="sharpness" id="459528768%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sharpness.html"><span><span>sharpness</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="459528768%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="sharpness.html">sharpness</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Wave-shape hint, <code class="lang-kotlin">0.0</code> (round/dull) .. <code class="lang-kotlin">1.0</code> (sharp/clicky). Honoured on iOS; ignored on Android / Web in this release.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CameraPathPlayer</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="sceneview::io.github.sceneview.camera/CameraPathPlayer///PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.camera</a><span class="delimiter">/</span><span class="current">CameraPathPlayer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Camera</span><wbr></wbr><span>Path</span><wbr></wbr><span><span>Player</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Stable.html"><span class="token annotation builtin">Stable</span></a></div></div><span class="token keyword">class </span><a href="index.html">CameraPathPlayer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeline<span class="token operator">: </span><a href="../-camera-timeline/index.html">CameraTimeline</a><span class="token punctuation">, </span></span><span class="parameter ">loop<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>timeline.loop</span></span><span class="token punctuation">)</span></div><p class="paragraph">Plays a <a href="../-camera-timeline/index.html">CameraTimeline</a>: a playhead with play, pause, seek and loop.</p><p class="paragraph">The player owns the playhead, <a href="seconds.html">seconds</a>, and the number of whole laps a looping player has played. The pose comes from the timeline at that time: on the first lap it is <a href="../-camera-timeline/pose-at.html">CameraTimeline.poseAt</a> at <a href="seconds.html">seconds</a>, so playback, scrubbing and an offline render at a fixed step agree on the pose for a given time. On a later lap of a path whose turns are not whole (a <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> or <a href="../-camera-pose-path/-companion/orbit.html">CameraPosePath.orbit</a> of 1.5 turns), <a href="pose.html">pose</a> adds the turn of the laps played, so it no longer equals <code class="lang-kotlin">timeline.poseAt(seconds)</code>: lap two of 1.5 turns is half a turn on. <a href="restart.html">restart</a> goes back to the first lap. <a href="advance.html">advance</a> moves the playhead by the frame's time, not by a fixed step per frame: a dropped frame does not slow the move down, and a 30 fps and a 120 fps device reach the same pose at the same time.</p><p class="paragraph">Its state is Compose snapshot state, so a slider or a clock that reads <a href="seconds.html">seconds</a> or <a href="is-playing.html">isPlaying</a> recomposes as the move plays. Call <a href="advance.html">advance</a> or <a href="advance-frame.html">advanceFrame</a> from the main thread, typically from <code class="lang-kotlin">SceneView</code>'s <code class="lang-kotlin">onFrame</code>, and write the returned pose with <a href="../apply-pose.html">io.github.sceneview.node.CameraNode.applyPose</a>:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val player = rememberCameraPathPlayer(path)<br>SceneView(<br>    cameraNode = cameraNode,<br>    cameraManipulator = null, // the path owns the camera<br>    frameRatePolicy = FrameRatePolicy.Continuous(),<br>    onFrame = { nanos -&gt; cameraNode.applyPose(player.advanceFrame(nanos)) },<br>)</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">The step is not capped: after a long stall the playhead jumps to where the wall clock says it should be. <a href="../-camera-animator/index.html">CameraAnimator</a> caps its step instead, because it simulates a spring; a timeline has no state to destabilize.</p><p class="paragraph"><strong>Remember the timeline.</strong> Build it inside <code class="lang-kotlin">remember(...)</code> keyed on its inputs, not in the composable body: a timeline built on every composition is a new object every time, which rebuilds the spline on every recomposition. The player does not recompose because of it (only a changed <a href="duration-seconds.html">durationSeconds</a> or <span data-unresolved-link="io.github.sceneview.camera/CameraPathPlayer//#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToCallableParameters(1)/">loop</span> is observable), but the work is wasted.</p><p class="paragraph"><strong>Offline rendering.</strong> The player follows the wall clock. To render a video at a fixed rate, sample the timeline directly, <code class="lang-kotlin">timeline.poseAt(frameIndex / fps)</code>, rather than stepping a player.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>timeline</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The move to play.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>loop</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Whether the playhead wraps at the end. Defaults to the timeline's own <a href="../-camera-timeline/loop.html">CameraTimeline.loop</a>. Forcing it on a timeline built with <code class="lang-kotlin">loop = false</code> carries the turn of a fractional <a href="../-camera-pose-path/-companion/orbit.html">CameraPosePath.orbit</a> or <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> across the seam, but such a timeline keeps its non-looping ends: the speed can change at the seam, and a tour of 1.5 turns ends at the top of its rise, so its elevation jumps there. Build the timeline with <code class="lang-kotlin">loop = true</code> for a seamless loop.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-343084215%2FConstructors%2F-278939350" anchor-label="CameraPathPlayer" id="-343084215%2FConstructors%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-path-player.html"><span>Camera</span><wbr></wbr><span>Path</span><wbr></wbr><span><span>Player</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-343084215%2FConstructors%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeline<span class="token operator">: </span><a href="../-camera-timeline/index.html">CameraTimeline</a><span class="token punctuation">, </span></span><span class="parameter ">loop<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span>timeline.loop</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="484682668%2FProperties%2F-278939350" anchor-label="durationSeconds" id="484682668%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="duration-seconds.html"><span>duration</span><wbr></wbr><span><span>Seconds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="484682668%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="duration-seconds.html">durationSeconds</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Length of <span data-unresolved-link="io.github.sceneview.camera/CameraPathPlayer//#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToCallableParameters(0)/">timeline</span>, in seconds, as read when the timeline was set.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="545182567%2FProperties%2F-278939350" anchor-label="isFinished" id="545182567%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-finished.html"><span>is</span><wbr></wbr><span><span>Finished</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="545182567%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-finished.html">isFinished</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">true</code> once a non-looping playhead has reached the end (or the start, playing backward).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="947776499%2FProperties%2F-278939350" anchor-label="isPlaying" id="947776499%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-playing.html"><span>is</span><wbr></wbr><span><span>Playing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="947776499%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="is-playing.html">isPlaying</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph"><code class="lang-kotlin">true</code> while <a href="advance.html">advance</a> moves the playhead.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1763316225%2FProperties%2F-278939350" anchor-label="loop" id="-1763316225%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="loop.html"><span><span>loop</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1763316225%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="loop.html">loop</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the playhead wraps to the start at the end, instead of stopping there. Turning it off keeps the playhead and the lap where they are, so the camera does not move: on lap two of a <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> of 1.5 turns it finishes that lap, half a turn on.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="219361458%2FProperties%2F-278939350" anchor-label="pose" id="219361458%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pose.html"><span><span>pose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="219361458%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="pose.html">pose</a><span class="token operator">: </span><a href="../-camera-pose/index.html">CameraPose</a></div><div class="brief "><p class="paragraph">The pose at the playhead: <code class="lang-kotlin">timeline.poseAt(seconds)</code>, plus the turn of the laps played for a <a href="../-camera-path/index.html">CameraPath</a> or <a href="../-camera-pose-path/-companion/orbit.html">CameraPosePath.orbit</a> whose turns are not whole, when the player loops (its own <span data-unresolved-link="io.github.sceneview.camera/CameraPathPlayer//#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToCallableParameters(1)/">loop</span>, not only the timeline's). A <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> of 1.5 turns starts its second lap half a turn on, with no jump at the seam, and stays exact after days of play: the player keeps a whole lap count and the time within the lap, and the path reduces the laps' turn to under one turn in double precision before it reaches a float. Another <a href="../-camera-timeline/index.html">CameraTimeline</a> is sampled within the lap, so it should end where it starts to loop seamlessly. <a href="seconds.html">seconds</a> and <a href="progress.html">progress</a> stay within the lap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-62444650%2FProperties%2F-278939350" anchor-label="progress" id="-62444650%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="progress.html"><span><span>progress</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-62444650%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="progress.html">progress</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">The playhead as a fraction of <a href="duration-seconds.html">durationSeconds</a>, in <code class="lang-kotlin">[0, 1]</code>; <code class="lang-kotlin">0</code> for an empty timeline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-189193224%2FProperties%2F-278939350" anchor-label="seconds" id="-189193224%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seconds.html"><span><span>seconds</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-189193224%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="seconds.html">seconds</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">The playhead, in seconds from the start of <span data-unresolved-link="io.github.sceneview.camera/CameraPathPlayer//#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToCallableParameters(0)/">timeline</span>, within <code class="lang-kotlin">[0, durationSeconds]</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-690377296%2FProperties%2F-278939350" anchor-label="speed" id="-690377296%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="speed.html"><span><span>speed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-690377296%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="speed.html">speed</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Playback rate: <code class="lang-kotlin">1</code> is real time, <code class="lang-kotlin">2</code> twice as fast, negative plays backward, <code class="lang-kotlin">0</code> holds the playhead while playing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1850353662%2FProperties%2F-278939350" anchor-label="timeline" id="-1850353662%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="timeline.html"><span><span>timeline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1850353662%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="timeline.html">timeline</a><span class="token operator">: </span><a href="../-camera-timeline/index.html">CameraTimeline</a></div><div class="brief "><p class="paragraph">The move being played. Replacing it keeps the playhead time and brings it into the new duration at once, wrapped when <span data-unresolved-link="io.github.sceneview.camera/CameraPathPlayer//#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToCallableParameters(1)/">loop</span> is set and clamped otherwise: a looping player at 15 s that switches from a 20 s to a 10 s timeline goes on from 5 s, and <a href="seconds.html">seconds</a>, <a href="progress.html">progress</a> and <a href="pose.html">pose</a> agree from the next read. The lap count is kept too, so a rebuilt <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> of 1.5 turns does not jump back half a turn. A new timeline with a different turn per lap applies its own turn to the laps already played, so the camera can jump when the turn count changes mid-run; call <a href="restart.html">restart</a> to start the new move from its first lap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1904149862%2FFunctions%2F-278939350" anchor-label="advance" id="1904149862%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="advance.html"><span><span>advance</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1904149862%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="advance.html"><span class="token function">advance</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">deltaSeconds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-camera-pose/index.html">CameraPose</a></div><div class="brief "><p class="paragraph">Moves the playhead by <a href="advance.html">deltaSeconds</a> of wall-clock time times <a href="speed.html">speed</a> while playing, and returns the pose at the new playhead. A non-looping player stops when the playhead reaches the end it is heading for: the end playing forward, the start playing backward. At speed <code class="lang-kotlin">0</code> it keeps playing in place.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1371632065%2FFunctions%2F-278939350" anchor-label="advanceFrame" id="1371632065%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="advance-frame.html"><span>advance</span><wbr></wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1371632065%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="advance-frame.html"><span class="token function">advanceFrame</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">frameTimeNanos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-camera-pose/index.html">CameraPose</a></div><div class="brief "><p class="paragraph"><a href="advance.html">advance</a> by the time since the previous call, from a frame timestamp such as the one <code class="lang-kotlin">SceneView</code>'s <code class="lang-kotlin">onFrame</code> receives. The first frame after <a href="play.html">play</a>, <a href="pause.html">pause</a> or construction only records the timestamp.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1703019807%2FFunctions%2F-278939350" anchor-label="pause" id="-1703019807%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pause.html"><span><span>pause</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1703019807%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="pause.html"><span class="token function">pause</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Stops the playhead where it is.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1474784111%2FFunctions%2F-278939350" anchor-label="play" id="1474784111%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="play.html"><span><span>play</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1474784111%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="play.html"><span class="token function">play</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts or resumes playback. A finished, non-looping player restarts from the beginning (the end, playing backward) of the first lap: the lap count goes back to <code class="lang-kotlin">0</code>, so the pose is <code class="lang-kotlin">timeline.poseAt</code> at the playhead again.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="797831784%2FFunctions%2F-278939350" anchor-label="restart" id="797831784%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="restart.html"><span><span>restart</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="797831784%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="restart.html"><span class="token function">restart</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Plays from the start of the first lap: the lap count goes back to <code class="lang-kotlin">0</code>, the playhead to <code class="lang-kotlin">0</code>, and playback starts. The pose is then <code class="lang-kotlin">timeline.poseAt(0)</code>, the timeline's own start, even after laps of a <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> of 1.5 turns. Use it for a &quot;replay&quot; button; <a href="seek-to.html">seekTo</a> stays within the current lap.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1380489345%2FFunctions%2F-278939350" anchor-label="seekTo" id="1380489345%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-to.html"><span>seek</span><wbr></wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1380489345%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="seek-to.html"><span class="token function">seekTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">seconds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Moves the playhead to <a href="seek-to.html">seconds</a> within the current lap. <code class="lang-kotlin">[0, durationSeconds]</code> is taken as is, both ends included, so seeking to <a href="duration-seconds.html">durationSeconds</a> shows the end of the lap (<a href="progress.html">progress</a> <code class="lang-kotlin">1</code>) on every lap. Outside it, the time is wrapped when <span data-unresolved-link="io.github.sceneview.camera/CameraPathPlayer//#io.github.sceneview.camera.CameraTimeline#kotlin.Boolean/PointingToCallableParameters(1)/">loop</span> is set and clamped otherwise, still within the lap. The lap count is kept, so on lap two of a <a href="../-camera-path/-companion/tour.html">CameraPath.tour</a> of 1.5 turns <code class="lang-kotlin">seekTo(0f)</code> shows the start of lap two, half a turn on from the timeline's start; <a href="restart.html">restart</a> goes back to the first lap. Playback state is unchanged. A non-finite value is ignored.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1524309455%2FFunctions%2F-278939350" anchor-label="toggle" id="1524309455%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toggle.html"><span><span>toggle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1524309455%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="toggle.html"><span class="token function">toggle</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph"><a href="play.html">play</a> when paused, <a href="pause.html">pause</a> when playing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
