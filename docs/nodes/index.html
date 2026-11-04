@@ -4841,6 +4841,7 @@ SceneView(engine = engine, cameraNode = cameraNode) {
 <hr />
 <h2 id="reflectionprobenode">ReflectionProbeNode<a class="headerlink" href="#reflectionprobenode" title="Permanent link">&para;</a></h2>
 <p>Overrides the scene's indirect light (IBL) with a baked <code>Environment</code> inside a spherical zone. With <code>radius = 0f</code> (the default) the probe is global and always active; otherwise it applies only while <code>cameraPosition</code> is within <code>radius</code> metres of <code>position</code>.</p>
+<p>When several zones hold the camera, the highest <code>priority</code> wins (on a tie, the probe added most recently). When none does, the scene goes back to its <code>SceneView</code> environment — the current one, so a dark/light toggle made while a probe was active is honoured, and a new <code>SceneView</code> environment never overrides an active probe. In <code>ARSceneView</code> the environment's light is still written directly, so that last guarantee does not hold in AR yet (see #4928).</p>
 <pre class="language-kotlin"><code>val scene = rememberScene(engine)
 val probeEnv = rememberEnvironment(environmentLoader) {
     environmentLoader.createHDREnvironment("environments/office.hdr")
