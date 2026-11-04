@@ -766,6 +766,81 @@ $dokka.location:io.github.sceneview.ar.recording/PlaneSample/extentX/#/PointingT
 $dokka.location:io.github.sceneview.ar.recording/PlaneSample/extentZ/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.recording/-plane-sample/extent-z.html
 $dokka.location:io.github.sceneview.ar.recording/PlaneSample/id/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.recording/-plane-sample/id.html
 $dokka.location:io.github.sceneview.ar.recording/PlaneSample/vertical/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.recording/-plane-sample/vertical.html
+$dokka.location:io.github.sceneview.ar.replay////PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/index.html
+$dokka.location:io.github.sceneview.ar.replay//LocalARSessionProbe/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-local-a-r-session-probe.html
+$dokka.location:io.github.sceneview.ar.replay//evaluateReplay/#io.github.sceneview.ar.replay.ARReplayObservation#kotlin.collections.Set[io.github.sceneview.ar.replay.ARReplayCheck]#io.github.sceneview.ar.replay.ARReplayThresholds/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/evaluate-replay.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck.ANCHOR///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/-a-n-c-h-o-r/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck.MODEL_BRIGHTNESS///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/-m-o-d-e-l_-b-r-i-g-h-t-n-e-s-s/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck.MODEL_COVERAGE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/-m-o-d-e-l_-c-o-v-e-r-a-g-e/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck.PLANE///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/-p-l-a-n-e/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck.REPLAYED///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/-r-e-p-l-a-y-e-d/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck.SCENE_BRIGHTNESS///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/-s-c-e-n-e_-b-r-i-g-h-t-n-e-s-s/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck/entries/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/entries.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck/valueOf/#kotlin.String/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/value-of.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheck/values/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check/values.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheckResult///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check-result/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheckResult/ARReplayCheckResult/#io.github.sceneview.ar.replay.ARReplayCheck#kotlin.Boolean#kotlin.String#kotlin.String/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check-result/-a-r-replay-check-result.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheckResult/check/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check-result/check.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheckResult/expected/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check-result/expected.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheckResult/measured/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check-result/measured.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayCheckResult/passed/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-check-result/passed.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics/boxCorners/#kotlin.FloatArray#kotlin.FloatArray/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/box-corners.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics/isInside/#kotlin.FloatArray#kotlin.FloatArray#kotlin.FloatArray/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/is-inside.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics/luma/#kotlin.Int/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/luma.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics/meanLuminance/#kotlin.IntArray#kotlin.Int#kotlin.Int#io.github.sceneview.ar.replay.ScreenRect#kotlin.Int/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/mean-luminance.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics/multiply/#kotlin.FloatArray#kotlin.FloatArray/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/multiply.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayMetrics/projectCoverage/#kotlin.FloatArray#kotlin.FloatArray/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-metrics/project-coverage.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/ARReplayObservation/#kotlin.Int#kotlin.Int?#kotlin.Int#kotlin.Int#io.github.sceneview.ar.replay.ProjectedCoverage?#kotlin.Float?#kotlin.Float?/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/-a-r-replay-observation.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/coverage/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/coverage.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/firstPlaneFrame/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/first-plane-frame.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/frames/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/frames.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/modelLuminance/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/model-luminance.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/sceneLuminance/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/scene-luminance.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/trackedAnchors/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/tracked-anchors.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayObservation/visibleModels/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-observation/visible-models.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe/ARReplayProbe/#java.io.File?#kotlin.Boolean/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/-a-r-replay-probe.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe/hideModels/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/hide-models.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe/observe/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/observe.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe/onSessionFrame/#com.google.ar.core.Session#com.google.ar.core.Frame#kotlin.collections.List[io.github.sceneview.node.Node]/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/on-session-frame.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe/playbackDataset/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/playback-dataset.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayProbe/reset/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-probe/reset.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/ARReplayThresholds/#kotlin.Int#kotlin.Int#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/-a-r-replay-thresholds.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/maxCoverage/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/max-coverage.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/minCoverage/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/min-coverage.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/minFrames/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/min-frames.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/minModelLuminance/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/min-model-luminance.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/minSceneLuminance/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/min-scene-luminance.html
+$dokka.location:io.github.sceneview.ar.replay/ARReplayThresholds/planeWithinFrames/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-replay-thresholds/plane-within-frames.html
+$dokka.location:io.github.sceneview.ar.replay/ARSessionProbe///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-session-probe/index.html
+$dokka.location:io.github.sceneview.ar.replay/ARSessionProbe/onSessionFrame/#com.google.ar.core.Session#com.google.ar.core.Frame#kotlin.collections.List[io.github.sceneview.node.Node]/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-session-probe/on-session-frame.html
+$dokka.location:io.github.sceneview.ar.replay/ARSessionProbe/playbackDataset/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-a-r-session-probe/playback-dataset.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage.Companion///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/-companion/index.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage.Companion/NONE/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/-companion/-n-o-n-e.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/index.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage/ProjectedCoverage/#kotlin.Float#io.github.sceneview.ar.replay.ScreenRect?#kotlin.Boolean/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/-projected-coverage.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage/cameraInside/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/camera-inside.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage/fraction/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/fraction.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage/rect/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/rect.html
+$dokka.location:io.github.sceneview.ar.replay/ProjectedCoverage/union/#io.github.sceneview.ar.replay.ProjectedCoverage/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-projected-coverage/union.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect.Companion///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/-companion/index.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect.Companion/CENTRE/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/-companion/-c-e-n-t-r-e.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect.Companion/FULL/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/-companion/-f-u-l-l.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect///PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/index.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/ScreenRect/#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/-screen-rect.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/area/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/area.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/bottom/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/bottom.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/height/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/height.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/isEmpty/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/is-empty.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/left/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/left.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/right/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/right.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/top/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/top.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/union/#io.github.sceneview.ar.replay.ScreenRect/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/union.html
+$dokka.location:io.github.sceneview.ar.replay/ScreenRect/width/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar.replay/-screen-rect/width.html
 $dokka.location:io.github.sceneview.ar.rerun////PointingToDeclaration/arsceneview/io.github.sceneview.ar.rerun/index.html
 $dokka.location:io.github.sceneview.ar.rerun//rememberRerunBridge/#kotlin.String#kotlin.Int#kotlin.Int#kotlin.Boolean/PointingToDeclaration/arsceneview/io.github.sceneview.ar.rerun/remember-rerun-bridge.html
 $dokka.location:io.github.sceneview.ar.rerun/RerunBridge.Companion///PointingToDeclaration/arsceneview/io.github.sceneview.ar.rerun/-rerun-bridge/-companion/index.html
@@ -1562,6 +1637,7 @@ io.github.sceneview.ar.node
 io.github.sceneview.ar.physics
 io.github.sceneview.ar.postprocessing
 io.github.sceneview.ar.recording
+io.github.sceneview.ar.replay
 io.github.sceneview.ar.rerun
 io.github.sceneview.ar.scene
 io.github.sceneview.ar.xr
