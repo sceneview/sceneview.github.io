@@ -1743,6 +1743,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-first-3d-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The first 3D frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lazy-loading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3181,6 +3192,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-first-3d-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The first 3D frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lazy-loading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3789,6 +3811,45 @@ SceneView(engine = engine, modelLoader = modelLoader, /* ... */) { }</code></pre
 <p>Creating multiple <code>Engine</code> instances wastes GPU memory and can cause crashes
 on devices with limited resources. Create one at the top level and pass it down.</p>
 </div>
+<h3 id="the-first-3d-frame">The first 3D frame<a class="headerlink" href="#the-first-3d-frame" title="Permanent link">&para;</a></h3>
+<p>Part of what the first <code>rememberEngine()</code> and <code>rememberModelLoader()</code> do inside their
+composition can run on a background thread instead: loading Filament's native
+libraries, initialising the GPU driver, creating the shared EGL context, and building
+the Basis Universal tables gltfio's texture loader needs. <code>EngineWarmUp</code> does it;
+<code>rememberEngine()</code> then takes the prepared context. The <code>Engine</code> itself is still built
+on the main thread: Filament ties an engine to the thread that creates it. To build the
+tables, the warm-up creates a short-lived engine of its own on its thread (no-op
+backend) and destroys it there. On a Pixel 7a this took a 3D board's first frame from
+238 to 184 ms.</p>
+<p>It is <strong>opt-in</strong>, because every launch that runs it pays for it — about 60–80 ms of
+background CPU, the GPU driver loaded, one small EGL context held — even a launch that
+never shows 3D. Start it where a 3D screen is likely to follow, from any thread:</p>
+<pre class="language-kotlin"><code>EngineWarmUp.start()   // when the user heads for the 3D screen, or in Application.onCreate()</code></pre>
+<p>or at app startup without code, by listing its initializer in your manifest:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&lt;provider</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="na">android:name=</span><span class="s">"androidx.startup.InitializationProvider"</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="na">android:authorities=</span><span class="s">"${applicationId}.androidx-startup"</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="na">android:exported=</span><span class="s">"false"</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="na">tools:node=</span><span class="s">"merge"</span><span class="nt">&gt;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">&lt;meta-data</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="na">android:name=</span><span class="s">"io.github.sceneview.EngineWarmUpInitializer"</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="na">android:value=</span><span class="s">"androidx.startup"</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nt">&lt;/provider&gt;</span>
+</span></code></pre></div>
+<p>Started at app startup, the warm-up competes with your app's own startup. With a 3D
+first screen, measured over 14 cold starts each on a Pixel 10 Pro XL, the 3D frame fell
+from 194 to 151 ms but time to first frame rose from 134 to 149 ms. On a Pixel 7a,
+the 3D frame went from 238 to 184 ms and time to first frame from 140 to 145 ms, within
+noise. If the 3D screen is not the first one, start the warm-up once the first frame is
+drawn rather than in <code>Application.onCreate()</code>.</p>
+<p>A prepared context that no engine takes within 5 seconds is released; the libraries
+and tables stay loaded.</p>
+<p><code>rememberModelLoader(engine)</code> costs nothing until its first model: gltfio's material
+provider is built then. Creating a model synchronously in the screen's first
+composition (<code>createModel*</code> or <code>createInstancedModel</code> inside <code>remember { }</code>) brings
+both that build and the glTF parse back into the first frame; load it with
+<code>rememberModelInstance</code>, or the <code>suspend</code> <code>loadModelInstance</code> / <code>loadInstancedModel</code>,
+and the first frame shows the scene while the model follows.</p>
 <h3 id="lazy-loading">Lazy loading<a class="headerlink" href="#lazy-loading" title="Permanent link">&para;</a></h3>
 <p>Load models on-demand rather than all at startup:</p>
 <pre class="language-kotlin"><code>// rememberModelInstance loads asynchronously and returns null while loading
