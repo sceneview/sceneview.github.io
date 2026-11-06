@@ -798,6 +798,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#a-scene-of-several-models-on-a-phone-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A scene of several models on a phone budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2793,6 +2804,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#a-scene-of-several-models-on-a-phone-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A scene of several models on a phone budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2973,6 +2995,99 @@ renders oriented ellipses; the web port is tracked in
     iblUrl = "environments/pillars_2k_ibl.ktx",
     skyboxUrl = "environments/pillars_2k_skybox.ktx"
 )</code></pre>
+<h2 id="a-scene-of-several-models-on-a-phone-budget">A scene of several models on a phone budget<a class="headerlink" href="#a-scene-of-several-models-on-a-phone-budget" title="Permanent link">&para;</a></h2>
+<p>The script-tag viewer (<code>https://sceneview.github.io/js/sceneview.js</code>, global <code>SceneView</code>,
+not the <code>sceneview-web</code> package above) loads a whole set — one primary model, props, an
+environment — and keeps it smooth on a mid-range phone:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">"viewer"</span> <span class="na">style</span><span class="o">=</span><span class="s">"width:100%;aspect-ratio:4/3"</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://sceneview.github.io/js/filament/filament.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://sceneview.github.io/js/sceneview.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nx">SceneView</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'viewer'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">autoRotate</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">sv</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">scene</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">sv</span><span class="p">.</span><span class="nx">loadScene</span><span class="p">({</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">      </span><span class="nx">environment</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s1">'/environments/studio_showroom_light_ibl.ktx'</span><span class="p">,</span><span class="w"> </span><span class="nx">intensity</span><span class="o">:</span><span class="w"> </span><span class="mf">30000</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">      </span><span class="nx">camera</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">target</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.45</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">angle</span><span class="o">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">1.5</span><span class="p">,</span><span class="w"> </span><span class="nx">radius</span><span class="o">:</span><span class="w"> </span><span class="mf">4.2</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">      </span><span class="nx">models</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'fox'</span><span class="p">,</span><span class="w"> </span><span class="nx">role</span><span class="o">:</span><span class="w"> </span><span class="s1">'primary'</span><span class="p">,</span><span class="w"> </span><span class="nx">src</span><span class="o">:</span><span class="w"> </span><span class="s1">'/models/fox.glb'</span><span class="p">,</span><span class="w"> </span><span class="nx">scale</span><span class="o">:</span><span class="w"> </span><span class="mf">0.008</span><span class="p">,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">          </span><span class="nx">position</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.7</span><span class="p">],</span><span class="w"> </span><span class="nx">rotation</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">60</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">],</span><span class="w"> </span><span class="nx">animation</span><span class="o">:</span><span class="w"> </span><span class="s1">'Survey'</span><span class="p">,</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">          </span><span class="nx">bytes</span><span class="o">:</span><span class="w"> </span><span class="mf">162852</span><span class="p">,</span><span class="w"> </span><span class="nx">triangles</span><span class="o">:</span><span class="w"> </span><span class="mf">576</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'sofa'</span><span class="p">,</span><span class="w"> </span><span class="nx">src</span><span class="o">:</span><span class="w"> </span><span class="s1">'/models/sofa.glb'</span><span class="p">,</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">          </span><span class="nx">lod</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">mid</span><span class="o">:</span><span class="w"> </span><span class="s1">'/models/sofa-mid.glb'</span><span class="p">,</span><span class="w"> </span><span class="nx">low</span><span class="o">:</span><span class="w"> </span><span class="s1">'/models/sofa-low.glb'</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">          </span><span class="nx">position</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mf">0.7</span><span class="p">],</span><span class="w"> </span><span class="nx">bytes</span><span class="o">:</span><span class="w"> </span><span class="mf">3149844</span><span class="p">,</span><span class="w"> </span><span class="nx">triangles</span><span class="o">:</span><span class="w"> </span><span class="mf">4196</span><span class="w"> </span><span class="p">},</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'lantern'</span><span class="p">,</span><span class="w"> </span><span class="nx">src</span><span class="o">:</span><span class="w"> </span><span class="s1">'/models/lantern.glb'</span><span class="p">,</span><span class="w"> </span><span class="nx">optional</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">position</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">      </span><span class="p">]</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">onProgress</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="nx">scene</span><span class="p">.</span><span class="nx">complete</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">stats</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">stats</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">  </span><span class="p">});</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<ul>
+<li><strong>Order.</strong> <code>loadScene()</code> returns at once. The environment and the primary model load
+  first; the rest waits until the canvas is on screen and the page is idle, and each model
+  is built in its own idle period. Keep a poster image in the HTML until <code>scene.primary</code>
+  resolves. Loading stops when the visitor leaves the page or the canvas leaves the
+  document; <code>scene.abort()</code> and <code>scene.remove()</code> do it by hand.</li>
+<li><strong>Budget.</strong> <code>sv.deviceTier()</code> reads the device memory, cores, pixel ratio, Save-Data and
+  the GPU, and picks a tier:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Typical device</th>
+<th>Download</th>
+<th>Triangles</th>
+<th>Texture edge</th>
+<th>Pixel ratio</th>
+<th><code>optional</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>low</td>
+<td>2 GB, Save-Data, 3G, old GPU</td>
+<td>5 MB</td>
+<td>100k</td>
+<td>1024</td>
+<td>1.25</td>
+<td>skipped</td>
+</tr>
+<tr>
+<td>mid</td>
+<td>Pixel 4a, Moto G</td>
+<td>12 MB</td>
+<td>300k</td>
+<td>2048</td>
+<td>1.5</td>
+<td>loaded</td>
+</tr>
+<tr>
+<td>high</td>
+<td>recent flagship, desktop</td>
+<td>40 MB</td>
+<td>1.5M</td>
+<td>4096</td>
+<td>2</td>
+<td>loaded</td>
+</tr>
+</tbody>
+</table>
+<p>An entry that would pass what is left of the budget is skipped (<code>stats.skipped</code>). The
+<code>bytes</code> and <code>triangles</code> hints let it be skipped before it downloads. <code>lod.low</code> and
+<code>lod.mid</code> are smaller files for those tiers. Embedded PNG and JPEG textures above the
+tier's edge are downscaled before upload.
+- <strong>One model at a time.</strong> <code>sv.addModel(url, { position, rotation, scale, animation })</code>
+  adds a model next to the others and resolves with a handle: <code>setTransform()</code>,
+  <code>playAnimation()</code>, <code>stopAnimation()</code>, <code>boundingBox</code>, <code>ready</code>, <code>remove()</code>.
+  <code>loadModel()</code> still replaces the model.
+- <strong>Preparing the files.</strong> Filament.js decodes Draco, meshopt, <code>KHR_mesh_quantization</code>,
+  <code>KHR_texture_transform</code>, WebP and KTX2 Basis textures. A good default is
+  <code>npx gltfpack -i in.glb -o out.glb -cc -tc</code> (meshopt geometry, KTX2 textures that stay
+  compressed on the GPU). Make the low-tier file with
+  <code>npx @gltf-transform/cli resize in.glb low.glb --width 1024 --height 1024</code>, then
+  <code>simplify</code>, and write each file's size and triangle count into the descriptor.</p>
+<p>The test page <code>website-static/scene-lab.html</code> shows the tier, the timings, the bytes, the
+triangles and the frame time of such a scene; <code>?tier=low|mid|high</code> forces a tier.</p>
 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>No AR</strong> — requires native sensors (camera, compass, accelerometer)</li>
