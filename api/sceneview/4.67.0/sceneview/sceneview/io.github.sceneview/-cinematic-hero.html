@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>CinematicHero</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="sceneview::io.github.sceneview//CinematicHero/#androidx.compose.foundation.lazy.LazyListState#androidx.compose.ui.unit.Dp#androidx.compose.ui.Modifier#androidx.compose.ui.graphics.Brush?#io.github.sceneview.CinematicCameraProfile#kotlin.Float#kotlin.Float#kotlin.Function1[io.github.sceneview.SceneScope,kotlin.Unit]/PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../index.html">sceneview</a><span class="delimiter">/</span><a href="index.html">io.github.sceneview</a><span class="delimiter">/</span><span class="current">CinematicHero</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Cinematic</span><wbr></wbr><span><span>Hero</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-cinematic-hero.html"><span class="token function">CinematicHero</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">listState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/LazyListState.html">LazyListState</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">backdrop<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Brush.html">Brush</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">profile<span class="token operator">: </span><a href="-cinematic-camera-profile/index.html">CinematicCameraProfile</a><span class="token operator"> = </span>CinematicCameraProfile.Default<span class="token punctuation">, </span></span><span class="parameter ">contentRadius<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.75f</span><span class="token punctuation">, </span></span><span class="parameter ">parallax<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.4f</span><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="-scene-scope/index.html">SceneScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">A cinematic, scroll-driven 3D hero for the top of a scrolling screen.</p><p class="paragraph">The <a href="-cinematic-hero.html">content</a> turns slowly on a cinematic orbit. As the screen scrolls, the camera swings round, rises and pushes in, and the whole stage lags behind the scroll (parallax), so the 3D reads as a layer <i>behind</i> the page. Its bottom edge fades into whatever is under it.</p><p class="paragraph"><strong>How to place it — two lines, and nothing else works.</strong> The hero is drawn <i>under</i> your list, never inside it: a <code class="lang-kotlin">SceneView</code> inside a lazy item would eat the drags that start on it and be destroyed, then reloaded, every time it scrolls off screen. So:</p><ol><li><p class="paragraph">Put <code class="lang-kotlin">CinematicHero</code> and your list in the same <code class="lang-kotlin">Box</code>, the hero <strong>first</strong> (underneath).</p></li><li><p class="paragraph">Make the list's <strong>first item</strong> a transparent <code class="lang-kotlin">Spacer</code> of the same <a href="-cinematic-hero.html">height</a>. The hero follows     that spacer, pixel for pixel, and the list keeps every touch.</p></li></ol><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val listState = rememberLazyListState()<br>Box(Modifier.fillMaxSize()) {<br>    CinematicHero(listState = listState, height = 420.dp) {<br>        rememberModelInstance(<br>            modelLoader,<br>            &quot;https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/BoomBox/glTF-Binary/BoomBox.glb&quot;<br>        )?.let { ModelNode(modelInstance = it, scaleToUnits = 1f) }<br>    }<br>    LazyColumn(state = listState, modifier = Modifier.fillMaxSize()) {<br>        item { Spacer(Modifier.height(420.dp)) } // must be the first item, same height<br>        items(cards) { card -&gt; MyCard(card) }     // your existing content, unchanged<br>    }<br>}</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph">A remote URL needs <code class="lang-kotlin">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</code>; a bundled <code class="lang-kotlin">assets/</code> path works too. The content is centred on the origin the camera looks at (<code class="lang-kotlin">SceneView</code>'s <code class="lang-kotlin">autoCenterContent</code>), and <code class="lang-kotlin">scaleToUnits = 1f</code> fits any model to the default framing (<a href="-cinematic-hero.html">contentRadius</a> <code class="lang-kotlin">0.75f</code>) — keep it, whatever the model's own size. The list must not paint an opaque background over the spacer (a <code class="lang-kotlin">LazyColumn</code> has none by default). Everything here runs on the main thread, as Filament requires; load models with <a href="remember-model-instance.html">rememberModelInstance</a> as above.</p><p class="paragraph">Off screen, the hero stops drawing and its clock stops; it resumes on the same frame. With system animations turned off (reduced motion) it does not turn by itself, and only the scroll moves the camera. It is invisible to accessibility services — keep your title and text in the list, over the spacer, if the hero needs them.</p><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>list</span><wbr></wbr><span><span>State</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The state of the <code class="lang-kotlin">LazyColumn</code> whose first item is the spacer.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>height</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Height of the hero — and of the spacer that opens the list.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>modifier</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Applied to the hero's full-size container, under the list.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>backdrop</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Painted behind the 3D, moving with it — e.g. a vertical gradient from                       your theme. <code class="lang-kotlin">null</code> (default) leaves the page's own background visible.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>profile</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The orbit's feel — see <a href="-cinematic-camera-profile/index.html">CinematicCameraProfile</a>.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>content</span><wbr></wbr><span><span>Radius</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Bounding-sphere radius of the content, in world units. <code class="lang-kotlin">0.75f</code> frames                       any model scaled with <code class="lang-kotlin">scaleToUnits = 1f</code> (its sphere is 0.5 to 0.87).</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>parallax</span></span></u></div></span></div><div><div class="title"><p class="paragraph">How far the 3D lags behind the scroll: <code class="lang-kotlin">0</code> moves with the page, <code class="lang-kotlin">1</code> stays                       put. Default <code class="lang-kotlin">0.4f</code>.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>content</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The 3D scene, in the same <a href="-scene-scope/index.html">SceneScope</a> DSL as <a href="-scene-view.html">SceneView</a>.</p></div></div></div></div></div><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-cinematic-hero.html"><span class="token function">CinematicHero</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">gridState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/grid/LazyGridState.html">LazyGridState</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">backdrop<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Brush.html">Brush</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">profile<span class="token operator">: </span><a href="-cinematic-camera-profile/index.html">CinematicCameraProfile</a><span class="token operator"> = </span>CinematicCameraProfile.Default<span class="token punctuation">, </span></span><span class="parameter ">contentRadius<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.75f</span><span class="token punctuation">, </span></span><span class="parameter ">parallax<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.4f</span><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="-scene-scope/index.html">SceneScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><p class="paragraph"><a href="-cinematic-hero.html">CinematicHero</a> over a <code class="lang-kotlin">LazyVerticalGrid</code>. The grid's first item is the spacer, and it must span the whole row: <code class="lang-kotlin">item(span = { GridItemSpan(maxLineSpan) }) { Spacer(Modifier.height(420.dp)) }</code>. Everything else is the <code class="lang-kotlin">LazyListState</code> overload's — read its documentation.</p><hr><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-cinematic-hero.html"><span class="token function">CinematicHero</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scrollState<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/ScrollState.html">ScrollState</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/unit/Dp.html">Dp</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">backdrop<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Brush.html">Brush</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">profile<span class="token operator">: </span><a href="-cinematic-camera-profile/index.html">CinematicCameraProfile</a><span class="token operator"> = </span>CinematicCameraProfile.Default<span class="token punctuation">, </span></span><span class="parameter ">contentRadius<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.75f</span><span class="token punctuation">, </span></span><span class="parameter ">parallax<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">0.4f</span><span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><a href="-scene-scope/index.html">SceneScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><p class="paragraph"><a href="-cinematic-hero.html">CinematicHero</a> over a <code class="lang-kotlin">Column(Modifier.verticalScroll(scrollState))</code>. The column's first child is the spacer, <code class="lang-kotlin">Spacer(Modifier.height(420.dp))</code>, with no padding above it. Everything else is the <code class="lang-kotlin">LazyListState</code> overload's — read its documentation.</p></div></div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
