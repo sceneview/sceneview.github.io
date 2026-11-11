@@ -107,7 +107,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.ar.depth</a><span class="delimiter">/</span><span class="current">MonocularDepthEstimator</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Monocular</span><wbr></wbr><span>Depth</span><wbr></wbr><span><span>Estimator</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">MonocularDepthEstimator</a> : <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a></div><p class="paragraph">A single-image depth network, run by <a href="../-ml-depth-session/index.html">MlDepthSession</a> on its own worker thread.</p><p class="paragraph">The SDK core knows nothing about the runtime: an implementation wraps LiteRT, ONNX Runtime or anything else (<code class="lang-kotlin">DepthAnythingV2Estimator</code> in the <code class="lang-kotlin">arsceneview-depth-ml</code> module is the reference one). <a href="warm-up.html">warmUp</a>, <a href="estimate.html">estimate</a> and <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html#close">close</a> are always called on the <strong>same</strong> thread, which GPU delegates require, and never on the main thread.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">MonocularDepthEstimator</a> : <a href="https://developer.android.com/reference/kotlin/java/io/Closeable.html">Closeable</a></div><p class="paragraph">A single-image depth network, run by <a href="../-ml-depth-session/index.html">MlDepthSession</a> on its own worker thread.</p><p class="paragraph">The SDK core knows nothing about the runtime: an implementation wraps LiteRT, ONNX Runtime or anything else (<code class="lang-kotlin">DepthAnythingV2Estimator</code> in the <code class="lang-kotlin">arsceneview-depth-ml</code> module is the reference one). <a href="warm-up.html">warmUp</a>, <a href="estimate.html">estimate</a> and <a href="index.html#358956095%2FFunctions%2F-652796645">close</a> are always called on the <strong>same</strong> thread, which GPU delegates require, and never on the main thread.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -124,7 +124,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-output-kind/index.html">OutputKind</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-output-kind/index.html">MonocularDepthEstimator.OutputKind</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">What the network's output means. A relative output is turned into metres by <a href="../-ml-depth-session/index.html">MlDepthSession</a>, which fits it against ARCore's plane hits and feature points.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum class </span><a href="-output-kind/index.html">OutputKind</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-output-kind/index.html">MonocularDepthEstimator.OutputKind</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">What the network's output means. A relative output is turned into metres by <a href="../-ml-depth-session/index.html">MlDepthSession</a>, which fits it against ARCore's plane hits and feature points.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -212,17 +212,17 @@
       </div>
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="-1117130810%2FFunctions%2F-652796645" anchor-label="close" id="-1117130810%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+        <div class="table"><a data-name="358956095%2FFunctions%2F-652796645" anchor-label="close" id="358956095%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1117130810%2FFunctions%2F-652796645"><span><span>close</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1117130810%2FFunctions%2F-652796645"></span>
+                  <div><a href="index.html#358956095%2FFunctions%2F-652796645"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="358956095%2FFunctions%2F-652796645"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="index.html#-1117130810%2FFunctions%2F-652796645"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="index.html#358956095%2FFunctions%2F-652796645"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>

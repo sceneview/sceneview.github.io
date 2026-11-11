@@ -107,7 +107,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.ar</a><span class="delimiter">/</span><span class="current">PlacementReticleStyle</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Placement</span><wbr></wbr><span>Reticle</span><wbr></wbr><span><span>Style</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">PlacementReticleStyle</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">PlacementReticleStyle</a><span class="token operator">&gt; </span></div><p class="paragraph">Manual-placement API. Automatic placement uses <a href="../-auto-placement-scene.html">AutoPlacementScene</a> without a reticle. Existing behavior and defaults are preserved.</p><p class="paragraph">The on-surface visual for a placement reticle, and its three observable states.</p><p class="paragraph">Consumer AR apps — Google Scene Viewer, IKEA Place, Houzz, Pokémon GO — do not draw a solid filled dot at the placement point. They draw a <strong>thin ring</strong> (often with a small centre dot) that reads as a target and, crucially, changes appearance the moment a surface is acquired: dim / hollow while the app is still <i>searching</i> for a surface, bright / filled once it is <i>ready</i> for a tap. This gives the user an unambiguous &quot;you can place now&quot; signal without any text.</p><p class="paragraph"><a href="index.html">PlacementReticleStyle</a> selects the geometry; <a href="../-reticle-phase/index.html">ReticlePhase</a> is the searching / hit / locked state the reticle currently reflects (driven by the centre-screen hit test in <a href="../-placement-scene.html">PlacementScene</a>).</p><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-placement-scene.html"><span>Placement</span><wbr></wbr><span><span>Scene</span></span></a></div></span></div><div></div></div></div></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum class </span><a href="index.html">PlacementReticleStyle</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">PlacementReticleStyle</a><span class="token operator">&gt; </span></div><p class="paragraph">Manual-placement API. Automatic placement uses <a href="../-auto-placement-scene.html">AutoPlacementScene</a> without a reticle. Existing behavior and defaults are preserved.</p><p class="paragraph">The on-surface visual for a placement reticle, and its three observable states.</p><p class="paragraph">Consumer AR apps — Google Scene Viewer, IKEA Place, Houzz, Pokémon GO — do not draw a solid filled dot at the placement point. They draw a <strong>thin ring</strong> (often with a small centre dot) that reads as a target and, crucially, changes appearance the moment a surface is acquired: dim / hollow while the app is still <em>searching</em> for a surface, bright / filled once it is <em>ready</em> for a tap. This gives the user an unambiguous &quot;you can place now&quot; signal without any text.</p><p class="paragraph"><a href="index.html">PlacementReticleStyle</a> selects the geometry; <a href="../-reticle-phase/index.html">ReticlePhase</a> is the searching / hit / locked state the reticle currently reflects (driven by the centre-screen hit test in <a href="../-placement-scene.html">PlacementScene</a>).</p><h4 class="tableheader">See also</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-placement-scene.html"><span>Placement</span><wbr></wbr><span><span>Scene</span></span></a></div></span></div><div></div></div></div></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
@@ -147,23 +147,61 @@
         </div>
       </div>
       <div data-togglable="PROPERTY">
-        <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="1554238136%2FProperties%2F-652796645" anchor-label="entries" id="1554238136%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+        <h2 class="tableheader">Companion properties</h2>
+        <div class="table"><a data-name="787143067%2FProperties%2F-652796645" anchor-label="entries" id="787143067%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="entries.html"><span><span>entries</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1554238136%2FProperties%2F-652796645"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="787143067%2FProperties%2F-652796645"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><a href="index.html">PlacementReticleStyle</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a representation of an immutable list of all enum entries, in the order they're declared.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><a href="index.html">PlacementReticleStyle</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an immutable <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">kotlin.enums.EnumEntries</a> list containing the constants of this enum type, in the order they're declared.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-372974862%2FProperties%2F-652796645" anchor-label="name" id="-372974862%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Companion functions</h2>
+        <div class="table"><a data-name="-1507113529%2FFunctions%2F-652796645" anchor-label="valueOf" id="-1507113529%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1507113529%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">PlacementReticleStyle</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-916401453%2FFunctions%2F-652796645" anchor-label="values" id="-916401453%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-916401453%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">PlacementReticleStyle</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-652796645" anchor-label="name" id="-372974862%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -189,40 +227,6 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="../../io.github.sceneview.ar.xr/-xr-handedness/-r-i-g-h-t/index.html#-739389684%2FProperties%2F-652796645">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-togglable="FUNCTION">
-        <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="-628539932%2FFunctions%2F-652796645" anchor-label="valueOf" id="-628539932%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-628539932%2FFunctions%2F-652796645"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">PlacementReticleStyle</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="1498245616%2FFunctions%2F-652796645" anchor-label="values" id="1498245616%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="values.html"><span><span>values</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1498245616%2FFunctions%2F-652796645"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">PlacementReticleStyle</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
                 </div>
               </div>
             </div>

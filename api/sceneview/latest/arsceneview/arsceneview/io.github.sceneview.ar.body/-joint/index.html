@@ -107,7 +107,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">arsceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.ar.body</a><span class="delimiter">/</span><span class="current">Joint</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Joint</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">Joint</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">Joint</a><span class="token operator">&gt; </span></div><p class="paragraph">Skeleton joint, named to match the upper tier of ARKit's <a href="https://developer.apple.com/documentation/arkit/arskeleton/jointname"><code class="lang-kotlin">ARSkeleton.JointName</code></a> 17-joint hierarchy so app code that targets a joint reads the same on Android (this enum) and on Apple (<code class="lang-kotlin">SceneViewSwift</code>).</p><h3 class="">Parity caveat — read before relying on this</h3><p class="paragraph">ARCore has <strong>no native body-tracking API</strong>. Unlike ARKit's <code class="lang-kotlin">ARBodyTrackingConfiguration</code> — which delivers a world-anchored, 6-DoF rigged skeleton via <code class="lang-kotlin">ARBodyAnchor</code> / <code class="lang-kotlin">BodyTrackedEntity</code> — the Android body-tracking path feeds the CPU camera image to Google's on-device <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker">MediaPipe Pose Landmarker</a> and returns <strong>image-space landmarks</strong>:</p><ul><li><p class="paragraph"><code class="lang-kotlin">x</code> / <code class="lang-kotlin">y</code> are normalised to <code class="lang-kotlin">[0, 1]</code> within the camera frame.</p></li><li><p class="paragraph"><code class="lang-kotlin">z</code> is a <i>relative</i> depth (roughly metres, origin at the hips) — it is <strong>not</strong> a     metric world coordinate and has no absolute scale or AR-world anchoring.</p></li></ul><p class="paragraph">In practice this means a SceneView <a href="../-body-pose/index.html">BodyPose</a> on Android is good for <strong>2D skeleton overlays, gesture/fitness detection and AR filters that track the person on screen</strong>, but it is <i>not</i> a substitute for ARKit's world-anchored 3D skeleton. Attaching a 3D model so it stays welded to a limb in world space the way <code class="lang-kotlin">BodyTrackedEntity</code> does is not possible from MediaPipe landmarks alone.</p><p class="paragraph">MediaPipe reports 33 raw landmarks; SceneView projects them onto these 17 ARKit-parity joints via <a href="-companion/from-media-pipe-landmark-index.html">fromMediaPipeLandmarkIndex</a> so the public surface stays small and cross-platform. Joints with no direct MediaPipe equivalent (e.g. <a href="-s-p-i-n-e/index.html">SPINE</a>, <a href="-r-o-o-t/index.html">ROOT</a>) are synthesised by <a href="../-body-pose/index.html">BodyPose</a> as the midpoint of their anatomical neighbours.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">enum class </span><a href="index.html">Joint</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">Joint</a><span class="token operator">&gt; </span></div><p class="paragraph">Skeleton joint, named to match the upper tier of ARKit's <a href="https://developer.apple.com/documentation/arkit/arskeleton/jointname"><code class="lang-kotlin">ARSkeleton.JointName</code></a> 17-joint hierarchy so app code that targets a joint reads the same on Android (this enum) and on Apple (<code class="lang-kotlin">SceneViewSwift</code>).</p><h3 class="">Parity caveat — read before relying on this</h3><p class="paragraph">ARCore has <strong>no native body-tracking API</strong>. Unlike ARKit's <code class="lang-kotlin">ARBodyTrackingConfiguration</code> — which delivers a world-anchored, 6-DoF rigged skeleton via <code class="lang-kotlin">ARBodyAnchor</code> / <code class="lang-kotlin">BodyTrackedEntity</code> — the Android body-tracking path feeds the CPU camera image to Google's on-device <a href="https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker">MediaPipe Pose Landmarker</a> and returns <strong>image-space landmarks</strong>:</p><ul><li><p class="paragraph"><code class="lang-kotlin">x</code> / <code class="lang-kotlin">y</code> are normalised to <code class="lang-kotlin">[0, 1]</code> within the camera frame.</p></li><li><p class="paragraph"><code class="lang-kotlin">z</code> is a <em>relative</em> depth (roughly metres, origin at the hips) — it is <strong>not</strong> a     metric world coordinate and has no absolute scale or AR-world anchoring.</p></li></ul><p class="paragraph">In practice this means a SceneView <a href="../-body-pose/index.html">BodyPose</a> on Android is good for <strong>2D skeleton overlays, gesture/fitness detection and AR filters that track the person on screen</strong>, but it is <em>not</em> a substitute for ARKit's world-anchored 3D skeleton. Attaching a 3D model so it stays welded to a limb in world space the way <code class="lang-kotlin">BodyTrackedEntity</code> does is not possible from MediaPipe landmarks alone.</p><p class="paragraph">MediaPipe reports 33 raw landmarks; SceneView projects them onto these 17 ARKit-parity joints via <a href="-companion/from-media-pipe-landmark-index.html">fromMediaPipeLandmarkIndex</a> so the public surface stays small and cross-platform. Joints with no direct MediaPipe equivalent (e.g. <a href="-s-p-i-n-e/index.html">SPINE</a>, <a href="-r-o-o-t/index.html">ROOT</a>) are synthesised by <a href="../-body-pose/index.html">BodyPose</a> as the midpoint of their anatomical neighbours.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
@@ -376,23 +376,61 @@
         </div>
       </div>
       <div data-togglable="PROPERTY">
-        <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="708637250%2FProperties%2F-652796645" anchor-label="entries" id="708637250%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+        <h2 class="tableheader">Companion properties</h2>
+        <div class="table"><a data-name="-1412981595%2FProperties%2F-652796645" anchor-label="entries" id="-1412981595%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="entries.html"><span><span>entries</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="708637250%2FProperties%2F-652796645"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1412981595%2FProperties%2F-652796645"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><a href="index.html">Joint</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a representation of an immutable list of all enum entries, in the order they're declared.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><a href="index.html">Joint</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an immutable <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">kotlin.enums.EnumEntries</a> list containing the constants of this enum type, in the order they're declared.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-372974862%2FProperties%2F-652796645" anchor-label="name" id="-372974862%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Companion functions</h2>
+        <div class="table"><a data-name="-1307753731%2FFunctions%2F-652796645" anchor-label="valueOf" id="-1307753731%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1307753731%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Joint</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="398100105%2FFunctions%2F-652796645" anchor-label="values" id="398100105%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="398100105%2FFunctions%2F-652796645"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">Joint</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-372974862%2FProperties%2F-652796645" anchor-label="name" id="-372974862%2FProperties%2F-652796645" data-filterable-set=":arsceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -418,40 +456,6 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="../../io.github.sceneview.ar.xr/-xr-handedness/-r-i-g-h-t/index.html#-739389684%2FProperties%2F-652796645">ordinal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-togglable="FUNCTION">
-        <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="953558682%2FFunctions%2F-652796645" anchor-label="valueOf" id="953558682%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="953558682%2FFunctions%2F-652796645"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Joint</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-745789146%2FFunctions%2F-652796645" anchor-label="values" id="-745789146%2FFunctions%2F-652796645" data-filterable-set=":arsceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":arsceneview/main" data-filterable-set=":arsceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="values.html"><span><span>values</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-745789146%2FFunctions%2F-652796645"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":arsceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">Joint</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
                 </div>
               </div>
             </div>

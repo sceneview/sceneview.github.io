@@ -107,7 +107,7 @@
   <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview.node</a><span class="delimiter">/</span><span class="current">ContactShadowContext</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Contact</span><wbr></wbr><span>Shadow</span><wbr></wbr><span><span>Context</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="index.html">ContactShadowContext</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">ContactShadowContext</a><span class="token operator">&gt; </span></div><p class="paragraph">The kind of real-world surface a <a href="../-contact-shadow-node/index.html">ContactShadowNode</a> grounds an object against (#2740).</p><p class="paragraph">A contact shadow is not one shape: a lamp on a table casts a tight, crisp patch, while a TV hanging on a wall reads as a soft haze pushed <i>below</i> the panel, because indoor light comes from above and grazes the wall. Each context carries the gradient parameters that sell its situation — the procedural equivalent of the per-context shadow textures Amazon &quot;AR View&quot; bakes into its APK (<code class="lang-kotlin">furnitureSpotlightTexture</code>, <code class="lang-kotlin">tvWallSpotlightTexture</code>, <code class="lang-kotlin">tableTopSpotlightTexture</code>; see the teardown in #2740).</p><p class="paragraph">All values are in the quad's normalised UV space, where <code class="lang-kotlin">0.5</code> reaches the quad's edge.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">enum class </span><a href="index.html">ContactShadowContext</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">ContactShadowContext</a><span class="token operator">&gt; </span></div><p class="paragraph">The kind of real-world surface a <a href="../-contact-shadow-node/index.html">ContactShadowNode</a> grounds an object against (#2740).</p><p class="paragraph">A contact shadow is not one shape: a lamp on a table casts a tight, crisp patch, while a TV hanging on a wall reads as a soft haze pushed <em>below</em> the panel, because indoor light comes from above and grazes the wall. Each context carries the gradient parameters that sell its situation — the procedural equivalent of the per-context shadow textures Amazon &quot;AR View&quot; bakes into its APK (<code class="lang-kotlin">furnitureSpotlightTexture</code>, <code class="lang-kotlin">tvWallSpotlightTexture</code>, <code class="lang-kotlin">tableTopSpotlightTexture</code>; see the teardown in #2740).</p><p class="paragraph">All values are in the quad's normalised UV space, where <code class="lang-kotlin">0.5</code> reaches the quad's edge.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="ENTRY">Entries</button></div>
@@ -139,7 +139,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><a href="-wall/index.html">Wall</a></div></div><div class="brief "><p class="paragraph">An object mounted flat against a wall (TV, framed art, mirror). Ceiling light grazes the wall rather than facing it, so the shadow is <i>weaker</i>, <i>wider than it is tall</i>, and sits <strong>below</strong> the object rather than behind its centre — hence the negative <span data-unresolved-link="io.github.sceneview.node/ContactShadowContext//#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float#kotlin.Float/PointingToCallableParameters(2)/">centerV</span>. This is the case a real shadow map cannot serve: a light coming from above is nearly parallel to the wall, so it casts almost nothing onto it.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><a href="-wall/index.html">Wall</a></div></div><div class="brief "><p class="paragraph">An object mounted flat against a wall (TV, framed art, mirror). Ceiling light grazes the wall rather than facing it, so the shadow is <em>weaker</em>, <em>wider than it is tall</em>, and sits <strong>below</strong> the object rather than behind its centre — hence the negative <a href="center-v.html">centerV</a>. This is the case a real shadow map cannot serve: a light coming from above is nearly parallel to the wall, so it casts almost nothing onto it.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -155,6 +155,59 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><a href="-table-top/index.html">TableTop</a></div></div><div class="brief "><p class="paragraph">A small object on a table or shelf. Closer to its surface and usually better lit from several directions, so the patch is tighter and crisper than the <a href="-floor/index.html">Floor</a> case.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Companion properties</h2>
+        <div class="table"><a data-name="-1234363197%2FProperties%2F-278939350" anchor-label="entries" id="-1234363197%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="entries.html"><span><span>entries</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1234363197%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><a href="index.html">ContactShadowContext</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an immutable <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">kotlin.enums.EnumEntries</a> list containing the constants of this enum type, in the order they're declared.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Companion functions</h2>
+        <div class="table"><a data-name="945120159%2FFunctions%2F-278939350" anchor-label="valueOf" id="945120159%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="945120159%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContactShadowContext</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1535800661%2FFunctions%2F-278939350" anchor-label="values" id="-1535800661%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="values.html"><span><span>values</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1535800661%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">ContactShadowContext</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -188,22 +241,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="center-v.html">centerV</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Vertical offset of the pool centre, in <code class="lang-kotlin">-0.5..0.5</code>. Negative pushes the                      pool <i>down</i> the quad (see <a href="../-contact-shadow-node/index.html">ContactShadowNode</a> for the UV axis convention).</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1084203040%2FProperties%2F-278939350" anchor-label="entries" id="-1084203040%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="entries.html"><span><span>entries</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1084203040%2FProperties%2F-278939350"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="entries.html">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.enums/-enum-entries/index.html">EnumEntries</a><span class="token operator">&lt;</span><a href="index.html">ContactShadowContext</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns a representation of an immutable list of all enum entries, in the order they're declared.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="center-v.html">centerV</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Vertical offset of the pool centre, in <code class="lang-kotlin">-0.5..0.5</code>. Negative pushes the                      pool <em>down</em> the quad (see <a href="../-contact-shadow-node/index.html">ContactShadowNode</a> for the UV axis convention).</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -294,40 +332,6 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="softness.html">softness</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Width of the fade beyond the ellipse. Small = a hard contact patch,                      large = a diffuse ambient-occlusion haze.</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div data-togglable="FUNCTION">
-        <h2 class="tableheader">Functions</h2>
-        <div class="table"><a data-name="709773756%2FFunctions%2F-278939350" anchor-label="valueOf" id="709773756%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="value-of.html"><span>value</span><wbr></wbr><span><span>Of</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="709773756%2FFunctions%2F-278939350"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="value-of.html"><span class="token function">valueOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ContactShadowContext</a></div><div class="brief "><p class="paragraph">Returns the enum constant of this type with the specified name. The string must match exactly an identifier used to declare an enum constant in this type. (Extraneous whitespace characters are not permitted.)</p></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1080717368%2FFunctions%2F-278939350" anchor-label="values" id="-1080717368%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
-          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="values.html"><span><span>values</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1080717368%2FFunctions%2F-278939350"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="values.html"><span class="token function">values</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="index.html">ContactShadowContext</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns an array containing the constants of this enum type, in the order they're declared.</p></div></div></div>
                 </div>
               </div>
             </div>
