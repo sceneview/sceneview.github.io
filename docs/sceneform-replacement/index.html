@@ -2877,10 +2877,10 @@ and Safie.</p>
 <h2 id="dependency">Dependency<a class="headerlink" href="#dependency" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// app/build.gradle.kts
 dependencies {
-    implementation("io.github.sceneview:arsceneview:4.67.0")   // AR (includes the 3D module)
-    // implementation("io.github.sceneview:sceneview:4.67.0")  // 3D only, no camera
+    implementation("io.github.sceneview:arsceneview:4.68.0")   // AR (includes the 3D module)
+    // implementation("io.github.sceneview:sceneview:4.68.0")  // 3D only, no camera
 }</code></pre>
-<p>The app module needs <code>compileSdk = 37</code>, <code>minSdk</code> 24 or higher, Kotlin 2.4 and JVM target 21.
+<p>The app module needs <code>compileSdk = 37</code>, <code>minSdk</code> 24 or higher, Kotlin 2.3 or newer and JVM target 21 (on AGP 8 / compileSdk 36, use 4.18.0).
 The <a href="../quickstart/#requirements">quickstart requirements</a> give the full Gradle block.</p>
 <h2 id="minimal-ar-screen-tap-a-plane-to-place-a-model">Minimal AR screen: tap a plane to place a model<a class="headerlink" href="#minimal-ar-screen-tap-a-plane-to-place-a-model" title="Permanent link">&para;</a></h2>
 <p>This replaces an <code>ArFragment</code> with a <code>setOnTapArPlaneListener</code> that builds a <code>ModelRenderable</code>

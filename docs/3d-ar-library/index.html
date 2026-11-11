@@ -2905,12 +2905,12 @@ dependency, and it ships in apps on Google Play such as Medal, IKEA, Lenskart an
 <tbody>
 <tr>
 <td>Jetpack Compose, 3D</td>
-<td><code>io.github.sceneview:sceneview:4.67.0</code></td>
+<td><code>io.github.sceneview:sceneview:4.68.0</code></td>
 <td><code>SceneView { }</code></td>
 </tr>
 <tr>
 <td>Jetpack Compose, AR (ARCore)</td>
-<td><code>io.github.sceneview:arsceneview:4.67.0</code></td>
+<td><code>io.github.sceneview:arsceneview:4.68.0</code></td>
 <td><code>ARSceneView { }</code>, <code>PlacementScene</code>, <code>AutoPlacementScene</code></td>
 </tr>
 <tr>
@@ -2920,7 +2920,7 @@ dependency, and it ships in apps on Google Play such as Medal, IKEA, Lenskart an
 </tr>
 <tr>
 <td>Kotlin / Compose Multiplatform</td>
-<td><code>io.github.sceneview:sceneview-compose:4.67.0</code></td>
+<td><code>io.github.sceneview:sceneview-compose:4.68.0</code></td>
 <td><code>SceneViewer(model = …)</code> in <code>commonMain</code> (viewer, no AR)</td>
 </tr>
 <tr>
@@ -2943,7 +2943,7 @@ dependency, and it ships in apps on Google Play such as Medal, IKEA, Lenskart an
 <hr />
 <h2 id="jetpack-compose-a-3d-model-with-orbit-controls">Jetpack Compose: a 3D model with orbit controls<a class="headerlink" href="#jetpack-compose-a-3d-model-with-orbit-controls" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// app/build.gradle.kts
-implementation("io.github.sceneview:sceneview:4.67.0")</code></pre>
+implementation("io.github.sceneview:sceneview:4.68.0")</code></pre>
 <pre class="language-kotlin"><code>@Composable
 fun ModelScreen() {
     SceneView(modifier = Modifier.fillMaxSize()) {          // orbit camera + default lighting
@@ -2958,7 +2958,7 @@ and keeps Filament on the main thread, which it requires.
 Requirements and the step-by-step: <a href="../quickstart/">Android quickstart</a>.</p>
 <h2 id="jetpack-compose-ar-tap-a-plane-to-place-a-model">Jetpack Compose: AR, tap a plane to place a model<a class="headerlink" href="#jetpack-compose-ar-tap-a-plane-to-place-a-model" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// app/build.gradle.kts
-implementation("io.github.sceneview:arsceneview:4.67.0")   // includes the 3D module</code></pre>
+implementation("io.github.sceneview:arsceneview:4.68.0")   // includes the 3D module</code></pre>
 <pre class="language-kotlin"><code>@Composable
 fun ArScreen() {
     val engine = rememberEngine()
@@ -2993,7 +2993,7 @@ See the <a href="../codelabs/codelab-ar-compose/">AR codelab</a>.</p>
 )</code></pre>
 <h2 id="kotlin-compose-multiplatform-android-ios-desktop">Kotlin / Compose Multiplatform (Android, iOS, desktop)<a class="headerlink" href="#kotlin-compose-multiplatform-android-ios-desktop" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// commonMain dependencies
-implementation("io.github.sceneview:sceneview-compose:4.67.0")</code></pre>
+implementation("io.github.sceneview:sceneview-compose:4.68.0")</code></pre>
 <pre class="language-kotlin"><code>// commonMain
 @Composable
 fun ModelScreen() {
@@ -3010,7 +3010,7 @@ AR, use <code>arsceneview</code> on Android and <code>ARSceneView</code> on Appl
 <a href="https://github.com/sceneview/sceneview/blob/main/sceneview-compose/README.md">Scope and the iOS setup</a>.</p>
 <h2 id="swiftui-a-3d-model-and-ar-ios-macos-visionos">SwiftUI: a 3D model, and AR (iOS, macOS, visionOS)<a class="headerlink" href="#swiftui-a-3d-model-and-ar-ios-macos-visionos" title="Permanent link">&para;</a></h2>
 <p>Swift Package Manager: <code>https://github.com/sceneview/sceneview.git</code>, product <code>SceneViewSwift</code>:</p>
-<div class="language-swift highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">.</span><span class="n">package</span><span class="p">(</span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/sceneview/sceneview.git"</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">"4.67.0"</span><span class="p">)</span>
+<div class="language-swift highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">.</span><span class="n">package</span><span class="p">(</span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="s">"https://github.com/sceneview/sceneview.git"</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="s">"4.68.0"</span><span class="p">)</span>
 </span></code></pre></div>
 <div class="language-swift highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">import</span><span class="w"> </span><span class="nc">SwiftUI</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kd">import</span><span class="w"> </span><span class="nc">SceneViewSwift</span>
@@ -3048,8 +3048,8 @@ AR, use <code>arsceneview</code> on Android and <code>ARSceneView</code> on Appl
 <p>The app's <code>Info.plist</code> needs <code>NSCameraUsageDescription</code>. More: <a href="../quickstart-ios/">Apple quickstart</a>.</p>
 <h2 id="web">Web<a class="headerlink" href="#web" title="Permanent link">&para;</a></h2>
 <div class="language-html highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">&lt;</span><span class="nt">canvas</span> <span class="na">id</span><span class="o">=</span><span class="s">"viewer"</span> <span class="na">style</span><span class="o">=</span><span class="s">"width: 100%; height: 480px"</span><span class="p">&gt;&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.67.0/website-static/js/filament/filament.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.67.0/website-static/js/sceneview.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.68.0/website-static/js/filament/filament.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.68.0/website-static/js/sceneview.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">SceneView</span><span class="p">.</span><span class="nx">modelViewer</span><span class="p">(</span><span class="s2">"viewer"</span><span class="p">,</span><span class="w"> </span><span class="s2">"model.glb"</span><span class="p">)</span><span class="w"> </span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>More: <a href="../quickstart-web/">Web quickstart</a>.</p>

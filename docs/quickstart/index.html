@@ -2981,8 +2981,8 @@
 </tr>
 <tr>
 <td>Kotlin</td>
-<td><strong>2.4</strong></td>
-<td>SceneView is compiled with Kotlin 2.4.21 and depends on <code>kotlin-stdlib</code> 2.4.21.</td>
+<td><strong>2.3</strong> or newer</td>
+<td>SceneView is compiled with Kotlin 2.4.21; a 2.3 compiler reads its metadata, 2.2 refuses it.</td>
 </tr>
 <tr>
 <td>JVM target (Java and Kotlin)</td>
@@ -2996,6 +2996,7 @@
 </tr>
 </tbody>
 </table>
+<p><strong>Older toolchain?</strong> If the app cannot move to compileSdk 37 / AGP 9 yet (AGP 8.x, compileSdk 36, Kotlin 2.2, JVM target 17), use SceneView <strong>4.18.0</strong>: the newest release that builds there (checked 2026-11-12 with a Compose viewer and an ARCore tap-to-place screen; the API above is the same). Do not fall back to 2.x: its API (<code>Scene</code>, <code>ARScene</code>, class-based nodes) is a different generation. The floor comes from Filament 1.76+ and Compose 1.12, which themselves declare <code>minCompileSdk=37</code>.</p>
 <p>In the app module's <code>build.gradle.kts</code>:</p>
 <pre class="language-kotlin"><code>import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -3070,7 +3071,7 @@ camera features to the app.</p>
 <h2 id="step-2-add-the-dependency">Step 2: Add the dependency<a class="headerlink" href="#step-2-add-the-dependency" title="Permanent link">&para;</a></h2>
 <p>Open your <strong>app-level</strong> <code>build.gradle.kts</code> and add SceneView:</p>
 <pre class="language-kotlin"><code>dependencies {
-    implementation("io.github.sceneview:sceneview:4.67.0")
+    implementation("io.github.sceneview:sceneview:4.68.0")
 }</code></pre>
 <p>Sync Gradle.</p>
 <hr />
