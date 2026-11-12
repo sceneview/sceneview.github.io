@@ -3290,7 +3290,10 @@ removes the wrapper-owned anchor without restarting the camera. Interruption fre
 manipulation and recovers the existing placement; it does not arm a new request.
 <code>onARCoreAvailability</code>, <code>onTrackingFailureChanged</code>, and <code>onSessionFailed</code> expose
 capability, tracking, and camera failures. Copy, permissions, asset selection and
-semantic haptics belong to the app.</p>
+semantic haptics belong to the app. On Android, <code>AutoPlacementScene</code> clears a cold-start
+<code>CAMERA_ERROR</code> when the session resumes successfully, preserving the pending placement.
+Hosts driving <code>AutoPlacementState</code> directly should call <code>cameraResumed()</code> from
+<code>onSessionResumed</code> to do the same.</p>
 <p>States match Swift's <code>ARPlacementPhase</code>: <code>INITIALIZING</code>, <code>SCANNING</code>, <code>NO_SURFACE</code>,
 <code>PLACED</code>, <code>ADJUSTING</code>, <code>TRACKING_LOST</code>, <code>RECOVERING</code>, <code>RECOVERY_FAILED</code>, <code>CAMERA_ERROR</code>.
 The no-surface and recovery deadlines are both ten seconds. A controller manages one
