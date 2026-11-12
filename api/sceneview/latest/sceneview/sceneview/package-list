@@ -2109,6 +2109,7 @@ $dokka.location:io.github.sceneview//createViewNodeManager/#android.content.Cont
 $dokka.location:io.github.sceneview//destroyGeometry/com.google.android.filament.Engine#io.github.sceneview.geometries.Geometry/PointingToDeclaration/sceneview/io.github.sceneview/destroy-geometry.html
 $dokka.location:io.github.sceneview//destroyLight/com.google.android.filament.Engine#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview/destroy-light.html
 $dokka.location:io.github.sceneview//destroyRenderable/com.google.android.filament.Engine#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview/destroy-renderable.html
+$dokka.location:io.github.sceneview//destroyRendererWhenBackendIdle/com.google.android.filament.Engine#com.google.android.filament.Renderer/PointingToDeclaration/sceneview/io.github.sceneview/destroy-renderer-when-backend-idle.html
 $dokka.location:io.github.sceneview//destroyTransformable/com.google.android.filament.Engine#kotlin.Int/PointingToDeclaration/sceneview/io.github.sceneview/destroy-transformable.html
 $dokka.location:io.github.sceneview//drainFramePipeline/com.google.android.filament.Engine#/PointingToDeclaration/sceneview/io.github.sceneview/drain-frame-pipeline.html
 $dokka.location:io.github.sceneview//fitCameraToBounds/#io.github.sceneview.Aabb#dev.romainguy.kotlin.math.Float3#kotlin.Double#kotlin.Double#kotlin.Float#kotlin.Float/PointingToDeclaration/sceneview/io.github.sceneview/fit-camera-to-bounds.html

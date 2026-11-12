@@ -1410,6 +1410,7 @@ $dokka.location:io.github.sceneview.ar/AutoPlacementState/baseSize/#/PointingToD
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/beginAdjustment/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/begin-adjustment.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/cameraFailed/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/camera-failed.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/cameraHeight/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/camera-height.html
+$dokka.location:io.github.sceneview.ar/AutoPlacementState/cameraResumed/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/camera-resumed.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/deselectPlacement/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/deselect-placement.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/dismiss/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/dismiss.html
 $dokka.location:io.github.sceneview.ar/AutoPlacementState/endAdjustment/#/PointingToDeclaration/arsceneview/io.github.sceneview.ar/-auto-placement-state/end-adjustment.html
