@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SceneRenderer</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="sceneview::io.github.sceneview/SceneRenderer///PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview</a><span class="delimiter">/</span><span class="current">SceneRenderer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Scene</span><wbr></wbr><span><span>Renderer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">SceneRenderer</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">engine<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>view<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/View///PointingToDeclaration/">View</span><span class="token punctuation">, </span></span><span class="parameter ">renderer<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Renderer///PointingToDeclaration/">Renderer</span></span></span><span class="token punctuation">)</span></div><p class="paragraph">Encapsulates the Filament surface lifecycle and render-frame pipeline.</p><p class="paragraph">Both <a href="../-scene-view.html">SceneView</a> (3D) and io.github.sceneview.ar.ARSceneView (AR) share the identical surface-management and frame-presentation code:</p><ul><li><p class="paragraph"><span data-unresolved-link="com.google.android.filament.android/UiHelper///PointingToDeclaration/">UiHelper</span> ↔ SurfaceView / TextureView hookup</p></li><li><p class="paragraph"><span data-unresolved-link="com.google.android.filament/SwapChain///PointingToDeclaration/">SwapChain</span> creation / destruction (thread-safe via <a href="https://developer.android.com/reference/kotlin/java/util/concurrent/atomic/AtomicReference.html">AtomicReference</a>)</p></li><li><p class="paragraph"><code class="lang-kotlin">beginFrame</code> → <code class="lang-kotlin">render</code> → <code class="lang-kotlin">endFrame</code> pipeline</p></li><li><p class="paragraph">Viewport resize</p></li><li><p class="paragraph"><span data-unresolved-link="com.google.android.filament.android/DisplayHelper///PointingToDeclaration/">DisplayHelper</span> attachment for frame pacing</p></li></ul><p class="paragraph">Extracting this into a standalone class removes ~120 lines of duplication between the two composables and makes the render loop independently testable.</p><h3 class="">Usage from a composable</h3><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val sceneRenderer = remember(engine, renderer) {<br>    SceneRenderer(engine, view, renderer)<br>}<br>DisposableEffect(sceneRenderer) { onDispose { sceneRenderer.destroy() } }</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><h4 class="tableheader">Parameters</h4><div class="table"><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>engine</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Filament <span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span> that owns native resources.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>view</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Filament <span data-unresolved-link="com.google.android.filament/View///PointingToDeclaration/">View</span> to render into.</p></div></div></div></div><div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>renderer</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The Filament <span data-unresolved-link="com.google.android.filament/Renderer///PointingToDeclaration/">Renderer</span> bound to the OS window.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-1501397538%2FConstructors%2F-278939350" anchor-label="SceneRenderer" id="-1501397538%2FConstructors%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scene-renderer.html"><span>Scene</span><wbr></wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1501397538%2FConstructors%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">engine<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">Engine</span><span class="token punctuation">, </span></span><span class="parameter ">view<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/View///PointingToDeclaration/">View</span><span class="token punctuation">, </span></span><span class="parameter ">renderer<span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/Renderer///PointingToDeclaration/">Renderer</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-126737746%2FProperties%2F-278939350" anchor-label="isAttached" id="-126737746%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-attached.html"><span>is</span><wbr></wbr><span><span>Attached</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-126737746%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="is-attached.html">isAttached</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Whether the renderer is currently attached to a surface.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1960177125%2FProperties%2F-278939350" anchor-label="maxRefreshRate" id="1960177125%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="max-refresh-rate.html"><span>max</span><wbr></wbr><span>Refresh</span><wbr></wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1960177125%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="max-refresh-rate.html">maxRefreshRate</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The highest refresh rate the current display can run at, or <code class="lang-kotlin">null</code> before attachment.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1728098129%2FProperties%2F-278939350" anchor-label="onSurfaceDestroyed" id="1728098129%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-surface-destroyed.html"><span>on</span><wbr></wbr><span>Surface</span><wbr></wbr><span><span>Destroyed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1728098129%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="on-surface-destroyed.html">onSurfaceDestroyed</a><span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Called when the surface is destroyed. Useful for cleanup of gesture detectors etc.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1073768839%2FProperties%2F-278939350" anchor-label="onSurfaceReady" id="1073768839%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-surface-ready.html"><span>on</span><wbr></wbr><span>Surface</span><wbr></wbr><span><span>Ready</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1073768839%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="on-surface-ready.html">onSurfaceReady</a><span class="token operator">: </span><span class="token punctuation">(</span>viewHeight<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Called when the first surface is ready (swap chain created). Useful for one-time setup like creating a <a href="../../io.github.sceneview.gesture/-camera-gesture-detector/index.html">CameraGestureDetector</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2051719770%2FProperties%2F-278939350" anchor-label="onSurfaceResized" id="2051719770%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-surface-resized.html"><span>on</span><wbr></wbr><span>Surface</span><wbr></wbr><span><span>Resized</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2051719770%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="on-surface-resized.html">onSurfaceResized</a><span class="token operator">: </span><span class="token punctuation">(</span>width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span>height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Called whenever the surface is resized. Consumers should update the viewport, camera projection, and any AR display geometry here.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1869228419%2FProperties%2F-278939350" anchor-label="refreshRate" id="1869228419%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="refresh-rate.html"><span>refresh</span><wbr></wbr><span><span>Rate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1869228419%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="refresh-rate.html">refreshRate</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">The refresh rate the display is running at <strong>right now</strong>, or <code class="lang-kotlin">null</code> before attachment.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1970867035%2FProperties%2F-278939350" anchor-label="surfaceMirrorer" id="-1970867035%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="surface-mirrorer.html"><span>surface</span><wbr></wbr><span><span>Mirrorer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1970867035%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="surface-mirrorer.html">surfaceMirrorer</a><span class="token operator">: </span><a href="../../io.github.sceneview.utils/-surface-mirrorer/index.html">SurfaceMirrorer</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Optional <a href="../../io.github.sceneview.utils/-surface-mirrorer/index.html">SurfaceMirrorer</a> that mirrors every rendered frame to additional <a href="https://developer.android.com/reference/kotlin/android/view/Surface.html">Surface</a>s — e.g. a <a href="https://developer.android.com/reference/kotlin/android/media/MediaRecorder.html">android.media.MediaRecorder</a> input surface for clean in-app video recording (no MediaProjection consent dialog, no foreground service, no overlay UI in the frame).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1166124009%2FProperties%2F-278939350" anchor-label="view" id="-1166124009%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="view.html"><span><span>view</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1166124009%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="view.html">view</a><span class="token operator">: </span><span data-unresolved-link="com.google.android.filament/View///PointingToDeclaration/">View</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1885863293%2FFunctions%2F-278939350" anchor-label="applyResize" id="-1885863293%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="apply-resize.html"><span>apply</span><wbr></wbr><span><span>Resize</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1885863293%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="apply-resize.html"><span class="token function">applyResize</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Updates the Filament viewport and notifies the resize callback.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-771494638%2FFunctions%2F-278939350" anchor-label="attachToSurfaceView" id="-771494638%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="attach-to-surface-view.html"><span>attach</span><wbr></wbr><span>To</span><wbr></wbr><span>Surface</span><wbr></wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-771494638%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="attach-to-surface-view.html"><span class="token function">attachToSurfaceView</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">surfaceView<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a><span class="token punctuation">, </span></span><span class="parameter ">isOpaque<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">display<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/Display.html">Display</a><span class="token punctuation">, </span></span><span class="parameter ">onTouch<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/android/view/MotionEvent.html">MotionEvent</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Attaches this renderer to a <a href="https://developer.android.com/reference/kotlin/android/view/SurfaceView.html">SurfaceView</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1925711414%2FFunctions%2F-278939350" anchor-label="attachToTextureView" id="1925711414%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="attach-to-texture-view.html"><span>attach</span><wbr></wbr><span>To</span><wbr></wbr><span>Texture</span><wbr></wbr><span><span>View</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1925711414%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="attach-to-texture-view.html"><span class="token function">attachToTextureView</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">textureView<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/TextureView.html">TextureView</a><span class="token punctuation">, </span></span><span class="parameter ">isOpaque<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">display<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/Display.html">Display</a><span class="token punctuation">, </span></span><span class="parameter ">onTouch<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/android/view/MotionEvent.html">MotionEvent</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Attaches this renderer to a <a href="https://developer.android.com/reference/kotlin/android/view/TextureView.html">TextureView</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1890369860%2FFunctions%2F-278939350" anchor-label="destroy" id="1890369860%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="destroy.html"><span><span>destroy</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1890369860%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="destroy.html"><span class="token function">destroy</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Detaches from the current surface and releases all native resources.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1864946993%2FFunctions%2F-278939350" anchor-label="renderFrame" id="-1864946993%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="render-frame.html"><span>render</span><wbr></wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864946993%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="render-frame.html"><span class="token function">renderFrame</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">frameTimeNanos<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">shouldPresent<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">onBeforeRender<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Presents a single frame if a swap chain is available.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-510052840%2FFunctions%2F-278939350" anchor-label="setFrameRateVote" id="-510052840%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-frame-rate-vote.html"><span>set</span><wbr></wbr><span>Frame</span><wbr></wbr><span>Rate</span><wbr></wbr><span><span>Vote</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-510052840%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="set-frame-rate-vote.html"><span class="token function">setFrameRateVote</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Tells the platform what refresh rate this surface would like, so a variable-refresh-rate panel can follow the scene instead of guessing.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -444,6 +444,7 @@ $dokka.location:io.github.sceneview.components/LightComponent/sunAngularRadius/#
 $dokka.location:io.github.sceneview.components/LightComponent/sunHaloFalloff/#/PointingToDeclaration/sceneview/io.github.sceneview.components/-light-component/sun-halo-falloff.html
 $dokka.location:io.github.sceneview.components/LightComponent/sunHaloSize/#/PointingToDeclaration/sceneview/io.github.sceneview.components/-light-component/sun-halo-size.html
 $dokka.location:io.github.sceneview.components/LightComponent/type/#/PointingToDeclaration/sceneview/io.github.sceneview.components/-light-component/type.html
+$dokka.location:io.github.sceneview.components/LightComponent/updateShadowOptions/#kotlin.Function1[com.google.android.filament.LightManager.ShadowOptions,kotlin.Unit]/PointingToDeclaration/sceneview/io.github.sceneview.components/-light-component/update-shadow-options.html
 $dokka.location:io.github.sceneview.components/RenderableComponent///PointingToDeclaration/sceneview/io.github.sceneview.components/-renderable-component/index.html
 $dokka.location:io.github.sceneview.components/RenderableComponent/axisAlignedBoundingBox/#/PointingToDeclaration/sceneview/io.github.sceneview.components/-renderable-component/axis-aligned-bounding-box.html
 $dokka.location:io.github.sceneview.components/RenderableComponent/enabledAttributes/#/PointingToDeclaration/sceneview/io.github.sceneview.components/-renderable-component/enabled-attributes.html
