@@ -937,6 +937,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="SceneView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-the-visible-area-without-resizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change the visible area without resizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2955,6 +2972,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="SceneView">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-the-visible-area-without-resizing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change the visible area without resizing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3238,6 +3272,24 @@ val viewNodeManager = rememberViewNodeManager()</code></pre>
 ) {
     // SceneScope — declare nodes here
 }</code></pre>
+<h3 id="change-the-visible-area-without-resizing">Change the visible area without resizing<a class="headerlink" href="#change-the-visible-area-without-resizing" title="Permanent link">&para;</a></h3>
+<p>Keep <code>SceneView</code> full size and animate <code>contentPadding</code>; never resize the composable for a
+full-screen toggle or an animated bar (surface/swap-chain resizing can flash a black band).</p>
+<pre class="language-kotlin"><code>val covered by animateDpAsState(if (panelOpen) panelHeight else 0.dp)
+SceneView(
+    modifier = Modifier.fillMaxSize(),
+    contentPadding = PaddingValues(bottom = covered),
+) { /* nodes */ }</code></pre>
+<p>When an opaque surface covers every padded pixel (no scrim, no rounded corners showing the
+scene through), add <code>clipToContentPadding = true</code> so the GPU skips the hidden pixels.</p>
+<p><code>clipToContentPadding</code> defaults to <code>false</code>: the camera scales/shifts and the whole surface is
+rendered. Opt in to skip hidden GPU pixels, including dynamic resolution and post-processing
+outside the visible rectangle. The viewport uses rounded pixel edges and stays at least 1 × 1;
+its aspect drives framing, with identity camera scaling/shift. Outside pixels are undefined.
+Zero padding restores the full viewport. Picking uses full-view pixels (top-left); camera
+<code>viewToWorld</code> / <code>worldToView</code> / <code>viewToRay</code> retain normalized full-view coordinates (bottom-left).
+AR cameras ignore padding and clipping. The Compose Multiplatform façade does not expose these
+Android options.</p>
 <hr />
 <h2 id="automatic-placement-recommended">Automatic placement (recommended)<a class="headerlink" href="#automatic-placement-recommended" title="Permanent link">&para;</a></h2>
 <p><code>AutoPlacementScene</code> is additive: one usable detected plane consumes one placement
