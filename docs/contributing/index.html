@@ -3930,7 +3930,7 @@ correct. Specifically:</p>
   <code>sceneview/**</code>, <code>sceneview-core/**</code>, <code>arsceneview/**</code> or the Gradle build
   files runs the <code>android-library-render</code> job
   (<code>:sceneview:connectedDebugAndroidTest</code> on the emulator, #3216); a PR
-  touching <code>samples/web-demo/**</code> or <code>sceneview-web/**</code> runs the advisory
+  touching <code>samples/web-demo/**</code> or <code>sceneview-web/**</code> runs the
   <code>web-render</code> Playwright job. The iOS leg is push-to-main + nightly +
   <code>workflow_dispatch</code> only, and on a push each leg runs only when its
   platform's paths changed. A docs-only PR matches none of
@@ -3960,7 +3960,7 @@ filter on each workflow (and the per-job <code>changes</code> gate that both
 web Playwright suite runs on <code>main</code> through <code>device-qa.yml</code>'s blocking web leg
 only, and only when the push touched <code>samples/web-demo/**</code> (or the harness);
 the Android legs likewise need <code>samples/android-demo/**</code>, <code>.maestro/**</code> or
-their scripts. <code>render-tests.yml</code>'s <code>web-render</code> job, which cannot go red, no
+their scripts. <code>render-tests.yml</code>'s <code>web-render</code> job reports test failures and no
 longer repeats the web suite on push or at night. On <code>workflow_dispatch</code> and
 in the nightly every leg of both workflows still runs.</p>
 <h3 id="other-workflow-triggers-worth-knowing">Other workflow triggers worth knowing<a class="headerlink" href="#other-workflow-triggers-worth-knowing" title="Permanent link">&para;</a></h3>
