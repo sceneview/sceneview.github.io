@@ -2709,10 +2709,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nodeonframe-holds-the-loop-open-sceneviewonframe-does-not" class="md-nav__link">
+  <a href="#animation-drivers-hold-the-loop-open-sceneviewonframe-does-not" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node.onFrame holds the loop open; SceneView(onFrame = …) does not
+        Animation drivers hold the loop open; SceneView(onFrame = …) does not
       
     </span>
   </a>
@@ -3355,10 +3355,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#nodeonframe-holds-the-loop-open-sceneviewonframe-does-not" class="md-nav__link">
+  <a href="#animation-drivers-hold-the-loop-open-sceneviewonframe-does-not" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Node.onFrame holds the loop open; SceneView(onFrame = …) does not
+        Animation drivers hold the loop open; SceneView(onFrame = …) does not
       
     </span>
   </a>
@@ -4000,6 +4000,12 @@ SceneView(isRendering = isAnimating || isInteracting || isDirty) { /* … */ }
 
 // After — that is the library's job now
 SceneView { /* … */ }</code></pre>
+<p><strong>What keeps your scene awake:</strong> a gesture or camera motion, an active node (animation,
+physics, video, hosted view), an async load, mirroring, pending framing, or a non-null
+<code>SceneView(onAnimationFrame = …)</code> driver. <code>SceneView(onFrame = …)</code> is an observer and does <strong>not</strong>
+keep the loop awake. Subscribing to <code>onAnimationFrame</code> also wakes an already parked scene;
+passing <code>null</code> lets it draw its settle tail and park again. The driver runs before scene updates
+on each render-loop tick, even when the GPU declines to present; <code>maxFps</code> still caps presentation.</p>
 <p><strong>Key differences:</strong></p>
 <ul>
 <li><code>isRendering = true</code> (or omitting the parameter) becomes
@@ -4120,25 +4126,27 @@ correct first frame, which is why it reads as "the animation is broken" and not 
 stopped".</p>
 <p>Two things to check in every per-frame callback you own:</p>
 <ul>
-<li><strong>Does it drive motion?</strong> Then say so: <code>frameRatePolicy = FrameRatePolicy.Continuous()</code> while it
-  runs, and back to <code>OnDemand()</code> when the user pauses it. This is what the mode is for, and it also
-  lets the cadence vote tell the display. A <code>RenderInvalidator.requestRender()</code> called from inside
-  <code>onFrame</code> works too — each rendered frame buys the next — but it says "one more frame" sixty times
-  a second to mean "keep going", and nothing tells the panel.</li>
+<li><strong>Does it drive motion?</strong> Move it to <code>SceneView(onAnimationFrame = …)</code>. A non-null callback
+  declares continuous activity under <code>OnDemand()</code> without <code>requestRender()</code> or a policy switch.
+  Pass <code>null</code> while paused. Use <code>FrameRatePolicy.Continuous()</code> for work driven outside this callback.</li>
 <li><strong>Does it apply a change the user just made?</strong> Then apply it <strong>outside</strong> <code>onFrame</code> and request the
   frame after: <code>onFrame</code> runs after presentation, so a pose written there lands in the <em>next</em> frame.
   One <code>requestRender()</code> would draw the old pose, then park one frame behind, permanently.</li>
 </ul>
-<p>The state that decides — <code>isPlaying</code>, <code>isReplaying</code>, "is this band on screen" — also needs a rising
-edge. Going from paused to playing while the loop is parked changes a flag no one is reading;
-request one frame from a <code>LaunchedEffect</code> on that flag, and the callback takes it from there.</p>
-<p>And it must follow the motion, not a flag only a gesture clears. A <code>Continuous()</code> held by
+<p>Tie the subscription to the state that decides — <code>isPlaying</code>, <code>isReplaying</code>, "is this band on
+screen". Changing <code>onAnimationFrame</code> from <code>null</code> to a callback wakes a parked loop automatically
+and queues a presentation. If a short animation ends before <code>maxFps</code> allows a frame, its final
+edits remain pending until the cap permits presentation, even after the callback is cleared.
+For example:</p>
+<p><code>SceneView(onAnimationFrame = if (isPlaying) animationDriver else null) { … }</code>, where
+<code>animationDriver</code> has type <code>(Long) -&gt; Unit</code>.</p>
+<p>The subscription must follow the motion, not a flag only a gesture clears. A driver held by
 <code>isReplaying</code>, where <code>isReplaying</code> goes false only when the user presses Reset, is the same lie as a
 loader that never resolves: the spheres stop bouncing, the flag stays true, and the screen renders a
 frozen picture at 57 fps until someone touches it. Tie the declaration to the thing that is actually
 moving.</p>
-<h3 id="nodeonframe-holds-the-loop-open-sceneviewonframe-does-not"><code>Node.onFrame</code> holds the loop open; <code>SceneView(onFrame = …)</code> does not<a class="headerlink" href="#nodeonframe-holds-the-loop-open-sceneviewonframe-does-not" title="Permanent link">&para;</a></h3>
-<p>They share a name and nothing else, and the asymmetry is deliberate:</p>
+<h3 id="animation-drivers-hold-the-loop-open-sceneviewonframe-does-not">Animation drivers hold the loop open; <code>SceneView(onFrame = …)</code> does not<a class="headerlink" href="#animation-drivers-hold-the-loop-open-sceneviewonframe-does-not" title="Permanent link">&para;</a></h3>
+<p>The callback you drive from keeps the loop awake; the callback you watch from does not:</p>
 <table>
 <thead>
 <tr>
@@ -4148,6 +4156,11 @@ moving.</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>SceneView(onAnimationFrame = …)</code></td>
+<td>before scene updates and rendering</td>
+<td><strong>pins</strong> — pass <code>null</code> to let the scene park</td>
+</tr>
 <tr>
 <td><code>SceneView(onFrame = …)</code></td>
 <td>after its frame was presented</td>

@@ -3753,7 +3753,7 @@ fun ARDebugScreen() {
 <p><strong>Save &amp; Share</strong> trigger from the app:</p>
 <pre class="language-kotlin"><code>bridge.requestSaveAndShare { result -&gt;
     // result.path     -&gt; /Users/dev/.sceneview/recordings/&lt;ts&gt;.rrd
-    // result.viewerUrl -&gt; https://sceneview.github.io/rerun/?url=&lt;…&gt;
+    // result.viewerUrl -&gt; null (local save; host the file before sharing a link)
     // result.events   -&gt; 1234
 }</code></pre>
 <p>Drop the saved <code>.rrd</code> onto <strong><a href="https://sceneview.github.io/rerun/">https://sceneview.github.io/rerun/</a></strong> to scrub
