@@ -3251,6 +3251,13 @@ val cameraNode = rememberCameraNode(engine) { position = Position(0f, 2f, 5f) }
 val viewNodeManager = rememberViewNodeManager()</code></pre>
 <hr />
 <h2 id="sceneview">SceneView<a class="headerlink" href="#sceneview" title="Permanent link">&para;</a></h2>
+<p>Inside a scrolling list, pager or draggable bottom sheet, set
+<code>disallowParentIntercept = true</code> to keep touches that start on the scene with the scene
+until the finger lifts or the stream is cancelled. The default (<code>false</code>) lets the parent
+intercept drags. Changes apply to the next touch stream. This option is specific to Android
+<code>SceneView</code> and works with both surface types.</p>
+<p>An <code>isEditable = true</code> node absorbs touches instead of moving the camera, including
+double-tap zoom. Keep a display-only subject non-editable if dragging it should orbit the camera.</p>
 <pre class="language-kotlin"><code>SceneView(
     modifier = Modifier.fillMaxSize(),
     engine = engine,
