@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>EngineWarmUp</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    sceneview
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":sceneview/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":sceneview/main"
+                                       data-filter=":sceneview/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    sceneview
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="sceneview::io.github.sceneview/EngineWarmUp///PointingToDeclaration//-278939350">
+  <div class="breadcrumbs"><a href="../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../index.html">io.github.sceneview</a><span class="delimiter">/</span><span class="current">EngineWarmUp</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Engine</span><wbr></wbr><span>Warm</span><wbr></wbr><span><span>Up</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">EngineWarmUp</a></div><p class="paragraph">Does the part of opening a 3D screen that does not need the main thread, ahead of time, on a background thread: loading Filament's native libraries, initialising the GPU driver, creating the shared EGL context the engine is built on, and building the Basis Universal tables gltfio's texture loader needs (see <span data-unresolved-link="io.github.sceneview/GltfioTextureTables///PointingToDeclaration/">GltfioTextureTables</span>).</p><p class="paragraph">Without it that work runs inside the composition that first calls <a href="../remember-engine.html">rememberEngine</a> and <a href="../remember-model-loader.html">rememberModelLoader</a>, on the main thread: on a Pixel 7a, about 55 ms of the long frame a 3D screen opens with. After a warm-up, the next <a href="../create-egl-context.html">createEglContext</a> (the default <code class="lang-kotlin">eglContextCreator</code> of <a href="../remember-engine.html">rememberEngine</a>) takes the prepared context and only has to make it current, and the first <a href="../../io.github.sceneview.loaders/-model-loader/index.html">io.github.sceneview.loaders.ModelLoader</a> finds the tables built.</p><p class="paragraph"><strong>Opt-in.</strong> Nothing starts it unless the app asks, because it costs every launch that does it: about 60–80 ms of CPU on its own thread, Filament's libraries and the GPU driver loaded, and one EGL context held until an engine takes it — even a launch that never shows 3D, such as a background start for a push message or a WorkManager job. Start it where a 3D screen is likely to follow:</p><ul><li><p class="paragraph">from code, on any thread, a little before the 3D screen — when the user heads for it, or in <code class="lang-kotlin">Application.onCreate()</code> for an app whose first screen is 3D:</p></li></ul><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">EngineWarmUp.start()</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><ul><li><p class="paragraph">or at app startup without code, by adding <a href="../-engine-warm-up-initializer/index.html">EngineWarmUpInitializer</a> to the <code class="lang-kotlin">androidx.startup</code> provider in the app's manifest:</p></li></ul><div class="sample-container"><pre><code class="block lang-xml" theme="idea">&lt;provider<br>    android:name=&quot;androidx.startup.InitializationProvider&quot;<br>    android:authorities=&quot;${applicationId}.androidx-startup&quot;<br>    android:exported=&quot;false&quot;<br>    tools:node=&quot;merge&quot;&gt;<br>    &lt;meta-data<br>        android:name=&quot;io.github.sceneview.EngineWarmUpInitializer&quot;<br>        android:value=&quot;androidx.startup&quot; /&gt;<br>&lt;/provider&gt;</code></pre><span class="copy-tooltip"><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div><span class="copy-icon"></span></span></div><p class="paragraph"><strong>Started at app startup, it competes with the app's own startup.</strong> Measured on a 3D first screen: on a Pixel 10 Pro XL the 3D frame fell from 194 to 151 ms and time to first frame rose from 134 to 149 ms; on a Pixel 7a, 238 to 184 ms and 140 to 145 ms (within noise). When the 3D screen is not the first one, start it after the first frame is drawn instead.</p><p class="paragraph">A prepared context nobody takes within 5 seconds is released; the libraries and the tables stay, so a later 3D screen still saves most of the work. A <a href="../remember-engine.html">rememberEngine</a> given its own <code class="lang-kotlin">eglContextCreator</code> never takes the prepared context, so for such an app a warm-up only builds the tables.</p><p class="paragraph">What stays on the main thread, because Filament ties an <code class="lang-kotlin">Engine</code> to the thread that creates it (its job system adopts that thread, and <code class="lang-kotlin">Engine.destroy()</code> must run there too): building the <span data-unresolved-link="com.google.android.filament/Engine///PointingToDeclaration/">com.google.android.filament.Engine</span> itself. Only the work above moves.</p><p class="paragraph">An app that creates its own gltfio <code class="lang-kotlin">ResourceLoader</code>, rather than through a <code class="lang-kotlin">ModelLoader</code>, should not do it while a warm-up may still be building the tables (on a Pixel 7a, the first ~150 ms after <a href="start.html">start</a>): Basis builds them without locking, and only SceneView's own loaders wait for that build.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="411776103%2FFunctions%2F-278939350" anchor-label="start" id="411776103%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="start.html"><span><span>start</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="411776103%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-static/index.html"><span class="token annotation builtin">JvmStatic</span></a></div></div><span class="token keyword">fun </span><a href="start.html"><span class="token function">start</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Starts the warm-up on a background thread and returns at once. Does nothing while a prepared context is waiting to be taken or being prepared, so it is safe to call more than once: after a <a href="../remember-engine.html">rememberEngine</a> took the prepared context, a new call prepares one for the next engine.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
