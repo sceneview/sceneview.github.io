@@ -2808,6 +2808,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#dependency-resolution-failures-on-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency resolution failures on CI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ci-on-docs-only-prs" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3298,6 +3309,17 @@
     <span class="md-ellipsis">
       
         Public API changes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-resolution-failures-on-ci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency resolution failures on CI
       
     </span>
   </a>
@@ -3909,6 +3931,19 @@ module published to npm, not Maven) has no JVM surface and is excluded; its
 public API is documented via the hand-written <code>sceneview-web.d.ts</code> — there is
 no automated JS ABI gate yet (a <code>.d.ts</code> drift gate is shortlist #2642 item 12).</p>
 </blockquote>
+<h3 id="dependency-resolution-failures-on-ci">Dependency resolution failures on CI<a class="headerlink" href="#dependency-resolution-failures-on-ci" title="Permanent link">&para;</a></h3>
+<p>On GitHub-hosted runners, failed Gradle dependency resolution adds a
+<code>dependency-resolution diagnostics</code> group to the failing Gradle step's log.
+It records live HEAD responses (and a one-byte ranged GET after HTTP 200)
+from the reported Central / Google Maven URLs, module-cache filenames with
+sizes and modification times, JVM network properties, and the offline / refresh flags.
+A live 200 for an artifact Gradle reported missing means the file was there
+when the build gave up, so suspect Gradle's cached lookup state or a transient
+CDN answer; live 404 / 5xx responses or timeouts point to the network or CDN.
+Metadata lines only name cache files that mention the exact artifact-version;
+they are not decoded hit or miss records. Probes are capped at 8 modules,
+16 URLs and 45 seconds. These checks only run after failure and do not change
+dependency resolution or caching.</p>
 <h3 id="ci-on-docs-only-prs">CI on docs-only PRs<a class="headerlink" href="#ci-on-docs-only-prs" title="Permanent link">&para;</a></h3>
 <p><strong>Docs-only PRs</strong> — changes confined to <code>*.md</code>, <code>docs/**</code>, <code>website-static/**</code>,
 <code>marketing/**</code>, <code>branding/**</code>, <code>llms*.txt</code>, or <code>LICENSE</code> — skip the Android +
