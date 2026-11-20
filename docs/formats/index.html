@@ -66,7 +66,7 @@
     
     
   
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@id": "https://github.com/sceneview/sceneview#code", "@type": "SoftwareSourceCode", "codeRepository": "https://github.com/sceneview/sceneview", "description": "SceneView: open-source 3D and AR SDK for Jetpack Compose and Android (Filament, ARCore), Kotlin and Compose Multiplatform, SwiftUI on iOS, macOS and visionOS (RealityKit, ARKit), and the web (Filament.js, WebXR). The maintained successor to Google Sceneform.", "keywords": "3D, AR, augmented reality, Jetpack Compose, Compose Multiplatform, SwiftUI, ARCore, ARKit, Filament, RealityKit, glTF, GLB, USDZ, Sceneform replacement", "license": "https://www.apache.org/licenses/LICENSE-2.0", "name": "SceneView", "programmingLanguage": ["Kotlin", "Swift", "JavaScript"], "runtimePlatform": ["Android", "Jetpack Compose", "Kotlin Multiplatform", "Compose Multiplatform", "iOS", "macOS", "visionOS", "SwiftUI", "Web"], "url": "https://sceneview.github.io/"}, {"@type": "TechArticle", "about": {"@id": "https://github.com/sceneview/sceneview#code"}, "description": "Which 3D model formats SceneView opens on each platform: glTF / GLB, USDZ on Apple, and OBJ, STL, PLY and 3MF on Android and Apple, with how the format is detected.", "headline": "3D model formats in SceneView \u2014 glTF, GLB, USDZ, OBJ, STL, PLY, 3MF", "inLanguage": "en", "url": "https://sceneview.github.io/docs/formats/"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@id": "https://github.com/sceneview/sceneview#code", "@type": "SoftwareSourceCode", "codeRepository": "https://github.com/sceneview/sceneview", "description": "SceneView: open-source 3D and AR for Android (Jetpack Compose, Filament, ARCore), web, and Compose Multiplatform desktop. SwiftUI, Flutter and React Native are end of life at 4.68.0. The maintained successor to Google Sceneform.", "keywords": "3D, AR, augmented reality, Jetpack Compose, Compose Multiplatform, ARCore, Filament, glTF, GLB, Sceneform replacement", "license": "https://www.apache.org/licenses/LICENSE-2.0", "name": "SceneView", "programmingLanguage": ["Kotlin", "JavaScript"], "runtimePlatform": ["Android", "Jetpack Compose", "Compose Multiplatform desktop", "Web"], "url": "https://sceneview.github.io/"}, {"@type": "TechArticle", "about": {"@id": "https://github.com/sceneview/sceneview#code"}, "description": "Which 3D model formats SceneView opens on each platform: glTF / GLB, USDZ on Apple, and OBJ, STL, PLY and 3MF on Android and Apple, with how the format is detected.", "headline": "3D model formats in SceneView \u2014 glTF, GLB, USDZ, OBJ, STL, PLY, 3MF", "inLanguage": "en", "url": "https://sceneview.github.io/docs/formats/"}]}</script>
 
   
 <meta property="og:type" content="website" />
@@ -658,7 +658,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (Apple)
+    Quickstart (Apple — end of life)
   
 
     
@@ -742,7 +742,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (Flutter)
+    Quickstart (Flutter — end of life)
   
 
     
@@ -770,7 +770,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (React Native)
+    Quickstart (React Native — end of life)
   
 
     
@@ -2063,7 +2063,7 @@
   <span class="md-ellipsis">
     
   
-    3D with SwiftUI
+    3D with SwiftUI (end of life)
   
 
     
@@ -2091,7 +2091,7 @@
   <span class="md-ellipsis">
     
   
-    AR with SwiftUI
+    AR with SwiftUI (end of life)
   
 
     
@@ -2878,6 +2878,8 @@
 
 
 <h1 id="model-formats">Model Formats<a class="headerlink" href="#model-formats" title="Permanent link">&para;</a></h1>
+<p>Android (Jetpack Compose), web, and Compose Multiplatform desktop are maintained. Android is Stable; web and desktop are Alpha.</p>
+<p><strong>End of life:</strong> SceneView for SwiftUI (<code>SceneViewSwift</code>), Flutter (<code>flutter_sceneview</code>) and React Native (<code>@sceneview-sdk/react-native</code>). <strong>4.68.0 (November 2026)</strong> is the last release. No new releases. Published versions stay installable. See <a href="https://github.com/sceneview/sceneview/blob/main/DEPRECATION.md">DEPRECATION.md</a>.</p>
 <p>SceneView loads a model from a path, a URI or a byte buffer. <strong>The format is detected from
 the bytes, not from the file name</strong> — a file shared into your app with no extension and a
 <code>application/octet-stream</code> MIME type still opens.</p>

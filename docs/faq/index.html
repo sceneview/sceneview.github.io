@@ -66,7 +66,7 @@
     
     
   
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@id": "https://github.com/sceneview/sceneview#code", "@type": "SoftwareSourceCode", "codeRepository": "https://github.com/sceneview/sceneview", "description": "SceneView: open-source 3D and AR SDK for Jetpack Compose and Android (Filament, ARCore), Kotlin and Compose Multiplatform, SwiftUI on iOS, macOS and visionOS (RealityKit, ARKit), and the web (Filament.js, WebXR). The maintained successor to Google Sceneform.", "keywords": "3D, AR, augmented reality, Jetpack Compose, Compose Multiplatform, SwiftUI, ARCore, ARKit, Filament, RealityKit, glTF, GLB, USDZ, Sceneform replacement", "license": "https://www.apache.org/licenses/LICENSE-2.0", "name": "SceneView", "programmingLanguage": ["Kotlin", "Swift", "JavaScript"], "runtimePlatform": ["Android", "Jetpack Compose", "Kotlin Multiplatform", "Compose Multiplatform", "iOS", "macOS", "visionOS", "SwiftUI", "Web"], "url": "https://sceneview.github.io/"}, {"@type": "TechArticle", "about": {"@id": "https://github.com/sceneview/sceneview#code"}, "description": "Frequently asked questions about SceneView: setup, model formats, AR, performance, iOS support, and troubleshooting for Android and Apple platforms.", "headline": "FAQ \u2014 SceneView 3D \u0026 AR SDK", "inLanguage": "en", "url": "https://sceneview.github.io/docs/faq/"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@id": "https://github.com/sceneview/sceneview#code", "@type": "SoftwareSourceCode", "codeRepository": "https://github.com/sceneview/sceneview", "description": "SceneView: open-source 3D and AR for Android (Jetpack Compose, Filament, ARCore), web, and Compose Multiplatform desktop. SwiftUI, Flutter and React Native are end of life at 4.68.0. The maintained successor to Google Sceneform.", "keywords": "3D, AR, augmented reality, Jetpack Compose, Compose Multiplatform, ARCore, Filament, glTF, GLB, Sceneform replacement", "license": "https://www.apache.org/licenses/LICENSE-2.0", "name": "SceneView", "programmingLanguage": ["Kotlin", "JavaScript"], "runtimePlatform": ["Android", "Jetpack Compose", "Compose Multiplatform desktop", "Web"], "url": "https://sceneview.github.io/"}, {"@type": "TechArticle", "about": {"@id": "https://github.com/sceneview/sceneview#code"}, "description": "Frequently asked questions about SceneView: setup, model formats, AR, performance, iOS support, and troubleshooting for Android and Apple platforms.", "headline": "FAQ \u2014 SceneView 3D \u0026 AR SDK", "inLanguage": "en", "url": "https://sceneview.github.io/docs/faq/"}]}</script>
 
   
 <meta property="og:type" content="website" />
@@ -658,7 +658,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (Apple)
+    Quickstart (Apple — end of life)
   
 
     
@@ -742,7 +742,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (Flutter)
+    Quickstart (Flutter — end of life)
   
 
     
@@ -770,7 +770,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (React Native)
+    Quickstart (React Native — end of life)
   
 
     
@@ -2357,7 +2357,7 @@
   <span class="md-ellipsis">
     
   
-    3D with SwiftUI
+    3D with SwiftUI (end of life)
   
 
     
@@ -2385,7 +2385,7 @@
   <span class="md-ellipsis">
     
   
-    AR with SwiftUI
+    AR with SwiftUI (end of life)
   
 
     
@@ -3468,7 +3468,7 @@
 <h1 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
 <h2 id="general">General<a class="headerlink" href="#general" title="Permanent link">&para;</a></h2>
 <h3 id="what-is-sceneview">What is SceneView?<a class="headerlink" href="#what-is-sceneview" title="Permanent link">&para;</a></h3>
-<p>SceneView is a declarative 3D and AR SDK for Android and Apple platforms. On Android, it wraps Google Filament (rendering) and ARCore (augmented reality) in Jetpack Compose composables — the same way you write <code>Column { }</code> or <code>Row { }</code>. On iOS, macOS, and visionOS, SceneViewSwift provides the same declarative experience using SwiftUI and RealityKit.</p>
+<p>SceneView is a declarative 3D and AR SDK for Android and Apple platforms. On Android, it wraps Google Filament (rendering) and ARCore (augmented reality) in Jetpack Compose composables — the same way you write <code>Column { }</code> or <code>Row { }</code>. On iOS, macOS, and visionOS, SceneViewSwift provides the same declarative experience using SwiftUI and RealityKit. SwiftUI, Flutter and React Native are end of life at 4.68.0 and are not recommended for new code.</p>
 <h3 id="is-it-free">Is it free?<a class="headerlink" href="#is-it-free" title="Permanent link">&para;</a></h3>
 <p>Yes. SceneView is open source under the <a href="https://github.com/sceneview/sceneview/blob/main/LICENSE">Apache 2.0 license</a>. Free for personal and commercial use.</p>
 <h3 id="whats-the-relationship-to-sceneform">What's the relationship to Sceneform?<a class="headerlink" href="#whats-the-relationship-to-sceneform" title="Permanent link">&para;</a></h3>
@@ -3581,11 +3581,11 @@ ARSceneView(
 <hr />
 <h2 id="apple-platforms-ios-macos-visionos">Apple Platforms (iOS / macOS / visionOS)<a class="headerlink" href="#apple-platforms-ios-macos-visionos" title="Permanent link">&para;</a></h2>
 <h3 id="does-sceneview-support-ios">Does SceneView support iOS?<a class="headerlink" href="#does-sceneview-support-ios" title="Permanent link">&para;</a></h3>
-<p>Yes. SceneViewSwift (v4.69.7) provides a native SwiftUI library powered by RealityKit and ARKit. It supports iOS 18+, macOS 15+, and visionOS 2+. Install via Swift Package Manager. See the <a href="../quickstart-ios/">Apple Quickstart</a>.</p>
+<p>SceneViewSwift (v4.68.0) is end of life; no new releases. See <a href="https://github.com/sceneview/sceneview/blob/main/DEPRECATION.md">DEPRECATION.md</a>. The retained package provides a native SwiftUI library powered by RealityKit and ARKit. It supports iOS 18+, macOS 15+, and visionOS 2+. Install via Swift Package Manager. See the <a href="../quickstart-ios/">Apple Quickstart</a>.</p>
 <h3 id="what-model-formats-work-on-ios">What model formats work on iOS?<a class="headerlink" href="#what-model-formats-work-on-ios" title="Permanent link">&para;</a></h3>
 <p>RealityKit natively supports <strong>USDZ</strong> and <strong>Reality</strong> files. If you have a <code>.glb</code> file, convert it using Apple's <a href="https://developer.apple.com/augmented-reality/tools/">Reality Converter</a> or the <code>usdzconvert</code> command-line tool.</p>
 <h3 id="can-i-use-sceneviewswift-from-flutter-or-react-native">Can I use SceneViewSwift from Flutter or React Native?<a class="headerlink" href="#can-i-use-sceneviewswift-from-flutter-or-react-native" title="Permanent link">&para;</a></h3>
-<p>Yes. <code>SceneView</code> and <code>ARSceneView</code> are standard SwiftUI views backed by <code>UIView</code>. Flutter can wrap them via <code>PlatformView</code>, React Native via a Fabric component, and KMP Compose via <code>UIKitView</code>. See the <a href="../architecture/">Architecture page</a> for details.</p>
+<p>The end-of-life 4.68.0 packages remain available. <code>SceneView</code> and <code>ARSceneView</code> are standard SwiftUI views backed by <code>UIView</code>. Flutter can wrap them via <code>PlatformView</code>, React Native via a Fabric component, and KMP Compose via <code>UIKitView</code>. See the <a href="../architecture/">Architecture page</a> for details.</p>
 <h3 id="is-ar-available-on-macos-and-visionos">Is AR available on macOS and visionOS?<a class="headerlink" href="#is-ar-available-on-macos-and-visionos" title="Permanent link">&para;</a></h3>
 <p><code>ARSceneView</code> (AR with camera feed) is iOS-only because it uses <code>ARView</code> from ARKit. <code>SceneView</code> (3D without camera AR) works on all three Apple platforms. On visionOS, RealityKit provides its own spatial computing APIs.</p>
 <hr />

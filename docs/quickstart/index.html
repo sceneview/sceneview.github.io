@@ -66,7 +66,7 @@
     
     
   
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@id": "https://github.com/sceneview/sceneview#code", "@type": "SoftwareSourceCode", "codeRepository": "https://github.com/sceneview/sceneview", "description": "SceneView: open-source 3D and AR SDK for Jetpack Compose and Android (Filament, ARCore), Kotlin and Compose Multiplatform, SwiftUI on iOS, macOS and visionOS (RealityKit, ARKit), and the web (Filament.js, WebXR). The maintained successor to Google Sceneform.", "keywords": "3D, AR, augmented reality, Jetpack Compose, Compose Multiplatform, SwiftUI, ARCore, ARKit, Filament, RealityKit, glTF, GLB, USDZ, Sceneform replacement", "license": "https://www.apache.org/licenses/LICENSE-2.0", "name": "SceneView", "programmingLanguage": ["Kotlin", "Swift", "JavaScript"], "runtimePlatform": ["Android", "Jetpack Compose", "Kotlin Multiplatform", "Compose Multiplatform", "iOS", "macOS", "visionOS", "SwiftUI", "Web"], "url": "https://sceneview.github.io/"}, {"@type": "TechArticle", "about": {"@id": "https://github.com/sceneview/sceneview#code"}, "description": "Set up SceneView in your Android project in 10 minutes. Add a 3D model viewer with orbit camera, HDR lighting, and gesture controls using Jetpack Compose.", "headline": "Android Quickstart \u2014 SceneView 3D \u0026 AR SDK", "inLanguage": "en", "url": "https://sceneview.github.io/docs/quickstart/"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@id": "https://github.com/sceneview/sceneview#code", "@type": "SoftwareSourceCode", "codeRepository": "https://github.com/sceneview/sceneview", "description": "SceneView: open-source 3D and AR for Android (Jetpack Compose, Filament, ARCore), web, and Compose Multiplatform desktop. SwiftUI, Flutter and React Native are end of life at 4.68.0. The maintained successor to Google Sceneform.", "keywords": "3D, AR, augmented reality, Jetpack Compose, Compose Multiplatform, ARCore, Filament, glTF, GLB, Sceneform replacement", "license": "https://www.apache.org/licenses/LICENSE-2.0", "name": "SceneView", "programmingLanguage": ["Kotlin", "JavaScript"], "runtimePlatform": ["Android", "Jetpack Compose", "Compose Multiplatform desktop", "Web"], "url": "https://sceneview.github.io/"}, {"@type": "TechArticle", "about": {"@id": "https://github.com/sceneview/sceneview#code"}, "description": "Set up SceneView in your Android project in 10 minutes. Add a 3D model viewer with orbit camera, HDR lighting, and gesture controls using Jetpack Compose.", "headline": "Android Quickstart \u2014 SceneView 3D \u0026 AR SDK", "inLanguage": "en", "url": "https://sceneview.github.io/docs/quickstart/"}]}</script>
 
   
 <meta property="og:type" content="website" />
@@ -774,6 +774,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 4: Write the SceneView composable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-state-and-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading state and errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -821,7 +838,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (Apple)
+    Quickstart (Apple — end of life)
   
 
     
@@ -905,7 +922,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (Flutter)
+    Quickstart (Flutter — end of life)
   
 
     
@@ -933,7 +950,7 @@
   <span class="md-ellipsis">
     
   
-    Quickstart (React Native)
+    Quickstart (React Native — end of life)
   
 
     
@@ -2096,7 +2113,7 @@
   <span class="md-ellipsis">
     
   
-    3D with SwiftUI
+    3D with SwiftUI (end of life)
   
 
     
@@ -2124,7 +2141,7 @@
   <span class="md-ellipsis">
     
   
-    AR with SwiftUI
+    AR with SwiftUI (end of life)
   
 
     
@@ -2894,6 +2911,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 4: Write the SceneView composable">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loading-state-and-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loading state and errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3163,7 +3197,7 @@ class MainActivity : ComponentActivity() {
 </tr>
 <tr>
 <td><code>rememberModelInstance(...)</code></td>
-<td>Asynchronously loads a model; returns <code>null</code> until ready</td>
+<td>Asynchronously loads a model; returns <code>null</code> until ready or after a failure</td>
 </tr>
 <tr>
 <td><code>ModelNode(...)</code></td>
@@ -3173,8 +3207,47 @@ class MainActivity : ComponentActivity() {
 </table>
 <div class="admonition warning">
 <p class="admonition-title">Always handle the null case</p>
-<p><code>rememberModelInstance</code> returns <code>null</code> while the model is loading. The <code>?.let</code> pattern shown above is the idiomatic way to handle this. Do not force-unwrap with <code>!!</code>.</p>
+<p><code>rememberModelInstance</code> returns <code>null</code> while loading or after a failure. The <code>?.let</code> pattern shown above is the idiomatic way to handle this. Do not force-unwrap with <code>!!</code>.</p>
 </div>
+<h3 id="loading-state-and-errors">Loading state and errors<a class="headerlink" href="#loading-state-and-errors" title="Permanent link">&para;</a></h3>
+<p><code>rememberModelInstance</code> returns <code>null</code> while loading or after a failure; use
+<code>rememberModelLoadState</code> to tell them apart. Keep the scene visible and overlay its status.
+Incrementing <code>retry</code> changes the composition <code>key</code> and starts a fresh load of the same path;
+recomposition alone does not retry.</p>
+<p>For an optional loading and retry overlay, call this composable from <code>setContent</code>:</p>
+<pre class="language-kotlin"><code>import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import io.github.sceneview.ModelLoadState
+import io.github.sceneview.SceneView
+import io.github.sceneview.rememberEngine
+import io.github.sceneview.rememberModelLoader
+import io.github.sceneview.rememberModelLoadState
+
+@Composable
+fun ModelScreenWithLoading() {
+    val engine = rememberEngine()
+    val modelLoader = rememberModelLoader(engine)
+    var retry by remember { mutableIntStateOf(0) }
+    val state = key(retry) { rememberModelLoadState(modelLoader, "models/toy_car.glb") }
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        SceneView(modifier = Modifier.fillMaxSize(), engine = engine, modelLoader = modelLoader) {
+            if (state is ModelLoadState.Ready) {
+                ModelNode(modelInstance = state.instance, scaleToUnits = 1f, autoAnimate = true)
+            }
+        }
+        when (state) {
+            is ModelLoadState.Loading -&gt; CircularProgressIndicator()
+            is ModelLoadState.Failed -&gt; Button(onClick = { retry++ }) { Text("Load failed. Retry") }
+            is ModelLoadState.Ready -&gt; Unit
+        }
+    }
+}</code></pre>
 <hr />
 <h2 id="step-5-run-it">Step 5: Run it<a class="headerlink" href="#step-5-run-it" title="Permanent link">&para;</a></h2>
 <ol>
