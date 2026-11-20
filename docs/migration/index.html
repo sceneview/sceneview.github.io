@@ -2614,6 +2614,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#android-camera-permission-recovery-settingswithrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Android camera permission recovery — SettingsWithRequest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3260,6 +3271,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#android-camera-permission-recovery-settingswithrequest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Android camera permission recovery — SettingsWithRequest
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3869,6 +3891,12 @@ For a shorter path from 2.3.0–2.3.4, with the Filament and ARCore updates and 
 <p>SceneView is open source and maintained by its community. If your app ships with it, you can
 support the project on <a href="https://opencollective.com/sceneview">Open Collective</a>.</p>
 <hr />
+<h2 id="android-camera-permission-recovery-settingswithrequest">Android camera permission recovery — <code>SettingsWithRequest</code><a class="headerlink" href="#android-camera-permission-recovery-settingswithrequest" title="Permanent link">&para;</a></h2>
+<p>Replace <code>ARCameraPermissionRecovery.RequestWithSettings</code> (4.69.6 and 4.69.7) with
+<code>ARCameraPermissionRecovery.SettingsWithRequest</code>. Settings remains the primary action and
+another permission request remains the secondary action. The old name is a deprecated alias
+and existing source still compiles. The enum still has three entries, in the same order:
+<code>Request</code>, <code>SettingsWithRequest</code>, <code>Settings</code>; use these in exhaustive <code>when</code> expressions.</p>
 <h2 id="sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate">SceneView 4.53.x to 4.54.0 (Android) — <code>rememberMediaPlayer</code> returns a <code>MediaPlayerState</code><a class="headerlink" href="#sceneview-453x-to-4540-android-remembermediaplayer-returns-a-mediaplayerstate" title="Permanent link">&para;</a></h2>
 <h3 id="the-video-player-is-prepared-off-the-main-thread-and-says-when-it-fails-4388">The video player is prepared off the main thread, and says when it fails (<a href="https://github.com/sceneview/sceneview/issues/4388">#4388</a>)<a class="headerlink" href="#the-video-player-is-prepared-off-the-main-thread-and-says-when-it-fails-4388" title="Permanent link">&para;</a></h3>
 <p><code>rememberMediaPlayer</code> used to call the blocking <code>MediaPlayer.prepare()</code> during composition — a
