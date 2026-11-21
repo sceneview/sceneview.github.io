@@ -1,0 +1,270 @@
+# Quickstart
+
+**Time:** ~10 minutes |
+**Goal:** Go from an empty Android Studio project to a 3D model you can orbit with touch gestures.
+
+---
+
+## Prerequisites
+
+- An Android Studio release that supports **Android Gradle Plugin 9.4** and **JDK 21**
+- An Android device or emulator running **API 24+** with OpenGL ES 3.0
+- Basic familiarity with Kotlin and Jetpack Compose
+
+## Requirements
+
+SceneView 4.63.0 sets these floors on the app that depends on it.
+
+| Setting | Value | Why |
+|---|---|---|
+| `compileSdk` | **37** | The published AARs declare `minCompileSdk=37`; `checkDebugAarMetadata` fails below it. |
+| `minSdk` | **24** or higher | The SDK's own `minSdk`. |
+| Android Gradle Plugin | **9.4.0** or newer | The first AGP that officially supports `compileSdk 37`. SceneView itself builds with AGP 9.5.0. |
+| Kotlin | **2.3** or newer | SceneView is compiled with Kotlin 2.4.21; a 2.3 compiler reads its metadata, 2.2 refuses it. |
+| JVM target (Java and Kotlin) | **21** | SceneView and its `kotlin-math` dependency ship Java 21 bytecode with public `inline` functions. Any `Position`/`Float3` arithmetic inlines them, and Kotlin refuses to inline JVM 21 bytecode into a lower target. |
+| JDK | **21** or newer | Needed to compile Java at target 21. JVM unit tests that load SceneView classes also need a JDK 21 runtime. |
+
+**Older toolchain?** If the app cannot move to compileSdk 37 / AGP 9 yet (AGP 8.x, compileSdk 36, Kotlin 2.2, JVM target 17), use SceneView **4.18.0**: the newest release that builds there (checked 2026-11-12 with a Compose viewer and an ARCore tap-to-place screen; the API above is the same). Do not fall back to 2.x: its API (`Scene`, `ARScene`, class-based nodes) is a different generation. The floor comes from Filament 1.76+ and Compose 1.12, which themselves declare `minCompileSdk=37`.
+
+In the app module's `build.gradle.kts`:
+
+```kotlin
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+android {
+    compileSdk = 37
+
+    defaultConfig {
+        minSdk = 24
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
+    }
+}
+```
+
+### Permissions the SDK adds
+
+The `sceneview` library declares `INTERNET` (to load models from a URL) and `VIBRATE` (for
+haptic feedback); both merge into your app's manifest. They are normal permissions, granted at
+install time with no prompt. An app that does not want one removes it with
+`tools:node="remove"`:
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.VIBRATE" tools:node="remove" />
+</manifest>
+```
+
+`arsceneview` also declares `CAMERA`, so an AR app does not need to declare it again.
+
+### AR manifest
+
+`arsceneview` declares `com.google.ar.core` as `optional` in its own manifest. It leaves the
+camera features to the app.
+
+- **AR Optional** (the app also works without AR): declare the AR camera and the camera as
+  optional features. Without them, the `CAMERA` permission implies a required camera.
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+</manifest>
+```
+
+- **AR Required** (the app cannot run without ARCore): override the library's value with
+  `tools:replace`. Without it, the manifest merger fails.
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-feature android:name="android.hardware.camera.ar" android:required="true" />
+    <application>
+        <meta-data
+            android:name="com.google.ar.core"
+            android:value="required"
+            tools:replace="android:value" />
+    </application>
+</manifest>
+```
+
+---
+
+## Step 1: Create a new project
+
+1. Open Android Studio and select **New Project**.
+2. Choose the **Empty Activity** template (the one that generates a `ComponentActivity` with `setContent`).
+3. Set the minimum SDK to **API 24**.
+4. Finish the wizard and let Gradle sync.
+5. Apply the [Requirements](#requirements) above to the app module: `compileSdk = 37` and JVM
+   target 21.
+
+You should have a working Compose app that displays "Hello Android" or similar.
+
+---
+
+## Step 2: Add the dependency
+
+Open your **app-level** `build.gradle.kts` and add SceneView:
+
+```kotlin
+dependencies {
+    implementation("io.github.sceneview:sceneview:4.70.0")
+}
+```
+
+Sync Gradle.
+
+---
+
+## Step 3: Add a 3D model
+
+You need a glTF/GLB file in the assets folder. The **Toy Car** from the Khronos glTF Sample Assets (CC0) is a good first model.
+
+1. Create the directory `app/src/main/assets/models/`.
+2. Download the model:
+    - [ToyCar.glb](https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/ToyCar/glTF-Binary/ToyCar.glb)
+3. Save it as `app/src/main/assets/models/toy_car.glb`.
+
+!!! tip
+    Any `.glb` or `.gltf` file works. If you have your own model, drop it in the same folder and update the path in the next step.
+
+---
+
+## Step 4: Write the SceneView composable
+
+Replace the contents of `MainActivity.kt` with the following:
+
+```kotlin
+package com.example.my3dapp
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.Modifier
+import io.github.sceneview.SceneView
+import io.github.sceneview.rememberCameraManipulator
+import io.github.sceneview.rememberEngine
+import io.github.sceneview.rememberEnvironmentLoader
+import io.github.sceneview.rememberModelInstance
+import io.github.sceneview.rememberModelLoader
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            val engine = rememberEngine()
+            val modelLoader = rememberModelLoader(engine)
+            val environmentLoader = rememberEnvironmentLoader(engine)
+
+            SceneView(
+                modifier = Modifier.fillMaxSize(),
+                engine = engine,
+                modelLoader = modelLoader,
+                cameraManipulator = rememberCameraManipulator(),
+            ) {
+                rememberModelInstance(modelLoader, "models/toy_car.glb")
+                    ?.let { instance ->
+                        ModelNode(
+                            modelInstance = instance,
+                            scaleToUnits = 1.0f,
+                            autoAnimate = true,
+                        )
+                    }
+            }
+        }
+    }
+}
+```
+
+That is the entire app. Here is what each piece does:
+
+| Call | Purpose |
+|---|---|
+| `rememberEngine()` | Creates the Filament rendering engine (one per screen) |
+| `rememberModelLoader(engine)` | Loads glTF/GLB models from assets |
+| `rememberEnvironmentLoader(engine)` | Loads HDR environment maps for lighting |
+| `rememberCameraManipulator()` | Adds built-in orbit, pan, and zoom touch gestures |
+| `SceneView { }` | The 3D viewport composable — nodes go inside the trailing lambda |
+| `rememberModelInstance(...)` | Asynchronously loads a model; returns `null` until ready or after a failure |
+| `ModelNode(...)` | Places the loaded model in the scene |
+
+!!! warning "Always handle the null case"
+    `rememberModelInstance` returns `null` while loading or after a failure. The `?.let` pattern shown above is the idiomatic way to handle this. Do not force-unwrap with `!!`.
+
+### Loading state and errors
+
+`rememberModelInstance` returns `null` while loading or after a failure; use
+`rememberModelLoadState` to tell them apart. Keep the scene visible and overlay its status.
+Incrementing `retry` changes the composition `key` and starts a fresh load of the same path;
+recomposition alone does not retry.
+
+For an optional loading and retry overlay, call this composable from `setContent`:
+
+```kotlin
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import io.github.sceneview.ModelLoadState
+import io.github.sceneview.SceneView
+import io.github.sceneview.rememberEngine
+import io.github.sceneview.rememberModelLoader
+import io.github.sceneview.rememberModelLoadState
+
+@Composable
+fun ModelScreenWithLoading() {
+    val engine = rememberEngine()
+    val modelLoader = rememberModelLoader(engine)
+    var retry by remember { mutableIntStateOf(0) }
+    val state = key(retry) { rememberModelLoadState(modelLoader, "models/toy_car.glb") }
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        SceneView(modifier = Modifier.fillMaxSize(), engine = engine, modelLoader = modelLoader) {
+            if (state is ModelLoadState.Ready) {
+                ModelNode(modelInstance = state.instance, scaleToUnits = 1f, autoAnimate = true)
+            }
+        }
+        when (state) {
+            is ModelLoadState.Loading -> CircularProgressIndicator()
+            is ModelLoadState.Failed -> Button(onClick = { retry++ }) { Text("Load failed. Retry") }
+            is ModelLoadState.Ready -> Unit
+        }
+    }
+}
+```
+
+---
+
+## Step 5: Run it
+
+1. Click **Run** (or press `Shift+F10`).
+2. After a brief loading moment, you will see the Toy Car rendered in your viewport.
+3. **Drag** to orbit around the model, **pinch** to zoom, and **two-finger drag** to pan.
+
+That is a production-quality, physically-based 3D viewer in under 30 lines of code.
+
+---
+
+## Next steps
+
+- **Add HDR lighting** — Download a `.hdr` environment map and pass it via `rememberEnvironment(environmentLoader) { environmentLoader.createHDREnvironment("environments/sky_2k.hdr") ?: createEnvironment(environmentLoader) }` to the `environment` parameter of `SceneView`.
+- **Try AR** — Follow the [AR Compose codelab](codelabs/codelab-ar-compose.md) to place models in the real world using `ARSceneView`.
+- **Need a custom 3D model?** — See the [Blender pipeline](recipes/blender-pipeline.md) for authoring a model in Blender and exporting `.glb` for SceneView.
+- **Explore the samples** — The [samples page](samples.md) covers model animation, camera manipulation, cloud anchors, and more.
+- **Browse the API** — Read [`llms.txt`](https://github.com/sceneview/sceneview/blob/main/llms.txt) — the AI-first machine-readable reference covering every composable, node type, and loader.
+- **Building for Apple platforms?** — See the [Apple Quickstart](quickstart-ios.md) for iOS, macOS, and visionOS setup with SwiftUI and RealityKit.

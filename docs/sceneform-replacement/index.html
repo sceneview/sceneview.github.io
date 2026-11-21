@@ -81,6 +81,7 @@
 <meta property="twitter:title" content="Sceneform replacement — move from Sceneform to SceneView - SceneView" />
 <meta property="twitter:description" content="Google archived Sceneform in 2021. SceneView is its maintained, Compose-native successor on ARCore and Filament: the Gradle dependency, a minimal tap-to-place AR screen, and the Sceneform to SceneView class mapping." />
 <meta property="twitter:image" content="https://sceneview.github.io/docs/assets/images/social/sceneform-replacement.png" />
+  <link rel="alternate" type="text/markdown" href="https://sceneview.github.io/docs/sceneform-replacement.md">
 </head>
   
   
@@ -2878,8 +2879,8 @@ Volkswagen, Audi, Porsche and CUPRA apps, Philips Hue, Medal and IKEA. Lenskart 
 <h2 id="dependency">Dependency<a class="headerlink" href="#dependency" title="Permanent link">&para;</a></h2>
 <pre class="language-kotlin"><code>// app/build.gradle.kts
 dependencies {
-    implementation("io.github.sceneview:arsceneview:4.69.7")   // AR (includes the 3D module)
-    // implementation("io.github.sceneview:sceneview:4.69.7")  // 3D only, no camera
+    implementation("io.github.sceneview:arsceneview:4.70.0")   // AR (includes the 3D module)
+    // implementation("io.github.sceneview:sceneview:4.70.0")  // 3D only, no camera
 }</code></pre>
 <p>The app module needs <code>compileSdk = 37</code>, <code>minSdk</code> 24 or higher, Kotlin 2.3 or newer and JVM target 21 (on AGP 8 / compileSdk 36, use 4.18.0).
 The <a href="../quickstart/#requirements">quickstart requirements</a> give the full Gradle block.</p>

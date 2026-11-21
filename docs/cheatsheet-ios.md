@@ -1,0 +1,869 @@
+# API Cheatsheet — Apple Platforms
+
+**End of life:** SceneView for SwiftUI (`SceneViewSwift`), Flutter (`flutter_sceneview`) and React Native (`@sceneview-sdk/react-native`). **4.68.0 (November 2026)** is the last release. No new releases. Published versions stay installable. See [DEPRECATION.md](https://github.com/sceneview/sceneview/blob/main/DEPRECATION.md).
+
+
+A quick reference for SceneViewSwift's most-used APIs. Print it, pin it, keep it next to your keyboard.
+
+!!! tip "Building for Android?"
+    See the [Android API Cheatsheet](cheatsheet.md) for Jetpack Compose equivalents.
+
+---
+
+## Setup
+
+```swift
+// Package.swift or Xcode SPM
+.package(url: "https://github.com/sceneview/sceneview.git", exact: "4.68.0")
+```
+
+```swift
+import SceneViewSwift
+```
+
+---
+
+## SceneView (3D)
+
+```swift
+// Declarative (recommended — v4.0.0+)
+SceneView {
+    GeometryNode.cube(size: 0.3, color: .red)
+        .position(.init(x: -1, y: 0, z: -2))
+    GeometryNode.sphere(radius: 0.2, color: .blue)
+        .position(.init(x: 1, y: 0, z: -2))
+}
+.environment(.studio)
+.cameraControls(.orbit)
+
+// Imperative (still supported)
+SceneView { root in
+    root.addChild(model.entity)
+}
+.environment(.studio)              // IBL lighting preset
+.cameraControls(.orbit)            // .orbit (default) | .pan | .firstPerson (v4.3.0+; firstPerson is true in-place look-around v4.4.0+) | native Apple modes (iOS 18+, macOS 15+, visionOS excluded): .none | .tilt | .dolly (v4.15.1+ #1049; RealityKit has no .gimbal — #3082)
+.recentersTargetOnOrbit(true)      // v4.4.0+ — re-pivot on content centroid when returning to orbit (default false)
+.onEntityTapped { entity in }      // tap handler
+.autoRotate(speed: spinning ? 0.2 : 0)  // turntable auto-rotation; REACTIVE since v4.31.0 — a spin toggle changes this value and nothing else (0 = freeze)
+.autoCenterContent(true)           // v4.3.0+ — library translates content centroid to orbit pivot (default true; pass false to keep explicit placements)
+.framingMargin(0.95)               // v4.26.0+ — padding on the auto-fit distance (default 1.15; 1.0 = bounding sphere tangent; < 1 fills the frame)
+.contentInsets(EdgeInsets(top: 0, leading: 0, bottom: sheetHeight, trailing: 0))  // v4.53.0+, 3D SceneView only (not AR) — keeps the subject in what your sheet or side panel leaves visible: the visible rectangle is the camera's viewport, the view is not resized, and with autoCenterContent(false) the pose is untouched; animates with the transaction
+.cameraOrbit(azimuth: .pi / 5, elevation: .pi / 15)  // v4.26.0+ — seeds the INITIAL orbit pose in radians; elevation is positive ABOVE the target (defaults: 0, 30°)
+.cameraPose(pose)                  // v4.27.0+ — drives the camera CONTINUOUSLY (SceneCameraPose, radians). Applied only when the value changes, so it coexists with a live drag
+.onCameraChanged { new in Task { @MainActor in pose = new } }  // v4.27.0+ — fires after EVERY camera change (drag, pinch, auto-rotate, re-frame). The hop is required: it fires inside RealityKit's update pass
+.cameraGesturesEnabled(false)      // v4.27.0+ — freezes drag/pinch. NOT .cameraControls(.none), which also disables .cameraPose
+.cameraPose(SceneCameraPose(player.pose, focusDistance: 2))  // v4.64.0+ — play a keyframed CameraPosePath (.orbit(bounds:aspect:) / .travelling / .dolly) through a CameraPathPlayer ticked by TimelineView(.animation); pair with .cameraGesturesEnabled(false)
+.onEntityTapHit { hit in }         // v4.27.0+ — tap + world position (SceneTapHit). Bounds centre, not the surface point
+.mainLight(.systemDefault)         // v4.2.0+ — see LightSlot
+.fillLight(.systemDefault)         // v4.2.0+
+.renderQuality(.default)           // v4.2.0+ — .cinematic | .default | .performance
+.contentID(model == nil ? nil : selectedID)  // v4.26.0+ — re-runs the content closure IN PLACE when the id changes. Use this to swap the model, NEVER SwiftUI's .id()
+```
+
+!!! danger "Swapping the model: `contentID`, never `.id()`"
+    The content closure runs **once**, when the scene is created. To show a
+    different model, change `.contentID(_:)`. Do **not** re-key the view with
+    SwiftUI's `.id(_:)`, and do not wrap the `SceneView` in an
+    `if let model` that unmounts it while the next one loads — put the spinner
+    in an overlay instead. Both change the view's *identity*, so SwiftUI
+    discards the `RealityView` and builds a new one, and on iOS 26 Simulator a
+    re-created `RealityView` intermittently renders nothing at all — no model,
+    and no skybox either — permanently
+    ([#3008](https://github.com/sceneview/sceneview/issues/3008)).
+
+    The same applies to a **spin toggle**: `.autoRotate(speed:)` is reactive
+    since v4.31.0, so pass `0` to freeze and a non-zero speed to spin. Re-keying
+    to force it is what left the demo's Multi-Model scene blank when "Spin
+    scene" was turned off
+    ([#2935](https://github.com/sceneview/sceneview/issues/2935)).
+
+    The id has to change **every time the closure would build something
+    different**, including "still loading" → "loaded". An `Optional` covers
+    that; keyed on the selected item alone it already sits at its final value
+    while the model is still being fetched, and the scene stays empty forever.
+
+    ```swift
+    ZStack {
+        SceneView { root in
+            guard let model else { return }        // scene stays mounted
+            root.addChild(model.entity)
+        }
+        .contentID(model == nil ? nil : selectedID)
+        .environment(.studio)
+
+        if model == nil { ProgressView() }         // spinner as an OVERLAY
+    }
+    ```
+
+    On each change the previous content is removed (its per-entity gesture
+    handlers unregistered first, so it deallocates instead of leaking), the
+    render-quality preset is re-applied, and the auto-framing pass is re-armed
+    so the new subject is fitted rather than inheriting the previous camera
+    distance. **Android has no equivalent and needs none** — `SceneView { }`
+    there is a composable whose DSL content is re-read on recomposition, so
+    swapping a model is an ordinary state change.
+
+!!! tip "Getting a scene to fill the frame — and to show its sky"
+    The auto-fit pass fits the content's **bounding sphere** to the narrower
+    frustum axis (so it never clips at any orbit angle), then scales that
+    distance by `framingMargin`. Lower it towards `1.0` — or just below — to
+    fill a tall portrait viewport; stay at or above ~`0.95` on an
+    `autoRotate` scene, where the visible angle is arbitrary and a long model
+    clips at its broadside azimuth.
+
+    `framingMargin` runs *inside* that auto-fit pass, so it has **no effect at
+    all when `autoCenterContent(false)` is set** — it fails silently rather than
+    warning. Android's equivalent lever is `CameraNode.frameToContent(padding =)`
+    with `DEFAULT_FRAMING_PADDING = 0.15f`, a *fraction* where this is a
+    *multiplier*: `margin == 1 + padding`, so iOS `1.15` is Android `0.15` and
+    tangent is iOS `1.0` / Android `0.0`. Web has no framing-padding lever, but
+    its initial orbit is settable imperatively with
+    `sv.setCameraOrbit(theta, phi, distance)`.
+
+    `cameraOrbit` seeds only the starting pose; drag, `autoRotate` and the
+    auto-fit take over from there (the fit changes distance, never these
+    angles). Elevation is the one that surprises people: with the 60° vertical
+    FOV, the **30° default pitch puts the horizon exactly on the top edge of
+    the frame**, so a scene with a `showSkybox` environment shows none of its
+    sky no matter how it is framed. Lower the elevation to bring the sky in.
+
+---
+
+## Automatic placement (recommended — iOS)
+
+`AutoPlacementScene` and `ARPlacementController` place one selected object on the first
+usable tracked plane without a tap, plane fill, or reticle. They accept horizontal
+upward-facing surfaces (including tables, never ceilings), or vertical walls, within
+0.25–3 m. Selection tries the visible viewport center first, then visible detected-plane
+centers ranked by center proximity; every candidate must lie inside its plane polygon.
+
+```swift
+import SwiftUI
+import SceneViewSwift
+
+struct AutomaticPlacement: View {
+    @StateObject private var placement = ARPlacementController(alignment: .horizontal)
+
+    var body: some View {
+        AutoPlacementScene(controller: placement, onSessionEvent: { event, arView in
+            // Capability errors, tracking changes, first frame and interruption events.
+        })
+        .task {
+            let ticket = placement.selectModel()
+            do {
+                let model = try await ModelNode.load("khronos_toy_car")
+                guard !Task.isCancelled, placement.acceptsAsset(ticket) else { return }
+                _ = model.withGroundingShadow() // explicit for asynchronously loaded content
+                placement.setModel(model.entity, ticket: ticket, size: .fitInto(meters: 0.3))
+            } catch {
+                guard !Task.isCancelled, placement.acceptsAsset(ticket) else { return }
+                // Present a model-load error and retry; never substitute another asset.
+            }
+        }
+    }
+}
+```
+
+- Use `.vertical` for direct wall placement; no floor prerequisite. `result` exposes
+  `surfaceIdentifier`, `anchorIdentifier`, and the oriented `worldTransform`.
+- `size: .fitInto(meters: 0.3)` (also `PlacementSize.preview`) means **Preview size**, a
+  0.3 m longest side. `size: .realWorld` means **Actual size**: authored metres, never
+  rescaled — use it when the asset's units are trustworthy. Complete nested bounds are
+  grounded with the bottom centre on the contact point; asynchronous models receive
+  collision shapes for selection and gestures.
+- `baseSize` (W, H, D in metres at 100 %), `placedSize` (`baseSize * scale`) and
+  `isAtRealWorldSize` (`.realWorld` at exactly 100 %) are observable — e.g.
+  `if let s = placement.placedSize { Text(String(format: "%.2f m tall", s.y)) }`. Once
+  placed, `if let b = placement.baseSize { placement.scale(to: 2 / b.y) }` makes it 2 m
+  tall (`scale(to:)` does nothing before `.placed`/`.adjusting`). `ModelNode.worldSize` and
+  `worldBoundingBox` give any model's dimensions in world metres.
+- `phase`: `.initializing`, `.scanning`, `.noSurface`, `.placed`, `.adjusting`,
+  `.trackingLost`, `.recovering`, `.recoveryFailed`, `.cameraError`. These correspond
+  directly to Kotlin's `PlacementPhase`. Search and recovery deadlines are ten seconds.
+- `requestPlacement()` arms one request only when empty; `resetPlacement()` removes
+  the owned anchor while retaining the asset and camera; `keepScanning()` starts a new
+  search interval. `dismiss()` invalidates outstanding tickets and releases resources.
+  Teardown invokes dismissal automatically. A controller owns one placement.
+- `selectModel()` issues a session/selection ticket. `setModel(_:ticket:size:)`
+  rejects stale tickets and invalid bounds, keeps the old entity until a successful
+  replacement, and automatically requests placement when empty.
+- Nested meshes are selectable. Drag preserves the grab offset on valid geometry and the
+  model eases toward the finger (18/s), so touch jitter is smoothed. A thrown drag glides on
+  (released faster than 150 px/s, decaying with τ = 0.35 s) and a flicked twist keeps spinning
+  (faster than 45°/s); any new touch stops both. Twist and pinch share the grounded pivot;
+  the pinch snaps to exactly 100% within ±4%, with one tick and an elastic rebound. A double
+  tap anywhere toggles between 100% and the user's own size over 260 ms. A first placement
+  grows in from 1%. `selection`, `invalidMovement` and `scale` are observable. `move(by:)`,
+  `rotate(by:)`, `scale(to:)` and `toggleScale()` provide accessible alternatives; scale is
+  limited to 25–400%. Tracking loss cancels gestures and hides content until the existing
+  anchor recovers. Empty-space taps deselect only.
+- `recenter()` brings the placed model back in front of the user: it glides (6/s) to where
+  the centre ray meets the floor, between 0.6 of its reach and its reach ahead, keeping the side
+  the user sees: the twist from facing them is kept, a plane placement's own heading counting
+  as twist; the pinch is kept. A wall
+  model goes to the wall under the centre. It returns `false`, changing nothing, when nothing
+  is placed or no surface is in view. The behaviour and constants follow ARMV, the SceneView
+  Android AR model viewer app.
+- The host owns permission UI, asset errors, labels, recovery actions and haptics.
+  No renderer mutation belongs in a detached/background task.
+
+Legacy `ARSceneView.onTapOnPlane` and `showPlacementReticle` remain **manual-placement**
+APIs with unchanged behavior. Android's `PlacementScene`, `WallPlacement` /
+`WallPlacementScene` and reticle are likewise manual. Prefer automatic placement in new
+examples. To show the model before a plane is detected, opt in to instant placement below.
+
+
+### Instant placement
+
+Off by default, and iOS only for now: Android's `AutoPlacementScene` has no instant placement
+yet (it hard-codes ARCore's `InstantPlacementMode.DISABLED`). Without it, nothing appears until
+ARKit detects a plane. Opt in when the first seconds matter more than
+the first pose:
+
+```swift
+@StateObject private var placement = ARPlacementController(instantPlacement: true)
+
+var body: some View {
+    AutoPlacementScene(controller: placement)
+        .overlay(alignment: .bottom) {
+            if placement.trackingMethod == .approximate {
+                Text("Refining…")
+            }
+        }
+        .task {
+            let ticket = placement.selectModel()
+            do {
+                let model = try await ModelNode.load("khronos_toy_car")
+                guard !Task.isCancelled, placement.acceptsAsset(ticket) else { return }
+                _ = model.withGroundingShadow()
+                placement.setModel(model.entity, ticket: ticket, previewSize: 0.3)
+            } catch {
+                guard !Task.isCancelled, placement.acceptsAsset(ticket) else { return }
+                // Present a model-load error and retry, as in the automatic placement example.
+            }
+        }
+}
+```
+
+- A detected plane under the screen centre places the model at once, as without instant
+  placement, if it is a wall or, for a floor, between 0.6 and 1.5 times the model's distance
+  ahead (below). Only the first plane under the centre counts: a desk too near does not pass
+  the model to the floor beneath it. When no plane fits, the model stands on the estimated floor after 0.6 s of tracking: the lowest horizontal
+  surface ARKit knows at least 0.4 m below the phone, even out of view, else 1.3 m below it. It
+  sits in the centre ray's heading, 1–3 m ahead depending on its size as shown (1.14 m at the default 0.3 m
+  preview; a 2 m sofa at real-world size, `previewSize: nil`, sits 2.5 m away), and is never
+  in mid-air. A wall model waits for ARKit's estimate of the wall in view.
+- Ten times a second, the model's own screen position is cast again. An estimated surface there becomes the
+  target of a continuous ease (6/s, changes under 1 cm ignored, a snap under Reduce Motion)
+  that never blocks a gesture: a drag or a move takes over from it. A detected plane there (within 5 m) lands the model: it is
+  re-anchored to the `ARPlaneAnchor` and plays the `.placed` haptic. A floor model keeps its
+  rotation; a wall model re-faces the detected wall. Landing waits for pinch, twist or drag to
+  end. Each plane anchor gets 3 s to resolve, counted again from the end of such a gesture;
+  one that does not is a failure and backs off 0.1–0.8 s. After 6 failures the recovery is
+  abandoned: the model stays where it stands and no timer retries it. Only another plane
+  there, that plane growing by 25%, or the user moving the model (drag, glide, `move(by:)`,
+  `recenter()`) re-arms landing. The
+  model leaving the plane before its anchor resolves (a young plane's edge) drops the anchor
+  without counting a failure, unless it happens 3 times in a row on that plane. After
+  landing, the glide to the landing point goes on until a drag or a move is accepted.
+- `placement.trackingMethod` is `nil` before placement, `.approximate` while estimated, then
+  `.fullTracking`, and never goes back. `placement.result` stays `nil` while approximate.
+  Kotlin: `InstantPlacementPoint.TrackingMethod`
+  `SCREENSPACE_WITH_APPROXIMATE_DISTANCE` / `FULL_TRACKING`.
+- While approximate, tap-select, drag (along the estimated floor, or onto a detected plane
+  under the finger), pinch, twist, `move(by:)` and `rotate(by:)` all work.
+- The coaching overlay coaches tracking only (`.tracking` goal) so it never covers the model.
+- Without `instantPlacement`, every placement starts as `.fullTracking`; behaviour is unchanged.
+- Needs a real device: the Simulator has no AR camera.
+
+### Direct wall placement
+
+Create `ARPlacementController(alignment: .vertical)` and use the same
+`AutoPlacementScene`. Only vertical planes participate; no floor classification,
+seam, mount-height calculation or tap is needed. The first usable wall consumes one
+request only after its plane-associated anchor resolves. New detections cannot move
+an existing placement. An unresolved anchor waits up to three seconds while its surface
+remains usable; failure reports neither placement nor a success haptic.
+
+Author **+Y up, +Z front**. `setModel` uses the complete visual hierarchy to put its
+back (`min.z`) and bottom (`min.y`) at the contact pivot. The contact transform faces
++Z toward the camera side for either detected normal sign, with gravity-up projected
+into the wall. Drag projects the grab offset onto valid wall geometry; twist rotates
+about local +Z, and uniform pinch leaves the back in contact. Tracking loss cancels
+gestures, fades content out and recovers the existing anchor without another placement.
+
+`move(by: [x, y])` moves right/up in metres on walls, `rotate(by:)` uses radians about
+the surface normal, and `scale(to:)` uses a 25–400% base-size multiplier. These are the
+controls-sheet accessibility alternatives to gestures, alongside **Reset placement**.
+The wall demo uses the shared placement shell and a procedural TV with the same two
+boxes, physical material parameters and 0.3 m **Preview size** as Android.
+
+**Wall shading parity:** neither wall demo draws a procedural shadow blob. RealityKit's
+grounding shadow is downward-only and is applied automatically only to horizontal
+placement; it is not wall contact shading. Android's wall-demo shadow receivers are
+disabled to match this scope. Native renderer lighting may differ. Both demos use an
+opacity-only 300 ms reveal/hide; neither scales the object in from zero.
+
+## ARSceneView (low-level / manual placement — iOS only)
+
+```swift
+ARSceneView(
+    planeDetection: .horizontal,       // .horizontal, .vertical, .both, .none
+    showPlaneOverlay: true,            // visualize detected planes
+    showCoachingOverlay: true,         // ARKit coaching UI
+    showPlacementReticle: true,        // smoothed placement cursor (#894, opt-in)
+    groundingShadows: true,            // contact shadows on placed models (default on)
+    onTapOnPlane: { position, arView in
+        let anchor = AnchorNode.world(position: position)
+        anchor.add(model.entity)
+        arView.scene.addAnchor(anchor.entity)
+    }
+)
+.placementShadow(.contact(.floor, intensity: 0.6)) // procedural ContactShadowNode instead of
+                                                   // RealityKit's grounding shadow (.grounding, .none)
+.onSessionStarted { arView in }       // called when AR session begins
+.mainLight(.systemDefault)             // v4.3.0+ — see LightSlot (default 10 000-lux directional + shadow)
+.fillLight(.systemDefault)             // v4.3.0+ — Android-parity 3 000-lux fill on by default
+```
+
+### Session configuration and lifecycle (v4.39.0+)
+
+One value describes what the session runs; the view re-runs ARKit only when that value
+changes between renders, and re-applies it after an interruption:
+
+```swift
+ARSceneView(
+    configuration: ARSessionConfiguration(
+        mode: .worldTracking,              // or .faceTracking (TrueDepth)
+        planeDetection: .horizontal,
+        sceneReconstruction: .none,        // .mesh / .meshWithClassification need LiDAR — off by default
+        frameSemantics: []                 // e.g. [.personSegmentationWithDepth]
+    ),
+    onTapOnPlane: { position, arView in }
+)
+.onSessionEvent { event, arView in }        // .started(config), .firstFrame, .trackingStateChanged, .interrupted, .interruptionEnded, .failed(error)
+.onSessionStateChange { state, arView in }  // .starting → .running (first camera frame) → .interrupted / .failed
+.onTrackingStateChange { status, arView in } // .notAvailable, .limited(reason), .normal
+.onSessionError { error, arView in }        // ARSceneViewError.unsupported(requirement) — no session was run
+```
+
+- `ARSessionConfiguration().unmetRequirement()` tells you **before** mounting the view what
+  the device lacks (`.worldTracking`, `.faceTracking`, `.lidar`, `.frameSemantics`). An
+  unsupported configuration runs no session and reports `.unsupported` — never a
+  degraded fallback.
+- `.firstFrame` / `.running` mean the camera is on screen. Model loading is your own
+  signal; do not fold it into the session state.
+- A host that wants the events without wiring every view sets
+  `.arSessionObserver(observer)` in the environment (`ARSceneSessionObserver`).
+- `cameraExposure` is a post-process brightness on the rendered frame (camera feed and
+  virtual content together), not a capture exposure. Leave it `nil` on a plain camera
+  path; the view installs nothing and never touches a post-process you own.
+
+Environment texturing defaults to `.automatic` — RealityKit's equivalent of ARCore's
+`ENVIRONMENTAL_HDR` (which became the Android default in v4.3.0, `#1063`). PBR reflections
+are driven by runtime-built environment probes; no configuration knob is exposed.
+
+The dual-light setup matches the 3D ``SceneView`` defaults (issue [`#1138`](https://github.com/sceneview/sceneview/issues/1138)).
+ARKit has no equivalent of ARCore's directional-light estimation, so the explicit lights
+keep their baseline intensities each frame. Override or disable them via:
+
+```swift
+ARSceneView(planeDetection: .horizontal)
+  .mainLight(.custom(LightNode.directional(intensity: 5_000)))   // dimmer key light
+  .fillLight(.disabled)                                            // single-light AR
+```
+
+## ARRecorder (v4.3.0+, record-only)
+
+Inside a SwiftUI `View` body:
+
+```swift
+@StateObject private var recorder = ARRecorder()
+
+var body: some View {
+    Button(recorder.isRecording ? "Stop" : "Record") {
+        Task {
+            if recorder.isRecording {
+                let url = try await recorder.stopRecording()
+                // url → .mov under <caches>/ARRecorder/. Share with
+                // ShareLink(item: url) or save to PHPhotoLibrary.
+            } else {
+                try await recorder.startRecording()
+            }
+        }
+    }
+}
+```
+
+iOS port of Android `ARRecorder`. Uses ReplayKit's `RPScreenRecorder` to
+capture screen pixels (NOT an ARKit session dataset). The `.mov` plays
+back in Photos / QuickTime; it **cannot** be replayed into `ARSession`
+(ARKit has no deterministic playback API — replay stays Android-only).
+Typed errors via `ARRecorderError.{permissionDenied, disabled,
+unavailable, alreadyRecording, notRecording, other(code:),
+photoLibraryDenied, photoLibrarySaveFailed}`. See the parity table below.
+
+### Save to Photos (v4.3.1+)
+
+```swift
+// after stopRecording() returns the URL:
+let localID = try await ARRecorder.saveToPhotoLibrary(url)
+// localID is the saved asset's PHAsset.localIdentifier (or nil) —
+// resolve later via PHAsset.fetchAssets(withLocalIdentifiers:options:).
+```
+
+Wraps `PHPhotoLibrary.shared().performChanges` to copy the `.mov` into
+the system Photos library and returns the created asset's
+`PHAsset.localIdentifier` (`String?`) — mirrors Android's
+`ARRecorder.exportToDownloads()` which returns the saved `Uri?`.
+First call surfaces the system permission sheet; subsequent calls go
+straight through. **Requires** the host app's `Info.plist` to declare
+`NSPhotoLibraryAddUsageDescription` — without it, iOS crashes the app
+on first invocation per Apple's privacy policy.
+
+On user denial throws `ARRecorderError.photoLibraryDenied`; on
+`performChanges` failure throws `.photoLibrarySaveFailed`.
+
+---
+
+## Node Types — 3D
+
+| Node | Factory / Init | Key Parameters |
+|---|---|---|
+| `ModelNode` | `ModelNode.load("file.usdz")` | `async throws`, `.scaleToUnits()`, `.centerOrigin(normalized:)`, `.position()`, `.rotation()` |
+| `GeometryNode` | `.cube(size:color:)` | `size`, `color`, `cornerRadius` |
+| | `.sphere(radius:color:)` | `radius`, `color` |
+| | `.cylinder(radius:height:color:)` | `radius`, `height`, `color` |
+| | `.plane(width:depth:color:)` | `width`, `depth`, `color` |
+| | `.cone(height:radius:color:)` | `height`, `radius`, `color` |
+| `LightNode` | `.directional(color:intensity:castsShadow:)` | `.position()`, `.lookAt()`, `.shadowMaximumDistance()` |
+| | `.point(color:intensity:attenuationRadius:)` | `.position()`, `.attenuationRadius()` |
+| | `.spot(color:intensity:innerAngle:outerAngle:)` | `.position()`, `.lookAt()` |
+| `TextNode` | `TextNode(text:fontSize:color:depth:)` | `.position()`, `.centered()`, `.withText()` |
+| `ImageNode` | `ImageNode.load("img.png")` | `async throws`, `width:`, `height:`, `.position()` |
+| `BillboardNode` | `BillboardNode(child:)` / `BillboardNode.text(_:fontSize:color:)` | always faces camera |
+| `VideoNode` | `VideoNode.load("clip.mp4")` | `width:`, `height:`, `loop:`, `.play()`, `.pause()`; extensionless names try mp4/mov/m4v, `VideoNode.load(resource:)` throws instead of failing silently |
+| `LineNode` | `LineNode(from:to:color:)` | `SIMD3<Float>` endpoints |
+| `PathNode` | `PathNode(points:closed:color:)` | `[SIMD3<Float>]` path |
+| `TubeNode` | `TubeNode(points:radius:radialSegments:closed:caps:material:)` | lit tube with a real width; `.updateGeometry(points:radius:)` in place |
+| `MeshNode` | `MeshNode.fromVertices(positions:normals:uvs:indices:material:)` | `throws`; `MeshNode.wireframe(of:thickness:material:)` draws any mesh's edges as thin prisms (no wireframe mode in RealityKit) |
+| `PhysicsNode` | `.dynamic(entity, mass:restitution:)` | `.static(entity)`, `.kinematic(entity)` |
+| `DynamicSkyNode` | `DynamicSkyNode(timeOfDay:turbidity:)` | `0...24` time cycle |
+| `FogNode` | `FogNode.linear(start:end:color:)` · `FogNode.exponential(density:color:)` | **deprecated (v4.39.0+)** — not fog: one translucent sphere, no distance attenuation, and it is included in automatic content framing |
+| `ReflectionProbeNode` | `ReflectionProbeNode(position:radius:)` | zone-based IBL |
+| `ContactShadowNode` | `ContactShadowNode.under(model)` · `model.withContactShadow()` · `ContactShadowNode(width:length:context:plane:)` | `context:` `.floor` / `.tableTop` / `.wall`, `intensity:`, `spread:` (1.6); procedural decal, needs no light, left out of framing, sizing and collision |
+
+---
+
+## Node Types — AR (iOS)
+
+| Node | Usage |
+|---|---|
+| `AnchorNode.world(position:)` | Anchor at a world coordinate |
+| `AnchorNode.plane(alignment:minimumBounds:)` | Anchor on a detected plane |
+| `AugmentedImageNode` | Overlay content on a detected reference image |
+
+---
+
+## Common Patterns
+
+### Load a model
+
+```swift
+@State private var model: ModelNode?
+
+SceneView { root in
+    if let model {
+        root.addChild(model.entity)
+    }
+}
+.task {
+    model = try? await ModelNode.load("models/car.usdz")
+    model?.scaleToUnits(1.0)
+    model?.playAllAnimations()
+}
+```
+
+### Add a light
+
+```swift
+SceneView { root in
+    let sun = LightNode.directional(
+        color: .warm,
+        intensity: 1500,
+        castsShadow: true
+    )
+    sun.entity.look(at: .zero, from: [2, 4, 2], relativeTo: nil)
+    root.addChild(sun.entity)
+}
+```
+
+### Create geometry
+
+```swift
+SceneView { root in
+    let cube = GeometryNode.cube(size: 0.5, color: .red)
+        .position(.init(x: -1, y: 0.25, z: -2))
+    root.addChild(cube.entity)
+
+    let metalSphere = GeometryNode.sphere(
+        radius: 0.3,
+        material: .pbr(color: .gray, metallic: 1.0, roughness: 0.2)
+    )
+    root.addChild(metalSphere.entity)
+}
+```
+
+### AR tap-to-place
+
+```swift
+ARSceneView(
+    planeDetection: .horizontal,
+    onTapOnPlane: { position, arView in
+        let anchor = AnchorNode.world(position: position)
+        let cube = GeometryNode.cube(size: 0.1, color: .blue)
+        anchor.add(cube.entity)
+        arView.scene.addAnchor(anchor.entity)
+    }
+)
+```
+
+### Physics
+
+```swift
+SceneView { root in
+    // Falling ball
+    let ball = GeometryNode.sphere(radius: 0.1, color: .red)
+    PhysicsNode.dynamic(ball.entity, mass: 1.0, restitution: 0.8)
+    ball.position = .init(x: 0, y: 3, z: -2)
+    root.addChild(ball.entity)
+
+    // Static floor
+    let floor = GeometryNode.plane(width: 10, depth: 10, color: .gray)
+    PhysicsNode.static(floor.entity)
+    root.addChild(floor.entity)
+}
+```
+
+### 3D text
+
+```swift
+SceneView { root in
+    let label = TextNode(
+        text: "Hello 3D!",
+        fontSize: 0.1,
+        color: .white
+    )
+    .position(.init(x: 0, y: 1, z: -2))
+    .centered()
+    root.addChild(label.entity)
+}
+```
+
+### Per-entity gestures (v4.0.0+)
+
+```swift
+// Fluent API on Entity
+let cube = GeometryNode.cube(size: 0.3, color: .blue)
+cube.entity
+    .onTap { print("Tapped!") }
+    .onDrag { translation in cube.position += translation }
+    .onScale { factor in cube.scale *= .init(repeating: factor) }
+    .onRotate { angle in /* handle rotation */ }
+
+// Or via static NodeGesture methods
+NodeGesture.onTap(entity) { print("Tapped!") }
+NodeGesture.onLongPress(entity) { print("Long pressed!") }
+NodeGesture.removeAll(from: entity)  // cleanup
+```
+
+---
+
+## Environment Presets
+
+```swift
+.environment(.studio)    // neutral studio (default)
+.environment(.outdoor)   // warm daylight
+.environment(.sunset)    // golden hour
+.environment(.night)     // dark, moody
+.environment(.warm)      // cozy tungsten
+.environment(.autumn)    // soft outdoor
+```
+
+Custom environment:
+
+```swift
+.environment(.custom(name: "My HDR", hdrFile: "custom.hdr", intensity: 1.5))
+```
+
+`intensity` is a **linear multiplier** — `1.0` leaves the HDR's own radiance
+untouched, `0.5` halves it. It is converted to RealityKit's power-of-two
+`intensityExponent` internally, so never pre-apply a `log2`. It is **not** an
+Android value: Android's IBL level is Filament's `IndirectLight.intensity` in
+absolute lux (default `10_000`), so the two are not interchangeable (#2897).
+
+visionOS — immersive-space skybox: a windowed / volumetric scene composites
+over passthrough and ignores the HDR skybox. For a fully immersive
+`ImmersiveSpace`, opt in with `.immersiveSpace()` to render the HDR as a
+`WorldComponent`-rooted background sphere:
+
+```swift
+ImmersiveSpace(id: "scene") {
+    SceneView { root in /* ... */ }
+        .environment(.nightSky)   // showSkybox == true
+        .immersiveSpace()         // render the HDR skybox on visionOS
+}
+.immersionStyle(selection: .constant(.full), in: .full)
+```
+
+---
+
+## Materials
+
+```swift
+// Simple color
+GeometryNode.cube(size: 0.5, color: .red)
+
+// PBR with metallic/roughness
+GeometryNode.sphere(radius: 0.3, material: .pbr(
+    color: .gray, metallic: 1.0, roughness: 0.2
+))
+
+// Textured PBR
+let texture = try await GeometryMaterial.loadTexture("brick_diffuse.png")
+let node = GeometryNode.cube(
+    size: 1.0,
+    material: .textured(baseColor: texture, roughness: 0.8)
+)
+
+// Unlit (no lighting response)
+GeometryNode.plane(width: 1, depth: 1, color: .white)  // use .unlit for no shading
+```
+
+---
+
+## Transform Helpers
+
+```swift
+model.position = SIMD3<Float>(x: 1, y: 0, z: -2)     // meters
+model.rotation = simd_quatf(angle: .pi / 4, axis: [0, 1, 0])
+model.scale = SIMD3<Float>(repeating: 2.0)             // uniform
+
+// Fluent API
+model.position(.init(x: 1, y: 0, z: -2))
+     .scale(0.5)
+     .rotation(angle: .pi, axis: [0, 1, 0])
+```
+
+---
+
+## Animation
+
+```swift
+// Play all animations (looping)
+model?.playAllAnimations(loop: true, speed: 1.0)
+
+// Play specific animation by index
+model?.playAnimation(at: 0, loop: true, speed: 1.5)
+
+// Stop
+model?.stopAllAnimations()
+```
+
+---
+
+## Threading Rules
+
+| Safe | Unsafe |
+|---|---|
+| `ModelNode.load(...)` in `.task` | Mutating entities off `@MainActor` |
+| `GeometryNode.*` factory methods | Accessing RealityKit components from background threads |
+| Any code in SwiftUI view body | Direct `Entity` manipulation from `DispatchQueue.global()` |
+
+**Rule:** RealityKit entities are `@MainActor`-isolated. Use `await MainActor.run { }` if you need to modify entities from a background context. SwiftUI's `.task` modifier runs on the main actor by default for view-related work.
+
+---
+
+## Android ↔ Apple API Mapping
+
+| Android (Compose) | Apple (SwiftUI) |
+|---|---|
+| `SceneView { }` | `SceneView { root in }` |
+| `ARSceneView { }` | `ARSceneView(...)` |
+| `rememberModelInstance(loader, path)` | `ModelNode.load(path)` |
+| `ModelNode(modelInstance, scaleToUnits)` | `model.scaleToUnits(units)` |
+| `ModelNode(centerOrigin = Position(0,-1,0))` (normalized AABB origin) | `.centerOrigin(normalized: SIMD3(0, -1, 0))` (apply before positioning — does not compose additively with a prior `.position`) |
+| `CubeNode(size, material)` | `GeometryNode.cube(size:color:)` |
+| `SphereNode(radius, material)` | `GeometryNode.sphere(radius:color:)` |
+| `LightNode(type, apply = { })` | `LightNode.directional(...)` / `.point(...)` / `.spot(...)` |
+| `Scene(mainLightNode = …, fillLightNode = …)` (3D) | `.mainLight(_:)` / `.fillLight(_:)` on `SceneView` (v4.2.0+) |
+| `ARSceneView(mainLightNode = …, fillLightNode = …)` (AR) | `.mainLight(_:)` / `.fillLight(_:)` on `ARSceneView` (v4.3.0+, `#1138`) |
+| `Config.LightEstimationMode.ENVIRONMENTAL_HDR` | `ARWorldTrackingConfiguration.environmentTexturing = .automatic` (on by default in `ARSceneView`) |
+| `rememberEnvironmentLoader` | `.environment(.studio)` view modifier |
+| `rememberCameraManipulator()` | `.cameraControls(.orbit)` view modifier |
+| `AnchorNode(anchor)` | `AnchorNode.world(position:)` |
+| `PhysicsNode(node, mass)` | `PhysicsNode.dynamic(entity, mass:)` |
+| `SpatialAudioNode { }` composable (v4.12.0+, `#1900`) | `SpatialAudioNode.spatial(named:falloff:loop:)` — see [Spatial Audio & Haptic parity](#spatial-audio--haptic-parity-1900-1901) below |
+| `rememberHapticFeedback()` (v4.12.0+, `#1901`) | `SceneViewHaptic()` — see [Spatial Audio & Haptic parity](#spatial-audio--haptic-parity-1900-1901) below |
+
+### Spatial Audio & Haptic parity (#1900, #1901)
+
+v4.12.0 shipped Spatial Audio (#1900) and Haptic Feedback (#1901). **Both are
+implemented on iOS** — they are *not* Android-only — but with platform-native
+backends, so the API shape differs slightly:
+
+| Feature | Android | iOS | iOS maturity |
+|---|---|---|---|
+| **Spatial Audio** | `SpatialAudioNode { }` composable, `AudioSource`, `AudioFalloff`, `AudioController` | `SpatialAudioNode.spatial(named:in:falloff:loop:autoPlay:volume:pitch:)`, `.audioListener(_:)` view modifier — backed by RealityKit `SpatialAudioComponent` / `Entity.playAudio` | **Shipped (phase 1)**. Positional pan + distance falloff work natively. Known phase-1 limits: `pitch` is stored but not applied (no `AudioPlaybackController` pitch knob in RealityKit), `seek` only supports rewind-to-0, `.audioListener(.anchor)` falls back to `.camera`. Phase 2 (PHASE engine: occlusion, reverb, pitch) tracked in [#1900](https://github.com/sceneview/sceneview/issues/1900). |
+| **Haptic Feedback** | `rememberHapticFeedback()` → `SceneViewHaptic` (`light()`/`medium()`/`heavy()`/`success()`/`warning()`/`error()`/`selection()`, `continuous(intensity:durationMs:)`, `pattern(_:)`) | `SceneViewHaptic()` / `SceneViewHaptic.shared` — same semantic preset surface, `continuous(intensity:durationMs:)` + `pattern(_:)` backed by Core Haptics with `UIFeedbackGenerator` fallback | **Shipped — full parity**. All seven presets, `HapticEvent`/`HapticPreset`, and Core Haptics patterns are implemented. Gracefully degrades to the preset generators on devices without Core Haptics. iOS-only (no macOS/visionOS — guarded by `#if os(iOS)`). |
+
+---
+
+## Demo parity status (#1194)
+
+The iOS demo app now ships these Stage 2 (#1152) streaming demos as
+proper iOS ports of the Android equivalents. They consume the curated
+`SampleAssets` registry via `SketchfabAssetResolver`, fall back to
+bundled USDZs when no Sketchfab key is configured, and are reachable
+via deep-link as well as the Samples tab.
+
+| Demo | Deep-link id | iOS file | Status |
+|---|---|---|---|
+| Animation (5-model carousel) | `animation-physics` (`animation` aliases here) | `AnimationDemo.swift` | Ported (cinematic camera shots + IBL slider are Android-only) |
+| Model Viewer (Surprise me) | `model-viewer` | `ModelViewerDemo.swift` | Ported |
+| Multi-Model Park | `model-viewer`, Park mode (`multi-model` aliases here) | `MultiModelDemo.swift` | Ported |
+| AR Placement | `ar-placement` | `ARPlacementDemo.swift` | Single automatic-placement entry; 0.3 m preview, surface-constrained drag, pinch and twist |
+| Depth Occlusion | `ar-depth-occlusion` | `ARDepthOcclusionDemo.swift` | Shared automatic placement of the bundled helmet; LiDAR mesh rendering toggle retains pose and scale |
+| People Occlusion | `ar-people-occlusion` | `ARPeopleOcclusionDemo.swift` | Same subject and placement flow; person-segmentation rendering toggle retains pose and scale |
+| Record action | every demo's sheet (`ar-record-playback` opens `ar-rerun`) | `DemoScreenRecording.swift` | Explicit Record/Stop; screen video only, without deterministic AR-session playback |
+| Rolling Balls | `rolling-balls` (`physics` aliases here) | `RollingBallsDemo.swift` | Ported (Swift port of the Android tray simulation: rubber, steel and foam balls, tilt, fixed 120 Hz step) |
+
+The pre-1194 placeholder shape — `model-viewer` / `multi-model` routing
+to `SceneGalleryDemo` — is gone. Since the samples audit (step 0) both
+deep-links open the Models card, on its Models and Park modes.
+
+---
+
+## iOS parity status (#1036)
+
+Some Android APIs map imperfectly to iOS because RealityKit / ARKit do
+not expose the underlying feature. They fall into three buckets — keep
+this table at hand before re-attacking a deprecated API as if it were a
+silent stub.
+
+### Deprecated on iOS (compile-warning, no-op at runtime)
+
+| Symbol | Why iOS can't | Working alternative |
+|---|---|---|
+| `CameraNode.depthOfField(...)` | `PerspectiveCameraComponent` has no DOF | Custom Metal post-process required (out of scope) |
+| `CameraNode.exposure(_:)` | No `exposureCompensation` on `PerspectiveCameraComponent` (verified Xcode 26.x compile failure in #1019) | `ARSceneView(cameraExposure:)` for AR — rendered-frame brightness, not capture exposure; `SceneView.renderQuality(_:)` to tune IBL for 3D |
+| `LightNode.shadowColor(_:)` | `DirectionalLightComponent.Shadow` has no `color` property | Use `castsShadow(_:)` + `shadowMaximumDistance(_:)` |
+| `FogNode.heightBased(...)` / `FogNode.heightFalloff` | `UnlitMaterial` cannot vary opacity by world height; no per-view fog API in RealityKit (#1380) | `FogNode.exponential(density:color:)` |
+
+### Android-only — no port planned (or pending)
+
+| Symbol | Why iOS can't | iOS path |
+|---|---|---|
+| `ARSceneView(playbackDataset:)` / `ARSceneView(playbackDatasetUri:)` (#1770) | ARKit has no deterministic recording playback | Record-only via [#1032 ReplayKit](https://github.com/sceneview/sceneview/issues/1032); replay stays Android-only |
+| `SurfaceMirrorer` / `rememberSurfaceMirrorer()` (+ `surfaceMirrorer` on `SceneView`/`ARSceneView`, #2626) | In-app scene→MP4 mirroring via Filament `Renderer.copyFrame`; RealityKit has no per-frame surface-copy equivalent | iOS records the scene via ReplayKit `RPScreenRecorder` — see [ARRecorder](#arrecorder-v430-record-only) above; the `surfaceMirrorer` parameter stays Android-only |
+| `rememberARPlaybackStatus(session)` (#1770) | Mirrors ARCore `Session.getPlaybackStatus` — no ARKit counterpart | iOS-skip; surface "Live AR only" in UI |
+| `ARRecorder.addTrack / recordTrack / State.IO_ERROR` (#1770) | ARCore custom-data-track + RecordingStatus disk-IO surface; no ARKit analogue | iOS-skip with doc warning |
+| `ARSessionFailure` sealed taxonomy + `onSessionFailure` callback (#1759) | Wraps the 25 ARCore `*Exception` types; ARKit surfaces failures via `ARErrorCode` instead | Use SwiftUI `onSessionFailed` (raw `Error`) and switch on `ARError.Code` |
+| `DepthHitResultNode` / `Frame.hitTestDepth` (#1712) | Backed by ARCore `Frame.acquire(Raw)DepthImage16Bits` — ARKit `ARKit.captureDepth*` is API-incompatible | Use `RealityView`'s standard hit-test or `ARView.smartHitTest` |
+| `cameraConfigFilter { … }` DSL (#1733, #1772) | ARCore `CameraConfigFilter` selection model; ARKit picks its config automatically from `ARConfiguration` | iOS-skip |
+| `Frame.cameraImage()` (#1771) | ARCore CPU image stream — ARKit exposes `ARFrame.capturedImage` directly on the frame | Use `arSession.currentFrame?.capturedImage` |
+| `SurfaceType.texture` | RealityKit always renders to `MTKView` | N/A — no port needed |
+| `StreetscapeGeometry` | ARGeoTrackingConfiguration exists but no mesh equivalent | iOS-skip with doc warning |
+| `TerrainAnchor / RooftopAnchor` (geo-anchored to terrain or rooftop) | `ARGeoAnchor` only does ground; rooftop has no ARKit equivalent | iOS-skip with doc warning |
+| `Config.SemanticMode.ENABLED` + `Frame.semanticImage()` / `.semanticConfidenceImage()` / `.semanticLabelFraction(label)` (#1730, `ar-scene-semantics` demo) | ARKit has no equivalent per-pixel outdoor classifier — the closest primitive is `ARFrame.detectedBody.skeleton` (single-person joints, not pixel labels) | iOS-skip with doc warning. Apps that need semantic-aware placement on iOS must ship their own Vision/Core ML segmentation model; AR-engine integration is not on the SceneViewSwift roadmap. |
+| `SplatNode` / `SplatCloud` / `rememberSplatCloud` — 3D Gaussian Splatting (`splat-preview` demo, #2646) | No first-party RealityKit Gaussian-splat primitive; would need a custom Metal render path or a mesh-impostor approximation | iOS-skip — Android-only today, silently missing from every SceneViewSwift surface (#2768). Needs-decision on a future custom-Metal or impostor-mesh port. |
+| `CollaborativeTransport` / `CollaborativeSession` / `NearbyCollaborativeTransport` (`io.github.sceneview.ar.collaborative`, `ar-collaborative` demo) | ARCore has no native shared-AR session API (no `collaborationData`), so SceneView built a bespoke pluggable-transport + Cloud Anchor layer on top of Nearby Connections | **Not yet built on iOS.** ARKit's native `ARSession.collaborationData` (or RealityKit's `MultipeerConnectivityService`) would give iOS a *more* native path than Android's bespoke wire protocol — no custom transport abstraction needed. Tracked under the iOS-parity tracker (#2798, "Wave B"). |
+| ML Kit Object Detection over `Frame.cameraImage()` (the Android demo `ar-ml-object-label`, no longer a catalogue card: Point & Ask's on-device fallback, see `ARMLObjectLabelDemo.kt`) | Apple ships no built-in generic object-detection model (unlike ML Kit's default on-device model) | iOS-skip — no demo port yet. The raw camera-image access this would need is already available (`ARFrame.capturedImage` — see the `Frame.cameraImage()` row above); a port would pair it with Vision + a bundled Core ML detector model. |
+
+### AR Depth & Cloud Anchors — May 2026 sprint (#1813)
+
+The May 2026 AR sprint shipped four new Android-only public surfaces. Each has a
+documented RealityKit / ARKit counterpart — the table below maps them so AI-generated
+SceneViewSwift code can pick the closest native primitive instead of asking for the
+Android API name. Implementation issues are tracked under `platform: ios`.
+
+| Android API | iOS counterpart | Migration note |
+|---|---|---|
+| `DepthMeshNode` + `rememberDepthMesh` (renderable depth mesh) | **Available** — with `ARSceneView`, pass `ARSessionConfiguration(sceneReconstruction: .mesh)`, which keeps the mesh through every re-run the view does. For a session you run yourself, `SceneReconstructionNode.enableReconstruction(in: arView)` enables ARKit scene reconstruction (LiDAR) by amending the running session — frame semantics, plane detection and anchors are kept, tracking is not reset; inside `ARSceneView` that amendment lasts only until the view re-runs its own configuration. It draws nothing: pass `showDebugMeshOverlay: true` for RealityKit's debug wireframe, `SceneReconstructionNode.hideMeshVisualization` to remove it. LiDAR-only (iPhone 12 Pro+ / iPad Pro). | iOS surfaces the real-world mesh as a stream of `ARMeshAnchor`s with `MTLBuffer`-backed geometry, handled automatically by RealityKit's scene understanding pipeline. Devices without LiDAR have no equivalent — check `SceneReconstructionNode.isSupported` first. |
+| `DepthCollider` + `rememberDepthCollider` (depth → physics collider) | **Available** — `SceneReconstructionNode.enablePhysics(in: arView)` enables real-world mesh collision via `arView.environment.sceneUnderstanding.options.insert(.physics)`. Virtual objects (with `PhysicsBodyComponent.dynamic`) will collide with the LiDAR mesh automatically. | RealityKit manages mesh-anchor collision shapes internally — no per-anchor `CollisionComponent` rebuild needed. Use `SceneReconstructionNode.enableOcclusion(in:)` to also occlude virtual objects behind real surfaces. Same LiDAR-only constraint as the mesh node. |
+| `Frame.hitTestDepth(xPx, yPx)` (single-pixel depth raycast → position + normal) | `ARView.raycast(from:allowing:alignment:)` with `.estimatedPlane` + `.any`, or `ARView.scene.raycast(origin:direction:length:query:mask:)` against `CollisionComponent`s built from `ARMeshAnchor`. Use the returned `ARRaycastResult.worldTransform` for both position and normal. | The iOS API is already documented — use it directly. The pixel-screen → world ray conversion is `view.unprojectPoint` or just feed `CGPoint` from a `UITapGestureRecognizer`. No new library wrapper needed. |
+| `CloudAnchorNode.host` / `.resolve` returning `Future` + cancel-on-dispose (#1768) | **Wrapper only** (the app supplies `GARSession`) — `CloudAnchorNode.host(ttlDays:completion:operation:)` / `.resolve(cloudAnchorId:completion:operation:)` return a cancellable `CloudAnchorFuture`; call `future.cancel()` from `.onDisappear` (the SwiftUI analogue of Android's `DisposableEffect { onDispose { future.cancel() } }`). To keep the core library dependency-free, the actual `GARSession.hostCloudAnchor` round-trip (Google's `arcore-ios-sdk`) is supplied by the app through the `operation` closure. (#1859) | The Future pattern matters because Cloud Anchor hosting is a billed network round-trip — cancelling on `View` disappearance avoids accruing Google Cloud charges. `CloudAnchorFuture` owns the cancellation lifecycle (single-fire completion, never fires after `cancel()`/dealloc); the app adds `arcore-ios-sdk` and plugs `GARSession` into `operation`. |
+
+**Why this matters for AI assistants:** when a developer asks for "real-world depth"
+or "cloud anchor" code on iOS, generate the RealityKit / ARKit primitive listed above
+rather than the Android-only SceneView symbol. Cloud Anchors now also ship the
+cancellable-Future lifecycle wrapper (`CloudAnchorNode` / `CloudAnchorFuture`, #1859) —
+prefer it over a hand-rolled cancel flag; the app still supplies the `GARSession` call
+via `operation`.
+
+### Approximated — iOS implements via different mechanism
+
+Same public API name on both platforms, but the iOS render path differs.
+Use as you would on Android; expect minor visual differences.
+
+| Symbol | Android renderer | iOS approximation |
+|---|---|---|
+| `FogNode.linear / .exponential` | Filament fog modes | **Deprecated on iOS (v4.39.0+)**: the translucent-sphere approximation is not fog — no distance attenuation, and the sphere is framed as content. Still compiles through 4.x. |
+| `ReflectionProbeNode.box(...) / .sphere(...)` | Volumetric Filament probe | Unbounded `ImageBasedLightReceiverComponent` (volume scope is best-effort) |
+| `CustomMaterial.subsurface(...)` | Filament SSS | PBR `metallic` + `roughness` tuning |
+
+**Why this matters for AI assistants:** when generating SceneViewSwift
+code, treat the Deprecated row as no-ops to avoid; Android-only entries
+as iOS-not-implemented; Approximated entries are fine to use as-is and
+will compile + render with visual fidelity differences only.
+
+### Render quality knobs — SSAO / Bloom / MSAA
+
+`.renderQuality(_:)` (`.cinematic` | `.default` | `.performance`) still picks
+the *best available* RealityKit defaults for each tier, but RealityKit's
+public render-options API is narrower than Filament's — some knobs Android
+exposes have no iOS equivalent at all. Ported from the source of truth,
+`SceneViewSwift/Sources/SceneViewSwift/RenderQuality.swift`:
+
+| Knob | Android (Filament) | iOS (RealityKit) |
+|---|---|---|
+| Shadows on/off | via `View.setShadowingEnabled` | per-light via `DirectionalLightComponent.Shadow` |
+| SSAO on/off | via `View.ambientOcclusionOptions` | no public toggle — RealityKit auto-applies AO approximations |
+| Bloom on/off | via `View.bloomOptions` | `.bloom(BloomOptions)` — iOS / macOS 26+ (no-op on iOS 18–25, macOS 15–25 and visionOS) |
+| MSAA | via `View.multiSampleAntiAliasingOptions` | not user-controllable |
+| HDR color buffer | `QualityLevel.HIGH/MEDIUM/LOW` | not exposed |
+| Dynamic resolution | via `View.dynamicResolutionOptions` | not exposed |
+| Environmental IBL intensity | `IndirectLight.intensity`, absolute **lux** (`DEFAULT_IBL_INTENSITY` = 10 000) | `SceneEnvironment.intensity`, a linear **multiplier** (`1.0` = HDR untouched), converted to `ImageBasedLightComponent.intensityExponent` internally (#2897) — **not** interchangeable with the Android value |
+| Reflection-probe IBL intensity | `ReflectionProbeNode` inherits the scene `IndirectLight` level | `ReflectionProbeNode.intensity`, the same linear **multiplier** as `SceneEnvironment.intensity` and converted the same way (#2956) — applies once `environmentTexture(_:)` is set, before or after |
+| Person occlusion (AR) | (n/a) | via `ARView.renderOptions` (AR only, not on `RealityView`) |
+
+---
+
+## Hand / Face / Body tracking parity (#1904)
+
+SceneView spans two ARCore runtimes on Android plus ARKit on Apple, and
+each surfaces hand / face / body perception differently. This table maps
+every tracking primitive across all five SceneView surfaces so an AI
+assistant picks the right API for the requested platform. The Android
+Jetpack XR foundation landed in [#1738](https://github.com/sceneview/sceneview/issues/1738);
+the design notes live in [`arsceneview/docs/JETPACK-XR-INTEGRATION.md`](https://github.com/sceneview/sceneview/blob/main/arsceneview/docs/JETPACK-XR-INTEGRATION.md).
+
+| Feature | Mobile ARCore (Android phone) | Jetpack XR (Android XR headset) | ARKit phone (`SceneViewSwift`) | visionOS | WebXR |
+|---|---|---|---|---|---|
+| **Hand tracking** | Not available — ARCore phones have no hand perception | `XrHandNode` over `androidx.xr.arcore` `Hand` perception. Foundation (`XrFeatures` gate) shipped in #1738; node tracked in [#1902](https://github.com/sceneview/sceneview/issues/1902) (preview, `1.0.0-beta02`) | Not available on iPhone/iPad — ARKit has no hand-tracking config; hand tracking is a visionOS-only `ARKit` provider | ARKit `HandTrackingProvider` + `ARKitSession` give per-joint skeletons in an `ImmersiveSpace`. **Not yet wrapped** by `SceneViewSwift` — tracked in [#1902](https://github.com/sceneview/sceneview/issues/1902); drop to raw `HandTrackingProvider` today | WebXR `hand-tracking` feature — tracked in [#1778](https://github.com/sceneview/sceneview/issues/1778) |
+| **Face tracking** | `AugmentedFaceNode` — front-camera, stable, includes the 468-point morphing face mesh | `XrFaceNode` over `androidx.xr.arcore` `Face` perception (headset, beta). Tracked in [#1903](https://github.com/sceneview/sceneview/issues/1903) (preview, `1.0.0-beta02`) | `AnchorNode.face()` — **shipped**. Wraps RealityKit `AnchorEntity(.face)` (`ARFaceTrackingConfiguration`); provides face *pose* only, **no mesh**. For the morphing-mesh overlay drop to a raw `ARFaceAnchor` + custom mesh entity | Same `AnchorNode.face()` path — `ARFaceTrackingConfiguration` runs on Vision Pro's front sensors | Not exposed by WebXR |
+| **Body tracking** | Not available — ARCore has no body perception (ML Kit / MediaPipe would be needed) | Not available — `androidx.xr.arcore` exposes only `Hand` + `Face`, no body. Deferred-scope decision recorded in #1738 | `AnchorNode.body()` — **shipped**. Wraps RealityKit `AnchorEntity(.body)` (`ARBodyTrackingConfiguration`); anchors at the detected body's root joint. **ARKit-only** — no Android counterpart on either runtime | `ARBodyTrackingConfiguration` is unavailable on visionOS; no body-tracking path | Not exposed by WebXR |
+
+**iOS maturity summary.** Face and body anchoring are **shipped today** in
+`SceneViewSwift` as `AnchorNode.face()` / `AnchorNode.body()` (pose-level
+anchors — no morphing face mesh, no per-joint skeleton). visionOS **hand
+tracking** is **not yet wrapped**: the ARKit `HandTrackingProvider` exists
+but a `SceneViewSwift` node is still pending — tracked in
+[#1902](https://github.com/sceneview/sceneview/issues/1902). Body tracking
+is an ARKit-exclusive feature with no equivalent on either Android runtime.
+
+---
+
+## Android
+
+Building for Android with Jetpack Compose? See the [Android API Cheatsheet](cheatsheet.md).

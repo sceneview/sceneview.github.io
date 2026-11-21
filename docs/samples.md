@@ -1,0 +1,170 @@
+# Samples
+
+Android (Jetpack Compose), web, and Compose Multiplatform desktop are maintained. Android is Stable; web and desktop are Alpha.
+
+**End of life:** SceneView for SwiftUI (`SceneViewSwift`), Flutter (`flutter_sceneview`) and React Native (`@sceneview-sdk/react-native`). **4.68.0 (November 2026)** is the last release. No new releases. Published versions stay installable. See [DEPRECATION.md](https://github.com/sceneview/sceneview/blob/main/DEPRECATION.md).
+
+One unified showcase app per platform. Clone the repo and run:
+
+```bash
+git clone https://github.com/sceneview/sceneview.git
+```
+
+---
+
+## Platform Demos
+
+### Android Demo
+
+**`samples/android-demo/`** — Play Store ready, Material 3 Expressive
+
+3-tab showcase (**Showcase / AR View / About**) backed by an
+append-only demo registry of **41 demos**, grouped into five catalogue sections:
+
+- **Showcase tab** (home): a featured hero, a **Featured** shelf of the flagship and
+  most recently reworked demos in priority order, category filter chips and a grid of
+  media cards with a generated preview image per demo, split by a full-span section
+  header into **View in 3D · Place in AR · Developer tools · Create & record ·
+  Understand the world**. The section order is `DEMO_CATEGORIES` in `DemoRegistry.kt`
+  (priority order) and the chips filter down to one section.
+  The closing "Browse online models" card opens the online gallery — multi-source
+  model streaming (Sketchfab / Icosa Gallery / Poly Haven)
+- **AR View tab**: Live `ARSceneView` camera with plane detection and tap-to-place
+- **About tab**: Platform info, version, and GitHub links
+
+Every demo screen shares the same glass chrome: back button, identity pill and
+overflow menu over the scene, plus a floating bottom dock whose Controls item opens
+the settings sheet.
+
+Each demo is one append-only `*Fragment.kt` under
+`samples/android-demo/src/main/java/io/github/sceneview/demo/fragments/` and is
+deep-link addressable as `sceneview://demo/<id>`. The collator
+(`samples/android-demo/scripts/collate-demos.sh`) generates the demo registry
+and the `llms.txt` demo list from those fragments, so the catalog never drifts.
+
+```bash
+./gradlew :samples:android-demo:assembleDebug
+```
+
+!!! info "In-app feedback"
+    The Android demo includes a **feedback button** that opens a lightweight
+    "Send feedback" sheet for bug reports, feature requests and questions — a
+    required description, an optional `PixelCopy` screenshot of the app, the
+    app's own logcat tail, and device/app context. It needs **zero
+    permissions** (no recording, no foreground service) and never uploads
+    anything itself: the user sends the report through the Android share
+    sheet, or opens a pre-filled GitHub issue in the browser. See the
+    [Privacy Policy](https://sceneview.github.io/privacy.html) for the full data flow.
+
+### iOS Demo — end of life at 4.69.7
+
+**`samples/ios-demo/`** — No new builds after 4.69.7, SwiftUI
+
+4-tab SwiftUI app:
+
+- **Explore tab**: multi-source model streaming — Sketchfab / Icosa Gallery /
+  Poly Haven (#2700, parity with the Android online gallery). Browse + search work
+  for every catalog; in-app 3D rendering is USDZ-based (Sketchfab) today — the
+  glTF-native CC catalogs show an honest "3D preview coming soon" viewer state
+  until RealityKit can load glTF.
+- **AR tab**: ARKit surface detection and model placement
+- **Samples tab**: Feature gallery
+- **About tab**: Platform info, version, and GitHub links
+
+Open `samples/ios-demo/` in Xcode and run.
+
+### Web Demo
+
+**`samples/web-demo/`** — Filament.js + WebXR
+
+Browser 3D viewer with:
+
+- Filament.js WASM rendering (same engine as Android)
+- Models tab: source-agnostic multi-source catalog (#2722, parity with the
+  Android online gallery / iOS Explore) — curated SceneView samples, Icosa Gallery and
+  Poly Haven (keyless CC catalogs, rendered in-app), Sketchfab when an API
+  key is configured
+- WebXR AR/VR support ("Enter AR" / "Enter VR" buttons)
+- Orbit camera, auto-resize
+
+A plain static site (HTML + inline JS) — not a Gradle module. It runs the
+same viewer as sceneview.dev, `website-static/js/sceneview.js`, which is not
+committed under the demo. From the repository root, stage it and serve the
+folder:
+
+```bash
+cp website-static/js/sceneview.js samples/web-demo/site/js/sceneview.js
+npx http-server samples/web-demo/site -p 8080
+```
+
+### Desktop Demo
+
+**`samples/desktop-demo/`** — Compose Desktop (`SceneViewer`)
+
+`sceneview-compose` `SceneViewer` on JVM. Filament via filament-kmp (offscreen →
+Skia). **JDK 21+**.
+
+- Loads `Duck.glb` through `ModelSource.Bytes`
+- Drag to orbit, scroll to zoom
+
+```bash
+./gradlew :samples:desktop-demo:run
+```
+
+### Android TV Demo
+
+**`samples/android-tv-demo/`** — Compose TV
+
+D-pad controlled 3D viewer:
+
+- Model cycling with directional buttons
+- Auto-rotation
+- Lean-back UI
+
+```bash
+./gradlew :samples:android-tv-demo:assembleDebug
+```
+
+### Flutter Demo — end of life at 4.68.0
+
+**`samples/flutter-demo/`** — PlatformView bridge
+
+Native SceneView rendering inside Flutter:
+
+- Android: ComposeView + Scene composable
+- iOS: SceneViewerHostView + SceneViewSwift (the shared 3D host; AR keeps its own view)
+
+```bash
+cd samples/flutter-demo && flutter run
+```
+
+### React Native Demo — end of life at 4.68.0
+
+**`samples/react-native-demo/`** — Fabric bridge
+
+Native SceneView rendering inside React Native:
+
+- Android: ViewManager + Scene composable
+- iOS: RCTViewManager + SceneViewSwift
+
+---
+
+## Code Recipes
+
+Markdown recipes with side-by-side Kotlin and Swift code:
+
+| Recipe | File | Topics |
+|---|---|---|
+| Model Viewer | `samples/recipes/model-viewer.md` | Load glTF, HDR environment, orbit camera |
+| Ground Shadow Catcher | `samples/recipes/ground-shadow-catcher.md` | Invisible contact-shadow floor, FL2+ flat-quad hardening |
+| Contact Shadow | `samples/recipes/contact-shadow.md` | Procedural grounding pool — works on walls (Floor / Wall / TableTop) |
+| AR Tap-to-Place | `samples/recipes/ar-tap-to-place.md` | Plane detection, anchor placement |
+| Point & Ask | `samples/recipes/point-and-ask.md` | AR frame capture, Gemini Nano on-device (ML Kit GenAI Prompt API), availability gating, answers anchored in world space |
+| Physics | `samples/recipes/physics.md` | Rigid body, gravity, collision, bounce |
+| Procedural Geometry | `samples/recipes/procedural-geometry.md` | Cubes, spheres, custom shapes |
+| Text Labels | `samples/recipes/text-labels.md` | 3D text, billboards, tap interaction |
+
+---
+
+!!! tip "Looking for Apple-specific samples?"
+    See [Samples — Apple Platforms](samples-ios.md) for SwiftUI + RealityKit examples on iOS, macOS, and visionOS.
