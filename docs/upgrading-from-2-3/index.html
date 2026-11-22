@@ -2641,6 +2641,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sceneview-2x-to-4x-name-by-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 2.x to 4.x, name by name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-each-release-pins" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2915,6 +2926,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sceneview-2x-to-4x-name-by-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SceneView 2.x to 4.x, name by name
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-each-release-pins" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3187,6 +3209,99 @@
 </ol>
 <p>Go straight from 2.3.4 to the latest 4.x. Do not stop at 3.x: 3.0.0 ships Filament <strong>1.56.0</strong>,
 older than the 1.68.2 of 2.3.2 to 2.3.4.</p>
+<h2 id="sceneview-2x-to-4x-name-by-name">SceneView 2.x to 4.x, name by name<a class="headerlink" href="#sceneview-2x-to-4x-name-by-name" title="Permanent link">&para;</a></h2>
+<p>2.x code may still compile, with deprecation warnings, but always write the 4.x form below. Each
+2.x construct and what replaces it; Step 2 below has the before/after code for the main changes.</p>
+<table>
+<thead>
+<tr>
+<th>SceneView 2.x</th>
+<th>SceneView 4.x</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sceneview:2.3.0</code>, <code>arsceneview:2.3.0</code> (any 2.x or 3.x)</td>
+<td><code>io.github.sceneview:sceneview</code> and <code>io.github.sceneview:arsceneview</code> at the latest 4.x: the version is in the <a href="../quickstart/">Quickstart</a></td>
+</tr>
+<tr>
+<td><code>github.com/SceneView/sceneview-android</code></td>
+<td><code>github.com/sceneview/sceneview</code> — the same repository, renamed; old links redirect. Docs: <code>https://sceneview.github.io/</code></td>
+</tr>
+<tr>
+<td><code>Scene(…)</code> (<code>io.github.sceneview.Scene</code>)</td>
+<td><code>SceneView(…) { … }</code> (<code>io.github.sceneview.SceneView</code>); <code>Scene</code> is deprecated</td>
+</tr>
+<tr>
+<td><code>ARScene(…)</code> (<code>io.github.sceneview.ar.ARScene</code>)</td>
+<td><code>ARSceneView(…) { … }</code> (<code>io.github.sceneview.ar.ARSceneView</code>); <code>ARScene</code> is deprecated</td>
+</tr>
+<tr>
+<td><code>childNodes = rememberNodes { add(node) }</code>, <code>childNodes = listOf(rememberNode { … })</code>, <code>val childNodes = rememberNodes()</code> then <code>childNodes += node</code></td>
+<td>declare each node as a composable in the trailing block: <code>SceneView { ModelNode(…) }</code></td>
+</tr>
+<tr>
+<td><code>ModelNode(modelInstance = modelLoader.createModelInstance(assetFileLocation = "models/x.glb"), …)</code></td>
+<td><code>rememberModelInstance(modelLoader, "models/x.glb")?.let { ModelNode(modelInstance = it, …) }</code> — <code>null</code> while loading or after a failure; <code>rememberModelLoadState</code> tells them apart</td>
+</tr>
+<tr>
+<td><code>rememberModelNode(modelLoader, modelFileLocation = …)</code></td>
+<td>the <code>rememberModelInstance(…)?.let { ModelNode(…) }</code> form above</td>
+</tr>
+<tr>
+<td><code>modelLoader.loadModelInstance(url)</code> in a <code>LaunchedEffect</code>, <code>loadModelInstanceAsync(url)</code></td>
+<td><code>rememberModelInstance(modelLoader, "https://…/x.glb")</code> — the same call takes a URL</td>
+</tr>
+<tr>
+<td><code>import io.github.sceneview.node.ModelNode</code>, <code>import io.github.sceneview.ar.node.AnchorNode</code> to build nodes</td>
+<td>no import: <code>ModelNode</code>, <code>AnchorNode</code>, <code>CubeNode</code>… are members of the <code>SceneView { }</code> / <code>ARSceneView { }</code> block</td>
+</tr>
+<tr>
+<td><code>AnchorNode(engine = engine, anchor = anchor)</code> + <code>anchorNode.addChildNode(modelNode)</code></td>
+<td><code>AnchorNode(anchor = anchor) { ModelNode(…) }</code> — children go in the parent's trailing block</td>
+</tr>
+<tr>
+<td><code>childNodes -= node; node.destroy()</code>, <code>childNodes.clear()</code></td>
+<td>remove the item from the state the block reads; a node that leaves composition is destroyed</td>
+</tr>
+<tr>
+<td><code>node.apply { isEditable = true; isScaleEditable = false }</code> on a constructed node</td>
+<td><code>ModelNode(…, isEditable = true, apply = { isScaleEditable = false })</code></td>
+</tr>
+<tr>
+<td>tap to place: <code>onGestureListener = rememberOnGestureListener(onSingleTapConfirmed = { e, _ -&gt; frame.hitTest(e.x, e.y)…createAnchorOrNull() … childNodes += AnchorNode(…) })</code></td>
+<td><code>PlacementScene(onPlaced = { anchor -&gt; AnchorNode(anchor = anchor) { ModelNode(…) } })</code> (<code>io.github.sceneview.ar.PlacementScene</code>). With your own hit test in <code>ARSceneView</code>, keep the anchors in state (<code>mutableStateListOf&lt;Anchor&gt;()</code>) and declare <code>AnchorNode(anchor = it) { … }</code> in the block</td>
+</tr>
+<tr>
+<td><code>ARSceneView(view = rememberView(engine))</code>, <code>ARScene(view = rememberView(engine))</code></td>
+<td>omit <code>view =</code>, or pass <code>rememberARView(engine)</code> (<code>io.github.sceneview.rememberARView</code>): <code>rememberView</code> gives the 3D look (PBR Neutral, SSAO, bloom) and oversaturates the camera feed</td>
+</tr>
+<tr>
+<td><code>cameraManipulator = rememberCameraManipulator()</code> to get orbit and zoom</td>
+<td>nothing: <code>SceneView</code> orbits on drag, zooms on pinch and pans on two fingers by default</td>
+</tr>
+<tr>
+<td><code>environment = environmentLoader.createHDREnvironment("environments/x.hdr")!!</code></td>
+<td><code>environment = rememberEnvironment(environmentLoader) { environmentLoader.createHDREnvironment("environments/x.hdr") ?: createEnvironment(environmentLoader) }</code></td>
+</tr>
+<tr>
+<td>depth occlusion, "the property name depends on your version"</td>
+<td><code>ARSceneView(depthMode = Config.DepthMode.AUTOMATIC, sceneUnderstanding = SceneUnderstanding(occlusion = true))</code> (<code>io.github.sceneview.ar.scene.SceneUnderstanding</code>)</td>
+</tr>
+<tr>
+<td><code>sessionConfiguration = { session, config -&gt; config.planeFindingMode = …; config.depthMode = … }</code></td>
+<td>still works; <code>ARSceneView(planeFindingMode = …, depthMode = …, instantPlacementMode = …, focusMode = …)</code> is the short form</td>
+</tr>
+</tbody>
+</table>
+<p>Unchanged in 4.x: <code>rememberEngine()</code>, <code>rememberModelLoader(engine)</code>, <code>rememberCameraNode(engine) { … }</code>,
+<code>rememberARCameraNode(engine)</code>, <code>rememberView(engine)</code> for <code>SceneView</code> (in <code>ARSceneView</code>, omit
+<code>view =</code> or pass <code>rememberARView(engine)</code>), <code>rememberCollisionSystem(view)</code>,
+<code>rememberOnGestureListener(…)</code>; on <code>ARSceneView</code>, <code>planeRenderer</code>, <code>onSessionUpdated</code>,
+<code>onTrackingFailureChanged</code> and <code>onGestureListener</code>; on <code>ModelNode</code>, <code>scaleToUnits</code>,
+<code>centerOrigin</code> and <code>autoAnimate</code>; <code>HitResult.createAnchorOrNull()</code> and <code>HitResult.isValid(…)</code> in
+<code>io.github.sceneview.ar.arcore</code>. Every <code>remember*</code> above is optional: <code>SceneView</code> and
+<code>ARSceneView</code> create their own, and inside the block <code>engine</code> and <code>modelLoader</code> are in scope.</p>
 <h2 id="what-each-release-pins">What each release pins<a class="headerlink" href="#what-each-release-pins" title="Permanent link">&para;</a></h2>
 <p>Read from each release's published POM on Maven Central.</p>
 <table>

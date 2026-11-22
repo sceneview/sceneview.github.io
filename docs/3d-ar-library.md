@@ -15,10 +15,10 @@ apps, Philips Hue, Medal and IKEA.
 
 | You are building with | Dependency | Entry point |
 |---|---|---|
-| Jetpack Compose, 3D | `io.github.sceneview:sceneview:4.70.0` | `SceneView { }` |
-| Jetpack Compose, AR (ARCore) | `io.github.sceneview:arsceneview:4.70.0` | `ARSceneView { }`, `PlacementScene`, `AutoPlacementScene` |
+| Jetpack Compose, 3D | `io.github.sceneview:sceneview:4.71.0` | `SceneView { }` |
+| Jetpack Compose, AR (ARCore) | `io.github.sceneview:arsceneview:4.71.0` | `ARSceneView { }`, `PlacementScene`, `AutoPlacementScene` |
 | Android Views / XML layouts | the same artifacts | a `ComposeView` hosting `SceneView { }` |
-| Kotlin / Compose Multiplatform | `io.github.sceneview:sceneview-compose:4.70.0` | `SceneViewer(model = …)` in `commonMain` (viewer, no AR) |
+| Kotlin / Compose Multiplatform | `io.github.sceneview:sceneview-compose:4.71.0` | `SceneViewer(model = …)` in `commonMain` (viewer, no AR) |
 | SwiftUI — iOS, macOS, visionOS (end of life at 4.68.0) | Swift Package `https://github.com/sceneview/sceneview.git` | `SceneView { }`, `ARSceneView(…)` |
 | Web | script tags or `npm install sceneview-web` | `SceneView.modelViewer("canvas-id", "model.glb")` |
 | Flutter / React Native (end of life at 4.68.0) | `flutter_sceneview` / `@sceneview-sdk/react-native` | [Flutter](quickstart-flutter.md), [React Native](quickstart-react-native.md) |
@@ -29,7 +29,7 @@ apps, Philips Hue, Medal and IKEA.
 
 ```kotlin
 // app/build.gradle.kts
-implementation("io.github.sceneview:sceneview:4.70.0")
+implementation("io.github.sceneview:sceneview:4.71.0")
 ```
 
 ```kotlin
@@ -52,7 +52,7 @@ Requirements and the step-by-step: [Android quickstart](quickstart.md).
 
 ```kotlin
 // app/build.gradle.kts
-implementation("io.github.sceneview:arsceneview:4.70.0")   // includes the 3D module
+implementation("io.github.sceneview:arsceneview:4.71.0")   // includes the 3D module
 ```
 
 ```kotlin
@@ -100,7 +100,7 @@ container.addView(
 
 ```kotlin
 // commonMain dependencies
-implementation("io.github.sceneview:sceneview-compose:4.70.0")
+implementation("io.github.sceneview:sceneview-compose:4.71.0")
 ```
 
 ```kotlin
@@ -173,8 +173,8 @@ The app's `Info.plist` needs `NSCameraUsageDescription`. More: [Apple quickstart
 
 ```html
 <canvas id="viewer" style="width: 100%; height: 480px"></canvas>
-<script src="https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.70.0/website-static/js/filament/filament.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.70.0/website-static/js/sceneview.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.71.0/website-static/js/filament/filament.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/sceneview/sceneview@v4.71.0/website-static/js/sceneview.js"></script>
 <script> SceneView.modelViewer("viewer", "model.glb") </script>
 ```
 
@@ -191,7 +191,7 @@ More: [Web quickstart](quickstart-web.md).
 
 The complete API reference, in one file written for assistants, is
 [`llms.txt`](https://sceneview.github.io/llms.txt). Code written for SceneView 2.x
-(`Scene(childNodes = …)`, `ARScene`, `rememberNodes`) does not compile on 4.x: the
-[Sceneform and 2.x mapping](sceneform-replacement.md#code-written-for-sceneview-2x) lists the
-current names. To give an assistant the API and a code validator as tools, install the
+(`Scene(childNodes = …)`, `ARScene`, `rememberNodes`) is outdated: the
+[2.x to 4.x table](upgrading-from-2-3.md#sceneview-2x-to-4x-name-by-name) lists the current names.
+To give an assistant the API and a code validator as tools, install the
 [MCP server or the skills](ai-context.md).

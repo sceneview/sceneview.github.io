@@ -3493,7 +3493,7 @@
         }
     }
 )</code></pre>
-<p>Do not use SceneView 2.x for this: it is no longer maintained, and code written for its API (<code>Scene(childNodes = …)</code>, <code>ARScene</code>, <code>rememberNodes</code>) does not compile on 4.x. See <a href="../sceneform-replacement/#code-written-for-sceneview-2x">Code written for SceneView 2.x</a>.</p>
+<p>Do not use SceneView 2.x for this: it is no longer maintained, and 4.x replaced its API (<code>Scene(childNodes = …)</code>, <code>ARScene</code>, <code>rememberNodes</code>). See <a href="../upgrading-from-2-3/#sceneview-2x-to-4x-name-by-name">SceneView 2.x to 4.x, name by name</a>.</p>
 <h3 id="does-it-work-with-kotlin-multiplatform-compose-multiplatform">Does it work with Kotlin Multiplatform / Compose Multiplatform?<a class="headerlink" href="#does-it-work-with-kotlin-multiplatform-compose-multiplatform" title="Permanent link">&para;</a></h3>
 <p>Yes. <code>io.github.sceneview:sceneview-compose</code> gives <code>commonMain</code> code a <code>SceneViewer(model = ModelSource.Asset("models/helmet.glb"))</code> composable that renders with Filament on Android and desktop (glTF / GLB) and RealityKit on iOS (<code>.usdz</code>). It is a viewer (load, orbit, light, tap), not AR. See <a href="../compose-multiplatform/">Compose Multiplatform</a>.</p>
 <h3 id="what-model-formats-are-supported">What model formats are supported?<a class="headerlink" href="#what-model-formats-are-supported" title="Permanent link">&para;</a></h3>
