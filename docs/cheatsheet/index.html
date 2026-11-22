@@ -3303,7 +3303,8 @@ Android options.</p>
 <p><code>AutoPlacementScene</code> is additive: one usable detected plane consumes one placement
 request. It uses normal camera tracking, upward-facing horizontal surfaces (<code>SURFACE</code>)
 or vertical planes (<code>WALL</code>), a center ray followed by visible polygon-validated plane
-centers, and a 0.25–3 m interaction range. It renders no plane grid or reticle.</p>
+centers, and a 0.25–3 m interaction range. No reticle: the detected surfaces show while the
+object looks for one and while it is moved, then fade once it stands (<code>state.guide</code>, #5209).</p>
 <pre class="language-kotlin"><code>import io.github.sceneview.ar.*
 
 val engine = rememberEngine()
