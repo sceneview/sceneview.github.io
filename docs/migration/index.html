@@ -3147,10 +3147,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-surfacetype-replaces-boolean-flags" class="md-nav__link">
+  <a href="#6-surfacetype-and-isopaque-a-transparent-background-takes-both" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. SurfaceType — replaces boolean flags
+        6. SurfaceType and isOpaque — a transparent background takes both
       
     </span>
   </a>
@@ -3804,10 +3804,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-surfacetype-replaces-boolean-flags" class="md-nav__link">
+  <a href="#6-surfacetype-and-isopaque-a-transparent-background-takes-both" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. SurfaceType — replaces boolean flags
+        6. SurfaceType and isOpaque — a transparent background takes both
       
     </span>
   </a>
@@ -4738,13 +4738,18 @@ val instance = rememberModelInstance(modelLoader, "models/helmet.glb")
 <p><code>rememberModelInstance</code> reads the file on <code>Dispatchers.IO</code> and creates the Filament asset on the
 main thread, so it is both non-blocking and thread-safe.</p>
 <hr />
-<h2 id="6-surfacetype-replaces-boolean-flags">6. <code>SurfaceType</code> — replaces boolean flags<a class="headerlink" href="#6-surfacetype-replaces-boolean-flags" title="Permanent link">&para;</a></h2>
-<pre class="language-kotlin"><code>// Before (if the flag existed in your version)
-SceneView(isOpaque = false)
+<h2 id="6-surfacetype-and-isopaque-a-transparent-background-takes-both">6. <code>SurfaceType</code> and <code>isOpaque</code> — a transparent background takes both<a class="headerlink" href="#6-surfacetype-and-isopaque-a-transparent-background-takes-both" title="Permanent link">&para;</a></h2>
+<p><code>surfaceType</code> picks the Android view that hosts the render; <code>isOpaque</code> still exists and decides
+whether the background is cleared to transparent. To see Compose content <em>behind</em> the scene, set
+both, and use an environment without a skybox:</p>
+<pre class="language-kotlin"><code>SceneView(
+    surfaceType = SurfaceType.TextureSurface,   // TextureView: composited with the Compose layers
+    isOpaque = false,                           // translucent blend mode, clear alpha 0
+    environment = rememberEnvironment(environmentLoader, isOpaque = false), // no skybox
+)
 
-// After — explicit enum
-SceneView(surfaceType = SurfaceType.TextureSurface)  // TextureView, supports alpha blending
-SceneView(surfaceType = SurfaceType.Surface)          // SurfaceView, best performance (default)</code></pre>
+SceneView(surfaceType = SurfaceType.Surface)    // SurfaceView, opaque, best performance (default)</code></pre>
+<p><code>TextureSurface</code> alone still renders an opaque black background.</p>
 <hr />
 <h2 id="7-viewnode-compose-ui-as-a-3d-surface">7. <code>ViewNode</code> — Compose UI as a 3D surface<a class="headerlink" href="#7-viewnode-compose-ui-as-a-3d-surface" title="Permanent link">&para;</a></h2>
 <p><code>ViewNode</code> is now a first-class composable in <code>SceneScope</code>. It requires a <code>WindowManager</code>
@@ -4819,8 +4824,8 @@ the imports continue to work. No action required.</p>
 <td>Use <code>rememberModelInstance(modelLoader, path)</code></td>
 </tr>
 <tr>
-<td>Replace <code>isOpaque = false</code></td>
-<td>Use <code>surfaceType = SurfaceType.TextureSurface</code></td>
+<td>Transparent background</td>
+<td><code>surfaceType = SurfaceType.TextureSurface</code> <strong>and</strong> <code>isOpaque = false</code></td>
 </tr>
 <tr>
 <td>Replace Fragment + XML layout</td>
