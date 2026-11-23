@@ -4631,7 +4631,7 @@ implementation("io.github.sceneview:sceneview:4.71.0")
 implementation("io.github.sceneview:arsceneview:4.71.0")</code></pre>
 <hr />
 <h2 id="2-sceneview-nodes-move-into-the-content-block">2. <code>SceneView</code> — nodes move into the content block<a class="headerlink" href="#2-sceneview-nodes-move-into-the-content-block" title="Permanent link">&para;</a></h2>
-<p>The <code>childNodes</code> parameter is gone. Declare nodes directly inside the <code>SceneView { }</code> trailing lambda.</p>
+<p>The <code>childNodes</code> parameter is gone (<code>Scene(childNodes = …)</code> remains as a deprecated 2.x shim). Declare nodes directly inside the <code>SceneView { }</code> trailing lambda.</p>
 <pre class="language-kotlin"><code>// Before — nodes passed as a list
 SceneView(
     modifier = Modifier.fillMaxSize(),
