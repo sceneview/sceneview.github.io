@@ -107,7 +107,7 @@
   <div class="breadcrumbs"><a href="../../../../index.html">sceneview</a><span class="delimiter">/</span><a href="../../index.html">io.github.sceneview.geometries</a><span class="delimiter">/</span><a href="../index.html">Tube</a><span class="delimiter">/</span><span class="current">Builder</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Builder</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Builder</a> : <a href="../../-geometry/-builder/index.html">Geometry.Builder</a></div><p class="paragraph">Builder for <a href="../index.html">Tube</a>. Configure the <a href="points.html">points</a> the tube is swept along, its <a href="radius.html">radius</a>, the <a href="radial-segments.html">radialSegments</a> tessellation and whether the path is <a href="closed.html">closed</a> / <a href="caps.html">caps</a>ped, then <a href="build.html">build</a>.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Builder</a> : <a href="../../-geometry/-builder/index.html">Geometry.Builder</a></div><p class="paragraph">Builder for <a href="../index.html">Tube</a>. Configure the <a href="points.html">points</a> the tube is swept along, its <a href="radius.html">radius</a>, the <a href="radial-segments.html">radialSegments</a> tessellation and whether the path is <a href="closed.html">closed</a> / <a href="caps.html">caps</a>ped, then <a href="build.html">build</a>. <a href="radii.html">radii</a> can vary its width, <a href="cap-style.html">capStyle</a> selects the end shape, and <a href="capacity.html">capacity</a> reserves room for growth in the same Filament buffers.</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
@@ -133,7 +133,22 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="tableheader">Properties</h2>
-        <div class="table"><a data-name="801382973%2FProperties%2F-278939350" anchor-label="caps" id="801382973%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+        <div class="table"><a data-name="-598600188%2FProperties%2F-278939350" anchor-label="capacity" id="-598600188%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capacity.html"><span><span>capacity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-598600188%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="capacity.html">capacity</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Path points to reserve in the buffers. <code class="lang-kotlin">0</code>, the default, allocates exactly <a href="points.html">points</a> and the buffers follow the point count. Any positive value reserves <code class="lang-kotlin">max(capacity, points.size)</code> points: <a href="../update.html">Tube.update</a> grows and shrinks the live path inside the same Filament buffers, and only exceeding them reallocates (to at least twice the size). Reserved buffers never shrink.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="801382973%2FProperties%2F-278939350" anchor-label="caps" id="801382973%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
@@ -143,7 +158,22 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="caps.html">caps</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">When <code class="lang-kotlin">true</code> (and not <a href="closed.html">closed</a>), both ends are filled with a flat disc.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="caps.html"><strike>caps</strike></a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">When <code class="lang-kotlin">true</code> (and not <a href="closed.html">closed</a>), both ends are filled with a flat disc.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1363390113%2FProperties%2F-278939350" anchor-label="capStyle" id="-1363390113%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cap-style.html"><span>cap</span><wbr></wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1363390113%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="cap-style.html">capStyle</a><span class="token operator">: </span><a href="../-cap-style/index.html">Tube.CapStyle</a></div><div class="brief "><p class="paragraph">End treatment for an open tube. Round caps make strokes close smoothly.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -208,6 +238,21 @@
               </div>
             </div>
           </div>
+<a data-name="-1765467321%2FProperties%2F-278939350" anchor-label="radii" id="-1765467321%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="radii.html"><span><span>radii</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1765467321%2FProperties%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">var </span><a href="radii.html">radii</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Optional cross-section radius at each <a href="points.html">points</a> entry, in scene units (metres). <code class="lang-kotlin">null</code> uses the uniform <a href="radius.html">radius</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="1325809004%2FProperties%2F-278939350" anchor-label="radius" id="1325809004%2FProperties%2F-278939350" data-filterable-set=":sceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
             <div class="main-subrow keyValue ">
@@ -242,6 +287,21 @@
               </div>
             </div>
           </div>
+<a data-name="-672703838%2FFunctions%2F-278939350" anchor-label="capacity" id="-672703838%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="capacity.html"><span><span>capacity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-672703838%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="capacity.html"><span class="token function">capacity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">capacity<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tube.Builder</a></div><div class="brief "><p class="paragraph">Reserves buffers for this many path points; <code class="lang-kotlin">0</code> allocates exactly <a href="points.html">points</a>. See <a href="capacity.html">capacity</a> for the rule. Returns this builder for chaining.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="2048187074%2FFunctions%2F-278939350" anchor-label="caps" id="2048187074%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
           <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
             <div class="main-subrow keyValue ">
@@ -252,7 +312,22 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="caps.html"><span class="token function">caps</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">caps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tube.Builder</a></div><div class="brief "><p class="paragraph">Sets whether open ends are filled with a disc. Returns this builder for chaining.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="caps.html"><span class="token function"><strike>caps</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">caps<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tube.Builder</a></div><div class="brief "><p class="paragraph">Sets whether open ends are filled with a disc. Returns this builder for chaining.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1542567540%2FFunctions%2F-278939350" anchor-label="capStyle" id="1542567540%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cap-style.html"><span>cap</span><wbr></wbr><span><span>Style</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1542567540%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="cap-style.html"><span class="token function">capStyle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">capStyle<span class="token operator">: </span><a href="../-cap-style/index.html">Tube.CapStyle</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tube.Builder</a></div><div class="brief "><p class="paragraph">Sets the end treatment for an open tube. Returns this builder for chaining.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -328,6 +403,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="radial-segments.html"><span class="token function">radialSegments</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">radialSegments<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tube.Builder</a></div><div class="brief "><p class="paragraph">Sets the cross-section tessellation. Returns this builder for chaining.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="28075295%2FFunctions%2F-278939350" anchor-label="radii" id="28075295%2FFunctions%2F-278939350" data-filterable-set=":sceneview/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":sceneview/main" data-filterable-set=":sceneview/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="radii.html"><span><span>radii</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="28075295%2FFunctions%2F-278939350"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":sceneview/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="radii.html"><span class="token function">radii</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">radii<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">Tube.Builder</a></div><div class="brief "><p class="paragraph">Sets one cross-section radius per point in scene units, or <code class="lang-kotlin">null</code> to use <a href="radius.html">radius</a>. Returns this builder for chaining.</p></div></div></div>
                 </div>
               </div>
             </div>
