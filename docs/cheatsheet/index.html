@@ -3324,9 +3324,12 @@ AutoPlacementScene(
 // Explicit reset retains the asset and the camera session:
 // placement.resetPlacement(android.os.SystemClock.uptimeMillis())</code></pre>
 <p><code>AutoPlacementModel</code> grounds the complete model bounds, preserves the contact pivot
-while rotating/scaling, and constrains dragging to supported plane geometry. Its
-0.3 m longest-dimension default is <strong>Preview size</strong>; <code>scaleToUnits = null</code> retains
-trustworthy authored units (<strong>Actual size</strong>). Scale limits are 25–400% of that base by default;
+while rotating/scaling, and constrains dragging to supported plane geometry. By default
+it keeps the asset's authored metres (<strong>Actual size</strong>, as AR Quick Look and Scene Viewer);
+<code>scaleToUnits = 0.3f</code> fits the longest dimension into 0.3 m (<strong>Preview size</strong>, the default
+up to 4.72) for assets whose units are unknown. Without <code>scaleToUnits</code>, a model longer
+than 10 m (a file in centimetres) first shows fitted into 1 m, not at real size;
+<code>size = PlacementSize.RealWorld</code> trusts the authored metres. Scale limits are 25–400% of that base by default;
 set <code>AutoPlacementState.scaleRange</code> (default <code>0.25f..4f</code>) to widen them, e.g. <code>0.25f..16f</code> for a
 1:16 miniature that may be pinched up to real size. <code>AutoPlacementState.cameraHeight</code> is the
 tracked camera's world height in metres (<code>null</code> until it tracks).</p>
@@ -3338,7 +3341,7 @@ bottom-centre rests on the contact point and the model's dimensions are publishe
 <code>assetRotation</code>, so with <code>FitInto</code> its largest side is the target only for multiples of 90°:
 a 1 m cube at <code>FitInto(1f)</code> turned 45° about Y is about 1.41 × 1 × 1.41 m; <code>null</code> until the
 frame after the model appears, and for an empty asset), <code>placedSize</code> (<code>baseSize * scaleFactor</code>,
-following the pinch) and <code>isAtRealWorldSize</code> (<code>RealWorld</code> and exactly 100 %). Let the user pick
+following the pinch) and <code>isAtRealWorldSize</code> (authored size — <code>RealWorld</code>, or the default when the 10 m rule does not apply — and exactly 100 %). Let the user pick
 a size with <code>state.baseSize?.let { state.scaleTo(2f / it.y) }</code> (2 m tall). <code>scaleTo</code> clamps to
 <code>scaleRange</code> (25–400 % by default) without notice and does nothing while <code>allowsScaling</code> is
 <code>false</code>: a 0.3 m preview asked for 2 m needs ×6.7 and stops at 1.2 m, so widen <code>scaleRange</code>
